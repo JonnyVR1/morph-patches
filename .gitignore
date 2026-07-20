@@ -1,0 +1,30 @@
+# Build outputs
+build/
+bin/
+.gradle/
+.kotlin/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Local config
+local.properties
+*.apk
+
+# Decompiler
+jadx-1.5.6/
+tantan/
+
+# Archives
+*.tar.gz
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Serena/Serena cache
+.serena/
+mpp-core/morphe-temporary-files/
