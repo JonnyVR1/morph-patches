@@ -192,14 +192,23 @@ val premiumFeaturesPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_TRUE)
                                 }
                             }
-                            // WARNING: This catch-all matches ALL no-arg static boolean methods except L3 and tier-specific methods.
+                            // Non-ultraPremium tier methods: return false (not active)
+                            // This ensures subscription management only shows ultraPremium as active
+                            // f4() = svip, H3()/Z3() = platinum, B3()/U3() = femaleVip
+                            method.name in setOf("f4", "H3", "Z3", "B3", "U3") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // WARNING: This catch-all matches ALL no-arg static boolean methods except L3.
                             // Risk: Future Tantan versions may add safety-critical methods that should return false.
                             // TODO: Replace with explicit allowlist after verifying against current APK.
                             // All other no-arg static boolean methods → return true (has privilege)
                             // This covers ultraPremium methods (C3, k4) and feature gates
-                            // Excludes: f4 (svip), H3/Z3 (platinum), B3/U3 (femaleVip) - let them use original implementation
                             method.parameterTypes.isEmpty() && method.returnType == "Z" &&
-                                method.name !in listOf("L3", "f4", "H3", "Z3", "B3", "U3") &&
+                                method.name !in listOf("L3") &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_TRUE)
