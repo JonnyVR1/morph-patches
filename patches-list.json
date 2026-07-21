@@ -110,7 +110,7 @@
     },
     {
       "name": "Subscription Display Status",
-      "description": "Subscription management UI shows Ultra-Premium as active with valid expiration (no 'not yet activated' message)",
+      "description": "Subscription management UI shows valid expiration timestamps (no 'not yet activated' message)",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [

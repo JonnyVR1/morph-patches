@@ -299,9 +299,10 @@ val premiumFeaturesPatch = bytecodePatch(
                     }
                 }
 
-                // sb90.c(): "can show clear profile image?" → true (always show clear)
+                // sb90.c(): "should apply blur?" → false (no blur, always show clear)
                 // This controls blur in LikersBigCardItemView and other places.
-                // Checks other user's privacy settings, but we override to always show clear.
+                // Callers: if (sb90.c(user)) { applyBlur } else { showClear }
+                // Return false so clear images are always shown.
                 "Lp001l/sb90;" -> {
                     classDef.methods.forEach { method ->
                         if (method.name == "c" && method.parameterTypes.size == 1 &&
@@ -315,7 +316,7 @@ val premiumFeaturesPatch = bytecodePatch(
                             )
                             userArgReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, """
-                                    const/4 v0, 0x1
+                                    const/4 v0, 0x0
                                     return v0
                                 """)
                             }
