@@ -202,6 +202,9 @@ val premiumFeaturesPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
+                            // WARNING: This catch-all matches ALL no-arg static boolean methods except L3.
+                            // Risk: Future Tantan versions may add safety-critical methods that should return false.
+                            // TODO: Replace with explicit allowlist after verifying against current APK.
                             // All other no-arg static boolean methods → return true (has privilege)
                             // This covers ultraPremium methods (C3, k4) and feature gates
                             method.parameterTypes.isEmpty() && method.returnType == "Z" &&
@@ -253,7 +256,14 @@ val premiumFeaturesPatch = bytecodePatch(
                             method.returnType == "I"
                         ) {
                             userArgFinalReturnIntFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_THREE)
+                                match.method.addInstructions(0, """
+                                    invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                    move-result v0
+                                    if-eqz v0, :not_me
+                                    const/4 v0, 0x3
+                                    return v0
+                                    :not_me
+                                """)
                             }
                         }
                     }
@@ -304,7 +314,14 @@ val premiumFeaturesPatch = bytecodePatch(
                                 parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
                             )
                             userArgReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_TRUE)
+                                match.method.addInstructions(0, """
+                                    invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                    move-result v0
+                                    if-eqz v0, :not_me
+                                    const/4 v0, 0x1
+                                    return v0
+                                    :not_me
+                                """)
                             }
                         }
                     }
@@ -329,58 +346,30 @@ val premiumFeaturesPatch = bytecodePatch(
                 }
 
                 // User: patch subscription tier display methods and nullCheck
-                // isVIP(), isSVIP(), isPlatinum() → false (not active)
-                // isUltraPremium() → true (active - highest tier)
+                // isVIP(), isSVIP(), isPlatinum() → false for current user only (isMe()-guarded)
+                // isUltraPremium() is owned by UserPatches.kt with its own isMe() guard
                 // nullCheck() → initialize status, set membership.name to "boostVip"
                 TANTAN_USER_CLASS -> {
                     classDef.methods.forEach { method ->
                         when {
-                            // isVIP() → return false (VIP not active, only ultraPremium is)
-                            method.name == "isVIP" && method.parameterTypes.isEmpty() &&
-                                method.returnType == "Z" -> {
+                            // isVIP(), isSVIP(), isPlatinum() → return false for current user only
+                            // Other users' tier status falls through to original implementation
+                            method.name in setOf("isVIP", "isSVIP", "isPlatinum") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 val userInstanceReturnBoolFingerprint = Fingerprint(
                                     accessFlags = listOf(AccessFlags.PUBLIC),
                                     returnType = "Z",
                                     parameters = emptyList(),
                                 )
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_FALSE)
-                                }
-                            }
-                            // isSVIP() → return false (SVIP not active)
-                            method.name == "isSVIP" && method.parameterTypes.isEmpty() &&
-                                method.returnType == "Z" -> {
-                                val userInstanceReturnBoolFingerprint = Fingerprint(
-                                    accessFlags = listOf(AccessFlags.PUBLIC),
-                                    returnType = "Z",
-                                    parameters = emptyList(),
-                                )
-                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_FALSE)
-                                }
-                            }
-                            // isPlatinum() → return false (Platinum not active)
-                            method.name == "isPlatinum" && method.parameterTypes.isEmpty() &&
-                                method.returnType == "Z" -> {
-                                val userInstanceReturnBoolFingerprint = Fingerprint(
-                                    accessFlags = listOf(AccessFlags.PUBLIC),
-                                    returnType = "Z",
-                                    parameters = emptyList(),
-                                )
-                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_FALSE)
-                                }
-                            }
-                            // isUltraPremium() → return true (Ultra Premium IS active)
-                            method.name == "isUltraPremium" && method.parameterTypes.isEmpty() &&
-                                method.returnType == "Z" -> {
-                                val userInstanceReturnBoolFingerprint = Fingerprint(
-                                    accessFlags = listOf(AccessFlags.PUBLIC),
-                                    returnType = "Z",
-                                    parameters = emptyList(),
-                                )
-                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_TRUE)
+                                    match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :cond_0
+                                        const/4 v0, 0x0
+                                        return v0
+                                        :cond_0
+                                    """)
                                 }
                             }
                             // nullCheck() → initialize status and set membership.name to "boostVip"
