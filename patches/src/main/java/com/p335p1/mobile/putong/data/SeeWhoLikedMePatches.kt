@@ -6,86 +6,23 @@ import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.AccessFlags
 
 /**
- * Direct patches for the "see who liked me" feature.
- * These patches target the specific methods that check if the feature is available.
+ * Universal premium feature unlock patch.
+ * 
+ * This patch targets CoreProduct.u4() which is the central method that checks
+ * if ANY premium feature promotion is active. This single check gates access to:
+ * - See who liked me
+ * - VIP features
+ * - SVIP features
+ * - And all other tier-based premium features
+ * 
+ * By making this method always return true, all gated features are unlocked.
  */
 
-/**
- * Patches CoreProduct.A4() to always return true.
- * This method checks if "see who liked me" feature is available.
- */
 @Suppress("unused")
 @JvmField
-val seeWhoLikedMeAvailabilityPatch = bytecodePatch(
-    name = "See Who Liked Me Availability",
-    description = "Unlocks the 'see who liked me' feature in the Discover tab",
-    default = true,
-) {
-    compatibleWith(tantanCompatibility)
-    execute {
-        classDefForEach { classDef ->
-            if (classDef.type != "Lcom/p1/mobile/putong/core/api/CoreProduct;") return@classDefForEach
-            classDef.methods.forEach { method ->
-                if (method.name == "A4" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
-                    Fingerprint(
-                        accessFlags = listOf(AccessFlags.PUBLIC),
-                        returnType = "Z",
-                        parameters = emptyList(),
-                    ).matchOrNull(method)?.let { match ->
-                        match.method.addInstructions(0, """
-                            const/4 v0, 0x1
-                            return v0
-                        """)
-                    }
-                }
-            }
-        }
-    }
-}
-
-/**
- * Patches CoreProduct.R4() to always return false.
- * This method checks if there are remaining likers (free trial usage).
- * Making it return false means the feature is always available.
- */
-@Suppress("unused")
-@JvmField
-val seeWhoLikedMeLikersLimitPatch = bytecodePatch(
-    name = "See Who Liked Me Limit Bypass",
-    description = "Removes the limit on seeing who liked you",
-    default = true,
-) {
-    compatibleWith(tantanCompatibility)
-    execute {
-        classDefForEach { classDef ->
-            if (classDef.type != "Lcom/p1/mobile/putong/core/api/CoreProduct;") return@classDefForEach
-            classDef.methods.forEach { method ->
-                if (method.name == "R4" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
-                    Fingerprint(
-                        accessFlags = listOf(AccessFlags.PUBLIC),
-                        returnType = "Z",
-                        parameters = emptyList(),
-                    ).matchOrNull(method)?.let { match ->
-                        match.method.addInstructions(0, """
-                            const/4 v0, 0x0
-                            return v0
-                        """)
-                    }
-                }
-            }
-        }
-    }
-}
-
-/**
- * Patches CoreProduct.u4() to always return true.
- * This method checks if a promotion is active for a given product type.
- */
-@Suppress("unused")
-@JvmField
-val seeWhoLikedMePromotionPatch = bytecodePatch(
-    name = "See Who Liked Me Promotion Bypass",
-    description = "Bypasses promotion checks for premium features",
+val allPremiumFeaturesPatch = bytecodePatch(
+    name = "All Premium Features",
+    description = "Unlocks all premium tier features including 'see who liked me', VIP, SVIP, and other gated functionality",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)

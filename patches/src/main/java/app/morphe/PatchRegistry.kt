@@ -21,8 +21,6 @@ object PatchRegistry {
         vipAvailabilityUnlockPatch,
         privilegeExpirationBypassPatch,
         privilegeAvailabilityBypassPatch,
-        seeWhoLikedMeAvailabilityPatch,
-        seeWhoLikedMeLikersLimitPatch,
-        seeWhoLikedMePromotionPatch,
+        allPremiumFeaturesPatch,
     )
 }
