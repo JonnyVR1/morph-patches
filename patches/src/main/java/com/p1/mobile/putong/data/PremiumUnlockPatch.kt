@@ -99,6 +99,12 @@ private val serverRefreshX4Fingerprint = Fingerprint(
     parameters = emptyList(),
 )
 
+private val noArgFinalReturnBoolFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
+    returnType = "Z",
+    parameters = emptyList(),
+)
+
 // ── Constants ───────────────────────────────────────────────────────────────────
 
 private const val RETURN_TRUE = """
@@ -310,6 +316,26 @@ val premiumUnlockPatch = bytecodePatch(
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_TRUE)
                                 }
+                            }
+                        }
+                    }
+                }
+
+                // ── Subscription card UI: "is subscription active?" ─────────────
+                "Lcom/p1/mobile/putong/core/ui/vip/intlPrivilege/IntlPrivilegeCard;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "l" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
+                            noArgFinalReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_TRUE)
+                            }
+                        }
+                    }
+                }
+                "Lcom/p1/mobile/putong/core/ui/vip/privilegeNewUi/IntlPrivilegeCard;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
+                            noArgFinalReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_TRUE)
                             }
                         }
                     }
