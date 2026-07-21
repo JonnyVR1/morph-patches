@@ -2,34 +2,18 @@ package com.p335p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.replaceInstructions
-import app.morphe.patcher.patch.Compatibility
-import app.morphe.patcher.patch.AppTarget
 import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.AccessFlags
-
-private val tantanCompatibility = Compatibility(
-    name = "Tantan",
-    packageName = "com.p335p1.mobile.putong",
-    description = "Tantan Chinese dating app",
-    targets = listOf(
-        AppTarget(
-            version = "7.2.9",
-            description = "Tested version"
-        )
-    )
-)
 
 @Suppress("unused")
 @JvmField
 val settingsSupremePartnerPatch = bytecodePatch(
     name = "SettingsSupremePartner",
-    description = "Patch Settings.isSupremePartner to always return true",
+    description = "Unlocks Supreme Partner status in app settings, enabling its exclusive features",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val targetClass = "Lcom/p335p1/mobile/putong/data/Settings;"
-
         val fingerprint = Fingerprint(
             accessFlags = listOf(AccessFlags.PUBLIC),
             returnType = "Z",
@@ -37,7 +21,7 @@ val settingsSupremePartnerPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
-            if (classDef.type != targetClass) return@classDefForEach
+            if (classDef.type != TANTAN_SETTINGS_CLASS) return@classDefForEach
             classDef.methods.forEach { method ->
                 if (method.name == "isSupremePartner") {
                     fingerprint.matchOrNull(method)?.let { match ->
@@ -56,13 +40,11 @@ val settingsSupremePartnerPatch = bytecodePatch(
 @JvmField
 val settingsPlatinumPatch = bytecodePatch(
     name = "SettingsPlatinum",
-    description = "Patch Settings.isPlatinum to always return true",
+    description = "Unlocks Platinum tier status in app settings, enabling its exclusive features",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val targetClass = "Lcom/p335p1/mobile/putong/data/Settings;"
-
         val fingerprint = Fingerprint(
             accessFlags = listOf(AccessFlags.PUBLIC),
             returnType = "Z",
@@ -70,7 +52,7 @@ val settingsPlatinumPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
-            if (classDef.type != targetClass) return@classDefForEach
+            if (classDef.type != TANTAN_SETTINGS_CLASS) return@classDefForEach
             classDef.methods.forEach { method ->
                 if (method.name == "isPlatinum") {
                     fingerprint.matchOrNull(method)?.let { match ->
@@ -89,13 +71,11 @@ val settingsPlatinumPatch = bytecodePatch(
 @JvmField
 val settingsODiamondPatch = bytecodePatch(
     name = "SettingsODiamond",
-    description = "Patch Settings.userIsODiamond to always return true",
+    description = "Unlocks O Diamond tier status in app settings, enabling its exclusive features",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val targetClass = "Lcom/p335p1/mobile/putong/data/Settings;"
-
         val fingerprint = Fingerprint(
             accessFlags = listOf(AccessFlags.PUBLIC),
             returnType = "Z",
@@ -103,7 +83,7 @@ val settingsODiamondPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
-            if (classDef.type != targetClass) return@classDefForEach
+            if (classDef.type != TANTAN_SETTINGS_CLASS) return@classDefForEach
             classDef.methods.forEach { method ->
                 if (method.name == "userIsODiamond") {
                     fingerprint.matchOrNull(method)?.let { match ->
@@ -122,13 +102,11 @@ val settingsODiamondPatch = bytecodePatch(
 @JvmField
 val settingsDisableAdsPatch = bytecodePatch(
     name = "SettingsDisableAds",
-    description = "Patch Settings.personalizeAdsSuggest to always return false",
+    description = "Disables personalized ad tracking and suggestions",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val targetClass = "Lcom/p335p1/mobile/putong/data/Settings;"
-
         val fingerprint = Fingerprint(
             accessFlags = listOf(AccessFlags.PUBLIC),
             returnType = "Z",
@@ -136,7 +114,7 @@ val settingsDisableAdsPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
-            if (classDef.type != targetClass) return@classDefForEach
+            if (classDef.type != TANTAN_SETTINGS_CLASS) return@classDefForEach
             classDef.methods.forEach { method ->
                 if (method.name == "personalizeAdsSuggest") {
                     fingerprint.matchOrNull(method)?.let { match ->
