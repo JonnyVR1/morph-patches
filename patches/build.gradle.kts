@@ -2,12 +2,12 @@ group = "app.tantan"
 
 patches {
     about {
-        name = "Tantan Premium Patches"
-        description = "Unlocks premium features in Tantan v7.2.9"
-        source = "git@github.com:JonnyVR1/tantan-premium-patches.git"
+        name = "Morph Patches"
+        description = "Custom Morphe patches for multiple apps"
+        source = "git@github.com:JonnyVR1/morph-patches.git"
         author = "JonnyVR1"
         contact = "na"
-        website = "https://github.com/JonnyVR1/tantan-premium-patches"
+        website = "https://github.com/JonnyVR1/morph-patches"
         license = "GPLv3"
     }
 }

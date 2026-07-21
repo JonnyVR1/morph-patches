@@ -36,5 +36,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "tantan-premium-patches"
+rootProject.name = "morph-patches"
 include(":patches")
