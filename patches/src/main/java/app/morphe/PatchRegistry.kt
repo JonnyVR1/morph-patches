@@ -8,6 +8,7 @@ object PatchRegistry {
         gmsAvailabilityBypassPatch,
         dynamiteModulePackageBypassPatch,
         mapsApiKeyBypassPatch,
+        mapsCertificateBypassPatch,
         userIsVipPatch,
         userIsSvipPatch,
         userIsUltraPremiumPatch,
@@ -24,8 +25,5 @@ object PatchRegistry {
         privilegeExpirationBypassPatch,
         privilegeAvailabilityBypassPatch,
         allPremiumFeaturesPatch,
-        subscriptionContractUpgradedPatch,
-        intlPrivilegeCardActivePatch,
-        subscriptionExpirationTimePatch,
     )
 }
