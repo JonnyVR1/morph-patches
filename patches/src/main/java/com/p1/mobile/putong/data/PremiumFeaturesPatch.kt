@@ -162,7 +162,7 @@ val premiumFeaturesPatch = bytecodePatch(
     execute {
         classDefForEach { classDef ->
             when (classDef.type) {
-                // xma privilege & gate methods (S3, b4, L3, u4, x4)
+                // xma privilege & gate methods (S3, b4, L3, u4, x4, and all wrapper methods)
                 "Lp001l/xma;" -> {
                     classDef.methods.forEach { method ->
                         when {
@@ -206,6 +206,15 @@ val premiumFeaturesPatch = bytecodePatch(
                                         const/4 v0, 0x0
                                         return-object v0
                                     """)
+                                }
+                            }
+                            // All other no-arg static boolean methods → return true (has privilege)
+                            // This covers wrapper methods like A3, B3, C3, etc. that check w4() directly
+                            method.parameterTypes.isEmpty() && method.returnType == "Z" &&
+                                method.name !in listOf("L3") &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
                                 }
                             }
                         }
