@@ -27,4 +27,5 @@ Thumbs.db
 
 # Serena/Serena cache
 .serena/
-mpp-core/morphe-temporary-files/
+patches/morphe-temporary-files/
+*.mpp

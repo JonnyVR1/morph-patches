@@ -15,6 +15,10 @@ pluginManagement {
     }
 }
 
+plugins {
+    id("app.morphe.patches") version "1.3.3"
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -32,5 +36,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MorphePatcher"
-include(":mpp-core")
+rootProject.name = "tantan-premium-patches"
+include(":patches")

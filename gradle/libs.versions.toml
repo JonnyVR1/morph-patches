@@ -1,0 +1,5 @@
+[versions]
+morphe-patcher = "1.6.0"
+smali = "d856bad65f"
+
+[libraries]
