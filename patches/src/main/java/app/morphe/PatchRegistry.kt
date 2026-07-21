@@ -14,5 +14,8 @@ object PatchRegistry {
         userIsMembershipPatch,
         userIsMembershipUsedPatch,
         userIsVipExpiredPatch,
+        h6aCPatch,
+        u59UPatch,
+        u59VPatch,
     )
 }

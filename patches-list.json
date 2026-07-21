@@ -3,6 +3,84 @@
   "version": "0.0.1-dev1",
   "patches": [
     {
+      "name": "H6aC",
+      "description": "Bypasses membership price difference check, enabling all membership tiers",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "U59U",
+      "description": "Enables ultra premium availability check",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "U59V",
+      "description": "Enables ultra premium user validation",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "UserIsMembership",
       "description": "Unlocks an active membership for the user, granting access to membership-only features",
       "default": true,
