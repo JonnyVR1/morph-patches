@@ -29,34 +29,8 @@
       "options": []
     },
     {
-      "name": "Premium Features",
-      "description": "Unlocks every premium feature - bypasses privilege expiration, feature gates, promotion checks, and contract status checks",
-      "default": true,
-      "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.tantantribe.tribe",
-          "name": "Tantan",
-          "description": "Tantan - Global Dating App",
-          "apkFileType": null,
-          "appIconColor": null,
-          "signatures": null,
-          "targets": [
-            {
-              "version": null,
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Premium Membership Status",
-      "description": "Grants all premium tier statuses (VIP, SVIP, Ultra Premium, Supreme Partner, Platinum, O Diamond) for the current user only",
+      "name": "Premium Unlock",
+      "description": "Unlocks all premium features, tier statuses, subscription validation, and display",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -87,58 +61,6 @@
       "dependencies": [
         "ResourcePatch"
       ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.tantantribe.tribe",
-          "name": "Tantan",
-          "description": "Tantan - Global Dating App",
-          "apkFileType": null,
-          "appIconColor": null,
-          "signatures": null,
-          "targets": [
-            {
-              "version": null,
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Subscription Display Status",
-      "description": "Subscription management UI shows valid expiration timestamps (no 'not yet activated' message)",
-      "default": true,
-      "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.tantantribe.tribe",
-          "name": "Tantan",
-          "description": "Tantan - Global Dating App",
-          "apkFileType": null,
-          "appIconColor": null,
-          "signatures": null,
-          "targets": [
-            {
-              "version": null,
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Subscription Validation",
-      "description": "Bypasses all regional subscription restrictions - VIP, SVIP, Ultra Premium all unlocked in any region",
-      "default": true,
-      "dependencies": [],
       "compatiblePackages": [
         {
           "packageName": "com.tantantribe.tribe",
