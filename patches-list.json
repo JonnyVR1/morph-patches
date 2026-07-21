@@ -29,6 +29,32 @@
       "options": []
     },
     {
+      "name": "GmsAvailabilityBypass",
+      "description": "Bypasses Google Play Services availability checks to fix Google Maps after patching",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Membership Consumed",
       "description": "Marks membership benefits as consumed to prevent double-charging",
       "default": true,

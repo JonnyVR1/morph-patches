@@ -5,6 +5,7 @@ import com.p335p1.mobile.putong.data.*
 
 object PatchRegistry {
     val allPatches: Set<Patch<*>> = setOf(
+        gmsAvailabilityBypassPatch,
         userIsVipPatch,
         userIsSvipPatch,
         userIsUltraPremiumPatch,
@@ -14,8 +15,5 @@ object PatchRegistry {
         userIsMembershipPatch,
         userIsMembershipUsedPatch,
         userIsVipExpiredPatch,
-        h6aCPatch,
-        u59UPatch,
-        u59VPatch,
     )
 }
