@@ -67,10 +67,14 @@ private val mapsCertFingerprint = Fingerprint(
     returnType = "I",
     parameters = emptyList(),
 )
-private val googleCertificatesCheckFingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PRIVATE, AccessFlags.STATIC),
-    returnType = "Lcom/google/android/gms/common/zzx;",
-    parameters = listOf("Ljava/lang/String;", "Lcom/google/android/gms/common/zzj;", "Z", "Z"),
+private val supportMapFragmentOnCreateViewFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "Landroid/view/View;",
+    parameters = listOf(
+        "Landroid/view/LayoutInflater;",
+        "Landroid/view/ViewGroup;",
+        "Landroid/os/Bundle;",
+    ),
 )
 
 private const val RETURN_INT_SUCCESS = """
@@ -88,9 +92,24 @@ private const val RETURN_NULL_STRING = """
     return-object v0
 """
 
-private const val RETURN_GOOGLE_CERT_SUCCESS = """
-    invoke-static {}, Lcom/google/android/gms/common/zzx;->zzb()Lcom/google/android/gms/common/zzx;
-    move-result-object v0
+// Returns a placeholder TextView instead of initializing Google Maps.
+// The Maps SDK loads its renderer from a dynamite module (a separate APK
+// loaded at runtime) that performs GoogleCertificates signature validation
+// against a server-side whitelist. Re-signed (patched) APKs are rejected
+// with "GoogleCertificatesRslt: not allowed" which prevents tiles from
+// loading. Morphe can only patch classes in the host APK, not inside
+// dynamite modules, so we replace the map view with a clear placeholder.
+private const val RETURN_PLACEHOLDER_MAP_VIEW = """
+    new-instance v0, Landroid/widget/TextView;
+    invoke-virtual {p1}, Landroid/view/LayoutInflater;->getContext()Landroid/content/Context;
+    move-result-object v1
+    invoke-direct {v0, v1}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+    const-string v1, "Map unavailable\nPatched APK - Google Maps requires original signature"
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setGravity(I)V
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setClickable(Z)V
     return-object v0
 """
 
@@ -145,17 +164,17 @@ val googleMapsPatch = bytecodePatch(
                         }
                     }
                 }
-                // Bypass the Google Play Services signature whitelist check.
-                // `zzn.zzh(...)` normally calls into the `com.google.android.gms.googlecertificates`
-                // dynamite module which validates the calling app's signature against Google's
-                // server-side whitelist. Re-signed (patched) APKs are rejected with
-                // "GoogleCertificatesRslt: not allowed" which breaks Maps API token requests.
-                // We force it to always return `zzx.zzb()` (success) so the whitelist check is skipped.
-                "Lcom/google/android/gms/common/zzn;" -> {
+                // SupportMapFragment is in the host APK but delegates rendering to the
+                // `com.google.android.gms.policy_maps_core_dynamite` module. That module
+                // runs signature validation against Google's server-side whitelist and
+                // rejects re-signed (patched) APKs, breaking tile rendering entirely.
+                // Replacing onCreateView with a TextView prevents the broken map from
+                // loading while keeping the rest of the app functional.
+                "Lcom/google/android/gms/maps/SupportMapFragment;" -> {
                     classDef.methods.forEach { method ->
-                        if (method.name == "zzh") {
-                            googleCertificatesCheckFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_GOOGLE_CERT_SUCCESS)
+                        if (method.name == "onCreateView") {
+                            supportMapFragmentOnCreateViewFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_PLACEHOLDER_MAP_VIEW)
                             }
                         }
                     }
