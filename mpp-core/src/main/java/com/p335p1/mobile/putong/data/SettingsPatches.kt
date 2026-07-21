@@ -20,6 +20,7 @@ private val tantanCompatibility = Compatibility(
 )
 
 @Suppress("unused")
+@JvmField
 val settingsSupremePartnerPatch = bytecodePatch(
     name = "SettingsSupremePartner",
     description = "Patch Settings.isSupremePartner to always return true",
@@ -52,6 +53,7 @@ val settingsSupremePartnerPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val settingsPlatinumPatch = bytecodePatch(
     name = "SettingsPlatinum",
     description = "Patch Settings.isPlatinum to always return true",
@@ -84,6 +86,7 @@ val settingsPlatinumPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val settingsODiamondPatch = bytecodePatch(
     name = "SettingsODiamond",
     description = "Patch Settings.userIsODiamond to always return true",
@@ -116,6 +119,7 @@ val settingsODiamondPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val settingsDisableAdsPatch = bytecodePatch(
     name = "SettingsDisableAds",
     description = "Patch Settings.personalizeAdsSuggest to always return false",

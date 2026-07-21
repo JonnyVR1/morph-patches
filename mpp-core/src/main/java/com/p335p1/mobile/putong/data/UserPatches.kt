@@ -28,6 +28,7 @@ private fun returnTrueFingerprint() = Fingerprint(
 )
 
 @Suppress("unused")
+@JvmField
 val userIsVipPatch = bytecodePatch(
     name = "UserIsVip",
     description = "Patch User.isVIP to always return true",
@@ -52,6 +53,7 @@ val userIsVipPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val userIsSvipPatch = bytecodePatch(
     name = "UserIsSVIP",
     description = "Patch User.isSVIP to always return true",
@@ -76,6 +78,7 @@ val userIsSvipPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val userIsUltraPremiumPatch = bytecodePatch(
     name = "UserIsUltraPremium",
     description = "Patch User.isUltraPremium to always return true",
@@ -100,6 +103,7 @@ val userIsUltraPremiumPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val userIsSupremePartnerPatch = bytecodePatch(
     name = "UserIsSupremePartner",
     description = "Patch User.isSupremePartner to always return true",
@@ -124,6 +128,7 @@ val userIsSupremePartnerPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val userIsPlatinumPatch = bytecodePatch(
     name = "UserIsPlatinum",
     description = "Patch User.isPlatinum to always return true",
@@ -148,6 +153,7 @@ val userIsPlatinumPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val userIsODiamondPatch = bytecodePatch(
     name = "UserIsODiamond",
     description = "Patch User.isODiamond to always return true",
@@ -172,6 +178,7 @@ val userIsODiamondPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val userIsMembershipPatch = bytecodePatch(
     name = "UserIsMembership",
     description = "Patch User.isMembership to always return true",
@@ -202,6 +209,7 @@ val userIsMembershipPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val userIsMembershipUsedPatch = bytecodePatch(
     name = "UserIsMembershipUsed",
     description = "Patch User.isMembershipUsed to always return true",
@@ -232,6 +240,7 @@ val userIsMembershipUsedPatch = bytecodePatch(
 }
 
 @Suppress("unused")
+@JvmField
 val userIsVipExpiredPatch = bytecodePatch(
     name = "UserIsVipExpired",
     description = "Patch User.isVIPExpired to always return false",
