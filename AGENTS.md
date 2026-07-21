@@ -84,3 +84,92 @@ The project uses a single consolidated `PremiumUnlockPatch` that handles:
 - Feature gates and display timestamps
 
 All patches use `isMe()` guards to ensure they only affect the current user, not other users' profiles.
+
+## Fable Method
+Before any non-trivial backend task, apply the fable-method loop; for tasks that will run unattended or fan out subagents, use fable-loop. After completing substantive work, or whenever any agent/tool claims work is done, run a fable-judge pass before presenting it as finished.
+
+## Using Subagents
+
+When investigating complex issues or implementing multiple fixes, use subagents to parallelize work and get specialized focus.
+
+### When to Use Subagents
+
+**Use subagents for:**
+- Investigating multiple unrelated issues in parallel
+- Deep dives into specific features or code paths
+- Implementing multiple independent fixes
+- Code exploration and analysis tasks
+- Build and deployment tasks after fixes are identified
+
+**Don't use subagents for:**
+- Simple single-file edits
+- Quick investigations that take < 2 minutes
+- Tasks that depend on each other's output
+
+### How to Launch Subagents
+
+Use the `task` tool with appropriate agent type:
+
+```
+task(
+  description="Short description",
+  subagent_type="general",  # or "explore" for read-only investigation
+  prompt="Detailed task description..."
+)
+```
+
+**Agent types:**
+- `explore` - Read-only investigation, code search, analysis
+- `general` - Implementation, file editing, build/deploy tasks
+
+### Parallel Investigation Pattern
+
+When multiple features are broken, launch parallel investigation subagents:
+
+```
+# Launch all investigations in parallel
+task(description="Investigate feature A", subagent_type="explore", prompt="...")
+task(description="Investigate feature B", subagent_type="explore", prompt="...")
+task(description="Investigate feature C", subagent_type="explore", prompt="...")
+
+# Wait for all to complete, then synthesize findings
+# Launch single implementation subagent with all fixes
+task(description="Fix all issues", subagent_type="general", prompt="...")
+```
+
+### Subagent Prompt Structure
+
+Include in every subagent prompt:
+1. **Context** - What's broken, what's been tried
+2. **Specific investigation targets** - Files to check, methods to trace
+3. **Expected deliverables** - What to report back
+4. **Build/deploy instructions** - If implementing fixes
+5. **Credentials** - GitHub token, release ID, etc.
+
+### Example: Multi-Feature Investigation
+
+```
+# Investigate 6 broken features in parallel
+task(description="Investigate badge display", subagent_type="explore", prompt="...")
+task(description="Investigate blur issue", subagent_type="explore", prompt="...")
+task(description="Investigate super likes", subagent_type="explore", prompt="...")
+task(description="Investigate roaming", subagent_type="explore", prompt="...")
+task(description="Investigate banner", subagent_type="explore", prompt="...")
+task(description="Investigate payment dialogs", subagent_type="explore", prompt="...")
+
+# Synthesize findings and launch comprehensive fix
+task(description="Fix all issues", subagent_type="general", prompt="
+  Fix 1: Change xma.e4() from RETURN_TRUE to RETURN_FALSE
+  Fix 2: Remove isODiamond from true-returning set
+  Fix 3: Change counter from MAX_VALUE to 200000
+  ...
+  Build and deploy to release 357064625
+")
+```
+
+### Benefits
+
+- **Parallelism** - Multiple investigations run simultaneously
+- **Focus** - Each subagent has clear, narrow scope
+- **Efficiency** - Reduces context switching for main agent
+- **Completeness** - Ensures all angles are investigated
