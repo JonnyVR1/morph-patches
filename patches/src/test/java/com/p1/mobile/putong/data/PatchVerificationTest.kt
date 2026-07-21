@@ -39,25 +39,13 @@ class PatchVerificationTest {
     }
 
     @Test
-    fun `user patches apply successfully`() {
+    fun `premium status patch applies successfully`() {
         assertTrue(apkFile.exists(), "APK file must exist at ${apkFile.absolutePath}")
-
-        val userPatches = setOf(
-            userIsVipPatch,
-            userIsSvipPatch,
-            userIsUltraPremiumPatch,
-            userIsSupremePartnerPatch,
-            userIsPlatinumPatch,
-            userIsODiamondPatch,
-            userIsMembershipPatch,
-            userIsMembershipUsedPatch,
-            userIsVipExpiredPatch,
-        )
 
         val results = mutableMapOf<String, Throwable?>()
 
         Patcher(PatcherConfig(apkFile = apkFile)).use { patcher ->
-            patcher += userPatches
+            patcher += setOf(premiumStatusPatch)
 
             runBlocking {
                 patcher().collect { result ->
@@ -67,7 +55,7 @@ class PatchVerificationTest {
         }
 
         results.forEach { (name, exception) ->
-            assertNull(exception, "User patch '$name' should succeed but failed: ${exception?.message}")
+            assertNull(exception, "Premium status patch '$name' should succeed but failed: ${exception?.message}")
         }
     }
 }
