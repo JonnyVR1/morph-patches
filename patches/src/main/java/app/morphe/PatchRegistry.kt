@@ -19,5 +19,7 @@ object PatchRegistry {
         ultraPremiumUnlockPatch,
         svipAvailabilityUnlockPatch,
         vipAvailabilityUnlockPatch,
+        privilegeExpirationBypassPatch,
+        privilegeAvailabilityBypassPatch,
     )
 }
