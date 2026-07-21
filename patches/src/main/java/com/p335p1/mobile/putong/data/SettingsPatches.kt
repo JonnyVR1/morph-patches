@@ -1,7 +1,7 @@
 package com.p335p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
-import app.morphe.patcher.extensions.InstructionExtensions.replaceInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.AccessFlags
 
@@ -25,7 +25,7 @@ val settingsSupremePartnerPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isSupremePartner") {
                     fingerprint.matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -56,7 +56,7 @@ val settingsPlatinumPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isPlatinum") {
                     fingerprint.matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -87,7 +87,7 @@ val settingsODiamondPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "userIsODiamond") {
                     fingerprint.matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -118,7 +118,7 @@ val settingsDisableAdsPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "personalizeAdsSuggest") {
                     fingerprint.matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x0
                             return v0
                         """)

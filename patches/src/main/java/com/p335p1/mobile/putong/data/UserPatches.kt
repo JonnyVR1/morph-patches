@@ -1,7 +1,7 @@
 package com.p335p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
-import app.morphe.patcher.extensions.InstructionExtensions.replaceInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.AccessFlags
 
@@ -25,7 +25,7 @@ val userIsVipPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isVIP") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -50,7 +50,7 @@ val userIsSvipPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isSVIP") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -75,7 +75,7 @@ val userIsUltraPremiumPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isUltraPremium") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -100,7 +100,7 @@ val userIsSupremePartnerPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isSupremePartner") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -125,7 +125,7 @@ val userIsPlatinumPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isPlatinum") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -150,7 +150,7 @@ val userIsODiamondPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isODiamond") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -181,7 +181,7 @@ val userIsMembershipPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isMembership") {
                     fingerprint.matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -212,7 +212,7 @@ val userIsMembershipUsedPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isMembershipUsed") {
                     fingerprint.matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x1
                             return v0
                         """)
@@ -237,7 +237,7 @@ val userIsVipExpiredPatch = bytecodePatch(
             classDef.methods.forEach { method ->
                 if (method.name == "isVIPExpired") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
-                        match.method.replaceInstructions(0, """
+                        match.method.addInstructions(0, """
                             const/4 v0, 0x0
                             return v0
                         """)
