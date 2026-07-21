@@ -20,6 +20,11 @@ import com.android.tools.smali.dexlib2.AccessFlags
  * - p001l/xma::L3()                        → Feature gate that returns false in production
  *                                            unless a test flag is set (see also: private
  *                                            patches above for the ctx-sensitive check).
+ * - p001l/zva0::B0(User)                   → "what is the highest active tier rank?"
+ *                                          → 3 (Ultra Premium) for any user. Ensures
+ *                                            the profile UI surfaces the highest tier the
+ *                                            patches unlock, rather than the user's
+ *                                            actual paid tier.
  * - com/p1/mobile/putong/core/api/CoreProduct::u4(String)
  *                                          → "is product promotion active?" → true
  * - p001l/ugc0::k(PurchaseType)            → "is subscription upgraded?" → true
@@ -48,6 +53,17 @@ private val purchaseTypeArgStaticReturnBoolFingerprint = Fingerprint(
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/core/data/PurchaseType;"),
 )
+
+private val userArgFinalReturnIntFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
+    returnType = "I",
+    parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
+)
+
+private const val RETURN_THREE = """
+    const/4 v0, 0x3
+    return v0
+"""
 
 private const val RETURN_TRUE = """
     const/4 v0, 0x1
@@ -124,6 +140,22 @@ val premiumFeaturesPatch = bytecodePatch(
                         ) {
                             purchaseTypeArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, RETURN_TRUE)
+                            }
+                        }
+                    }
+                }
+
+                // zva0.B0: tier rank lookup (3=Ultra Premium, 2=SVIP, 1=VIP).
+                // Force to 3 so the profile UI surfaces Ultra Premium (the highest
+                // tier the patches unlock) regardless of the user's actual paid tier.
+                "Lp001l/zva0;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "B0" && method.parameterTypes.size == 1 &&
+                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                            method.returnType == "I"
+                        ) {
+                            userArgFinalReturnIntFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_THREE)
                             }
                         }
                     }
