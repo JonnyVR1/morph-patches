@@ -34,12 +34,19 @@ import com.android.tools.smali.dexlib2.AccessFlags
  * - p001l/th5::d(), f(), h()               → Remote config gates for swipe actions → false
  * - p001l/n3b0::q()                        → "has likers limit been exceeded?" → false
  *                                            Controls blur in old VIP likers screen.
+ * - com/p1/mobile/putong/data/CounterSuperlikeAndUndoLimit::remainToday(), remainAll()
+ *                                          → Super like remaining count → Integer.MAX_VALUE
+ *                                            Indicates unlimited super likes available.
  * - com/p1/mobile/putong/core/api/CoreProduct::u4(String)
  *                                          → "is product promotion active?" → true
  * - p001l/ugc0::k(PurchaseType)            → "is subscription upgraded?" → true
  *
  * Note: Purchase dialog blocking was removed because it's redundant. When privilege gates
  * return correct values, the code paths that show purchase dialogs are never reached.
+ *
+ * Note: Some code directly accesses Counter.likersLimit.remaining and similar public fields.
+ * These field accesses cannot be patched directly, but the methods that check them
+ * (like n3b0.q()) are patched to return the correct values.
  */
 
 private val summPrivArgReturnBoolFingerprint = Fingerprint(
@@ -70,6 +77,12 @@ private val userArgFinalReturnIntFingerprint = Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
     returnType = "I",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
+)
+
+private val noArgReturnIntFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "I",
+    parameters = emptyList(),
 )
 
 // Server refresh methods: u4() returns c<List<UserPrivilege>>, x4() returns c<roj0>
@@ -248,6 +261,24 @@ val premiumFeaturesPatch = bytecodePatch(
                         ) {
                             noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, RETURN_FALSE)
+                            }
+                        }
+                    }
+                }
+
+                // CounterSuperlikeAndUndoLimit: patch remain methods to return unlimited
+                // remainToday() and remainAll() return remaining counts for super likes
+                // Patch to return Integer.MAX_VALUE to indicate unlimited super likes
+                "Lcom/p1/mobile/putong/data/CounterSuperlikeAndUndoLimit;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name in listOf("remainToday", "remainAll") &&
+                            method.parameterTypes.isEmpty() && method.returnType == "I"
+                        ) {
+                            noArgReturnIntFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, """
+                                    const v0, 0x7fffffff
+                                    return v0
+                                """)
                             }
                         }
                     }
