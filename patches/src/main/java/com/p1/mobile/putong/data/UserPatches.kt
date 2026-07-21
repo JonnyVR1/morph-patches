@@ -8,20 +8,21 @@ import com.android.tools.smali.dexlib2.AccessFlags
 /**
  * Consolidated premium membership status patch.
  *
- * Patches all `is*()` membership check methods on the User class so the current
- * user appears as every premium tier. Each check respects `isMe()` so that other
- * users' tier status remains unchanged (only the logged-in user appears as premium).
+ * Patches `is*()` membership check methods on the User class so the current
+ * user appears as Ultra Premium tier only. Lower tiers (VIP, SVIP, Platinum) are
+ * handled by PremiumFeaturesPatch which returns false for them.
+ * Each check respects `isMe()` so that other users' tier status remains unchanged.
  *
  * Methods patched:
- * - isVIP()             → VIP tier
- * - isSVIP()            → Super VIP tier
- * - isUltraPremium()    → Ultra Premium tier
- * - isSupremePartner()  → Supreme Partner tier
- * - isPlatinum()        → Platinum tier
- * - isODiamond()        → O Diamond tier
- * - isMembership(MT)    → Generic membership check
- * - isMembershipUsed(MT)→ Membership usage check
+ * - isUltraPremium()    → Ultra Premium tier (true for current user)
+ * - isSupremePartner()  → Supreme Partner tier (true for current user)
+ * - isODiamond()        → O Diamond tier (true for current user)
+ * - isMembership(MT)    → Generic membership check (true for current user)
+ * - isMembershipUsed(MT)→ Membership usage check (returns false = available)
  * - isVIPExpired()      → VIP expiration check (returns false = not expired)
+ *
+ * Note: isVIP(), isSVIP(), isPlatinum() are patched to return false by
+ * PremiumFeaturesPatch to ensure subscription management only shows Ultra-Premium as active.
  */
 
 private val userPredicateFingerprint = Fingerprint(
@@ -61,7 +62,7 @@ val premiumStatusPatch = bytecodePatch(
     compatibleWith(tantanCompatibility)
     execute {
         val trueWithMeCheck = setOf(
-            "isVIP", "isSVIP", "isUltraPremium", "isSupremePartner", "isPlatinum", "isODiamond"
+            "isUltraPremium", "isSupremePartner", "isODiamond"
         )
         val trueNoArgs = setOf("isVIPExpired") // false = not expired → isMe-gated false
 
