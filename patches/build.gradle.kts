@@ -50,7 +50,7 @@ tasks.register<JavaExec>("patchApk") {
     dependsOn("jar")
     classpath = sourceSets["main"].runtimeClasspath + files(tasks.jar.get().archiveFile)
     mainClass.set("app.morphe.PatcherMainKt")
-    val apkFile = rootProject.file("tantan-7-2-9.apk")
+    val apkFile = rootProject.file("tantan-tribe-extracted/com.tantantribe.tribe.apk")
     val outputApk = rootProject.file("tantan-premium-unlocked.apk")
     args = listOf(apkFile.absolutePath, outputApk.absolutePath)
 }

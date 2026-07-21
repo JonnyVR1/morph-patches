@@ -11,7 +11,7 @@ import kotlin.test.assertNull
 
 class PatchVerificationTest {
 
-    private val apkFile = File("../tantan-7-2-9.apk")
+    private val apkFile = File("../tantan-tribe-extracted/com.tantantribe.tribe.apk")
 
     private val allPatches = PatchRegistry.allPatches
 
