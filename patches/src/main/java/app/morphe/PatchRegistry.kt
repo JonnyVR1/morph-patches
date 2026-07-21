@@ -1,7 +1,7 @@
 package app.morphe
 
 import app.morphe.patcher.patch.Patch
-import com.p335p1.mobile.putong.data.*
+import com.p1.mobile.putong.data.*
 
 object PatchRegistry {
     val allPatches: Set<Patch<*>> = setOf(

@@ -1,4 +1,4 @@
-package com.p335p1.mobile.putong.data
+package com.p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions

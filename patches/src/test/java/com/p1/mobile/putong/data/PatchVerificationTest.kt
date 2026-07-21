@@ -1,4 +1,4 @@
-package com.p335p1.mobile.putong.data
+package com.p1.mobile.putong.data
 
 import app.morphe.PatchRegistry
 import app.morphe.patcher.Patcher
