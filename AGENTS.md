@@ -56,6 +56,13 @@ curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
   --data-binary @patches-list.json \
   "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/357064625/assets?name=patches-list.json" | \
   python3 -c "import json, sys; d = json.load(sys.stdin); print(f'json: {d.get(\"name\", \"ERR\")}')"
+
+# Upload patches-bundle.json
+curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
+  -H "Content-Type: application/json" \
+  --data-binary @patches-bundle.json \
+  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/357064625/assets?name=patches-bundle.json" | \
+  python3 -c "import json, sys; d = json.load(sys.stdin); print(f'bundle: {d.get(\"name\", \"ERR\")}')"
 ```
 
 ### Verify Upload
