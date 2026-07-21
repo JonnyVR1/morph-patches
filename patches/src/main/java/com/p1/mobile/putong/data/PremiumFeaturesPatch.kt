@@ -319,46 +319,96 @@ val premiumFeaturesPatch = bytecodePatch(
                     }
                 }
 
-                // User: ensure status is never null to prevent NPE
-                // Patch nullCheck() to initialize status if null
-                // Also set membership.name to "boostVip" (Ultra Premium) for current user
+                // User: patch subscription tier display methods and nullCheck
+                // isVIP(), isSVIP(), isPlatinum() → false (not active)
+                // isUltraPremium() → true (active - highest tier)
+                // nullCheck() → initialize status, set membership.name to "boostVip"
                 TANTAN_USER_CLASS -> {
                     classDef.methods.forEach { method ->
-                        if (method.name == "nullCheck" && method.parameterTypes.isEmpty() &&
-                            method.returnType == "V"
-                        ) {
-                            val nullCheckFingerprint = Fingerprint(
-                                accessFlags = listOf(AccessFlags.PUBLIC),
-                                returnType = "V",
-                                parameters = emptyList(),
-                            )
-                            nullCheckFingerprint.matchOrNull(method)?.let { match ->
-                                // Add status initialization and membership override at the start of nullCheck()
-                                match.method.addInstructions(0, """
-                                    # Check if status is null
-                                    iget-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
-                                    if-nez v0, :status_not_null
-                                    # Initialize status to empty ArrayList
-                                    new-instance v0, Ljava/util/ArrayList;
-                                    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
-                                    iput-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
-                                    :status_not_null
-                                    
-                                    # Check if this is the current user (isMe())
-                                    invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
-                                    move-result v0
-                                    if-eqz v0, :not_me
-                                    
-                                    # Set membership.name to "boostVip" (Ultra Premium) for current user
-                                    iget-object v0, p0, Lcom/p1/mobile/putong/data/User;->membership:Lcom/p1/mobile/putong/data/Membership;
-                                    if-eqz v0, :membership_null
-                                    const-string v1, "boostVip"
-                                    invoke-static {v1}, Lcom/p1/mobile/putong/data/MembershipType;->get(Ljava/lang/String;)Lcom/p1/mobile/putong/data/MembershipType;
-                                    move-result-object v1
-                                    iput-object v1, v0, Lcom/p1/mobile/putong/data/Membership;->name:Lcom/p1/mobile/putong/data/MembershipType;
-                                    :membership_null
-                                    :not_me
-                                """)
+                        when {
+                            // isVIP() → return false (VIP not active, only ultraPremium is)
+                            method.name == "isVIP" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" -> {
+                                val userInstanceReturnBoolFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "Z",
+                                    parameters = emptyList(),
+                                )
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // isSVIP() → return false (SVIP not active)
+                            method.name == "isSVIP" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" -> {
+                                val userInstanceReturnBoolFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "Z",
+                                    parameters = emptyList(),
+                                )
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // isPlatinum() → return false (Platinum not active)
+                            method.name == "isPlatinum" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" -> {
+                                val userInstanceReturnBoolFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "Z",
+                                    parameters = emptyList(),
+                                )
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // isUltraPremium() → return true (Ultra Premium IS active)
+                            method.name == "isUltraPremium" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" -> {
+                                val userInstanceReturnBoolFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "Z",
+                                    parameters = emptyList(),
+                                )
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                            // nullCheck() → initialize status and set membership.name to "boostVip"
+                            method.name == "nullCheck" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "V" -> {
+                                val nullCheckFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "V",
+                                    parameters = emptyList(),
+                                )
+                                nullCheckFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        # Check if status is null
+                                        iget-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
+                                        if-nez v0, :status_not_null
+                                        # Initialize status to empty ArrayList
+                                        new-instance v0, Ljava/util/ArrayList;
+                                        invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+                                        iput-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
+                                        :status_not_null
+                                        
+                                        # Check if this is the current user (isMe())
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :not_me
+                                        
+                                        # Set membership.name to "boostVip" (Ultra Premium) for current user
+                                        iget-object v0, p0, Lcom/p1/mobile/putong/data/User;->membership:Lcom/p1/mobile/putong/data/Membership;
+                                        if-eqz v0, :membership_null
+                                        const-string v1, "boostVip"
+                                        invoke-static {v1}, Lcom/p1/mobile/putong/data/MembershipType;->get(Ljava/lang/String;)Lcom/p1/mobile/putong/data/MembershipType;
+                                        move-result-object v1
+                                        iput-object v1, v0, Lcom/p1/mobile/putong/data/Membership;->name:Lcom/p1/mobile/putong/data/MembershipType;
+                                        :membership_null
+                                        :not_me
+                                    """)
+                                }
                             }
                         }
                     }
