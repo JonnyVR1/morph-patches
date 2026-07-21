@@ -32,8 +32,11 @@ import com.android.tools.smali.dexlib2.AccessFlags
  *                                            delegate to !S3()/b4(). Patched to return true.
  * - p001l/zva0::B0(User)                   → Tier rank lookup → 3 (Ultra Premium)
  * - p001l/th5::d(), f(), h()               → Remote config gates for swipe actions → false
- * - p001l/n3b0::q()                        → "has likers limit been exceeded?" → false
+ * - p001l/n3b0::q()                        → "has likers limit been exceeded?" → true
+ *                                            (limit NOT exceeded, so show clear images)
  *                                            Controls blur in old VIP likers screen.
+ * - p001l/sb90::c(User)                    → "can show clear profile image?" → true
+ *                                            Overrides privacy checks to always show clear images.
  * - com/p1/mobile/putong/data/CounterSuperlikeAndUndoLimit::remainToday(), remainAll()
  *                                          → Super like remaining count → Integer.MAX_VALUE
  *                                            Indicates unlimited super likes available.
@@ -251,16 +254,38 @@ val premiumFeaturesPatch = bytecodePatch(
                     }
                 }
 
-                // n3b0.q(): "has likers limit been exceeded?" → false (limit not exceeded)
+                // n3b0.q(): "has likers limit been exceeded?" → true (limit NOT exceeded)
                 // This controls blur in the old VIP likers screen (LikersFrag).
                 // Called by CoreBusinessServiceIml.e2() → c.Q1() → LikersItemView.m()
+                // Note: The method returns true when remaining > 0 (limit NOT exceeded)
                 "Lp001l/n3b0;" -> {
                     classDef.methods.forEach { method ->
                         if (method.name == "q" && method.parameterTypes.isEmpty() &&
                             method.returnType == "Z"
                         ) {
                             noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_FALSE)
+                                match.method.addInstructions(0, RETURN_TRUE)
+                            }
+                        }
+                    }
+                }
+
+                // sb90.c(): "can show clear profile image?" → true (always show clear)
+                // This controls blur in LikersBigCardItemView and other places.
+                // Checks other user's privacy settings, but we override to always show clear.
+                "Lp001l/sb90;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "c" && method.parameterTypes.size == 1 &&
+                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                            method.returnType == "Z"
+                        ) {
+                            val userArgReturnBoolFingerprint = Fingerprint(
+                                accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
+                                returnType = "Z",
+                                parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
+                            )
+                            userArgReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_TRUE)
                             }
                         }
                     }
@@ -286,6 +311,7 @@ val premiumFeaturesPatch = bytecodePatch(
 
                 // User: ensure status is never null to prevent NPE
                 // Patch nullCheck() to initialize status if null
+                // Also set membership.name to "boostVip" (Ultra Premium) for current user
                 TANTAN_USER_CLASS -> {
                     classDef.methods.forEach { method ->
                         if (method.name == "nullCheck" && method.parameterTypes.isEmpty() &&
@@ -297,8 +323,7 @@ val premiumFeaturesPatch = bytecodePatch(
                                 parameters = emptyList(),
                             )
                             nullCheckFingerprint.matchOrNull(method)?.let { match ->
-                                // Add status initialization at the start of nullCheck()
-                                // This ensures status is never null even if nullCheck() wasn't called
+                                // Add status initialization and membership override at the start of nullCheck()
                                 match.method.addInstructions(0, """
                                     # Check if status is null
                                     iget-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
@@ -308,6 +333,21 @@ val premiumFeaturesPatch = bytecodePatch(
                                     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
                                     iput-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
                                     :status_not_null
+                                    
+                                    # Check if this is the current user (isMe())
+                                    invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                    move-result v0
+                                    if-eqz v0, :not_me
+                                    
+                                    # Set membership.name to "boostVip" (Ultra Premium) for current user
+                                    iget-object v0, p0, Lcom/p1/mobile/putong/data/User;->membership:Lcom/p1/mobile/putong/data/Membership;
+                                    if-eqz v0, :membership_null
+                                    const-string v1, "boostVip"
+                                    invoke-static {v1}, Lcom/p1/mobile/putong/data/MembershipType;->get(Ljava/lang/String;)Lcom/p1/mobile/putong/data/MembershipType;
+                                    move-result-object v1
+                                    iput-object v1, v0, Lcom/p1/mobile/putong/data/Membership;->name:Lcom/p1/mobile/putong/data/MembershipType;
+                                    :membership_null
+                                    :not_me
                                 """)
                             }
                         }
