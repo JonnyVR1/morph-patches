@@ -155,8 +155,18 @@ val premiumFeaturesPatch = bytecodePatch(
                                     """)
                                 }
                             }
+                            // S3-delegating methods: these call S3() which returns true when EXPIRED
+                            // So they must return false (not expired) to indicate privilege is active
+                            method.name in setOf("W3", "X3", "d4", "e4", "h4", "i4", "j4", "l4", "m4") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
                             // All other no-arg static boolean methods → return true (has privilege)
                             // This covers wrapper methods like A3, B3, C3, etc. that check w4() directly
+                            // or delegate to !S3()/b4() (which return true when available)
                             method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 method.name !in listOf("L3") &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
