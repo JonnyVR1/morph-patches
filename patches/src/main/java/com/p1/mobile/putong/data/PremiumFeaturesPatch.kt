@@ -175,6 +175,7 @@ val premiumFeaturesPatch = bytecodePatch(
                             }
                             // S3-delegating methods: these call S3() which returns true when EXPIRED
                             // So they must return false (not expired) to indicate privilege is active
+                            // Note: j4() (ultraPremium) and m4() (vip) are in this list
                             method.name in setOf("W3", "X3", "d4", "e4", "h4", "i4", "j4", "l4", "m4") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
@@ -182,9 +183,18 @@ val premiumFeaturesPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
+                            // Non-ultraPremium tier methods: return false (not active)
+                            // This ensures subscription management only shows ultraPremium as active
+                            // f4() = svip, H3()/Z3() = platinum, B3()/U3() = femaleVip
+                            method.name in setOf("f4", "H3", "Z3", "B3", "U3") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
                             // All other no-arg static boolean methods → return true (has privilege)
-                            // This covers wrapper methods like A3, B3, C3, etc. that check w4() directly
-                            // or delegate to !S3()/b4() (which return true when available)
+                            // This covers ultraPremium methods (C3, k4) and feature gates
                             method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 method.name !in listOf("L3") &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
