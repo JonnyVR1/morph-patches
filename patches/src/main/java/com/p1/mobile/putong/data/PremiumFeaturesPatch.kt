@@ -25,6 +25,17 @@ import com.android.tools.smali.dexlib2.AccessFlags
  *                                            the profile UI surfaces the highest tier the
  *                                            patches unlock, rather than the user's
  *                                            actual paid tier.
+ * - com/p1/mobile/putong/core/ui/purchase/c::C0(...)
+ *                                          → THE central purchase dialog funnel. All
+ *                                            purchase popups flow through this method.
+ *                                            Patched to return-void immediately, blocking
+ *                                            every purchase dialog regardless of source.
+ * - com/p1/mobile/putong/core/api/CoreServiceImpl::startJailedDialogLikeAct()
+ *                                          → Separate "jailed" popup path that bypasses
+ *                                            c.C0(). Patched to no-op.
+ * - p001l/th5::d(), f(), h()               → Remote config gates controlling whether
+ *                                            swipe actions show purchase dialogs.
+ *                                            Patched to return false.
  * - com/p1/mobile/putong/core/api/CoreProduct::u4(String)
  *                                          → "is product promotion active?" → true
  * - p001l/ugc0::k(PurchaseType)            → "is subscription upgraded?" → true
@@ -60,9 +71,40 @@ private val userArgFinalReturnIntFingerprint = Fingerprint(
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
 )
 
+// Purchase dialog funnel: c.C0() - all purchase dialogs converge here
+private val purchaseDialogFunnelFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC, AccessFlags.FINAL),
+    returnType = "V",
+    parameters = listOf(
+        "Lcom/p1/mobile/android/app/Act;",
+        "Ljava/lang/String;",
+        "Lcom/p1/mobile/putong/core/data/Privilege;",
+        "Lcom/p1/mobile/putong/core/data/PurchaseType;",
+        "Lp001l/e30;",
+        "I",
+        "Lp001l/d30;",
+        "Lp001l/d30;",
+        "Ljava/lang/String;",
+        "Ljava/lang/Object;",
+        "Z",
+        "Z"
+    ),
+)
+
+// Jailed dialog: CoreServiceImpl.startJailedDialogLikeAct()
+private val noArgPublicReturnVoidFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "V",
+    parameters = emptyList(),
+)
+
 private const val RETURN_THREE = """
     const/4 v0, 0x3
     return v0
+"""
+
+private const val RETURN_VOID = """
+    return-void
 """
 
 private const val RETURN_TRUE = """
@@ -156,6 +198,49 @@ val premiumFeaturesPatch = bytecodePatch(
                         ) {
                             userArgFinalReturnIntFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, RETURN_THREE)
+                            }
+                        }
+                    }
+                }
+
+                // c.C0: THE central purchase dialog funnel. Every purchase popup in the
+                // app flows through this method. Patching it to return-void immediately
+                // blocks ALL purchase dialogs regardless of which feature tried to trigger it.
+                "Lcom/p1/mobile/putong/core/ui/purchase/c;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "C0" && method.returnType == "V" &&
+                            method.parameterTypes.size == 12
+                        ) {
+                            purchaseDialogFunnelFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
+                            }
+                        }
+                    }
+                }
+
+                // CoreServiceImpl.startJailedDialogLikeAct: separate "jailed" popup path
+                // that doesn't go through c.C0(). Patch to no-op.
+                "Lcom/p1/mobile/putong/core/api/CoreServiceImpl;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "startJailedDialogLikeAct" &&
+                            method.parameterTypes.isEmpty() && method.returnType == "V"
+                        ) {
+                            noArgPublicReturnVoidFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
+                            }
+                        }
+                    }
+                }
+
+                // th5 remote config gates: d(), f(), h() control whether swipe actions
+                // show purchase dialogs. Patch to return false to prevent them.
+                "Lp001l/th5;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name in listOf("d", "f", "h") &&
+                            method.parameterTypes.isEmpty() && method.returnType == "Z"
+                        ) {
+                            noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_FALSE)
                             }
                         }
                     }
