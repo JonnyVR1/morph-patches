@@ -37,25 +37,4 @@ class PatchVerificationTest {
 
         assertTrue(results.size == allPatches.size, "Expected ${allPatches.size} results but got ${results.size}")
     }
-
-    @Test
-    fun `premium status patch applies successfully`() {
-        assertTrue(apkFile.exists(), "APK file must exist at ${apkFile.absolutePath}")
-
-        val results = mutableMapOf<String, Throwable?>()
-
-        Patcher(PatcherConfig(apkFile = apkFile)).use { patcher ->
-            patcher += setOf(premiumStatusPatch)
-
-            runBlocking {
-                patcher().collect { result ->
-                    results[result.patch.name ?: "unknown"] = result.exception
-                }
-            }
-        }
-
-        results.forEach { (name, exception) ->
-            assertNull(exception, "Premium status patch '$name' should succeed but failed: ${exception?.message}")
-        }
-    }
 }

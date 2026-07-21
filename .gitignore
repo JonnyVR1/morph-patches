@@ -12,10 +12,16 @@ bin/
 # Local config
 local.properties
 *.apk
+*.xapk
 
 # Decompiler
 jadx-1.5.6/
 tantan/
+tantan-tribe-decompiled/
+tantan-tribe-dex/
+tantan-tribe-extracted/
+tantan-tribe-resources/
+androguard.log
 
 # Archives
 *.tar.gz
