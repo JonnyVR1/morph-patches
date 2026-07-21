@@ -174,13 +174,22 @@ val premiumFeaturesPatch = bytecodePatch(
                                 }
                             }
                             // S3-delegating methods: these call S3() which returns true when EXPIRED
-                            // So they must return false (not expired) to indicate privilege is active
-                            // Note: j4() (ultraPremium) and m4() (vip) are in this list
-                            method.name in setOf("W3", "X3", "d4", "e4", "h4", "i4", "j4", "l4", "m4") &&
+                            // Most must return false (not expired) to indicate privilege is active
+                            // Exception: e4() (svip) and j4() (ultraPremium) must return true (expired)
+                            // because the filter UI has inverted logic that blocks selection when these return false
+                            method.name in setOf("W3", "X3", "d4", "h4", "i4", "l4", "m4") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // e4() and j4() need special handling - return true for filter to work
+                            method.name in setOf("e4", "j4") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
                                 }
                             }
                             // Non-ultraPremium tier methods: return false (not active)
