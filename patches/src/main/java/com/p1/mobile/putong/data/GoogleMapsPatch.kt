@@ -67,6 +67,11 @@ private val mapsCertFingerprint = Fingerprint(
     returnType = "I",
     parameters = emptyList(),
 )
+private val googleCertificatesCheckFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PRIVATE, AccessFlags.STATIC),
+    returnType = "Lcom/google/android/gms/common/zzx;",
+    parameters = listOf("Ljava/lang/String;", "Lcom/google/android/gms/common/zzj;", "Z", "Z"),
+)
 
 private const val RETURN_INT_SUCCESS = """
     const/4 v0, 0x0
@@ -80,6 +85,12 @@ private const val RETURN_TRUE = """
 
 private const val RETURN_NULL_STRING = """
     const/4 v0, 0x0
+    return-object v0
+"""
+
+private const val RETURN_GOOGLE_CERT_SUCCESS = """
+    invoke-static {}, Lcom/google/android/gms/common/zzx;->zzb()Lcom/google/android/gms/common/zzx;
+    move-result-object v0
     return-object v0
 """
 
@@ -130,6 +141,21 @@ val googleMapsPatch = bytecodePatch(
                         if (method.name == "c") {
                             mapsApiKeyFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, RETURN_NULL_STRING)
+                            }
+                        }
+                    }
+                }
+                // Bypass the Google Play Services signature whitelist check.
+                // `zzn.zzh(...)` normally calls into the `com.google.android.gms.googlecertificates`
+                // dynamite module which validates the calling app's signature against Google's
+                // server-side whitelist. Re-signed (patched) APKs are rejected with
+                // "GoogleCertificatesRslt: not allowed" which breaks Maps API token requests.
+                // We force it to always return `zzx.zzb()` (success) so the whitelist check is skipped.
+                "Lcom/google/android/gms/common/zzn;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "zzh") {
+                            googleCertificatesCheckFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_GOOGLE_CERT_SUCCESS)
                             }
                         }
                     }
