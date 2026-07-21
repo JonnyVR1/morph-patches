@@ -36,6 +36,27 @@ import com.android.tools.smali.dexlib2.AccessFlags
  * - p001l/th5::d(), f(), h()               → Remote config gates controlling whether
  *                                            swipe actions show purchase dialogs.
  *                                            Patched to return false.
+ * - com/p1/mobile/putong/core/ui/purchase/b::L0()
+ *                                          → Alternative purchase dialog (TYPE_GET_LIKERS,
+ *                                            TYPE_O_DIAMOND, TYPE_PICKS_MEMBERSHIP).
+ *                                            Patched to return-void.
+ * - com/p1/mobile/putong/core/ui/purchase/mediator/c::n()
+ *                                          → Alternative purchase dialog (TYPE_GET_ACCELERATE_PAIRING,
+ *                                            TYPE_YOUTH_VIP, TYPE_FEMALE_VIP).
+ *                                            Patched to return-void.
+ * - com/p1/mobile/putong/core/ui/purchase/mediator/d::e()
+ *                                          → Alternative purchase dialog (TYPE_LIMITED_TRIAL_SEE).
+ *                                            Patched to return-void.
+ * - p001l/fd5::e0()                        → SuperLike coin purchase dialog.
+ *                                            Patched to return-void.
+ * - p001l/w6p$a::k()                       → Ultra Premium/VIP purchase dialog.
+ *                                            Patched to return-void.
+ * - p001l/zvo$a::j()                       → Fallback Ultra Premium/VIP purchase dialog.
+ *                                            Patched to return-void.
+ * - p001l/r5b0$a::j()                      → Another purchase dialog variant.
+ *                                            Patched to return-void.
+ * - p001l/kkp0::c(Act, String)             → Opens web payment URL.
+ *                                            Patched to return-void.
  * - com/p1/mobile/putong/core/api/CoreProduct::u4(String)
  *                                          → "is product promotion active?" → true
  * - p001l/ugc0::k(PurchaseType)            → "is subscription upgraded?" → true
@@ -241,6 +262,130 @@ val premiumFeaturesPatch = bytecodePatch(
                         ) {
                             noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, RETURN_FALSE)
+                            }
+                        }
+                    }
+                }
+
+                // Alternative purchase dialog paths that bypass c.C0():
+                
+                // b dialog: used by TYPE_GET_LIKERS, TYPE_O_DIAMOND, TYPE_PICKS_MEMBERSHIP
+                // b.L0() is the show method
+                "Lcom/p1/mobile/putong/core/ui/purchase/b;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "L0" && method.parameterTypes.isEmpty() &&
+                            method.returnType == "V"
+                        ) {
+                            noArgPublicReturnVoidFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
+                            }
+                        }
+                    }
+                }
+
+                // mediator.c dialog: used by TYPE_GET_ACCELERATE_PAIRING, TYPE_YOUTH_VIP, etc.
+                // mediator.c.n() is the show method
+                "Lcom/p1/mobile/putong/core/ui/purchase/mediator/c;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "n" && method.parameterTypes.isEmpty() &&
+                            method.returnType == "V"
+                        ) {
+                            noArgPublicReturnVoidFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
+                            }
+                        }
+                    }
+                }
+
+                // mediator.d dialog: used by TYPE_LIMITED_TRIAL_SEE
+                // mediator.d.e() is the show method
+                "Lcom/p1/mobile/putong/core/ui/purchase/mediator/d;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "e" && method.parameterTypes.isEmpty() &&
+                            method.returnType == "V"
+                        ) {
+                            noArgPublicReturnVoidFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
+                            }
+                        }
+                    }
+                }
+
+                // fd5 dialog: used by SuperLike coin purchases
+                // fd5.e0() is the show method
+                "Lp001l/fd5;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "e0" && method.parameterTypes.isEmpty() &&
+                            method.returnType == "V"
+                        ) {
+                            noArgPublicReturnVoidFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
+                            }
+                        }
+                    }
+                }
+
+                // w6p dialog: used by TYPE_ULTRA_PREMIUM, TYPE_GET_VIP
+                // w6p$a.k() is the show method (inner class builder)
+                "Lp001l/w6p\$a;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "k" && method.parameterTypes.isEmpty() &&
+                            method.returnType == "V"
+                        ) {
+                            noArgPublicReturnVoidFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
+                            }
+                        }
+                    }
+                }
+
+                // zvo dialog: fallback for TYPE_ULTRA_PREMIUM, TYPE_GET_VIP
+                // zvo$a.j() is the show method (inner class builder)
+                "Lp001l/zvo\$a;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "j" && method.parameterTypes.isEmpty() &&
+                            method.returnType == "V"
+                        ) {
+                            noArgPublicReturnVoidFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
+                            }
+                        }
+                    }
+                }
+
+                // r5b0 dialog: another purchase dialog variant
+                // r5b0$a.j() is the show method (inner class builder)
+                "Lp001l/r5b0\$a;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "j" && method.parameterTypes.isEmpty() &&
+                            method.returnType == "V"
+                        ) {
+                            noArgPublicReturnVoidFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
+                            }
+                        }
+                    }
+                }
+
+                // kkp0.c: opens web payment URL (not a dialog, but a purchase path)
+                // Patch to return-void to prevent web payment navigation
+                "Lp001l/kkp0;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "c" && method.parameterTypes.size == 2 &&
+                            method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                            method.parameterTypes[1] == "Ljava/lang/String;" &&
+                            method.returnType == "V"
+                        ) {
+                            val fingerprint = Fingerprint(
+                                accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+                                returnType = "V",
+                                parameters = listOf(
+                                    "Lcom/p1/mobile/android/app/Act;",
+                                    "Ljava/lang/String;"
+                                ),
+                            )
+                            fingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_VOID)
                             }
                         }
                     }
