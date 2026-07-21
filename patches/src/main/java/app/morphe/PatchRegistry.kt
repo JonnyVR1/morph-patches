@@ -15,5 +15,8 @@ object PatchRegistry {
         userIsMembershipPatch,
         userIsMembershipUsedPatch,
         userIsVipExpiredPatch,
+        membershipPricingBypassPatch,
+        ultraPremiumRegionUnlockPatch,
+        ultraPremiumAccessUnlockPatch,
     )
 }

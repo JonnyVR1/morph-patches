@@ -12,7 +12,7 @@ import com.android.tools.smali.dexlib2.AccessFlags
 
 @Suppress("unused")
 @JvmField
-val h6aCPatch = bytecodePatch(
+val membershipPricingBypassPatch = bytecodePatch(
     name = "Membership Pricing Bypass",
     description = "Removes membership pricing restrictions to enable all subscription tiers",
     default = true,
@@ -41,7 +41,7 @@ val h6aCPatch = bytecodePatch(
 
 @Suppress("unused")
 @JvmField
-val u59UPatch = bytecodePatch(
+val ultraPremiumRegionUnlockPatch = bytecodePatch(
     name = "Ultra Premium Availability",
     description = "Enables Ultra Premium feature availability in your region",
     default = true,
@@ -70,7 +70,7 @@ val u59UPatch = bytecodePatch(
 
 @Suppress("unused")
 @JvmField
-val u59VPatch = bytecodePatch(
+val ultraPremiumAccessUnlockPatch = bytecodePatch(
     name = "Ultra Premium Access",
     description = "Grants access to Ultra Premium features and removes activation restrictions",
     default = true,
