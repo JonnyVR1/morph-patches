@@ -1,95 +1,344 @@
 {
+  "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
+  "version": "0.0.1-dev1",
   "patches": [
     {
-      "name": "SettingsSupremePartner",
-      "description": "Patch Settings.isSupremePartner to always return true",
+      "name": "SettingsDisableAds",
+      "description": "Patch Settings.personalizeAdsSuggest to always return false",
       "default": true,
-      "class": "com.p335p1.mobile.putong.data.SettingsPatchesKt",
-      "field": "settingsSupremePartnerPatch"
-    },
-    {
-      "name": "SettingsPlatinum",
-      "description": "Patch Settings.isPlatinum to always return true",
-      "default": true,
-      "class": "com.p335p1.mobile.putong.data.SettingsPatchesKt",
-      "field": "settingsPlatinumPatch"
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
     },
     {
       "name": "SettingsODiamond",
       "description": "Patch Settings.userIsODiamond to always return true",
       "default": true,
-      "class": "com.p335p1.mobile.putong.data.SettingsPatchesKt",
-      "field": "settingsODiamondPatch"
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
     },
     {
-      "name": "SettingsDisableAds",
-      "description": "Patch Settings.personalizeAdsSuggest to always return false",
+      "name": "SettingsPlatinum",
+      "description": "Patch Settings.isPlatinum to always return true",
       "default": true,
-      "class": "com.p335p1.mobile.putong.data.SettingsPatchesKt",
-      "field": "settingsDisableAdsPatch"
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
     },
     {
-      "name": "UserIsVip",
-      "description": "Patch User.isVIP to always return true",
+      "name": "SettingsSupremePartner",
+      "description": "Patch Settings.isSupremePartner to always return true",
       "default": true,
-      "class": "com.p335p1.mobile.putong.data.UserPatchesKt",
-      "field": "userIsVipPatch"
-    },
-    {
-      "name": "UserIsSVIP",
-      "description": "Patch User.isSVIP to always return true",
-      "default": true,
-      "class": "com.p335p1.mobile.putong.data.UserPatchesKt",
-      "field": "userIsSvipPatch"
-    },
-    {
-      "name": "UserIsUltraPremium",
-      "description": "Patch User.isUltraPremium to always return true",
-      "default": true,
-      "class": "com.p335p1.mobile.putong.data.UserPatchesKt",
-      "field": "userIsUltraPremiumPatch"
-    },
-    {
-      "name": "UserIsSupremePartner",
-      "description": "Patch User.isSupremePartner to always return true",
-      "default": true,
-      "class": "com.p335p1.mobile.putong.data.UserPatchesKt",
-      "field": "userIsSupremePartnerPatch"
-    },
-    {
-      "name": "UserIsPlatinum",
-      "description": "Patch User.isPlatinum to always return true",
-      "default": true,
-      "class": "com.p335p1.mobile.putong.data.UserPatchesKt",
-      "field": "userIsPlatinumPatch"
-    },
-    {
-      "name": "UserIsODiamond",
-      "description": "Patch User.isODiamond to always return true",
-      "default": true,
-      "class": "com.p335p1.mobile.putong.data.UserPatchesKt",
-      "field": "userIsODiamondPatch"
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
     },
     {
       "name": "UserIsMembership",
       "description": "Patch User.isMembership to always return true",
       "default": true,
-      "class": "com.p335p1.mobile.putong.data.UserPatchesKt",
-      "field": "userIsMembershipPatch"
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
     },
     {
       "name": "UserIsMembershipUsed",
       "description": "Patch User.isMembershipUsed to always return true",
       "default": true,
-      "class": "com.p335p1.mobile.putong.data.UserPatchesKt",
-      "field": "userIsMembershipUsedPatch"
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "UserIsODiamond",
+      "description": "Patch User.isODiamond to always return true",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "UserIsPlatinum",
+      "description": "Patch User.isPlatinum to always return true",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "UserIsSVIP",
+      "description": "Patch User.isSVIP to always return true",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "UserIsSupremePartner",
+      "description": "Patch User.isSupremePartner to always return true",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "UserIsUltraPremium",
+      "description": "Patch User.isUltraPremium to always return true",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "UserIsVip",
+      "description": "Patch User.isVIP to always return true",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
     },
     {
       "name": "UserIsVipExpired",
       "description": "Patch User.isVIPExpired to always return false",
       "default": true,
-      "class": "com.p335p1.mobile.putong.data.UserPatchesKt",
-      "field": "userIsVipExpiredPatch"
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.p335p1.mobile.putong",
+          "name": "Tantan",
+          "description": "Tantan Chinese dating app",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.2.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
     }
   ]
 }
