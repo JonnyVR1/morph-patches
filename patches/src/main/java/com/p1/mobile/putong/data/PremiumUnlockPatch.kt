@@ -168,6 +168,34 @@ val premiumUnlockPatch = bytecodePatch(
                                     """)
                                 }
                             }
+                            // gpHideVip → false (isMe-guarded, prevents badge hiding)
+                            method.name == "gpHideVip" &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :cond_0
+                                        const/4 v0, 0x0
+                                        return v0
+                                        :cond_0
+                                    """)
+                                }
+                            }
+                            // isHideIconFromSVipWithMe → false (isMe-guarded, prevents icon hiding)
+                            method.name == "isHideIconFromSVipWithMe" &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :cond_0
+                                        const/4 v0, 0x0
+                                        return v0
+                                        :cond_0
+                                    """)
+                                }
+                            }
                             // isVIPExpired → false (never expired)
                             method.name == "isVIPExpired" &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
@@ -461,6 +489,25 @@ val premiumUnlockPatch = bytecodePatch(
                             method.returnType == "Z"
                         ) {
                             userArgReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_FALSE)
+                            }
+                        }
+                    }
+                }
+
+                // tm90: g(User) → false (prevents VIP badge override)
+                "Lp001l/tm90;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "g" && method.parameterTypes.size == 1 &&
+                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                            method.returnType == "Z"
+                        ) {
+                            val tm90GFingerprint = Fingerprint(
+                                accessFlags = listOf(AccessFlags.PUBLIC),
+                                returnType = "Z",
+                                parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
+                            )
+                            tm90GFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, RETURN_FALSE)
                             }
                         }
