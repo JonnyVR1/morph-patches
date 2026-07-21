@@ -24,5 +24,6 @@ object PatchRegistry {
         privilegeExpirationBypassPatch,
         privilegeAvailabilityBypassPatch,
         allPremiumFeaturesPatch,
+        subscriptionContractUpgradedPatch,
     )
 }
