@@ -4,7 +4,7 @@
   "patches": [
     {
       "name": "Google Maps Compatibility",
-      "description": "Fixes Google Maps loading after patching - works with MicroG-RE (bundled GMS availability, Dynamite module, API key, certificate checks all bypassed)",
+      "description": "Safety net patches for GMS availability checks. Signature spoofing handles the main Maps compatibility.",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
