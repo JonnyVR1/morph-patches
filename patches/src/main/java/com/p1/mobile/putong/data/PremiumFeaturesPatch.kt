@@ -92,6 +92,19 @@ private val userArgFinalReturnIntFingerprint = Fingerprint(
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
 )
 
+// Server refresh methods: u4() returns c<List<UserPrivilege>>, x4() returns c<roj0>
+private val serverRefreshU4Fingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "Lp001l/c;",
+    parameters = emptyList(),
+)
+
+private val serverRefreshX4Fingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "Lp001l/c;",
+    parameters = emptyList(),
+)
+
 // Purchase dialog funnel: c.C0() - all purchase dialogs converge here
 private val purchaseDialogFunnelFingerprint = Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC, AccessFlags.FINAL),
@@ -149,7 +162,7 @@ val premiumFeaturesPatch = bytecodePatch(
     execute {
         classDefForEach { classDef ->
             when (classDef.type) {
-                // xma privilege & gate methods (S3, b4, L3)
+                // xma privilege & gate methods (S3, b4, L3, u4, x4)
                 "Lp001l/xma;" -> {
                     classDef.methods.forEach { method ->
                         when {
@@ -174,6 +187,25 @@ val premiumFeaturesPatch = bytecodePatch(
                                 method.returnType == "Z" -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                            // u4, x4: server refresh methods → return null to prevent override
+                            method.name == "u4" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Lp001l/c;" -> {
+                                serverRefreshU4Fingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const/4 v0, 0x0
+                                        return-object v0
+                                    """)
+                                }
+                            }
+                            method.name == "x4" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Lp001l/c;" -> {
+                                serverRefreshX4Fingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const/4 v0, 0x0
+                                        return-object v0
+                                    """)
                                 }
                             }
                         }
