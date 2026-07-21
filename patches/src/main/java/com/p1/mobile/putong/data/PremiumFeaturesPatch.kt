@@ -293,7 +293,7 @@ val premiumFeaturesPatch = bytecodePatch(
                             method.returnType == "Z"
                         ) {
                             noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_TRUE)
+                                match.method.addInstructions(0, RETURN_FALSE)
                             }
                         }
                     }
@@ -315,12 +315,8 @@ val premiumFeaturesPatch = bytecodePatch(
                             )
                             userArgReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, """
-                                    invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
-                                    move-result v0
-                                    if-eqz v0, :not_me
                                     const/4 v0, 0x1
                                     return v0
-                                    :not_me
                                 """)
                             }
                         }
