@@ -147,8 +147,8 @@ val premiumUnlockPatch = bytecodePatch(
                 TANTAN_USER_CLASS -> {
                     classDef.methods.forEach { method ->
                         when {
-                            // isUltraPremium, isSupremePartner, isODiamond → true (isMe-guarded)
-                            method.name in setOf("isUltraPremium", "isSupremePartner", "isODiamond") &&
+                            // isUltraPremium, isSupremePartner → true (isMe-guarded)
+                            method.name in setOf("isUltraPremium", "isSupremePartner") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
@@ -295,14 +295,12 @@ val premiumUnlockPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
-                            // e4(), h4(), m4(): return true for filter UI inverted logic
-                            // h4() and m4() are called by IntlPrivilegeCard.l()/n() for VIP/Likers cards
-                            // Since l()/n() return !zM4, these returning true makes those tiers show as NOT active
+                            // e4(), h4(), m4(): return false (not expired)
                             method.name in setOf("e4", "h4", "m4") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_TRUE)
+                                    match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
                             // Non-ultraPremium tier methods: return false
@@ -396,21 +394,29 @@ val premiumUnlockPatch = bytecodePatch(
                 }
 
                 // zva0.B0: tier rank lookup → 3 (Ultra Premium)
+                // zva0.S(): → true
                 "Lp001l/zva0;" -> {
                     classDef.methods.forEach { method ->
-                        if (method.name == "B0" && method.parameterTypes.size == 1 &&
-                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
-                            method.returnType == "I"
-                        ) {
-                            userArgFinalReturnIntFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, """
-                                    invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
-                                    move-result v0
-                                    if-eqz v0, :not_me
-                                    const/4 v0, 0x3
-                                    return v0
-                                    :not_me
-                                """)
+                        when {
+                            method.name == "B0" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                                method.returnType == "I" -> {
+                                userArgFinalReturnIntFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :not_me
+                                        const/4 v0, 0x3
+                                        return v0
+                                        :not_me
+                                    """)
+                                }
+                            }
+                            method.name == "S" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" -> {
+                                noArgFinalReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
                             }
                         }
                     }
@@ -456,6 +462,51 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
 
+                // sb90$a companion: c(User) → false
+                "Lp001l/sb90\$a;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "c" && method.parameterTypes.size == 1 &&
+                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                            method.returnType == "Z"
+                        ) {
+                            userArgReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_FALSE)
+                            }
+                        }
+                    }
+                }
+
+                // mb90: purchase type checks → true
+                "Lp001l/mb90;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            method.name == "b" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
+                                method.returnType == "Z" -> {
+                                purchaseTypeArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                            method.name == "c" && method.parameterTypes.size == 2 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                                method.parameterTypes[1] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
+                                method.returnType == "Z" -> {
+                                val userAndPurchaseTypeReturnBoolFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+                                    returnType = "Z",
+                                    parameters = listOf(
+                                        "Lcom/p1/mobile/putong/data/User;",
+                                        "Lcom/p1/mobile/putong/core/data/PurchaseType;",
+                                    ),
+                                )
+                                userAndPurchaseTypeReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                        }
+                    }
+                }
+
                 // CounterSuperlikeAndUndoLimit: remainToday/remainAll → MAX_VALUE
                 "Lcom/p1/mobile/putong/data/CounterSuperlikeAndUndoLimit;" -> {
                     classDef.methods.forEach { method ->
@@ -464,7 +515,7 @@ val premiumUnlockPatch = bytecodePatch(
                         ) {
                             noArgReturnIntFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, """
-                                    const v0, 0x7fffffff
+                                    const v0, 0x30d40
                                     return v0
                                 """)
                             }
