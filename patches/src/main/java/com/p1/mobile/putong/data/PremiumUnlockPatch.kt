@@ -384,15 +384,27 @@ val premiumUnlockPatch = bytecodePatch(
 
                 // ── Other feature gates ─────────────────────────────────────────
 
-                // CoreProduct.u4: "is product promotion active?" → true
+                // CoreProduct: u4 (promotion check) → true, z4 (subscription status) → false (active)
                 "Lcom/p1/mobile/putong/core/api/CoreProduct;" -> {
                     classDef.methods.forEach { method ->
-                        if (method.name == "u4" && method.parameterTypes.size == 1 &&
-                            method.parameterTypes[0] == "Ljava/lang/String;" &&
-                            method.returnType == "Z"
-                        ) {
-                            stringArgFinalReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_TRUE)
+                        when {
+                            method.name == "u4" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Ljava/lang/String;" &&
+                                method.returnType == "Z" -> {
+                                stringArgFinalReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                            method.name == "z4" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" -> {
+                                val noArgReturnBoolFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "Z",
+                                    parameters = emptyList(),
+                                )
+                                noArgReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
                             }
                         }
                     }
