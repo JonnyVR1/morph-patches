@@ -13,8 +13,8 @@ import com.android.tools.smali.dexlib2.AccessFlags
 @Suppress("unused")
 @JvmField
 val h6aCPatch = bytecodePatch(
-    name = "H6aC",
-    description = "Bypasses membership price difference check, enabling all membership tiers",
+    name = "Membership Pricing Bypass",
+    description = "Removes membership pricing restrictions to enable all subscription tiers",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -42,8 +42,8 @@ val h6aCPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val u59UPatch = bytecodePatch(
-    name = "U59U",
-    description = "Enables ultra premium availability check",
+    name = "Ultra Premium Availability",
+    description = "Enables Ultra Premium feature availability in your region",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -71,8 +71,8 @@ val u59UPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val u59VPatch = bytecodePatch(
-    name = "U59V",
-    description = "Enables ultra premium user validation",
+    name = "Ultra Premium Access",
+    description = "Grants access to Ultra Premium features and removes activation restrictions",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)

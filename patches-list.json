@@ -3,8 +3,8 @@
   "version": "0.0.1-dev1",
   "patches": [
     {
-      "name": "H6aC",
-      "description": "Bypasses membership price difference check, enabling all membership tiers",
+      "name": "Active Membership",
+      "description": "Activates membership subscription for all membership types",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -29,8 +29,8 @@
       "options": []
     },
     {
-      "name": "U59U",
-      "description": "Enables ultra premium availability check",
+      "name": "Membership Consumed",
+      "description": "Marks membership benefits as consumed to prevent double-charging",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -55,8 +55,8 @@
       "options": []
     },
     {
-      "name": "U59V",
-      "description": "Enables ultra premium user validation",
+      "name": "Membership Pricing Bypass",
+      "description": "Removes membership pricing restrictions to enable all subscription tiers",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -81,8 +81,8 @@
       "options": []
     },
     {
-      "name": "UserIsMembership",
-      "description": "Unlocks an active membership for the user, granting access to membership-only features",
+      "name": "O Diamond Status",
+      "description": "Grants O Diamond tier membership with exclusive diamond features",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -107,8 +107,8 @@
       "options": []
     },
     {
-      "name": "UserIsMembershipUsed",
-      "description": "Marks the membership as already used/claimed, bypassing membership consumption checks",
+      "name": "Platinum Status",
+      "description": "Grants Platinum tier membership with premium features",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -133,8 +133,8 @@
       "options": []
     },
     {
-      "name": "UserIsODiamond",
-      "description": "Unlocks O Diamond tier status on the user profile (mirrors the Settings check), enabling its exclusive features",
+      "name": "SVIP Status",
+      "description": "Grants Super VIP membership with enhanced features and exclusive benefits",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -159,8 +159,8 @@
       "options": []
     },
     {
-      "name": "UserIsPlatinum",
-      "description": "Unlocks Platinum tier status on the user profile (mirrors the Settings check), enabling its exclusive features",
+      "name": "Supreme Partner Status",
+      "description": "Grants Supreme Partner tier with exclusive partner benefits",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -185,8 +185,8 @@
       "options": []
     },
     {
-      "name": "UserIsSVIP",
-      "description": "Unlocks SVIP (Super VIP) status, granting access to the highest VIP-only features and profile badge",
+      "name": "Ultra Premium Access",
+      "description": "Grants access to Ultra Premium features and removes activation restrictions",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -211,8 +211,8 @@
       "options": []
     },
     {
-      "name": "UserIsSupremePartner",
-      "description": "Unlocks Supreme Partner status on the user profile (mirrors the Settings check), enabling its exclusive features",
+      "name": "Ultra Premium Availability",
+      "description": "Enables Ultra Premium feature availability in your region",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -237,8 +237,8 @@
       "options": []
     },
     {
-      "name": "UserIsUltraPremium",
-      "description": "Unlocks Ultra Premium status on the user profile, granting access to Ultra Premium-only features",
+      "name": "Ultra Premium Status",
+      "description": "Grants Ultra Premium membership with all premium features unlocked",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -263,8 +263,8 @@
       "options": []
     },
     {
-      "name": "UserIsVip",
-      "description": "Unlocks VIP status, granting access to VIP-only features and the profile badge",
+      "name": "VIP Never Expires",
+      "description": "Prevents VIP membership from expiring",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -289,8 +289,8 @@
       "options": []
     },
     {
-      "name": "UserIsVipExpired",
-      "description": "Prevents VIP status from ever expiring",
+      "name": "VIP Status",
+      "description": "Grants VIP membership with unlimited likes, super likes, and premium features",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [

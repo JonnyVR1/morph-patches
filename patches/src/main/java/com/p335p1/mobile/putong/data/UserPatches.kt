@@ -14,8 +14,8 @@ private fun returnTrueFingerprint() = Fingerprint(
 @Suppress("unused")
 @JvmField
 val userIsVipPatch = bytecodePatch(
-    name = "UserIsVip",
-    description = "Unlocks VIP status, granting access to VIP-only features and the profile badge",
+    name = "VIP Status",
+    description = "Grants VIP membership with unlimited likes, super likes, and premium features",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -43,8 +43,8 @@ val userIsVipPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val userIsSvipPatch = bytecodePatch(
-    name = "UserIsSVIP",
-    description = "Unlocks SVIP (Super VIP) status, granting access to the highest VIP-only features and profile badge",
+    name = "SVIP Status",
+    description = "Grants Super VIP membership with enhanced features and exclusive benefits",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -72,8 +72,8 @@ val userIsSvipPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val userIsUltraPremiumPatch = bytecodePatch(
-    name = "UserIsUltraPremium",
-    description = "Unlocks Ultra Premium status on the user profile, granting access to Ultra Premium-only features",
+    name = "Ultra Premium Status",
+    description = "Grants Ultra Premium membership with all premium features unlocked",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -101,8 +101,8 @@ val userIsUltraPremiumPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val userIsSupremePartnerPatch = bytecodePatch(
-    name = "UserIsSupremePartner",
-    description = "Unlocks Supreme Partner status on the user profile (mirrors the Settings check), enabling its exclusive features",
+    name = "Supreme Partner Status",
+    description = "Grants Supreme Partner tier with exclusive partner benefits",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -130,8 +130,8 @@ val userIsSupremePartnerPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val userIsPlatinumPatch = bytecodePatch(
-    name = "UserIsPlatinum",
-    description = "Unlocks Platinum tier status on the user profile (mirrors the Settings check), enabling its exclusive features",
+    name = "Platinum Status",
+    description = "Grants Platinum tier membership with premium features",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -159,8 +159,8 @@ val userIsPlatinumPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val userIsODiamondPatch = bytecodePatch(
-    name = "UserIsODiamond",
-    description = "Unlocks O Diamond tier status on the user profile (mirrors the Settings check), enabling its exclusive features",
+    name = "O Diamond Status",
+    description = "Grants O Diamond tier membership with exclusive diamond features",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -188,8 +188,8 @@ val userIsODiamondPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val userIsMembershipPatch = bytecodePatch(
-    name = "UserIsMembership",
-    description = "Unlocks an active membership for the user, granting access to membership-only features",
+    name = "Active Membership",
+    description = "Activates membership subscription for all membership types",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -223,8 +223,8 @@ val userIsMembershipPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val userIsMembershipUsedPatch = bytecodePatch(
-    name = "UserIsMembershipUsed",
-    description = "Marks the membership as already used/claimed, bypassing membership consumption checks",
+    name = "Membership Consumed",
+    description = "Marks membership benefits as consumed to prevent double-charging",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -258,8 +258,8 @@ val userIsMembershipUsedPatch = bytecodePatch(
 @Suppress("unused")
 @JvmField
 val userIsVipExpiredPatch = bytecodePatch(
-    name = "UserIsVipExpired",
-    description = "Prevents VIP status from ever expiring",
+    name = "VIP Never Expires",
+    description = "Prevents VIP membership from expiring",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
