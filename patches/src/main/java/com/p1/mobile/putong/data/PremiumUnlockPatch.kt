@@ -129,6 +129,9 @@ private const val RETURN_TRUE_WITH_ME_CHECK = """
 // 365 days in seconds — a comfortably far-future timestamp returned as a long.
 private const val FAR_FUTURE_SECONDS = 0x1A3F4C800L
 
+// IEEE 754 bits for FAR_FUTURE_SECONDS as a double (for membership.expiresTime)
+private val FAR_FUTURE_EXPIRES_TIME_BITS = java.lang.Double.doubleToRawLongBits(FAR_FUTURE_SECONDS.toDouble())
+
 // ── Patch ───────────────────────────────────────────────────────────────────────
 
 @Suppress("unused")
@@ -187,7 +190,7 @@ val premiumUnlockPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
-                            // nullCheck() → initialize status, set membership.name to "boostVip"
+                            // nullCheck() → initialize status, set membership fields for current user
                             method.name == "nullCheck" && method.parameterTypes.isEmpty() &&
                                 method.returnType == "V" -> {
                                 val nullCheckFingerprint = Fingerprint(
@@ -211,13 +214,20 @@ val premiumUnlockPatch = bytecodePatch(
                                         move-result v0
                                         if-eqz v0, :not_me
                                         
-                                        # Set membership.name to "boostVip" (Ultra Premium) for current user
+                                        # Set membership fields for current user
                                         iget-object v0, p0, Lcom/p1/mobile/putong/data/User;->membership:Lcom/p1/mobile/putong/data/Membership;
                                         if-eqz v0, :membership_null
+                                        # Set membership.name to "boostVip" (Ultra Premium)
                                         const-string v1, "boostVip"
                                         invoke-static {v1}, Lcom/p1/mobile/putong/data/MembershipType;->get(Ljava/lang/String;)Lcom/p1/mobile/putong/data/MembershipType;
                                         move-result-object v1
                                         iput-object v1, v0, Lcom/p1/mobile/putong/data/Membership;->name:Lcom/p1/mobile/putong/data/MembershipType;
+                                        # Set membership.active = true
+                                        const/4 v1, 0x1
+                                        iput-boolean v1, v0, Lcom/p1/mobile/putong/data/Membership;->active:Z
+                                        # Set membership.expiresTime to far-future
+                                        const-wide v1, 0x${FAR_FUTURE_EXPIRES_TIME_BITS.toString(16)}L
+                                        iput-wide v1, v0, Lcom/p1/mobile/putong/data/Membership;->expiresTime:D
                                         :membership_null
                                         :not_me
                                     """)
@@ -295,12 +305,20 @@ val premiumUnlockPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
-                            // e4(), h4(), m4(): return false (not expired)
-                            method.name in setOf("e4", "h4", "m4") &&
+                            // e4(), h4(): return false (not expired)
+                            method.name in setOf("e4", "h4") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // m4(): VIP expired check → return true (VIP is NOT active, override paid subscription)
+                            method.name == "m4" &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
                                 }
                             }
                             // Non-ultraPremium tier methods: return false
