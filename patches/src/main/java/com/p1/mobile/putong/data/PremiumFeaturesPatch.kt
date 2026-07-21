@@ -18,45 +18,29 @@ import com.android.tools.smali.dexlib2.AccessFlags
  * - p001l/xma::S3(SummarizedPrivilegesId)  → "is privilege expired?" → false (always valid)
  * - p001l/xma::b4(SummarizedPrivilegesId)  → "is privilege available?" → true
  * - p001l/xma::L3()                        → Feature gate that returns false in production
- *                                            unless a test flag is set (see also: private
- *                                            patches above for the ctx-sensitive check).
+ *                                            unless a test flag is set.
+ * - p001l/xma::u4(), x4()                  → Server refresh methods → return null to
+ *                                            prevent server from overriding local state.
+ * - p001l/xma::ALL other no-arg static boolean methods
+ *                                          → All wrapper methods (A3, B3, C3, etc.) that
+ *                                            check w4() directly for remaining/expiredTime.
+ *                                            Patched to return true (has privilege).
  * - p001l/zva0::B0(User)                   → "what is the highest active tier rank?"
- *                                          → 3 (Ultra Premium) for any user. Ensures
- *                                            the profile UI surfaces the highest tier the
- *                                            patches unlock, rather than the user's
- *                                            actual paid tier.
+ *                                          → 3 (Ultra Premium) for any user.
  * - com/p1/mobile/putong/core/ui/purchase/c::C0(...)
- *                                          → THE central purchase dialog funnel. All
- *                                            purchase popups flow through this method.
- *                                            Patched to return-void immediately, blocking
- *                                            every purchase dialog regardless of source.
+ *                                          → THE central purchase dialog funnel.
+ *                                            Patched to return-void.
  * - com/p1/mobile/putong/core/api/CoreServiceImpl::startJailedDialogLikeAct()
- *                                          → Separate "jailed" popup path that bypasses
- *                                            c.C0(). Patched to no-op.
- * - p001l/th5::d(), f(), h()               → Remote config gates controlling whether
- *                                            swipe actions show purchase dialogs.
- *                                            Patched to return false.
+ *                                          → Separate "jailed" popup path.
+ * - p001l/th5::d(), f(), h()               → Remote config gates for swipe actions.
  * - com/p1/mobile/putong/core/ui/purchase/b::L0()
- *                                          → Alternative purchase dialog (TYPE_GET_LIKERS,
- *                                            TYPE_O_DIAMOND, TYPE_PICKS_MEMBERSHIP).
- *                                            Patched to return-void.
  * - com/p1/mobile/putong/core/ui/purchase/mediator/c::n()
- *                                          → Alternative purchase dialog (TYPE_GET_ACCELERATE_PAIRING,
- *                                            TYPE_YOUTH_VIP, TYPE_FEMALE_VIP).
- *                                            Patched to return-void.
  * - com/p1/mobile/putong/core/ui/purchase/mediator/d::e()
- *                                          → Alternative purchase dialog (TYPE_LIMITED_TRIAL_SEE).
- *                                            Patched to return-void.
- * - p001l/fd5::e0()                        → SuperLike coin purchase dialog.
- *                                            Patched to return-void.
- * - p001l/w6p$a::k()                       → Ultra Premium/VIP purchase dialog.
- *                                            Patched to return-void.
- * - p001l/zvo$a::j()                       → Fallback Ultra Premium/VIP purchase dialog.
- *                                            Patched to return-void.
- * - p001l/r5b0$a::j()                      → Another purchase dialog variant.
- *                                            Patched to return-void.
- * - p001l/kkp0::c(Act, String)             → Opens web payment URL.
- *                                            Patched to return-void.
+ * - p001l/fd5::e0()
+ * - p001l/w6p$a::k()
+ * - p001l/zvo$a::j()
+ * - p001l/r5b0$a::j()
+ * - p001l/kkp0::c(Act, String)             → Web payment URL navigation.
  * - com/p1/mobile/putong/core/api/CoreProduct::u4(String)
  *                                          → "is product promotion active?" → true
  * - p001l/ugc0::k(PurchaseType)            → "is subscription upgraded?" → true
