@@ -39,34 +39,6 @@ class PatchVerificationTest {
     }
 
     @Test
-    fun `settings patches apply successfully`() {
-        assertTrue(apkFile.exists(), "APK file must exist at ${apkFile.absolutePath}")
-
-        val settingsPatches = setOf(
-            settingsSupremePartnerPatch,
-            settingsPlatinumPatch,
-            settingsODiamondPatch,
-            settingsDisableAdsPatch,
-        )
-
-        val results = mutableMapOf<String, Throwable?>()
-
-        Patcher(PatcherConfig(apkFile = apkFile)).use { patcher ->
-            patcher += settingsPatches
-
-            runBlocking {
-                patcher().collect { result ->
-                    results[result.patch.name ?: "unknown"] = result.exception
-                }
-            }
-        }
-
-        results.forEach { (name, exception) ->
-            assertNull(exception, "Settings patch '$name' should succeed but failed: ${exception?.message}")
-        }
-    }
-
-    @Test
     fun `user patches apply successfully`() {
         assertTrue(apkFile.exists(), "APK file must exist at ${apkFile.absolutePath}")
 

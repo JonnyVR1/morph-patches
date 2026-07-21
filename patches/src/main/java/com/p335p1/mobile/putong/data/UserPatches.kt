@@ -26,8 +26,12 @@ val userIsVipPatch = bytecodePatch(
                 if (method.name == "isVIP") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
+                            invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                            move-result v0
+                            if-eqz v0, :cond_0
                             const/4 v0, 0x1
                             return v0
+                            :cond_0
                         """)
                     }
                 }
@@ -51,8 +55,12 @@ val userIsSvipPatch = bytecodePatch(
                 if (method.name == "isSVIP") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
+                            invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                            move-result v0
+                            if-eqz v0, :cond_0
                             const/4 v0, 0x1
                             return v0
+                            :cond_0
                         """)
                     }
                 }
@@ -76,8 +84,12 @@ val userIsUltraPremiumPatch = bytecodePatch(
                 if (method.name == "isUltraPremium") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
+                            invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                            move-result v0
+                            if-eqz v0, :cond_0
                             const/4 v0, 0x1
                             return v0
+                            :cond_0
                         """)
                     }
                 }
@@ -101,8 +113,12 @@ val userIsSupremePartnerPatch = bytecodePatch(
                 if (method.name == "isSupremePartner") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
+                            invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                            move-result v0
+                            if-eqz v0, :cond_0
                             const/4 v0, 0x1
                             return v0
+                            :cond_0
                         """)
                     }
                 }
@@ -126,8 +142,12 @@ val userIsPlatinumPatch = bytecodePatch(
                 if (method.name == "isPlatinum") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
+                            invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                            move-result v0
+                            if-eqz v0, :cond_0
                             const/4 v0, 0x1
                             return v0
+                            :cond_0
                         """)
                     }
                 }
@@ -151,8 +171,12 @@ val userIsODiamondPatch = bytecodePatch(
                 if (method.name == "isODiamond") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
+                            invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                            move-result v0
+                            if-eqz v0, :cond_0
                             const/4 v0, 0x1
                             return v0
+                            :cond_0
                         """)
                     }
                 }
@@ -182,8 +206,12 @@ val userIsMembershipPatch = bytecodePatch(
                 if (method.name == "isMembership") {
                     fingerprint.matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
+                            invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                            move-result v0
+                            if-eqz v0, :cond_0
                             const/4 v0, 0x1
                             return v0
+                            :cond_0
                         """)
                     }
                 }
@@ -213,8 +241,12 @@ val userIsMembershipUsedPatch = bytecodePatch(
                 if (method.name == "isMembershipUsed") {
                     fingerprint.matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
+                            invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                            move-result v0
+                            if-eqz v0, :cond_0
                             const/4 v0, 0x1
                             return v0
+                            :cond_0
                         """)
                     }
                 }
@@ -238,8 +270,12 @@ val userIsVipExpiredPatch = bytecodePatch(
                 if (method.name == "isVIPExpired") {
                     returnTrueFingerprint().matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
+                            invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                            move-result v0
+                            if-eqz v0, :cond_0
                             const/4 v0, 0x0
                             return v0
+                            :cond_0
                         """)
                     }
                 }
