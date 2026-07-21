@@ -283,6 +283,36 @@ val premiumFeaturesPatch = bytecodePatch(
                         }
                     }
                 }
+
+                // User: ensure status is never null to prevent NPE
+                // Patch nullCheck() to initialize status if null
+                TANTAN_USER_CLASS -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "nullCheck" && method.parameterTypes.isEmpty() &&
+                            method.returnType == "V"
+                        ) {
+                            val nullCheckFingerprint = Fingerprint(
+                                accessFlags = listOf(AccessFlags.PUBLIC),
+                                returnType = "V",
+                                parameters = emptyList(),
+                            )
+                            nullCheckFingerprint.matchOrNull(method)?.let { match ->
+                                // Add status initialization at the start of nullCheck()
+                                // This ensures status is never null even if nullCheck() wasn't called
+                                match.method.addInstructions(0, """
+                                    # Check if status is null
+                                    iget-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
+                                    if-nez v0, :status_not_null
+                                    # Initialize status to empty ArrayList
+                                    new-instance v0, Ljava/util/ArrayList;
+                                    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+                                    iput-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
+                                    :status_not_null
+                                """)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
