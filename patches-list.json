@@ -159,6 +159,32 @@
       "options": []
     },
     {
+      "name": "SVIP Availability",
+      "description": "Enables SVIP (Super VIP) feature availability and removes regional restrictions",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "SVIP Status",
       "description": "Grants Super VIP membership with enhanced features and exclusive benefits",
       "default": true,
@@ -211,60 +237,60 @@
       "options": []
     },
     {
-      "name": "Ultra Premium Access",
-      "description": "Grants access to Ultra Premium features and removes activation restrictions",
-      "default": true,
-      "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.tantantribe.tribe",
-          "name": "Tantan",
-          "description": "Tantan - Global Dating App",
-          "apkFileType": null,
-          "appIconColor": null,
-          "signatures": null,
-          "targets": [
-            {
-              "version": null,
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Ultra Premium Availability",
-      "description": "Enables Ultra Premium feature availability in your region",
-      "default": true,
-      "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.tantantribe.tribe",
-          "name": "Tantan",
-          "description": "Tantan - Global Dating App",
-          "apkFileType": null,
-          "appIconColor": null,
-          "signatures": null,
-          "targets": [
-            {
-              "version": null,
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
       "name": "Ultra Premium Status",
       "description": "Grants Ultra Premium membership with all premium features unlocked",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Ultra Premium Unlock",
+      "description": "Unlocks all Ultra Premium features, availability, and access validation",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "VIP Availability",
+      "description": "Enables VIP feature availability and removes regional restrictions",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [

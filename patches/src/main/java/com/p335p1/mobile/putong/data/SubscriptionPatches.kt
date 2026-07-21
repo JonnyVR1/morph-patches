@@ -41,9 +41,9 @@ val membershipPricingBypassPatch = bytecodePatch(
 
 @Suppress("unused")
 @JvmField
-val ultraPremiumRegionUnlockPatch = bytecodePatch(
-    name = "Ultra Premium Availability",
-    description = "Enables Ultra Premium feature availability in your region",
+val ultraPremiumUnlockPatch = bytecodePatch(
+    name = "Ultra Premium Unlock",
+    description = "Unlocks all Ultra Premium features, availability, and access validation",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -51,7 +51,50 @@ val ultraPremiumRegionUnlockPatch = bytecodePatch(
         classDefForEach { classDef ->
             if (classDef.type != "Lp001l/u59;") return@classDefForEach
             classDef.methods.forEach { method ->
+                // Patch U() - Ultra Premium availability check
                 if (method.name == "U" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
+                    Fingerprint(
+                        accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+                        returnType = "Z",
+                        parameters = emptyList(),
+                    ).matchOrNull(method)?.let { match ->
+                        match.method.addInstructions(0, """
+                            const/4 v0, 0x1
+                            return v0
+                        """)
+                    }
+                }
+                // Patch V(User) - Ultra Premium user validation
+                if (method.name == "V" && method.parameterTypes.size == 1 && method.returnType == "Z") {
+                    Fingerprint(
+                        accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+                        returnType = "Z",
+                        parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
+                    ).matchOrNull(method)?.let { match ->
+                        match.method.addInstructions(0, """
+                            const/4 v0, 0x1
+                            return v0
+                        """)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Suppress("unused")
+@JvmField
+val svipAvailabilityUnlockPatch = bytecodePatch(
+    name = "SVIP Availability",
+    description = "Enables SVIP (Super VIP) feature availability and removes regional restrictions",
+    default = true,
+) {
+    compatibleWith(tantanCompatibility)
+    execute {
+        classDefForEach { classDef ->
+            if (classDef.type != "Lp001l/u59;") return@classDefForEach
+            classDef.methods.forEach { method ->
+                if (method.name == "S" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
                     Fingerprint(
                         accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
                         returnType = "Z",
@@ -70,9 +113,9 @@ val ultraPremiumRegionUnlockPatch = bytecodePatch(
 
 @Suppress("unused")
 @JvmField
-val ultraPremiumAccessUnlockPatch = bytecodePatch(
-    name = "Ultra Premium Access",
-    description = "Grants access to Ultra Premium features and removes activation restrictions",
+val vipAvailabilityUnlockPatch = bytecodePatch(
+    name = "VIP Availability",
+    description = "Enables VIP feature availability and removes regional restrictions",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -80,11 +123,11 @@ val ultraPremiumAccessUnlockPatch = bytecodePatch(
         classDefForEach { classDef ->
             if (classDef.type != "Lp001l/u59;") return@classDefForEach
             classDef.methods.forEach { method ->
-                if (method.name == "V" && method.parameterTypes.size == 1 && method.returnType == "Z") {
+                if (method.name == "O" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
                     Fingerprint(
                         accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
                         returnType = "Z",
-                        parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
+                        parameters = emptyList(),
                     ).matchOrNull(method)?.let { match ->
                         match.method.addInstructions(0, """
                             const/4 v0, 0x1
