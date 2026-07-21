@@ -15,7 +15,13 @@ patches {
 kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xcontext-parameters")
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 // Separate configuration so gson is available at runtime for the
@@ -24,6 +30,7 @@ val patchListGeneratorClasspath: Configuration by configurations.creating
 
 dependencies {
     compileOnly(libs.gson)
+    compileOnly("com.google.android:android:4.1.1.4")
     patchListGeneratorClasspath(libs.gson)
     implementation("org.bouncycastle:bcpkix-jdk18on:1.78.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")

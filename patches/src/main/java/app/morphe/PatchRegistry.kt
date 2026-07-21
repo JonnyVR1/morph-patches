@@ -25,5 +25,6 @@ object PatchRegistry {
         subscriptionValidationPatch,
         premiumFeaturesPatch,
         subscriptionDisplayPatch,
+        signatureSpoofPatch,
     )
 }
