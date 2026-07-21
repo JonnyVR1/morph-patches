@@ -315,49 +315,10 @@ val premiumUnlockPatch = bytecodePatch(
                 }
 
                 // ── Subscription card UI: "is subscription active?" ─────────────
-                // IntlPrivilegeCard.l() (intlPrivilege) and n() (privilegeNewUi) check the card's
-                // PurchaseType field and call different xma methods based on tier, then invert.
-                // We patch them directly: return true only for Ultra-Premium, false for all others.
-
-                "Lcom/p1/mobile/putong/core/ui/vip/intlPrivilege/IntlPrivilegeCard;" -> {
-                    classDef.methods.forEach { method ->
-                        if (method.name == "l" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
-                            noArgFinalReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, """
-                                    iget-object v0, p0, Lcom/p1/mobile/putong/core/ui/vip/intlPrivilege/IntlPrivilegeCard;->e:Lcom/p1/mobile/putong/core/data/PurchaseType;
-                                    if-eqz v0, :cond_not_ultra
-                                    sget-object v1, Lcom/p1/mobile/putong/core/data/PurchaseType;->TYPE_ULTRA_PREMIUM:Lcom/p1/mobile/putong/core/data/PurchaseType;
-                                    if-eq v0, v1, :cond_not_ultra
-                                    const/4 v0, 0x1
-                                    return v0
-                                    :cond_not_ultra
-                                    const/4 v0, 0x0
-                                    return v0
-                                """)
-                            }
-                        }
-                    }
-                }
-
-                "Lcom/p1/mobile/putong/core/ui/vip/privilegeNewUi/IntlPrivilegeCard;" -> {
-                    classDef.methods.forEach { method ->
-                        if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
-                            noArgFinalReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, """
-                                    iget-object v0, p0, Lcom/p1/mobile/putong/core/ui/vip/privilegeNewUi/IntlPrivilegeCard;->i:Lcom/p1/mobile/putong/core/data/PurchaseType;
-                                    if-eqz v0, :cond_not_ultra
-                                    sget-object v1, Lcom/p1/mobile/putong/core/data/PurchaseType;->TYPE_ULTRA_PREMIUM:Lcom/p1/mobile/putong/core/data/PurchaseType;
-                                    if-eq v0, v1, :cond_not_ultra
-                                    const/4 v0, 0x1
-                                    return v0
-                                    :cond_not_ultra
-                                    const/4 v0, 0x0
-                                    return v0
-                                """)
-                            }
-                        }
-                    }
-                }
+                // IntlPrivilegeCard.l() and n() are already tier-aware - they check the card's
+                // PurchaseType field and call different xma methods based on tier, then invert the result.
+                // We don't patch these methods; instead we ensure the xma methods they call return
+                // the correct values (see xma patches below).
 
                 // ── Regional availability gates ─────────────────────────────────
 
