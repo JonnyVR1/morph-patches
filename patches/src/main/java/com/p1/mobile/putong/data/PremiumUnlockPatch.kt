@@ -285,16 +285,20 @@ val premiumUnlockPatch = bytecodePatch(
                                     """)
                                 }
                             }
-                            // S3-delegating methods: return false (not expired)
-                            method.name in setOf("W3", "X3", "d4", "h4", "i4", "l4", "m4") &&
+                            // S3-delegating methods + j4(): return false (not expired / Ultra-Premium active)
+                            // j4() is called by IntlPrivilegeCard.l()/n() for Ultra-Premium cards
+                            // Since l()/n() return !zM4, j4() returning false makes Ultra-Premium show as active
+                            method.name in setOf("W3", "X3", "d4", "i4", "l4", "j4") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
-                            // e4() and j4(): return true for filter UI inverted logic
-                            method.name in setOf("e4", "j4") &&
+                            // e4(), h4(), m4(): return true for filter UI inverted logic
+                            // h4() and m4() are called by IntlPrivilegeCard.l()/n() for VIP/Likers cards
+                            // Since l()/n() return !zM4, these returning true makes those tiers show as NOT active
+                            method.name in setOf("e4", "h4", "m4") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
@@ -322,24 +326,10 @@ val premiumUnlockPatch = bytecodePatch(
                 }
 
                 // ── Subscription card UI: "is subscription active?" ─────────────
-                "Lcom/p1/mobile/putong/core/ui/vip/intlPrivilege/IntlPrivilegeCard;" -> {
-                    classDef.methods.forEach { method ->
-                        if (method.name == "l" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
-                            noArgFinalReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_TRUE)
-                            }
-                        }
-                    }
-                }
-                "Lcom/p1/mobile/putong/core/ui/vip/privilegeNewUi/IntlPrivilegeCard;" -> {
-                    classDef.methods.forEach { method ->
-                        if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
-                            noArgFinalReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_TRUE)
-                            }
-                        }
-                    }
-                }
+                // IntlPrivilegeCard.l() and n() are already tier-aware - they check the card's
+                // PurchaseType field and call different xma methods based on tier, then invert the result.
+                // We don't patch these methods; instead we ensure the xma methods they call return
+                // the correct values (see xma patches below).
 
                 // ── Regional availability gates ─────────────────────────────────
 
