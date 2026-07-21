@@ -32,6 +32,8 @@ import com.android.tools.smali.dexlib2.AccessFlags
  *                                            delegate to !S3()/b4(). Patched to return true.
  * - p001l/zva0::B0(User)                   → Tier rank lookup → 3 (Ultra Premium)
  * - p001l/th5::d(), f(), h()               → Remote config gates for swipe actions → false
+ * - p001l/n3b0::q()                        → "has likers limit been exceeded?" → false
+ *                                            Controls blur in old VIP likers screen.
  * - com/p1/mobile/putong/core/api/CoreProduct::u4(String)
  *                                          → "is product promotion active?" → true
  * - p001l/ugc0::k(PurchaseType)            → "is subscription upgraded?" → true
@@ -228,6 +230,21 @@ val premiumFeaturesPatch = bytecodePatch(
                     classDef.methods.forEach { method ->
                         if (method.name in listOf("d", "f", "h") &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z"
+                        ) {
+                            noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, RETURN_FALSE)
+                            }
+                        }
+                    }
+                }
+
+                // n3b0.q(): "has likers limit been exceeded?" → false (limit not exceeded)
+                // This controls blur in the old VIP likers screen (LikersFrag).
+                // Called by CoreBusinessServiceIml.e2() → c.Q1() → LikersItemView.m()
+                "Lp001l/n3b0;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "q" && method.parameterTypes.isEmpty() &&
+                            method.returnType == "Z"
                         ) {
                             noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                 match.method.addInstructions(0, RETURN_FALSE)
