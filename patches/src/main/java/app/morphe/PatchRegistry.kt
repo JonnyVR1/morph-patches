@@ -25,5 +25,6 @@ object PatchRegistry {
         privilegeExpirationBypassPatch,
         privilegeAvailabilityBypassPatch,
         allPremiumFeaturesPatch,
+        seeWhoLikedMeFeatureGatePatch,
     )
 }
