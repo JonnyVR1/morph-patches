@@ -55,6 +55,32 @@
       "options": []
     },
     {
+      "name": "MapsApiKeyBypass",
+      "description": "Bypasses Google Maps API key signature validation to fix blank map tiles after patching",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Membership Consumed",
       "description": "Marks membership benefits as consumed to prevent double-charging",
       "default": true,
@@ -239,6 +265,84 @@
     {
       "name": "SVIP Status",
       "description": "Grants Super VIP membership with enhanced features and exclusive benefits",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "See Who Liked Me Availability",
+      "description": "Unlocks the 'see who liked me' feature in the Discover tab",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "See Who Liked Me Limit Bypass",
+      "description": "Removes the limit on seeing who liked you",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "See Who Liked Me Promotion Bypass",
+      "description": "Bypasses promotion checks for premium features",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
