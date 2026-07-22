@@ -51,6 +51,12 @@ private val purchaseTypeArgStaticReturnBoolFingerprint = Fingerprint(
     parameters = listOf("Lcom/p1/mobile/putong/core/data/PurchaseType;"),
 )
 
+private val userPrivilegeArgStaticReturnBoolFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = listOf("Lcom/p1/mobile/putong/core/data/UserPrivilege;"),
+)
+
 private val userArgFinalReturnIntFingerprint = Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
     returnType = "I",
@@ -346,7 +352,7 @@ val premiumUnlockPatch = bytecodePatch(
                                 }
                             }
                             // Credit-count methods: return large value for unlimited credits
-                            method.name in setOf("Q3", "z4", "m3", "A4", "o3", "p3", "v4", "k3", "l3") &&
+                            method.name in setOf("Q3", "z4", "m3", "A4", "o3", "p3", "v4", "k3", "l3", "r3", "t3") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "I" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgReturnIntFingerprint.matchOrNull(method)?.let { match ->
@@ -356,9 +362,128 @@ val premiumUnlockPatch = bytecodePatch(
                                     """)
                                 }
                             }
+                            // T3(UserPrivilege): "is privilege expired?" → false (not expired)
+                            method.name == "T3" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/UserPrivilege;" &&
+                                method.returnType == "Z" -> {
+                                userPrivilegeArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // c4(UserPrivilege): "is privilege active?" → true
+                            method.name == "c4" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/UserPrivilege;" &&
+                                method.returnType == "Z" -> {
+                                userPrivilegeArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                            // a4(PurchaseType): "is purchase expired?" → false (not expired)
+                            method.name == "a4" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
+                                method.returnType == "Z" -> {
+                                purchaseTypeArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // w3(SummarizedPrivilegesId): expiredTime → far future (never expires)
+                            method.name == "w3" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/SummarizedPrivilegesId;" &&
+                                method.returnType == "J" -> {
+                                summPrivArgStaticReturnLongFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
+                                    """)
+                                }
+                            }
+                            // q3(): femaleVip expiredTime → far future (never expires)
+                            method.name == "q3" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "J" -> {
+                                noArgStaticReturnLongFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
+                                    """)
+                                }
+                            }
+                            // s3(): limitedTrialSee expiredTime → far future (never expires)
+                            method.name == "s3" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "J" -> {
+                                noArgStaticReturnLongFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
+                                    """)
+                                }
+                            }
+                            // J3() instance method: "can read messages?" → true
+                            method.name == "J3" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" && !AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                            // K3() instance method: "is revoke unpair expired?" → false (not expired)
+                            method.name == "K3" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" && !AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
                             // Catch-all: all other no-arg static boolean methods → true
                             method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 method.name !in listOf("L3") &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ── sja: picks remaining count (bypasses xma, reads directly from cache) ──
+                "Lp001l/sja;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            method.name in setOf("r3", "B3") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "I" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgReturnIntFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const v0, 0x30d40
+                                        return v0
+                                    """)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ── src0: subscription expiry display (bypasses xma) ────────────
+                "Lp001l/src0;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            method.name in setOf("w", "x") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "I" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgReturnIntFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const v0, 0x16d
+                                        return v0
+                                    """)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ── gqf0: spotlight remaining check (bypasses xma) ──────────────
+                "Lp001l/gqf0;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_TRUE)
