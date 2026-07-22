@@ -15,7 +15,7 @@ import com.android.tools.smali.dexlib2.AccessFlags
  *  2. xma class         – privilege gates (S3/b4), display timestamp (v3), server
  *                          refresh (u4/x4), and all wrapper methods
  *  3. Regional gates    – h6a (pricing) and u59 (tier availability)
- *  4. Feature gates     – CoreProduct, ugc0, zva0, th5, n3b0, sb90,
+ *  4. Feature gates     – CoreProduct, ugc0, zva0, th5, qgl0, n3b0, sb90,
  *                          CounterSuperlikeAndUndoLimit
  */
 
@@ -105,6 +105,18 @@ private val noArgFinalReturnBoolFingerprint = Fingerprint(
     parameters = emptyList(),
 )
 
+private val userPrivilegeArgStaticReturnStringFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Ljava/lang/String;",
+    parameters = listOf("Lcom/p1/mobile/putong/core/data/UserPrivilege;"),
+)
+
+private val noArgStaticReturnLongFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "J",
+    parameters = emptyList(),
+)
+
 // ── Constants ───────────────────────────────────────────────────────────────────
 
 private const val RETURN_TRUE = """
@@ -128,6 +140,9 @@ private const val RETURN_TRUE_WITH_ME_CHECK = """
 
 // 365 days in seconds — a comfortably far-future timestamp returned as a long.
 private const val FAR_FUTURE_SECONDS = 0x1A3F4C800L
+
+// Far-future timestamp in milliseconds (FAR_FUTURE_SECONDS * 1000).
+private const val FAR_FUTURE_MS = 0x66700F60000L
 
 // ── Patch ───────────────────────────────────────────────────────────────────────
 
@@ -330,6 +345,17 @@ val premiumUnlockPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
+                            // Credit-count methods: return large value for unlimited credits
+                            method.name in setOf("Q3", "z4", "m3", "A4", "o3", "p3", "v4", "k3", "l3") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "I" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgReturnIntFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const v0, 0x30d40
+                                        return v0
+                                    """)
+                                }
+                            }
                             // Catch-all: all other no-arg static boolean methods → true
                             method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 method.name !in listOf("L3") &&
@@ -466,14 +492,49 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
 
-                // n3b0.q(): "has likers limit been exceeded?" → false (limit NOT exceeded)
+                // qgl0.d(UserPrivilege): force expiredTime to far-future if 0 (fixes "not yet activated")
+                "Lp001l/qgl0;" -> {
+                    classDef.methods.forEach { method ->
+                        if (method.name == "d" && method.parameterTypes.size == 1 &&
+                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/UserPrivilege;" &&
+                            method.returnType == "Ljava/lang/String;"
+                        ) {
+                            userPrivilegeArgStaticReturnStringFingerprint.matchOrNull(method)?.let { match ->
+                                match.method.addInstructions(0, """
+                                    if-eqz p0, :qgl0_skip
+                                    iget-object v0, p0, Lcom/p1/mobile/putong/core/data/UserPrivilege;->content:Lcom/p1/mobile/putong/core/data/UserPrivilegeContent;
+                                    if-eqz v0, :qgl0_skip
+                                    iget-wide v1, v0, Lcom/p1/mobile/putong/core/data/UserPrivilegeContent;->expiredTime:J
+                                    const-wide/16 v3, 0x0
+                                    cmp-long v5, v1, v3
+                                    if-nez v5, :qgl0_skip
+                                    const-wide v1, 0x${FAR_FUTURE_MS.toString(16)}L
+                                    iput-wide v1, v0, Lcom/p1/mobile/putong/core/data/UserPrivilegeContent;->expiredTime:J
+                                    :qgl0_skip
+                                """)
+                            }
+                        }
+                    }
+                }
+
+                // n3b0: q() → false (limit NOT exceeded), g() → far-future timestamp
                 "Lp001l/n3b0;" -> {
                     classDef.methods.forEach { method ->
-                        if (method.name == "q" && method.parameterTypes.isEmpty() &&
-                            method.returnType == "Z"
-                        ) {
-                            noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_FALSE)
+                        when {
+                            method.name == "q" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" -> {
+                                noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            method.name == "g" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "J" -> {
+                                noArgStaticReturnLongFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const-wide v0, 0x${FAR_FUTURE_MS.toString(16)}L
+                                        return-wide v0
+                                    """)
+                                }
                             }
                         }
                     }
