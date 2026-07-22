@@ -37,6 +37,7 @@ import java.util.Map;
 public class SignatureSpoofApplication extends ContentProvider {
     private static final String TAG = "SignatureSpoof";
     private static final int GET_SIGNATURES = 0x00000040;
+    private static final int GET_SIGNING_CERTIFICATES = 0x08000000;
     
     // Original Tantan certificate (SHA-1: 71:5B:AB:0F:36:33:95:FE:34:D1:87:68:4B:0E:F7:71:A9:D4:00:F0)
     // Extracted from: tantan+-+Global+Dating+App_7.2.7_APKPure.xapk
@@ -193,15 +194,18 @@ public class SignatureSpoofApplication extends ContentProvider {
             try {
                 if ("getPackageInfo".equals(method.getName())) {
                     String pkgName = (String) args[0];
-                    int flags = (Integer) args[1];
-                    
+                    // Flags can be Integer or Long depending on Android version
+                    long flags = ((Number) args[1]).longValue();
+
                     // Check if signatures are being requested for our package
-                    if ((flags & GET_SIGNATURES) != 0 && packageName.equals(pkgName)) {
+                    // Support both GET_SIGNATURES (0x40) and GET_SIGNING_CERTIFICATES (0x8000000)
+                    if (((flags & GET_SIGNATURES) != 0 || (flags & GET_SIGNING_CERTIFICATES) != 0)
+                            && packageName.equals(pkgName)) {
                         PackageInfo info = (PackageInfo) method.invoke(originalPackageManager, args);
                         if (info != null) {
                             // Replace the signature with the original one
                             info.signatures = new Signature[]{spoofedSignature};
-                            
+
                             // Also set signingInfo for newer Android versions (API 28+)
                             if (Build.VERSION.SDK_INT >= 28) {
                                 try {
@@ -209,10 +213,17 @@ public class SignatureSpoofApplication extends ContentProvider {
                                     signingInfoField.setAccessible(true);
                                     Object signingInfo = signingInfoField.get(info);
                                     if (signingInfo != null) {
-                                        // Update the signatures in SigningInfo
-                                        Field signaturesField = signingInfo.getClass().getDeclaredField("mSignatures");
-                                        signaturesField.setAccessible(true);
-                                        signaturesField.set(signingInfo, new Signature[]{spoofedSignature});
+                                        // Update the signatures in SigningInfo using public API
+                                        Field[] fields = signingInfo.getClass().getDeclaredFields();
+                                        for (Field field : fields) {
+                                            field.setAccessible(true);
+                                            if (field.getType() == Signature[].class) {
+                                                field.set(signingInfo, new Signature[]{spoofedSignature});
+                                            } else if (field.getType() == byte[][].class) {
+                                                // Signatures in byte form
+                                                field.set(signingInfo, new byte[][]{spoofedSignature.toByteArray()});
+                                            }
+                                        }
                                     }
                                 } catch (Exception e) {
                                     Log.w(TAG, "Failed to update SigningInfo", e);
