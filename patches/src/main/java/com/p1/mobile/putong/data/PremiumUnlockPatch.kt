@@ -1120,13 +1120,8 @@ val premiumUnlockPatch = bytecodePatch(
             // S3-style wrappers (static no-arg → Z, unique product key) → false
             // These methods return S3(key) which is TRUE when privilege is EXPIRED.
             // For a premium user, we want them to return FALSE (privilege is active).
-            // Note: xmaWrapperX3Fingerprint matches "oDiamond" which appears in F3() (!S3-style),
-            // X3() (S3-style), and Y3() (b4-style). We patch to FALSE to fix infinite loading
-            // on match screen. X3() is called from V3() which is used in swipe screen logic.
-            // When X3() returns TRUE (wrong), it breaks the privilege check flow.
             listOf(
                 xmaWrapperW3Fingerprint,
-                xmaWrapperX3Fingerprint,
                 xmaWrapperD4Fingerprint,
                 xmaWrapperI4Fingerprint,
                 xmaWrapperL4Fingerprint,
@@ -1140,19 +1135,16 @@ val premiumUnlockPatch = bytecodePatch(
             // !S3-style wrappers (static no-arg → Z, unique product key) → true
             // These methods return !S3(key) which is TRUE when privilege is ACTIVE.
             // For a premium user, we want them to return TRUE (privilege is active).
-            // Note: xmaWrapperJ4Fingerprint matches "ultraPremium" which appears in C3() (!S3-style).
-            // C3() is used in Gate 2 of boost click handler (f93.y()). When C3() returns TRUE,
-            // Gate 2 evaluates TRUE and calls j17.V3() (server query) instead of falling through
-            // to Gate 3 where actual boost activation happens. Patch C3() to FALSE to fix boost.
+            // Note: xmaWrapperX3Fingerprint matches "oDiamond" which appears in F3() (!S3-style),
+            // X3() (S3-style), and Y3() (b4-style). We patch to TRUE to make F3() work for match button.
             listOf(
+                xmaWrapperX3Fingerprint,
+                xmaWrapperJ4Fingerprint,
                 xmaWrapperZ3Fingerprint,
             ).forEach { fingerprint ->
                 fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                     match.method.addInstructions(0, RETURN_TRUE)
                 }
-            }
-            xmaWrapperJ4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
             }
 
             // B3-style wrapper (TEnum call) → false
