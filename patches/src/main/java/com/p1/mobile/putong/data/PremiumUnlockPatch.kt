@@ -1116,14 +1116,20 @@ val premiumUnlockPatch = bytecodePatch(
             // For a premium user, we want them to return TRUE (privilege is active).
             // Note: xmaWrapperX3Fingerprint matches "oDiamond" which appears in F3() (!S3-style),
             // X3() (S3-style), and Y3() (b4-style). We patch to TRUE to make F3() work for match button.
+            // Note: xmaWrapperJ4Fingerprint matches "ultraPremium" which appears in C3() (!S3-style).
+            // C3() is used in Gate 2 of boost click handler (f93.y()). When C3() returns TRUE,
+            // Gate 2 evaluates TRUE and calls j17.V3() (server query) instead of falling through
+            // to Gate 3 where actual boost activation happens. Patch C3() to FALSE to fix boost.
             listOf(
                 xmaWrapperX3Fingerprint,
-                xmaWrapperJ4Fingerprint,
                 xmaWrapperZ3Fingerprint,
             ).forEach { fingerprint ->
                 fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                     match.method.addInstructions(0, RETURN_TRUE)
                 }
+            }
+            xmaWrapperJ4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
             }
 
             // B3-style wrapper (TEnum call) → false
