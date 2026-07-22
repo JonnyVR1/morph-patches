@@ -32,6 +32,23 @@ This repository contains patches and tools for bypassing premium features in the
 
 **Important:** Always use `:patches:buildAndroid` instead of just `:patches:build`. The `buildAndroid` task compiles the Kotlin code to DEX and packages it into the .mpp file. Without it, the .mpp file will be missing the actual patch bytecode.
 
+### Local Patch Test (End-to-End Pipeline)
+
+To produce an actual patched APK from the local source APK (useful for verifying patches before publishing):
+
+```bash
+./gradlew :patches:patchApk
+```
+
+Output: `tantan-premium-unlocked.apk` in repo root (~55 MB, signed, installable).
+
+The pipeline is:
+1. `Patcher` runs all patches from `PatchRegistry.allPatches`
+2. `PatcherResult.applyTo(rebuiltApk)` overlays patched dex/resources onto the APK in-place (via `ZFile.openReadWrite`)
+3. `ApkUtils.signApk(...)` signs with the dev keystore
+
+**Do NOT call `ApkMerger.merge()` after `applyTo()`** — see "Morphe Patcher Gotchas" below.
+
 ### Upload to GitHub Release
 ```bash
 # List current release assets
@@ -73,17 +90,71 @@ curl -s -H "Authorization: token $GITHUB_TOKEN" \
   python3 -c "import json, sys; assets = json.load(sys.stdin); [print(f'{a[\"name\"]}: {a[\"size\"]} bytes') for a in assets]"
 ```
 
-Expected file size for `patches-0.0.1-dev1.mpp`: ~60-65 KB (includes DEX bytecode). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
+Expected file size for `patches-0.0.1-dev1.mpp`: ~700 KB (includes DEX bytecode for all patches in `PremiumUnlockPatch.kt` + Google Maps + Signature Spoof). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
 
 ## Patch Architecture
 
-The project uses a single consolidated `PremiumUnlockPatch` that handles:
+The project uses a single consolidated `PremiumUnlockPatch.kt` (`patches/src/main/java/com/p1/mobile/putong/data/`) that handles:
 - User tier status methods (isUltraPremium, isVIP, etc.)
-- Privilege gates and expiration checks
-- Subscription validation and regional gates
-- Feature gates and display timestamps
+- Privilege gates and expiration checks (xma class)
+- Subscription validation and regional gates (u59 class)
+- Feature gates and display timestamps (CounterSuperlikeAndUndoLimit, CoreProduct, etc.)
+- Auto-subscription dialog suppression (src0 class)
+- Mystery/blur gating (sb90 Companion class)
 
-All patches use `isMe()` guards to ensure they only affect the current user, not other users' profiles.
+Also in `patches/src/main/java/com/p1/mobile/putong/data/`:
+- `SignatureSpoofPatch.kt` — patches signature verification for Google Maps
+- `GoogleMapsPatch.kt` — enables GMS availability
+- `Constants.kt` — shared constants (`TANTAN_PACKAGE_NAME`, `TANTAN_USER_CLASS`, `tantanCompatibility`)
+
+All tier overrides MUST use `isMe()` guards to ensure they only affect the current user, not other users' profiles.
+
+### Version-Agnostic Fingerprints
+
+Patches MUST survive obfuscation churn between app versions. **Never match obfuscated names like `Lp001l/xma;` or `Lp1/...`**. Use `string()`, `methodCall()`, `fieldAccess()`, `opcode()` filters anchored against stable product strings and behavioral signatures:
+
+| Class | Anchor |
+|-------|--------|
+| `User` | CamelCase stable (`com/p1/mobile/putong/data/User`) |
+| `xma` | `string("/summarized-privileges?with=diamond")` |
+| `sb90` Companion | `fieldAccess(localRelationship)` + `string("matched")` + `methodCall(isSupremePartnerOpenMystery)` |
+| `u59` | `methodCall("Lcom/.../IntlCountryCodeController;", "k")` + `string("intl_instantmatch_open_user")` |
+| `src0` | `string("recall_dlg_show")` + `string("reauto_duration")` + `string("reauto_product")` + `string("if_auto_order")` |
+| `th5` | `string("vas_commercial_card_right_slide_strategy")` |
+| `h6a` | `string("ttt_membership_price_diff")` |
+| `qgl0` | `string("暂未激活黑金会员")` |
+
+For groups of byte-identical overloaded methods (e.g. u59's U/S/O/F/Z/a0/D all return `!IntlCountryCodeController.k()`), fingerprint them as one cluster — they cannot be reliably separated.
+
+Use **bounded** `matchAll(classDef, expectedRange)` to assert expected cardinalities (e.g. `1..2` not `0..N`).
+
+## Morphe Patcher Gotchas
+
+Critical non-obvious behaviors of Morphe v1.6.0 + plugin v1.3.3. **Read before touching patches or PatcherMain.**
+
+### 1. Fingerprint caching: never resolve inside `classDefForEach`
+
+`Fingerprint.matchOrNull(classDef)` caches its result per `classDef` **per Fingerprint instance** for the lifetime of the patcher. If you call it inside `classDefForEach { classDef -> ... matchOrNull(classDef) ... }`, it returns whatever the first classDef cached — usually the wrong class — and silently applies to every iteration, including non-matching classes. Prepending `addInstructions(0, ...)` to a loop function produces an **infinite hang at compile time** ("Stripping 275 modified classes" never finishes).
+
+**Solution:** Restructure `execute { }` into 2 passes:
+- **Pass 1** (`classDefForEach`): only iterate classes with stable identifiers (e.g. `User`, `CoreProduct` — known CamelCase names)
+- **Pass 2** (top-level): resolve obfuscated class fingerprints once via `classFingerprint.matchOrNull()?.classDef?.let { ... }`
+
+### 2. `ApkMerger` is for App Bundles, not standalone APKs
+
+`ApkMerger.merge(input, output)` calls `extractFile()` which filters ZIP entries by `.apk` extension. A standalone single-module APK has no such entries, so it throws `IOException("No *.apk files found on: $file")`.
+
+**`PatcherResult.applyTo(apkFile)` already produces a valid patched APK in-place** via `ZFile.openReadWrite`. Just sign after that — don't call `ApkMerger`.
+
+### 3. jadx naming traps
+
+When reverse-engineering decompiled Java:
+- jadx renames `com.p1` → `com.p335p1`. **Always use the real `com/p1/mobile/putong/...` descriptors in patches.**
+- jadx renames obfuscated package `Ll/<obf>;` (single-letter `l` package) to `Lp001l/<obf>;` for readability. **Real DEX descriptors are `Ll/<obf>;`. Never use the `p001l` prefix in fingerprints.**
+
+### 4. Class fingerprints resolve at the patcher-class level
+
+A `classFingerprint = parentFingerprint { ... }` chain must live as a top-level `val` (or `companion object val`), not inside a function. Inside `execute { }`, the same `matchOrNull()` call MUST NOT be called per-classDef (see #1).
 
 ## Fable Method
 Before any non-trivial backend task, apply the fable-method loop; for tasks that will run unattended or fan out subagents, use fable-loop. After completing substantive work, or whenever any agent/tool claims work is done, run a fable-judge pass before presenting it as finished.
