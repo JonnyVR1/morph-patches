@@ -832,16 +832,28 @@ private fun com.android.tools.smali.dexlib2.iface.Method.callsU4WithString(): Bo
     }
 }
 
-private fun com.android.tools.smali.dexlib2.iface.Method.hasConditionalBranch(): Boolean {
-    // Check if this method has any conditional branch instructions (if-eq, if-ne, if-lt, etc.)
-    // Used to distinguish between methods like F3() (has branch) vs X3() (no branch)
+private fun com.android.tools.smali.dexlib2.iface.Method.hasNegation(): Boolean {
+    // Check if this method has a negation instruction (xor-int/lit8 or not-int)
+    // Used to distinguish F3() which has !S3(...) from X3() which has S3(...)
     return try {
         this.implementation?.instructions?.any { instr ->
             val opcode = instr.opcode
-            opcode.name.startsWith("if-") || opcode.name.startsWith("if-eq") || 
-            opcode.name.startsWith("if-ne") || opcode.name.startsWith("if-lt") ||
-            opcode.name.startsWith("if-ge") || opcode.name.startsWith("if-gt") ||
-            opcode.name.startsWith("if-le")
+            // xor-int/lit8 is used for boolean negation (!value)
+            // not-int is another form of bitwise NOT
+            opcode.name == "xor-int/lit8" || opcode.name == "not-int"
+        } ?: false
+    } catch (e: Exception) {
+        false
+    }
+}
+
+private fun com.android.tools.smali.dexlib2.iface.Method.callsMethodNamed(methodName: String): Boolean {
+    // Check if this method calls another method with the given name
+    return try {
+        this.implementation?.instructions?.any { instr ->
+            instr is ReferenceInstruction &&
+                instr.reference is MethodReference &&
+                (instr.reference as MethodReference).name == methodName
         } ?: false
     } catch (e: Exception) {
         false
@@ -1215,26 +1227,25 @@ val premiumUnlockPatch = bytecodePatch(
             // The generic string("oDiamond") filter matches all three, and matchOrNull()
             // caches the first match (typically F3 due to dex order). We must iterate
             // directly and distinguish by bytecode shape:
-            // - F3() has a conditional branch (if-eqz) before return
-            // - X3() has no branch, just xor-int/lit8 + return
-            // - Y3() has multiple branches (null check + cmp-long)
+            // - F3() has a negation instruction (xor-int/lit8 or not-int)
+            // - Y3() calls b4 method
+            // - X3() is the remaining one (calls S3 without negation)
             mutableClassDefBy(xmaClassDef).methods
                 .filter { it.isStaticNoArgReturnBool() }
                 .filter { it.containsString("oDiamond") }
                 .forEach { method ->
                     when {
-                        // F3(): !S3-style with conditional branch → TRUE
-                        method.hasConditionalBranch() -> {
+                        // F3(): !S3-style with negation → TRUE
+                        method.hasNegation() -> {
                             method.addInstructions(0, RETURN_TRUE)
                         }
-                        // X3(): S3-style without conditional branch → FALSE
-                        // Distinguished from Y3() by instruction count (X3 ~3, Y3 ~10+)
-                        method.instructionCount() < 6 -> {
-                            method.addInstructions(0, RETURN_FALSE)
+                        // Y3(): b4-style (calls b4 method) → TRUE
+                        method.callsMethodNamed("b4") -> {
+                            method.addInstructions(0, RETURN_TRUE)
                         }
-                        // Y3(): b4-style with multiple branches → TRUE
+                        // X3(): S3-style without negation → FALSE
                         else -> {
-                            method.addInstructions(0, RETURN_TRUE)
+                            method.addInstructions(0, RETURN_FALSE)
                         }
                     }
                 }
