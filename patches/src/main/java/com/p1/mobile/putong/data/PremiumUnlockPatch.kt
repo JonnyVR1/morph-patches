@@ -820,95 +820,100 @@ val premiumUnlockPatch = bytecodePatch(
         // ----------------------------------------------------------------------
         classDefForEach { classDef ->
             // ── User: stable, real method names (no obfuscation) ──────────────
+            //
+            // We patch methods directly here (no fingerprint) because the same
+            // `Fingerprint._matchOrNull` cache trap as in CoreProduct would
+            // cause `matchOrNull(method)` to return the first match in each
+            // set (e.g. isUltraPremium) for every subsequent call (e.g.
+            // isSupremePartner), so only the first method in each `setOf(...)`
+            // would actually get patched.
             if (classDef.type == TANTAN_USER_CLASS) {
-                classDef.methods.forEach { method ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
                     when {
                         method.name in setOf("isUltraPremium", "isSupremePartner") &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            userIsUltraPremiumFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
-                            }
+                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
                         }
                         method.name in setOf("isVIP", "isSVIP", "isPlatinum") &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            userIsUltraPremiumFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
-                            }
+                            method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
                         }
                         method.name in setOf("gpHideVip", "isHideIconFromSVipWithMe") &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            userIsUltraPremiumFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
-                            }
+                            method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
                         }
                         method.name == "isVIPExpired" &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            userIsUltraPremiumFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_FALSE)
-                            }
+                            method.addInstructions(0, RETURN_FALSE)
                         }
                         method.name == "isVIPUsed" &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            userIsUltraPremiumFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
-                            }
+                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
                         }
                         method.name in setOf("getVipExpireTime", "getVipToExpireTimeInMill") &&
                             method.parameterTypes.isEmpty() && method.returnType == "J" -> {
-                            userGetVipExpireFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, GET_VIP_EXPIRE_FAR_FUTURE_BODY)
-                            }
+                            method.addInstructions(0, GET_VIP_EXPIRE_FAR_FUTURE_BODY)
                         }
                         method.name == "isMembership" -> {
-                            userIsMembershipFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
-                            }
+                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
                         }
                         method.name == "isMembershipUsed" -> {
-                            userIsMembershipFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
-                            }
+                            method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
                         }
                         method.name == "nullCheck" &&
                             method.parameterTypes.isEmpty() && method.returnType == "V" -> {
-                            userNullCheckFingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, USER_NULL_CHECK_BODY)
-                            }
+                            method.addInstructions(0, USER_NULL_CHECK_BODY)
                         }
                     }
                 }
             }
 
             // ── CoreProduct: stable class, obfuscated methods ──────────────────
+            //
+            // NOTE: We deliberately do NOT use `coreProductZ4Fingerprint.matchOrNull(method)`
+            // or `coreProductU4Fingerprint.matchOrNull(method)` here. Those overloads
+            // share a global per-Fingerprint-instance cache (`_matchOrNull`) — the first
+            // call to match a method caches the Match, and every subsequent call returns
+            // the cached Match regardless of the method passed in. Iterating
+            // classDef.methods.forEach { matchOrNull(it) } therefore patches only the
+            // FIRST matching method (A4 in this case) and silently leaves B4/y4/T4/Q4/
+            // z4/R4/L4/O4/P4 untouched. Those gates then keep returning their original
+            // values — B4()/y4() keep calling u4("vip") which our u4-patch forces to
+            // TRUE, so the "send message" / "see who liked me" purchase dialogs open
+            // and crash with NPE on `FreeTrialData.titleText` (r0 was never populated).
+            //
+            // Since we've already narrowed to a single stable class, we can filter and
+            // patch directly via `mutableClassDefBy(classDef).methods` (which returns
+            // MutableMethod instances — the only type with `addInstructions(String)`).
             if (classDef.type == "Lcom/p1/mobile/putong/core/api/CoreProduct;") {
-                classDef.methods.forEach { method ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
                     when {
+                        // u4(String) — the only public final Z(String) method
                         method.parameterTypes.size == 1 &&
                             method.parameterTypes[0] == "Ljava/lang/String;" &&
                             method.returnType == "Z" &&
                             AccessFlags.FINAL.isSet(method.accessFlags) -> {
-                            coreProductU4Fingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_TRUE)
-                            }
+                            method.addInstructions(0, RETURN_TRUE)
                         }
-                        method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            coreProductZ4Fingerprint.matchOrNull(method)?.let { match ->
-                                match.method.addInstructions(0, RETURN_FALSE)
-                            }
+                        // All public no-arg Z methods (A4, B4, L4, O4, P4, Q4, R4, T4,
+                        // y4, z4, etc.) — gate them closed.
+                        method.parameterTypes.isEmpty() &&
+                            method.returnType == "Z" &&
+                            AccessFlags.PUBLIC.isSet(method.accessFlags) -> {
+                            method.addInstructions(0, RETURN_FALSE)
                         }
                     }
                 }
             }
 
             // ── CounterSuperlikeAndUndoLimit: stable class, stable methods ────
+            // (Direct patch — see CoreProduct note about the matchOrNull cache trap.)
             if (classDef.type == "Lcom/p1/mobile/putong/data/CounterSuperlikeAndUndoLimit;") {
-                classDef.methods.forEach { method ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name in setOf("remainToday", "remainAll") &&
                         method.parameterTypes.isEmpty() && method.returnType == "I"
                     ) {
-                        counterSuperlikeFingerprint.matchOrNull(method)?.let { match ->
-                            match.method.addInstructions(0, RETURN_INT_200000)
-                        }
+                        method.addInstructions(0, RETURN_INT_200000)
                     }
                 }
             }
