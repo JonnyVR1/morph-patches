@@ -904,6 +904,25 @@ val premiumUnlockPatch = bytecodePatch(
                                     match.method.addInstructions(0, "return-void")
                                 }
                             }
+                            // Sl(): show purchase dialog for chat requests ("she'd like to chat with you")
+                            // → return immediately (bypass dialog)
+                            method.name == "Sl" && method.parameterTypes.size == 5 &&
+                                method.returnType == "V" -> {
+                                val slFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "V",
+                                    parameters = listOf(
+                                        "Lcom/p1/mobile/android/app/Act;",
+                                        "Ljava/lang/String;",
+                                        "Lcom/p1/mobile/putong/core/data/Privilege;",
+                                        "Lp001l/d30;",
+                                        "Ljava/lang/Object;"
+                                    ),
+                                )
+                                slFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, "return-void")
+                                }
+                            }
                         }
                     }
                 }
