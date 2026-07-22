@@ -875,6 +875,15 @@ val premiumUnlockPatch = bytecodePatch(
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                             method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
                         }
+                        // gpHideActiveTime: controls whether the user's active time is hidden.
+                        // Original: `return isVIP() && this.membership.hideActivityTime`.
+                        // Since isVIP() is patched to return FALSE, this always returns FALSE.
+                        // Forcing it TRUE makes wla.x3() return TRUE, which makes
+                        // CoreServiceImpl.hideActiveTime() return TRUE, hiding the active time.
+                        method.name == "gpHideActiveTime" &&
+                            method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                        }
                         // isHideActiveFromSVip: server-gated by `svipPrivacy.frozenTime`.
                         // Without VIP the server sends nothing and this returns FALSE,
                         // which makes `getLastActiveTimeMillis()` return
