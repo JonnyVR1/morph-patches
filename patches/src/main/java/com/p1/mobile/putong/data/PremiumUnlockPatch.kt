@@ -867,34 +867,20 @@ val premiumUnlockPatch = bytecodePatch(
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                             method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
                         }
-                        method.name in setOf("isVIP", "isSVIP", "isPlatinum") &&
-                            method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
-                        }
+                         // isVIP/isSVIP/isPlatinum: Ultra Premium is a superset that includes all
+                         // VIP/SVIP/Platinum features. The app uses isVIP() as a baseline premium
+                         // check across 50+ call sites (hide-last-seen, super likes, roaming, etc.).
+                         // Returning FALSE broke all those features. Badge display (zva0.B0()) checks
+                         // isUltraPremium() FIRST, so returning TRUE here doesn't affect badge precedence.
+                         method.name in setOf("isVIP", "isSVIP", "isPlatinum") &&
+                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                             method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                         }
                         method.name in setOf("gpHideVip", "isHideIconFromSVipWithMe") &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                             method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
                         }
-                        // gpHideActiveTime: controls whether the user's active time is hidden.
-                        // Original: `return isVIP() && this.membership.hideActivityTime`.
-                        // Since isVIP() is patched to return FALSE, this always returns FALSE.
-                        // Forcing it TRUE makes wla.x3() return TRUE, which makes
-                        // CoreServiceImpl.hideActiveTime() return TRUE, hiding the active time.
-                        method.name == "gpHideActiveTime" &&
-                            method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
-                        }
-                        // isHideActiveFromSVip: server-gated by `svipPrivacy.frozenTime`.
-                        // Without VIP the server sends nothing and this returns FALSE,
-                        // which makes `getLastActiveTimeMillis()` return
-                        // `location.updatedTime` (real active time) and makes
-                        // `CoreMyInterestItem.u(user)` show "Active X ago" in the UI.
-                        // Forcing it TRUE for the current user makes both the timestamp
-                        // and the UI label switch to the SVIP frozen-time branch.
-                        method.name == "isHideActiveFromSVip" &&
-                            method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
-                        }
+
                         method.name == "isVIPExpired" &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                             method.addInstructions(0, RETURN_FALSE)
