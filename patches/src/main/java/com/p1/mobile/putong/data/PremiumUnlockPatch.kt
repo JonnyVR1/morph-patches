@@ -1073,21 +1073,39 @@ val premiumUnlockPatch = bytecodePatch(
                 match.method.addInstructions(0, RETURN_FALSE)
             }
 
-            // S3/b4-style wrappers (static no-arg → Z, unique product key) → false
+            // S3-style wrappers (static no-arg → Z, unique product key) → false
+            // These methods return S3(key) which is TRUE when privilege is EXPIRED.
+            // For a premium user, we want them to return FALSE (privilege is active).
             listOf(
                 xmaWrapperW3Fingerprint,
-                xmaWrapperX3Fingerprint,
                 xmaWrapperD4Fingerprint,
                 xmaWrapperI4Fingerprint,
                 xmaWrapperL4Fingerprint,
                 xmaWrapperH4Fingerprint,
-                xmaWrapperJ4Fingerprint,
-                xmaWrapperZ3Fingerprint,
-                xmaWrapperB3Fingerprint,
             ).forEach { fingerprint ->
                 fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                     match.method.addInstructions(0, RETURN_FALSE)
                 }
+            }
+
+            // !S3-style wrappers (static no-arg → Z, unique product key) → true
+            // These methods return !S3(key) which is TRUE when privilege is ACTIVE.
+            // For a premium user, we want them to return TRUE (privilege is active).
+            // Note: xmaWrapperX3Fingerprint matches "oDiamond" which appears in F3() (!S3-style),
+            // X3() (S3-style), and Y3() (b4-style). We patch to TRUE to make F3() work for match button.
+            listOf(
+                xmaWrapperX3Fingerprint,
+                xmaWrapperJ4Fingerprint,
+                xmaWrapperZ3Fingerprint,
+            ).forEach { fingerprint ->
+                fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                    match.method.addInstructions(0, RETURN_TRUE)
+                }
+            }
+
+            // B3-style wrapper (TEnum call) → false
+            xmaWrapperB3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
             }
 
             // e4 and f4 both load "svip" — patch both → false
