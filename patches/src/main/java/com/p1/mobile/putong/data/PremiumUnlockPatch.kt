@@ -168,53 +168,32 @@ val premiumUnlockPatch = bytecodePatch(
                 TANTAN_USER_CLASS -> {
                     classDef.methods.forEach { method ->
                         when {
-                            // isUltraPremium, isSupremePartner → true (isMe-guarded)
+                            // isUltraPremium, isSupremePartner → true (generic, applies to ALL users)
                             method.name in setOf("isUltraPremium", "isSupremePartner") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                                    match.method.addInstructions(0, RETURN_TRUE)
                                 }
                             }
-                            // isVIP, isSVIP, isPlatinum → false (isMe-guarded)
+                            // isVIP, isSVIP, isPlatinum → false (generic, applies to ALL users)
                             method.name in setOf("isVIP", "isSVIP", "isPlatinum") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, """
-                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
-                                        move-result v0
-                                        if-eqz v0, :cond_0
-                                        const/4 v0, 0x0
-                                        return v0
-                                        :cond_0
-                                    """)
+                                    match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
-                            // gpHideVip → false (isMe-guarded, prevents badge hiding)
+                            // gpHideVip → false (generic, prevents badge hiding for ALL users)
                             method.name == "gpHideVip" &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, """
-                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
-                                        move-result v0
-                                        if-eqz v0, :cond_0
-                                        const/4 v0, 0x0
-                                        return v0
-                                        :cond_0
-                                    """)
+                                    match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
-                            // isHideIconFromSVipWithMe → false (isMe-guarded, prevents icon hiding)
+                            // isHideIconFromSVipWithMe → false (generic, prevents icon hiding for ALL users)
                             method.name == "isHideIconFromSVipWithMe" &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, """
-                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
-                                        move-result v0
-                                        if-eqz v0, :cond_0
-                                        const/4 v0, 0x0
-                                        return v0
-                                        :cond_0
-                                    """)
+                                    match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
                             // isVIPExpired → false (never expired)
@@ -224,13 +203,13 @@ val premiumUnlockPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
-                            // isMembership(MT) → true (isMe-guarded)
+                            // isMembership(MT) → true (generic, applies to ALL users)
                             method.name == "isMembership" -> {
                                 userPredicateMembershipFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                                    match.method.addInstructions(0, RETURN_TRUE)
                                 }
                             }
-                            // isMembershipUsed(MT) → false (benefits appear available)
+                            // isMembershipUsed(MT) → false (generic, benefits appear available for ALL users)
                             method.name == "isMembershipUsed" -> {
                                 userPredicateMembershipFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_FALSE)
@@ -252,6 +231,43 @@ val premiumUnlockPatch = bytecodePatch(
                                         invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
                                         iput-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
                                         :status_not_null
+                                    """)
+                                }
+                            }
+                            // isVIPUsed → true (generic, VIP was used for ALL users)
+                            method.name == "isVIPUsed" &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                            // getVipExpireTime → far future (generic, VIP never expires for ALL users)
+                            method.name == "getVipExpireTime" &&
+                                method.parameterTypes.isEmpty() && method.returnType == "J" -> {
+                                val getVipExpireTimeFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "J",
+                                    parameters = emptyList(),
+                                )
+                                getVipExpireTimeFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
+                                    """)
+                                }
+                            }
+                            // getVipToExpireTimeInMill → far future (generic, VIP never expires for ALL users)
+                            method.name == "getVipToExpireTimeInMill" &&
+                                method.parameterTypes.isEmpty() && method.returnType == "J" -> {
+                                val getVipToExpireTimeInMillFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "J",
+                                    parameters = emptyList(),
+                                )
+                                getVipToExpireTimeInMillFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
                                     """)
                                 }
                             }
@@ -799,6 +815,50 @@ val premiumUnlockPatch = bytecodePatch(
                                         :membership_null
                                         :user_null
                                     """)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ── CoreBusinessServiceIml: bypass purchase dialogs ─────────────────────────
+                "Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            // Lf(): show purchase dialog → return immediately (bypass dialog)
+                            method.name == "Lf" && method.parameterTypes.size == 5 &&
+                                method.returnType == "V" -> {
+                                val lfFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "V",
+                                    parameters = listOf(
+                                        "Lcom/p1/mobile/android/app/Act;",
+                                        "Ljava/lang/String;",
+                                        "Lcom/p1/mobile/putong/core/data/Privilege;",
+                                        "Lp001l/e30;",
+                                        "Lp001l/e30;"
+                                    ),
+                                )
+                                lfFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, "return-void")
+                                }
+                            }
+                            // r6(): show purchase dialog → return immediately (bypass dialog)
+                            method.name == "r6" && method.parameterTypes.size == 5 &&
+                                method.returnType == "V" -> {
+                                val r6Fingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "V",
+                                    parameters = listOf(
+                                        "Lcom/p1/mobile/android/app/Act;",
+                                        "Ljava/lang/String;",
+                                        "Lcom/p1/mobile/putong/core/data/Privilege;",
+                                        "Lp001l/e30;",
+                                        "Lp001l/d30;"
+                                    ),
+                                )
+                                r6Fingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, "return-void")
                                 }
                             }
                         }
