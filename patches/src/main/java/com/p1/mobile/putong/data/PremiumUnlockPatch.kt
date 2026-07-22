@@ -822,8 +822,7 @@ private fun com.android.tools.smali.dexlib2.iface.Method.callsU4WithString(): Bo
     // Check if this method calls u4(String) - the upgrade dialog gate pattern
     // u4 is the only public final Z(String) method in CoreProduct
     return try {
-        val impl = this as? com.android.tools.smali.dexlib2.immutable.ImmutableMethod ?: return false
-        impl.implementation?.instructions?.any { instr ->
+        this.implementation?.instructions?.any { instr ->
             instr is ReferenceInstruction &&
                 instr.reference is MethodReference &&
                 (instr.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/core/api/CoreProduct;" &&
