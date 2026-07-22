@@ -730,6 +730,14 @@ val premiumUnlockPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
+        // ----------------------------------------------------------------------
+        // Pass 1: Stable classes — match by exact class descriptor
+        //
+        // Obfuscated class blocks are intentionally NOT resolved here. The
+        // global `matchOrNull()` accessor on `Fingerprint` caches its result
+        // on the first call, so it MUST only be called once per obfuscated
+        // class. Pass 2 resolves each obfuscated class exactly once.
+        // ----------------------------------------------------------------------
         classDefForEach { classDef ->
             // ── User: stable, real method names (no obfuscation) ──────────────
             if (classDef.type == TANTAN_USER_CLASS) {
@@ -837,224 +845,238 @@ val premiumUnlockPatch = bytecodePatch(
                     match.method.addInstructions(0, RETURN_VOID)
                 }
             }
+        }
 
-            // ── Obfuscated classes: identified by classFingerprint ─────────────
-            // xma: privilege gates + display timestamp + server refresh
-            xmaClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                // Use the mutable class def so we can read+modify methods directly.
-                val xmaClassDef = classMatch.classDef
+        // ----------------------------------------------------------------------
+        // Pass 2: Obfuscated classes — each resolved ONCE via global fingerprint
+        //
+        // `matchOrNull()` (no-arg) performs the actual class resolution and
+        // caches the result. Every subsequent match call MUST use the explicit
+        // `matchOrNull(classDef)` / `matchAll(classDef, range)` form against
+        // the resolved `classDef` from `.classDef`.
+        // ----------------------------------------------------------------------
 
-                // Group A: S3 (calls guessedCurrentServerTime) → false
-                // Group B: b4 (does NOT call guessedCurrentServerTime) → true
-                // Both share the same static SummarizedPrivilegesId → Z signature.
-                // After xmaS3Fingerprint matches S3, iterate the remaining
-                // signature-matching methods and patch the ones that don't
-                // call guessedCurrentServerTime.
-                xmaS3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
-                }
-                xmaClassDef.methods
-                    .filter { it.isStaticSummarizedPrivilegesIdReturnBool() }
-                    .filterNot { it.callsGuessedCurrentServerTime() }
-                    .forEach { it.addInstructions(0, RETURN_TRUE) }
+        // xma: privilege gates + display timestamp + server refresh
+        xmaClassFingerprint.matchOrNull()?.classDef?.let { xmaClassDef ->
+            // Group A: S3 (calls guessedCurrentServerTime) → false
+            // Group B: b4 (does NOT call guessedCurrentServerTime) → true
+            // Both share the same static SummarizedPrivilegesId → Z signature.
+            // After xmaS3Fingerprint matches S3, iterate the remaining
+            // signature-matching methods and patch the ones that don't
+            // call guessedCurrentServerTime.
+            xmaS3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+            xmaClassDef.methods
+                .filter { it.isStaticSummarizedPrivilegesIdReturnBool() }
+                .filterNot { it.callsGuessedCurrentServerTime() }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
 
-                // Group C: v3 / w3 (SummarizedPrivilegesId → J) → MAX
-                xmaV3W3Fingerprint.matchAllOrNull(xmaClassDef)?.forEach { match ->
-                    match.method.addInstructions(0, RETURN_LONG_MAX)
-                }
-
-                // q3 (femaleVip) → MAX
-                xmaQ3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_LONG_MAX)
-                }
-                // s3 (limitedTrialSee) → MAX
-                xmaS3LongWrapperFingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_LONG_MAX)
-                }
-
-                // Group D: T3 (UserPrivilege → Z, calls currentServerTime) → false
-                // Group E: c4 (UserPrivilege → Z, no currentServerTime) → true
-                xmaT3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
-                }
-                xmaClassDef.methods
-                    .filter { it.isStaticUserPrivilegeReturnBool() }
-                    .filterNot { it.callsGuessedCurrentServerTime() }
-                    .forEach { it.addInstructions(0, RETURN_TRUE) }
-
-                // a4 (PurchaseType → Z, loads "unknown_") → false
-                xmaA4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
-                }
-
-                // Server refresh u4/x4 (instance no-arg → Lrx/c;) → null
-                xmaServerRefreshFingerprint.matchAllOrNull(xmaClassDef)?.forEach { match ->
-                    match.method.addInstructions(0, RETURN_NULL_OBJECT)
-                }
-
-                // L3 → true
-                xmaL3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
-
-                // m4 (loads "vip") → true (VIP override)
-                xmaM4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
-
-                // J3 (instance, loads "intlReadMessage") → true
-                xmaJ3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
-                // K3 (instance, loads "revokeUnPair") → false
-                xmaK3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
-                }
-
-                // S3/b4-style wrappers (static no-arg → Z, unique product key) → false
-                listOf(
-                    xmaWrapperW3Fingerprint,
-                    xmaWrapperX3Fingerprint,
-                    xmaWrapperD4Fingerprint,
-                    xmaWrapperI4Fingerprint,
-                    xmaWrapperL4Fingerprint,
-                    xmaWrapperH4Fingerprint,
-                    xmaWrapperJ4Fingerprint,
-                    xmaWrapperZ3Fingerprint,
-                    xmaWrapperB3Fingerprint,
-                ).forEach { fingerprint ->
-                    fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                        match.method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-
-                // e4 and f4 both load "svip" — patch both → false
-                xmaWrapperSvipFingerprint.matchAllOrNull(xmaClassDef)?.forEach { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
-                }
-
-                // Credit count methods (static no-arg → I) → 200000
-                xmaCreditCountFingerprint.matchAllOrNull(xmaClassDef)?.forEach { match ->
-                    match.method.addInstructions(0, RETURN_INT_200000)
-                }
+            // Group C: v3 / w3 (SummarizedPrivilegesId → J) → MAX
+            // NOTE: 0..5 — this fingerprint currently finds 0 matches in the
+            // extracted APK. The legacy behaviour was a silent no-op via
+            // matchAllOrNull, so we keep the lower bound at 0 to preserve
+            // that. Tighten to 1..5 once v3/w3 are re-confirmed.
+            xmaV3W3Fingerprint.matchAll(xmaClassDef, 0..5).forEach { match ->
+                match.method.addInstructions(0, RETURN_LONG_MAX)
             }
 
-            // sja: picks remaining
-            sjaClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                sjaPicksRemainingFingerprint.matchAllOrNull(classMatch.classDef)?.forEach { match ->
-                    match.method.addInstructions(0, RETURN_INT_200000)
-                }
+            // q3 (femaleVip) → MAX
+            xmaQ3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_LONG_MAX)
+            }
+            // s3 (limitedTrialSee) → MAX
+            xmaS3LongWrapperFingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_LONG_MAX)
             }
 
-            // src0: subscription expiry display
-            src0ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                src0StaticIntNoArgFingerprint.matchAllOrNull(classMatch.classDef)?.forEach { match ->
-                    match.method.addInstructions(0, RETURN_INT_365)
-                }
+            // Group D: T3 (UserPrivilege → Z, calls currentServerTime) → false
+            // Group E: c4 (UserPrivilege → Z, no currentServerTime) → true
+            xmaT3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+            xmaClassDef.methods
+                .filter { it.isStaticUserPrivilegeReturnBool() }
+                .filterNot { it.callsGuessedCurrentServerTime() }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+
+            // a4 (PurchaseType → Z, loads "unknown_") → false
+            xmaA4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
             }
 
-            // gqf0: spotlight pass-through (single static no-arg Z)
-            gqf0ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                gqf0FFingerprint.matchOrNull(classMatch.classDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
+            // Server refresh u4/x4 (instance no-arg → Lrx/c;) → null
+            // NOTE: 0..3 — currently finds 0 matches in the extracted APK.
+            // See comment on xmaV3W3Fingerprint above.
+            xmaServerRefreshFingerprint.matchAll(xmaClassDef, 0..3).forEach { match ->
+                match.method.addInstructions(0, RETURN_NULL_OBJECT)
             }
 
-            // h6a: pricing restriction
-            h6aClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                h6aCFingerprint.matchOrNull(classMatch.classDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
+            // L3 → true
+            xmaL3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
             }
 
-            // u59: tier availability regional gates
-            u59ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                val u59Class = classMatch.classDef
-                u59StaticBoolFingerprint.matchAllOrNull(u59Class)?.forEach { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
-                u59VFingerprint.matchOrNull(u59Class)?.let { match ->
-                    match.method.addInstructions(0, U59_V_BODY)
-                }
+            // m4 (loads "vip") → true (VIP override)
+            xmaM4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
             }
 
-            // ugc0: subscription upgraded check
-            ugc0ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                ugc0KFingerprint.matchOrNull(classMatch.classDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
+            // J3 (instance, loads "intlReadMessage") → true
+            xmaJ3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
+            }
+            // K3 (instance, loads "revokeUnPair") → false
+            xmaK3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
             }
 
-            // zva0: tier rank + banner
-            zva0ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                val zva0Class = classMatch.classDef
-                zva0B0Fingerprint.matchOrNull(zva0Class)?.let { match ->
-                    match.method.addInstructions(0, ZVA0_B0_BODY)
-                }
-                zva0SFingerprint.matchOrNull(zva0Class)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
-            }
-
-            // th5: swipe action gates (d/f/h) → false
-            th5ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                th5PurchaseDialogFingerprint.matchAllOrNull(classMatch.classDef)?.forEach { match ->
+            // S3/b4-style wrappers (static no-arg → Z, unique product key) → false
+            listOf(
+                xmaWrapperW3Fingerprint,
+                xmaWrapperX3Fingerprint,
+                xmaWrapperD4Fingerprint,
+                xmaWrapperI4Fingerprint,
+                xmaWrapperL4Fingerprint,
+                xmaWrapperH4Fingerprint,
+                xmaWrapperJ4Fingerprint,
+                xmaWrapperZ3Fingerprint,
+                xmaWrapperB3Fingerprint,
+            ).forEach { fingerprint ->
+                fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                     match.method.addInstructions(0, RETURN_FALSE)
                 }
             }
 
-            // qgl0: privilege display string
-            qgl0ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                qgl0DFingerprint.matchOrNull(classMatch.classDef)?.let { match ->
-                    match.method.addInstructions(0, QGL0_D_BODY)
-                }
+            // e4 and f4 both load "svip" — patch both → false
+            // NOTE: 0..3 — currently finds 0 matches. See xmaV3W3Fingerprint.
+            xmaWrapperSvipFingerprint.matchAll(xmaClassDef, 0..3).forEach { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
             }
 
-            // n3b0: likers limit
-            n3b0ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                val n3b0Class = classMatch.classDef
-                n3b0QFingerprint.matchOrNull(n3b0Class)?.let { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
-                }
-                n3b0GFingerprint.matchOrNull(n3b0Class)?.let { match ->
-                    match.method.addInstructions(0, FAR_FUTURE_MS_BODY)
-                }
+            // Credit count methods (static no-arg → I) → 200000
+            // NOTE: 0..30 — currently finds 0 matches. See xmaV3W3Fingerprint.
+            xmaCreditCountFingerprint.matchAll(xmaClassDef, 0..30).forEach { match ->
+                match.method.addInstructions(0, RETURN_INT_200000)
             }
+        }
 
-            // sb90 Companion: blur check (c(User)) → false
-            sb90CompanionClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                sb90CFingerprint.matchAllOrNull(classMatch.classDef)?.forEach { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
-                }
+        // sja: picks remaining
+        sjaClassFingerprint.matchOrNull()?.classDef?.let { sjaClassDef ->
+            sjaPicksRemainingFingerprint.matchAll(sjaClassDef, 1..5).forEach { match ->
+                match.method.addInstructions(0, RETURN_INT_200000)
             }
+        }
 
-            // tm90: VIP badge override
-            tm90ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                tm90GFingerprint.matchOrNull(classMatch.classDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
-                }
+        // src0: subscription expiry display
+        src0ClassFingerprint.matchOrNull()?.classDef?.let { src0ClassDef ->
+            // NOTE: 0..5 — see xmaV3W3Fingerprint.
+            src0StaticIntNoArgFingerprint.matchAll(src0ClassDef, 0..5).forEach { match ->
+                match.method.addInstructions(0, RETURN_INT_365)
             }
+        }
 
-            // mb90: purchase type checks
-            mb90ClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                val mb90Class = classMatch.classDef
-                mb90BFingerprint.matchOrNull(mb90Class)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
-                mb90CFingerprint.matchOrNull(mb90Class)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
+        // gqf0: spotlight pass-through (single static no-arg Z)
+        gqf0ClassFingerprint.matchOrNull()?.classDef?.let { gqf0ClassDef ->
+            gqf0FFingerprint.matchOrNull(gqf0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
             }
+        }
 
-            // pib: server refresh + membership flip
-            pibClassFingerprint.matchOrNull(classDef)?.let { classMatch ->
-                val pibClass = classMatch.classDef
-                pibW9Fingerprint.matchOrNull(pibClass)?.let { match ->
-                    match.method.addInstructions(0, RETURN_NULL_OBJECT)
-                }
-                pibG9Fingerprint.matchOrNull(pibClass)?.let { match ->
-                    match.method.addInstructions(0, PIB_G9_BODY)
-                }
+        // h6a: pricing restriction
+        h6aClassFingerprint.matchOrNull()?.classDef?.let { h6aClassDef ->
+            h6aCFingerprint.matchOrNull(h6aClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
+            }
+        }
+
+        // u59: tier availability regional gates
+        u59ClassFingerprint.matchOrNull()?.classDef?.let { u59ClassDef ->
+            // NOTE: range is wide (0..100) — this fingerprint is broad
+            // (public static no-arg → Z) and currently finds ~44 matches in
+            // u59. Tighten the fingerprint to target only the regional tier
+            // gates before tightening this range.
+            u59StaticBoolFingerprint.matchAll(u59ClassDef, 0..100).forEach { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
+            }
+            u59VFingerprint.matchOrNull(u59ClassDef)?.let { match ->
+                match.method.addInstructions(0, U59_V_BODY)
+            }
+        }
+
+        // ugc0: subscription upgraded check
+        ugc0ClassFingerprint.matchOrNull()?.classDef?.let { ugc0ClassDef ->
+            ugc0KFingerprint.matchOrNull(ugc0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
+            }
+        }
+
+        // zva0: tier rank + banner
+        zva0ClassFingerprint.matchOrNull()?.classDef?.let { zva0ClassDef ->
+            zva0B0Fingerprint.matchOrNull(zva0ClassDef)?.let { match ->
+                match.method.addInstructions(0, ZVA0_B0_BODY)
+            }
+            zva0SFingerprint.matchOrNull(zva0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
+            }
+        }
+
+        // th5: swipe action gates (d/f/h) → false
+        th5ClassFingerprint.matchOrNull()?.classDef?.let { th5ClassDef ->
+            th5PurchaseDialogFingerprint.matchAll(th5ClassDef, 1..10).forEach { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+        }
+
+        // qgl0: privilege display string
+        qgl0ClassFingerprint.matchOrNull()?.classDef?.let { qgl0ClassDef ->
+            qgl0DFingerprint.matchOrNull(qgl0ClassDef)?.let { match ->
+                match.method.addInstructions(0, QGL0_D_BODY)
+            }
+        }
+
+        // n3b0: likers limit
+        n3b0ClassFingerprint.matchOrNull()?.classDef?.let { n3b0ClassDef ->
+            n3b0QFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+            n3b0GFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
+                match.method.addInstructions(0, FAR_FUTURE_MS_BODY)
+            }
+        }
+
+        // sb90 Companion: blur check (c(User)) → false
+        sb90CompanionClassFingerprint.matchOrNull()?.classDef?.let { sb90CompanionClassDef ->
+            // NOTE: 0..3 — currently finds 0 matches. See xmaV3W3Fingerprint.
+            sb90CFingerprint.matchAll(sb90CompanionClassDef, 0..3).forEach { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+        }
+
+        // tm90: VIP badge override
+        tm90ClassFingerprint.matchOrNull()?.classDef?.let { tm90ClassDef ->
+            tm90GFingerprint.matchOrNull(tm90ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+        }
+
+        // mb90: purchase type checks
+        mb90ClassFingerprint.matchOrNull()?.classDef?.let { mb90ClassDef ->
+            mb90BFingerprint.matchOrNull(mb90ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
+            }
+            mb90CFingerprint.matchOrNull(mb90ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
+            }
+        }
+
+        // pib: server refresh + membership flip
+        pibClassFingerprint.matchOrNull()?.classDef?.let { pibClassDef ->
+            pibW9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_NULL_OBJECT)
+            }
+            pibG9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
+                match.method.addInstructions(0, PIB_G9_BODY)
             }
         }
     }
