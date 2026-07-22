@@ -10,6 +10,7 @@ import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
+import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 /**
  * Unified premium unlock patch.
@@ -498,13 +499,9 @@ private val xmaWrapperW3Fingerprint = Fingerprint(
     filters = listOf(string("unlimitedSwipes")),
 )
 
-private val xmaWrapperX3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("oDiamond")),
-)
+// oDiamond methods (F3, X3, Y3) are handled by direct iteration below
+// because they all contain the "oDiamond" string and need to be distinguished
+// by bytecode shape (see the oDiamond methods section in the xma patch block).
 
 private val xmaWrapperD4Fingerprint = Fingerprint(
     classFingerprint = xmaClassFingerprint,
@@ -835,6 +832,22 @@ private fun com.android.tools.smali.dexlib2.iface.Method.callsU4WithString(): Bo
     }
 }
 
+private fun com.android.tools.smali.dexlib2.iface.Method.hasConditionalBranch(): Boolean {
+    // Check if this method has any conditional branch instructions (if-eq, if-ne, if-lt, etc.)
+    // Used to distinguish between methods like F3() (has branch) vs X3() (no branch)
+    return try {
+        this.implementation?.instructions?.any { instr ->
+            val opcode = instr.opcode
+            opcode.name.startsWith("if-") || opcode.name.startsWith("if-eq") || 
+            opcode.name.startsWith("if-ne") || opcode.name.startsWith("if-lt") ||
+            opcode.name.startsWith("if-ge") || opcode.name.startsWith("if-gt") ||
+            opcode.name.startsWith("if-le")
+        } ?: false
+    } catch (e: Exception) {
+        false
+    }
+}
+
 private fun com.android.tools.smali.dexlib2.iface.Method.isStaticSummarizedPrivilegesIdReturnBool(): Boolean =
     AccessFlags.PUBLIC.isSet(accessFlags) &&
         AccessFlags.STATIC.isSet(accessFlags) &&
@@ -848,6 +861,22 @@ private fun com.android.tools.smali.dexlib2.iface.Method.isStaticUserPrivilegeRe
         returnType == "Z" &&
         parameterTypes.size == 1 &&
         parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/UserPrivilege;"
+
+private fun com.android.tools.smali.dexlib2.iface.Method.isStaticNoArgReturnBool(): Boolean =
+    AccessFlags.PUBLIC.isSet(accessFlags) &&
+        AccessFlags.STATIC.isSet(accessFlags) &&
+        returnType == "Z" &&
+        parameterTypes.isEmpty()
+
+private fun com.android.tools.smali.dexlib2.iface.Method.containsString(str: String): Boolean =
+    instructionsOf(this).any { instr ->
+        instr is ReferenceInstruction &&
+            instr.reference is StringReference &&
+            (instr.reference as StringReference).string == str
+    }
+
+private fun com.android.tools.smali.dexlib2.iface.Method.instructionCount(): Int =
+    this.implementation?.instructions?.count() ?: 0
 
 // ── Patch ────────────────────────────────────────────────────────────────────
 
@@ -1037,6 +1066,40 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
             }
+
+            // ── Me tab affiliate discount entry banner: CoreIntlAffiliatePromotions.M3() ──
+            //
+            // The Me tab shows an affiliate discount banner driven by server-side promotion
+            // data, NOT user tier. M3() checks if there's a cached IapAffiliatePromotion
+            // for the given tab. Patching to FALSE hides ALL discount entry banners
+            // (ME_TAB, MESSAGE_TAB, WHISPER_TAB, etc.) — desired for premium unlock.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "M3" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions\$IntlAffiliateDiscountEntryTab;" &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
+            }
+
+            // ── Me tab profile privilege pay guide: ProfilePrivilegePayGuide.l0() ──
+            //
+            // The Me tab shows a profile privilege pay guide banner driven by server-side
+            // IntlTabMePayGuide data. l0() checks if the guide was clicked within a time
+            // window. Patching to FALSE makes the banner think it was already dismissed.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/profile/newme/ProfilePrivilegePayGuide;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "l0" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
+            }
         }
 
         // ----------------------------------------------------------------------
@@ -1135,10 +1198,7 @@ val premiumUnlockPatch = bytecodePatch(
             // !S3-style wrappers (static no-arg → Z, unique product key) → true
             // These methods return !S3(key) which is TRUE when privilege is ACTIVE.
             // For a premium user, we want them to return TRUE (privilege is active).
-            // Note: xmaWrapperX3Fingerprint matches "oDiamond" which appears in F3() (!S3-style),
-            // X3() (S3-style), and Y3() (b4-style). We patch to TRUE to make F3() work for match button.
             listOf(
-                xmaWrapperX3Fingerprint,
                 xmaWrapperJ4Fingerprint,
                 xmaWrapperZ3Fingerprint,
             ).forEach { fingerprint ->
@@ -1146,6 +1206,38 @@ val premiumUnlockPatch = bytecodePatch(
                     match.method.addInstructions(0, RETURN_TRUE)
                 }
             }
+
+            // ── oDiamond methods: F3(), X3(), Y3() all contain "oDiamond" string ──
+            // F3() = !S3("oDiamond") → TRUE when active → patch to TRUE
+            // X3() = S3("oDiamond") → TRUE when expired → patch to FALSE
+            // Y3() = b4("oDiamond") → TRUE when expiredTime > 0 → patch to TRUE
+            //
+            // The generic string("oDiamond") filter matches all three, and matchOrNull()
+            // caches the first match (typically F3 due to dex order). We must iterate
+            // directly and distinguish by bytecode shape:
+            // - F3() has a conditional branch (if-eqz) before return
+            // - X3() has no branch, just xor-int/lit8 + return
+            // - Y3() has multiple branches (null check + cmp-long)
+            mutableClassDefBy(xmaClassDef).methods
+                .filter { it.isStaticNoArgReturnBool() }
+                .filter { it.containsString("oDiamond") }
+                .forEach { method ->
+                    when {
+                        // F3(): !S3-style with conditional branch → TRUE
+                        method.hasConditionalBranch() -> {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                        // X3(): S3-style without conditional branch → FALSE
+                        // Distinguished from Y3() by instruction count (X3 ~3, Y3 ~10+)
+                        method.instructionCount() < 6 -> {
+                            method.addInstructions(0, RETURN_FALSE)
+                        }
+                        // Y3(): b4-style with multiple branches → TRUE
+                        else -> {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                    }
+                }
 
             // B3-style wrapper (TEnum call) → false
             xmaWrapperB3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
