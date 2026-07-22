@@ -572,6 +572,52 @@ val premiumUnlockPatch = bytecodePatch(
                         }
                     }
                 }
+
+                // ── pib: server refresh + DB observable ─────────────────────────
+                "Lp001l/pib;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            // W9: server refresh → return null to prevent override
+                            method.name == "W9" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Ljava/lang/String;" &&
+                                method.returnType == "Lrx/c;" -> {
+                                val w9Fingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "Lrx/c;",
+                                    parameters = listOf("Ljava/lang/String;"),
+                                )
+                                w9Fingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const/4 v0, 0x0
+                                        return-object v0
+                                    """)
+                                }
+                            }
+                            // g9: modify User membership before emitting from observable
+                            method.name == "g9" && method.parameterTypes.size == 2 &&
+                                method.parameterTypes[0] == "Ljava/lang/String;" &&
+                                method.parameterTypes[1] == "Lcom/p1/mobile/putong/data/User;" &&
+                                method.returnType == "V" -> {
+                                val g9Fingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
+                                    returnType = "V",
+                                    parameters = listOf("Ljava/lang/String;", "Lcom/p1/mobile/putong/data/User;"),
+                                )
+                                g9Fingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        if-eqz p1, :user_null
+                                        iget-object v0, p1, Lcom/p1/mobile/putong/data/User;->membership:Lcom/p1/mobile/putong/data/Membership;
+                                        if-eqz v0, :membership_null
+                                        const/4 v1, 0x1
+                                        iput-boolean v1, v0, Lcom/p1/mobile/putong/data/Membership;->active:Z
+                                        :membership_null
+                                        :user_null
+                                    """)
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
