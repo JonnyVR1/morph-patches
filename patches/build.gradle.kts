@@ -10,6 +10,7 @@ patches {
         website = "https://github.com/JonnyVR1/morph-patches"
         license = "GPLv3"
     }
+    extensionsProjectPath = ":extensions:signature"
 }
 
 kotlin {

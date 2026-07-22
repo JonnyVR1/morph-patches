@@ -46,9 +46,10 @@ val signatureSpoofPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     dependsOn(manifestPatch)
+    extendWith("extensions/signature.mpe")
 
     execute {
-        // The SignatureSpoofProvider class will be injected into the APK via the extension mechanism.
+        // The SignatureSpoofApplication class will be injected into the APK via the extension mechanism.
         // The manifest patch adds it as a Content Provider, which is instantiated very early.
         // The provider's onCreate() method installs the PackageManager hook.
         // No bytecode modifications needed - the Java class handles everything at runtime.

@@ -37,4 +37,12 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "morph-patches"
+
+settings {
+    extensions {
+        defaultNamespace = "com.p1.mobile.putong.data.extension"
+    }
+}
+
+include(":extensions:signature")
 include(":patches")
