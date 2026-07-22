@@ -818,6 +818,24 @@ private fun com.android.tools.smali.dexlib2.iface.Method.callsGuessedCurrentServ
     }
 }
 
+private fun com.android.tools.smali.dexlib2.iface.Method.callsU4WithString(): Boolean {
+    // Check if this method calls u4(String) - the upgrade dialog gate pattern
+    // u4 is the only public final Z(String) method in CoreProduct
+    return try {
+        val impl = this as? com.android.tools.smali.dexlib2.immutable.ImmutableMethod ?: return false
+        impl.implementation?.instructions?.any { instr ->
+            instr is ReferenceInstruction &&
+                instr.reference is MethodReference &&
+                (instr.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/core/api/CoreProduct;" &&
+                (instr.reference as MethodReference).parameterTypes.size == 1 &&
+                (instr.reference as MethodReference).parameterTypes[0] == "Ljava/lang/String;" &&
+                (instr.reference as MethodReference).returnType == "Z"
+        } ?: false
+    } catch (e: Exception) {
+        false
+    }
+}
+
 private fun com.android.tools.smali.dexlib2.iface.Method.isStaticSummarizedPrivilegesIdReturnBool(): Boolean =
     AccessFlags.PUBLIC.isSet(accessFlags) &&
         AccessFlags.STATIC.isSet(accessFlags) &&
@@ -934,13 +952,17 @@ val premiumUnlockPatch = bytecodePatch(
                             AccessFlags.FINAL.isSet(method.accessFlags) -> {
                             method.addInstructions(0, RETURN_TRUE)
                         }
-                        // All public no-arg Z methods (A4, B4, L4, O4, P4, Q4, R4, T4,
-                        // y4, z4, etc.) — gate them closed.
+                        // Upgrade dialog gates (A4, B4, Q4, y4, z4) — these call u4(String)
+                        // with specific strings and should return FALSE to prevent upgrade dialogs.
+                        // They have a simple structure: invoke u4(String) and return the result.
                         method.parameterTypes.isEmpty() &&
                             method.returnType == "Z" &&
-                            AccessFlags.PUBLIC.isSet(method.accessFlags) -> {
+                            AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                            method.callsU4WithString() -> {
                             method.addInstructions(0, RETURN_FALSE)
                         }
+                        // Feature/data gates (L4, O4, P4, R4, T4) — these have different behavior
+                        // and should NOT be patched. Leave them unpatched to preserve original behavior.
                     }
                 }
             }
