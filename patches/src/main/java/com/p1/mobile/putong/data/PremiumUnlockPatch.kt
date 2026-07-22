@@ -146,6 +146,39 @@ private val USER_NULL_CHECK_BODY: String = """
     :status_not_null
 """
 
+// ProfileImagesItemHolder.t(): defensive null-K2 guard
+//
+// `t()` is the holder's bind method. It reads `User userK2 = O().K2()` and
+// then `arrayList.addAll(userK2.pictures)` (NPE site: `iget-object v5, v0,
+// User->pictures` at offset ~14 of the original body). On a first-frame
+// cache miss, RxJava combineLatest can dispatch the bind call before the
+// second source has emitted, so K2() returns null and `t()` NPEs.
+//
+// Real Tantan doesn't hit this because the production fragment gates the
+// bind call behind `viewModel.user.distinctUntilChanged()` etc. — but our
+// patches have shifted timing enough that the race is visible in the
+// patched build.
+//
+// Patch shape: load K2() into v1, branch over the original body if null.
+// `goto :t_continue` falls through to the original body's first instruction
+// when v1 != 0. v1 is overwritten by the original body at offset 5
+// (`move-result-object v1` after the second O() call) so no register
+// conflict; `.registers 8` stays unchanged.
+//
+// Mirrors the original bytecode 1:1 (including the `Ll/c5m;` interface
+// dispatch for K2()) so behavior is byte-identical when K2() != null.
+private val PROFILE_IMAGES_NULL_GUARD_BODY: String = """
+    invoke-virtual {p0}, Lcom/p1/mobile/putong/core/ui/profile/profilelist/itemholders/ProfileImagesItemHolder;->O()Ll/a1m;
+    move-result-object v0
+    invoke-interface {v0}, Ll/c5m;->K2()Lcom/p1/mobile/putong/data/User;
+    move-result-object v1
+    if-eqz v1, :t_early_exit
+    goto :t_continue
+    :t_early_exit
+    return-void
+    :t_continue
+"""
+
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
 
@@ -925,6 +958,25 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes.isEmpty() && method.returnType == "I"
                     ) {
                         method.addInstructions(0, RETURN_INT_200000)
+                    }
+                }
+            }
+
+            // ── ProfileImagesItemHolder.t(): defensive null-K2 guard ────────
+            //
+            // Stable CamelCase class, but `t()` is the obfuscated bind name.
+            // Filter by signature (name == "t", no params, V return) — single
+            // method match. Uses direct `mutableClassDefBy().methods.forEach`
+            // to avoid the matchOrNull(method) cache trap (AGENTS.md §1b).
+            if (classDef.type ==
+                "Lcom/p1/mobile/putong/core/ui/profile/profilelist/itemholders/ProfileImagesItemHolder;"
+            ) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "t" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V"
+                    ) {
+                        method.addInstructions(0, PROFILE_IMAGES_NULL_GUARD_BODY)
                     }
                 }
             }
