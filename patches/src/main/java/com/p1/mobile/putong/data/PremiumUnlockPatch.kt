@@ -123,7 +123,7 @@ private val ZVA0_B0_BODY: String = """
     invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
     move-result v0
     if-eqz v0, :not_me
-    const/4 v0, 0x3
+    const/4 v0, 0x2
     return v0
     :not_me
 """
