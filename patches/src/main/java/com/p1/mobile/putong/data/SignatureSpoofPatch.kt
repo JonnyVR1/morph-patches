@@ -23,24 +23,12 @@ import org.w3c.dom.Element
 
 private val manifestPatch = resourcePatch {
     finalize {
-        document("AndroidManifest.xml").use { document ->
-            val application = document.getElementsByTagName("application").item(0) as Element
-
-            // Get the actual package name from the manifest to construct a concrete authority.
-            // We can't rely on ${applicationId} substitution in a post-merge manifest patch.
-            val packageName = document.documentElement.getAttribute("package")
-                ?: "com.tantantribe.tribe"
-
-            // Add a Content Provider for early initialization
-            // Content Providers are instantiated before Application.onCreate()
-            // Use high initOrder to ensure we run before GMS/Firebase providers
-            val provider = document.createElement("provider")
-            provider.setAttribute("android:name", "com.p1.mobile.putong.data.extension.signature.SignatureSpoofApplication")
-            provider.setAttribute("android:authorities", "$packageName.signatureSpoof")
-            provider.setAttribute("android:exported", "false")
-            provider.setAttribute("android:initOrder", "2147483647")
-            application.appendChild(provider)
-        }
+        // NOTE: This resourcePatch is intentionally a no-op. morphe 1.6.0 + arsclib 1.6.0
+        // has a bug where DOM modifications to AndroidManifest.xml are silently dropped
+        // during the XML-to-binary encoding pass. We work around this in PatcherMain.kt
+        // by manually injecting the SignatureSpoof provider into the binary manifest
+        // AFTER morphe's applyTo() has finished. See injectSignatureSpoofProvider().
+        System.err.println("SignatureSpoof: resourcePatch finalize called (no-op; see PatcherMain workaround)")
     }
 }
 

@@ -6,6 +6,9 @@ import app.morphe.patcher.apk.ApkUtils
 import app.morphe.patcher.apk.ApkUtils.applyTo
 import kotlinx.coroutines.runBlocking
 import java.io.File
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.util.zip.ZipOutputStream
 
 fun main(args: Array<String>) {
     require(args.size >= 2) {
@@ -59,6 +62,16 @@ fun main(args: Array<String>) {
         // "No *.apk files found on: ...").
         patcherResult.applyTo(rebuiltApk)
 
+        // WORKAROUND: morphe 1.6.0 with arsclib 1.6.0 has a bug where DOM modifications
+        // to AndroidManifest.xml via resourcePatch are silently dropped during AAPT/arsclib
+        // XML-to-binary encoding. The text manifest in the working directory contains our
+        // changes, but the compiled binary manifest in the output APK does not.
+        //
+        // To work around this, we patch the binary AndroidManifest.xml in the rebuilt APK
+        // directly using arsclib's AndroidManifestBlock decoder/encoder.
+        println("WORKAROUND: Manually injecting SignatureSpoof provider into binary manifest")
+        injectSignatureSpoofProvider(rebuiltApk)
+
         val keystoreFile = File(tempDir, "morphe.keystore")
         ApkUtils.signApk(
             rebuiltApk,
@@ -75,5 +88,139 @@ fun main(args: Array<String>) {
         println("Patched APK saved to ${outputApk.absolutePath}")
     } finally {
         tempDir.deleteRecursively()
+    }
+}
+
+/**
+ * Manually inject the SignatureSpoof provider into the binary AndroidManifest.xml
+ * of an APK after morphe's broken resource encoding has run.
+ *
+ * This works around a morphe 1.6.0 + arsclib bug where DOM modifications to
+ * AndroidManifest.xml via `resourcePatch { document(...).use { ... } }` are
+ * silently dropped during the XML-to-binary encoding pass. The text manifest
+ * is correctly modified on disk, but the compiled binary in the output APK
+ * does not reflect the changes.
+ *
+ * The function reads the binary manifest, decodes it via arsclib's
+ * AndroidManifestBlock, appends a `<provider>` element to `<application>`,
+ * re-encodes to binary, and writes it back into the APK.
+ */
+private fun injectSignatureSpoofProvider(apkFile: File) {
+    val authority = "com.tantantribe.tribe.signatureSpoof"
+    val providerName = "com.p1.mobile.putong.data.extension.signature.SignatureSpoofApplication"
+
+    val tempApk = File(apkFile.parentFile, apkFile.name + ".tmp")
+    var providerInjected = false
+
+    ZipFile(apkFile).use { zipIn ->
+        ZipOutputStream(tempApk.outputStream()).use { zipOut ->
+            val entries = zipIn.entries()
+            while (entries.hasMoreElements()) {
+                val entry = entries.nextElement()
+                zipOut.putNextEntry(ZipEntry(entry.name))
+                if (entry.name == "AndroidManifest.xml") {
+                    val manifestBytes = zipIn.getInputStream(entry).readBytes()
+                    val patchedBytes = patchManifestBytes(manifestBytes, authority, providerName)
+                    providerInjected = patchedBytes != manifestBytes
+                    zipOut.write(patchedBytes)
+                } else {
+                    zipIn.getInputStream(entry).use { it.copyTo(zipOut) }
+                }
+                zipOut.closeEntry()
+            }
+        }
+    }
+
+    if (providerInjected) {
+        apkFile.delete()
+        tempApk.renameTo(apkFile)
+        println("WORKAROUND: SignatureSpoof provider injected. New APK size = ${apkFile.length()} bytes")
+    } else {
+        tempApk.delete()
+        println("WORKAROUND: Provider was already present or could not be added")
+    }
+}
+
+/**
+ * Decode binary AndroidManifest.xml, append a `<provider>` element to `<application>`,
+ * and re-encode. Returns the original bytes if the provider is already present or
+ * something goes wrong.
+ */
+private fun patchManifestBytes(manifestBytes: ByteArray, authority: String, providerName: String): ByteArray {
+    return try {
+        // Use arsclib (transitive dep of morphe) via reflection to avoid hard dependency
+        val manifestBlockClass = Class.forName("com.reandroid.arsc.chunk.xml.AndroidManifestBlock")
+        val manifestBlock = manifestBlockClass.getDeclaredConstructor().newInstance()
+
+        // Read binary manifest from ByteArrayInputStream
+        val readBytesStream = manifestBlockClass.getMethod("readBytes", java.io.InputStream::class.java)
+        readBytesStream.invoke(manifestBlock, java.io.ByteArrayInputStream(manifestBytes))
+
+        // Get <application> element
+        val getApplicationElement = manifestBlockClass.getMethod("getApplicationElement")
+        val applicationElement = getApplicationElement.invoke(manifestBlock) ?: return manifestBytes
+        val applicationElementClass = applicationElement.javaClass
+
+        // Check if provider already exists
+        val elementClass = Class.forName("com.reandroid.arsc.chunk.xml.ResXmlElement")
+        val attrClass = Class.forName("com.reandroid.arsc.chunk.xml.ResXmlAttribute")
+        val listApplicationElementsByTag = manifestBlockClass.getMethod(
+            "listApplicationElementsByTag", String::class.java
+        )
+        @Suppress("UNCHECKED_CAST")
+        val existingProviders = listApplicationElementsByTag.invoke(manifestBlock, "provider") as List<Any>
+        for (provider in existingProviders) {
+            val getAttributes = elementClass.getMethod("getAttributes")
+            @Suppress("UNCHECKED_CAST")
+            val attrs = getAttributes.invoke(provider) as Iterator<Any>
+            while (attrs.hasNext()) {
+                val attr = attrs.next()
+                val getName = attrClass.getMethod("getName")
+                val nameVal = getName.invoke(attr) as String?
+                if (nameVal == "name") {
+                    val getValueString = attrClass.getMethod("getValueString")
+                    val nameAttr = getValueString.invoke(attr) as String?
+                    if (nameAttr != null && nameAttr.contains("SignatureSpoof")) {
+                        println("WORKAROUND: SignatureSpoof provider already present in manifest")
+                        return manifestBytes
+                    }
+                }
+            }
+        }
+
+        // Create new provider element via newElement (which adds it to parent)
+        val newElement = applicationElementClass.getMethod("newElement", String::class.java)
+        val providerElement = newElement.invoke(applicationElement, "provider")
+
+        // arsclib resolves android:* attribute names automatically when defaultId=0.
+        val getOrCreateAndroidAttribute = elementClass.getMethod(
+            "getOrCreateAndroidAttribute", String::class.java, java.lang.Integer.TYPE
+        )
+
+        fun setAttrString(elem: Any, localName: String, value: String) {
+            val attr = getOrCreateAndroidAttribute.invoke(elem, localName, 0) ?: return
+            val setValueAsString = attrClass.getMethod("setValueAsString", String::class.java)
+            setValueAsString.invoke(attr, value)
+        }
+
+        setAttrString(providerElement, "name", providerName)
+        setAttrString(providerElement, "authorities", authority)
+        setAttrString(providerElement, "exported", "false")
+        setAttrString(providerElement, "initOrder", "2147483647")
+
+        // Re-encode to binary by writing to a temp file and reading back
+        val tempFile = File.createTempFile("manifest-", ".bin")
+        try {
+            val writeBytes = manifestBlockClass.getMethod("writeBytes", java.io.File::class.java)
+            val writtenSize = writeBytes.invoke(manifestBlock, tempFile) as Int
+            println("WORKAROUND: Encoded manifest size = $writtenSize bytes (original ${manifestBytes.size})")
+            tempFile.readBytes()
+        } finally {
+            tempFile.delete()
+        }
+    } catch (e: Throwable) {
+        System.err.println("WORKAROUND ERROR in patchManifestBytes: ${e.message}")
+        e.printStackTrace()
+        manifestBytes
     }
 }
