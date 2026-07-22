@@ -567,11 +567,25 @@ val premiumUnlockPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_TRUE)
                                 }
                             }
+                            // V(User) - check if user is ultra-premium
+                            // For current user, return true; for others, return false
                             method.name == "V" && method.parameterTypes.size == 1 &&
                                 method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
                                 method.returnType == "Z" -> {
                                 oneUserArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_TRUE)
+                                    match.method.addInstructions(0, """
+                                        # Check if this is the current user
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :not_me
+                                        # Return true for current user (ultra-premium)
+                                        const/4 v0, 0x1
+                                        return v0
+                                        :not_me
+                                        # For other users, return false (not ultra-premium)
+                                        const/4 v0, 0x0
+                                        return v0
+                                    """)
                                 }
                             }
                         }

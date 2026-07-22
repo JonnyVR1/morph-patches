@@ -1,13 +1,15 @@
 package com.p1.mobile.putong.data.extension.signature;
 
-import android.app.Application;
+import android.content.ContentProvider;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Base64;
 import android.util.Log;
 
@@ -18,7 +20,10 @@ import java.lang.reflect.Proxy;
 import java.util.Map;
 
 /**
- * Signature spoofing application that intercepts PackageManager signature queries.
+ * Signature spoofing Content Provider that intercepts PackageManager signature queries.
+ * 
+ * Content Providers are instantiated very early in the app lifecycle, before Application.onCreate().
+ * This allows us to hook the PackageManager before Maps SDK or other services initialize.
  * 
  * This class hooks into the Android framework to return the original Tantan signing
  * certificate when any code queries the app's signature. This allows Google Maps
@@ -29,7 +34,7 @@ import java.util.Map;
  * - https://github.com/hoo-dles/morphe-patches
  * - https://github.com/rushiranpise/morphe-patches
  */
-public class SignatureSpoofApplication extends Application {
+public class SignatureSpoofApplication extends ContentProvider {
     private static final String TAG = "SignatureSpoof";
     private static final int GET_SIGNATURES = 0x00000040;
     
@@ -57,26 +62,58 @@ public class SignatureSpoofApplication extends Application {
     private String packageName;
     
     @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
+    public boolean onCreate() {
+        Context context = getContext();
+        if (context == null) {
+            Log.e(TAG, "Context is null, cannot initialize signature spoof");
+            return false;
+        }
         
         try {
-            packageName = base.getPackageName();
+            packageName = context.getPackageName();
             Log.d(TAG, "Initializing signature spoof for package: " + packageName);
             
             // Decode the original signature
             spoofedSignature = new Signature(Base64.decode(ORIGINAL_SIGNATURE_BASE64, Base64.DEFAULT));
             
             // Hook the PackageManager
-            hookPackageManager(base);
+            hookPackageManager(context);
             
             // Clear caches to ensure spoofed signature is used
             clearPackageManagerCaches();
             
             Log.d(TAG, "Signature spoof initialized successfully");
+            return true;
         } catch (Exception e) {
             Log.e(TAG, "Failed to initialize signature spoof", e);
+            return false;
         }
+    }
+    
+    // Required ContentProvider methods (not used)
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        return null;
+    }
+    
+    @Override
+    public String getType(Uri uri) {
+        return null;
+    }
+    
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
+        return null;
+    }
+    
+    @Override
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        return 0;
+    }
+    
+    @Override
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        return 0;
     }
     
     private void hookPackageManager(Context context) {
