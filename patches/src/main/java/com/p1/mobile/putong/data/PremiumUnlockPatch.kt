@@ -842,6 +842,17 @@ val premiumUnlockPatch = bytecodePatch(
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                             method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
                         }
+                        // isHideActiveFromSVip: server-gated by `svipPrivacy.frozenTime`.
+                        // Without VIP the server sends nothing and this returns FALSE,
+                        // which makes `getLastActiveTimeMillis()` return
+                        // `location.updatedTime` (real active time) and makes
+                        // `CoreMyInterestItem.u(user)` show "Active X ago" in the UI.
+                        // Forcing it TRUE for the current user makes both the timestamp
+                        // and the UI label switch to the SVIP frozen-time branch.
+                        method.name == "isHideActiveFromSVip" &&
+                            method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                        }
                         method.name == "isVIPExpired" &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                             method.addInstructions(0, RETURN_FALSE)
