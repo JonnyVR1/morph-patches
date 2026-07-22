@@ -1,5 +1,6 @@
 package com.p1.mobile.putong.data
 
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.patch.resourcePatch
 import org.w3c.dom.Element
@@ -10,7 +11,7 @@ import org.w3c.dom.Element
  * the app signature.
  *
  * Works by:
- * 1. Adding a custom Application class that hooks PackageManager at runtime
+ * 1. Adding a Content Provider that hooks PackageManager at runtime (very early initialization)
  * 2. When getPackageInfo() is called with GET_SIGNATURES flag, returns the original signature
  * 3. This happens before Maps SDK or other services read the signature
  *
@@ -24,12 +25,14 @@ private val manifestPatch = resourcePatch {
     finalize {
         document("AndroidManifest.xml").use { document ->
             val application = document.getElementsByTagName("application").item(0) as Element
-            val applicationClass = application.getAttribute("android:name")
             
-            // Only set if not already set (don't override existing Application subclass)
-            if (applicationClass.isEmpty()) {
-                application.setAttribute("android:name", "com.p1.mobile.putong.data.extension.signature.SignatureSpoofApplication")
-            }
+            // Add a Content Provider for early initialization
+            // Content Providers are instantiated before Application.onCreate()
+            val provider = document.createElement("provider")
+            provider.setAttribute("android:name", "com.p1.mobile.putong.data.extension.signature.SignatureSpoofApplication")
+            provider.setAttribute("android:authorities", "\${applicationId}.signatureSpoof")
+            provider.setAttribute("android:exported", "false")
+            application.appendChild(provider)
         }
     }
 }
@@ -45,10 +48,9 @@ val signatureSpoofPatch = bytecodePatch(
     dependsOn(manifestPatch)
 
     execute {
-        // The SignatureSpoofApplication class from the extension module will be
-        // automatically included in the APK. The manifest patch sets it as the
-        // application class, so it will be initialized when the app starts.
-        // No bytecode modifications needed - the Java class handles everything
-        // at runtime via reflection.
+        // The SignatureSpoofProvider class will be injected into the APK via the extension mechanism.
+        // The manifest patch adds it as a Content Provider, which is instantiated very early.
+        // The provider's onCreate() method installs the PackageManager hook.
+        // No bytecode modifications needed - the Java class handles everything at runtime.
     }
 }

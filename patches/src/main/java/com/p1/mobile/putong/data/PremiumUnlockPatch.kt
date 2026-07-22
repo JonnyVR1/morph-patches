@@ -51,6 +51,12 @@ private val purchaseTypeArgStaticReturnBoolFingerprint = Fingerprint(
     parameters = listOf("Lcom/p1/mobile/putong/core/data/PurchaseType;"),
 )
 
+private val userPrivilegeArgStaticReturnBoolFingerprint = Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = listOf("Lcom/p1/mobile/putong/core/data/UserPrivilege;"),
+)
+
 private val userArgFinalReturnIntFingerprint = Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
     returnType = "I",
@@ -224,7 +230,7 @@ val premiumUnlockPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
                                 }
                             }
-                            // isMembershipUsed(MT) → false (benefits appear available)
+                            // isMembershipUsed(MT) → false (isMe-guarded)
                             method.name == "isMembershipUsed" -> {
                                 userPredicateMembershipFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_FALSE)
@@ -246,6 +252,51 @@ val premiumUnlockPatch = bytecodePatch(
                                         invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
                                         iput-object v0, p0, Lcom/p1/mobile/putong/data/User;->status:Ljava/util/List;
                                         :status_not_null
+                                    """)
+                                }
+                            }
+                            // isVIPUsed → true (isMe-guarded)
+                            method.name == "isVIPUsed" &&
+                                method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                                }
+                            }
+                            // getVipExpireTime → far future (isMe-guarded)
+                            method.name == "getVipExpireTime" &&
+                                method.parameterTypes.isEmpty() && method.returnType == "J" -> {
+                                val getVipExpireTimeFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "J",
+                                    parameters = emptyList(),
+                                )
+                                getVipExpireTimeFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :not_me
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
+                                        :not_me
+                                    """)
+                                }
+                            }
+                            // getVipToExpireTimeInMill → far future (isMe-guarded)
+                            method.name == "getVipToExpireTimeInMill" &&
+                                method.parameterTypes.isEmpty() && method.returnType == "J" -> {
+                                val getVipToExpireTimeInMillFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "J",
+                                    parameters = emptyList(),
+                                )
+                                getVipToExpireTimeInMillFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :not_me
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
+                                        :not_me
                                     """)
                                 }
                             }
@@ -346,7 +397,7 @@ val premiumUnlockPatch = bytecodePatch(
                                 }
                             }
                             // Credit-count methods: return large value for unlimited credits
-                            method.name in setOf("Q3", "z4", "m3", "A4", "o3", "p3", "v4", "k3", "l3") &&
+                            method.name in setOf("Q3", "z4", "m3", "A4", "o3", "p3", "v4", "k3", "l3", "r3", "t3") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "I" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgReturnIntFingerprint.matchOrNull(method)?.let { match ->
@@ -356,9 +407,128 @@ val premiumUnlockPatch = bytecodePatch(
                                     """)
                                 }
                             }
+                            // T3(UserPrivilege): "is privilege expired?" → false (not expired)
+                            method.name == "T3" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/UserPrivilege;" &&
+                                method.returnType == "Z" -> {
+                                userPrivilegeArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // c4(UserPrivilege): "is privilege active?" → true
+                            method.name == "c4" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/UserPrivilege;" &&
+                                method.returnType == "Z" -> {
+                                userPrivilegeArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                            // a4(PurchaseType): "is purchase expired?" → false (not expired)
+                            method.name == "a4" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
+                                method.returnType == "Z" -> {
+                                purchaseTypeArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
+                            // w3(SummarizedPrivilegesId): expiredTime → far future (never expires)
+                            method.name == "w3" && method.parameterTypes.size == 1 &&
+                                method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/SummarizedPrivilegesId;" &&
+                                method.returnType == "J" -> {
+                                summPrivArgStaticReturnLongFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
+                                    """)
+                                }
+                            }
+                            // q3(): femaleVip expiredTime → far future (never expires)
+                            method.name == "q3" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "J" -> {
+                                noArgStaticReturnLongFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
+                                    """)
+                                }
+                            }
+                            // s3(): limitedTrialSee expiredTime → far future (never expires)
+                            method.name == "s3" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "J" -> {
+                                noArgStaticReturnLongFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const-wide v0, 0x7fffffffffffffffL
+                                        return-wide v0
+                                    """)
+                                }
+                            }
+                            // J3() instance method: "can read messages?" → true
+                            method.name == "J3" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" && !AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                            // K3() instance method: "is revoke unpair expired?" → false (not expired)
+                            method.name == "K3" && method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z" && !AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_FALSE)
+                                }
+                            }
                             // Catch-all: all other no-arg static boolean methods → true
                             method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 method.name !in listOf("L3") &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, RETURN_TRUE)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ── sja: picks remaining count (bypasses xma, reads directly from cache) ──
+                "Lp001l/sja;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            method.name in setOf("r3", "B3") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "I" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgReturnIntFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const v0, 0x30d40
+                                        return v0
+                                    """)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ── src0: subscription expiry display (bypasses xma) ────────────
+                "Lp001l/src0;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            method.name in setOf("w", "x") &&
+                                method.parameterTypes.isEmpty() && method.returnType == "I" &&
+                                AccessFlags.STATIC.isSet(method.accessFlags) -> {
+                                noArgReturnIntFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, """
+                                        const v0, 0x16d
+                                        return v0
+                                    """)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ── gqf0: spotlight remaining check (bypasses xma) ──────────────
+                "Lp001l/gqf0;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            method.parameterTypes.isEmpty() && method.returnType == "Z" &&
                                 AccessFlags.STATIC.isSet(method.accessFlags) -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_TRUE)
@@ -391,17 +561,31 @@ val premiumUnlockPatch = bytecodePatch(
                 "Lp001l/u59;" -> {
                     classDef.methods.forEach { method ->
                         when {
-                            method.name in setOf("U", "S", "O") &&
+                            method.name in setOf("U", "S", "O", "R") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_TRUE)
                                 }
                             }
+                            // V(User) - check if user is ultra-premium
+                            // For current user, return true; for others, return false
                             method.name == "V" && method.parameterTypes.size == 1 &&
                                 method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
                                 method.returnType == "Z" -> {
                                 oneUserArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_TRUE)
+                                    match.method.addInstructions(0, """
+                                        # Check if this is the current user
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :not_me
+                                        # Return true for current user (ultra-premium)
+                                        const/4 v0, 0x1
+                                        return v0
+                                        :not_me
+                                        # For other users, return false (not ultra-premium)
+                                        const/4 v0, 0x0
+                                        return v0
+                                    """)
                                 }
                             }
                         }
@@ -674,6 +858,50 @@ val premiumUnlockPatch = bytecodePatch(
                                         :membership_null
                                         :user_null
                                     """)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ── CoreBusinessServiceIml: bypass purchase dialogs ─────────────────────────
+                "Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;" -> {
+                    classDef.methods.forEach { method ->
+                        when {
+                            // Lf(): show purchase dialog → return immediately (bypass dialog)
+                            method.name == "Lf" && method.parameterTypes.size == 5 &&
+                                method.returnType == "V" -> {
+                                val lfFingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "V",
+                                    parameters = listOf(
+                                        "Lcom/p1/mobile/android/app/Act;",
+                                        "Ljava/lang/String;",
+                                        "Lcom/p1/mobile/putong/core/data/Privilege;",
+                                        "Lp001l/e30;",
+                                        "Lp001l/e30;"
+                                    ),
+                                )
+                                lfFingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, "return-void")
+                                }
+                            }
+                            // r6(): show purchase dialog → return immediately (bypass dialog)
+                            method.name == "r6" && method.parameterTypes.size == 5 &&
+                                method.returnType == "V" -> {
+                                val r6Fingerprint = Fingerprint(
+                                    accessFlags = listOf(AccessFlags.PUBLIC),
+                                    returnType = "V",
+                                    parameters = listOf(
+                                        "Lcom/p1/mobile/android/app/Act;",
+                                        "Ljava/lang/String;",
+                                        "Lcom/p1/mobile/putong/core/data/Privilege;",
+                                        "Lp001l/e30;",
+                                        "Lp001l/d30;"
+                                    ),
+                                )
+                                r6Fingerprint.matchOrNull(method)?.let { match ->
+                                    match.method.addInstructions(0, "return-void")
                                 }
                             }
                         }
