@@ -168,32 +168,53 @@ val premiumUnlockPatch = bytecodePatch(
                 TANTAN_USER_CLASS -> {
                     classDef.methods.forEach { method ->
                         when {
-                            // isUltraPremium, isSupremePartner → true (generic, applies to ALL users)
+                            // isUltraPremium, isSupremePartner → true (isMe-guarded)
                             method.name in setOf("isUltraPremium", "isSupremePartner") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_TRUE)
+                                    match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
                                 }
                             }
-                            // isVIP, isSVIP, isPlatinum → false (generic, applies to ALL users)
+                            // isVIP, isSVIP, isPlatinum → false (isMe-guarded)
                             method.name in setOf("isVIP", "isSVIP", "isPlatinum") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_FALSE)
+                                    match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :cond_0
+                                        const/4 v0, 0x0
+                                        return v0
+                                        :cond_0
+                                    """)
                                 }
                             }
-                            // gpHideVip → false (generic, prevents badge hiding for ALL users)
+                            // gpHideVip → false (isMe-guarded, prevents badge hiding)
                             method.name == "gpHideVip" &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_FALSE)
+                                    match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :cond_0
+                                        const/4 v0, 0x0
+                                        return v0
+                                        :cond_0
+                                    """)
                                 }
                             }
-                            // isHideIconFromSVipWithMe → false (generic, prevents icon hiding for ALL users)
+                            // isHideIconFromSVipWithMe → false (isMe-guarded, prevents icon hiding)
                             method.name == "isHideIconFromSVipWithMe" &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_FALSE)
+                                    match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :cond_0
+                                        const/4 v0, 0x0
+                                        return v0
+                                        :cond_0
+                                    """)
                                 }
                             }
                             // isVIPExpired → false (never expired)
@@ -203,13 +224,13 @@ val premiumUnlockPatch = bytecodePatch(
                                     match.method.addInstructions(0, RETURN_FALSE)
                                 }
                             }
-                            // isMembership(MT) → true (generic, applies to ALL users)
+                            // isMembership(MT) → true (isMe-guarded)
                             method.name == "isMembership" -> {
                                 userPredicateMembershipFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_TRUE)
+                                    match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
                                 }
                             }
-                            // isMembershipUsed(MT) → false (generic, benefits appear available for ALL users)
+                            // isMembershipUsed(MT) → false (isMe-guarded)
                             method.name == "isMembershipUsed" -> {
                                 userPredicateMembershipFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_FALSE)
@@ -234,14 +255,14 @@ val premiumUnlockPatch = bytecodePatch(
                                     """)
                                 }
                             }
-                            // isVIPUsed → true (generic, VIP was used for ALL users)
+                            // isVIPUsed → true (isMe-guarded)
                             method.name == "isVIPUsed" &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 userInstanceReturnBoolFingerprint.matchOrNull(method)?.let { match ->
-                                    match.method.addInstructions(0, RETURN_TRUE)
+                                    match.method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
                                 }
                             }
-                            // getVipExpireTime → far future (generic, VIP never expires for ALL users)
+                            // getVipExpireTime → far future (isMe-guarded)
                             method.name == "getVipExpireTime" &&
                                 method.parameterTypes.isEmpty() && method.returnType == "J" -> {
                                 val getVipExpireTimeFingerprint = Fingerprint(
@@ -251,12 +272,16 @@ val premiumUnlockPatch = bytecodePatch(
                                 )
                                 getVipExpireTimeFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :not_me
                                         const-wide v0, 0x7fffffffffffffffL
                                         return-wide v0
+                                        :not_me
                                     """)
                                 }
                             }
-                            // getVipToExpireTimeInMill → far future (generic, VIP never expires for ALL users)
+                            // getVipToExpireTimeInMill → far future (isMe-guarded)
                             method.name == "getVipToExpireTimeInMill" &&
                                 method.parameterTypes.isEmpty() && method.returnType == "J" -> {
                                 val getVipToExpireTimeInMillFingerprint = Fingerprint(
@@ -266,8 +291,12 @@ val premiumUnlockPatch = bytecodePatch(
                                 )
                                 getVipToExpireTimeInMillFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, """
+                                        invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
+                                        move-result v0
+                                        if-eqz v0, :not_me
                                         const-wide v0, 0x7fffffffffffffffL
                                         return-wide v0
+                                        :not_me
                                     """)
                                 }
                             }
