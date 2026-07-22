@@ -1221,7 +1221,7 @@ val premiumUnlockPatch = bytecodePatch(
 
             // ── oDiamond methods: F3(), X3(), Y3() all contain "oDiamond" string ──
             // F3() = !S3("oDiamond") → TRUE when active → patch to TRUE
-            // X3() = S3("oDiamond") → TRUE when expired → patch to TRUE (skip server query)
+            // X3() = S3("oDiamond") → TRUE when expired → patch to FALSE
             // Y3() = b4("oDiamond") → TRUE when expiredTime > 0 → patch to TRUE
             //
             // The generic string("oDiamond") filter matches all three, and matchOrNull()
@@ -1231,8 +1231,9 @@ val premiumUnlockPatch = bytecodePatch(
             // - Y3() calls b4 method
             // - X3() is the remaining one (calls S3 without negation)
             //
-            // X3() is patched to TRUE (not FALSE) to prevent infinite loading. When X3()
-            // returns FALSE, nt30.S5() subscribes to xma.u3() server query which can hang.
+            // X3() must return FALSE to prevent infinite loading. When X3() returns TRUE,
+            // it triggers purchase dialog checks in swipe logic (m.java line 52), blocking
+            // the swipe action and causing infinite loading.
             mutableClassDefBy(xmaClassDef).methods
                 .filter { it.isStaticNoArgReturnBool() }
                 .filter { it.containsString("oDiamond") }
@@ -1246,9 +1247,9 @@ val premiumUnlockPatch = bytecodePatch(
                         method.callsMethodNamed("b4") -> {
                             method.addInstructions(0, RETURN_TRUE)
                         }
-                        // X3(): S3-style without negation → TRUE (skip server query to prevent hang)
+                        // X3(): S3-style without negation → FALSE (prevent purchase dialog)
                         else -> {
-                            method.addInstructions(0, RETURN_TRUE)
+                            method.addInstructions(0, RETURN_FALSE)
                         }
                     }
                 }
@@ -1334,13 +1335,12 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // th5: swipe action gates (d/f/h) → true
-        // These methods gate swipe actions (match/superlike/chat). Return TRUE to allow
-        // actions to proceed for premium users. Purchase dialog suppression is handled
-        // by CoreProduct upgrade dialog gates (patched to FALSE).
+        // th5: swipe action gates (d/f/h) → false
+        // These methods check if the swipe strategy is "showPurchaseDialog".
+        // Return FALSE to prevent purchase dialog from showing, allowing swipe actions to proceed.
         th5ClassFingerprint.matchOrNull()?.classDef?.let { th5ClassDef ->
             th5PurchaseDialogFingerprint.matchAll(th5ClassDef, 1..10).forEach { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
+                match.method.addInstructions(0, RETURN_FALSE)
             }
         }
 
