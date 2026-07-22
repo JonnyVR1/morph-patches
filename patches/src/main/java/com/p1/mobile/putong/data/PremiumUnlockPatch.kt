@@ -64,6 +64,11 @@ private const val RETURN_LONG_MAX = """
     return-wide v0
 """
 
+private const val RETURN_LONG_365 = """
+    const-wide/16 v0, 0x16d
+    return-wide v0
+"""
+
 private const val RETURN_INT_200000 = """
     const v0, 0x30d40
     return v0
@@ -144,8 +149,14 @@ private val USER_NULL_CHECK_BODY: String = """
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
 
+// Ll/xma; uniquely references "/summarized-privileges?with=diamond" in both
+// its u4() and x4() refresh methods. The shorter "/summarized-privileges"
+// literal also appears in Lcom/p1/mobile/putong/core/api/a;->o2 (the URL
+// builder), so using the bare string makes the class fingerprint ambiguous
+// and it sometimes resolves to the URL-builder class instead of xma.
+// Anchoring on the "?with=diamond" variant forces a unique match to xma.
 private val xmaClassFingerprint = Fingerprint(
-    filters = listOf(string("/summarized-privileges")),
+    filters = listOf(string("/summarized-privileges?with=diamond")),
 )
 
 private val n3b0ClassFingerprint = Fingerprint(
@@ -159,8 +170,27 @@ private val n3b0ClassFingerprint = Fingerprint(
 )
 
 private val sb90CompanionClassFingerprint = Fingerprint(
+    returnType = "Z",
+    parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
     filters = listOf(
-        string("已关闭专属皮肤，神秘人模式自动关闭"),
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/User;",
+            name = "localRelationship",
+            type = "Lcom/p1/mobile/putong/data/Relationship;",
+        ),
+        string("matched"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/User;",
+            name = "isSupremePartnerOpenMystery",
+            parameters = emptyList(),
+            returnType = "Z",
+        ),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/User;",
+            name = "isHideIconFromSVipWithMe",
+            parameters = emptyList(),
+            returnType = "Z",
+        ),
     ),
 )
 
@@ -214,7 +244,10 @@ private val qgl0ClassFingerprint = Fingerprint(
 
 private val src0ClassFingerprint = Fingerprint(
     filters = listOf(
-        string("开通续费"),
+        string("recall_dlg_show"),
+        string("reauto_duration"),
+        string("reauto_product"),
+        string("if_auto_order"),
     ),
 )
 
@@ -523,12 +556,29 @@ private val sjaPicksRemainingFingerprint = Fingerprint(
     parameters = emptyList(),
 )
 
-// src0: subscription expiry display (static no-arg → I). Preserves legacy behavior.
-private val src0StaticIntNoArgFingerprint = Fingerprint(
+private val src0WDaysRemainingFingerprint = Fingerprint(
     classFingerprint = src0ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "I",
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "J",
     parameters = emptyList(),
+    filters = listOf(
+        string("svip"),
+        methodCall(name = "guessedCurrentServerTime"),
+        methodCall(name = "getVipExpireTime"),
+    ),
+)
+
+private val src0XDaysRemainingFingerprint = Fingerprint(
+    classFingerprint = src0ClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "J",
+    parameters = listOf("Lcom/p1/mobile/putong/core/data/SummarizedPrivilegesId;"),
+    filters = listOf(
+        string("svip"),
+        string("oDiamond"),
+        methodCall(name = "guessedCurrentServerTime"),
+        methodCall(name = "getVipExpireTime"),
+    ),
 )
 
 // gqf0: spotlight pass-through. The single static no-arg Z method (f()) → true.
@@ -547,12 +597,29 @@ private val h6aCFingerprint = Fingerprint(
     parameters = emptyList(),
 )
 
-// u59: tier availability regional gates. Static no-arg Z → true.
-private val u59StaticBoolFingerprint = Fingerprint(
+// u59: regional gates. U/S/O/F/Z/a0/D all gate on IntlCountryCodeController.k()
+// (returns true when NOT in a restricted region). We force all to true
+// so premium tier availability is unconditional.
+private val u59RegionalGateFingerprint = Fingerprint(
     classFingerprint = u59ClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "Z",
     parameters = emptyList(),
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;",
+            name = "k",
+        ),
+    ),
+)
+
+// u59.R() — instant-match open-user gate. Unique config key.
+private val u59RFingerprint = Fingerprint(
+    classFingerprint = u59ClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("intl_instantmatch_open_user")),
 )
 
 private val u59VFingerprint = Fingerprint(
@@ -637,9 +704,22 @@ private val n3b0GFingerprint = Fingerprint(
 // Companion alone is sufficient.
 private val sb90CFingerprint = Fingerprint(
     classFingerprint = sb90CompanionClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC),
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/User;",
+            name = "localRelationship",
+            type = "Lcom/p1/mobile/putong/data/Relationship;",
+        ),
+        string("matched"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/User;",
+            name = "isHideIconFromSVipWithMe",
+            parameters = emptyList(),
+            returnType = "Z",
+        ),
+    ),
 )
 
 // tm90.g(User) → false (no VIP badge override)
@@ -873,11 +953,7 @@ val premiumUnlockPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
 
             // Group C: v3 / w3 (SummarizedPrivilegesId → J) → MAX
-            // NOTE: 0..5 — this fingerprint currently finds 0 matches in the
-            // extracted APK. The legacy behaviour was a silent no-op via
-            // matchAllOrNull, so we keep the lower bound at 0 to preserve
-            // that. Tighten to 1..5 once v3/w3 are re-confirmed.
-            xmaV3W3Fingerprint.matchAll(xmaClassDef, 0..5).forEach { match ->
+            xmaV3W3Fingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
                 match.method.addInstructions(0, RETURN_LONG_MAX)
             }
 
@@ -906,9 +982,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
 
             // Server refresh u4/x4 (instance no-arg → Lrx/c;) → null
-            // NOTE: 0..3 — currently finds 0 matches in the extracted APK.
-            // See comment on xmaV3W3Fingerprint above.
-            xmaServerRefreshFingerprint.matchAll(xmaClassDef, 0..3).forEach { match ->
+            xmaServerRefreshFingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
                 match.method.addInstructions(0, RETURN_NULL_OBJECT)
             }
 
@@ -949,14 +1023,12 @@ val premiumUnlockPatch = bytecodePatch(
             }
 
             // e4 and f4 both load "svip" — patch both → false
-            // NOTE: 0..3 — currently finds 0 matches. See xmaV3W3Fingerprint.
-            xmaWrapperSvipFingerprint.matchAll(xmaClassDef, 0..3).forEach { match ->
+            xmaWrapperSvipFingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
 
             // Credit count methods (static no-arg → I) → 200000
-            // NOTE: 0..30 — currently finds 0 matches. See xmaV3W3Fingerprint.
-            xmaCreditCountFingerprint.matchAll(xmaClassDef, 0..30).forEach { match ->
+            xmaCreditCountFingerprint.matchAll(xmaClassDef, 1..15).forEach { match ->
                 match.method.addInstructions(0, RETURN_INT_200000)
             }
         }
@@ -970,9 +1042,11 @@ val premiumUnlockPatch = bytecodePatch(
 
         // src0: subscription expiry display
         src0ClassFingerprint.matchOrNull()?.classDef?.let { src0ClassDef ->
-            // NOTE: 0..5 — see xmaV3W3Fingerprint.
-            src0StaticIntNoArgFingerprint.matchAll(src0ClassDef, 0..5).forEach { match ->
-                match.method.addInstructions(0, RETURN_INT_365)
+            src0WDaysRemainingFingerprint.matchOrNull(src0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_LONG_365)
+            }
+            src0XDaysRemainingFingerprint.matchOrNull(src0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_LONG_365)
             }
         }
 
@@ -992,13 +1066,16 @@ val premiumUnlockPatch = bytecodePatch(
 
         // u59: tier availability regional gates
         u59ClassFingerprint.matchOrNull()?.classDef?.let { u59ClassDef ->
-            // NOTE: range is wide (0..100) — this fingerprint is broad
-            // (public static no-arg → Z) and currently finds ~44 matches in
-            // u59. Tighten the fingerprint to target only the regional tier
-            // gates before tightening this range.
-            u59StaticBoolFingerprint.matchAll(u59ClassDef, 0..100).forEach { match ->
+            // Regional-gate set: D/F/O/S/U/Z/a0 (and other IntlCountryCodeController.k() callers).
+            // Currently resolves to ~15 static no-arg Z methods in u59.
+            u59RegionalGateFingerprint.matchAll(u59ClassDef, 1..20).forEach { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
+            // R() — instant-match open-user gate (unique).
+            u59RFingerprint.matchOrNull(u59ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
+            }
+            // V(User) — per-user tier check (already correct).
             u59VFingerprint.matchOrNull(u59ClassDef)?.let { match ->
                 match.method.addInstructions(0, U59_V_BODY)
             }
@@ -1047,8 +1124,7 @@ val premiumUnlockPatch = bytecodePatch(
 
         // sb90 Companion: blur check (c(User)) → false
         sb90CompanionClassFingerprint.matchOrNull()?.classDef?.let { sb90CompanionClassDef ->
-            // NOTE: 0..3 — currently finds 0 matches. See xmaV3W3Fingerprint.
-            sb90CFingerprint.matchAll(sb90CompanionClassDef, 0..3).forEach { match ->
+            sb90CFingerprint.matchOrNull(sb90CompanionClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
         }
