@@ -987,6 +987,34 @@ val premiumUnlockPatch = bytecodePatch(
                 coreBusinessSlFingerprint.matchOrNull(classDef)?.let { match ->
                     match.method.addInstructions(0, RETURN_VOID)
                 }
+                // zi(Act) → true: allows boost activation (Gate 3 in f93.y())
+                // Original: hardcoded `return false` — blocks actual boost activation.
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "zi" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                }
+            }
+
+            // ── Instant Match regional gate: com.p1.mobile.putong.core.ui.match.a.n() ──
+            //
+            // The privilege check for Instant Match (swh0.x(immediately_match)) requires
+            // both Vd() (u59.U(), patched TRUE) and aq() (a.n(), NOT patched) to return TRUE.
+            // a.n() returns !IntlCountryCodeController.k() — when user is in restricted region,
+            // this returns FALSE, blocking Instant Match even though Vd() is patched.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/ui/match/a;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "n" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                }
             }
         }
 
