@@ -2,7 +2,6 @@ package app.morphe
 
 import app.morphe.patcher.Patcher
 import app.morphe.patcher.PatcherConfig
-import app.morphe.patcher.apk.ApkMerger
 import app.morphe.patcher.apk.ApkUtils
 import app.morphe.patcher.apk.ApkUtils.applyTo
 import kotlinx.coroutines.runBlocking
@@ -52,15 +51,17 @@ fun main(args: Array<String>) {
 
         val rebuiltApk = File(tempDir, "patched.apk")
         inputApk.copyTo(rebuiltApk, overwrite = true)
+        // applyTo() modifies rebuiltApk in-place: it opens the ZIP with ZFile.openReadWrite,
+        // overwrites the dex files with our patched dex, merges resources, and realigns the
+        // central directory. After this call, rebuiltApk is already a valid standalone APK
+        // — there is no need to call ApkMerger (which is designed for APK *bundles* and
+        // looks for `*.apk` entries that do not exist inside a single-module APK, throwing
+        // "No *.apk files found on: ...").
         patcherResult.applyTo(rebuiltApk)
-
-        val mergedApk = File(tempDir, "merged.apk")
-        println("Rebuilding APK to fix ZIP structure...")
-        ApkMerger().merge(rebuiltApk, mergedApk)
 
         val keystoreFile = File(tempDir, "morphe.keystore")
         ApkUtils.signApk(
-            mergedApk,
+            rebuiltApk,
             outputApk,
             "v3",
             ApkUtils.KeyStoreDetails(
