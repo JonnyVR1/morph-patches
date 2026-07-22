@@ -140,6 +140,34 @@ Critical non-obvious behaviors of Morphe v1.6.0 + plugin v1.3.3. **Read before t
 - **Pass 1** (`classDefForEach`): only iterate classes with stable identifiers (e.g. `User`, `CoreProduct` — known CamelCase names)
 - **Pass 2** (top-level): resolve obfuscated class fingerprints once via `classFingerprint.matchOrNull()?.classDef?.let { ... }`
 
+### 1b. `matchOrNull(method)` cache: same trap at method granularity
+
+The `matchOrNull(method)` and `matchOrNull(method, classDef)` overloads share the same `_matchOrNull` cache as the class-level variants. The first call matches a method and caches it; every subsequent call returns the **cached Match** — even if you pass a different method. Consequence: in a loop like
+
+```kotlin
+classDef.methods.forEach { method ->
+    if (someCondition(method)) {
+        someFingerprint.matchOrNull(method)?.let { match ->
+            match.method.addInstructions(0, REPLACEMENT)
+        }
+    }
+}
+```
+
+only the FIRST method that satisfies `someCondition` is patched. Subsequent methods silently get the cached first match's `match.method`, so `addInstructions` writes the same replacement into the same first method (a no-op). Symptoms: one method patched, the rest of the set silently left original.
+
+**Real-world case:** `CoreProduct` has 10 public no-arg boolean methods (`A4/B4/y4/T4/Q4/z4/R4/L4/O4/P4`) all sharing `accessFlags={PUBLIC}, returnType=Z, parameters=[]`. The original loop only patched `A4` (the first one in dex declaration order). `B4` and `y4` kept calling `u4("vip")`, which a sibling patch forces to `RETURN_TRUE` — so the "send message" / "see who liked me" purchase dialog gates opened and crashed with `NullPointerException` on `FreeTrialData.titleText` (`r0` was never populated).
+
+**Solution:** once you've narrowed by class descriptor (e.g. inside `if (classDef.type == CoreProduct)`), skip the fingerprint entirely and patch methods directly:
+
+```kotlin
+mutableClassDefBy(classDef).methods
+    .filter { someCondition(it) }
+    .forEach { it.addInstructions(0, REPLACEMENT) }
+```
+
+`mutableClassDefBy` returns a `MutableClassDef` whose `.methods` is `List<MutableMethod>` — the only type with `addInstructions(String)`. Never call `matchOrNull(method)` per-method in a loop.
+
 ### 2. `ApkMerger` is for App Bundles, not standalone APKs
 
 `ApkMerger.merge(input, output)` calls `extractFile()` which filters ZIP entries by `.apk` extension. A standalone single-module APK has no such entries, so it throws `IOException("No *.apk files found on: $file")`.
