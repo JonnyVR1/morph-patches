@@ -561,7 +561,7 @@ val premiumUnlockPatch = bytecodePatch(
                 "Lp001l/u59;" -> {
                     classDef.methods.forEach { method ->
                         when {
-                            method.name in setOf("U", "S", "O") &&
+                            method.name in setOf("U", "S", "O", "R") &&
                                 method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                                 noArgStaticReturnBoolFingerprint.matchOrNull(method)?.let { match ->
                                     match.method.addInstructions(0, RETURN_TRUE)
