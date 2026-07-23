@@ -53,7 +53,7 @@ tasks {
     // to discover available patches. Without this step, the app shows 0 patches.
     register("repackMppWithPatchList") {
         description = "Add patches-list.json into the .mpp bundle for Morphe Manager discovery"
-        dependsOn("generatePatchesList")
+        dependsOn("buildAndroid", "generatePatchesList")
 
         doLast {
             val mppFile = file("build/libs/patches-0.0.1-dev1.mpp")
