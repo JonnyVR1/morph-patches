@@ -183,6 +183,47 @@ private val PROFILE_IMAGES_NULL_GUARD_BODY: String = """
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
 
+// Lcom/p1/mobile/putong/data/LikeFrom; — public static LikeFrom get(String).
+// LikeFrom is an auto-generated TEnum-style class for tracking the source of a like
+// (home, instantChat, likers, profile, etc.). CoreSuggested.b8() only sets
+// `relationship.relationshipExtensions.business_type = "instantChat"` when its
+// `likeFrom` argument equals LikeFrom.get("instantChat"). However, the swipe handlers
+// in core.newui.home.base.impl.swipe.{u,a} hardcode LikeFrom.get("home") as the
+// likeFrom sent to CoreSuggested.a8()/b8(). Without our patches, the "match" payCardStyle
+// commercial cards intercept the swipe via the swipe.m strategy (which checks
+// xma.X3()/th5.d()) and call into the /instant-chat/{userId} endpoint with the proper
+// business_type. After we disabled the purchase dialog (m.b() → FALSE and th5.d() → FALSE)
+// the swipe falls through to u.a() → a.i() → CoreSuggested.a8() with likeFrom="home",
+// which means business_type is NEVER set, and the server rejects the request.
+//
+// The patch redirects LikeFrom.get("home") to LikeFrom.get("instantChat") so the
+// downstream b8() sees likeFrom=instantChat and sets business_type correctly.
+//
+// Filters: `_LikeFrom` static field map.get(str) is unique to this method.
+private val likeFromGetHomeFingerprint = Fingerprint(
+    definingClass = "Lcom/p1/mobile/putong/data/LikeFrom;",
+    name = "get",
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Lcom/p1/mobile/putong/data/LikeFrom;",
+    parameters = listOf("Ljava/lang/String;"),
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/LikeFrom;",
+            name = "_LikeFrom",
+            type = "Ljava/util/Map;",
+        ),
+    ),
+)
+
+private const val LIKEFROM_HOME_REDIRECT_BODY = """
+    const-string v0, "home"
+    invoke-virtual {p0, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v0
+    if-eqz v0, :likefrom_skip
+    const-string p0, "instantChat"
+    :likefrom_skip
+"""
+
 // Ll/xma; uniquely references "/summarized-privileges?with=diamond" in both
 // its u4() and x4() refresh methods. The shorter "/summarized-privileges"
 // literal also appears in Lcom/p1/mobile/putong/core/api/a;->o2 (the URL
@@ -1357,6 +1398,15 @@ val premiumUnlockPatch = bytecodePatch(
             zva0SFingerprint.matchOrNull(zva0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
+        }
+
+        // LikeFrom.get(String): redirect "home" → "instantChat".
+        // Fixes server-side rejection of swipe-right on commercial cards
+        // (payCardStyle == "match"): without the redirect, b8() in CoreSuggested
+        // sees likeFrom == "home" and skips setting business_type="instantChat"
+        // in the request body → server returns 40399/40343 → generic error toast.
+        likeFromGetHomeFingerprint.matchOrNull()?.let { match ->
+            match.method.addInstructions(0, LIKEFROM_HOME_REDIRECT_BODY)
         }
 
         // th5: swipe action gates (d/f/h) → false
