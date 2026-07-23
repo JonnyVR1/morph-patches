@@ -1079,6 +1079,30 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // ── Swipe right purchase dialog: com.p1.mobile.putong.core.newui.home.base.impl.swipe.m.b() ──
+            //
+            // The m.b() method checks if a purchase dialog should be shown for commercial cards
+            // (match/superlike/chat). When X3() and th5.d() both return FALSE, m.b() returns FALSE,
+            // which means the purchase dialog strategy doesn't intercept the swipe. However, this
+            // causes the swipe to fall through to the normal swipe handler, which sends a regular
+            // cardlike request that the server rejects (40399/40343) because there's no server-side
+            // immediately_match entitlement.
+            //
+            // To fix this, we patch m.b() to return FALSE directly, which prevents the purchase
+            // dialog from showing AND prevents the commercial card processing. The swipe will
+            // proceed as a normal like without server-side entitlement checks failing.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "b" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lp001l/p3m\$a;" &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
+            }
+
             // ── Me tab affiliate discount entry banner: CoreIntlAffiliatePromotions.M3() ──
             //
             // The Me tab shows an affiliate discount banner driven by server-side promotion
