@@ -1,6 +1,5 @@
 package com.p1.mobile.putong.data
 
-import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.patch.resourcePatch
 import org.w3c.dom.Element
@@ -11,9 +10,14 @@ import org.w3c.dom.Element
  * the app signature.
  *
  * Works by:
- * 1. Adding a Content Provider that hooks PackageManager at runtime (very early initialization)
- * 2. When getPackageInfo() is called with GET_SIGNATURES flag, returns the original signature
- * 3. This happens before Maps SDK or other services read the signature
+ * 1. Injecting SignatureSpoofApplication class via extendWith (ContentProvider)
+ * 2. Adding a <provider> element to AndroidManifest.xml so the ContentProvider is instantiated
+ * 3. The ContentProvider's onCreate() hooks PackageManager before Maps SDK initializes
+ *
+ * We use a ContentProvider instead of replacing the Application class because:
+ * - ContentProviders are instantiated before Application.onCreate()
+ * - Replacing the Application class would break app code that depends on the original
+ *   Application class initializing Context singletons
  *
  * No root required - works on stock ROMs!
  *
@@ -22,13 +26,33 @@ import org.w3c.dom.Element
  */
 
 private val manifestPatch = resourcePatch {
-    finalize {
-        // NOTE: This resourcePatch is intentionally a no-op. morphe 1.6.0 + arsclib 1.6.0
-        // has a bug where DOM modifications to AndroidManifest.xml are silently dropped
-        // during the XML-to-binary encoding pass. We work around this in PatcherMain.kt
-        // by manually injecting the SignatureSpoof provider into the binary manifest
-        // AFTER morphe's applyTo() has finished. See injectSignatureSpoofProvider().
-        System.err.println("SignatureSpoof: resourcePatch finalize called (no-op; see PatcherMain workaround)")
+    execute {
+        document("AndroidManifest.xml").use { document ->
+            val application = document.getElementsByTagName("application").item(0) as Element
+
+            // Check if our provider is already declared to avoid duplicates
+            val providers = application.getElementsByTagName("provider")
+            var alreadyDeclared = false
+            for (i in 0 until providers.length) {
+                val provider = providers.item(i) as Element
+                val name = provider.getAttribute("android:name")
+                if (name == "com.p1.mobile.putong.data.extension.signature.SignatureSpoofApplication") {
+                    alreadyDeclared = true
+                    break
+                }
+            }
+
+            if (!alreadyDeclared) {
+                // Add a <provider> element with high initOrder so it's instantiated
+                // before Application.onCreate() and before any other component
+                val provider = document.createElement("provider")
+                provider.setAttribute("android:name", "com.p1.mobile.putong.data.extension.signature.SignatureSpoofApplication")
+                provider.setAttribute("android:authorities", "com.tantantribe.tribe.signatureSpoof")
+                provider.setAttribute("android:exported", "false")
+                provider.setAttribute("android:initOrder", "2147483647")
+                application.appendChild(provider)
+            }
+        }
     }
 }
 
@@ -44,8 +68,9 @@ val signatureSpoofPatch = bytecodePatch(
     extendWith("extensions/signature.mpe")
 
     execute {
-        // The SignatureSpoofApplication class will be injected into the APK via the extension mechanism.
-        // The manifest patch adds it as a Content Provider, which is instantiated very early.
+        // The SignatureSpoofApplication class from the extension module will be
+        // automatically included in the APK. The manifest patch declares it as a
+        // Content Provider, which is instantiated before Application.onCreate().
         // The provider's onCreate() method installs the PackageManager hook.
         // No bytecode modifications needed - the Java class handles everything at runtime.
     }

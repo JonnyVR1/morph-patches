@@ -18,4 +18,5 @@ android {
 
 dependencies {
     compileOnly("com.google.android:android:4.1.1.4")
+    compileOnly("com.squareup.okhttp3:okhttp:4.12.0")
 }

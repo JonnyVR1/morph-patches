@@ -29,6 +29,60 @@
       "options": []
     },
     {
+      "name": "Maps Auth Headers",
+      "description": "Replaces Google Maps/Places API X-Android-Cert and X-Android-Package headers with original Tantan values",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "MicroG Support",
+      "description": "Forces the app to use MicroG-RE instead of Google Play Services. Enables Google Maps and other GMS-dependent features without root. Requires MicroG-RE to be installed on the device.",
+      "default": true,
+      "dependencies": [
+        "ResourcePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Premium Unlock",
       "description": "Unlocks all premium features, tier statuses, subscription validation, and display",
       "default": true,

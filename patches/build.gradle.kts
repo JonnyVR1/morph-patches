@@ -48,9 +48,39 @@ tasks {
         mainClass.set("util.PatchListGeneratorKt")
     }
 
+    // Repack the .mpp to include patches-list.json at the root.
+    // The Morphe Manager app reads patches-list.json from inside the .mpp
+    // to discover available patches. Without this step, the app shows 0 patches.
+    register("repackMppWithPatchList") {
+        description = "Add patches-list.json into the .mpp bundle for Morphe Manager discovery"
+        dependsOn("generatePatchesList")
+
+        doLast {
+            val mppFile = file("build/libs/patches-0.0.1-dev1.mpp")
+            val patchListFile = rootProject.file("patches-list.json")
+
+            if (!mppFile.exists()) throw GradleException("mpp file not found: ${mppFile.absolutePath}")
+            if (!patchListFile.exists()) throw GradleException("patches-list.json not found: ${patchListFile.absolutePath}")
+
+            // Use command-line zip to add patches-list.json at the root of the .mpp
+            val tempFile = File.createTempFile("patches-repack-", ".mpp")
+            try {
+                // Copy original mpp
+                mppFile.copyTo(tempFile, overwrite = true)
+                // Use Runtime.exec to add patches-list.json with -j (junk paths, store at root)
+                val process = Runtime.getRuntime().exec(arrayOf("zip", "-j", tempFile.absolutePath, patchListFile.absolutePath))
+                process.waitFor()
+                tempFile.renameTo(mppFile)
+                println("Repacked ${mppFile.name} with patches-list.json (${mppFile.length()} bytes)")
+            } finally {
+                if (tempFile.exists()) tempFile.delete()
+            }
+        }
+    }
+
     // Used by gradle-semantic-release-plugin.
     publish {
-        dependsOn("generatePatchesList")
+        dependsOn("repackMppWithPatchList")
     }
 }
 

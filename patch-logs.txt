@@ -1,0 +1,63 @@
+[INFO] Device: android=16 api=36 ramAvail="4.13 GB" ramTotal="11.06 GB" storageAvail="76.12 GB" storageTotal="465.44 GB"
+[INFO] Patching started at 1784768110468 pkg=com.tantantribe.tribe version=7.2.7 bundle=0.0.1-dev1 input=/data/user/0/app.morphe.manager/app_original-apks/com.tantantribe.tribe_7.2.7_original.apk size=89229784 split=false patches=4 device=Xiaomi model=2311DRK48G
+[INFO] Runtime: process memoryLimit=1280
+[INFO] Process heap memory limit: 1280MB
+[WARN] [STDIO]: Warning: Universal patches must be declared with default false: Change package name
+[INFO] Applying patches...
+[INFO] Deleting existing temporary files directory
+[INFO] Decoding all resources
+[INFO] Sanitizing unpatched strings
+[INFO] Escaping strings
+[INFO] Executing patches
+[INFO] Google Maps Compatibility succeeded
+[INFO] MicroG Support succeeded
+[INFO] Process heap memory limit: 1152MB
+[WARN] [STDIO]: Warning: Universal patches must be declared with default false: Change package name
+[INFO] Applying patches...
+[INFO] Deleting existing temporary files directory
+[INFO] Decoding all resources
+[INFO] Sanitizing unpatched strings
+[INFO] Escaping strings
+[INFO] Executing patches
+[INFO] Google Maps Compatibility succeeded
+[INFO] MicroG Support succeeded
+[INFO] Process heap memory limit: 1024MB
+[WARN] [STDIO]: Warning: Universal patches must be declared with default false: Change package name
+[INFO] Applying patches...
+[INFO] Deleting existing temporary files directory
+[INFO] Decoding all resources
+[INFO] Sanitizing unpatched strings
+[INFO] Escaping strings
+[INFO] Executing patches
+[INFO] Google Maps Compatibility succeeded
+[INFO] MicroG Support succeeded
+[INFO] Process heap memory limit: 896MB
+[WARN] [STDIO]: Warning: Universal patches must be declared with default false: Change package name
+[INFO] Applying patches...
+[INFO] Deleting existing temporary files directory
+[INFO] Decoding all resources
+[INFO] Sanitizing unpatched strings
+[INFO] Escaping strings
+[INFO] Executing patches
+[INFO] Google Maps Compatibility succeeded
+[INFO] MicroG Support succeeded
+[INFO] Process heap memory limit: 768MB
+[WARN] [STDIO]: Warning: Universal patches must be declared with default false: Change package name
+[INFO] Applying patches...
+[INFO] Deleting existing temporary files directory
+[INFO] Decoding all resources
+[INFO] Sanitizing unpatched strings
+[INFO] Escaping strings
+[INFO] Executing patches
+[INFO] Google Maps Compatibility succeeded
+[INFO] MicroG Support succeeded
+[INFO] Process heap memory limit: 640MB
+[WARN] [STDIO]: Warning: Universal patches must be declared with default false: Change package name
+[INFO] Applying patches...
+[INFO] Deleting existing temporary files directory
+[INFO] Decoding all resources
+[INFO] Sanitizing unpatched strings
+[INFO] Escaping strings
+[INFO] Executing patches
+[INFO] Google Maps Compatibility succeeded
+[INFO] MicroG Support succeeded
