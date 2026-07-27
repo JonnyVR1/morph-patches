@@ -50,20 +50,22 @@ private val LOG_TH5_FALSE = RETURN_FALSE
 private val LOG_COREPRODUCT_U4_TRUE = RETURN_TRUE
 private val LOG_COREPRODUCT_GATE_FALSE = RETURN_FALSE
 private val LOG_SB90_FALSE = RETURN_FALSE
-// pib.W9() → Observable.empty() instead of null.
+// pib.W9() → Observable.just(roj0.a) instead of Observable.empty() or null.
 //
-// Returning null caused infinite loading on the swipe interface because callers
-// subscribe to the Observable and wait for completion that never comes (NPE on subscribe).
+// Evolution:
+// - null: caused NPE on subscribe → infinite loading
+// - Observable.empty(): completed without emitting → subscribers waiting for onNext hung
+// - Observable.just(roj0.a): emits the unit singleton then completes → satisfies all subscribers
 //
-// Returning Observable.empty() completes the subscription immediately without making
-// a server call. This preserves the locally-patched premium data (isVIP, privileges, etc.)
-// because the server response (which would overwrite with non-premium values) is never
-// processed by M8 → q9/Q.y3.
+// This prevents the server call that would overwrite locally-patched premium data
+// (isVIP, privileges, etc.) via M8 → q9/Q.y3, while still satisfying RxJava subscribers
+// that expect both onNext and onComplete callbacks.
 //
 // Direct Y9 callers (cy90, yca0 for viewing other users' profiles) are NOT affected
 // because they call Y9 directly, not through W9.
-private val PIB_W9_EMPTY = """
-    invoke-static {}, Lrx/Observable;->empty()Lrx/Observable;
+private val PIB_W9_JUST = """
+    sget-object v0, Lroj0;->a:Lroj0;
+    invoke-static {v0}, Lrx/Observable;->just(Ljava/lang/Object;)Lrx/Observable;
     move-result-object v0
     return-object v0
 """
@@ -1175,6 +1177,101 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
             }
+
+            // ── Daily like limit bypass: h0.b() ──
+            //
+            // The h0.b() method checks if the daily like limit has been reached.
+            // It reads CounterLikeLimit.remaining directly and shows a purchase dialog
+            // when remaining == 0, blocking further swipes. This is independent of the
+            // unlimitedSwipes privilege (which is already patched).
+            //
+            // Patching h0.b() to return FALSE prevents the like limit check from
+            // intercepting swipes, allowing unlimited daily likes.
+            //
+            // Secondary targets (l1.b(), m1.b()) show "daily limit reached" notification
+            // bubbles but don't block swipes. Patching them to FALSE suppresses the
+            // notification bubbles for cleaner UX.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/h0;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "b" &&
+                        method.parameterTypes.size == 1 &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
+            }
+
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/l1;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "b" &&
+                        method.parameterTypes.size == 1 &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
+            }
+
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m1;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "b" &&
+                        method.parameterTypes.size == 1 &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
+            }
+
+            // ── Ad removal: NavigationBarAdmobHelper.g() ──
+            //
+            // NavigationBarAdmobHelper.g() is the central gate for the bottom banner ad.
+            // It returns TRUE when all conditions are met (AB test, remote config, gender,
+            // registration age, etc.). Patching to FALSE disables the bottom banner ad
+            // decision entirely.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/admob/NavigationBarAdmobHelper;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "g" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lkotlin/jvm/functions/Function0;" &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
+            }
+
+            // ── Ad removal: NavigationBarAdView.L() ──
+            //
+            // NavigationBarAdView.L(Act) triggers the ad loading process for the bottom
+            // banner. Patching to RETURN_VOID prevents the ad load from being initiated.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/admob/NavigationBarAdView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "L" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;"
+                    ) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── Ad removal: NativeAdViewCard.Companion.l() ──
+            //
+            // NativeAdViewCard.Companion.l(Act) loads the native ad card that appears
+            // in the swipe feed as a virtual card. Patching to RETURN_VOID prevents
+            // the native ad from loading into the feed.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/admob/NativeAdViewCard\$Companion;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "l" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;"
+                    ) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
         }
 
         // ----------------------------------------------------------------------
@@ -1472,7 +1569,7 @@ val premiumUnlockPatch = bytecodePatch(
             // Direct Y9 callers (cy90, yca0 for viewing other users' profiles) are NOT
             // affected because they call Y9 directly, not through W9.
             pibW9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
-                match.method.addInstructions(0, PIB_W9_EMPTY)
+                match.method.addInstructions(0, PIB_W9_JUST)
             }
             pibG9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
                 match.method.addInstructions(0, PIB_G9_BODY)
