@@ -115,6 +115,44 @@ private const val RETURN_INT_365 = """
     return v0
 """
 
+private const val RETURN_INT_100 = """
+    const v0, 0x64
+    return v0
+"""
+
+private const val RETURN_INT_1 = """
+    const v0, 0x1
+    return v0
+"""
+
+private const val RETURN_INTEGER_200000 = """
+    const v0, 0x30d40
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v0
+    return-object v0
+"""
+
+private const val RETURN_INTEGER_100 = """
+    const v0, 0x64
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v0
+    return-object v0
+"""
+
+private const val RETURN_INTEGER_18 = """
+    const v0, 0x12
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v0
+    return-object v0
+"""
+
+private const val RETURN_INTEGER_1 = """
+    const v0, 0x1
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v0
+    return-object v0
+"""
+
 // 365 days in milliseconds
 private val FAR_FUTURE_MS_BODY: String = """
     const-wide v0, 0x66700F60000L
@@ -772,6 +810,49 @@ private val n3b0GFingerprint = Fingerprint(
     ),
 )
 
+// n3b0.d(Counter) → sum of BoostLimit.remaining → 200000
+private val n3b0BoostRemainingFingerprint = Fingerprint(
+    classFingerprint = n3b0ClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "I",
+    parameters = listOf("Lcom/p1/mobile/putong/data/Counter;"),
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/Counter;",
+            name = "boostLimits",
+        ),
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/BoostLimit;",
+            name = "remaining",
+        ),
+    ),
+)
+
+// n3b0.p() → boostLimits.size() > 0 → true
+private val n3b0BoostHasFingerprint = Fingerprint(
+    classFingerprint = n3b0ClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/Counter;",
+            name = "boostLimits",
+        ),
+    ),
+)
+
+// n3b0.o() → boost remaining <= 0 → false (boost available)
+private val n3b0BoostAvailableFingerprint = Fingerprint(
+    classFingerprint = n3b0ClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(
+        methodCall(name = "e"),
+    ),
+)
+
 // sb90 (Companion).c(User) → false. Outer sb90 just delegates, so patching
 // Companion alone is sufficient.
 private val sb90CFingerprint = Fingerprint(
@@ -1275,6 +1356,71 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // ── Search filter expansion: Settings ──
+            //
+            // Settings is a stable class with stable method names. The UI clamps
+            // search radius and age filter sliders to the "allowed" range returned
+            // by these getters. By widening the allowed range, the user can set
+            // any radius/age filter value the UI slider supports.
+            // Note: the server may still reject out-of-range values, but the
+            // client-side UI limits are fully expanded.
+            if (classDef.type == "Lcom/p1/mobile/putong/data/Settings;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    when {
+                        method.name == "getRadiusAllowedMaximum" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, RETURN_INTEGER_200000)
+                        }
+                        method.name == "getRadiusAllowedMinimum" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, RETURN_INTEGER_1)
+                        }
+                        method.name == "getSearchAgeAllowedMaximum" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, RETURN_INTEGER_100)
+                        }
+                        method.name == "getSearchAgeAllowedMinimum" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, RETURN_INTEGER_18)
+                        }
+                    }
+                }
+            }
+
+            // ── Boost remaining count: BoostRemainingCountView ──
+            //
+            // getBoostLimitCount() sums BoostLimit.remaining across all boost types.
+            // Patching to return 200000 makes the UI show unlimited boost availability.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/BoostRemainingCountView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.parameterTypes.isEmpty() &&
+                        method.returnType == "I" &&
+                        AccessFlags.PRIVATE.isSet(method.accessFlags)
+                    ) {
+                        method.addInstructions(0, RETURN_INT_200000)
+                    }
+                }
+            }
+
+            // ── Boost remaining count: LikersBoostRemainingCountView ──
+            //
+            // Same pattern as BoostRemainingCountView — getBoostLimitCount() sums
+            // BoostLimit.remaining. Patch to 200000 for unlimited display.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/LikersBoostRemainingCountView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.parameterTypes.isEmpty() &&
+                        method.returnType == "I" &&
+                        AccessFlags.PRIVATE.isSet(method.accessFlags)
+                    ) {
+                        method.addInstructions(0, RETURN_INT_200000)
+                    }
+                }
+            }
+
             // ── Ad removal: NativeAdViewCard.Companion.l() ──
             //
             // NativeAdViewCard.Companion.l(Act) loads the native ad card that appears
@@ -1287,6 +1433,70 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;"
                     ) {
                         method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── Boost remaining count: n3b0.d(Counter) ──
+            //
+            // n3b0.d(Counter) sums up all boostLimits.remaining values to return the
+            // total boost remaining count. Patching to return 200000 gives unlimited
+            // boost uses. This is separate from the boost activation gate (already patched).
+            if (classDef.type == "Lp001l/n3b0;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "d" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;" &&
+                        method.returnType == "I"
+                    ) {
+                        method.addInstructions(0, RETURN_INT_200000)
+                    }
+                }
+            }
+
+            // ── Search filter expansion: Settings methods ──
+            //
+            // Settings.getRadiusAllowedMaximum(), getSearchAgeAllowedMinimum(), and
+            // getSearchAgeAllowedMaximum() return the server-provided limits for search
+            // filters. Patching these to return wider ranges allows users to set broader
+            // age and distance filters. Note: the server may reject out-of-range values,
+            // but the client-side UI will allow the broader selection.
+            if (classDef.type == "Lcom/p1/mobile/putong/data/Settings;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    when {
+                        // getRadiusAllowedMaximum() → return 1000000 (1000km instead of ~100km)
+                        method.name == "getRadiusAllowedMaximum" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, """
+                                const v0, 0xf4240
+                                invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+                                move-result-object v0
+                                return-object v0
+                            """)
+                        }
+                        // getSearchAgeAllowedMinimum() → return 18 (minimum age)
+                        method.name == "getSearchAgeAllowedMinimum" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, """
+                                const/4 v0, 0x12
+                                invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+                                move-result-object v0
+                                return-object v0
+                            """)
+                        }
+                        // getSearchAgeAllowedMaximum() → return 99 (maximum age)
+                        method.name == "getSearchAgeAllowedMaximum" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, """
+                                const/16 v0, 0x63
+                                invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+                                move-result-object v0
+                                return-object v0
+                            """)
+                        }
                     }
                 }
             }
@@ -1532,13 +1742,25 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // n3b0: likers limit
+        // n3b0: likers limit + boost enhancement
         n3b0ClassFingerprint.matchOrNull()?.classDef?.let { n3b0ClassDef ->
             n3b0QFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
             n3b0GFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
                 match.method.addInstructions(0, FAR_FUTURE_MS_BODY)
+            }
+            // boost: d(Counter) → sum of BoostLimit.remaining → 200000
+            n3b0BoostRemainingFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_INT_200000)
+            }
+            // boost: p() → boostLimits.size() > 0 → true
+            n3b0BoostHasFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_TRUE)
+            }
+            // boost: o() → boost remaining <= 0 → false (boost available)
+            n3b0BoostAvailableFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
             }
         }
 
