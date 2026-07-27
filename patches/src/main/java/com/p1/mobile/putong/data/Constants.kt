@@ -24,10 +24,7 @@ internal const val TANTAN_USER_CLASS = "Lcom/p1/mobile/putong/data/User;"
 /**
  * Shared compatibility declaration for all Tantan patches.
  *
- * `version = null` is used (any version) rather than pinning to the exact tested
- * version string, so the patches remain available for future Tantan releases that
- * don't change these methods, instead of silently disappearing from the Manager
- * whenever Tantan ships a new build.
+ * Targets the specific Tantan version we're currently working with.
  */
 internal val tantanCompatibility = Compatibility(
     name = "Tantan",
@@ -35,8 +32,8 @@ internal val tantanCompatibility = Compatibility(
     description = "Tantan - Global Dating App",
     targets = listOf(
         AppTarget(
-            version = null,
-            description = "Tested on 7.2.7, expected to work on other versions",
+            version = "7.2.7",
+            description = "Tested on 7.2.7",
         )
     )
 )
