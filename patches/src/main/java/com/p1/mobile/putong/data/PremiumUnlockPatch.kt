@@ -1101,7 +1101,7 @@ val premiumUnlockPatch = bytecodePatch(
                             method.parameterTypes[0] == "Ljava/lang/String;" &&
                             method.returnType == "Z" &&
                             AccessFlags.FINAL.isSet(method.accessFlags) -> {
-                            method.addInstructions(0, LOG_COREPRODUCT_U4_TRUE)
+                            method.addInstructions(0, RETURN_TRUE)
                         }
                         // Upgrade dialog gates (A4, B4, Q4, y4, z4) — these call u4(String)
                         // with specific strings and should return FALSE to prevent upgrade dialogs.
@@ -1110,7 +1110,7 @@ val premiumUnlockPatch = bytecodePatch(
                             method.returnType == "Z" &&
                             AccessFlags.PUBLIC.isSet(method.accessFlags) &&
                             method.callsU4WithString() -> {
-                            method.addInstructions(0, LOG_COREPRODUCT_GATE_FALSE)
+                            method.addInstructions(0, RETURN_FALSE)
                         }
                         // Feature/data gates (L4, O4, P4, R4, T4) — these have different behavior
                         // and should NOT be patched. Leave them unpatched to preserve original behavior.
@@ -1208,7 +1208,7 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes[0] == "Lp001l/p3m\$a;" &&
                         method.returnType == "Z"
                     ) {
-                        method.addInstructions(0, LOG_SWIPE_M_B_FALSE)
+                        method.addInstructions(0, RETURN_FALSE)
                     }
                 }
             }
@@ -1304,7 +1304,7 @@ val premiumUnlockPatch = bytecodePatch(
 
             // Server refresh u4/x4 (instance no-arg → Lrx/c;) → null
             xmaServerRefreshFingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
-                match.method.addInstructions(0, LOG_XMA_SERVER_REFRESH_NULL)
+                match.method.addInstructions(0, RETURN_NULL_OBJECT)
             }
 
             // L3 → true
@@ -1375,15 +1375,15 @@ val premiumUnlockPatch = bytecodePatch(
                     when {
                         // F3(): !S3-style with negation → TRUE
                         method.hasNegation() -> {
-                            method.addInstructions(0, LOG_XMA_F3_TRUE)
+                            method.addInstructions(0, RETURN_TRUE)
                         }
                         // Y3(): b4-style (calls b4 method) → TRUE
                         method.callsMethodNamed("b4") -> {
-                            method.addInstructions(0, LOG_XMA_Y3_TRUE)
+                            method.addInstructions(0, RETURN_TRUE)
                         }
                         // X3(): S3-style without negation → FALSE (prevent purchase dialog)
                         else -> {
-                            method.addInstructions(0, LOG_XMA_X3_FALSE)
+                            method.addInstructions(0, RETURN_FALSE)
                         }
                     }
                 }
@@ -1477,7 +1477,7 @@ val premiumUnlockPatch = bytecodePatch(
         // Return FALSE to prevent purchase dialog from showing, allowing swipe actions to proceed.
         th5ClassFingerprint.matchOrNull()?.classDef?.let { th5ClassDef ->
             th5PurchaseDialogFingerprint.matchAll(th5ClassDef, 1..10).forEach { match ->
-                match.method.addInstructions(0, LOG_TH5_FALSE)
+                match.method.addInstructions(0, RETURN_FALSE)
             }
         }
 
@@ -1501,7 +1501,7 @@ val premiumUnlockPatch = bytecodePatch(
         // sb90 Companion: blur check (c(User)) → false
         sb90CompanionClassFingerprint.matchOrNull()?.classDef?.let { sb90CompanionClassDef ->
             sb90CFingerprint.matchOrNull(sb90CompanionClassDef)?.let { match ->
-                match.method.addInstructions(0, LOG_SB90_FALSE)
+                match.method.addInstructions(0, RETURN_FALSE)
             }
         }
 
@@ -1525,7 +1525,7 @@ val premiumUnlockPatch = bytecodePatch(
         // pib: server refresh + membership flip
         pibClassFingerprint.matchOrNull()?.classDef?.let { pibClassDef ->
             pibW9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
-                match.method.addInstructions(0, LOG_PIB_W9_NULL)
+                match.method.addInstructions(0, RETURN_NULL_OBJECT)
             }
             pibG9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
                 match.method.addInstructions(0, PIB_G9_BODY)
