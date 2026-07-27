@@ -170,8 +170,6 @@ val microGSupportPatch = bytecodePatch(
                 }
             }
         }
-        
-        println("[MicroGSupport] Made $replacementsMade replacements")
 
         // Patch the GMS availability checks to return success
         classDefForEach { classDef ->

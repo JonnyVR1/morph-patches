@@ -45,8 +45,6 @@ val mapsAuthHeadersPatch = bytecodePatch(
     compatibleWith(tantanCompatibility)
 
     execute {
-        println("[$TAG] Scanning for X-Android-Cert/X-Android-Package header setters...")
-
         var totalInjections = 0
 
         classDefForEach { classDef ->
@@ -61,8 +59,6 @@ val mapsAuthHeadersPatch = bytecodePatch(
             }
 
             if (!containsTargetStrings) return@classDefForEach
-
-            println("[$TAG] Found header setter in: ${classDef.type}")
 
             val mutableClass = mutableClassDefBy(classDef)
 
@@ -97,11 +93,8 @@ val mapsAuthHeadersPatch = bytecodePatch(
                 injections.sortedByDescending { it.index }.forEach { injection ->
                     mutableMethod.addInstructions(injection.index, "const-string ${injection.registerName}, \"${injection.value}\"")
                     totalInjections++
-                    println("[$TAG] ${classDef.type}->${method.name}@${injection.index}: ${injection.registerName} = ${injection.value}")
                 }
             }
         }
-
-        println("[$TAG] Total header value injections: $totalInjections")
     }
 }

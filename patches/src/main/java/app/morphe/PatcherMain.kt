@@ -25,9 +25,7 @@ fun main(args: Array<String>) {
 
     try {
         val patches = PatchRegistry.allPatches
-        println("Loaded ${patches.size} patches from registry")
 
-        println("Patching ${inputApk.name}...")
         val patcherResult = Patcher(
             PatcherConfig(
                 apkFile = inputApk,
@@ -69,7 +67,6 @@ fun main(args: Array<String>) {
         //
         // To work around this, we patch the binary AndroidManifest.xml in the rebuilt APK
         // directly using arsclib's AndroidManifestBlock decoder/encoder.
-        println("WORKAROUND: Manually injecting SignatureSpoof provider into binary manifest")
         injectSignatureSpoofProvider(rebuiltApk)
 
         val keystoreFile = File(tempDir, "morphe.keystore")
@@ -84,8 +81,6 @@ fun main(args: Array<String>) {
                 "",
             )
         )
-
-        println("Patched APK saved to ${outputApk.absolutePath}")
     } finally {
         tempDir.deleteRecursively()
     }
@@ -134,10 +129,8 @@ private fun injectSignatureSpoofProvider(apkFile: File) {
     if (providerInjected) {
         apkFile.delete()
         tempApk.renameTo(apkFile)
-        println("WORKAROUND: SignatureSpoof provider injected. New APK size = ${apkFile.length()} bytes")
     } else {
         tempApk.delete()
-        println("WORKAROUND: Provider was already present or could not be added")
     }
 }
 
@@ -181,7 +174,6 @@ private fun patchManifestBytes(manifestBytes: ByteArray, authority: String, prov
                     val getValueString = attrClass.getMethod("getValueString")
                     val nameAttr = getValueString.invoke(attr) as String?
                     if (nameAttr != null && nameAttr.contains("SignatureSpoof")) {
-                        println("WORKAROUND: SignatureSpoof provider already present in manifest")
                         return manifestBytes
                     }
                 }
@@ -212,15 +204,12 @@ private fun patchManifestBytes(manifestBytes: ByteArray, authority: String, prov
         val tempFile = File.createTempFile("manifest-", ".bin")
         try {
             val writeBytes = manifestBlockClass.getMethod("writeBytes", java.io.File::class.java)
-            val writtenSize = writeBytes.invoke(manifestBlock, tempFile) as Int
-            println("WORKAROUND: Encoded manifest size = $writtenSize bytes (original ${manifestBytes.size})")
+            writeBytes.invoke(manifestBlock, tempFile)
             tempFile.readBytes()
         } finally {
             tempFile.delete()
         }
     } catch (e: Throwable) {
-        System.err.println("WORKAROUND ERROR in patchManifestBytes: ${e.message}")
-        e.printStackTrace()
         manifestBytes
     }
 }
