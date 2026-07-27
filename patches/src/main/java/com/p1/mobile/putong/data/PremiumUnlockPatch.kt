@@ -1437,9 +1437,11 @@ val premiumUnlockPatch = bytecodePatch(
 
         // pib: server refresh + membership flip
         pibClassFingerprint.matchOrNull()?.classDef?.let { pibClassDef ->
-            pibW9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
-                match.method.addInstructions(0, LOG_PIB_W9_NULL)
-            }
+            // DISABLED: pib.W9() returning NULL caused infinite loading on swipe interface
+            // The RxJava subscription was never completing, blocking the UI from loading cards
+            // pibW9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
+            //     match.method.addInstructions(0, LOG_PIB_W9_NULL)
+            // }
             pibG9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
                 match.method.addInstructions(0, PIB_G9_BODY)
             }
