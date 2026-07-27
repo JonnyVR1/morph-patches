@@ -144,6 +144,43 @@ private val PIB_G9_BODY: String = """
     :user_null
 """
 
+// pib.S9() mock: create minimal Envelope and return as Observable
+// This allows M8() to execute (so picks data is processed) without hitting the server
+private val PIB_S9_MOCK_BODY: String = """
+    new-instance v0, Lcom/p1/mobile/putong/data/Envelope;
+    invoke-direct {v0}, Lcom/p1/mobile/putong/data/Envelope;-><init>()V
+    invoke-static {v0}, Lrx/Observable;->just(Ljava/lang/Object;)Lrx/Observable;
+    move-result-object v0
+    return-object v0
+"""
+
+// pib.M8() null guard: skip putLiveState if envelope modules are null
+// Prevents NPE when processing mock envelope from S9() patch
+private val PIB_M8_NULL_GUARD: String = """
+    if-eqz p2, :envelope_null
+    invoke-virtual {p2}, Lcom/p1/mobile/putong/data/Envelope;->getModuleData(Ljava/lang/Class;)Ljava/lang/Object;
+    move-result-object v0
+    if-eqz v0, :module_null
+    const-class v0, Lcom/p1/mobile/putong/data/CommonData;
+    invoke-virtual {p2, v0}, Lcom/p1/mobile/putong/data/Envelope;->getModuleData(Ljava/lang/Class;)Ljava/lang/Object;
+    move-result-object v0
+    if-eqz v0, :module_null
+    invoke-static {}, Lcom/p1/mobile/putong/core/CoreModule;->Q()Lcom/p1/mobile/putong/core/api/c;
+    move-result-object v0
+    invoke-virtual {v0}, Lcom/p1/mobile/putong/core/api/c;->putLiveState(Ljava/util/List;)V
+    :module_null
+    :envelope_null
+    invoke-virtual {p0, p1, p2}, Lp001l/pib;->q9(Ljava/lang/String;Lcom/p1/mobile/putong/data/Envelope;)V
+    iget-object v0, p0, Lp001l/pib;->Q:Lcom/p1/mobile/putong/core/api/c;
+    const/4 v1, 0x0
+    const/4 v2, 0x0
+    const/4 v3, 0x0
+    const/4 v4, 0x1
+    invoke-virtual/range {v0 .. v4}, Lcom/p1/mobile/putong/core/api/c;->y3(Lcom/p1/mobile/putong/data/Envelope;Ljava/lang/String;ZZZ)V
+    sget-object v0, Lp001l/roj0;->a:Lp001l/roj0;
+    return-object v0
+"""
+
 private val U59_V_BODY: String = """
     invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
     move-result v0
@@ -826,6 +863,27 @@ private val pibW9Fingerprint = Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC),
     returnType = "Lrx/c;",
     parameters = listOf("Ljava/lang/String;"),
+)
+
+// pib.S9(String, boolean, boolean) fingerprint - NEW
+// S9() makes the actual server call to /users/{userId}. We patch it to return
+// a mock Envelope so M8() side effects execute without hitting the server.
+// This fixes both swipe (no server error) and picks (M8 processes mock data).
+private val pibS9Fingerprint = Fingerprint(
+    classFingerprint = pibClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Lrx/c;",
+    parameters = listOf("Ljava/lang/String;", "Z", "Z"),
+)
+
+// pib.M8(String, Envelope) fingerprint - NEW
+// M8() processes the server response. We patch it to handle null/empty envelope
+// gracefully (skip putLiveState if CommonData is null) to prevent NPEs from mock envelope.
+private val pibM8Fingerprint = Fingerprint(
+    classFingerprint = pibClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
+    returnType = "Lp001l/roj0;",
+    parameters = listOf("Ljava/lang/String;", "Lcom/p1/mobile/putong/data/Envelope;"),
 )
 
 // pib.g9(String, User) → flip Membership.active to true before downstream emit
@@ -1547,13 +1605,25 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // pib: membership flip (W9 patch removed - let server call run)
+        // pib: membership flip + server call mock
         pibClassFingerprint.matchOrNull()?.classDef?.let { pibClassDef ->
-            // pib.W9(String) patch REMOVED.
-            // Let the server call run normally so M8() side effects (q9 + Q.y3) execute.
-            // Premium status is preserved by patched getter methods (isVIP, isUltraPremium, etc.)
-            // which check isMe() first and return true for the current user.
-            //
+            // pib.S9(String, boolean, boolean) - mock server response
+            // S9() makes the actual server call to /users/{userId}. The server response
+            // causes infinite loading on swipe (likely returns non-premium status that
+            // triggers validation blocks). We patch S9() to return a mock Observable<Envelope>
+            // so that M8() side effects (q9 + Q.y3) execute without hitting the server.
+            // This fixes both swipe (no server error) and picks (M8 processes mock data).
+            pibS9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
+                match.method.addInstructions(0, PIB_S9_MOCK_BODY)
+            }
+            
+            // pib.M8(String, Envelope) - null guard for mock envelope
+            // M8() processes the server response. The mock envelope from S9() has null modules,
+            // so we patch M8() to skip putLiveState if CommonData is null, preventing NPEs.
+            pibM8Fingerprint.matchOrNull(pibClassDef)?.let { match ->
+                match.method.addInstructions(0, PIB_M8_NULL_GUARD)
+            }
+            
             // pibG9Fingerprint: flip Membership.active to true before downstream emit
             pibG9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
                 match.method.addInstructions(0, PIB_G9_BODY)
