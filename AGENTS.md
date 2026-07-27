@@ -1,7 +1,7 @@
-# Morph - Tantam Android Premium Bypass Project
+# Morph - Tantan Android Patch Project
 
 ## Overview
-This repository contains patches and tools for bypassing premium features in the Tantam Android APK.
+This repository contains patches and tools for the Tantan Android APK. Patches cover premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, and Google Maps compatibility.
 
 ## Workspace Configuration
 ```json
@@ -15,6 +15,7 @@ This repository contains patches and tools for bypassing premium features in the
 - `patches/` - Individual bypass patch implementations
 - `patches-list.json` - Auto-generated patch metadata
 - `patches-bundle.json` - Bundle configuration
+- `tantan-tribe-decompiled/` - Decompiled Tantan APK source for reverse engineering
 
 ## Build and Release Commands
 
@@ -90,22 +91,73 @@ curl -s -H "Authorization: token $GITHUB_TOKEN" \
   python3 -c "import json, sys; assets = json.load(sys.stdin); [print(f'{a[\"name\"]}: {a[\"size\"]} bytes') for a in assets]"
 ```
 
-Expected file size for `patches-0.0.1-dev1.mpp`: ~700 KB (includes DEX bytecode for all patches in `PremiumUnlockPatch.kt` + Google Maps + Signature Spoof). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
+Expected file size for `patches-0.0.1-dev1.mpp`: ~770 KB (includes DEX bytecode for all 9 patches). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
 
 ## Patch Architecture
 
-The project uses a single consolidated `PremiumUnlockPatch.kt` (`patches/src/main/java/com/p1/mobile/putong/data/`) that handles:
-- User tier status methods (isUltraPremium, isVIP, etc.)
+The project uses 9 patches registered in `PatchRegistry.kt`. All patch files are in `patches/src/main/java/com/p1/mobile/putong/data/`:
+
+### Premium Unlock (`PremiumUnlockPatch.kt`)
+The largest and most complex patch. Handles:
+- User tier status methods (isUltraPremium, isVIP, isSVIP, isPlatinum, isSupremePartner)
 - Privilege gates and expiration checks (xma class)
 - Subscription validation and regional gates (u59 class)
 - Feature gates and display timestamps (CounterSuperlikeAndUndoLimit, CoreProduct, etc.)
 - Auto-subscription dialog suppression (src0 class)
 - Mystery/blur gating (sb90 Companion class)
+- Daily like limit bypass (h0.b, l1.b, m1.b)
+- Ad removal (NavigationBarAdmobHelper, NavigationBarAdView, NativeAdViewCard)
+- Boost remaining count (n3b0.d, BoostRemainingCountView)
+- Search filter expansion (Settings radius/age limits)
+- Server refresh prevention (pib.W9 → Observable.just)
+- VIP badge override (zva0, tm90)
+- Spotlight/boost activation (gqf0, CoreBusinessServiceIml)
 
-Also in `patches/src/main/java/com/p1/mobile/putong/data/`:
-- `SignatureSpoofPatch.kt` — patches signature verification for Google Maps
-- `GoogleMapsPatch.kt` — enables GMS availability
-- `Constants.kt` — shared constants (`TANTAN_PACKAGE_NAME`, `TANTAN_USER_CLASS`, `tantanCompatibility`)
+### Privacy Controls (`PrivacyControlsPatch.kt`)
+Unlocks privacy features:
+- Hide from nearby (`hide_me_from_nearby` privilege)
+- Visitor hide footprint (`visitor_hide_footprint` privilege)
+- Mysterious mode (`mysterious_mode` privilege)
+- Nearby people access (`nearby_people` privilege)
+
+### Messaging Enhancement (`MessagingPatch.kt`)
+Enhances messaging features:
+- Message limits removal (ChatPartnerConfig limits)
+- Pin chat unlimited (PlatinumPinChat expiration)
+- Voice/video calls (LoveBuzzData remaining counts)
+- Quick chat features (quickchat privileges)
+
+### Analytics Disable (`AnalyticsDisablePatch.kt`)
+Disables all tracking and telemetry:
+- FoxStatistics (custom analytics)
+- AppsFlyer (attribution tracking)
+- CleverTap (engagement analytics)
+- Facebook AppEvents
+- Beatles APM (crash reporting)
+- OAID device fingerprinting
+
+### Dialog Cleanup (`DialogCleanupPatch.kt`)
+Removes annoying promotional dialogs:
+- 5-star rating dialog (`p_intl_5star_dialog_view`)
+- Appstore rating filter (`p_appstore_rating_filter_popup`)
+- Version upgrade prompt (`p_alert_version_upgrade_popup`)
+- Offline popup (`p_offline_popup`)
+- Notification permission prompt (`p_prompt_notification_auth_popup_view`)
+
+### Google Maps Compatibility (`GoogleMapsPatch.kt`)
+Safety net patches for GMS availability checks.
+
+### Maps Auth Headers (`OkHttpInterceptorPatch.kt`)
+Replaces Google Maps/Places API X-Android-Cert and X-Android-Package headers with original Tantan values.
+
+### Signature Spoof (`SignatureSpoofPatch.kt`)
+Patches signature verification for Google Maps and other signature-dependent services.
+
+### MicroG Support (`MicroGSupportPatch.kt`)
+Forces the app to use MicroG-RE instead of Google Play Services.
+
+### Shared Constants (`Constants.kt`)
+Shared constants: `TANTAN_PACKAGE_NAME`, `TANTAN_USER_CLASS`, `tantanCompatibility`.
 
 All tier overrides MUST use `isMe()` guards to ensure they only affect the current user, not other users' profiles.
 
@@ -123,6 +175,27 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | `th5` | `string("vas_commercial_card_right_slide_strategy")` |
 | `h6a` | `string("ttt_membership_price_diff")` |
 | `qgl0` | `string("暂未激活黑金会员")` |
+| `pib` | `string("users/{userId}")` (server refresh) |
+| `n3b0` | `fieldAccess(likersLimit)` + `fieldAccess(boostLimits)` |
+| `sja` | `string("picks")` + `string("seeWhoLikedMe")` |
+| `h0/l1/m1` | Stable CamelCase (`com/p1/mobile/putong/core/newui/home/base/impl/swipe/`) |
+| `NavigationBarAdmobHelper` | `string("intl_ad_show_bottom_banner")` + `string("ttt_tab_bar_bottom_banner")` |
+| `NavigationBarAdView` | `string("ca-app-pub-6567608331519569/1242795139")` |
+| `NativeAdViewCard` | `string("ca-app-pub-6567608331519569/7831936718")` |
+| `Settings` | CamelCase stable (`com/p1/mobile/putong/data/Settings`) |
+| `BoostRemainingCountView` | CamelCase stable (`com/p1/mobile/putong/core/newui/home/BoostRemainingCountView`) |
+| `HiddenNearByView` | CamelCase stable + `string("hide_me_from_nearby")` |
+| `MyVisitorsItemView` | CamelCase stable + `string("visitor_hide_footprint")` |
+| `PrivilegeContentDlgItemView` | CamelCase stable + `string("mysterious_mode")` |
+| `ChatPartnerConfig` | `fieldAccess(messageLimit)` + `fieldAccess(perday)` |
+| `PlatinumPinChat` | `fieldAccess(expireTime)` |
+| `LoveBuzzData` | `fieldAccess(remainingVoiceBuzz)` + `fieldAccess(remainingVideoBuzz)` |
+| FoxStatistics (`zvf0`) | `string("e_request_none_oaid")` |
+| AppsFlyer | `string("dmfeSDkpVxP8m6Ys6yJCpn")` (dev key) |
+| CleverTap | `string("CleverTap SDK initialized with accountId")` |
+| Facebook AppEvents | `string("facebook-core_release")` |
+| Beatles APM | `string("com.tantanapp.beatles")` |
+| OAID (`k200`) | `string("miit_oaid")` |
 
 For groups of byte-identical overloaded methods (e.g. u59's U/S/O/F/Z/a0/D all return `!IntlCountryCodeController.k()`), fingerprint them as one cluster — they cannot be reliably separated.
 
