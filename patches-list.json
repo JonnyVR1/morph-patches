@@ -55,36 +55,12 @@
       "options": []
     },
     {
-      "name": "Google Maps Compatibility",
-      "description": "Safety net patches for GMS availability checks. Signature spoofing handles the main Maps compatibility.",
+      "name": "GMS Compatibility",
+      "description": "Makes Google Maps and GMS-dependent features work in re-signed APKs. Includes signature spoofing, auth header fixes, MicroG support, and GMS availability bypass.",
       "default": true,
-      "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.tantantribe.tribe",
-          "name": "Tantan",
-          "description": "Tantan - Global Dating App",
-          "apkFileType": null,
-          "appIconColor": null,
-          "signatures": null,
-          "targets": [
-            {
-              "version": "7.2.7",
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
+      "dependencies": [
+        "ResourcePatch"
       ],
-      "options": []
-    },
-    {
-      "name": "Maps Auth Headers",
-      "description": "Replaces Google Maps/Places API X-Android-Cert and X-Android-Package headers with original Tantan values",
-      "default": true,
-      "dependencies": [],
       "compatiblePackages": [
         {
           "packageName": "com.tantantribe.tribe",
@@ -111,34 +87,6 @@
       "description": "Removes message limits, unlimited pin chat, voice/video calls, quick chat",
       "default": true,
       "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.tantantribe.tribe",
-          "name": "Tantan",
-          "description": "Tantan - Global Dating App",
-          "apkFileType": null,
-          "appIconColor": null,
-          "signatures": null,
-          "targets": [
-            {
-              "version": "7.2.7",
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "MicroG Support",
-      "description": "Forces the app to use MicroG-RE instead of Google Play Services. Enables Google Maps and other GMS-dependent features without root. Requires MicroG-RE to be installed on the device.",
-      "default": true,
-      "dependencies": [
-        "ResourcePatch"
-      ],
       "compatiblePackages": [
         {
           "packageName": "com.tantantribe.tribe",
@@ -191,34 +139,6 @@
       "description": "Unlocks privacy features: hide from nearby, visitor footprint hiding, mysterious mode, nearby people access",
       "default": true,
       "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.tantantribe.tribe",
-          "name": "Tantan",
-          "description": "Tantan - Global Dating App",
-          "apkFileType": null,
-          "appIconColor": null,
-          "signatures": null,
-          "targets": [
-            {
-              "version": "7.2.7",
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Signature Spoof",
-      "description": "Makes the app think its signing certificate is unchanged after re-signing. Fixes Google Maps and other signature-dependent services. No root required.",
-      "default": true,
-      "dependencies": [
-        "ResourcePatch"
-      ],
       "compatiblePackages": [
         {
           "packageName": "com.tantantribe.tribe",
