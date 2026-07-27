@@ -50,25 +50,23 @@ private val LOG_TH5_FALSE = RETURN_FALSE
 private val LOG_COREPRODUCT_U4_TRUE = RETURN_TRUE
 private val LOG_COREPRODUCT_GATE_FALSE = RETURN_FALSE
 private val LOG_SB90_FALSE = RETURN_FALSE
-// pib.W9() → Observable.just(roj0.a) instead of Observable.empty() or null.
+// pib.W9() patch REMOVED - let server call run normally.
 //
 // Evolution:
 // - null: caused NPE on subscribe → infinite loading
-// - Observable.empty(): completed without emitting → subscribers waiting for onNext hung
-// - Observable.just(roj0.a): emits the unit singleton then completes → satisfies all subscribers
+// - Observable.just(roj0.a): emitted Unit but skipped M8 side effects → swipe hung
+// - Observable.empty(): completed without emitting → swipe worked but picks blank
+// - NO PATCH: let server call run → M8 side effects execute normally
 //
-// This prevents the server call that would overwrite locally-patched premium data
-// (isVIP, privileges, etc.) via M8 → q9/Q.y3, while still satisfying RxJava subscribers
-// that expect both onNext and onComplete callbacks.
+// RATIONALE: The existing patches to User.isVIP(), isUltraPremium(), isMembership(), etc.
+// already check isMe() first and return true for the current user, regardless of what the
+// server sends. By letting the server call run:
+// 1. Swipe interface works (M8 side effects q9 + Q.y3 execute, updating UI state)
+// 2. Picks section shows real data (picksUsers fetched from server)
+// 3. Premium status preserved (patched getters return true for current user)
 //
-// Direct Y9 callers (cy90, yca0 for viewing other users' profiles) are NOT affected
-// because they call Y9 directly, not through W9.
-private val PIB_W9_JUST = """
-    sget-object v0, Lroj0;->a:Lroj0;
-    invoke-static {v0}, Lrx/Observable;->just(Ljava/lang/Object;)Lrx/Observable;
-    move-result-object v0
-    return-object v0
-"""
+// The server response updates User.membership fields, but our patched getter methods
+// override the return values for the current user, so premium status is preserved.
 private val LOG_XMA_F3_TRUE = RETURN_TRUE
 private val LOG_XMA_Y3_TRUE = RETURN_TRUE
 
@@ -821,7 +819,8 @@ private val mb90CFingerprint = Fingerprint(
     ),
 )
 
-// pib.W9(String) → null (server refresh no-op)
+// pib.W9(String) fingerprint - NO LONGER USED (kept for reference)
+// W9() patch was removed to let server call run normally.
 private val pibW9Fingerprint = Fingerprint(
     classFingerprint = pibClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC),
@@ -1548,29 +1547,14 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // pib: server refresh + membership flip
+        // pib: membership flip (W9 patch removed - let server call run)
         pibClassFingerprint.matchOrNull()?.classDef?.let { pibClassDef ->
-            // pib.W9(String) → Observable.empty()
+            // pib.W9(String) patch REMOVED.
+            // Let the server call run normally so M8() side effects (q9 + Q.y3) execute.
+            // Premium status is preserved by patched getter methods (isVIP, isUltraPremium, etc.)
+            // which check isMe() first and return true for the current user.
             //
-            // Previously returned NULL which caused infinite loading on the swipe interface
-            // because callers subscribe to the Observable and wait for completion that never
-            // comes (NPE on subscribe).
-            //
-            // Now returns Observable.empty() which completes the subscription immediately
-            // without making a server call. This preserves the locally-patched premium data
-            // because the server response (which would overwrite with non-premium values)
-            // is never processed by M8 → q9/Q.y3.
-            //
-            // This fixes the blank picks section: with real server data, the server returns
-            // isVIP=false and privilege remaining=0, which causes PicksHelper.d() to return
-            // false (because sja.r3() <= 0) and hides the picks section. By not calling the
-            // server, the locally-patched premium data is preserved and picks shows correctly.
-            //
-            // Direct Y9 callers (cy90, yca0 for viewing other users' profiles) are NOT
-            // affected because they call Y9 directly, not through W9.
-            pibW9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
-                match.method.addInstructions(0, PIB_W9_JUST)
-            }
+            // pibG9Fingerprint: flip Membership.active to true before downstream emit
             pibG9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
                 match.method.addInstructions(0, PIB_G9_BODY)
             }
