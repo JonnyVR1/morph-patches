@@ -35,99 +35,24 @@ private const val RETURN_FALSE = """
     return v0
 """
 
-// ── Diagnostic logging variants (tag: MORPH_DEBUG) ──
-// Uses MorphDebug wrapper to avoid v0/v1 register conflicts.
+// ── Diagnostic logging DISABLED — smali invoke-static caused startup crashes ──
+// All LOG_* variants reverted to plain return values (no MorphDebug calls).
 
-private const val LOG_AND_RETURN_FALSE = """
-    const-string v0, "RETURN_FALSE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x0
-    return v0
-"""
-
-private const val LOG_AND_RETURN_TRUE = """
-    const-string v0, "RETURN_TRUE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x1
-    return v0
-"""
-
-private const val LOG_AND_RETURN_NULL = """
-    const-string v0, "RETURN_NULL"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
+private val LOG_AND_RETURN_NULL = """
     const/4 v0, 0x0
     return-object v0
 """
 
-private const val LOG_XMA_SERVER_REFRESH_NULL = """
-    const-string v0, "xma.u4/x4: server refresh returning NULL"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x0
-    return-object v0
-"""
-
-private const val LOG_XMA_X3_FALSE = """
-    const-string v0, "xma.X3(oDiamond): returning FALSE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x0
-    return v0
-"""
-
-private const val LOG_SWIPE_M_B_FALSE = """
-    const-string v0, "swipe.m.b: purchase dialog gate returning FALSE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x0
-    return v0
-"""
-
-private const val LOG_TH5_FALSE = """
-    const-string v0, "th5.d/f/h: swipe strategy returning FALSE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x0
-    return v0
-"""
-
-private const val LOG_COREPRODUCT_U4_TRUE = """
-    const-string v0, "CoreProduct.u4(String): returning TRUE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x1
-    return v0
-"""
-
-private const val LOG_COREPRODUCT_GATE_FALSE = """
-    const-string v0, "CoreProduct upgrade gate: returning FALSE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x0
-    return v0
-"""
-
-private const val LOG_SB90_FALSE = """
-    const-string v0, "sb90.c(User): blur check returning FALSE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x0
-    return v0
-"""
-
-private const val LOG_PIB_W9_NULL = """
-    const-string v0, "pib.W9: server refresh returning NULL"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x0
-    return-object v0
-"""
-
-private const val LOG_XMA_F3_TRUE = """
-    const-string v0, "xma.F3(!oDiamond): returning TRUE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x1
-    return v0
-"""
-
-private const val LOG_XMA_Y3_TRUE = """
-    const-string v0, "xma.Y3(b4 oDiamond): returning TRUE"
-    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
-    const/4 v0, 0x1
-    return v0
-"""
+private val LOG_XMA_SERVER_REFRESH_NULL = LOG_AND_RETURN_NULL
+private val LOG_XMA_X3_FALSE = RETURN_FALSE
+private val LOG_SWIPE_M_B_FALSE = RETURN_FALSE
+private val LOG_TH5_FALSE = RETURN_FALSE
+private val LOG_COREPRODUCT_U4_TRUE = RETURN_TRUE
+private val LOG_COREPRODUCT_GATE_FALSE = RETURN_FALSE
+private val LOG_SB90_FALSE = RETURN_FALSE
+private val LOG_PIB_W9_NULL = LOG_AND_RETURN_NULL
+private val LOG_XMA_F3_TRUE = RETURN_TRUE
+private val LOG_XMA_Y3_TRUE = RETURN_TRUE
 
 private const val RETURN_TRUE_WITH_ME_CHECK = """
     invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
