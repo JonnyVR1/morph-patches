@@ -1258,6 +1258,23 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // ── CoreProviderImpl.Er(): infinite loading fix ──
+            //
+            // CoreProviderImpl.Er() is hardcoded to return false, causing pib.q9()
+            // to skip processing user data, leading to infinite loading.
+            // Patching to return true allows pib.q9() to pass the guard condition
+            // and call pa() to process user data.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/module/CoreProviderImpl;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "Er" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                }
+            }
+
             // ── Ad removal: NativeAdViewCard.Companion.l() ──
             //
             // NativeAdViewCard.Companion.l(Act) loads the native ad card that appears
