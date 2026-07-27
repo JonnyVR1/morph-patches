@@ -36,107 +36,95 @@ private const val RETURN_FALSE = """
 """
 
 // ── Diagnostic logging variants (tag: MORPH_DEBUG) ──
+// Uses MorphDebug wrapper to avoid v0/v1 register conflicts.
 
 private const val LOG_AND_RETURN_FALSE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "RETURN_FALSE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "RETURN_FALSE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x0
     return v0
 """
 
 private const val LOG_AND_RETURN_TRUE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "RETURN_TRUE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "RETURN_TRUE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x1
     return v0
 """
 
 private const val LOG_AND_RETURN_NULL = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "RETURN_NULL"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "RETURN_NULL"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x0
     return-object v0
 """
 
 private const val LOG_XMA_SERVER_REFRESH_NULL = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "xma.u4/x4: server refresh returning NULL"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "xma.u4/x4: server refresh returning NULL"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x0
     return-object v0
 """
 
 private const val LOG_XMA_X3_FALSE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "xma.X3(oDiamond): returning FALSE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "xma.X3(oDiamond): returning FALSE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x0
     return v0
 """
 
 private const val LOG_SWIPE_M_B_FALSE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "swipe.m.b: purchase dialog gate returning FALSE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "swipe.m.b: purchase dialog gate returning FALSE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x0
     return v0
 """
 
 private const val LOG_TH5_FALSE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "th5.d/f/h: swipe strategy returning FALSE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "th5.d/f/h: swipe strategy returning FALSE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x0
     return v0
 """
 
 private const val LOG_COREPRODUCT_U4_TRUE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "CoreProduct.u4(String): returning TRUE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "CoreProduct.u4(String): returning TRUE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x1
     return v0
 """
 
 private const val LOG_COREPRODUCT_GATE_FALSE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "CoreProduct upgrade gate: returning FALSE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "CoreProduct upgrade gate: returning FALSE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x0
     return v0
 """
 
 private const val LOG_SB90_FALSE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "sb90.c(User): blur check returning FALSE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "sb90.c(User): blur check returning FALSE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x0
     return v0
 """
 
 private const val LOG_PIB_W9_NULL = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "pib.W9: server refresh returning NULL"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "pib.W9: server refresh returning NULL"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x0
     return-object v0
 """
 
 private const val LOG_XMA_F3_TRUE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "xma.F3(!oDiamond): returning TRUE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "xma.F3(!oDiamond): returning TRUE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x1
     return v0
 """
 
 private const val LOG_XMA_Y3_TRUE = """
-    const-string v0, "MORPH_DEBUG"
-    const-string v1, "xma.Y3(b4 oDiamond): returning TRUE"
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v0, "xma.Y3(b4 oDiamond): returning TRUE"
+    invoke-static {v0}, Lcom/p1/mobile/putong/data/MorphDebug;->log(Ljava/lang/String;)V
     const/4 v0, 0x1
     return v0
 """
@@ -1101,7 +1089,7 @@ val premiumUnlockPatch = bytecodePatch(
                             method.parameterTypes[0] == "Ljava/lang/String;" &&
                             method.returnType == "Z" &&
                             AccessFlags.FINAL.isSet(method.accessFlags) -> {
-                            method.addInstructions(0, RETURN_TRUE)
+                            method.addInstructions(0, LOG_COREPRODUCT_U4_TRUE)
                         }
                         // Upgrade dialog gates (A4, B4, Q4, y4, z4) — these call u4(String)
                         // with specific strings and should return FALSE to prevent upgrade dialogs.
@@ -1110,7 +1098,7 @@ val premiumUnlockPatch = bytecodePatch(
                             method.returnType == "Z" &&
                             AccessFlags.PUBLIC.isSet(method.accessFlags) &&
                             method.callsU4WithString() -> {
-                            method.addInstructions(0, RETURN_FALSE)
+                            method.addInstructions(0, LOG_COREPRODUCT_GATE_FALSE)
                         }
                         // Feature/data gates (L4, O4, P4, R4, T4) — these have different behavior
                         // and should NOT be patched. Leave them unpatched to preserve original behavior.
@@ -1208,7 +1196,7 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes[0] == "Lp001l/p3m\$a;" &&
                         method.returnType == "Z"
                     ) {
-                        method.addInstructions(0, RETURN_FALSE)
+                        method.addInstructions(0, LOG_SWIPE_M_B_FALSE)
                     }
                 }
             }
@@ -1304,7 +1292,7 @@ val premiumUnlockPatch = bytecodePatch(
 
             // Server refresh u4/x4 (instance no-arg → Lrx/c;) → null
             xmaServerRefreshFingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
-                match.method.addInstructions(0, RETURN_NULL_OBJECT)
+                match.method.addInstructions(0, LOG_XMA_SERVER_REFRESH_NULL)
             }
 
             // L3 → true
@@ -1375,15 +1363,15 @@ val premiumUnlockPatch = bytecodePatch(
                     when {
                         // F3(): !S3-style with negation → TRUE
                         method.hasNegation() -> {
-                            method.addInstructions(0, RETURN_TRUE)
+                            method.addInstructions(0, LOG_XMA_F3_TRUE)
                         }
                         // Y3(): b4-style (calls b4 method) → TRUE
                         method.callsMethodNamed("b4") -> {
-                            method.addInstructions(0, RETURN_TRUE)
+                            method.addInstructions(0, LOG_XMA_Y3_TRUE)
                         }
                         // X3(): S3-style without negation → FALSE (prevent purchase dialog)
                         else -> {
-                            method.addInstructions(0, RETURN_FALSE)
+                            method.addInstructions(0, LOG_XMA_X3_FALSE)
                         }
                     }
                 }
@@ -1477,7 +1465,7 @@ val premiumUnlockPatch = bytecodePatch(
         // Return FALSE to prevent purchase dialog from showing, allowing swipe actions to proceed.
         th5ClassFingerprint.matchOrNull()?.classDef?.let { th5ClassDef ->
             th5PurchaseDialogFingerprint.matchAll(th5ClassDef, 1..10).forEach { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
+                match.method.addInstructions(0, LOG_TH5_FALSE)
             }
         }
 
@@ -1501,7 +1489,7 @@ val premiumUnlockPatch = bytecodePatch(
         // sb90 Companion: blur check (c(User)) → false
         sb90CompanionClassFingerprint.matchOrNull()?.classDef?.let { sb90CompanionClassDef ->
             sb90CFingerprint.matchOrNull(sb90CompanionClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
+                match.method.addInstructions(0, LOG_SB90_FALSE)
             }
         }
 
@@ -1525,7 +1513,7 @@ val premiumUnlockPatch = bytecodePatch(
         // pib: server refresh + membership flip
         pibClassFingerprint.matchOrNull()?.classDef?.let { pibClassDef ->
             pibW9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_NULL_OBJECT)
+                match.method.addInstructions(0, LOG_PIB_W9_NULL)
             }
             pibG9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
                 match.method.addInstructions(0, PIB_G9_BODY)
