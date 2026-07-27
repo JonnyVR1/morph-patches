@@ -43,20 +43,24 @@ private val LOG_AND_RETURN_NULL = """
     return-object v0
 """
 
-private val LOG_XMA_SERVER_REFRESH_NULL = LOG_AND_RETURN_NULL
+// LOG_XMA_SERVER_REFRESH_NULL removed - xma server refresh patch no longer used
 private val LOG_XMA_X3_FALSE = RETURN_FALSE
 private val LOG_SWIPE_M_B_FALSE = RETURN_FALSE
 private val LOG_TH5_FALSE = RETURN_FALSE
 private val LOG_COREPRODUCT_U4_TRUE = RETURN_TRUE
 private val LOG_COREPRODUCT_GATE_FALSE = RETURN_FALSE
 private val LOG_SB90_FALSE = RETURN_FALSE
-// pib.W9() patch REMOVED - let server call run normally.
+// pib.W9() and xma server refresh patches REMOVED - let server calls run normally.
 //
 // Evolution:
 // - null: caused NPE on subscribe → infinite loading
 // - Observable.just(roj0.a): emitted Unit but skipped M8 side effects → swipe hung
 // - Observable.empty(): completed without emitting → swipe worked but picks blank
 // - NO PATCH: let server call run → M8 side effects execute normally
+//
+// xma server refresh methods (u4/x4) return RxJava Observable (Lrx/c;).
+// Patching to null causes NoClassDefFoundError for rx.Observable when calling
+// code tries to use the returned value. Let these methods run normally.
 //
 // RATIONALE: The existing patches to User.isVIP(), isUltraPremium(), isMembership(), etc.
 // already check isMe() first and return true for the current user, regardless of what the
@@ -1437,69 +1441,6 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── Boost remaining count: n3b0.d(Counter) ──
-            //
-            // n3b0.d(Counter) sums up all boostLimits.remaining values to return the
-            // total boost remaining count. Patching to return 200000 gives unlimited
-            // boost uses. This is separate from the boost activation gate (already patched).
-            if (classDef.type == "Lp001l/n3b0;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "d" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;" &&
-                        method.returnType == "I"
-                    ) {
-                        method.addInstructions(0, RETURN_INT_200000)
-                    }
-                }
-            }
-
-            // ── Search filter expansion: Settings methods ──
-            //
-            // Settings.getRadiusAllowedMaximum(), getSearchAgeAllowedMinimum(), and
-            // getSearchAgeAllowedMaximum() return the server-provided limits for search
-            // filters. Patching these to return wider ranges allows users to set broader
-            // age and distance filters. Note: the server may reject out-of-range values,
-            // but the client-side UI will allow the broader selection.
-            if (classDef.type == "Lcom/p1/mobile/putong/data/Settings;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    when {
-                        // getRadiusAllowedMaximum() → return 1000000 (1000km instead of ~100km)
-                        method.name == "getRadiusAllowedMaximum" &&
-                            method.parameterTypes.isEmpty() &&
-                            method.returnType == "Ljava/lang/Integer;" -> {
-                            method.addInstructions(0, """
-                                const v0, 0xf4240
-                                invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                                move-result-object v0
-                                return-object v0
-                            """)
-                        }
-                        // getSearchAgeAllowedMinimum() → return 18 (minimum age)
-                        method.name == "getSearchAgeAllowedMinimum" &&
-                            method.parameterTypes.isEmpty() &&
-                            method.returnType == "Ljava/lang/Integer;" -> {
-                            method.addInstructions(0, """
-                                const/4 v0, 0x12
-                                invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                                move-result-object v0
-                                return-object v0
-                            """)
-                        }
-                        // getSearchAgeAllowedMaximum() → return 99 (maximum age)
-                        method.name == "getSearchAgeAllowedMaximum" &&
-                            method.parameterTypes.isEmpty() &&
-                            method.returnType == "Ljava/lang/Integer;" -> {
-                            method.addInstructions(0, """
-                                const/16 v0, 0x63
-                                invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                                move-result-object v0
-                                return-object v0
-                            """)
-                        }
-                    }
-                }
-            }
         }
 
         // ----------------------------------------------------------------------
@@ -1556,10 +1497,10 @@ val premiumUnlockPatch = bytecodePatch(
                 match.method.addInstructions(0, RETURN_FALSE)
             }
 
-            // Server refresh u4/x4 (instance no-arg → Lrx/c;) → null
-            xmaServerRefreshFingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
-                match.method.addInstructions(0, LOG_XMA_SERVER_REFRESH_NULL)
-            }
+            // Server refresh u4/x4 (instance no-arg → Lrx/c;) patch REMOVED
+            // These methods return RxJava Observable. Patching to null causes NoClassDefFoundError
+            // for rx.Observable when calling code tries to use the returned value.
+            // Let these methods run normally to avoid crashes.
 
             // L3 → true
             xmaL3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
