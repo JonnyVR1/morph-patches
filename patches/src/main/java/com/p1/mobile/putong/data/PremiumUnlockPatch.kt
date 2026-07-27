@@ -50,7 +50,23 @@ private val LOG_TH5_FALSE = RETURN_FALSE
 private val LOG_COREPRODUCT_U4_TRUE = RETURN_TRUE
 private val LOG_COREPRODUCT_GATE_FALSE = RETURN_FALSE
 private val LOG_SB90_FALSE = RETURN_FALSE
-private val LOG_PIB_W9_NULL = LOG_AND_RETURN_NULL
+// pib.W9() → Observable.empty() instead of null.
+//
+// Returning null caused infinite loading on the swipe interface because callers
+// subscribe to the Observable and wait for completion that never comes (NPE on subscribe).
+//
+// Returning Observable.empty() completes the subscription immediately without making
+// a server call. This preserves the locally-patched premium data (isVIP, privileges, etc.)
+// because the server response (which would overwrite with non-premium values) is never
+// processed by M8 → q9/Q.y3.
+//
+// Direct Y9 callers (cy90, yca0 for viewing other users' profiles) are NOT affected
+// because they call Y9 directly, not through W9.
+private val PIB_W9_EMPTY = """
+    invoke-static {}, Lrx/Observable;->empty()Lrx/Observable;
+    move-result-object v0
+    return-object v0
+"""
 private val LOG_XMA_F3_TRUE = RETURN_TRUE
 private val LOG_XMA_Y3_TRUE = RETURN_TRUE
 
@@ -1437,11 +1453,27 @@ val premiumUnlockPatch = bytecodePatch(
 
         // pib: server refresh + membership flip
         pibClassFingerprint.matchOrNull()?.classDef?.let { pibClassDef ->
-            // DISABLED: pib.W9() returning NULL caused infinite loading on swipe interface
-            // The RxJava subscription was never completing, blocking the UI from loading cards
-            // pibW9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
-            //     match.method.addInstructions(0, LOG_PIB_W9_NULL)
-            // }
+            // pib.W9(String) → Observable.empty()
+            //
+            // Previously returned NULL which caused infinite loading on the swipe interface
+            // because callers subscribe to the Observable and wait for completion that never
+            // comes (NPE on subscribe).
+            //
+            // Now returns Observable.empty() which completes the subscription immediately
+            // without making a server call. This preserves the locally-patched premium data
+            // because the server response (which would overwrite with non-premium values)
+            // is never processed by M8 → q9/Q.y3.
+            //
+            // This fixes the blank picks section: with real server data, the server returns
+            // isVIP=false and privilege remaining=0, which causes PicksHelper.d() to return
+            // false (because sja.r3() <= 0) and hides the picks section. By not calling the
+            // server, the locally-patched premium data is preserved and picks shows correctly.
+            //
+            // Direct Y9 callers (cy90, yca0 for viewing other users' profiles) are NOT
+            // affected because they call Y9 directly, not through W9.
+            pibW9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
+                match.method.addInstructions(0, PIB_W9_EMPTY)
+            }
             pibG9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
                 match.method.addInstructions(0, PIB_G9_BODY)
             }
