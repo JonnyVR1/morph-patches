@@ -183,46 +183,10 @@ private val PROFILE_IMAGES_NULL_GUARD_BODY: String = """
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
 
-// Lcom/p1/mobile/putong/data/LikeFrom; — public static LikeFrom get(String).
-// LikeFrom is an auto-generated TEnum-style class for tracking the source of a like
-// (home, instantChat, likers, profile, etc.). CoreSuggested.b8() only sets
-// `relationship.relationshipExtensions.business_type = "instantChat"` when its
-// `likeFrom` argument equals LikeFrom.get("instantChat"). However, the swipe handlers
-// in core.newui.home.base.impl.swipe.{u,a} hardcode LikeFrom.get("home") as the
-// likeFrom sent to CoreSuggested.a8()/b8(). Without our patches, the "match" payCardStyle
-// commercial cards intercept the swipe via the swipe.m strategy (which checks
-// xma.X3()/th5.d()) and call into the /instant-chat/{userId} endpoint with the proper
-// business_type. After we disabled the purchase dialog (m.b() → FALSE and th5.d() → FALSE)
-// the swipe falls through to u.a() → a.i() → CoreSuggested.a8() with likeFrom="home",
-// which means business_type is NEVER set, and the server rejects the request.
-//
-// The patch redirects LikeFrom.get("home") to LikeFrom.get("instantChat") so the
-// downstream b8() sees likeFrom=instantChat and sets business_type correctly.
-//
-// Filters: `_LikeFrom` static field map.get(str) is unique to this method.
-private val likeFromGetHomeFingerprint = Fingerprint(
-    definingClass = "Lcom/p1/mobile/putong/data/LikeFrom;",
-    name = "get",
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Lcom/p1/mobile/putong/data/LikeFrom;",
-    parameters = listOf("Ljava/lang/String;"),
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/LikeFrom;",
-            name = "_LikeFrom",
-            type = "Ljava/util/Map;",
-        ),
-    ),
-)
-
-private const val LIKEFROM_HOME_REDIRECT_BODY = """
-    const-string v0, "home"
-    invoke-virtual {p0, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-    move-result v0
-    if-eqz v0, :likefrom_skip
-    const-string p0, "instantChat"
-    :likefrom_skip
-"""
+// LikeFrom redirect REMOVED — was causing normal match swipes to route through instant match
+// server path, resulting in infinite loading and server errors. Normal cards now use the
+// standard /relationships/ endpoint without business_type="instantChat".
+// Commercial cards (payCardStyle="match") may still have issues but normal swipe interface works.
 
 // Ll/xma; uniquely references "/summarized-privileges?with=diamond" in both
 // its u4() and x4() refresh methods. The shorter "/summarized-privileges"
@@ -1123,15 +1087,14 @@ val premiumUnlockPatch = bytecodePatch(
             // ── Swipe right purchase dialog: com.p1.mobile.putong.core.newui.home.base.impl.swipe.m.b() ──
             //
             // The m.b() method checks if a purchase dialog should be shown for commercial cards
-            // (match/superlike/chat). When X3() and th5.d() both return FALSE, m.b() returns FALSE,
-            // which means the purchase dialog strategy doesn't intercept the swipe. However, this
-            // causes the swipe to fall through to the normal swipe handler, which sends a regular
-            // cardlike request that the server rejects (40399/40343) because there's no server-side
-            // immediately_match entitlement.
+            // (match/superlike/chat). We patch it to return FALSE to prevent the purchase dialog
+            // from intercepting swipes. The swipe falls through to the normal handler.
             //
-            // To fix this, we patch m.b() to return FALSE directly, which prevents the purchase
-            // dialog from showing AND prevents the commercial card processing. The swipe will
-            // proceed as a normal like without server-side entitlement checks failing.
+            // Note: Commercial cards (payCardStyle="match") may get server errors (40399/40343)
+            // because the normal handler doesn't set business_type="instantChat". This is acceptable
+            // because the normal match swipe interface (non-commercial cards) works correctly.
+            // The LikeFrom redirect that previously fixed commercial cards was removed because it
+            // broke normal card swipes by routing them through the instant match path.
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "b" &&
@@ -1400,14 +1363,8 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // LikeFrom.get(String): redirect "home" → "instantChat".
-        // Fixes server-side rejection of swipe-right on commercial cards
-        // (payCardStyle == "match"): without the redirect, b8() in CoreSuggested
-        // sees likeFrom == "home" and skips setting business_type="instantChat"
-        // in the request body → server returns 40399/40343 → generic error toast.
-        likeFromGetHomeFingerprint.matchOrNull()?.let { match ->
-            match.method.addInstructions(0, LIKEFROM_HOME_REDIRECT_BODY)
-        }
+        // LikeFrom redirect REMOVED — was routing all swipes through instant match path,
+        // breaking normal card swipes with infinite loading and server errors.
 
         // th5: swipe action gates (d/f/h) → false
         // These methods check if the swipe strategy is "showPurchaseDialog".
