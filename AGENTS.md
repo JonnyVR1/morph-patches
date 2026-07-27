@@ -91,11 +91,11 @@ curl -s -H "Authorization: token $GITHUB_TOKEN" \
   python3 -c "import json, sys; assets = json.load(sys.stdin); [print(f'{a[\"name\"]}: {a[\"size\"]} bytes') for a in assets]"
 ```
 
-Expected file size for `patches-0.0.1-dev1.mpp`: ~770 KB (includes DEX bytecode for all 9 patches). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
+Expected file size for `patches-0.0.1-dev1.mpp`: ~740 KB (includes DEX bytecode for all 6 patches). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
 
 ## Patch Architecture
 
-The project uses 9 patches registered in `PatchRegistry.kt`. All patch files are in `patches/src/main/java/com/p1/mobile/putong/data/`:
+The project uses 6 patches registered in `PatchRegistry.kt`. All patch files are in `patches/src/main/java/com/p1/mobile/putong/data/`:
 
 ### Premium Unlock (`PremiumUnlockPatch.kt`)
 The largest and most complex patch. Handles:
@@ -144,17 +144,12 @@ Removes annoying promotional dialogs:
 - Offline popup (`p_offline_popup`)
 - Notification permission prompt (`p_prompt_notification_auth_popup_view`)
 
-### Google Maps Compatibility (`GoogleMapsPatch.kt`)
-Safety net patches for GMS availability checks.
-
-### Maps Auth Headers (`OkHttpInterceptorPatch.kt`)
-Replaces Google Maps/Places API X-Android-Cert and X-Android-Package headers with original Tantan values.
-
-### Signature Spoof (`SignatureSpoofPatch.kt`)
-Patches signature verification for Google Maps and other signature-dependent services.
-
-### MicroG Support (`MicroGSupportPatch.kt`)
-Forces the app to use MicroG-RE instead of Google Play Services.
+### GMS Compatibility (`GmsCompatibilityPatch.kt`)
+Consolidated patch that makes Google Maps and GMS-dependent features work in re-signed APKs. Includes:
+- Signature spoofing via ContentProvider (hooks PackageManager to return original Tantan certificate)
+- Maps auth header injection (replaces X-Android-Cert and X-Android-Package with original Tantan values)
+- MicroG support (rewrites `com.google.android.gms` → `app.revanced.android.gms`, adds manifest metadata)
+- GMS availability bypass (forces `isGooglePlayServicesAvailable` to return SUCCESS)
 
 ### Shared Constants (`Constants.kt`)
 Shared constants: `TANTAN_PACKAGE_NAME`, `TANTAN_USER_CLASS`, `tantanCompatibility`.
