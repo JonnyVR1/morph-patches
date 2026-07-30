@@ -1909,15 +1909,6 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
             }
-            
-            // ConversationHeadRecommendLayout: onFinishInflate() → return-void
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadRecommendLayout;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "onFinishInflate" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
 
         }
 
