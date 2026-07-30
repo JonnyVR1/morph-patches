@@ -1795,6 +1795,26 @@ val premiumUnlockPatch = bytecodePatch(
             //     }
             // }
 
+            // ── Meet entrance banner strategies: d9y, l8y, g9y ──
+            //
+            // The conversations tab shows teaser banners like "X girls Y miles away just liked you".
+            // Multiple strategy classes (d9y, l8y, g9y) implement the bzl interface and each has
+            // a c() method that gates visibility. In 7.3.3, xma and joa are the same class, so
+            // patching joa.i4() alone isn't sufficient — we patch the banner strategies directly.
+            // d9y: "X people new liked you" banner (gates on joa.i4() && newLikersUser != null)
+            // l8y: "Unlock X people who like me" fallback banner (gates on !joa.M3() && totalLikersUsers != null)
+            // g9y: "Who viewed me" banner (gates on joa.G3() && visitorData != null)
+            if (classDef.type in setOf("Ll/d9y;", "Ll/l8y;", "Ll/g9y;")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "c" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
+            }
+
         }
 
         // ----------------------------------------------------------------------
