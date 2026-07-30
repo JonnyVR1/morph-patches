@@ -176,15 +176,7 @@ private val QGL0_D_BODY: String = """
     :qgl0_skip
 """
 
-private val PIB_G9_BODY: String = """
-    if-eqz p1, :user_null
-    iget-object v0, p1, Lcom/p1/mobile/putong/data/User;->membership:Lcom/p1/mobile/putong/data/Membership;
-    if-eqz v0, :membership_null
-    const/4 v1, 0x1
-    iput-boolean v1, v0, Lcom/p1/mobile/putong/data/Membership;->active:Z
-    :membership_null
-    :user_null
-"""
+// PIB_G9_BODY REMOVED for 7.3.3 - pib.g9 no longer references Membership.active field
 
 // pib.S9() and M8() patches removed - can't mock Observable due to classpath issues
 
@@ -259,6 +251,31 @@ private val PROFILE_IMAGES_NULL_GUARD_BODY: String = """
     :t_continue
 """
 
+private val GROUP_CREATION_LIMIT_NULL_CHECK_BODY: String = """
+    if-eqz p0, :gcl_skip
+    iget-object v0, p0, Lcom/p1/mobile/putong/core/data/GroupCreationLimit;->groupRemaining:Ljava/lang/Integer;
+    if-eqz v0, :gcl_has_remaining
+    const v0, 0x30d40
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v0
+    iput-object v0, p0, Lcom/p1/mobile/putong/core/data/GroupCreationLimit;->groupRemaining:Ljava/lang/Integer;
+    :gcl_has_remaining
+    iget-object v0, p0, Lcom/p1/mobile/putong/core/data/GroupCreationLimit;->memberLimit:Ljava/lang/Integer;
+    if-eqz v0, :gcl_skip
+    const v0, 0x30d40
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v0
+    iput-object v0, p0, Lcom/p1/mobile/putong/core/data/GroupCreationLimit;->memberLimit:Ljava/lang/Integer;
+    :gcl_skip
+"""
+
+private val AGE_VERIFICATION_NULL_CHECK_BODY: String = """
+    if-eqz p0, :avi_skip
+    const/4 v0, 0x2
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/AgeVerificationInfo;->status:I
+    :avi_skip
+"""
+
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
 
@@ -283,6 +300,28 @@ private val n3b0ClassFingerprint = Fingerprint(
         fieldAccess(
             definingClass = "Lcom/p1/mobile/putong/data/Counter;",
             name = "likersLimit",
+        ),
+    ),
+)
+
+private val secretCrushClassFingerprint = Fingerprint(
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/Counter;",
+            name = "secretCrushLimit",
+        ),
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;",
+            name = "remaining",
+        ),
+    ),
+)
+
+private val coreDataClassFingerprint = Fingerprint(
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/core/data/CoreData;",
+            name = "surpriseGiftExpirationTime",
         ),
     ),
 )
@@ -378,6 +417,20 @@ private val sjaClassFingerprint = Fingerprint(
 private val pibClassFingerprint = Fingerprint(
     filters = listOf(
         string("/antispam/guide-change-avatar"),
+    ),
+)
+
+// jh30/xp30/xnx: Me tab presenter(s). Uniquely references NewProfilePrivilegedPager (stable class)
+// in its populate method which shows the dark upgrade card banner before "more services".
+// In 7.3.3 there are TWO Me tab variants: xp30 (original, getter p0()) and xnx (test2 revamp, getter U()).
+// Both call NewProfilePrivilegedPager.d() so a single class fingerprint matches both.
+// We handle them in Pass 1 (classDefForEach) to patch ALL matching classes with the correct getter.
+private val jh30ClassFingerprint = Fingerprint(
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;",
+            name = "d",
+        ),
     ),
 )
 
@@ -660,6 +713,92 @@ private val xmaCreditCountFingerprint = Fingerprint(
     parameters = emptyList(),
 )
 
+// Dev2 privilege wrappers (static no-arg → Z, unique product key)
+// These follow the same pattern as existing xma wrappers (e.g., unlimitedSwipes, roaming).
+// S3-style wrappers return TRUE when EXPIRED → patch to FALSE (privilege is active).
+// !S3-style wrappers return TRUE when ACTIVE → patch to TRUE.
+
+// message_read_state: S3-style (returns TRUE when expired) → false
+private val xmaWrapperMessageReadStateFingerprint = Fingerprint(
+    classFingerprint = xmaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("message_read_state")),
+)
+
+// top_like: S3-style → false
+private val xmaWrapperTopLikeFingerprint = Fingerprint(
+    classFingerprint = xmaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("top_like")),
+)
+
+// top_chat: S3-style → false
+private val xmaWrapperTopChatFingerprint = Fingerprint(
+    classFingerprint = xmaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("top_chat")),
+)
+
+// premium_compliment: S3-style → false
+private val xmaWrapperPremiumComplimentFingerprint = Fingerprint(
+    classFingerprint = xmaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("premium_compliment")),
+)
+
+// city_topping: S3-style → false
+private val xmaWrapperCityToppingFingerprint = Fingerprint(
+    classFingerprint = xmaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("city_topping")),
+)
+
+// exclusive_dressing_up: S3-style → false
+private val xmaWrapperExclusiveDressingFingerprint = Fingerprint(
+    classFingerprint = xmaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("exclusive_dressing_up")),
+)
+
+// leave_message: S3-style → false
+private val xmaWrapperLeaveMessageFingerprint = Fingerprint(
+    classFingerprint = xmaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("leave_message")),
+)
+
+// live_entry_animation: S3-style → false
+private val xmaWrapperLiveEntryAnimationFingerprint = Fingerprint(
+    classFingerprint = xmaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("live_entry_animation")),
+)
+
+// block_harassing_words: S3-style → false
+private val xmaWrapperBlockHarassingWordsFingerprint = Fingerprint(
+    classFingerprint = xmaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("block_harassing_words")),
+)
+
 // ── Other class fingerprints ──
 
 // sja: picks remaining count (static no-arg → I). Matches both r3 and B3.
@@ -857,6 +996,48 @@ private val n3b0BoostAvailableFingerprint = Fingerprint(
     ),
 )
 
+// secretCrush: remaining check (static no-arg → Z, reads CounterSecretCrushLimit.remaining) → false
+private val secretCrushRemainingFingerprint = Fingerprint(
+    classFingerprint = secretCrushClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;",
+            name = "remaining",
+        ),
+    ),
+)
+
+// secretCrush: expiration time (static no-arg → J, reads CounterSecretCrushLimit) → far future
+private val secretCrushExpirationFingerprint = Fingerprint(
+    classFingerprint = secretCrushClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "J",
+    parameters = emptyList(),
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/Counter;",
+            name = "secretCrushLimit",
+        ),
+    ),
+)
+
+// coreData: surpriseGiftExpirationTime reader → far future
+private val coreDataSurpriseGiftFingerprint = Fingerprint(
+    classFingerprint = coreDataClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "J",
+    parameters = emptyList(),
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/core/data/CoreData;",
+            name = "surpriseGiftExpirationTime",
+        ),
+    ),
+)
+
 // sb90 (Companion).c(User) → false. Outer sb90 just delegates, so patching
 // Companion alone is sufficient.
 private val sb90CFingerprint = Fingerprint(
@@ -915,20 +1096,13 @@ private val pibW9Fingerprint = Fingerprint(
     parameters = listOf("Ljava/lang/String;"),
 )
 
-// pib.g9(String, User) → flip Membership.active to true before downstream emit
-private val pibG9Fingerprint = Fingerprint(
-    classFingerprint = pibClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
-    returnType = "V",
-    parameters = listOf("Ljava/lang/String;", "Lcom/p1/mobile/putong/data/User;"),
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/Membership;",
-            name = "active",
-            type = "Z",
-        ),
-    ),
-)
+// pib.g9(String, User) fingerprint REMOVED for 7.3.3
+// The g9 method no longer references Membership.active field, so this fingerprint won't match.
+// The User.isVIP()/isUltraPremium() patches already override premium status via isMe() checks,
+// so this membership flip is no longer needed.
+
+// jh30U0Fingerprint removed — dark upgrade card suppression moved to Pass 1 (classDefForEach)
+// to handle both Me tab variants (xp30 and xnx) with dynamic getter resolution.
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -1082,16 +1256,20 @@ val premiumUnlockPatch = bytecodePatch(
                         method.name == "isMembership" -> {
                             method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
                         }
-                        method.name == "isMembershipUsed" -> {
-                            method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
-                        }
-                        method.name == "nullCheck" &&
-                            method.parameterTypes.isEmpty() && method.returnType == "V" -> {
-                            method.addInstructions(0, USER_NULL_CHECK_BODY)
-                        }
-                    }
-                }
-            }
+                         method.name == "isMembershipUsed" -> {
+                             method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
+                         }
+                          method.name in setOf("isPicVerificationVerified", "isIdCardVerified", "isStudentVerified", "isIdAndPicBothVerified") &&
+                              method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                              method.addInstructions(0, RETURN_TRUE)
+                          }
+                         method.name == "nullCheck" &&
+                             method.parameterTypes.isEmpty() && method.returnType == "V" -> {
+                             method.addInstructions(0, USER_NULL_CHECK_BODY)
+                         }
+                     }
+                 }
+             }
 
             // ── CoreProduct: stable class, obfuscated methods ──────────────────
             //
@@ -1264,6 +1442,68 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // ── Me tab dark upgrade card suppression (xp30 + xnx) ──
+            //
+            // In 7.3.3 there are TWO Me tab view classes, both showing a dark upgrade
+            // card (NewProfilePrivilegedPager) before the "more services" section:
+            //   - xp30: original Me tab, getter p0() returns NewProfilePrivilegedPager
+            //   - xnx:  test2 revamp Me tab, getter U() returns NewProfilePrivilegedPager
+            // Both have a populate method (List<PurchaseType>, boolean) → void that calls
+            // NewProfilePrivilegedPager.d() to populate and show the upgrade cards.
+            //
+            // We detect any class that:
+            //   1. Has a method calling NewProfilePrivilegedPager.d()
+            //   2. Has a PUBLIC FINAL (List, Z)→V method (the populate method)
+            //   3. Has a no-arg method returning NewProfilePrivilegedPager (the getter)
+            // Then patch the populate method to call the getter and set visibility GONE.
+            //
+            // This replaces the old Pass 2 jh30 single-match approach which only patched
+            // one of the two variants and used a hardcoded p0() getter name.
+            run {
+                val newProfilePrivilegedPagerType = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;"
+                val methods = classDef.methods
+                // Check condition 1: any method calls NewProfilePrivilegedPager.d()
+                val callsPrivilegedPagerD = methods.any { method ->
+                    method.implementation?.instructions?.any { instr ->
+                        instr is ReferenceInstruction &&
+                            instr.reference is MethodReference &&
+                            (instr.reference as MethodReference).definingClass == newProfilePrivilegedPagerType &&
+                            (instr.reference as MethodReference).name == "d"
+                    } ?: false
+                }
+                if (!callsPrivilegedPagerD) return@run
+
+                // Check condition 2: find the populate method (List, Z) → V, PUBLIC FINAL
+                val populateMethod = methods.firstOrNull { method ->
+                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                        AccessFlags.FINAL.isSet(method.accessFlags) &&
+                        method.returnType == "V" &&
+                        method.parameterTypes.size == 2 &&
+                        method.parameterTypes[0] == "Ljava/util/List;" &&
+                        method.parameterTypes[1] == "Z"
+                } ?: return@run
+
+                // Check condition 3: find the getter (no-arg → NewProfilePrivilegedPager)
+                val getterMethod = methods.firstOrNull { method ->
+                    method.parameterTypes.isEmpty() &&
+                        method.returnType == newProfilePrivilegedPagerType
+                } ?: return@run
+
+                // Patch: call getter, set banner visibility to GONE (8), return void
+                val classType = classDef.type
+                val getterName = getterMethod.name
+                val bannerHideBody = """
+                    invoke-virtual {p0}, ${classType}->${getterName}()${newProfilePrivilegedPagerType}
+                    move-result-object v0
+                    const/16 v1, 0x8
+                    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+                    return-void
+                """
+                mutableClassDefBy(classDef).methods
+                    .first { it.name == populateMethod.name && it.parameterTypes == populateMethod.parameterTypes }
+                    .addInstructions(0, bannerHideBody)
+            }
+
             // ── Daily like limit bypass: h0.b() ──
             //
             // The h0.b() method checks if the daily like limit has been reached.
@@ -1360,6 +1600,25 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // ── Live streaming permissions: LiveAssertApi ──
+            //
+            // LiveAssertApi gates client-side live streaming capabilities:
+            //   - isCanStartLive(): ability to start live streams
+            //   - getCanUseMaskMode(): anonymous/mask mode in live streams
+            //   - isUserStartVoiceLiveEnable(): voice live streaming capability
+            // All three are static no-arg → Z. Patching to TRUE unlocks all live features.
+            if (classDef.type == "Lcom/p1/mobile/putong/live/external/module/api/LiveAssertApi;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name in setOf("isCanStartLive", "getCanUseMaskMode", "isUserStartVoiceLiveEnable") &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z" &&
+                        AccessFlags.STATIC.isSet(method.accessFlags)
+                    ) {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                }
+            }
+
             // ── Search filter expansion: Settings ──
             //
             // Settings is a stable class with stable method names. The UI clamps
@@ -1440,6 +1699,49 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
             }
+
+            // ── GroupCreationLimit.nullCheck(): DISABLED - type mismatch causes VerifyError ──
+            // The patch tried to access primitive int fields as Ljava/lang/Integer; objects,
+            // causing bytecode verification failures at runtime.
+            // if (classDef.type == "Lcom/p1/mobile/putong/core/data/GroupCreationLimit;") {
+            //     mutableClassDefBy(classDef).methods.forEach { method ->
+            //         if (method.name == "nullCheck" &&
+            //             method.parameterTypes.isEmpty() &&
+            //             method.returnType == "V"
+            //         ) {
+            //             method.addInstructions(0, GROUP_CREATION_LIMIT_NULL_CHECK_BODY)
+            //         }
+            //     }
+            // }
+
+            // ── AgeVerificationInfo.nullCheck(): DISABLED - type mismatch causes VerifyError ──
+            // The patch tried to store an int value into a StudentVerificationStatus enum field,
+            // causing bytecode verification failures at runtime.
+            // if (classDef.type == "Lcom/p1/mobile/putong/core/data/AgeVerificationInfo;") {
+            //     mutableClassDefBy(classDef).methods.forEach { method ->
+            //         if (method.name == "nullCheck" &&
+            //             method.parameterTypes.isEmpty() &&
+            //             method.returnType == "V"
+            //         ) {
+            //             method.addInstructions(0, AGE_VERIFICATION_NULL_CHECK_BODY)
+            //         }
+            //     }
+            // }
+
+            // ── ProfileCompletion.nullCheck(): DISABLED - causes startup hang ──
+            // The RETURN_VOID approach skips all initialization, causing NPEs when
+            // code accesses uninitialized fields. Needs proper field initialization
+            // or should be removed entirely.
+            // if (classDef.type == "Lcom/p1/mobile/putong/core/data/ProfileCompletion;") {
+            //     mutableClassDefBy(classDef).methods.forEach { method ->
+            //         if (method.name == "nullCheck" &&
+            //             method.parameterTypes.isEmpty() &&
+            //             method.returnType == "V"
+            //         ) {
+            //             method.addInstructions(0, RETURN_VOID)
+            //         }
+            //     }
+            // }
 
         }
 
@@ -1545,6 +1847,23 @@ val premiumUnlockPatch = bytecodePatch(
             ).forEach { fingerprint ->
                 fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                     match.method.addInstructions(0, RETURN_TRUE)
+                }
+            }
+
+            // Dev2 privilege wrappers (S3-style → false, privilege is active)
+            listOf(
+                xmaWrapperMessageReadStateFingerprint,
+                xmaWrapperTopLikeFingerprint,
+                xmaWrapperTopChatFingerprint,
+                xmaWrapperPremiumComplimentFingerprint,
+                xmaWrapperCityToppingFingerprint,
+                xmaWrapperExclusiveDressingFingerprint,
+                xmaWrapperLeaveMessageFingerprint,
+                xmaWrapperLiveEntryAnimationFingerprint,
+                xmaWrapperBlockHarassingWordsFingerprint,
+            ).forEach { fingerprint ->
+                fingerprint.matchOrNull(xmaClassDef)?.let { match ->
+                    match.method.addInstructions(0, RETURN_FALSE)
                 }
             }
 
@@ -1712,6 +2031,23 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
+        // secretCrush: remaining + expiration
+        secretCrushClassFingerprint.matchOrNull()?.classDef?.let { secretCrushClassDef ->
+            secretCrushRemainingFingerprint.matchOrNull(secretCrushClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+            secretCrushExpirationFingerprint.matchOrNull(secretCrushClassDef)?.let { match ->
+                match.method.addInstructions(0, FAR_FUTURE_MS_BODY)
+            }
+        }
+
+        // coreData: surpriseGiftExpirationTime → far future
+        coreDataClassFingerprint.matchOrNull()?.classDef?.let { coreDataClassDef ->
+            coreDataSurpriseGiftFingerprint.matchOrNull(coreDataClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_LONG_MAX)
+            }
+        }
+
         // tm90: VIP badge override
         tm90ClassFingerprint.matchOrNull()?.classDef?.let { tm90ClassDef ->
             tm90GFingerprint.matchOrNull(tm90ClassDef)?.let { match ->
@@ -1729,12 +2065,11 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // pib: membership flip
-        pibClassFingerprint.matchOrNull()?.classDef?.let { pibClassDef ->
-            // pibG9Fingerprint: flip Membership.active to true before downstream emit
-            pibG9Fingerprint.matchOrNull(pibClassDef)?.let { match ->
-                match.method.addInstructions(0, PIB_G9_BODY)
-            }
-        }
+        // pib: membership flip REMOVED for 7.3.3
+        // The g9 method no longer has Membership.active field access.
+        // User.isVIP()/isUltraPremium() patches already handle premium status override.
+
+        // jh30/xp30/xnx: dark upgrade card suppression — moved to Pass 1 (classDefForEach)
+        // to handle both Me tab variants (xp30 with p0() getter, xnx with U() getter).
     }
 }

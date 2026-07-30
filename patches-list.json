@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "0.0.1-dev1",
+  "version": "0.0.1-dev2",
   "patches": [
     {
       "name": "Analytics Disable",
@@ -17,7 +17,7 @@
           "signatures": null,
           "targets": [
             {
-              "version": "7.2.7",
+              "version": "7.3.3",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -43,7 +43,7 @@
           "signatures": null,
           "targets": [
             {
-              "version": "7.2.7",
+              "version": "7.3.3",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -71,7 +71,7 @@
           "signatures": null,
           "targets": [
             {
-              "version": "7.2.7",
+              "version": "7.3.3",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -83,8 +83,8 @@
       "options": []
     },
     {
-      "name": "Messaging Enhancement",
-      "description": "Removes message limits, unlimited pin chat, voice/video calls, quick chat",
+      "name": "Live Streaming Enhancement",
+      "description": "Live entry animation, push limit bypass, swipe card unlimited, chat rate limit removal, voice game access, all-day PK battles",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -97,7 +97,33 @@
           "signatures": null,
           "targets": [
             {
-              "version": "7.2.7",
+              "version": "7.3.3",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Messaging Enhancement",
+      "description": "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.3.3",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -123,7 +149,7 @@
           "signatures": null,
           "targets": [
             {
-              "version": "7.2.7",
+              "version": "7.3.3",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -136,7 +162,7 @@
     },
     {
       "name": "Privacy Controls",
-      "description": "Unlocks privacy features: hide from nearby, visitor footprint hiding, mysterious mode, nearby people access",
+      "description": "Unlocks privacy features: hide from nearby, visitor footprint hiding, mysterious mode, nearby people access, read receipt unlock, read receipt dialog suppression, contact access block, location privacy, privacy settings force enable",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -149,7 +175,33 @@
           "signatures": null,
           "targets": [
             {
-              "version": "7.2.7",
+              "version": "7.3.3",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "UI Cleanup",
+      "description": "Removes guides, banners, stickers, decorations, and AI prompts",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "7.3.3",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,

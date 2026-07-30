@@ -14,6 +14,8 @@ import com.p1.mobile.putong.data.*
  *  4. Privacy Controls           - Hide from nearby, visitor footprint, mysterious mode
  *  5. Analytics Disable          - Disable all analytics, telemetry, device fingerprinting
  *  6. Dialog Cleanup             - Remove annoying promotional dialogs
+ *  7. UI Cleanup                 - Remove guides, banners, stickers, decorations, AI prompts
+ *  8. Live Streaming             - Live entry animation, push limit bypass, swipe card unlimited
  */
 object PatchRegistry {
     val allPatches: Set<Patch<*>> = setOf(
@@ -23,5 +25,7 @@ object PatchRegistry {
         privacyControlsPatch,
         dialogCleanupPatch,
         messagingPatch,
+        uiCleanupPatch,
+        liveStreamingPatch,
     )
 }

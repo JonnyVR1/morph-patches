@@ -7,6 +7,10 @@ import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.FieldReference
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
+import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 private const val RETURN_TRUE = """
     const/4 v0, 0x1
@@ -19,6 +23,13 @@ private const val RETURN_FALSE = """
 """
 
 private const val RETURN_VOID = "return-void"
+
+private const val RETURN_INTEGER_9 = """
+    const/4 v0, 0x9
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v0
+    return-object v0
+"""
 
 private val j15ClassFingerprint = Fingerprint(
     filters = listOf(
@@ -102,11 +113,84 @@ private val dgyClassFingerprint = Fingerprint(
     ),
 )
 
+private val fczClassFingerprint = Fingerprint(
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/core/data/KeepConnection;",
+            name = "chatTypingOpen",
+        ),
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/core/data/KeepConnection;",
+            name = "chatTypingInterval",
+        ),
+    ),
+)
+
+private val swh0ClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("tantan_coin_intl_letter_confirm_dialog_shown_"),
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/core/data/Privilege;",
+            name = "letter",
+        ),
+    ),
+)
+
+private val oxeClassFingerprint = Fingerprint(
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/core/data/MsgIcebreakConfigV2;",
+            name = "iceBreakLastMessageShowCountLimit",
+        ),
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/core/newui/messages/util/ConversationCounterTypeSp;",
+            name = "iceBreakLastMessageShowCountLimit",
+        ),
+    ),
+)
+
+private const val FREE_GIFT_INFO_CLASS = "Lcom/p1/mobile/putong/core/data/FreeGiftInfo;"
+
+private const val MESSAGE_CLASS = "Lcom/p1/mobile/putong/core/data/Message;"
+private const val MESSAGE_SETTING_CLASS = "Lcom/p1/mobile/putong/core/data/MessageSetting;"
+
+private val chatGameInfoClassFingerprint = Fingerprint(
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/core/data/ChatGameInfo;",
+            name = "enable",
+        ),
+        string("chatgameinfo"),
+    ),
+)
+
+private val jailedGroupChatClassFingerprint = Fingerprint(
+    filters = listOf(
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/JailedGroupChat;",
+            name = "active",
+        ),
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/JailedGroupChat;",
+            name = "expireTime",
+        ),
+        methodCall(name = "m174454o"),
+    ),
+)
+
+private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingClass: String, fieldName: String): Boolean =
+    this.implementation?.instructions?.any { instr ->
+        instr is ReferenceInstruction &&
+            instr.reference is FieldReference &&
+            (instr.reference as FieldReference).definingClass == definingClass &&
+            (instr.reference as FieldReference).name == fieldName
+    } ?: false
+
 @Suppress("unused")
 @JvmField
 val messagingPatch = bytecodePatch(
     name = "Messaging Enhancement",
-    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat",
+    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -181,6 +265,88 @@ val messagingPatch = bytecodePatch(
                 .filter { method ->
                     method.name == "j0" &&
                         method.parameterTypes.size == 2 &&
+                        method.returnType == "V"
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        fczClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name == "X2" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V"
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        classDefForEach { classDef ->
+            if (classDef.type == FREE_GIFT_INFO_CLASS) {
+                mutableClassDefBy(classDef).methods
+                    .filter { method ->
+                        (method.name == "hasRemaining" || method.name == "inDuration") &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Z"
+                    }
+                    .forEach { it.addInstructions(0, RETURN_TRUE) }
+            }
+        }
+
+        swh0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name == "G" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z"
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name == "x" &&
+                        method.parameterTypes.size == 1 &&
+                        method.returnType == "Z"
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        oxeClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name == "g" &&
+                        method.parameterTypes.size == 1 &&
+                        method.returnType == "Ljava/lang/Integer;"
+                }
+                .forEach { it.addInstructions(0, RETURN_INTEGER_9) }
+        }
+
+        classDefForEach { classDef ->
+            if (classDef.type == MESSAGE_CLASS) {
+                mutableClassDefBy(classDef).methods
+                    .filter { method ->
+                        method.accessesField(MESSAGE_SETTING_CLASS, "anonymous") &&
+                            (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
+                            method.parameterTypes.isEmpty()
+                    }
+                    .forEach { it.addInstructions(0, RETURN_TRUE) }
+            }
+        }
+
+        chatGameInfoClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.accessesField("Lcom/p1/mobile/putong/core/data/ChatGameInfo;", "enable") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        jailedGroupChatClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.accessesField("Lcom/p1/mobile/putong/data/JailedGroupChat;", "active") &&
+                        method.accessesField("Lcom/p1/mobile/putong/data/JailedGroupChat;", "expireTime") &&
                         method.returnType == "V"
                 }
                 .forEach { it.addInstructions(0, RETURN_VOID) }

@@ -25,6 +25,11 @@ private const val RETURN_INT_SUCCESS = """
     return v0
 """
 
+private const val RETURN_TRUE = """
+    const/4 v0, 0x1
+    return v0
+"""
+
 private fun extractValueRegister(
     instruction: com.android.tools.smali.dexlib2.iface.instruction.Instruction,
     headerReg: Int,
@@ -123,10 +128,29 @@ val gmsCompatibilityPatch = bytecodePatch(
         classDefForEach { classDef ->
             when (classDef.type) {
                 "Lcom/google/android/gms/common/GooglePlayServicesUtilLight;",
-                "Lcom/google/android/gms/common/GoogleApiAvailabilityLight;" -> {
+                "Lcom/google/android/gms/common/GoogleApiAvailabilityLight;",
+                "Lcom/google/android/gms/common/GoogleApiAvailability;" -> {
                     mutableClassDefBy(classDef).methods
                         .filter { it.name == "isGooglePlayServicesAvailable" }
                         .forEach { it.addInstructions(0, RETURN_INT_SUCCESS) }
+                }
+
+                "Lcom/google/android/gms/common/GoogleSignatureVerifier;" -> {
+                    mutableClassDefBy(classDef).methods
+                        .filter { it.name in listOf("isPackageGoogleSigned", "isUidGoogleSigned", "isGooglePublicSignedPackage") }
+                        .forEach { it.addInstructions(0, RETURN_TRUE) }
+                }
+
+                "Lcom/google/android/gms/common/zzn;" -> {
+                    mutableClassDefBy(classDef).methods
+                        .filter { it.name == "zzf" && it.returnType == "Z" }
+                        .forEach { it.addInstructions(0, RETURN_TRUE) }
+                }
+
+                "Lcom/cosmos/photon/push/util/AppContext;" -> {
+                    mutableClassDefBy(classDef).methods
+                        .filter { it.name == "hasGoogleMap" }
+                        .forEach { it.addInstructions(0, RETURN_TRUE) }
                 }
             }
         }

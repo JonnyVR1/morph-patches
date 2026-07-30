@@ -56,7 +56,7 @@ tasks {
         dependsOn("buildAndroid", "generatePatchesList")
 
         doLast {
-            val mppFile = file("build/libs/patches-0.0.1-dev1.mpp")
+            val mppFile = file("build/libs/patches-0.0.1-dev2.mpp")
             val patchListFile = rootProject.file("patches-list.json")
 
             if (!mppFile.exists()) throw GradleException("mpp file not found: ${mppFile.absolutePath}")
@@ -91,4 +91,13 @@ tasks.register<JavaExec>("patchApk") {
     val apkFile = rootProject.file("tantan-tribe-extracted/com.tantantribe.tribe.apk")
     val outputApk = rootProject.file("tantan-premium-unlocked.apk")
     args = listOf(apkFile.absolutePath, outputApk.absolutePath)
+}
+
+tasks.register<JavaExec>("signApk") {
+    dependsOn("jar")
+    classpath = sourceSets["main"].runtimeClasspath + files(tasks.jar.get().archiveFile)
+    mainClass.set("app.morphe.SignApkKt")
+    val inputApk = rootProject.file("tantan-tribe-extracted/com.tantantribe.tribe.apk")
+    val outputApk = rootProject.file("tantan-signed.apk")
+    args = listOf(inputApk.absolutePath, outputApk.absolutePath)
 }

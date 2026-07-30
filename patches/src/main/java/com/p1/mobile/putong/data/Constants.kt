@@ -32,8 +32,8 @@ internal val tantanCompatibility = Compatibility(
     description = "Tantan - Global Dating App",
     targets = listOf(
         AppTarget(
-            version = "7.2.7",
-            description = "Tested on 7.2.7",
+            version = "7.3.3",
+            description = "Tested on 7.3.3",
         )
     )
 )
