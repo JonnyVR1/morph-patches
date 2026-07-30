@@ -1825,6 +1825,100 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // ── Messages tab promotional content suppression ──
+            //
+            // The Messages tab shows fake promotional conversations ("x+ people like you!",
+            // "She'd like to chat with you") created by data source classes hva (CN) and qa9 (Intl).
+            // These are NOT gated by premium status, so we patch the data source methods to prevent
+            // fake conversation creation entirely.
+            
+            // qa9: Intl receive like guide - prevent fake conversation creation
+            if (classDef.type == "Ll/qa9;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // D3(String, long) - static method that creates fake Intl receive like conversation
+                    if (method.name == "D3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                    // w3() - triggers network fetch for intl_receive_like_guide_get
+                    if (method.name == "w3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // hva: CN receive like guide - prevent fake conversation creation
+            if (classDef.type == "Ll/hva;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // u3() - triggers network fetch for receive_like_guide_get
+                    if (method.name == "u3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // ConversationItemIntlReceiveLikeView: k(Conversation) → return-void
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // ConversationItemReceiveLikeView: k(pol, Conversation) → return-void
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "k" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // ConversationItemInstantChatGuideView: m(Act, Conversation) → return-void
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "m" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // ConversationItemBlindBoxEntrance: e(Conversation) → return-void
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // ConversationItemSurpriseBoxEntrance: f(Conversation) → return-void
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "f" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // ConversationItemProfileLikeEntrance: i(Conversation, pol) → return-void
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "i" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // ConversationHeadRecommendLayout: onFinishInflate() → return-void
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadRecommendLayout;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "onFinishInflate" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+
         }
 
         // ----------------------------------------------------------------------
@@ -2011,98 +2105,7 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         // ── Messages tab promotional content suppression ──
-        //
-        // The Messages tab shows fake promotional conversations ("x+ people like you!",
-        // "She'd like to chat with you") created by data source classes hva (CN) and qa9 (Intl).
-        // These are NOT gated by premium status, so we patch the data source methods to prevent
-        // fake conversation creation entirely.
-        
-        // qa9: Intl receive like guide - prevent fake conversation creation
-        if (classDef.type == "Ll/qa9;") {
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                // D3(String, long) - static method that creates fake Intl receive like conversation
-                if (method.name == "D3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-                // w3() - triggers network fetch for intl_receive_like_guide_get
-                if (method.name == "w3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // hva: CN receive like guide - prevent fake conversation creation
-        if (classDef.type == "Ll/hva;") {
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                // u3() - triggers network fetch for receive_like_guide_get
-                if (method.name == "u3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // ConversationItemIntlReceiveLikeView: k(Conversation) → return-void
-        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;") {
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // ConversationItemReceiveLikeView: k(pol, Conversation) → return-void
-        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;") {
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "k" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // ConversationItemInstantChatGuideView: m(Act, Conversation) → return-void
-        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;") {
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "m" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // ConversationItemBlindBoxEntrance: e(Conversation) → return-void
-        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;") {
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // ConversationItemSurpriseBoxEntrance: f(Conversation) → return-void
-        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;") {
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "f" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // ConversationItemProfileLikeEntrance: i(Conversation, pol) → return-void
-        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;") {
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "i" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // ConversationHeadRecommendLayout: onFinishInflate() → return-void
-        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadRecommendLayout;") {
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
+        // (Implemented in Pass 1 classDefForEach block above)
         
         // sja: picks remaining
         sjaClassFingerprint.matchOrNull()?.classDef?.let { sjaClassDef ->
