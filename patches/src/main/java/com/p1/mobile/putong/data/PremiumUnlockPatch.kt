@@ -490,6 +490,25 @@ private val joaJ4Fingerprint = Fingerprint(
     filters = listOf(string("superLikeMembership")),
 )
 
+// ── New like dialog suppression ──
+// The "x girls just liked you" dialog appears on app launch for non-premium users.
+// e230 is the dialog controller that checks if the dialog should show.
+// We patch the "should show" method to return false for premium users.
+private val e230ClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("new_like_dialog_show_count_"),
+        string("p_new_like_notification_popup"),
+    ),
+)
+
+private val e230ShouldShowFingerprint = Fingerprint(
+    classFingerprint = e230ClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("new_like_dialog_show_count_")),
+)
+
 // ── Stable-class fingerprints ──
 
 private val userIsUltraPremiumFingerprint = Fingerprint(
@@ -1998,6 +2017,93 @@ val premiumUnlockPatch = bytecodePatch(
         // These are NOT gated by premium status, so we patch the data source methods to prevent
         // fake conversation creation entirely.
         
+        // qa9: Intl receive like guide - prevent fake conversation creation
+        if (classDef.type == "Ll/qa9;") {
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                // D3(String, long) - static method that creates fake Intl receive like conversation
+                if (method.name == "D3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+                // w3() - triggers network fetch for intl_receive_like_guide_get
+                if (method.name == "w3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // hva: CN receive like guide - prevent fake conversation creation
+        if (classDef.type == "Ll/hva;") {
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                // u3() - triggers network fetch for receive_like_guide_get
+                if (method.name == "u3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // ConversationItemIntlReceiveLikeView: k(Conversation) → return-void
+        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;") {
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // ConversationItemReceiveLikeView: k(pol, Conversation) → return-void
+        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;") {
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "k" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // ConversationItemInstantChatGuideView: m(Act, Conversation) → return-void
+        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;") {
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "m" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // ConversationItemBlindBoxEntrance: e(Conversation) → return-void
+        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;") {
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // ConversationItemSurpriseBoxEntrance: f(Conversation) → return-void
+        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;") {
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "f" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // ConversationItemProfileLikeEntrance: i(Conversation, pol) → return-void
+        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;") {
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "i" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // ConversationHeadRecommendLayout: onFinishInflate() → return-void
+        if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadRecommendLayout;") {
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
         // sja: picks remaining
         sjaClassFingerprint.matchOrNull()?.classDef?.let { sjaClassDef ->
             sjaPicksRemainingFingerprint.matchAll(sjaClassDef, 1..5).forEach { match ->
@@ -2172,5 +2278,15 @@ val premiumUnlockPatch = bytecodePatch(
 
         // jh30/xp30/xnx: dark upgrade card suppression — moved to Pass 1 (classDefForEach)
         // to handle both Me tab variants (xp30 with p0() getter, xnx with U() getter).
+
+        // e230: "x girls just liked you" dialog suppression
+        // The dialog appears on app launch to prompt users to match with likers.
+        // For premium users, this dialog should not appear. We patch the "should show"
+        // method to return false, preventing the dialog from being displayed.
+        e230ClassFingerprint.matchOrNull()?.classDef?.let { e230ClassDef ->
+            e230ShouldShowFingerprint.matchOrNull(e230ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+        }
     }
 }
