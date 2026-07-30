@@ -54,7 +54,7 @@ The pipeline is:
 ```bash
 # List current release assets
 curl -s -H "Authorization: token $GITHUB_TOKEN" \
-  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/357064625/assets" | \
+  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets" | \
   python3 -c "import json, sys; data = json.load(sys.stdin); [print(f'{a[\"id\"]} {a[\"name\"]}') for a in data]"
 
 # Delete old assets (replace ASSET_ID with actual IDs from above)
@@ -64,22 +64,22 @@ curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" \
 # Upload new .mpp file
 curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/octet-stream" \
-  --data-binary @patches/build/libs/patches-0.0.1-dev1.mpp \
-  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/357064625/assets?name=patches-0.0.1-dev1.mpp" | \
+  --data-binary @patches/build/libs/patches-0.0.1-dev2.mpp \
+  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets?name=patches-0.0.1-dev2.mpp" | \
   python3 -c "import json, sys; d = json.load(sys.stdin); print(f'mpp: {d.get(\"name\", \"ERR\")}')"
 
 # Upload patches-list.json
 curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/json" \
   --data-binary @patches-list.json \
-  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/357064625/assets?name=patches-list.json" | \
+  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets?name=patches-list.json" | \
   python3 -c "import json, sys; d = json.load(sys.stdin); print(f'json: {d.get(\"name\", \"ERR\")}')"
 
 # Upload patches-bundle.json
 curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/json" \
   --data-binary @patches-bundle.json \
-  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/357064625/assets?name=patches-bundle.json" | \
+  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets?name=patches-bundle.json" | \
   python3 -c "import json, sys; d = json.load(sys.stdin); print(f'bundle: {d.get(\"name\", \"ERR\")}')"
 ```
 
@@ -87,11 +87,11 @@ curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
 ```bash
 # Check uploaded file sizes
 curl -s -H "Authorization: token $GITHUB_TOKEN" \
-  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/357064625/assets" | \
+  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets" | \
   python3 -c "import json, sys; assets = json.load(sys.stdin); [print(f'{a[\"name\"]}: {a[\"size\"]} bytes') for a in assets]"
 ```
 
-Expected file size for `patches-0.0.1-dev1.mpp`: ~740 KB (includes DEX bytecode for all 6 patches). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
+Expected file size for `patches-0.0.1-dev2.mpp`: ~740 KB (includes DEX bytecode for all 6 patches). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
 
 ## Patch Architecture
 
@@ -330,7 +330,7 @@ task(description="Fix all issues", subagent_type="general", prompt="
   Fix 2: Remove isODiamond from true-returning set
   Fix 3: Change counter from MAX_VALUE to 200000
   ...
-  Build and deploy to release 357064625
+  Build and deploy to release 362723625
 ")
 ```
 
