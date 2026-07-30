@@ -1991,6 +1991,13 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
+        // ── Messages tab promotional content suppression ──
+        //
+        // The Messages tab shows fake promotional conversations ("x+ people like you!",
+        // "She'd like to chat with you") created by data source classes hva (CN) and qa9 (Intl).
+        // These are NOT gated by premium status, so we patch the data source methods to prevent
+        // fake conversation creation entirely.
+        
         // sja: picks remaining
         sjaClassFingerprint.matchOrNull()?.classDef?.let { sjaClassDef ->
             sjaPicksRemainingFingerprint.matchAll(sjaClassDef, 1..5).forEach { match ->
