@@ -490,25 +490,6 @@ private val joaJ4Fingerprint = Fingerprint(
     filters = listOf(string("superLikeMembership")),
 )
 
-// ── New like dialog suppression ──
-// The "x girls just liked you" dialog appears on app launch for non-premium users.
-// e230 is the dialog controller that checks if the dialog should show.
-// We patch the "should show" method to return false for premium users.
-private val e230ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("new_like_dialog_show_count_"),
-        string("p_new_like_notification_popup"),
-    ),
-)
-
-private val e230ShouldShowFingerprint = Fingerprint(
-    classFingerprint = e230ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("new_like_dialog_show_count_")),
-)
-
 // ── Stable-class fingerprints ──
 
 private val userIsUltraPremiumFingerprint = Fingerprint(
@@ -1910,6 +1891,16 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // NewLikeView: E(Act, CoreLikers.a, x20) → return-void
+            // Suppresses the "x girls just liked you" promotional dialog that appears on app launch
+            if (classDef.type == "Lcom/p1/mobile/putong/core/p058ui/seepop/NewLikeView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "E" && method.parameterTypes.size == 3 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+
         }
 
         // ----------------------------------------------------------------------
@@ -2272,15 +2263,5 @@ val premiumUnlockPatch = bytecodePatch(
 
         // jh30/xp30/xnx: dark upgrade card suppression — moved to Pass 1 (classDefForEach)
         // to handle both Me tab variants (xp30 with p0() getter, xnx with U() getter).
-
-        // e230: "x girls just liked you" dialog suppression
-        // The dialog appears on app launch to prompt users to match with likers.
-        // For premium users, this dialog should not appear. We patch the "should show"
-        // method to return false, preventing the dialog from being displayed.
-        e230ClassFingerprint.matchOrNull()?.classDef?.let { e230ClassDef ->
-            e230ShouldShowFingerprint.matchOrNull(e230ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-        }
     }
 }
