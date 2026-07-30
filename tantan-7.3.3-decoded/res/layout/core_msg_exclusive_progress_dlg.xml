@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:paddingTop="34.0dp" android:paddingBottom="20.0dp" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/image_other" android:clickable="false" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="24.0dp" style="@style/core_conversation_profile_small" />
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/image_me" android:padding="1.0dp" android:clickable="false" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_marginLeft="-26.0dp" style="@style/core_exclusive_avatar" />
+        <v.VImage android:layout_gravity="center" android:layout_width="53.0dp" android:layout_height="33.0dp" android:layout_marginLeft="33.0dp" android:layout_marginTop="-30.0dp" android:src="@null" />
+    </FrameLayout>
+    <v.VText android:textSize="18.0dp" android:textStyle="bold" android:textColor="@color/common_black_02" android:gravity="center" android:id="@id/dlg_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="15.0dp" android:layout_marginRight="32.0dp" android:text="你还在专属聊天中" />
+    <v.VText android:textSize="14.0dp" android:textStyle="bold" android:textColor="@color/common_grey_02" android:gravity="center" android:id="@id/sub_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="16.0dp" android:text="期间不能和其他好友进行聊天" android:lineSpacingExtra="5.0dp" />
+</v.VLinear>

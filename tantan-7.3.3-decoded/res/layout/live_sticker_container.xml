@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.bottom.sticker.LiveStickerContainer android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="common.bottom.sticker" holder="LiveStickerContainer"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/delete_target" android:background="#29d74d37" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="154.0dp" flatten="true">
+        <v.VText android:textSize="12.0sp" android:textColor="#d74d37" android:gravity="center" android:layout_gravity="center" android:id="@id/delete_hint" android:background="@drawable/live_shape_sticker_drag_delete_target_hint_bg" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="26.0dp" android:text="@string/LIVE_SEARCH_DELETE_HINT" />
+    </FrameLayout>
+</com.p1.mobile.putong.live.livingroom.common.bottom.sticker.LiveStickerContainer>

@@ -1,0 +1,15 @@
+package org.spongycastle.asn1.misc;
+
+import org.spongycastle.asn1.DERIA5String;
+
+/* JADX INFO: loaded from: /tmp/tantan-dex/classes3.dex */
+public class NetscapeRevocationURL extends DERIA5String {
+    public NetscapeRevocationURL(DERIA5String dERIA5String) {
+        super(dERIA5String.getString());
+    }
+
+    @Override // org.spongycastle.asn1.DERIA5String
+    public String toString() {
+        return "NetscapeRevocationURL: " + getString();
+    }
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/footer"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/moments_footer_height"
+    holder="moments.activities.MomentActivitiesViewModel">
+    <FrameLayout
+        android:id="@+id/progress"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/feed_general_footer"/>
+    </FrameLayout>
+    <ImageView
+        android:background="0x7f0800d3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:scaleType="center"
+        android:minHeight="0dp"/>
+</LinearLayout>

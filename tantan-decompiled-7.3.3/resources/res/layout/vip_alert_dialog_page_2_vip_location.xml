@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <p151v.VImage
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/icon"
+        android:layout_width="275dp"
+        android:layout_height="@dimen/vip_alert_dynamic_content_height"
+        android:src="0x7f082a8e"/>
+</FrameLayout>

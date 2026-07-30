@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.view.MagicGestureListItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/live_selector_magic_gesture_bg"
+    android:layout_width="70dp"
+    android:layout_height="match_parent"
+    flatten="true"
+    folder="view"
+    holder="MagicGestureListItemView">
+    <p151v.VDraweeView
+        android:id="@+id/icon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="18dp"
+        fresco:actualImageScaleType="fitXY"
+        fresco:failureImageScaleType="fitXY"
+        fresco:placeholderImageScaleType="fitXY"/>
+    <p151v.VText
+        android:textSize="10sp"
+        android:textColor="#e6ffffff"
+        android:gravity="center_horizontal"
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="7dp"/>
+</com.p051p1.mobile.putong.live.livingroom.view.MagicGestureListItemView>

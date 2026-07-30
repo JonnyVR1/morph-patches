@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@null" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center_vertical" android:paddingLeft="20.0dp" android:paddingTop="16.0dp" android:paddingRight="20.0dp" android:paddingBottom="16.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="72.0dp">
+        <FrameLayout android:layout_gravity="center_vertical" android:layout_width="40.0dp" android:layout_height="40.0dp">
+            <v.VDraweeView android:layout_gravity="center" android:id="@id/image_big" android:clickable="true" android:layout_width="40.0dp" android:layout_height="40.0dp" style="@style/core_fresco_profile_small" />
+            <v.VImage android:layout_gravity="right|bottom" android:layout_width="16.0dp" android:layout_height="16.0dp" app:srcCompat="@null" />
+        </FrameLayout>
+        <v.VText android:textSize="16.0dp" android:textColor="#212121" android:layout_gravity="center_vertical" android:id="@id/banner_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="52.0dp" android:lineSpacingExtra="2.0dp" />
+    </FrameLayout>
+</FrameLayout>

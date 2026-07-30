@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListPartnerDressUpItem android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.privilege.content.item.PrivilegeDescListPartnerDressUpItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/top_space" android:visibility="gone" android:layout_width="match_parent" android:layout_height="24.0dp" />
+    <FrameLayout android:id="@id/frame" android:background="@drawable/core_privilege_desc_partner_dress_up_item_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="24.0dp" android:minHeight="68.0dp" android:layout_marginHorizontal="16.0dp" flatten="true">
+        <v.VRelative android:id="@id/root" android:duplicateParentState="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="6.0dp" android:layout_marginVertical="6.0dp" flatten="true">
+            <FrameLayout android:id="@id/icon_layout" android:layout_width="40.0dp" android:layout_height="48.0dp" android:layout_centerVertical="true" flatten="true">
+                <v.VDraweeView android:id="@id/avatar" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="4.0dp" android:rotation="-6.0" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="5.0dp" />
+                <v.VImage android:id="@id/skin_mask" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@null" />
+                <v.VImage android:layout_gravity="right" android:id="@id/skin_mask_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="2.0dp" android:src="@null" />
+            </FrameLayout>
+            <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginBottom="16.0dp" android:layout_centerVertical="true" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" android:layout_toStartOf="@id/check" android:layout_toEndOf="@id/icon_layout">
+                <v.VText android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/core_color_80percent_FFD489" android:ellipsize="end" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="1" app:typeface="medium" />
+                <v.VText android:textSize="13.0sp" android:textColor="@color/core_color_40percent_FFD489" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/describe" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:maxLines="2" android:includeFontPadding="false" android:layout_below="@id/title" />
+            </v.VLinear>
+            <v.VSwitchButton android:id="@id/check" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentEnd="true" app:VSwitchActiveColor="@color/core_color_FFD489" app:VSwitchInActiveColor="@color/core_color_40percent_FFD489" />
+        </v.VRelative>
+    </FrameLayout>
+    <View android:layout_gravity="bottom" android:id="@id/line" android:background="@color/core_color_10percent_FFD489" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" />
+</com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListPartnerDressUpItem>

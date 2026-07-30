@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    folder="newui"
+    holder="discovery.DiscoveryHomeFrag"
+    useRefId="true">
+    <p151v.VFrame
+        android:id="@+id/title_bar"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        flatten="true">
+        <com.google.android.material.tabs.TabLayout
+            android:layout_gravity="center"
+            android:id="@+id/tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_marginTop="1dp"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="0dp"
+            app:tabTextAppearance="@style/coreTitleLayoutTextAppearance"/>
+    </p151v.VFrame>
+    <p151v.VPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

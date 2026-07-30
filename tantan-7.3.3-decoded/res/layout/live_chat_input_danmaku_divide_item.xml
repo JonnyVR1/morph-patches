@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.chat.danmaku.input.normal.NormalDanmakuListDivideItem android:background="@drawable/live_bg_white_r0p5_a10" android:layout_width="2.0dp" android:layout_height="20.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

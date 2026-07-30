@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.aialbum.view.AiAlbumTemplatesItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_view"
+    android:layout_width="172dp"
+    android:layout_height="216dp"
+    flatten="true"
+    folder="ui"
+    holder="aialbum.view.AiAlbumTemplatesItemView">
+    <p151v.VDraweeView
+        android:id="@+id/image"
+        android:background="@drawable/core_ai_album_template_item_selector"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:actualImageScaleType="centerCrop"
+        app:roundedCornerRadius="8dp"/>
+</com.p051p1.mobile.putong.core.p058ui.aialbum.view.AiAlbumTemplatesItemView>

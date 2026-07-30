@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.leaderboard.intlstarboard.IntlLiveStarBoardEntryItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/entry"
+    android:layout_width="wrap_content"
+    android:layout_height="20dp"
+    android:paddingEnd="10dp"
+    flatten="true"
+    folder="increment"
+    holder="leaderboard.intlstarboard.IntlLiveStarBoardEntryItemView">
+    <p151v.VDraweeView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="6dp"
+        android:src="0x7f0822cd"
+        app:placeholderImage="0x7f0822cd"/>
+    <p151v.VMarqueeText
+        android:textSize="12sp"
+        android:textColor="@color/live_white_90_opacity"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:id="@+id/text"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="2dp"
+        android:text="@string/LIVE_MLN_DAYRANK_TITLE"
+        android:singleLine="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/icon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</com.p051p1.mobile.putong.live.livingroom.increment.leaderboard.intlstarboard.IntlLiveStarBoardEntryItemView>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="match_parent" android:layout_height="match_parent" attachToRoot="true" folder="newui" holder="preview.pageritem.PhotoAlbumPlayerView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <TextureView android:id="@id/texture" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_alignLeft="@id/cover" android:layout_alignTop="@id/cover" android:layout_alignRight="@id/cover" android:layout_alignBottom="@id/cover" />
+    <v.VDraweeView android:id="@id/cover" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_centerInParent="true" fresco:actualImageScaleType="centerCrop" style="@style/feed_fresco_base" useId="true" />
+    <v.VProgressBar android:id="@id/progress_simple" android:visibility="gone" android:layout_width="match_parent" android:layout_height="2.0dp" android:max="10000" android:progressDrawable="@drawable/feed_progress_video_playing" android:layout_alignBottom="@id/cover" />
+    <v.VLinear android:gravity="center_vertical" android:layout_gravity="bottom" android:orientation="horizontal" android:id="@id/progress_full" android:paddingLeft="12.0dp" android:paddingTop="7.0dp" android:paddingRight="12.0dp" android:paddingBottom="7.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignBottom="@id/cover">
+        <v.VText android:textSize="12.0sp" android:textStyle="normal" android:textColor="#ffffff" android:id="@id/track_position" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="sans-serif" />
+        <v.VProgressBar android:id="@id/progress_bar" android:layout_width="0.0dp" android:layout_height="2.0dp" android:layout_marginLeft="14.0dp" android:layout_marginRight="14.0dp" android:max="10000" android:progressDrawable="@drawable/feed_progress_video_playing" android:layout_weight="1.0" />
+        <v.VText android:textSize="12.0sp" android:textStyle="normal" android:textColor="#ffffff" android:id="@id/video_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="sans-serif" />
+    </v.VLinear>
+    <v.VFrame_ColorFilter android:layout_gravity="center" android:id="@id/buttons" android:background="@drawable/feed_player_btn_bg_oval" android:focusable="true" android:clickable="true" android:descendantFocusability="blocksDescendants" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_marginBottom="28.0dp" android:layout_centerInParent="true" useId="true">
+        <ImageView android:layout_gravity="center" android:id="@id/play" android:paddingLeft="5.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:scaleType="centerCrop" useId="true" />
+        <v.VProgressBar android:layout_gravity="center" android:id="@id/loading" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="10.0dp" android:indeterminateOnly="true" fresco:cpb_color="@color/white" fresco:cpb_stroke_percentage="0.1" useId="true" />
+    </v.VFrame_ColorFilter>
+</merge>

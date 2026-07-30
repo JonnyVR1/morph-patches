@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="60.0dp">
+        <v.VDraweeView android:id="@id/avatar" android:layout_width="144.0dp" android:layout_height="144.0dp" fresco:actualImageScaleType="centerCrop" fresco:roundAsCircle="true" />
+        <ImageView android:layout_gravity="right|bottom" android:layout_width="28.0dp" android:layout_height="28.0dp" android:src="@null" />
+    </FrameLayout>
+    <TextView android:textSize="19.0dp" android:textColor="#de000000" android:gravity="center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="53.0dp" />
+    <TextView android:textSize="14.0dp" android:textColor="#747474" android:gravity="center" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="40.0dp" android:layout_marginBottom="40.0dp" android:text="完成认证可进一步提高曝光和配对成功率，快去试试吧！" />
+</LinearLayout>

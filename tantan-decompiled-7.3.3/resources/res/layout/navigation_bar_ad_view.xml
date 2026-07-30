@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxHeight="60dp">
+    <p151v.VFrame
+        android:id="@+id/ad_container"
+        android:background="@color/color_text_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+    <com.p051p1.mobile.putong.core.util.view.RoundTextView
+        android:textSize="11sp"
+        android:textColor="@color/color_text_ffffff"
+        android:gravity="center"
+        android:layout_gravity="end|top"
+        android:id="@+id/tv_ad"
+        android:background="@color/common_000000_30"
+        android:layout_width="28dp"
+        android:layout_height="20dp"
+        android:layout_margin="8dp"
+        android:text="AD"
+        app:rRadius="6dp"/>
+    <p151v.VImage
+        android:id="@+id/admob_close"
+        android:paddingTop="6dp"
+        android:paddingBottom="2dp"
+        android:layout_width="30dp"
+        android:layout_height="28dp"
+        android:src="0x7f082055"
+        android:paddingStart="8dp"
+        android:paddingEnd="2dp"/>
+</p151v.VFrame>

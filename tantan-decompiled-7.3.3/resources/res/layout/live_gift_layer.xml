@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.gift.giftlayer.LiveGiftLayer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/play_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ignore="true"/>
+    <include
+        android:id="@+id/ext_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ignore="true"
+        layout="@layout/live_gift_ext_layer"/>
+</com.p051p1.mobile.putong.live.livingroom.increment.gift.giftlayer.LiveGiftLayer>

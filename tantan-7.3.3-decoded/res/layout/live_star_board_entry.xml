@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.leaderboard.starboard.StarBoardEntryView android:id="@id/entry" android:layout_width="wrap_content" android:layout_height="20.0dp" flatten="true" folder="increment" holder="leaderboard.starboard.StarBoardEntryView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:background="@drawable/live_bg_black_r8_a15" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <com.p1.mobile.putong.live.livingroom.increment.leaderboard.starboard.StarBoardEntryRollView android:id="@id/entry_roll" android:layout_width="wrap_content" android:layout_height="20.0dp" app:adaptViewByContent="true" app:maxWidth="250.0dp" />
+</com.p1.mobile.putong.live.livingroom.increment.leaderboard.starboard.StarBoardEntryView>

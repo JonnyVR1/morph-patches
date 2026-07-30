@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.common.signin.main.TaskExpandOrFoldView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:translationZ="1dp"
+    flatten="true"
+    folder="common.signin.main"
+    holder="TaskExpandOrFoldView">
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:id="@+id/text_container"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        flatten="true">
+        <p151v.VText
+            android:textSize="11sp"
+            android:textColor="#e6fff1c5"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <p151v.VImage
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            app:srcCompat="0x7f082677"/>
+    </LinearLayout>
+</com.p051p1.mobile.putong.live.livingroom.common.signin.main.TaskExpandOrFoldView>

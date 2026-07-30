@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" folder="page.setting" holder="LiveSettingFragNew"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView android:orientation="vertical" android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="match_parent" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </FrameLayout>
+</v.VLinear>

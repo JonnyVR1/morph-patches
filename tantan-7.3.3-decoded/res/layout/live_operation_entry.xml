@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.operation.OperationEntryView android:layout_width="wrap_content" android:layout_height="wrap_content" app:bind_extends="ConstraintLayout" app:binding="true" flatten="true" ignore="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.livingroom.increment.operation.LiveOperationScrollView android:id="@id/live_operation_root" android:fadingEdge="horizontal" android:fadingEdgeLength="62.0dp" android:layout_width="154.0dp" android:layout_height="wrap_content" android:maxWidth="160.0dp" android:requiresFadingEdge="horizontal" flatten="true">
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/live_operation_container" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </com.p1.mobile.putong.live.livingroom.increment.operation.LiveOperationScrollView>
+    <include android:id="@id/live_operation_message" android:visibility="invisible" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" layout="@layout/live_operation_message_view" />
+    <include android:id="@id/live_campaign_drawer" android:visibility="gone" app:layout_constrainedHeight="true" app:layout_constrainedWidth="true" app:layout_constraintTop_toTopOf="parent" layout="@layout/live_operation_web_view" />
+</com.p1.mobile.putong.live.livingroom.increment.operation.OperationEntryView>

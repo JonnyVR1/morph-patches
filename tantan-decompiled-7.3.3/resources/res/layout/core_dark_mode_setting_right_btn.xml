@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center"
+    android:minHeight="32dp"
+    android:text="确定"
+    style="@style/common_button_small_01"/>

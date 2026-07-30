@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:id="@id/menu_message_profile" android:clipChildren="false" android:layout_width="56.0dp" android:layout_height="56.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VFrame android:id="@id/menu_message_profile_click" android:background="?actionBarItemBackground" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent">
+        <ImageView android:layout_gravity="center" android:id="@id/btn" android:layout_width="12.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="fitXY" android:layout_centerInParent="true" />
+    </v.VFrame>
+</v.VFrame>

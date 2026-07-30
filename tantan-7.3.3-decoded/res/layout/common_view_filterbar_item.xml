@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="56.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/common_black_01" android:id="@id/filter_bar_title" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <v.VIcon android:id="@id/filter_bar_arrow" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_marginLeft="6.0dp" android:src="@null" />
+</LinearLayout>

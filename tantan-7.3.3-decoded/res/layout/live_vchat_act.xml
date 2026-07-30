@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.internal.vchat.view.LiveVChatView android:background="#2b2d2f" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="internal.vchat" holder="view.LiveVChatView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/preview_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_video_chat_preview_view" />
+    <include android:id="@id/push_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_video_chat_push_view" />
+    <v.VLinear android:layout_width="231.0dp" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="53.0dp" flatten="true">
+        <include android:layout_gravity="start" android:id="@id/info_container" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" layout="@layout/live_vchat_info" />
+        <include android:id="@id/live_vchat_campaigns" android:visibility="gone" android:layout_width="110.0dp" android:layout_height="34.0dp" flatten="true" layout="@layout/live_vchat_campaign_view" />
+    </v.VLinear>
+    <include android:id="@id/message_container" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="117.0dp" layout="@layout/live_vchat_warn_message" />
+    <include android:layout_gravity="center|bottom" android:id="@id/opt_container" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="50.0dp" layout="@layout/live_vchat_operation" />
+    <include android:layout_gravity="bottom" android:id="@id/gift_trays" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="252.0dp" layout="@layout/live_vchat_gift_trays" />
+    <View android:id="@id/shadow" android:background="@color/live_black_60_opacity" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <include android:id="@id/waiting_order_container" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_vchat_waiting_order_container" />
+    <include android:id="@id/calling_container" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_vchat_calling_container" />
+    <v.VImage android:layout_gravity="left|bottom" android:id="@id/iv_beauty" android:visibility="gone" android:layout_width="64.0dp" android:layout_height="64.0dp" android:layout_marginBottom="50.0dp" android:src="@null" android:layout_marginStart="20.0dp" />
+    <include android:id="@id/called_container" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_vchat_called_container" />
+    <include android:id="@id/gift_layer" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_vchat_gift_layer" />
+</com.p1.mobile.putong.live.external.internal.vchat.view.LiveVChatView>

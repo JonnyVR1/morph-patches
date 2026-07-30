@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.banner.view.PrivilegeEntranceHasPrivilegeView android:layout_width="match_parent" android:layout_height="80.0dp" holder="banner.view.PrivilegeEntranceHasPrivilegeView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:id="@id/texture" android:layout_width="337.0dp" android:layout_height="66.0dp" android:src="@null" android:scaleType="fitXY" android:layout_centerVertical="true" android:layout_marginStart="7.0dp" />
+    <com.tantan.library.svga.SVGAnimationView android:id="@id/light_svga" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <v.VImage android:id="@id/border" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5.0dp" android:layout_alignParentTop="true" android:layout_alignParentBottom="true" android:layout_alignParentStart="true" android:layout_alignParentEnd="true" />
+    <com.tantan.library.svga.SVGAnimationView android:id="@id/light_icon_svga" android:layout_width="58.0dp" android:layout_height="58.0dp" android:layout_marginTop="3.0dp" android:layout_marginStart="11.0dp" />
+    <v.VImage android:id="@id/iv_privilege_icon" android:layout_width="wrap_content" android:layout_height="23.0dp" android:layout_marginTop="19.0dp" android:scaleType="fitCenter" android:layout_marginStart="60.0dp" />
+    <v.VText android:textSize="12.0dp" android:ellipsize="end" android:id="@id/vip_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="45.0dp" android:maxLines="2" android:layout_marginStart="27.0dp" />
+    <v.VImage android:id="@id/vip_go" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_centerVertical="true" android:layout_marginEnd="16.0dp" android:layout_alignParentEnd="true" />
+</com.p1.mobile.putong.core.ui.banner.view.PrivilegeEntranceHasPrivilegeView>

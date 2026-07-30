@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.other.side.LiveSideView android:layout_gravity="right" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="match_parent" folder="other" holder="side.LiveSideView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/close_img" android:paddingLeft="20.0dp" android:paddingTop="20.0dp" android:paddingBottom="20.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="69.0dp" app:srcCompat="@null" />
+    <androidx.recyclerview.widget.RecyclerView android:orientation="vertical" android:id="@id/recycler_view" android:background="#19191e" android:paddingLeft="12.0dp" android:paddingTop="43.0dp" android:paddingRight="12.0dp" android:layout_width="164.0dp" android:layout_height="match_parent" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+</com.p1.mobile.putong.live.livingroom.other.side.LiveSideView>

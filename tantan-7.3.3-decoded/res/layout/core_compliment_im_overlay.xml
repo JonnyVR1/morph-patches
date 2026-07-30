@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="bottom" android:background="@null" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="92.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatTextView android:textColor="#000000" android:gravity="center" android:id="@id/compliment_overlay_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginRight="10.0dp" android:lines="1" android:layout_marginHorizontal="10.0dp" android:textFontWeight="600" app:autoSizeMaxTextSize="14.0sp" app:autoSizeMinTextSize="1.0sp" app:autoSizeStepGranularity="1.0sp" app:autoSizeTextType="uniform" />
+        <FrameLayout android:id="@id/compliment_overlay_btn_container" android:background="@drawable/core_compliment_btn_paid_bg" android:focusable="true" android:clickable="true" android:layout_width="279.0dp" android:layout_height="48.0dp" android:layout_marginTop="8.0dp">
+            <LinearLayout android:gravity="center_vertical" android:layout_gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <v.VImage android:id="@id/compliment_overlay_btn_icon" android:visibility="gone" android:layout_width="28.0dp" android:layout_height="28.0dp" />
+                <v.VText_NoTopPadding android:textSize="14.0sp" android:textColor="#f9e7ff" android:id="@id/compliment_overlay_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dp" app:fontWeight="600" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

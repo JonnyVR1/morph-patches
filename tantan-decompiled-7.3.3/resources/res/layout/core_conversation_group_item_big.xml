@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.messages.NewConversationItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/conversation_item_root"
+    android:background="@drawable/tf_rect_light"
+    android:clipChildren="false"
+    android:descendantFocusability="beforeDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="72dp">
+    <include
+        android:id="@+id/head"
+        layout="@layout/core_conversation_item_view_head"/>
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:id="@+id/content"
+        android:clipChildren="false"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="12dp"
+        flatten="true">
+        <include
+            android:id="@+id/title"
+            layout="@layout/core_conversation_item_view_name"/>
+        <include
+            android:id="@+id/group_subtitle"
+            layout="@layout/core_conversation_item_view_group_mute_text"/>
+    </LinearLayout>
+    <include
+        android:id="@+id/right_btn"
+        layout="@layout/core_conversation_item_view_right"/>
+</com.p051p1.mobile.putong.core.newui.messages.NewConversationItemView>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VDraweeView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/avatar"
+    android:background="@drawable/core_intl_see_circle_ffff"
+    android:padding="2dp"
+    android:visibility="gone"
+    android:layout_width="28dp"
+    android:layout_height="28dp"
+    android:layout_centerVertical="true"
+    app:failureImage="0x7f081a6d"
+    app:placeholderImage="0x7f081a6d"
+    app:roundAsCircle="true"
+    style="@style/core_special_like_avatar"/>

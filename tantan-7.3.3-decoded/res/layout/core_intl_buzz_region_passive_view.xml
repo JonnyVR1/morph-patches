@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:orientation="horizontal" android:background="@drawable/core_intl_shape_buzz_progress_bg" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="38.0dp" android:paddingStart="16.0dp" android:paddingEnd="20.0dp" attachToRoot="true" folder="ui" holder="lovebuzz.widget.BuzzRegionPassiveView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/region_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="280.0dp" android:text="WorldwideWorldwideWorldwideWorldwideWorldwideWorldwideWorldwide" android:maxLines="2" android:drawablePadding="4.0dp" app:typeface="medium" />
+</merge>

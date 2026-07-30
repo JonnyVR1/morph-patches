@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear_Dividers xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/my_information"
+    flatten="true"
+    holder="profile.holders.ProfilePersonalInfoEditHolder"
+    needPublic="true"
+    style="@style/profile_item_frame_no_padding_new">
+    <include layout="@layout/core_edit_profile_my_information"/>
+    <FrameLayout
+        android:id="@+id/live_habit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <include layout="@layout/core_edit_profile_my_information_more"/>
+</p151v.VLinear_Dividers>

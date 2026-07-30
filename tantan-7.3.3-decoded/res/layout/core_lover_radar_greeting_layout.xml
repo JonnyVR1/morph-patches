@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.messages.addressbook.loveradar.ChooseGreetingsView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" flatten="true" folder="newui" holder="messages.addressbook.loveradar.ChooseGreetingsView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="15.0dp" android:textColor="@color/core_color_40percent_000000" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="21.0dp" android:text="选择招呼语" />
+    <v.VLinear android:id="@id/system_greeting_layout" android:layout_width="match_parent" android:layout_height="56.0dp" flatten="true">
+        <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="15.0dp" android:textColor="@color/core_color_80percent_000000" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="默认招呼语" />
+        <v.VImage android:layout_gravity="right|center" android:id="@id/system_illustrate_icon" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:src="@null" />
+        <v.VFrame android:layout_gravity="center_vertical" android:id="@id/system_recommendation_select_greeting_onclick" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" flatten="true">
+            <v.VImage android:layout_gravity="right|center" android:id="@id/system_recommendation_select_greeting" android:layout_width="22.0dp" android:layout_height="22.0dp" android:src="@null" />
+        </v.VFrame>
+    </v.VLinear>
+    <v.VLinear android:id="@id/customized_by_oneself_greeting_layout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="56.0dp" flatten="true">
+        <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="15.0dp" android:textColor="@color/core_color_80percent_000000" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="自行定义招呼语" />
+        <v.VImage android:layout_gravity="right|center" android:id="@id/customized_by_oneself_illustrate_icon" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:src="@null" />
+        <v.VFrame android:layout_gravity="center_vertical" android:id="@id/customized_by_oneself_recommendation_select_onclick" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" flatten="true">
+            <v.VImage android:layout_gravity="right|center" android:id="@id/customized_by_oneself_recommendation_select" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginLeft="6.0dp" android:src="@null" />
+        </v.VFrame>
+    </v.VLinear>
+    <v.VLinear android:orientation="vertical" android:id="@id/customized_by_oneself_greeting_list" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.VFrame android:id="@id/greeting_sentence_layout_0" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_0" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_1" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_1" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_2" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_2" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_3" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_3" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_4" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_4" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_5" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_5" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_6" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_6" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_7" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_7" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_8" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_8" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_9" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/greeting_sentence_9" android:paddingLeft="16.0dp" android:paddingRight="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" />
+            <v.VImage android:layout_gravity="right|center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/greeting_sentence_layout_add" android:background="@drawable/core_bg_10_ffffff_stroke_5percent_000000_dashed" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginBottom="45.0dp" flatten="true">
+            <v.VLinear android:gravity="center_vertical" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <v.VImage android:layout_gravity="center_vertical" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginRight="4.0dp" android:src="@null" />
+                <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0dp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:gravity="center" android:layout_gravity="center" android:paddingTop="2.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="添加招呼语" android:maxLines="2" />
+            </v.VLinear>
+        </v.VFrame>
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.messages.addressbook.loveradar.ChooseGreetingsView>

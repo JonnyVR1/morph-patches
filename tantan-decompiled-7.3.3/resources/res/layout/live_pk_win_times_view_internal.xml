@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.internal.PkWinTimesViewInternal xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="72dp"
+    android:layout_height="30dp"
+    flatten="true"
+    folder="recreation"
+    holder="pk.internal.PkWinTimesViewInternal">
+    <p151v.VDraweeView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:textSize="10dp"
+        android:textColor="@color/live_white"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.internal.PkWinTimesViewInternal>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" attachToRoot="true" holder="accountai.new2021.view.NameView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:orientation="horizontal" android:id="@id/vl_birth" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:layout_width="match_parent" android:layout_height="64.0dp" android:layout_marginTop="6.0dp" flatten="true">
+        <com.p1.mobile.putong.account.ui.accountnew.loginopt.NameEditTextOpt android:textSize="18.0dp" android:textColor="@color/common_black_01" android:textColorHint="@color/common_light_01" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/full_name" android:background="@drawable/account_signup_input_bg" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:focusable="true" android:layout_width="match_parent" android:layout_height="match_parent" android:hint="@string/SIGNUP_INPUT_USERNAME" android:singleLine="true" android:imeOptions="actionDone" android:textCursorDrawable="@drawable/account_signup_ai_cursor" />
+        <v.VImage android:layout_gravity="right|center" android:id="@id/iv_refresh_name" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="20.0dp" android:src="@null" android:layout_marginStart="8.0dp" />
+    </v.VFrame>
+    <v.VButton_FakeShadow android:id="@id/next" android:layout_marginLeft="24.0dp" android:layout_marginTop="49.0dp" android:layout_marginRight="24.0dp" android:layout_marginBottom="16.0dp" android:text="@string/ACTION_CONFIRM" style="@style/common_button_large_01" />
+</merge>

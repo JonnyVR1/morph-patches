@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.bottom.BlackDiamondBottomView android:id="@id/button" android:background="@drawable/live_bg_black_r12_a15" android:clipChildren="false" android:layout_width="44.0dp" android:layout_height="38.0dp" flatten="true" folder="common" holder="bottom.BlackDiamondBottomView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VDraweeView android:id="@id/icon" android:layout_width="44.0dp" android:layout_height="38.0dp" android:scaleType="center" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="center" android:id="@id/svga_view" android:layout_width="24.0dp" android:layout_height="24.0dp" />
+    <View android:layout_gravity="right|top" android:id="@id/red_dot" android:background="@drawable/live_bg_ff3938_r3" android:visibility="gone" android:layout_width="8.0dp" android:layout_height="8.0dp" />
+</com.p1.mobile.putong.live.livingroom.common.bottom.BlackDiamondBottomView>

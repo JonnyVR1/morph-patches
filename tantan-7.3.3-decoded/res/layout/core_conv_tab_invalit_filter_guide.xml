@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="horizontal" android:id="@id/push_guide_layout" android:background="@drawable/core_msg_tab_invalid_guide_bg" android:paddingLeft="12.0dp" android:paddingTop="8.0dp" android:paddingRight="12.0dp" android:paddingBottom="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" flatten="true">
+        <v.VImage android:layout_gravity="center_vertical" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" />
+        <v.VText android:textSize="11.0dp" android:textStyle="bold" android:textColor="#66000000" android:layout_gravity="center_vertical" android:id="@id/push_guide_header_text" android:paddingLeft="4.0dp" android:paddingRight="8.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="为了更好的社交环境，平台已处理异常账号" android:layout_weight="1.0" app:typeface="medium" />
+    </v.VLinear>
+</FrameLayout>

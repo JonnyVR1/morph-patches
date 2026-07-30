@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="56.2dp"
+    android:width="335.1953dp"
+    android:viewportWidth="335.2"
+    android:viewportHeight="56.2">
+    <group>
+        <clip-path android:pathData="M10.1 0.1H325.1C330.623 0.1 335.1 4.57715 335.1 10.1V46.1C335.1 51.6228 330.623 56.1 325.1 56.1H10.1C4.57715 56.1 0.1 51.6228 0.1 46.1V10.1C0.1 4.57715 4.57715 0.1 10.1 0.1Z"/>
+        <group
+            android:pivotX="167.6"
+            android:pivotY="28.1"
+            android:scaleX="2"
+            android:scaleY="6.982"
+            android:rotation="-180"
+            android:translateX="1"
+            android:translateY="2.246">
+            <path
+                android:fillColor="@drawable/_core_promotion_o_diamond_spring_get_button_bg__0_res_0x7f08004a"
+                android:pathData="M0.1 0.1V56.1H335.1V0.1"/>
+        </group>
+    </group>
+</vector>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.view.AdmissionNewMessageView android:paddingLeft="12.0dp" android:visibility="gone" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="view" holder="AdmissionNewMessageView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:background="@drawable/live_shape_admission_new_bg" android:layout_width="230.0dp" android:layout_height="30.0dp" android:layout_alignParentLeft="true" android:layout_centerVertical="true">
+        <v.VDraweeView android:id="@id/bg" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/admission_float_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <v.VDraweeView android:id="@id/grade" android:layout_width="31.0dp" android:layout_height="14.0dp" android:layout_marginLeft="6.0dp" android:layout_alignParentLeft="true" android:layout_centerVertical="true" app:actualImageScaleType="fitXY" />
+        <v.VDraweeView android:id="@id/avatar" android:visibility="gone" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginLeft="5.0dp" android:layout_toRightOf="@id/grade" android:layout_centerVertical="true" app:failureImage="@drawable/live_vector_default_avatar_bg" app:placeholderImage="@drawable/live_vector_default_avatar_bg" app:roundAsCircle="true" />
+        <com.p1.mobile.putong.live.livingroom.royal.LiveGradientTextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/live_white" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="3.0dp" android:maxEms="7" android:singleLine="true" android:layout_toRightOf="@id/avatar" android:layout_centerVertical="true" />
+        <v.VText android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/live_white" android:gravity="center_vertical" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:layout_marginRight="10.0dp" android:text="@string/LIVE_COMING" android:layout_toRightOf="@id/name" android:layout_centerVertical="true" android:layout_marginStart="4.0dp" />
+    </v.VRelative>
+    <com.p1.mobile.putong.live.base.mmsdk.effect.video.VideoEffectPlayer android:layout_gravity="center" android:id="@id/video_player" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <FrameLayout android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent">
+        <com.immomo.svgaplayer.view.MomoLayUpSVGAImageView android:layout_gravity="center" android:id="@id/anim_svga" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </FrameLayout>
+    <com.p1.mobile.putong.live.base.view.XEGiftView android:layout_gravity="center" android:id="@id/gift_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+</com.p1.mobile.putong.live.livingroom.view.AdmissionNewMessageView>

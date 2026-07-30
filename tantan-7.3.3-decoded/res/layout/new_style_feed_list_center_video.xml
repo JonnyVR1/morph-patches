@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.feedcenter.FeedCenterVideoView android:orientation="vertical" android:id="@id/new_feed" android:background="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="photoalbum.feedcenter.FeedCenterVideoNewViewHome"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/background_view" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <include layout="@layout/feed_photo_album_activities_time" />
+    <v.VLinear android:orientation="vertical" android:id="@id/new_ab_style" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="64.0dp" android:layout_marginRight="16.0dp">
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/moment_living" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6.0dp" flatten="true">
+            <com.p1.mobile.putong.feed.newui.photoalbum.live.LiveTagView android:id="@id/moment_living_tag" android:layout_width="16.0dp" android:layout_height="16.0dp" />
+            <v.VText android:textSize="16.0sp" android:textColor="#ff3a00" android:id="@id/moment_living_tag_hint" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:layout_marginRight="6.0dp" android:text="直播中" />
+            <v.VText android:textSize="16.0sp" android:textColor="#4a4a4a" android:ellipsize="end" android:id="@id/moment_living_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" />
+        </LinearLayout>
+        <com.p1.mobile.putong.newui.view.VExpandableTextContainer android:id="@id/moment_expandable_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp" app:expandLine="3" app:expandText="@string/DISCOVER_MOMENT_SPREAD" app:isTextExpandSameLine="true" app:maxCollapsedLines="4">
+            <com.p1.mobile.putong.newui.view.InnerClickSpanTextView android:textSize="15.0sp" android:textColor="@color/common_black_02" android:ellipsize="end" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <v.VText android:textSize="15.0sp" android:textColor="@color/common_orange" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" />
+        </com.p1.mobile.putong.newui.view.VExpandableTextContainer>
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_orange" android:ellipsize="end" android:id="@id/moment_hyperlinks" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp" android:singleLine="true" />
+        <v.VText android:textSize="16.0sp" android:textColor="#212121" android:id="@id/moment_text" android:paddingRight="12.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8.0dp" />
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+            <com.p1.mobile.putong.feed.newui.preview.gesture.PlayerViewWithTransAnim android:id="@id/player_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+            <include android:id="@id/cover_for_kitkat" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_video_new_feed" />
+            <v.VText android:textSize="11.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/focus_hint" android:background="@drawable/feed_moments_feed_live_tag_bg" android:paddingLeft="6.0dp" android:paddingTop="2.0dp" android:paddingRight="6.0dp" android:paddingBottom="2.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:layout_marginTop="4.0dp" />
+            <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/live_tag" android:background="@drawable/feed_live_room_bg_newui" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="24.0dp" android:layout_marginLeft="8.0dp" android:layout_marginTop="8.0dp" android:minWidth="64.0dp">
+                <com.p1.mobile.putong.feed.newui.photoalbum.live.FeedLiveLightView android:visibility="gone" android:layout_width="0.0dp" android:layout_height="match_parent" app:layout_constraintEnd_toEndOf="@id/live_tag_view_group" app:layout_constraintStart_toStartOf="@id/live_tag_view_group" app:lightWidth="50" app:loopTime="1500" />
+                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@id/live_tag_view_group" android:paddingRight="3.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" flatten="true">
+                    <v.VText android:textSize="12.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/live_text" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="8.0dp" android:layout_marginRight="1.0dp" android:text="@string/LIVE_LINVING" />
+                    <com.tantanapp.media.ttmediaeffect.anim.AnimEffectPlayer android:layout_gravity="center" android:id="@id/live_svg" android:visibility="visible" android:layout_width="20.0dp" android:layout_height="20.0dp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <v.VImage android:layout_gravity="bottom" android:id="@id/image_red_packet_icon" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginBottom="8.0dp" android:src="@null" android:layout_marginStart="6.0dp" />
+        </FrameLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/bottom_extra_container" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </v.VLinear>
+    <View android:id="@id/divider" android:background="#d8d8d8" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="0.5dp" android:layout_marginTop="20.0dp" />
+</com.p1.mobile.putong.feed.newui.photoalbum.feedcenter.FeedCenterVideoView>

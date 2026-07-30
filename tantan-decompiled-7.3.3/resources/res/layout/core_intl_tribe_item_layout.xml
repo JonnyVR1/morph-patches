@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.intlmeet.tribe.IntlTribeItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/transparent"
+    android:paddingBottom="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    folder="newui"
+    holder="intlmeet.tribe.IntlTribeItemView">
+    <p151v.VText_NoTopPadding
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:id="@+id/title"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dating–focused"
+        android:paddingHorizontal="10dp"
+        app:fontWeight="500"/>
+    <p151v.VText_NoTopPadding
+        android:textSize="13sp"
+        android:textColor="#66000000"
+        android:id="@+id/subtitle"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Connect with people who want the same"
+        android:paddingHorizontal="10dp"/>
+    <p151v.VRecyclerView
+        android:orientation="horizontal"
+        android:id="@+id/list"
+        android:background="@color/transparent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:nestedScrollingEnabled="false"
+        android:paddingHorizontal="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</com.p051p1.mobile.putong.core.newui.intlmeet.tribe.IntlTribeItemView>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VDraweeView android:id="@id/image" android:layout_width="140.0dp" android:layout_height="140.0dp" android:src="@null" android:layout_marginStart="40.0dp" />
+    <v.VText android:textSize="22.0sp" android:textStyle="bold" android:textColor="@color/common_black_80" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15.859985dp" android:text="以图换图" android:lineSpacingExtra="8.0dp" android:layout_marginStart="40.0dp" />
+    <v.VText android:textSize="16.0sp" android:textColor="@color/common_000000_20" android:ellipsize="end" android:gravity="start" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="40.0dp" android:text="发出或收到该模式下的图片，另一方必须也回复一张图片才能进行查看" android:maxLines="2" android:lineSpacingExtra="2.0dp" />
+</v.VLinear>

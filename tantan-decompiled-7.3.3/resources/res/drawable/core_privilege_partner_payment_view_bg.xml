@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+    <gradient
+        android:startColor="#00011207"
+        android:endColor="#011207"
+        android:angle="270"
+        android:centerColor="#011207"/>
+</shape>

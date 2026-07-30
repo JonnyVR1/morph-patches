@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:background="@drawable/live_bg_white_r10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16.0dp">
+        <v.VText android:textSize="14.0sp" android:textColor="@color/live_black_80_opacity" android:id="@id/tv_game_over" android:paddingLeft="22.0dp" android:paddingTop="8.0dp" android:paddingRight="22.0dp" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="终止游戏" />
+        <v.VText android:textColor="@color/live_black_80_opacity" android:id="@id/tv_game_reset" android:paddingLeft="22.0dp" android:paddingTop="8.0dp" android:paddingRight="22.0dp" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="重置游戏" />
+        <v.VText android:textColor="@color/live_black_80_opacity" android:id="@id/tv_game_rule" android:paddingLeft="22.0dp" android:paddingTop="8.0dp" android:paddingRight="22.0dp" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8.0dp" android:text="游戏说明" />
+    </v.VLinear>
+</v.VFrame>

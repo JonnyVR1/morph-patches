@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPurchasePrivilegeView android:orientation="vertical" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.intlpage.IntlPurchasePrivilegeView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/container" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="128.0dp" />
+    <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_02" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="16.0dp" android:maxLines="1" android:lineSpacingExtra="2.0dp" android:autoSizeTextType="uniform" android:layout_marginHorizontal="16.0dp" app:typeface="medium" />
+</com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPurchasePrivilegeView>

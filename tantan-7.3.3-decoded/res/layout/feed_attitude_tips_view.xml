@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:id="@id/root" android:padding="12.0dp" android:layout_width="236.0dp" android:layout_height="92.0dp" flatten="false" folder="newui" holder="photoalbum.feedbottom.insert.FeedAttitudeTipsView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="horizontal" android:id="@id/attitude_container" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="16.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="6.0dp" flatten="false" />
+</v.VFrame>

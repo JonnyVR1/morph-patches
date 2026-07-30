@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:paddingTop="18.0dp" android:paddingBottom="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VButton android:textSize="17.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@id/suggest_footer_btn" android:background="@drawable/rect_rounded_large_golden_gradient" android:layout_width="240.0dp" android:layout_height="48.0dp" android:text="@string/HOME_TAB_SEE_ALL" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/gray_999999" android:gravity="center" android:layout_gravity="center" android:id="@id/suggest_footer_text" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/THEME_NOMORE_PEOPLE_DESCRIPTION" />
+    <include android:layout_gravity="center" android:id="@id/empty_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_empty_view" />
+</v.VFrame>

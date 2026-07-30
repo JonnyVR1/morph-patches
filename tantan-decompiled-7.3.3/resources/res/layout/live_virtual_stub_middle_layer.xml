@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/middle_layer"
+    android:clipChildren="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true">
+    <com.p051p1.mobile.putong.live.livingroom.voice.intl.flymic.VoiceFlyMicContainer
+        android:id="@+id/fly_mic_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <include
+        android:id="@+id/gift_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/live_gift_layer"/>
+    <include
+        android:id="@+id/top_effect_layer"
+        layout="@layout/live_top_effect_layer"/>
+</p151v.VFrame>

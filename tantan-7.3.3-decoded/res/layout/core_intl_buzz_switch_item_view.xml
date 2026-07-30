@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:orientation="horizontal" android:background="@drawable/core_intl_love_buzz_button_white" android:visibility="visible" android:layout_width="match_parent" android:layout_height="64.0dp" attachToRoot="true" folder="ui" holder="lovebuzz.widget.BuzzSwitchItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_gravity="center_vertical" android:id="@id/icon" android:background="@null" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginStart="20.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:id="@id/right_info" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginStart="12.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/toggle" app:layout_constraintStart_toEndOf="@id/icon" app:layout_constraintTop_toTopOf="parent">
+        <v.VText android:textSize="15.0sp" android:textColor="#151515" android:ellipsize="end" android:gravity="start" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" app:typeface="medium" />
+        <v.VText android:textSize="12.0sp" android:textColor="@color/core_color_80000000" android:ellipsize="end" android:gravity="start" android:id="@id/desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:maxLines="2" app:typeface="regular" />
+    </v.VLinear>
+    <v.VSwitchButton android:id="@id/toggle" android:layout_width="46.0dp" android:layout_height="32.0dp" android:layout_marginEnd="20.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+</merge>

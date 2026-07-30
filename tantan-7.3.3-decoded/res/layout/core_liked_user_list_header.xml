@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.likedusers.LikedUserHeaderView android:layout_width="match_parent" android:layout_height="wrap_content" holder="likedusers.LikedUserHeaderView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="14.0sp" android:textColor="#8e8e93" android:gravity="center" android:id="@id/content" android:padding="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:text="@string/CORE_SVIP_BROWSE_LIKED_REMIND_TOP" android:lineSpacingExtra="4.0dp" app:typeface="medium" />
+    <LinearLayout android:orientation="vertical" android:id="@id/content_frame" android:paddingTop="20.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" flatten="true">
+        <v.VText android:textSize="15.0sp" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/content_frame_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:maxLines="1" style="@style/core_vip_normal_title_style" />
+        <TextView android:textSize="13.0sp" android:textColor="@color/core_vip_normal_subtitle_text_color" android:ellipsize="end" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/content_frame_subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginBottom="16.0dp" android:maxLines="2" android:lineSpacingExtra="4.0dp" />
+    </LinearLayout>
+</com.p1.mobile.putong.core.ui.likedusers.LikedUserHeaderView>

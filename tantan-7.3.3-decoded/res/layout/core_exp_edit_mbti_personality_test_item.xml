@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/card_view" android:paddingTop="30.0dp" android:paddingBottom="30.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginBottom="4.0dp" android:paddingVertical="30.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginRight="24.0dp">
+        <com.facebook.drawee.view.SimpleDraweeView android:id="@id/mbti_icon" android:layout_width="60.0dp" android:layout_height="60.0dp" fresco:roundedCornerRadius="10.0dp" />
+        <v.VLinear android:gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="60.0dp" android:layout_marginLeft="8.0dp">
+            <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="20.0sp" android:textColor="@color/common_exp_black_01" android:gravity="center" android:id="@id/mbti_title" android:layout_width="wrap_content" android:layout_height="28.0dp" />
+            <v.VText android:textSize="13.0sp" android:textColor="@color/common_exp_black_03" android:gravity="center" android:id="@id/mbti_des" android:layout_width="wrap_content" android:layout_height="18.0dp" android:layout_marginTop="3.0dp" />
+        </v.VLinear>
+    </v.VLinear>
+    <com.p1.mobile.putong.core.view.CardLabelShowView3 android:id="@id/mbti_tags" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="24.0dp" android:layout_marginBottom="14.0dp" fresco:itemMaxLines_="5" fresco:itemMaxNumber_="6" fresco:itemRadius_="12.0dp" />
+</v.VLinear>

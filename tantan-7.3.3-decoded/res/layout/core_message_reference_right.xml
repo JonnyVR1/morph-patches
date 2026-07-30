@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemReference android:orientation="vertical" android:id="@id/content" android:paddingLeft="?core_msg_right_reference_padding_left" android:paddingTop="?core_msg_right_reference_padding_top" android:paddingBottom="?core_msg_right_reference_padding_bottom" android:paddingEnd="?core_msg_right_reference_padding_right" style="@style/messages_item_right"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="horizontal" android:id="@id/reference_msg_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="14.0dp" android:layout_marginTop="14.0dp" android:layout_marginRight="14.0dp" android:layout_marginBottom="14.0dp">
+        <View android:id="@id/reference_line_bg" android:background="?core_msg_right_cell_reference_line_bg_style" android:layout_width="3.0dp" android:layout_height="match_parent" />
+        <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6.0dp">
+            <v.VText android:textSize="11.0sp" android:textColor="?core_msg_right_cell_reference_title_text_color" android:ellipsize="end" android:id="@id/reference_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" app:typeface="medium" />
+            <v.VText android:textSize="11.0sp" android:textColor="?core_msg_right_reference_text_color" android:ellipsize="end" android:id="@id/reference_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:maxLines="1" app:autoEmojis="true" app:enableEmojis="true" app:typeface="regular" />
+        </LinearLayout>
+    </LinearLayout>
+    <v.VText android:textSize="16.0sp" android:textColor="?core_msg_right_reference_text_color" android:textColorLink="@color/core_msg_cell_link_color" android:autoLink="web" android:id="@id/answer" android:paddingLeft="13.0dp" android:paddingRight="13.0dp" android:paddingBottom="14.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:lineSpacingExtra="2.0dp" app:enableEmojis="true" app:largeEmojis="true" />
+</com.p1.mobile.putong.core.ui.messages.ItemReference>

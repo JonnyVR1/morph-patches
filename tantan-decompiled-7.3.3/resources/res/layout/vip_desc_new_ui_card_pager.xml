@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:clipChildren="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="vip.privilegeNewUi.VipNewCardPager">
+    <androidx.viewpager.widget.ViewPager
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/privilege_pager"
+        android:clipChildren="false"
+        android:layout_width="326dp"
+        android:layout_height="180dp"/>
+</p151v.VFrame>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:orientation="vertical" android:id="@id/book_movies" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="profile.exp.item.ExpEditBookMoviesTxtExpandedHolder" needPublic="true" style="@style/profile_item_frame_no_padding_new"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRecyclerView android:orientation="vertical" android:id="@id/list" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="-6.0dp" android:layout_marginBottom="14.0dp" android:layout_marginStart="17.0dp" android:layout_marginEnd="24.0dp" app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+    <v.VText_NoTopPadding android:textSize="16.0sp" android:textColor="#000000" android:gravity="center" android:id="@id/add_books_movies_dramas" android:background="@drawable/core_bg_10_000000_stroke_3percent000000_w_3" android:layout_width="match_parent" android:layout_height="60.0dp" android:layout_marginLeft="24.0dp" android:layout_marginRight="24.0dp" android:text="添加书影剧" android:layout_marginHorizontal="24.0dp" app:fontWeight="500" />
+</v.VLinear_Dividers>

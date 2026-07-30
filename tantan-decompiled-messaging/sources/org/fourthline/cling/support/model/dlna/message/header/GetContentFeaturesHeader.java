@@ -1,0 +1,29 @@
+package org.fourthline.cling.support.model.dlna.message.header;
+
+import org.fourthline.cling.model.message.header.InvalidHeaderException;
+import p149l.xie;
+
+/* JADX INFO: loaded from: classes3.dex */
+public class GetContentFeaturesHeader extends DLNAHeader<Integer> {
+    public GetContentFeaturesHeader() {
+        setValue(1);
+    }
+
+    @Override // org.fourthline.cling.model.message.header.UpnpHeader
+    public String getString() {
+        return getValue().toString();
+    }
+
+    @Override // org.fourthline.cling.model.message.header.UpnpHeader
+    public void setString(String str) throws InvalidHeaderException {
+        if (str.length() != 0) {
+            try {
+                if (Integer.parseInt(str) == 1) {
+                    return;
+                }
+            } catch (Exception unused) {
+            }
+        }
+        xie.m209638a("Invalid GetContentFeatures header value: ".concat(str));
+    }
+}

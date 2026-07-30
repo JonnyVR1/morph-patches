@@ -1,0 +1,212 @@
+package com.p051p1.mobile.putong.data;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.protobuf.nano.CodedOutputByteBufferNano;
+import com.p051p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter;
+import com.tantanapp.common.data.BaseData;
+import com.tantanapp.common.data.DataChecker;
+import com.tantanapp.common.data.JsonAdapter;
+import com.tantanapp.common.data.MessageNanoAdapter;
+import com.tantanapp.common.data.ProtobufAdapter;
+import com.tantanapp.common.data.ProtobufIndex;
+import com.tantanapp.common.data.ValueObject;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import p153l.nc5;
+
+/* JADX INFO: loaded from: classes12.dex */
+public class ConnectorConfig extends ValueObject implements Cloneable, Serializable {
+    public static final String TYPE = "connectorconfig";
+
+    @ProtobufIndex(index = 1)
+    public int keepalive_interval;
+
+    @ProtobufIndex(index = 2)
+    public int keepalive_timeout;
+
+    @ProtobufIndex(index = 3)
+    public int keepalive_tries;
+
+    @ProtobufIndex(index = 5)
+    public int reconnect_backoff_max;
+
+    @ProtobufIndex(index = 4)
+    public int reconnect_backoff_min;
+
+    @ProtobufIndex(index = 6)
+    public boolean use_thirdparty_push;
+    public static ProtobufAdapter<ConnectorConfig> PROTOBUF_ADAPTER = new MessageNanoAdapter<ConnectorConfig>() { // from class: com.p1.mobile.putong.data.ConnectorConfig.1
+        {
+            this.wireFormat = 2;
+        }
+
+        @Override // com.tantanapp.common.data.ProtobufAdapter
+        public int computeAndCacheSize(ConnectorConfig connectorConfig) {
+            int iM17281h = CodedOutputByteBufferNano.m17281h(1, connectorConfig.keepalive_interval) + CodedOutputByteBufferNano.m17281h(2, connectorConfig.keepalive_timeout) + CodedOutputByteBufferNano.m17281h(3, connectorConfig.keepalive_tries) + CodedOutputByteBufferNano.m17281h(4, connectorConfig.reconnect_backoff_min) + CodedOutputByteBufferNano.m17281h(5, connectorConfig.reconnect_backoff_max) + CodedOutputByteBufferNano.m17275b(6, connectorConfig.use_thirdparty_push);
+            connectorConfig.cachedSize = iM17281h;
+            return iM17281h;
+        }
+
+        @Override // com.tantanapp.common.data.ProtobufAdapter
+        public ConnectorConfig parse(nc5 nc5Var) throws IOException {
+            ConnectorConfig connectorConfig = new ConnectorConfig();
+            while (true) {
+                int iM162497u = nc5Var.m162497u();
+                if (iM162497u == 8) {
+                    connectorConfig.keepalive_interval = nc5Var.m162486j();
+                } else if (iM162497u == 16) {
+                    connectorConfig.keepalive_timeout = nc5Var.m162486j();
+                } else if (iM162497u == 24) {
+                    connectorConfig.keepalive_tries = nc5Var.m162486j();
+                } else if (iM162497u == 32) {
+                    connectorConfig.reconnect_backoff_min = nc5Var.m162486j();
+                } else if (iM162497u == 40) {
+                    connectorConfig.reconnect_backoff_max = nc5Var.m162486j();
+                } else {
+                    if (iM162497u != 48) {
+                        return connectorConfig;
+                    }
+                    connectorConfig.use_thirdparty_push = nc5Var.m162483g();
+                }
+            }
+        }
+
+        @Override // com.tantanapp.common.data.ProtobufAdapter
+        public void serialize(ConnectorConfig connectorConfig, CodedOutputByteBufferNano codedOutputByteBufferNano) throws IOException {
+            codedOutputByteBufferNano.m17305G(1, connectorConfig.keepalive_interval);
+            codedOutputByteBufferNano.m17305G(2, connectorConfig.keepalive_timeout);
+            codedOutputByteBufferNano.m17305G(3, connectorConfig.keepalive_tries);
+            codedOutputByteBufferNano.m17305G(4, connectorConfig.reconnect_backoff_min);
+            codedOutputByteBufferNano.m17305G(5, connectorConfig.reconnect_backoff_max);
+            codedOutputByteBufferNano.m17299A(6, connectorConfig.use_thirdparty_push);
+        }
+    };
+    public static JsonAdapter<ConnectorConfig> JSON_ADAPTER = new ObjectJsonAdapter<ConnectorConfig>() { // from class: com.p1.mobile.putong.data.ConnectorConfig.2
+        @Override // com.tantanapp.common.data.JsonAdapter
+        public Class getDataClass() {
+            return ConnectorConfig.class;
+        }
+
+        @Override // com.p051p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public ConnectorConfig newInstance() {
+            return new ConnectorConfig();
+        }
+
+        public boolean parseField(ConnectorConfig connectorConfig, String str, JsonParser jsonParser, String str2, ArrayList<BaseData> arrayList, DataChecker dataChecker) throws IOException {
+            str.getClass();
+            switch (str) {
+                case "keepalive_interval":
+                    connectorConfig.keepalive_interval = jsonParser.getValueAsInt();
+                    return true;
+                case "use_thirdparty_push":
+                    connectorConfig.use_thirdparty_push = jsonParser.getValueAsBoolean();
+                    return true;
+                case "keepalive_tries":
+                    connectorConfig.keepalive_tries = jsonParser.getValueAsInt();
+                    return true;
+                case "keepalive_timeout":
+                    connectorConfig.keepalive_timeout = jsonParser.getValueAsInt();
+                    return true;
+                case "reconnect_backoff_max":
+                    connectorConfig.reconnect_backoff_max = jsonParser.getValueAsInt();
+                    return true;
+                case "reconnect_backoff_min":
+                    connectorConfig.reconnect_backoff_min = jsonParser.getValueAsInt();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public boolean parseFieldCheck(ConnectorConfig connectorConfig, String str, JsonParser jsonParser, String str2, ArrayList<BaseData> arrayList, DataChecker dataChecker) {
+            str.getClass();
+            switch (str) {
+                case "keepalive_interval":
+                case "use_thirdparty_push":
+                case "keepalive_tries":
+                case "keepalive_timeout":
+                case "reconnect_backoff_max":
+                case "reconnect_backoff_min":
+                    return true;
+                default:
+                    return super.parseFieldCheck(connectorConfig, str, jsonParser, str2, arrayList, dataChecker);
+            }
+        }
+
+        @Override // com.p051p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public void serializeFields(ConnectorConfig connectorConfig, JsonGenerator jsonGenerator) throws IOException {
+            jsonGenerator.writeNumberField("keepalive_interval", connectorConfig.keepalive_interval);
+            jsonGenerator.writeNumberField("keepalive_timeout", connectorConfig.keepalive_timeout);
+            jsonGenerator.writeNumberField("keepalive_tries", connectorConfig.keepalive_tries);
+            jsonGenerator.writeNumberField("reconnect_backoff_min", connectorConfig.reconnect_backoff_min);
+            jsonGenerator.writeNumberField("reconnect_backoff_max", connectorConfig.reconnect_backoff_max);
+            jsonGenerator.writeBooleanField("use_thirdparty_push", connectorConfig.use_thirdparty_push);
+        }
+
+        @Override // com.p051p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public /* bridge */ /* synthetic */ boolean parseFieldCheck(ValueObject valueObject, String str, JsonParser jsonParser, String str2, ArrayList arrayList, DataChecker dataChecker) {
+            return parseFieldCheck((ConnectorConfig) valueObject, str, jsonParser, str2, (ArrayList<BaseData>) arrayList, dataChecker);
+        }
+
+        @Override // com.p051p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public /* bridge */ /* synthetic */ boolean parseField(ValueObject valueObject, String str, JsonParser jsonParser, String str2, ArrayList arrayList, DataChecker dataChecker) throws IOException {
+            return parseField((ConnectorConfig) valueObject, str, jsonParser, str2, (ArrayList<BaseData>) arrayList, dataChecker);
+        }
+    };
+
+    public static ConnectorConfig new_() {
+        ConnectorConfig connectorConfig = new ConnectorConfig();
+        connectorConfig.nullCheck();
+        return connectorConfig;
+    }
+
+    @Override // com.tantanapp.common.data.ValueObject, com.google.protobuf.nano.MessageNano
+    /* JADX INFO: renamed from: clone */
+    public ConnectorConfig mo225055clone() {
+        ConnectorConfig connectorConfig = new ConnectorConfig();
+        connectorConfig.keepalive_interval = this.keepalive_interval;
+        connectorConfig.keepalive_timeout = this.keepalive_timeout;
+        connectorConfig.keepalive_tries = this.keepalive_tries;
+        connectorConfig.reconnect_backoff_min = this.reconnect_backoff_min;
+        connectorConfig.reconnect_backoff_max = this.reconnect_backoff_max;
+        connectorConfig.use_thirdparty_push = this.use_thirdparty_push;
+        return connectorConfig;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof ConnectorConfig)) {
+            return false;
+        }
+        ConnectorConfig connectorConfig = (ConnectorConfig) obj;
+        return this.keepalive_interval == connectorConfig.keepalive_interval && this.keepalive_timeout == connectorConfig.keepalive_timeout && this.keepalive_tries == connectorConfig.keepalive_tries && this.reconnect_backoff_min == connectorConfig.reconnect_backoff_min && this.reconnect_backoff_max == connectorConfig.reconnect_backoff_max && this.use_thirdparty_push == connectorConfig.use_thirdparty_push;
+    }
+
+    @Override // com.tantanapp.common.data.ValueObject
+    public String getClassParseName() {
+        return TYPE;
+    }
+
+    public int hashCode() {
+        int i = this.hashCode;
+        if (i != 0) {
+            return i;
+        }
+        int i2 = (((((((((((i * 41) + this.keepalive_interval) * 41) + this.keepalive_timeout) * 41) + this.keepalive_tries) * 41) + this.reconnect_backoff_min) * 41) + this.reconnect_backoff_max) * 41) + (this.use_thirdparty_push ? 1231 : 1237);
+        this.hashCode = i2;
+        return i2;
+    }
+
+    @Override // com.tantanapp.common.data.ValueObject
+    public void nullCheck() {
+    }
+
+    @Override // com.tantanapp.common.data.ValueObject
+    public String toJson() {
+        return JSON_ADAPTER.serialize(this);
+    }
+}

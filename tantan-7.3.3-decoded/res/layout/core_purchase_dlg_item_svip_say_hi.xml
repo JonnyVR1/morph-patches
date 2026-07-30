@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.privilege.PurchaseDlgItemSVipSayHiView android:gravity="center_horizontal" android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="purchase.privilege.PurchaseDlgItemSVipSayHiView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/bg" android:layout_width="87.0dp" android:layout_height="105.639984dp" android:layout_marginTop="14.0dp" android:src="@null" android:layout_marginStart="5.0dp" />
+    <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="74.599976dp" android:layout_height="95.75998dp" android:layout_marginBottom="-15.0dp" android:layout_alignBottom="@id/bg" android:rotation="10.0" android:layout_marginStart="-20.0dp" android:layout_toEndOf="@id/bg" app:roundedCornerRadius="14.0dp" app:roundingBorderColor="@color/white" app:roundingBorderWidth="4.0dp" />
+    <v.VImage android:id="@id/greeting_ic" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_alignBottom="@id/bg" android:layout_marginEnd="-7.0dp" android:layout_alignEnd="@id/bg" />
+</com.p1.mobile.putong.core.ui.purchase.privilege.PurchaseDlgItemSVipSayHiView>

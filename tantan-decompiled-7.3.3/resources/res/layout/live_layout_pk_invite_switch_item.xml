@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.view.PkInviteSwitchItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="22dp"
+    android:layout_marginTop="16dp"
+    folder="recreation"
+    holder="pk.view.PkInviteSwitchItemView">
+    <TextView
+        android:textSize="14sp"
+        android:textColor="#999999"
+        android:id="@+id/tv_decline_invite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LIVE_NOT_ACCEPT_INVITE"
+        android:maxLines="1"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_alignParentStart="true"/>
+    <p151v.VSwitch
+        android:id="@+id/switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentEnd="true"/>
+</com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.view.PkInviteSwitchItemView>

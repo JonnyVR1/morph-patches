@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.intl.view.widgets.IntlLiveSquareBannerView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="80.0dp" android:layout_marginBottom="8.0dp" android:layout_marginStart="@dimen/live_square_item_base_margin" android:layout_marginEnd="@dimen/live_square_item_base_margin" app:live_ratio="4.4875" flatten="true" folder="intl" holder="view.widgets.IntlLiveSquareBannerView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.base.view.LoopViewPager android:layout_gravity="center_horizontal" android:id="@id/page" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <com.p1.mobile.putong.live.base.view.LoopViewPagerIndicator android:layout_gravity="bottom" android:id="@id/indicator" android:layout_width="match_parent" android:layout_height="6.0dp" android:layout_marginBottom="6.0dp" app:fillColor="@color/live_white_80_opacity" app:pageColor="@color/live_white_20_opacity" app:radius="3.0dp" />
+</com.p1.mobile.putong.live.external.intl.view.widgets.IntlLiveSquareBannerView>

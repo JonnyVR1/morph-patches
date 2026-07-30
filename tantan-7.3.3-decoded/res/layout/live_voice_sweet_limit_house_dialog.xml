@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VRelative android:layout_width="match_parent" android:layout_height="514.0dp" flatten="true" holder="voice.intl.sweet.view.VoiceSweetLimitHouseDialog"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/bg_img" android:background="@drawable/live_shape_voice_sweet_cp_limit_house_defult_bg" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" />
+    <com.p1.mobile.putong.live.livingroom.voice.intl.sweet.view.VoiceSweetSmoothSpeedRecycle android:id="@id/cp_recycle" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="302.0dp" android:layout_marginTop="80.0dp" android:divider="@null" android:overScrollMode="never" />
+    <v.VImage android:id="@id/back_iv" android:padding="9.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginTop="6.0dp" android:src="@null" />
+</v.VRelative>

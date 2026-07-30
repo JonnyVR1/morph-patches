@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.visitor.myvisitors.MyVisitorsEmptyView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="visitor.myvisitors.MyVisitorsEmptyView">
+    <p151v.VImage
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="162dp"
+        android:src="0x7f0819ca"/>
+    <TextView
+        android:textSize="14sp"
+        android:textColor="#323232"
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="162dp"
+        android:text="你还没有访问过其他人"/>
+</com.p051p1.mobile.putong.core.p058ui.visitor.myvisitors.MyVisitorsEmptyView>

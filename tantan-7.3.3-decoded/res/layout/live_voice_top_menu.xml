@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/root" android:background="@drawable/live_bg_black_br24_a80" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="voice.topbar.dialog.VoiceTopMenuDialog"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/menu_list" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="38.0dp" android:layout_marginRight="16.0dp" android:layout_marginHorizontal="16.0dp" />
+    <ImageView android:layout_gravity="center_horizontal" android:id="@id/menu_close" android:layout_width="37.0dp" android:layout_height="5.0dp" android:layout_marginTop="24.0dp" android:layout_marginBottom="14.0dp" android:src="@drawable/live_bg_white_r3_a20" />
+</LinearLayout>

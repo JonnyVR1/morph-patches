@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/common_white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <p151v.VText
+        android:id="@+id/current_type"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="当前定位类型："/>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <p151v.VCheckBox
+            android:id="@+id/baidu_mock_enable"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <p151v.VText
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:hint="Mock 百度定位，定位类型:"/>
+        <Spinner
+            android:id="@+id/baidu_spinner"
+            android:layout_width="140dp"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+    <p151v.VEditText
+        android:id="@+id/baidu_mock_accuracy"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:hint="定位精度"/>
+    <p151v.VEditText
+        android:id="@+id/baidu_mock_lat"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="baidu lat"/>
+    <p151v.VEditText
+        android:id="@+id/baidu_mock_lng"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="baidu lng"/>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <p151v.VCheckBox
+            android:id="@+id/amap_mock_enable"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <p151v.VText
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:hint="Mock 高德定位，定位类型:"/>
+        <Spinner
+            android:id="@+id/amap_spinner"
+            android:layout_width="140dp"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+    <p151v.VEditText
+        android:id="@+id/amap_mock_accuracy"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:hint="定位精度"/>
+    <p151v.VEditText
+        android:id="@+id/amap_mock_lat"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="amap lat"/>
+    <p151v.VEditText
+        android:id="@+id/amap_mock_lng"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="amap lng"/>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <p151v.VCheckBox
+            android:id="@+id/intl_mock_enable"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <p151v.VText
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:hint="Mock 国际化定位"/>
+        <Spinner
+            android:id="@+id/intl_spinner"
+            android:visibility="invisible"
+            android:layout_width="140dp"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+    <p151v.VEditText
+        android:id="@+id/intl_mock_accuracy"
+        android:visibility="gone"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:hint="定位精度"/>
+    <p151v.VEditText
+        android:id="@+id/intl_mock_lat"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="intl lat"/>
+    <p151v.VEditText
+        android:id="@+id/intl_mock_lng"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="intl lng"/>
+    <p151v.VButton
+        android:layout_gravity="center"
+        android:id="@+id/submit"
+        android:text="修改定位"
+        style="@style/common_button_small_02_icon_left"/>
+</LinearLayout>

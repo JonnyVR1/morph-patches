@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/white"/>
+    <corners android:radius="@dimen/core_vip_normal_card_corner"/>
+    <stroke
+        android:width="0.5dp"
+        android:color="#ddd8d8"/>
+</shape>

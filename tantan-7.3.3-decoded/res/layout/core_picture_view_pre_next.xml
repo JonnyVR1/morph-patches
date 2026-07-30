@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/cover_background" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" style="@style/core_fresco_base" />
+    <RelativeLayout android:id="@id/cover_bottom" android:layout_width="match_parent" android:layout_height="150.0dp" app:layout_constraintBottom_toBottomOf="parent">
+        <View android:id="@id/cover_hide_bottom" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="match_parent" android:alpha="0.0" />
+        <v.VText android:textSize="18.0sp" android:textColor="@color/white" android:id="@id/click_profile" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="42.5dp" android:text="打开个人资料" android:lines="1" android:layout_centerInParent="true" android:fontFamily="PingFangSC-Medium" />
+        <v.VIcon android:id="@id/bottom_hand" android:layout_marginTop="19.5dp" android:src="@null" android:layout_toRightOf="@id/click_profile" android:layout_centerVertical="true" style="@style/common_icon_xxxLarge" />
+    </RelativeLayout>
+    <v.VDivider android:id="@id/bottom_divider" android:layout_width="0.0dp" android:layout_height="1.0dp" app:dashGap="4.0dp" app:dashWidth="5.0dp" app:dashed="true" app:dividerColor="#7fffffff" app:dividerOrientation="horizontal" app:layout_constraintBottom_toTopOf="@id/cover_bottom" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" />
+    <v.VFrame android:id="@id/cover_top_Left" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toTopOf="@id/bottom_divider" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toLeftOf="@id/top_divider" app:layout_constraintTop_toTopOf="parent">
+        <View android:id="@id/cover_hide_left" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="match_parent" android:alpha="0.0" />
+        <v.VLinear android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VIcon android:layout_gravity="center_horizontal" android:id="@id/left_hand" android:src="@null" style="@style/common_icon_xxxLarge" />
+            <v.VText android:textSize="18.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/left_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看上一张\n照片" android:fontFamily="PingFangSC-Medium" />
+        </v.VLinear>
+    </v.VFrame>
+    <v.VDivider android:id="@id/top_divider" android:layout_width="1.0dp" android:layout_height="0.0dp" android:layout_marginBottom="4.0dp" app:dashGap="4.0dp" app:dashWidth="5.0dp" app:dashed="true" app:dividerColor="#7fffffff" app:dividerOrientation="vertical" app:layout_constraintBottom_toTopOf="@id/bottom_divider" app:layout_constraintLeft_toRightOf="@id/cover_top_Left" app:layout_constraintRight_toLeftOf="@id/cover_top_right" app:layout_constraintTop_toTopOf="parent" />
+    <v.VFrame android:id="@id/cover_top_right" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toTopOf="@id/bottom_divider" app:layout_constraintLeft_toRightOf="@id/top_divider" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <View android:id="@id/cover_hide_right" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="match_parent" android:alpha="0.0" />
+        <v.VLinear android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VIcon android:layout_gravity="center_horizontal" android:id="@id/right_hand" android:src="@null" style="@style/common_icon_xxxLarge" />
+            <v.VText android:textSize="18.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/right_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看\n下一张照片" android:fontFamily="PingFangSC-Medium" />
+        </v.VLinear>
+    </v.VFrame>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.visitor.VisitorsFilterItemAgeView android:gravity="center" android:orientation="vertical" android:paddingTop="30.0dp" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" holder="visitor.VisitorsFilterItemAgeView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="horizontal" android:paddingLeft="18.0dp" android:paddingRight="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="15.0sp" android:textColor="#66000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="年龄筛选" android:layout_weight="1.0" />
+        <v.VText android:textSize="15.0sp" android:textColor="#cc000000" android:id="@id/age_text" android:layout_width="wrap_content" android:layout_height="wrap_content" app:typeface="medium" />
+    </LinearLayout>
+    <v.VRangeSlider android:id="@id/search_ages" android:layout_marginLeft="2.0dp" android:layout_marginTop="-5.0dp" android:layout_marginRight="2.0dp" style="@style/CommonSliderStyle" />
+</com.p1.mobile.putong.core.ui.visitor.VisitorsFilterItemAgeView>

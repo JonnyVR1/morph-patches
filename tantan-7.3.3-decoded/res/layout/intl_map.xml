@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" holder="map.intl.IntlMapViewModel" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/map_overlay" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="@dimen/map_item_height" flatten="true">
+        <v.VFrame android:id="@id/map" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <ImageView android:layout_gravity="center" android:id="@id/pin" android:paddingBottom="37.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+        <ImageView android:layout_gravity="center" android:id="@id/cross" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+    </FrameLayout>
+    <v.VLinear android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/bottom" android:layout_width="match_parent" android:layout_height="127.0dp" android:translationY="127.0dp">
+        <include android:id="@id/current" android:layout_width="match_parent" android:layout_height="78.0dp" layout="@layout/intl_map_item" />
+        <View android:background="#d0d0d0" android:layout_width="match_parent" android:layout_height="1.0dp" />
+        <v.VText android:textSize="16.0sp" android:textColor="@color/map_blue" android:gravity="center" android:id="@id/text" android:background="@drawable/map_show_list_bg" android:paddingLeft="8.0dp" android:paddingRight="32.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:height="48.0dp" android:drawableLeft="@null" />
+    </v.VLinear>
+    <FrameLayout android:id="@id/overlay" android:background="#80000000" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VList android:id="@id/suggestions" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:divider="#ecece9" android:dividerHeight="1.0dp" />
+    </FrameLayout>
+</FrameLayout>

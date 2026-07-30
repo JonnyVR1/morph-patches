@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.intl.medalwall.view.VoiceMedalWallListView android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="voice.intl" holder="medalwall.view.VoiceMedalWallListView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/list" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginStart="6.0dp" android:layout_marginEnd="6.0dp" />
+    <v.VLinear android:layout_gravity="center_horizontal" android:orientation="vertical" android:id="@id/empty_container" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="28.0dp" flatten="true">
+        <ImageView android:layout_width="210.0dp" android:layout_height="150.0dp" android:src="@null" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/live_white_30_opacity" android:layout_gravity="center" android:id="@id/empty_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.live.livingroom.voice.intl.medalwall.view.VoiceMedalWallListView>

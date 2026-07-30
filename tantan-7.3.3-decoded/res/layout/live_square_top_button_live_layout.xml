@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.internal.live.square.home.submodule.topButton.LiveSquareTopButtonLiveView android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="internal" holder="live.square.home.submodule.topButton.LiveSquareTopButtonLiveView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <v.VDraweeView android:layout_gravity="end|center" android:id="@id/img_live_setting" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="6.0dp" android:scaleType="fitXY" fresco:placeholderImage="@drawable/live_selector_square_home_setting" />
+        <v.VDraweeView android:layout_gravity="end|center" android:id="@id/start_live" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="6.0dp" android:scaleType="fitXY" fresco:placeholderImage="@null" />
+        <v.VText android:textSize="12.0sp" android:textColor="@android:color/white" android:gravity="center" android:id="@id/start_live_second" android:background="@drawable/live_bg_fe7e1d_r10" android:visibility="gone" android:layout_width="57.0dp" android:layout_height="32.0dp" android:layout_marginEnd="6.0dp" />
+    </v.VLinear>
+    <View android:layout_gravity="end|center" android:id="@id/red_point" android:background="@drawable/live_shape_tab_red_bg" android:visibility="gone" android:layout_width="10.0dp" android:layout_height="10.0dp" android:layout_marginBottom="10.0dp" android:layout_marginEnd="6.0dp" />
+</com.p1.mobile.putong.live.external.internal.live.square.home.submodule.topButton.LiveSquareTopButtonLiveView>

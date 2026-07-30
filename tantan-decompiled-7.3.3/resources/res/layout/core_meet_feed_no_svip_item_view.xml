@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.newmeet.feed.MeetFeedNoSvipItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    folder="newui"
+    holder="newmeet.feed.MeetFeedNoSvipItemView">
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:id="@+id/cover"
+        android:background="@drawable/core_meet_feed_no_privilege_bg"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <Button
+        android:textSize="14dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:id="@+id/unlock"
+        android:background="@drawable/core_svip_privilege_desc_unlock_button"
+        android:layout_marginBottom="200dp"
+        android:text="开通svip，解锁我的遇见"
+        android:stateListAnimator="@null"
+        style="@style/common_button_medium_01"/>
+</com.p051p1.mobile.putong.core.newui.newmeet.feed.MeetFeedNoSvipItemView>

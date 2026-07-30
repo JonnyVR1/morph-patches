@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    holder="settings.privacyandpremisson.DarkModeActViewModel">
+    <p151v.navigationbar.VNavigationBar
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftIcon="0x7f080387"/>
+    <p151v.VScroll
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        flatten="true">
+        <p151v.VLinear
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.p051p1.mobile.putong.core.p058ui.settings.SettingsItem
+                android:id="@+id/follow_system"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setting_subtitle="开启后，将跟随系统打开或关闭深色模式"
+                app:setting_switcher="true"
+                app:setting_title="跟随系统"/>
+            <com.p051p1.mobile.putong.core.p058ui.settings.SettingsItem
+                android:id="@+id/light_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setting_switcher="true"
+                app:setting_title="普通模式"/>
+            <com.p051p1.mobile.putong.core.p058ui.settings.SettingsItem
+                android:id="@+id/dark_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setting_switcher="true"
+                app:setting_title="深色模式"/>
+        </p151v.VLinear>
+    </p151v.VScroll>
+</p151v.VLinear>

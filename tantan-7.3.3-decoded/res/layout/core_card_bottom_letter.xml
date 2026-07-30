@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.views.CardBottomLetterLayout android:orientation="vertical" android:visibility="invisible" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.views.CardBottomLetterLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/card_bottom_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4.0dp" layout="@layout/core_card_bottom_basic_info" />
+    <v.VLinear android:orientation="vertical" android:id="@id/info_content" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.VLinear android:orientation="vertical" android:id="@id/letter_container" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+            <v.VText android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_vertical" android:id="@id/letter_hint" android:background="@drawable/core_card_letter_container_bg" android:paddingLeft="5.0dp" android:paddingTop="4.0dp" android:paddingRight="8.0dp" android:paddingBottom="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableLeft="@null" android:drawablePadding="5.0dp" />
+            <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/white" android:ellipsize="end" android:id="@id/letter_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:maxLines="2" android:lineSpacingMultiplier="1.2" />
+        </v.VLinear>
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.home.views.CardBottomLetterLayout>

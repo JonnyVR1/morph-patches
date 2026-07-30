@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.common.fansclub.view.FansClubEventView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    folder="common.fansclub"
+    holder="view.FansClubEventView">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+        <View
+            android:layout_gravity="bottom"
+            android:id="@+id/divider"
+            android:background="#f9f9f9"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"/>
+        <com.p051p1.mobile.putong.live.livingroom.common.fansclub.view.tab.FansClubTabView
+            android:layout_gravity="center"
+            android:id="@+id/tab_view"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            app:indicator_color="#fe7e1d"
+            app:indicator_height="3dp"
+            app:indicator_radius="1.5dp"
+            app:indicator_width="24dp"/>
+    </FrameLayout>
+    <p151v.VFrame
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <p151v.VPagerNoPage
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <include
+            android:id="@+id/fans_select"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="false"
+            layout="@layout/live_fans_club_recall_edit"/>
+    </p151v.VFrame>
+</com.p051p1.mobile.putong.live.livingroom.common.fansclub.view.FansClubEventView>

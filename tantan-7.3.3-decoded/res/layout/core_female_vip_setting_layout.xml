@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="15.0dp" android:textColor="@color/core_color_40percent_000000" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="21.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="24.0dp" android:text="隐私保护" />
+        <include android:id="@id/privacy_hide_active_time" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/core_female_vip_setting_item" />
+        <include android:id="@id/privacy_hide_distance" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/core_female_vip_setting_item" />
+        <v.VText android:textSize="15.0dp" android:textColor="@color/core_color_40percent_000000" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="21.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="24.0dp" android:text="安全交友" />
+        <include android:id="@id/suggest_certified_first" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/core_female_vip_setting_item" />
+        <include android:id="@id/suggest_select_first" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/core_female_vip_setting_item" />
+        <v.VText android:textSize="15.0dp" android:textColor="@color/core_color_40percent_000000" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="21.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="24.0dp" android:text="广告免打扰" />
+        <include android:id="@id/close_ad" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/core_female_vip_setting_item" />
+        <v.VText android:textSize="15.0dp" android:textColor="@color/core_color_40percent_000000" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="21.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="24.0dp" android:text="聊天免骚扰" />
+        <include android:id="@id/anti_harassment" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/core_female_vip_setting_item" />
+        <View android:layout_width="match_parent" android:layout_height="36.0dp" />
+    </v.VLinear>
+</ScrollView>

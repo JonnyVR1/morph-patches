@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardItemView android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" app:sl_cornerRadius="20.0dp" app:sl_shadowColor="@color/common_light_03" app:sl_shadowRadius="15.0dp" flatten="true" folder="newui" holder="poi.view.FeedPoiCardItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/content_fl" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardScrollView android:id="@id/card_scrollview" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <LinearLayout android:orientation="vertical" android:id="@id/crad_container" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+                <include android:id="@id/poi_card_user_head_container" layout="@layout/core_poi_card_item_user_head_view" />
+                <View android:layout_width="0.0dp" android:layout_height="20.0dp" />
+                <include android:id="@id/poi_card_moment_container" layout="@layout/core_poi_card_item_moment_view" />
+                <View android:layout_width="0.0dp" android:layout_height="22.0dp" />
+                <include android:id="@id/poi_card_about_me_container" layout="@layout/core_poi_card_item_about_me_view" />
+                <include android:id="@id/poi_card_my_tags_container" layout="@layout/core_poi_card_item_my_tag_view" />
+                <View android:layout_width="0.0dp" android:layout_height="120.0dp" />
+            </LinearLayout>
+        </com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardScrollView>
+        <View android:layout_gravity="bottom" android:background="@drawable/core_poi_card_bottom_shadow" android:layout_width="match_parent" android:layout_height="185.0dp" android:alpha="0.08" />
+        <RelativeLayout android:layout_gravity="bottom" android:layout_width="match_parent" android:layout_height="185.0dp">
+            <LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:id="@id/buttons" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_above="@id/poi_card_send_greeting_view" flatten="true">
+                <v.VFrame_Shadow android:id="@id/undo_shadow" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="25.0dp" app:sl_shadowColor="@color/common_light_04" app:sl_shadowRadius="8.0dp" flatten="true">
+                    <com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardOperationButton android:id="@id/undo" android:layout_width="44.0dp" android:layout_height="44.0dp" />
+                </v.VFrame_Shadow>
+                <v.VFrame_Shadow android:id="@id/dislike_shadow" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="25.0dp" app:sl_shadowColor="@color/common_light_04" app:sl_shadowRadius="8.0dp" flatten="true">
+                    <com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardOperationButton android:id="@id/dislike" android:layout_width="64.0dp" android:layout_height="44.0dp" />
+                </v.VFrame_Shadow>
+                <v.VFrame_Shadow android:id="@id/like_shadow" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="25.0dp" app:sl_shadowColor="@color/common_light_04" app:sl_shadowRadius="8.0dp" flatten="true">
+                    <com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardOperationButton android:id="@id/like" android:layout_width="64.0dp" android:layout_height="44.0dp" />
+                </v.VFrame_Shadow>
+                <v.VFrame_Shadow android:id="@id/superlike_shadow" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="25.0dp" app:sl_shadowColor="@color/common_light_04" app:sl_shadowRadius="8.0dp" flatten="true">
+                    <com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardOperationButton android:id="@id/superlike" android:layout_width="44.0dp" android:layout_height="44.0dp" />
+                </v.VFrame_Shadow>
+            </LinearLayout>
+            <include android:id="@id/poi_card_send_greeting_view" android:layout_width="match_parent" android:layout_height="44.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="12.0dp" android:layout_alignParentBottom="true" layout="@layout/core_poi_card_send_greeting_view" />
+        </RelativeLayout>
+        <com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardSmartScrollBar android:layout_gravity="right|top" android:id="@id/smart_scroll_bar" android:layout_width="4.0dp" android:layout_height="67.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="16.0dp" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardItemView>

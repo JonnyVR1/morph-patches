@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Putong.Logo" parent="@style/Theme.P1.Light">
+        <item name="android:windowBackground">@drawable/app_start_background</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

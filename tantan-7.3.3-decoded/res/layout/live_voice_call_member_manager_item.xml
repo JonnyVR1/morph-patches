@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.applymanager.manager.VoiceCallMemberManagerItemView android:id="@id/list" android:layout_width="match_parent" android:layout_height="77.0dp" flatten="true" folder="voice" holder="applymanager.manager.VoiceCallMemberManagerItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="11.0dp">
+        <com.p1.mobile.putong.live.livingroom.common.avatar.CommonMaskAvatarView android:id="@id/avatar_group" android:layout_width="73.0dp" android:layout_height="73.0dp" />
+        <v.VText android:textSize="9.0dp" android:textColor="#ffffff" android:ellipsize="end" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/anchor_tag" android:background="@drawable/live_bg_fe7e1d_r4" android:paddingLeft="4.0dp" android:paddingRight="4.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_marginBottom="9.0dp" android:maxWidth="60.0dp" android:text="房主房主房主房主房主" android:singleLine="true" />
+        <v.VImage android:layout_gravity="center|bottom" android:id="@id/boss_tag" android:background="@null" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="9.0dp" />
+    </FrameLayout>
+    <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:id="@id/content" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginStart="85.0dp" android:layout_marginEnd="95.0dp" flatten="true">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/live_white" android:ellipsize="end" android:gravity="center" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:layout_marginBottom="6.0dp" android:maxWidth="148.0dp" android:maxLines="1" android:singleLine="true" />
+        <HorizontalScrollView android:scrollbars="none" android:fadingEdge="horizontal" android:fadingEdgeLength="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:requiresFadingEdge="horizontal">
+            <LinearLayout android:orientation="horizontal" android:id="@id/tagsContainer" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+                <LinearLayout android:orientation="horizontal" android:id="@id/gender_age" android:layout_width="wrap_content" android:layout_height="14.0dp" android:paddingStart="3.0dp" android:paddingEnd="3.0dp" android:layout_marginEnd="6.0dp">
+                    <v.VImage android:layout_gravity="center" android:id="@id/gender" android:layout_width="14.0dp" android:layout_height="14.0dp" />
+                    <v.VText android:textSize="9.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@id/age" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginRight="2.0dp" />
+                </LinearLayout>
+                <TextView android:textSize="9.0sp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/constellation" android:visibility="gone" android:layout_width="35.0dp" android:layout_height="14.0dp" />
+                <v.VDraweeView android:id="@id/level" android:visibility="gone" android:layout_width="30.0dp" android:layout_height="14.0dp" fresco:actualImageScaleType="fitXY" />
+                <v.VDraweeView android:id="@id/vip" android:visibility="gone" android:layout_width="28.0dp" android:layout_height="14.0dp" android:layout_marginStart="5.0dp" fresco:actualImageScaleType="fitXY" />
+                <com.p1.mobile.putong.live.livingroom.common.usercard.CommonMedalView android:id="@id/medalFirst" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_marginStart="5.0dp" />
+                <com.p1.mobile.putong.live.livingroom.common.usercard.CommonMedalView android:id="@id/medalSecond" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_marginStart="5.0dp" />
+                <com.p1.mobile.putong.live.livingroom.common.usercard.CommonMedalView android:id="@id/medalThird" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_marginStart="5.0dp" />
+                <com.p1.mobile.putong.live.livingroom.common.usercard.CommonMedalView android:id="@id/medalFour" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_marginStart="5.0dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+    <v.VText android:textSize="14.0sp" android:textColor="@color/live_white" android:gravity="center" android:layout_gravity="end|center" android:id="@id/right_desc" android:background="@drawable/live_bg_ff8817_r10" android:layout_width="wrap_content" android:layout_height="34.0dp" android:minWidth="53.0dp" android:paddingStart="5.0dp" android:paddingEnd="5.0dp" android:layout_marginEnd="20.0dp" />
+</com.p1.mobile.putong.live.livingroom.voice.applymanager.manager.VoiceCallMemberManagerItemView>

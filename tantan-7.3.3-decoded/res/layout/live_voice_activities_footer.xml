@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.voiceslipcard.activity.LiveVoiceActivitiesFooterView android:clickable="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="80.0dp" flatten="true" folder="voiceslipcard" holder="activity.LiveVoiceActivitiesFooterView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="14.0sp" android:textColor="#61000000" android:id="@id/tips" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_VOICE_ACTIVITY_MAX_COUNT" android:layout_centerInParent="true" />
+</com.p1.mobile.putong.live.external.voiceslipcard.activity.LiveVoiceActivitiesFooterView>

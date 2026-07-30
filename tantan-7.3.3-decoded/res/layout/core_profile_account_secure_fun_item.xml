@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.account.view.AccountSecureFunItem android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginHorizontal="20.0dp" holder="account.view.AccountSecureFunItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="16.0sp" android:textColor="#cc000000" android:gravity="center_vertical" android:id="@id/fun_name" android:layout_width="wrap_content" android:layout_height="match_parent" />
+    <v.VLinear android:gravity="right|center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginStart="20.0dp">
+        <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="16.0sp" android:textColor="#66000000" android:gravity="center_vertical" android:id="@id/fun_value" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginRight="8.0dp" />
+        <View android:id="@id/red_dot" android:background="@drawable/core_profile_red_dot" android:visibility="gone" android:layout_width="8.0dp" android:layout_height="8.0dp" android:layout_marginRight="4.0dp" />
+        <v.VImage android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.account.view.AccountSecureFunItem>

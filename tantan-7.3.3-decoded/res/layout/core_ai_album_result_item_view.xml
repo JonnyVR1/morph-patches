@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.aialbum.view.AiAlbumResultItemView android:id="@id/root_view" android:layout_width="172.0dp" android:layout_height="216.0dp" flatten="true" folder="ui" holder="aialbum.view.AiAlbumResultItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/image" android:background="@drawable/core_ai_album_template_item_selector" android:padding="5.0dp" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="8.0dp" />
+    <v.VImage android:id="@id/download_btn" android:background="@null" android:layout_width="25.0dp" android:layout_height="25.0dp" android:layout_marginBottom="9.0dp" android:layout_alignParentBottom="true" android:layout_marginEnd="9.0dp" android:layout_alignParentEnd="true" />
+</com.p1.mobile.putong.core.ui.aialbum.view.AiAlbumResultItemView>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/cpMenuArrow"
+        android:layout_width="16dp"
+        android:layout_height="8dp"
+        android:src="0x7f082822"
+        android:layout_marginEnd="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/live_bg_white_r10"
+        android:layout_width="74dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:textSize="12dp"
+            android:textColor="@color/live_323333"
+            android:gravity="center"
+            android:id="@+id/gameRule"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:text="@string/LIVE_VOICE_CP_GAME_RULE"/>
+        <TextView
+            android:textSize="12dp"
+            android:textColor="@color/live_323333"
+            android:gravity="center"
+            android:id="@+id/relieveRelation"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:text="@string/LIVE_VOICE_CANCEL_RELATIONSHIP"/>
+        <TextView
+            android:textSize="12dp"
+            android:textColor="@color/live_323333"
+            android:gravity="center"
+            android:id="@+id/cpInviteRecord"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:text="@string/LIVE_VOICE_INVITE_RECORD"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

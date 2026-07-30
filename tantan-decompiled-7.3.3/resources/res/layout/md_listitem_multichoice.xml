@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="start|center_vertical"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <p151v.VCheckBox
+        android:gravity="center_vertical"
+        android:layout_gravity="start"
+        android:id="@+id/control"
+        android:background="@null"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:duplicateParentState="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/md_listitem_control_margin"
+        android:layout_marginRight="8dp"
+        android:minHeight="@dimen/md_listitem_height"
+        android:layout_marginStart="@dimen/md_listitem_control_margin"
+        android:layout_marginEnd="8dp"
+        style="@style/v_checkbox"/>
+    <p151v.VText
+        android:textAppearance="@style/common_text_style_body_01_b"
+        android:gravity="center_vertical"
+        android:layout_gravity="start"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/md_dialog_frame_margin"
+        android:minHeight="@dimen/md_listitem_height"
+        android:layout_marginEnd="@dimen/md_dialog_frame_margin"
+        app:typeface="regular"/>
+</p151v.VLinear>

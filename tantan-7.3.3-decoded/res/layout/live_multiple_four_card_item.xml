@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/cover" android:layout_width="match_parent" android:layout_height="match_parent" app:roundedCornerRadius="10.0dp" />
+    <com.p1.mobile.putong.live.base.view.LiveSquareMediaView android:id="@id/media_view" android:layout_width="0.0dp" android:layout_height="match_parent" app:layout_constraintDimensionRatio="w,1:1" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+    <View android:background="@drawable/live_shape_bg_00000000_99000000_r10" android:layout_width="match_parent" android:layout_height="53.0dp" app:layout_constraintBottom_toBottomOf="parent" />
+    <v.VLinear android:orientation="horizontal" android:id="@id/top_bg" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginTop="8.0dp" android:layout_marginStart="8.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <com.tantan.library.svga.SVGAnimationView android:layout_gravity="center_vertical" android:id="@id/live_svga" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginStart="2.0dp" />
+        <v.VText android:textSize="10.0sp" android:textColor="@color/white" android:layout_gravity="center_vertical" android:id="@id/tv_type" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="6.0dp" />
+    </v.VLinear>
+    <v.VText android:textSize="12.0sp" android:textColor="#b3ffffff" android:ellipsize="end" android:id="@id/tv_user_number" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginBottom="8.0dp" android:maxLines="1" android:layout_marginStart="8.0dp" android:layout_marginEnd="8.0dp" app:layout_constrainedWidth="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:ellipsize="end" android:id="@id/tv_user_name" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginBottom="3.0dp" android:maxLines="1" android:layout_marginEnd="8.0dp" app:layout_constrainedWidth="true" app:layout_constraintBottom_toTopOf="@id/tv_user_number" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="@id/tv_user_number" />
+</merge>

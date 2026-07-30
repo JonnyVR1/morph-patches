@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.vip.widget.IntlLetterSendItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="16sp"
+    android:textColor="@drawable/letter_dlg_item_selected_text_bg"
+    android:gravity="center"
+    android:id="@+id/letter_message"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:layout_width="wrap_content"
+    android:layout_height="52dp"
+    android:layout_margin="5dp"
+    android:singleLine="true"
+    android:lineSpacingExtra="4sp"/>

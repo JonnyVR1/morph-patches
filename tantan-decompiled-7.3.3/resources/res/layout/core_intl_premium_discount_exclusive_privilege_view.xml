@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.intlpage.IntlPremiumDiscountExclusivePrivilegeView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="purchase.intlpage.IntlPremiumDiscountExclusivePrivilegeView">
+    <FrameLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="18dp"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginHorizontal="0dp"
+        flatten="true">
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"/>
+    </FrameLayout>
+    <p151v.VText
+        android:textSize="12sp"
+        android:textColor="@color/common_grey_02"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/privilege_title"
+        android:background="@drawable/core_intl_purchase_page_exclusive_privilege_title_bg"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginTop="5dp"
+        android:lines="1"
+        android:drawablePadding="4dp"
+        android:paddingHorizontal="10dp"
+        app:typeface="medium"/>
+</com.p051p1.mobile.putong.core.p058ui.purchase.intlpage.IntlPremiumDiscountExclusivePrivilegeView>

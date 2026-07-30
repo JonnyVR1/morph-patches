@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.dlg.views.CityCoverSmallCardView android:id="@id/city_cover_small_card_view" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="dlg.views.CityCoverSmallCardView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="328.0dp">
+        <FrameLayout android:layout_gravity="center_horizontal" android:layout_width="244.0dp" android:layout_height="match_parent">
+            <v.VDraweeView android:id="@id/iamge" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" app:failureImage="@color/core_color_20percent_000000" app:failureImageScaleType="centerCrop" app:placeholderImage="@color/core_color_20percent_000000" app:placeholderImageScaleType="centerCrop" app:roundedCornerRadius="20.0dp" />
+            <View android:background="@drawable/core_bg_20_gradient_191919_top" android:layout_width="match_parent" android:layout_height="40.0dp" />
+            <View android:layout_gravity="bottom" android:background="@drawable/core_bg_20_gradient_191919_bottom" android:layout_width="match_parent" android:layout_height="108.0dp" />
+            <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/core_bg_city_cover_text" android:layout_width="wrap_content" android:layout_height="26.0dp" android:layout_marginTop="19.0dp" android:layout_marginStart="19.0dp">
+                <v.VImage android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" android:layout_marginStart="6.0dp" android:layout_marginEnd="4.0dp" />
+                <v.VText android:textSize="12.0sp" android:textColor="#dbbd7a" android:id="@id/city_cover_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="城市封面" android:layout_marginEnd="7.0dp" />
+            </v.VLinear>
+            <v.VImage android:layout_gravity="right|bottom" android:id="@id/svga" android:visibility="visible" android:layout_width="80.0dp" android:layout_height="62.0dp" android:layout_marginRight="10.0dp" android:layout_marginBottom="20.0dp" android:src="@null" android:scaleType="centerCrop" />
+            <v.VLinear android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="18.0dp" android:layout_marginStart="18.0dp" android:layout_marginEnd="18.0dp">
+                <v.VText android:textSize="24.0sp" android:textColor="@color/core_color_90percent_FFFFFF" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="34.0dp" android:maxWidth="140.0dp" android:maxLines="1" />
+                <v.VText android:textSize="12.0sp" android:textColor="@color/core_color_60percent_FFFFFF" android:gravity="center_vertical" android:id="@id/desc" android:layout_width="wrap_content" android:layout_height="17.0dp" android:layout_marginTop="4.0dp" />
+            </v.VLinear>
+            <com.p1.mobile.putong.core.view.CardFrameViewCityC android:layout_width="match_parent" android:layout_height="match_parent" app:isShowLine1="true" app:isShowLine3="true" app:line1ItemRounded="20" app:line1ItemStrokeWidth="4.0dp" app:line3ItemRounded="22" app:line3ItemStrokeWidth="1.0dp" app:line3toOuterEdgeDistance="1.0dp" />
+        </FrameLayout>
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.dlg.views.CityCoverSmallCardView>

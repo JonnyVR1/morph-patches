@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.virtual.roomInfo.view.VirtualRoomInfoCoverItem android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="virtual.roomInfo.view.VirtualRoomInfoCoverItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="15.0dp" android:textColor="@color/live_white_80_opacity" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="56.0dp" android:text="房间封面" android:layout_marginStart="20.0dp" />
+    <v.VDraweeView android:id="@id/cover" android:background="@drawable/live_bg_white_r10_a03" android:layout_width="100.0dp" android:layout_height="100.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="56.0dp" android:layout_marginBottom="24.0dp" app:roundedCornerRadius="10.0dp" />
+    <ImageView android:id="@id/change_icon" android:visibility="gone" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginLeft="92.0dp" android:layout_marginTop="62.0dp" android:src="@null" />
+    <v.VText android:textSize="11.0dp" android:textColor="@color/live_white_80_opacity" android:gravity="center" android:id="@id/state" android:background="@drawable/live_bg_black_r6_a20" android:visibility="gone" android:layout_width="45.0dp" android:layout_height="20.0dp" android:layout_marginLeft="69.0dp" android:layout_marginTop="62.0dp" android:text="审核中" />
+</com.p1.mobile.putong.live.livingroom.virtual.roomInfo.view.VirtualRoomInfoCoverItem>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.gift.upgradegift.view.UpgradeGiftEquipContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="310dp"
+    flatten="true"
+    folder="increment.gift.upgradegift.view"
+    holder="UpgradeGiftEquipContainerView">
+    <include
+        android:id="@+id/second"
+        android:visibility="gone"
+        layout="@layout/live_upgrade_gift_equip_view"/>
+    <include
+        android:id="@+id/first"
+        android:visibility="gone"
+        layout="@layout/live_upgrade_gift_equip_view"/>
+</com.p051p1.mobile.putong.live.livingroom.increment.gift.upgradegift.view.UpgradeGiftEquipContainerView>

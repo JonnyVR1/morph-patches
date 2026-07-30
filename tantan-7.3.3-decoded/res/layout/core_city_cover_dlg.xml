@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="bottom" android:background="@drawable/core_city_cover_bg" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <FrameLayout android:layout_width="match_parent" android:layout_height="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp">
+                <v.VImage android:layout_gravity="start" android:id="@id/close" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" android:scaleType="centerCrop" />
+                <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_80percent_FFFFFF" android:gravity="center" android:layout_gravity="center" android:id="@id/dlg_title" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="城市封面" />
+                <v.VImage android:layout_gravity="end" android:id="@id/illustrate" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" android:scaleType="centerCrop" />
+            </FrameLayout>
+            <FrameLayout android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <include android:visibility="gone" layout="@layout/core_city_cover_view_1" />
+                <include android:visibility="gone" layout="@layout/core_city_cover_view_2" />
+                <include android:visibility="gone" layout="@layout/core_city_cover_view_3" />
+                <include android:visibility="gone" layout="@layout/core_city_cover_view_4" />
+                <FrameLayout android:id="@id/function_description" android:layout_width="match_parent" android:layout_height="562.0dp">
+                    <v.VText android:textSize="14.0sp" android:textColor="@color/core_color_80percent_FFFFFF" android:id="@id/function_description_text" android:padding="20.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:lineSpacingMultiplier="1.2" />
+                </FrameLayout>
+            </FrameLayout>
+        </v.VLinear>
+    </FrameLayout>
+</FrameLayout>

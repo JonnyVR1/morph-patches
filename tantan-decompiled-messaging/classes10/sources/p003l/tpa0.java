@@ -1,0 +1,92 @@
+package p003l;
+
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import l.spa0;
+import v.VLinear_Dividers;
+
+/* JADX INFO: loaded from: /tmp/tantan-dex/classes10.dex */
+public class tpa0 {
+    /* JADX INFO: renamed from: a */
+    public static void m9612a(spa0 spa0Var, View view) {
+        spa0Var.a = (VLinear_Dividers) view;
+        ViewGroup viewGroup = (ViewGroup) view;
+        spa0Var.b = viewGroup.getChildAt(0);
+        spa0Var.c = (LinearLayout) viewGroup.getChildAt(1);
+        spa0Var.d = ((ViewGroup) viewGroup.getChildAt(1)).getChildAt(0);
+        spa0Var.e = ((ViewGroup) viewGroup.getChildAt(1)).getChildAt(1);
+        spa0Var.f = (LinearLayout) viewGroup.getChildAt(2);
+        spa0Var.g = ((ViewGroup) viewGroup.getChildAt(2)).getChildAt(0);
+        spa0Var.h = ((ViewGroup) viewGroup.getChildAt(2)).getChildAt(1);
+        spa0Var.i = (LinearLayout) viewGroup.getChildAt(3);
+        spa0Var.j = ((ViewGroup) viewGroup.getChildAt(3)).getChildAt(0);
+        spa0Var.k = ((ViewGroup) viewGroup.getChildAt(3)).getChildAt(1);
+        spa0Var.l = (LinearLayout) viewGroup.getChildAt(4);
+        spa0Var.m = ((ViewGroup) viewGroup.getChildAt(4)).getChildAt(0);
+        spa0Var.n = ((ViewGroup) viewGroup.getChildAt(4)).getChildAt(1);
+        spa0Var.o = (LinearLayout) viewGroup.getChildAt(5);
+        spa0Var.p = ((ViewGroup) viewGroup.getChildAt(5)).getChildAt(0);
+        spa0Var.q = ((ViewGroup) viewGroup.getChildAt(5)).getChildAt(1);
+        spa0Var.r = (LinearLayout) viewGroup.getChildAt(6);
+        spa0Var.s = ((ViewGroup) viewGroup.getChildAt(6)).getChildAt(0);
+        spa0Var.t = ((ViewGroup) viewGroup.getChildAt(6)).getChildAt(1);
+        spa0Var.u = (LinearLayout) viewGroup.getChildAt(7);
+        spa0Var.v = ((ViewGroup) viewGroup.getChildAt(7)).getChildAt(0);
+        spa0Var.w = ((ViewGroup) viewGroup.getChildAt(7)).getChildAt(1);
+        spa0Var.x = (LinearLayout) viewGroup.getChildAt(8);
+        spa0Var.y = ((ViewGroup) viewGroup.getChildAt(8)).getChildAt(0);
+        spa0Var.z = ((ViewGroup) viewGroup.getChildAt(8)).getChildAt(1);
+        spa0Var.A = (LinearLayout) viewGroup.getChildAt(9);
+        spa0Var.B = ((ViewGroup) viewGroup.getChildAt(9)).getChildAt(0);
+        spa0Var.C = ((ViewGroup) viewGroup.getChildAt(9)).getChildAt(1);
+        spa0Var.D = (LinearLayout) viewGroup.getChildAt(10);
+        spa0Var.E = ((ViewGroup) viewGroup.getChildAt(10)).getChildAt(0);
+        spa0Var.F = ((ViewGroup) viewGroup.getChildAt(10)).getChildAt(1);
+        spa0Var.G = (LinearLayout) viewGroup.getChildAt(11);
+        spa0Var.H = ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(0);
+        spa0Var.I = ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(1);
+        spa0Var.J = (LinearLayout) viewGroup.getChildAt(12);
+        spa0Var.K = ((ViewGroup) viewGroup.getChildAt(12)).getChildAt(0);
+        spa0Var.L = ((ViewGroup) viewGroup.getChildAt(12)).getChildAt(1);
+        spa0Var.M = (LinearLayout) viewGroup.getChildAt(13);
+        spa0Var.N = ((ViewGroup) viewGroup.getChildAt(13)).getChildAt(0);
+        spa0Var.O = ((ViewGroup) viewGroup.getChildAt(13)).getChildAt(1);
+        spa0Var.P = (LinearLayout) viewGroup.getChildAt(14);
+        spa0Var.Q = ((ViewGroup) viewGroup.getChildAt(14)).getChildAt(0);
+        spa0Var.R = ((ViewGroup) viewGroup.getChildAt(14)).getChildAt(1);
+        spa0Var.S = (LinearLayout) viewGroup.getChildAt(15);
+        spa0Var.T = ((ViewGroup) viewGroup.getChildAt(15)).getChildAt(0);
+        spa0Var.U = ((ViewGroup) viewGroup.getChildAt(15)).getChildAt(1);
+        spa0Var.V = (LinearLayout) viewGroup.getChildAt(16);
+        spa0Var.W = ((ViewGroup) viewGroup.getChildAt(16)).getChildAt(0);
+        spa0Var.X = ((ViewGroup) viewGroup.getChildAt(16)).getChildAt(1);
+        spa0Var.Y = (LinearLayout) viewGroup.getChildAt(17);
+        spa0Var.Z = ((ViewGroup) viewGroup.getChildAt(17)).getChildAt(0);
+        spa0Var.a0 = ((ViewGroup) viewGroup.getChildAt(17)).getChildAt(1);
+        spa0Var.b0 = (LinearLayout) viewGroup.getChildAt(18);
+        spa0Var.c0 = ((ViewGroup) viewGroup.getChildAt(18)).getChildAt(0);
+        spa0Var.d0 = ((ViewGroup) viewGroup.getChildAt(18)).getChildAt(1);
+        spa0Var.e0 = (LinearLayout) viewGroup.getChildAt(19);
+        spa0Var.f0 = ((ViewGroup) viewGroup.getChildAt(19)).getChildAt(0);
+        spa0Var.g0 = ((ViewGroup) viewGroup.getChildAt(19)).getChildAt(1);
+        spa0Var.h0 = viewGroup.getChildAt(20);
+        spa0Var.i0 = (LinearLayout) viewGroup.getChildAt(21);
+        spa0Var.j0 = ((ViewGroup) viewGroup.getChildAt(21)).getChildAt(0);
+        spa0Var.k0 = ((ViewGroup) viewGroup.getChildAt(21)).getChildAt(1);
+        spa0Var.l0 = (LinearLayout) viewGroup.getChildAt(22);
+        spa0Var.m0 = ((ViewGroup) viewGroup.getChildAt(22)).getChildAt(0);
+        spa0Var.n0 = ((ViewGroup) viewGroup.getChildAt(22)).getChildAt(1);
+        spa0Var.o0 = (LinearLayout) viewGroup.getChildAt(23);
+        spa0Var.p0 = ((ViewGroup) viewGroup.getChildAt(23)).getChildAt(0);
+        spa0Var.q0 = ((ViewGroup) viewGroup.getChildAt(23)).getChildAt(1);
+        spa0Var.r0 = (LinearLayout) viewGroup.getChildAt(24);
+        spa0Var.s0 = ((ViewGroup) viewGroup.getChildAt(24)).getChildAt(0);
+        spa0Var.t0 = ((ViewGroup) viewGroup.getChildAt(24)).getChildAt(1);
+        spa0Var.u0 = (LinearLayout) viewGroup.getChildAt(25);
+        spa0Var.v0 = ((ViewGroup) viewGroup.getChildAt(25)).getChildAt(0);
+        spa0Var.w0 = ((ViewGroup) viewGroup.getChildAt(25)).getChildAt(1);
+        spa0Var.x0 = (LinearLayout) viewGroup.getChildAt(26);
+        spa0Var.y0 = ((ViewGroup) viewGroup.getChildAt(26)).getChildAt(1);
+    }
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:background="@null" android:descendantFocusability="beforeDescendants" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="42.0dp" android:layout_height="42.0dp" android:layout_margin="12.0dp">
+        <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/image" android:clickable="true" android:layout_width="match_parent" android:layout_height="match_parent" fresco:placeholderImageScaleType="fitCenter" fresco:roundAsCircle="true" />
+        <v.VText android:textSize="18.0dp" android:textColor="@color/white" android:gravity="center" android:id="@id/initials" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </FrameLayout>
+    <v.VText android:textSize="16.0sp" android:textColor="#252525" android:ellipsize="end" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:maxLines="1" android:layout_weight="100.0" fresco:enableEmojis="true" fresco:typeface="regular" />
+</v.VLinear>

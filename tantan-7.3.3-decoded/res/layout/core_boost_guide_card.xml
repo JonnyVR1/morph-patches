@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.boost.BoostGuideCardView android:id="@id/root_vieww" android:layout_width="match_parent" android:layout_height="match_parent" fresco:cardCornerRadius="20.0dp" fresco:cardElevation="0.0dp" flatten="true" folder="newui" holder="boost.BoostGuideCardView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VImage android:background="@drawable/bg_card_boost_guide" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <com.tantan.library.svga.SVGAnimationView android:layout_gravity="center" android:id="@id/boost_card_guide_svga" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="10.0dp" android:scaleType="fitCenter" />
+    </v.VFrame>
+    <v.VRelative android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VImage android:id="@id/title_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="22.0dp" android:src="@null" android:layout_centerHorizontal="true" />
+        <v.VText android:textSize="22.0sp" android:textColor="@color/white" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:text="加速配对" android:layout_below="@id/title_icon" android:layout_centerHorizontal="true" />
+        <v.VText android:textSize="16.0sp" android:textColor="#99ffffff" android:gravity="center_horizontal" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="30分钟内无限右滑，获取最高10\n倍新喜欢和配对！" android:layout_below="@id/title" android:layout_centerHorizontal="true" />
+        <v.VText android:textSize="16.0sp" android:textStyle="bold" android:textColor="#8a7acb" android:gravity="center" android:id="@id/send_btn" android:background="@drawable/core_card_button_bg_white_normal" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginBottom="40.0dp" android:text="立即获取" android:layout_alignParentBottom="true" android:layout_marginStart="56.0dp" android:layout_marginEnd="56.0dp" />
+    </v.VRelative>
+</com.p1.mobile.putong.core.newui.boost.BoostGuideCardView>

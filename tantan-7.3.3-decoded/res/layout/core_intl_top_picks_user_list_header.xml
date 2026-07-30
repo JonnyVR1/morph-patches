@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.toppicks.TopPicksUserHeaderView android:layout_width="match_parent" android:layout_height="wrap_content" holder="toppicks.TopPicksUserHeaderView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="13.0sp" android:textStyle="normal" android:textColor="#80000000" android:gravity="center_horizontal" android:layout_gravity="bottom" android:id="@id/subtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="20.0dp" android:text="@string/TTT_INTL_PICKS_INTRO" android:lineSpacingExtra="0.0sp" android:layout_marginStart="8.0dp" android:layout_marginEnd="8.0dp" />
+</com.p1.mobile.putong.core.ui.toppicks.TopPicksUserHeaderView>

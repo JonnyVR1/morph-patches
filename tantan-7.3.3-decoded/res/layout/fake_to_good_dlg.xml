@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:paddingBottom="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="180.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="48.0dp">
+        <FrameLayout android:layout_gravity="center_horizontal" android:background="@drawable/fake_forbidden_back_shape" android:layout_width="126.0dp" android:layout_height="126.0dp" android:layout_marginRight="50.0dp">
+            <v.VDraweeView android:layout_gravity="center" android:id="@id/me" android:layout_width="110.0dp" android:layout_height="110.0dp" fresco:roundAsCircle="true" />
+        </FrameLayout>
+        <FrameLayout android:layout_gravity="center_horizontal" android:background="@drawable/fake_forbidden_back_shape" android:layout_width="126.0dp" android:layout_height="126.0dp" android:layout_marginLeft="50.0dp">
+            <v.VDraweeView android:layout_gravity="center" android:id="@id/other" android:layout_width="110.0dp" android:layout_height="110.0dp" fresco:roundAsCircle="true" />
+        </FrameLayout>
+        <v.VImage android:layout_gravity="center|bottom" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" />
+    </FrameLayout>
+    <v.VText android:textSize="19.0sp" android:textColor="#de000000" android:gravity="center" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" android:text="@string/FAKE2GOOD_DIALOG_TITLE" />
+    <v.VText android:textSize="14.0sp" android:textColor="#8a000000" android:gravity="center" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="@string/FAKE2GOOD_DIALOG_SUBTITLE" />
+</LinearLayout>

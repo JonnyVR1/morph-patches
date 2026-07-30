@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.common.bottom.sticker.LiveStickerMenuItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/live_selector_gift_sticker_sticker_item_bg"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    app:live_base="width"
+    app:live_ratio="2.31"
+    flatten="true"
+    folder="common.bottom.sticker"
+    holder="LiveStickerMenuItem">
+    <p151v.VDraweeView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:actualImageScaleType="fitCenter"/>
+</com.p051p1.mobile.putong.live.livingroom.common.bottom.sticker.LiveStickerMenuItem>

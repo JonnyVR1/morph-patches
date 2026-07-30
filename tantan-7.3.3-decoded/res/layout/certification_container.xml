@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/certification_normal" android:layout_width="wrap_content" android:layout_height="20.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:id="@id/icon" android:layout_width="12.0dp" android:layout_height="12.0dp" />
+    <v.VText android:textColor="#ffffff" android:ellipsize="end" android:id="@id/text" android:paddingTop="2.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:lines="1" android:includeFontPadding="false" android:layout_marginStart="2.0dp" />
+</v.VLinear>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/input_layout_root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="common.fansclub.widget" holder="LiveFansClubMedalEditPanel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/input_empty_view" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+    <LinearLayout android:layout_gravity="bottom" android:orientation="horizontal" android:id="@id/input_layout" android:background="@drawable/live_bg_white_tr8" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48.0dp">
+        <v.VEditText android:textSize="14.0sp" android:textColor="@android:color/black" android:id="@id/edit_text" android:background="@null" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="16.0dp" android:layout_marginBottom="14.0dp" android:maxLines="2" android:layout_weight="1.0" />
+        <v.VText android:enabled="false" android:textSize="12.0sp" android:textColor="@android:color/white" android:gravity="center" android:layout_gravity="bottom" android:id="@id/btn_done" android:background="@drawable/live_bg_fe7e1d_r8" android:layout_width="64.0dp" android:layout_height="32.0dp" android:layout_marginLeft="24.0dp" android:layout_marginRight="10.0dp" android:layout_marginBottom="4.0dp" android:text="@string/LIVE_FANS_CLUB_SEND" />
+    </LinearLayout>
+</LinearLayout>

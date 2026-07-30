@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.view.LivePreviewCampaignView android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="view" holder="LivePreviewCampaignView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:id="@id/recruit_anchor_setting" android:background="@drawable/live_bg_black_r10_a20" android:visibility="gone" android:layout_width="match_parent" android:layout_height="46.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" flatten="true">
+        <v.VText android:textSize="12.0sp" android:textColor="@color/live_white" android:ellipsize="end" android:gravity="center" android:id="@id/campaign_title" android:background="@drawable/live_bg_black_r10_a20" android:paddingLeft="6.0dp" android:paddingRight="6.0dp" android:layout_width="wrap_content" android:layout_height="24.0dp" android:layout_marginLeft="16.0dp" android:maxLines="1" android:layout_centerVertical="true" />
+        <com.p1.mobile.putong.live.livingroom.view.AutoRollView android:id="@id/content" android:layout_width="match_parent" android:layout_height="36.0dp" android:layout_marginLeft="8.0dp" android:layout_marginRight="44.0dp" android:layout_toRightOf="@id/campaign_title" android:layout_centerVertical="true" app:contentTextColor="@color/white" app:contentTextSize="12.0sp" />
+        <FrameLayout android:gravity="center" android:id="@id/campaign_close" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginRight="16.0dp" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+            <v.VImage android:layout_gravity="center" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" />
+        </FrameLayout>
+    </RelativeLayout>
+</com.p1.mobile.putong.live.livingroom.view.LivePreviewCampaignView>

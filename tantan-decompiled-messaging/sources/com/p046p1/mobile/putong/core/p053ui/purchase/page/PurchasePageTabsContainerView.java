@@ -1,0 +1,141 @@
+package com.p046p1.mobile.putong.core.p053ui.purchase.page;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import androidx.viewpager.widget.ViewPager;
+import com.clevertap.android.sdk.Constants;
+import com.p046p1.mobile.putong.core.data.PurchaseType;
+import com.p046p1.mobile.putong.core.p053ui.purchase.page.PurchasePageTabsContainerView;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import kotlin.Metadata;
+import kotlin.collections.CollectionsKt;
+import kotlin.jvm.JvmOverloads;
+import kotlin.jvm.internal.DefaultConstructorMarker;
+import kotlin.jvm.internal.Intrinsics;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import p149l.m6c0;
+import p149l.o7r;
+import p149l.t100;
+
+/* JADX INFO: loaded from: classes9.dex */
+@Metadata(m87231d1 = {"\u0000<\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\t\n\u0002\u0010!\n\u0002\u0018\u0002\n\u0002\b\u0003\u0018\u00002\u00020\u0001:\u0001\u0015B\u001d\b\u0007\u0012\u0006\u0010\u0003\u001a\u00020\u0002\u0012\n\b\u0002\u0010\u0005\u001a\u0004\u0018\u00010\u0004¢\u0006\u0004\b\u0006\u0010\u0007J\u001b\u0010\f\u001a\u00020\u000b2\f\u0010\n\u001a\b\u0012\u0004\u0012\u00020\t0\b¢\u0006\u0004\b\f\u0010\rJ\u0015\u0010\u000f\u001a\u00020\u000b2\u0006\u0010\u000e\u001a\u00020\t¢\u0006\u0004\b\u000f\u0010\u0010J\u0017\u0010\u0013\u001a\u00020\u000b2\b\u0010\u0012\u001a\u0004\u0018\u00010\u0011¢\u0006\u0004\b\u0013\u0010\u0014R\u001c\u0010\n\u001a\b\u0012\u0004\u0012\u00020\t0\b8\u0002@\u0002X\u0082.¢\u0006\u0006\n\u0004\b\u0015\u0010\u0016R\u0018\u0010\u0018\u001a\u0004\u0018\u00010\t8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u000f\u0010\u0017R\u0018\u0010\u001a\u001a\u0004\u0018\u00010\u00118\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\f\u0010\u0019R\u001c\u0010\u001e\u001a\b\u0012\u0004\u0012\u00020\u001c0\u001b8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u001d\u0010\u0016¨\u0006\u001f"}, m87232d2 = {"Lcom/p1/mobile/putong/core/ui/purchase/page/PurchasePageTabsContainerView;", "Landroid/widget/LinearLayout;", "Landroid/content/Context;", "context", "Landroid/util/AttributeSet;", "attrs", "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V", "", "Lcom/p1/mobile/putong/core/data/PurchaseType;", "purchaseTypes", "", "c", "(Ljava/util/List;)V", "purchaseType", "b", "(Lcom/p1/mobile/putong/core/data/PurchaseType;)V", "Landroidx/viewpager/widget/ViewPager;", "viewPager", "setupWithViewPager", "(Landroidx/viewpager/widget/ViewPager;)V", "a", "Ljava/util/List;", "Lcom/p1/mobile/putong/core/data/PurchaseType;", "currentPurchaseType", "Landroidx/viewpager/widget/ViewPager;", "_pager", "", "Lcom/p1/mobile/putong/core/ui/purchase/page/PurchasePageTabsContainerView$a;", Constants.INAPP_DATA_TAG, "onTabSelectChangeListeners", "pay_intlGmsRelease"}, m87233k = 1, m87234mv = {2, 2, 0}, m87236xi = 48)
+public final class PurchasePageTabsContainerView extends LinearLayout {
+
+    /* JADX INFO: renamed from: a, reason: from kotlin metadata */
+    public List<? extends PurchaseType> purchaseTypes;
+
+    /* JADX INFO: renamed from: b, reason: from kotlin metadata */
+    @Nullable
+    public PurchaseType currentPurchaseType;
+
+    /* JADX INFO: renamed from: c, reason: from kotlin metadata */
+    @Nullable
+    public ViewPager _pager;
+
+    /* JADX INFO: renamed from: d, reason: from kotlin metadata */
+    @NotNull
+    public List<InterfaceC8784a> onTabSelectChangeListeners;
+
+    /* JADX INFO: renamed from: com.p1.mobile.putong.core.ui.purchase.page.PurchasePageTabsContainerView$a */
+    @Metadata(m87231d1 = {"\u0000\u0016\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0003\bf\u0018\u00002\u00020\u0001J\u0017\u0010\u0005\u001a\u00020\u00042\u0006\u0010\u0003\u001a\u00020\u0002H&¢\u0006\u0004\b\u0005\u0010\u0006¨\u0006\u0007À\u0006\u0003"}, m87232d2 = {"Lcom/p1/mobile/putong/core/ui/purchase/page/PurchasePageTabsContainerView$a;", "", "Lcom/p1/mobile/putong/core/data/PurchaseType;", "purchaseType", "", "a", "(Lcom/p1/mobile/putong/core/data/PurchaseType;)V", "pay_intlGmsRelease"}, m87233k = 1, m87234mv = {2, 2, 0}, m87236xi = 48)
+    public interface InterfaceC8784a {
+        /* JADX INFO: renamed from: a */
+        void mo54173a(@NotNull PurchaseType purchaseType);
+    }
+
+    /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+    @JvmOverloads
+    public PurchasePageTabsContainerView(@NotNull Context context, @Nullable AttributeSet attributeSet) {
+        super(context, attributeSet);
+        context.getClass();
+        this.onTabSelectChangeListeners = new ArrayList();
+        setOrientation(0);
+    }
+
+    /* JADX INFO: renamed from: a */
+    public static void m54170a(PurchasePageTabsContainerView purchasePageTabsContainerView, List list, int i, View view) {
+        if (purchasePageTabsContainerView.currentPurchaseType == list.get(i)) {
+            return;
+        }
+        purchasePageTabsContainerView.m54171b((PurchaseType) list.get(i));
+    }
+
+    /* JADX INFO: renamed from: b */
+    public final void m54171b(@NotNull PurchaseType purchaseType) {
+        purchaseType.getClass();
+        this.currentPurchaseType = purchaseType;
+        Iterator<InterfaceC8784a> it = this.onTabSelectChangeListeners.iterator();
+        while (it.hasNext()) {
+            it.next().mo54173a(purchaseType);
+        }
+        List<? extends PurchaseType> list = this.purchaseTypes;
+        if (list == null) {
+            Intrinsics.m87502r("purchaseTypes");
+            list = null;
+        }
+        int iIndexOf = CollectionsKt.indexOf(list, this.currentPurchaseType);
+        ViewPager viewPager = this._pager;
+        if (viewPager != null) {
+            viewPager.m4176T(iIndexOf, true);
+        }
+    }
+
+    /* JADX INFO: renamed from: c */
+    public final void m54172c(@NotNull final List<? extends PurchaseType> purchaseTypes) {
+        purchaseTypes.getClass();
+        this.purchaseTypes = purchaseTypes;
+        int size = purchaseTypes.size();
+        for (final int i = 0; i < size; i++) {
+            if (i != 0) {
+                View view = new View(getContext());
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(t100.f167254c, t100.f167262k);
+                layoutParams.gravity = 17;
+                view.setLayoutParams(layoutParams);
+                view.setBackgroundColor(Color.parseColor("#1A000000"));
+                addView(view, layoutParams);
+            }
+            View viewInflate = o7r.m163037a(getContext()).inflate(m6c0.f131671z1, (ViewGroup) this, false);
+            viewInflate.getClass();
+            PurchasePageTabsItemView purchasePageTabsItemView = (PurchasePageTabsItemView) viewInflate;
+            PurchaseType purchaseType = purchaseTypes.get(i);
+            boolean z = true;
+            if (purchaseTypes.size() <= 1) {
+                z = false;
+            }
+            purchasePageTabsItemView.m54175c(i, purchaseType, z);
+            purchasePageTabsItemView.setOnClickListener(new View.OnClickListener() { // from class: l.v5b0
+                @Override // android.view.View.OnClickListener
+                public final void onClick(View view2) {
+                    PurchasePageTabsContainerView.m54170a(this.f180018a, purchaseTypes, i, view2);
+                }
+            });
+            this.onTabSelectChangeListeners.add(purchasePageTabsItemView.getTabSelectChangeListeners());
+            LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(0, -2);
+            layoutParams2.weight = 1.0f;
+            addView(purchasePageTabsItemView, layoutParams2);
+        }
+    }
+
+    public final void setupWithViewPager(@Nullable ViewPager viewPager) {
+        this._pager = viewPager;
+    }
+
+    /* JADX WARN: 'this' call moved to the top of the method (can break code semantics) */
+    /* JADX WARN: Multi-variable type inference failed */
+    @JvmOverloads
+    public PurchasePageTabsContainerView(@NotNull Context context) {
+        this(context, null, 2, 0 == true ? 1 : 0);
+        context.getClass();
+    }
+
+    public /* synthetic */ PurchasePageTabsContainerView(Context context, AttributeSet attributeSet, int i, DefaultConstructorMarker defaultConstructorMarker) {
+        this(context, (i & 2) != 0 ? null : attributeSet);
+    }
+}

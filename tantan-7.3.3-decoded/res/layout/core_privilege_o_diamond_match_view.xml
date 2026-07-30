@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.privilege.PrivilegeODiamondMatchView android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" holder="purchase.privilege.PrivilegeODiamondMatchView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar_right" android:background="@null" android:padding="4.0dp" android:layout_width="92.0dp" android:layout_height="92.0dp" android:layout_marginTop="9.0dp" android:layout_marginRight="-40.0dp" app:actualImageScaleType="centerCrop" app:roundAsCircle="true" />
+    <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar_left" android:background="@null" android:padding="4.0dp" android:layout_width="92.0dp" android:layout_height="92.0dp" android:layout_marginLeft="-40.0dp" android:layout_marginTop="9.0dp" app:actualImageScaleType="centerCrop" app:roundAsCircle="true" />
+    <v.VImage android:layout_gravity="center" android:id="@id/icon" android:layout_width="45.0dp" android:layout_height="45.0dp" android:layout_marginBottom="24.0dp" android:src="@null" />
+</com.p1.mobile.putong.core.ui.purchase.privilege.PrivilegeODiamondMatchView>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="newmeet.feed.pager.MeetFeedPagerItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VPager android:id="@id/images_pager" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <com.p1.mobile.putong.core.newui.home.NewPictureContainerIndicator android:id="@id/image_indicator" android:visibility="gone" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="16.0dp" app:indicatorColor="#33ffffff" app:indicatorMargin="4.0dp" app:indicatorSelectedColor="@color/white" />
+    <TextView android:id="@id/left_top_tag" android:background="@drawable/core_see_chat_immediately_badges_bg" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="12.0dp" android:text="即刻聊天" android:layout_below="@id/image_indicator" android:drawableStart="@null" app:typeface="medium" style="@style/core_user_card_top_left_label" />
+</RelativeLayout>

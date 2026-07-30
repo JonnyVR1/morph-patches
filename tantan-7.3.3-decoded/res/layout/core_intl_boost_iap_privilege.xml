@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VRelative android:id="@id/top_view" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VImage android:id="@id/image_close" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginRight="24.0dp" android:layout_alignParentRight="true" />
+        <LinearLayout android:orientation="vertical" android:paddingLeft="30.0dp" android:paddingRight="30.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="40.0dp" android:paddingHorizontal="30.0dp">
+            <v.VText android:textSize="22.0sp" android:textStyle="bold" android:textColor="#000000" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/feature_name_text" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <v.VText android:textSize="15.0sp" android:textColor="#66100e0e" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/promotional_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" />
+        </LinearLayout>
+    </v.VRelative>
+</FrameLayout>

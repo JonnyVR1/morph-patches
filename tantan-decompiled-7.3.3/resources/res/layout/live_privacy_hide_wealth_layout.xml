@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.external.page.setting.privacy.view.HideWealthIconView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="@color/live_gray_21"
+        android:gravity="center_vertical"
+        android:layout_gravity="bottom|center_horizontal"
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        android:text="@string/LIVE_HIDE_WEALTH_ICON"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <p151v.VImage
+        android:id="@+id/arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="0x7f0826c8"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title"/>
+    <p151v.VText
+        android:textSize="12sp"
+        android:textColor="@color/live_gray_99"
+        android:id="@+id/desc"
+        android:background="@color/live_gray_f7"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/LIVE_HIDE_WEALTH_ICON_DESC"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"/>
+</com.p051p1.mobile.putong.live.external.page.setting.privacy.view.HideWealthIconView>

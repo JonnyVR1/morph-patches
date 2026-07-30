@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@drawable/feed_dialog_bottom_to_top_bg" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="group.dialog.insert.selecteditem.FeedPostSelectedTopicsView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VMenuBar android:id="@id/title_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:menubar_icon_left="@null" app:menubar_text_center="@string/FEED_ADD_MOMENT_TOPIC" />
+        <View android:background="@color/feed_post_bg_add_topic_line_color" android:layout_width="match_parent" android:layout_height="0.5dp" android:layout_marginBottom="17.0dp" />
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rv_recommend_topic" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="80.0dp" />
+    </LinearLayout>
+    <v.VButton android:textColor="@color/feed_post_tv_confirm_color" android:layout_gravity="bottom" android:id="@id/ok" android:background="@drawable/common_button_btn_orange_medium" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" android:text="@string/ACTION_CONFIRM" style="@style/common_button_large_01" />
+</FrameLayout>

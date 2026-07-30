@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.view.TopicRecommendUserView android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="photoalbum.view.TopicRecommendUserView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:id="@id/recommend_user_ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" flatten="true">
+        <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/feed_e6000000" android:id="@id/module_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dp" android:text="兴趣找人" />
+        <v.VRecyclerView android:id="@id/recommend_user_rv" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="16.0dp" android:layout_marginBottom="16.0dp" android:divider="@null" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </v.VLinear>
+</com.p1.mobile.putong.feed.newui.photoalbum.view.TopicRecommendUserView>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.signin.main.SignInCycleFinishView android:layout_width="62.0dp" android:layout_height="94.0dp" flatten="true" folder="common.signin.main" holder="SignInCycleFinishView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/further" android:layout_width="62.0dp" android:layout_height="94.0dp" layout="@layout/live_sign_in_cycle_further_item" />
+    <v.VImage android:background="@drawable/live_bg_d90754_r8_a55" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="center" app:srcCompat="@null" />
+</com.p1.mobile.putong.live.livingroom.common.signin.main.SignInCycleFinishView>

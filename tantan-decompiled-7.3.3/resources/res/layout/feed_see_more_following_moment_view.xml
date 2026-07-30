@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.feed.newui.photoalbum.view.FeedSeeMoreFollowingMomentView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="newui"
+    holder="photoalbum.view.FeedSeeMoreFollowingMomentView">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:id="@+id/see_more_container"
+        android:background="@drawable/feed_see_more_following_moment_bg"
+        android:paddingLeft="12dp"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="19dp"
+        android:layout_centerHorizontal="true"
+        flatten="true">
+        <p151v.VText
+            android:textSize="12sp"
+            android:textColor="@color/feed_33000000"
+            android:id="@+id/see_more_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/see_more_image"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="4dp"
+            android:src="0x7f081ecd"/>
+    </LinearLayout>
+</com.p051p1.mobile.putong.feed.newui.photoalbum.view.FeedSeeMoreFollowingMomentView>

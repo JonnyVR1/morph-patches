@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@drawable/feed_my_interest_people_back" android:paddingBottom="15.0dp" android:layout_width="match_parent" android:layout_height="match_parent" flatten="false" folder="newui" holder="photoalbum.myInterestPeople.item.FeedMyInterestItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VScroll android:id="@id/scroll" android:scrollbars="none" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" flatten="true">
+        <LinearLayout android:orientation="vertical" android:id="@id/container" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="335.0dp">
+                <v.VDraweeView android:id="@id/head" android:layout_width="match_parent" android:layout_height="335.0dp" />
+                <View android:background="@drawable/feed_my_head_bottom_shadow" android:layout_width="match_parent" android:layout_height="108.0dp" android:layout_alignParentBottom="true" />
+                <RelativeLayout android:id="@id/state" android:background="@drawable/feed_my_instest_people_tips_bg" android:paddingLeft="12.0dp" android:paddingRight="8.0dp" android:layout_width="wrap_content" android:layout_height="28.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp">
+                    <ImageView android:id="@id/image" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_centerVertical="true" />
+                    <TextView android:textSize="12.0dp" android:textStyle="bold" android:textColor="@color/white" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:layout_toRightOf="@id/image" android:layout_centerVertical="true" />
+                </RelativeLayout>
+                <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/name_age_tag_wrap" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="6.0dp" android:layout_above="@id/location_and_active" flatten="true">
+                    <v.VText android:textSize="20.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/name" android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_weight="1.0" style="@style/feed_card_text" />
+                    <v.VText android:textSize="20.0sp" android:textColor="@color/white" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/age" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" style="@style/feed_card_text" />
+                    <ImageView android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/pic_tag_icon" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginLeft="6.0dp" />
+                    <ImageView android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/tantan_tag_icon" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginLeft="6.0dp" />
+                </LinearLayout>
+                <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="start|bottom" android:id="@id/location_and_active" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:paddingBottom="14.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="1" android:layout_weight="1.0" android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+            <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="#e6000000" android:id="@id/my_moment_title" android:paddingLeft="16.0dp" android:paddingTop="18.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/CORE_DYNAMIC" />
+            <LinearLayout android:orientation="horizontal" android:id="@id/moments" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" flatten="true">
+                <v.VDraweeView android:id="@id/moment1" android:layout_width="wrap_content" android:layout_height="wrap_content" app:roundedCornerRadius="10.0dp" />
+                <v.VDraweeView android:id="@id/moment2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" app:roundedCornerRadius="10.0dp" />
+                <v.VDraweeView android:id="@id/moment3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" app:roundedCornerRadius="10.0dp" />
+                <v.VDraweeView android:id="@id/moment4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" app:roundedCornerRadius="10.0dp" />
+            </LinearLayout>
+            <include layout="@layout/feed_profile_my_information" />
+            <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="#e6000000" android:id="@id/my_tag_title" android:paddingLeft="16.0dp" android:paddingTop="20.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/PROFILE_SECTION_HEADER_PERSONALITY" />
+            <v.VText_Tags android:id="@id/tags" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp" />
+            <View android:layout_width="match_parent" android:layout_height="140.0dp" />
+        </LinearLayout>
+    </v.VScroll>
+    <LinearLayout android:layout_gravity="bottom" android:background="@drawable/feed_my_head_top_shadow" android:paddingBottom="17.0dp" android:layout_width="match_parent" android:layout_height="142.0dp" android:layout_marginLeft="13.0dp" android:layout_marginRight="13.0dp">
+        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="bottom" android:id="@id/dislike" android:background="@null" android:layout_width="0.0dp" android:layout_height="62.0dp" android:layout_weight="1.0" />
+        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="bottom" android:id="@id/like" android:background="@null" android:layout_width="0.0dp" android:layout_height="62.0dp" android:layout_marginLeft="10.0dp" android:layout_weight="1.0" />
+    </LinearLayout>
+    <com.p1.mobile.putong.feed.newui.photoalbum.myInterestPeople.item.SmartScrollBar android:layout_gravity="right" android:id="@id/scrollbar" android:background="#33000000" android:layout_width="4.0dp" android:layout_height="67.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="45.0dp" app:smart_background_corner="10.0dp" app:smart_can_scroll_style="always_show" app:smart_cant_scroll_style="visible" app:smart_orientation="vertical" app:smart_slider_color="@color/white" app:smart_slider_corner="10.0dp" app:smart_slider_length="29.999996%" app:smart_slider_style="固定大小" />
+</FrameLayout>

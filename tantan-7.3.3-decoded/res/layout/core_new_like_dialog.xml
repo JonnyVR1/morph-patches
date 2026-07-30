@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.seepop.NewLikeView android:layout_gravity="center" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="wrap_content" holder="seepop.NewLikeView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/bg_view" android:layout_width="match_parent" android:layout_height="240.0dp" android:adjustViewBounds="true" app:actualImageScaleType="fitXY" />
+    <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.VRelative android:gravity="center" android:layout_width="match_parent" android:layout_height="170.0dp" android:layout_marginTop="20.0dp" android:layout_marginBottom="10.0dp" flatten="true">
+            <v.VFrame android:id="@id/layout_single" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+                <v.VDraweeView android:id="@id/single_image" android:background="@null" android:paddingLeft="14.0dp" android:paddingTop="17.0dp" android:paddingRight="14.0dp" android:paddingBottom="17.0dp" android:layout_width="114.0dp" android:layout_height="144.0dp" app:roundedCornerRadius="10.0dp" />
+                <v.VImage android:layout_gravity="right|bottom" android:layout_width="22.0dp" android:layout_height="14.0dp" android:layout_marginRight="21.0dp" android:layout_marginBottom="25.0dp" android:src="@null" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/layout_double" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+                <v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="81.0dp" android:rotation="-6.0">
+                    <v.VDraweeView android:id="@id/double_left" android:background="@null" android:paddingLeft="14.0dp" android:paddingTop="17.0dp" android:paddingRight="14.0dp" android:paddingBottom="17.0dp" android:layout_width="114.0dp" android:layout_height="144.0dp" app:roundedCornerRadius="10.0dp" />
+                    <v.VImage android:layout_gravity="right|bottom" android:layout_width="22.0dp" android:layout_height="14.0dp" android:layout_marginRight="21.0dp" android:layout_marginBottom="25.0dp" android:src="@null" />
+                </v.VFrame>
+                <v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="81.0dp" android:rotation="6.0">
+                    <v.VDraweeView android:id="@id/double_right" android:background="@null" android:paddingLeft="14.0dp" android:paddingTop="17.0dp" android:paddingRight="14.0dp" android:paddingBottom="17.0dp" android:layout_width="114.0dp" android:layout_height="144.0dp" app:roundedCornerRadius="10.0dp" />
+                    <v.VImage android:layout_gravity="right|bottom" android:layout_width="22.0dp" android:layout_height="14.0dp" android:layout_marginRight="21.0dp" android:layout_marginBottom="25.0dp" android:src="@null" />
+                </v.VFrame>
+            </v.VFrame>
+            <v.VFrame android:id="@id/layout_three" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+                <v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" android:layout_marginRight="140.0dp" android:rotation="-6.0">
+                    <v.VDraweeView android:id="@id/three_left" android:background="@null" android:paddingLeft="12.0dp" android:paddingTop="15.0dp" android:paddingRight="12.0dp" android:paddingBottom="15.0dp" android:layout_width="102.0dp" android:layout_height="129.0dp" app:roundedCornerRadius="9.0dp" />
+                    <v.VImage android:layout_gravity="right|bottom" android:layout_width="22.0dp" android:layout_height="14.0dp" android:layout_marginRight="21.0dp" android:layout_marginBottom="25.0dp" android:src="@null" />
+                </v.VFrame>
+                <v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="140.0dp" android:layout_marginTop="15.0dp" android:rotation="6.0">
+                    <v.VDraweeView android:id="@id/three_right" android:background="@null" android:paddingLeft="12.0dp" android:paddingTop="15.0dp" android:paddingRight="12.0dp" android:paddingBottom="15.0dp" android:layout_width="102.0dp" android:layout_height="129.0dp" app:roundedCornerRadius="9.0dp" />
+                    <v.VImage android:layout_gravity="right|bottom" android:layout_width="22.0dp" android:layout_height="14.0dp" android:layout_marginRight="19.0dp" android:layout_marginBottom="23.0dp" android:src="@null" />
+                </v.VFrame>
+                <v.VFrame android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <v.VDraweeView android:id="@id/three_center" android:background="@null" android:paddingLeft="14.0dp" android:paddingTop="17.0dp" android:paddingRight="14.0dp" android:paddingBottom="17.0dp" android:layout_width="114.0dp" android:layout_height="144.0dp" app:roundedCornerRadius="10.0dp" />
+                    <v.VImage android:layout_gravity="right|bottom" android:layout_width="22.0dp" android:layout_height="14.0dp" android:layout_marginRight="21.0dp" android:layout_marginBottom="25.0dp" android:src="@null" />
+                </v.VFrame>
+            </v.VFrame>
+        </v.VRelative>
+        <v.VText android:textSize="20.0sp" android:textColor="#212121" android:gravity="center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="8.0dp" />
+        <v.VText android:textSize="15.0sp" android:textColor="#999999" android:gravity="center" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="18.0dp" android:lineSpacingExtra="5.0sp" />
+        <v.VText android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/positive" android:background="@drawable/core_newlike_botton" android:paddingTop="14.0dp" android:paddingBottom="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="16.0dp" android:lineSpacingExtra="5.0sp" />
+        <v.VText android:textSize="15.0sp" android:textColor="#999999" android:gravity="center" android:id="@id/negative" android:paddingTop="17.0dp" android:paddingBottom="17.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="12.0dp" android:text="@string/NEW_LIKE_KILL_BUTTUN" android:lineSpacingExtra="5.0sp" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.seepop.NewLikeView>

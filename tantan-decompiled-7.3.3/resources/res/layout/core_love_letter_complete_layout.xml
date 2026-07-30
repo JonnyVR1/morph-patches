@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.loveletter.LoveLetterCompleteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/main_header"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        layout="@layout/core_love_letter_main_layout"/>
+    <com.p051p1.mobile.putong.core.p058ui.VText_Medium
+        android:textSize="16dp"
+        android:textColor="@color/core_love_letter_confirm_text"
+        android:gravity="center"
+        android:layout_gravity="bottom|center_horizontal"
+        android:id="@+id/submit_button"
+        android:background="@drawable/core_love_letter_confirm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="46dp"
+        android:text="查看情书"/>
+</com.p051p1.mobile.putong.core.newui.loveletter.LoveLetterCompleteLayout>

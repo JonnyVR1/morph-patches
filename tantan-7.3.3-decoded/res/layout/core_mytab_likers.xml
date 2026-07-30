@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" holder="vip.likers.mytab.LikersMyTabViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VRecyclerView android:id="@id/list" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="2.0dp" />
+    <include android:id="@id/empty" android:visibility="gone" flatten="true" layout="@layout/core_mytab_empty" />
+</RelativeLayout>

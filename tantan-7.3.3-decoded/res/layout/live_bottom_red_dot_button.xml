@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.bottom.RedDotButton android:orientation="vertical" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="common" holder="bottom.RedDotButton"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/icon_fr" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <v.VDraweeView android:id="@id/icon" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <com.tantan.library.svga.SVGAnimationView android:id="@id/svga_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" />
+    </FrameLayout>
+    <View android:layout_gravity="right|top" android:id="@id/red_dot" android:background="@drawable/live_bg_ff6464_r3" android:visibility="gone" android:layout_width="8.0dp" android:layout_height="8.0dp" />
+</com.p1.mobile.putong.live.livingroom.common.bottom.RedDotButton>

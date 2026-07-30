@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeBadgeView android:layout_width="match_parent" android:layout_height="match_parent" holder="purchase.page.PurchasePrivilegeBadgeView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center|bottom" android:id="@id/avatar_area" android:background="@null" android:layout_width="90.0dp" android:layout_height="90.0dp" flatten="true">
+        <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="68.0dp" android:layout_height="68.0dp" app:roundAsCircle="true" />
+        <v.VImage android:layout_gravity="right" android:id="@id/vip_icon" android:layout_width="36.0dp" android:layout_height="36.0dp" android:src="@null" />
+        <v.VImage android:layout_gravity="center|bottom" android:id="@id/vip_badge" android:layout_width="wrap_content" android:layout_height="19.0dp" android:layout_marginTop="1.0dp" android:src="@null" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeBadgeView>

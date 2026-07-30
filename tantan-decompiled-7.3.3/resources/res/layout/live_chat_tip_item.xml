@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="13sp"
+    android:textStyle="normal"
+    android:textColor="@color/live_white"
+    android:gravity="center"
+    android:background="@drawable/live_bg_19191e_r12_a90"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:fontFamily="sans-serif-medium"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"/>

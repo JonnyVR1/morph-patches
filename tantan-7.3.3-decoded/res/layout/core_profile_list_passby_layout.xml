@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:id="@id/passby" holder="profile.profilelist.itemholders.ProfilePassByItemHolder" style="@style/profile_item_frame_no_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:id="@id/times" style="@style/profile_item_title" />
+    <v.VDraweeView android:id="@id/map_static" android:background="#f6f6f6" android:layout_width="match_parent" android:layout_height="112.0dp" android:layout_marginLeft="16.0sp" android:layout_marginTop="8.0dp" android:layout_marginRight="16.0sp" />
+    <v.VText android:textSize="14.0sp" android:textColor="#b2000000" android:id="@id/location" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0sp" android:layout_marginTop="16.0sp" android:layout_marginRight="16.0sp" />
+    <v.VText android:textSize="12.0sp" android:textColor="#52000000" android:id="@id/time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0sp" android:layout_marginTop="6.0sp" android:layout_marginRight="16.0sp" />
+</v.VLinear_Dividers>

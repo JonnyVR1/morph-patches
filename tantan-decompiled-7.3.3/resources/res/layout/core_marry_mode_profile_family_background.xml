@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingTop="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
+    <p151v.VText
+        android:textSize="18sp"
+        android:textColor="@color/core_color_80percent_000000"
+        android:id="@+id/title"
+        android:paddingTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="家庭背景"
+        app:typeface="medium"/>
+    <p151v.VText
+        android:textSize="15sp"
+        android:textColor="@color/core_color_40percent_000000"
+        android:id="@+id/des"
+        android:paddingTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:lineSpacingMultiplier="1.4"
+        app:typeface="medium"/>
+    <View
+        android:background="@color/core_color_03percent_000000"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="32dp"/>
+</p151v.VLinear>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.view.MessageIdealEnquiryLayout android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.view.MessageIdealEnquiryLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:background="@drawable/core_local_ideal_enquiry_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="10.0dp">
+        <v.VLinear android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15.0dp" android:layout_marginTop="15.0dp" android:layout_marginRight="5.0dp">
+            <v.VImage android:layout_width="42.0dp" android:layout_height="42.0dp" app:srcCompat="@drawable/core_local_ideal_enquiry_ic" />
+            <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginRight="0.0dp">
+                <com.p1.mobile.putong.core.ui.VText_Default_Bold android:textSize="15.0dp" android:textColor="@color/common_000000_80" android:id="@id/enquiry_title" android:layout_width="wrap_content" android:layout_height="21.0dp" />
+                <v.VText android:textSize="12.5dp" android:textColor="@color/common_000000_40" android:id="@id/enquiry_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:lineHeight="18.0dp" />
+            </v.VLinear>
+        </v.VLinear>
+        <com.p1.mobile.putong.core.ui.profile.views.FlowTagsView android:id="@id/ideal_tags" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="16.0dp" />
+        <com.p1.mobile.putong.core.ui.VText_Default_Bold android:textColor="#ffffff" android:gravity="center" android:id="@id/save_btn" android:layout_width="match_parent" android:layout_height="42.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="16.0dp" android:text="保存" />
+    </v.VLinear>
+    <v.VImage android:layout_gravity="right|top" android:id="@id/ideal_close_btn" android:background="@null" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="32.0dp" android:layout_marginRight="44.0dp" android:scaleType="centerInside" />
+</com.p1.mobile.putong.core.ui.messages.view.MessageIdealEnquiryLayout>

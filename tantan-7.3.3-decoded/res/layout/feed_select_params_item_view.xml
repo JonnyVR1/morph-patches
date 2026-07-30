@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/message_sort_default_layout" android:paddingLeft="20.0dp" android:paddingTop="10.0dp" android:paddingRight="12.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.VText android:textSize="14.0sp" android:textColor="#212121" android:ellipsize="end" android:id="@id/message_sort_default_text" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:maxWidth="112.0dp" android:text="只看男性" android:singleLine="true" android:layout_alignParentLeft="true" android:layout_centerVertical="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toLeftOf="@id/img_con" app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout android:id="@id/img_con" android:layout_width="16.0dp" android:layout_height="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent">
+            <v.VImage android:layout_gravity="right|center" android:id="@id/message_sort_default_check_image" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@null" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

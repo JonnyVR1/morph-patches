@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topside_layer"
+    android:clipChildren="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true">
+    <com.p051p1.mobile.putong.live.livingroom.voice.bubble.VoiceLiveBubbleView
+        android:id="@+id/live_bubble"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"/>
+    <View
+        android:id="@+id/shadow"
+        android:background="@color/live_black_60_opacity"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</p151v.VFrame>

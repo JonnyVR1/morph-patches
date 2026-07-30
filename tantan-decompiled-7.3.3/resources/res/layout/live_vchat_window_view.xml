@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.external.internal.vchat.window.VChatWindowView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="70dp"
+    android:layout_height="124dp"
+    flatten="true"
+    folder="internal.vchat"
+    holder="window.VChatWindowView">
+    <p151v.VDraweeView
+        android:id="@+id/avatar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:roundedCornerRadius="10dp"/>
+    <p151v.VImage
+        android:id="@+id/icon"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:src="0x7f0826e0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <p151v.VText
+        android:textSize="9sp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:text="在线中"
+        app:layout_constraintBottom_toBottomOf="@+id/icon"
+        app:layout_constraintLeft_toRightOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="@+id/icon"/>
+</com.p051p1.mobile.putong.live.external.internal.vchat.window.VChatWindowView>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.base.business.fansgroup.FansGroupNoticeListView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="business.fansgroup.FansGroupNoticeListView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@id/refresh_layout" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <v.VRecyclerView android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="match_parent" useId="true" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <v.VLinear android:gravity="center_horizontal" android:layout_gravity="center" android:orientation="vertical" android:id="@id/empty_view" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="50.0dp">
+        <v.VImage android:id="@id/empty_image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+        <v.VText android:textSize="14.0sp" android:textColor="#4dffffff" android:id="@id/empty_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="@string/LIVE_FANSGROUP_NOTICE_NONE" />
+    </v.VLinear>
+</com.p1.mobile.putong.live.base.business.fansgroup.FansGroupNoticeListView>

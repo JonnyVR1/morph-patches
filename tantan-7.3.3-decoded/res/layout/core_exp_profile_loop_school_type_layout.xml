@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VEditText android:textSize="16.0dp" android:textColor="@color/common_exp_black_01" android:textColorHint="@color/common_exp_black_03" android:gravity="center_vertical" android:id="@id/edit_view" android:background="@drawable/exp_profile_loop_text_type_bg" android:paddingLeft="20.0dp" android:paddingRight="56.0dp" android:layout_width="match_parent" android:layout_height="56.0dp" android:maxLines="1" android:singleLine="true" android:inputType="text" />
+        <v.VImage android:layout_gravity="right" android:id="@id/clean_content" android:background="@null" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="16.0dp" />
+    </FrameLayout>
+    <v.VRecyclerView android:id="@id/suggest_list" android:layout_width="match_parent" android:layout_height="match_parent" />
+</v.VLinear>

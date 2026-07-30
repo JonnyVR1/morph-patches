@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.map.MapPoiItem android:orientation="horizontal" android:background="@drawable/tf_rect_light" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/map_item_height" holder="map.MapPoiItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:id="@id/info" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="18.0dp" android:layout_marginTop="18.0dp" android:layout_marginBottom="18.0dp" android:layout_weight="1.0" flatten="true">
+        <v.VText android:textSize="16.0sp" android:textColor="#282828" android:id="@id/name" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4.0dp" android:singleLine="true" useId="true" />
+        <LinearLayout android:orientation="horizontal" android:id="@id/detail_frame" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+            <v.VText android:textSize="14.0sp" android:textColor="#303030" android:id="@id/distance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" useId="true" />
+            <v.VText android:textSize="14.0sp" android:textColor="#ff747474" android:id="@id/detail" android:layout_width="match_parent" android:layout_height="wrap_content" android:singleLine="true" useId="true" />
+        </LinearLayout>
+    </LinearLayout>
+    <v.VImage android:layout_gravity="center_vertical" android:id="@id/check" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:layout_marginRight="14.0dp" android:src="@null" useId="true" />
+    <v.VText android:textColor="#e82d2d" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/add" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="4.0dp" android:layout_marginRight="14.0dp" android:text="添加" />
+</com.p1.mobile.putong.core.ui.map.MapPoiItem>

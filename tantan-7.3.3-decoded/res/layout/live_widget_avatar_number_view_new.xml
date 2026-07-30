@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.base.arch.card.cardmodel.feed.LiveAvatarNumberViewNew android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.base.view.LiveAvatarNumberItemView android:id="@id/avatar_1" android:layout_width="18.0dp" android:layout_height="18.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.live.base.view.LiveAvatarNumberItemView>
+    <com.p1.mobile.putong.live.base.view.LiveAvatarNumberItemView android:id="@id/avatar_2" android:layout_width="18.0dp" android:layout_height="18.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.live.base.view.LiveAvatarNumberItemView>
+    <com.p1.mobile.putong.live.base.view.LiveAvatarNumberItemView android:id="@id/avatar_3" android:layout_width="18.0dp" android:layout_height="18.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.live.base.view.LiveAvatarNumberItemView>
+    <com.p1.mobile.putong.live.base.view.LiveAvatarNumberItemView android:id="@id/avatar_4" android:layout_width="18.0dp" android:layout_height="18.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.live.base.view.LiveAvatarNumberItemView>
+    <TextView android:textSize="10.0dp" android:textStyle="bold" android:textColor="@color/live_white_70_opacity" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/number_view" android:background="@drawable/live_shape_voice_square_avatar_number_text_bg" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:layout_width="wrap_content" android:layout_height="18.0dp" android:maxLines="1" />
+</com.p1.mobile.putong.live.base.arch.card.cardmodel.feed.LiveAvatarNumberViewNew>

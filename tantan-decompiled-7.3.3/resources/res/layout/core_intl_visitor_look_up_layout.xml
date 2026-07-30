@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.view.IntlVisitorLookUpView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipChildren="false"
+    android:layout_width="wrap_content"
+    android:layout_height="34dp"
+    folder="view"
+    holder="IntlVisitorLookUpView">
+    <TextView
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#f9e7ff"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:id="@+id/look_over_btn"
+        android:background="@drawable/core_intl_visitor_change_look_bg"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:text="@string/SEE_ENTER_LOOK_UP"/>
+</com.p051p1.mobile.putong.core.view.IntlVisitorLookUpView>

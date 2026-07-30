@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.vip.privilege.content.item.PrivilegeDescListNearbyItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="vip.privilege.content.item.PrivilegeDescListNearbyItem">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/core_privilege_desc_item_header"/>
+    <FrameLayout
+        android:id="@+id/nearby_list_container"
+        android:paddingBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        flatten="true">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/nearby_list"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+            android:layout_marginBottom="20dp"/>
+        <View
+            android:layout_gravity="bottom"
+            android:id="@+id/line"
+            android:background="#f9f9f9"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+    </FrameLayout>
+</com.p051p1.mobile.putong.core.p058ui.vip.privilege.content.item.PrivilegeDescListNearbyItem>

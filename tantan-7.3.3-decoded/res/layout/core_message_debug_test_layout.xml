@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:layout_width="60.0dp" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView android:layout_gravity="center_vertical" android:layout_width="60.0dp" android:layout_height="300.0dp">
+        <LinearLayout android:orientation="vertical" android:layout_width="60.0dp" android:layout_height="wrap_content">
+            <Button android:textSize="11.0dp" android:id="@id/scroll_top_default" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="向上滑" />
+            <Button android:textSize="11.0dp" android:id="@id/scroll_bottom_default" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="向下滑" />
+            <Button android:textSize="11.0dp" android:id="@id/refresh" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="刷新" />
+            <Button android:textSize="11.0dp" android:id="@id/bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="底部" />
+            <Button android:textSize="8.0dp" android:id="@id/scroll_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="滑到底" />
+            <Button android:textSize="8.0dp" android:id="@id/scroll_top" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="滑到顶" />
+            <Button android:textSize="11.0dp" android:id="@id/send" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="发送" />
+            <Button android:textSize="10.0dp" android:id="@id/test_refresh" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="刷1" />
+            <Button android:textSize="10.0dp" android:id="@id/delete_msg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="清除" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

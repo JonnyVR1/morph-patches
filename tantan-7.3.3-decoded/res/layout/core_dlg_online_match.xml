@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.dlg.views.OnlineMatchDlgView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="dlg.views.OnlineMatchDlgView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/common_normal_title" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="32.0dp" android:layout_marginRight="32.0dp" android:maxLines="2" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/common_normal_content_04" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="32.0dp" android:lineSpacingMultiplier="1.2" />
+    <v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/vlin_items" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="30.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="34.0dp" android:layout_marginHorizontal="32.0dp" flatten="true">
+        <include android:id="@id/item_1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0" layout="@layout/core_dlg_online_match_item" />
+        <include android:id="@id/item_2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0" layout="@layout/core_dlg_online_match_item" />
+        <include android:id="@id/item_3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0" layout="@layout/core_dlg_online_match_item" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.dlg.views.OnlineMatchDlgView>

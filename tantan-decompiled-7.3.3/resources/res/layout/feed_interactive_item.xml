@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:id="@+id/group_root"
+    android:background="@drawable/feed_rect_rounded_moment_topic"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="9dp"
+    android:paddingEnd="10dp"
+    android:layout_marginEnd="6dp"
+    flatten="true"
+    folder="newui"
+    holder="group.interactive.FeedInteractiveItemView">
+    <p151v.VDraweeView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/selected_interactive_icon"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="2.5dp"
+        app:actualImageScaleType="fitXY"/>
+    <TextView
+        android:textSize="12dp"
+        android:textColor="@color/common_grey_09"
+        android:ellipsize="end"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/selected_interactive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:layout_marginEnd="3dp"/>
+</p151v.VLinear>

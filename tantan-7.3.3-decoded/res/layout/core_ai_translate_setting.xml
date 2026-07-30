@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" holder="settings.AITranslateSettingViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VLinear android:id="@id/al_translate" style="@style/core_intl_settings_stacked_frame">
+        <v.VText android:text="@string/INTL_TT_AITRANSLATE_SETTING_SUBPAGE_LANGUAGELIST" style="@style/core_intl_settings_primary" />
+        <v.VText android:id="@id/text" style="@style/intl_settings_secondary_disable" />
+        <v.VIcon android:background="@null" android:layout_width="24.0dp" android:layout_height="24.0dp" />
+    </v.VLinear>
+    <v.VText android:textSize="13.0sp" android:textColor="@color/common_000000_30" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="@string/INTL_TT_AITRANSLATE_SETTING_SUBPAGE_NOTE" />
+</v.VLinear>

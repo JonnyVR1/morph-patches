@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="138dp">
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp">
+        <p151v.VProgressBar
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:indeterminate="true"
+            app:cpb_colors="@array/tantan_colors"/>
+        <p151v.VText
+            android:textSize="14sp"
+            android:textColor="#61000000"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/LIVE_DISCOVER_MOMENTS_LOADING"/>
+    </LinearLayout>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="#61000000"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tips"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/LIVE_DISCOVER_HAS_NO_MORE_MOMENTS"/>
+    <include
+        android:visibility="gone"
+        layout="@layout/live_moments_show_limit_time_reminder"/>
+</FrameLayout>

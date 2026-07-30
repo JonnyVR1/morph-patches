@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="16.0dp" android:textColor="@color/common_exp_black_01" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginRight="24.0dp" android:layout_marginBottom="20.0dp" />
+    <FrameLayout android:id="@id/add_introduction" android:background="@drawable/core_exp_bg_profile_edit_btn" android:layout_width="match_parent" android:layout_height="60.0dp" android:layout_marginLeft="24.0dp" android:layout_marginRight="24.0dp">
+        <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="16.0dp" android:textColor="@color/common_exp_black_01" android:layout_gravity="center" android:id="@id/add_introduction_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="添加自我介绍" />
+    </FrameLayout>
+</v.VLinear>

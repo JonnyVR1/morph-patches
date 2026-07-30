@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="60.0dp" android:width="166.0dp" android:viewportWidth="166.0" android:viewportHeight="60.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="#000" android:pathData="M81.213,52.422a2,2 0,0 1,-0.244 -0.243l-7.719,-9.179L10,43a6,6 0,0 1,-6 -6l-0,-29a6,6 0,0 1,6 -6L156,2a6,6 0,0 1,6 6l-0,29a6,6 0,0 1,-6 6l-64.25,-0l-7.72,9.18A2,2 0,0 1,81.214 52.422z" android:fillType="evenOdd" />
+    <path android:fillColor="@drawable/$live_vector_activities_follow_guide_bg__0" android:pathData="M81.213,52.422a2,2 0,0 1,-0.244 -0.243l-7.719,-9.179L10,43a6,6 0,0 1,-6 -6l-0,-29a6,6 0,0 1,6 -6L156,2a6,6 0,0 1,6 6l-0,29a6,6 0,0 1,-6 6l-64.25,-0l-7.72,9.18A2,2 0,0 1,81.214 52.422z" android:fillType="evenOdd" />
+</vector>

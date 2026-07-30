@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemVisitorHideFootPrintView android:layout_width="match_parent" android:layout_height="match_parent" holder="vip.privilege.dlg.PrivilegeContentDlgItemVisitorHideFootPrintView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_gravity="bottom" android:id="@id/model" android:layout_width="127.0dp" android:layout_height="172.0dp" android:layout_marginBottom="10.0dp" android:src="@null" android:layout_marginStart="28.0dp" />
+    <v.AutoVDraweeView android:layout_gravity="bottom" android:id="@id/avatar" android:drawingCacheQuality="high" android:layout_width="110.0dp" android:layout_height="137.0dp" android:layout_marginBottom="32.0dp" android:rotation="8.0" android:layout_marginStart="72.0dp" app:roundedCornerRadius="13.0dp" app:roundingBorderColor="@color/white" app:roundingBorderWidth="5.0dp" />
+    <v.VImage android:layout_gravity="bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="9.0dp" android:src="@null" android:layout_marginStart="120.0dp" />
+</com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemVisitorHideFootPrintView>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center" android:orientation="horizontal" android:background="@drawable/live_bg_f9f9f9_r16" android:layout_width="match_parent" android:layout_height="54.0dp" android:paddingStart="12.0dp" android:paddingEnd="12.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VDraweeView android:id="@id/icon" android:layout_width="34.0dp" android:layout_height="34.0dp" />
+    <v.VText android:textSize="13.0sp" android:textStyle="bold" android:textColor="#e6000000" android:gravity="start" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="10.0dp" />
+</v.VLinear>

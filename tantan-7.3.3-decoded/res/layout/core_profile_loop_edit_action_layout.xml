@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.profile.views.ProfileLoopActionLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="84.0dp" flatten="true" holder="profile.views.ProfileLoopActionLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:background="@drawable/core_loop_edit_shadow_bg" android:layout_width="match_parent" android:layout_height="20.0dp" />
+    <FrameLayout android:layout_gravity="bottom" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="64.0dp" android:layout_marginTop="20.0dp">
+        <v.VText android:textSize="16.0dp" android:textColor="@color/core_profile_loop_jump_btn" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/jump_btn" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="48.0dp" android:text="@string/EDIT_PROFILE_SKIP" />
+        <v.VButton android:layout_gravity="right|center" android:id="@id/next_btn" android:paddingLeft="12.0dp" android:paddingTop="10.0dp" android:paddingRight="12.0dp" android:paddingBottom="10.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="20.0dp" android:text="@string/ACTION_NEXT" android:paddingHorizontal="12.0dp" android:paddingVertical="10.0dp" style="@style/common_button_small_01" />
+    </FrameLayout>
+    <com.p1.mobile.putong.core.ui.VText_Medium android:enabled="false" android:textSize="16.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@id/next_btn_large" android:background="@drawable/core_loop_input_action_next_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="32.0dp" android:text="@string/ACTION_NEXT" android:layout_marginHorizontal="20.0dp" />
+</com.p1.mobile.putong.core.ui.profile.views.ProfileLoopActionLayout>

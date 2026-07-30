@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="voice.intl" holder="roombg.common.IntlVoiceBgPagerView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.p1.mobile.putong.live.livingroom.voice.intl.roombg.common.VoiceMaxHeightRecyclerView android:id="@id/listView" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <LinearLayout android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:orientation="vertical" android:id="@id/empty" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="37.0dp">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="43.0dp" android:src="@null" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/live_white_40_opacity" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:text="@string/LIVE_FANS_CLUB_NO_DATA" />
+    </LinearLayout>
+</merge>

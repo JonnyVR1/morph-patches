@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.page.profile.myroom.view.MyRoomInExpandedCard android:layout_width="match_parent" android:layout_height="110.0dp" android:layout_marginTop="16.0dp" flatten="true" folder="page.profile.myroom.view" holder="MyRoomInExpandedCard"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/container" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VDraweeView android:id="@id/layout_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" app:failureImage="@color/common_000000_20" app:placeholderImage="@color/common_000000_20" />
+        <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/anim_player" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" />
+        <View android:id="@id/start_blur" android:background="@drawable/live_shape_my_room_in_newui_live_my_room_blur" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <v.VLinear android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <FrameLayout android:id="@id/avatar_layout" android:background="@drawable/live_shape_my_room_in_newui_avatar_default_bg" android:layout_width="50.0dp" android:layout_height="50.0dp" android:layout_marginStart="16.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
+                <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="48.0dp" android:layout_height="48.0dp" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="10.0dp" />
+            </FrameLayout>
+            <v.VLinear android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="12.0dp">
+                <TextView android:textSize="15.0sp" android:textColor="@color/white" android:ellipsize="end" android:id="@id/live_top_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" />
+                <TextView android:textSize="13.0sp" android:textColor="@color/color_text_ffffff" android:ellipsize="end" android:id="@id/live_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:maxLines="1" />
+            </v.VLinear>
+            <TextView android:textSize="13.0sp" android:textColor="@color/white" android:gravity="right|center" android:id="@id/live_tag" android:background="@drawable/live_shape_living_back" android:paddingLeft="10.0dp" android:paddingTop="8.0dp" android:paddingRight="2.0dp" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableRight="@null" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+        </v.VLinear>
+    </v.VFrame>
+</com.p1.mobile.putong.live.external.page.profile.myroom.view.MyRoomInExpandedCard>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:background="@android:color/black" android:layout_width="match_parent" android:layout_height="match_parent" holder="mediapicker.preview.MediaPreviewViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VPager android:id="@id/pager" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VCheckCircle android:layout_gravity="right|bottom" android:id="@id/check" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="16.0dp" android:src="@null" />
+</FrameLayout>

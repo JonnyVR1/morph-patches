@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="186dp">
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <p151v.VImage
+            android:layout_gravity="center_horizontal"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="fitXY"
+            app:srcCompat="0x7f08232a"/>
+        <p151v.VText
+            android:textSize="14sp"
+            android:textColor="#c7d2db"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/LIVE_FANS_CLUB_NO_DATA"/>
+    </LinearLayout>
+</FrameLayout>

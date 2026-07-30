@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.chat.view.VoiceChatKeyboardRoot android:orientation="vertical" android:id="@id/input_layout_root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="common.chat.input" holder="ChatInputView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/layout_input_empty" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/voice_input_panel_root" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:translationY="220.0dp" flatten="true">
+            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+                <FrameLayout android:layout_width="match_parent" android:layout_height="55.0dp">
+                    <include android:id="@id/input_chat_tip_list" layout="@layout/live_chat_input_tips" />
+                    <com.p1.mobile.putong.live.livingroom.common.chat.danmaku.input.tag.DanmakuTagViewContainer android:orientation="horizontal" android:id="@id/danmaku_tag_container" android:visibility="gone" android:layout_width="match_parent" android:layout_height="40.0dp" />
+                </FrameLayout>
+                <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <include android:layout_gravity="bottom" android:id="@id/normal_danmaku_list" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_chat_input_danmaku_list" />
+                    <com.p1.mobile.putong.live.livingroom.common.chat.input.ChatInputViewGroup android:gravity="center_vertical" android:layout_gravity="bottom" android:orientation="horizontal" android:id="@id/input_layout" android:background="@drawable/live_bg_19191e_tr24" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="52.0dp">
+                        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/live_bg_white_r12_a03" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="12.0dp" android:layout_weight="1.0" android:layout_marginStart="12.0dp">
+                            <com.p1.mobile.putong.live.livingroom.common.chat.danmaku.input.DanmakuToggleButton android:id="@id/danmaku_toggle" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:layout_marginBottom="3.0dp" android:layout_marginStart="4.0dp" app:text="@string/LIVE_BULLET_CHAT_SWITCH" app:textSize="16.0sp" />
+                            <v.VEditText android:textSize="13.0sp" android:textColor="@color/live_white" android:textColorHint="#80ffffff" android:id="@id/edit_text" android:background="@null" android:focusable="true" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginBottom="10.0dp" android:hint="@string/LIVE_PLEASE_TALK_SOMTHING" android:maxLines="2" android:layout_weight="1.0" android:textCursorDrawable="@drawable/live_shape_voice_top_notice_input_cursor_style" android:layout_marginStart="7.0dp" app:enableEmojis="true" app:typeface="regular" />
+                            <ImageView android:layout_gravity="center_vertical" android:id="@id/emoji_view" android:layout_width="21.0dp" android:layout_height="21.0dp" android:layout_marginLeft="3.0dp" android:layout_marginRight="8.0dp" android:src="@null" />
+                        </LinearLayout>
+                        <v.VText android:enabled="false" android:textSize="13.0sp" android:textStyle="normal" android:textColor="@color/live_chat_input_done_text" android:id="@id/done" android:layout_width="wrap_content" android:layout_height="18.0dp" android:text="@string/LIVE_SEND_MESSAGE" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" />
+                    </com.p1.mobile.putong.live.livingroom.common.chat.input.ChatInputViewGroup>
+                </FrameLayout>
+            </LinearLayout>
+            <FrameLayout android:id="@id/emoji_root" android:background="#19191e" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="220.0dp" flatten="true">
+                <v.VPager android:id="@id/opti_pager" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+</com.p1.mobile.putong.live.livingroom.voice.chat.view.VoiceChatKeyboardRoot>

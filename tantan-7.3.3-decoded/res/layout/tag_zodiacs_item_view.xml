@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:gravity="center" android:layout_gravity="center" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" attachToRoot="true" holder="settings.filter.TagZodiacsItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/img" android:layout_width="48.0dp" android:layout_height="48.0dp" android:scaleType="centerInside" android:layout_centerHorizontal="true" />
+    <v.VText android:textSize="12.0sp" android:textColor="@color/tag_item_text_bg_selected" android:gravity="center" android:layout_gravity="center" android:id="@id/tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:singleLine="true" android:layout_below="@id/img" android:layout_centerHorizontal="true" />
+</merge>

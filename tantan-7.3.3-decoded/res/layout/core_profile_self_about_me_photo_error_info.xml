@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="start|center" android:background="@drawable/core_profile_self_about_me_photo_item_error_bg" android:layout_width="match_parent" android:layout_height="32.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginHorizontal="20.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" android:layout_marginStart="12.0dp" />
+    <v.VText android:textSize="12.0sp" android:textColor="#66000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="与其他用户发布高度相似" android:layout_marginStart="4.0dp" app:typeface="medium" />
+</v.VLinear>

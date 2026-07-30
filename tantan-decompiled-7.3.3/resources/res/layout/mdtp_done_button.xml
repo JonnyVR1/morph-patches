@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="end|bottom"
+    android:layout_gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/done_background"
+    android:background="@android:color/transparent"
+    android:paddingBottom="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="64dp">
+    <Button
+        android:layout_gravity="bottom"
+        android:id="@+id/cancel"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginRight="8dp"
+        android:minWidth="72dp"
+        android:text="@string/mdtp_cancel"
+        android:layout_marginEnd="8dp"
+        style="@style/mdtp_ActionButton.Text"/>
+    <Button
+        android:layout_gravity="bottom"
+        android:id="@+id/ok"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginRight="8dp"
+        android:minWidth="72dp"
+        android:text="@string/mdtp_ok"
+        android:layout_marginEnd="8dp"
+        style="@style/mdtp_ActionButton.Text"/>
+</LinearLayout>

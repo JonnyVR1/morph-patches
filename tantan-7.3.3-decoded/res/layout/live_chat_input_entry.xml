@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.chat.inputEntry.ChatInputEntryView android:orientation="vertical" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="common" holder="chat.inputEntry.ChatInputEntryView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:id="@id/chat_input" android:background="@drawable/live_bg_black_r12_a15" android:paddingLeft="8.0dp" android:layout_width="195.0dp" android:layout_height="38.0dp" android:layout_alignParentBottom="true" flatten="true">
+        <com.p1.mobile.putong.live.livingroom.common.bottom.areaA.view.BottomInputView android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/bottom_button" android:layout_width="wrap_content" android:layout_height="wrap_content" holder="bottom.BottomInputView" />
+        <View android:layout_gravity="center_vertical" android:id="@id/apply_line" android:background="@drawable/live_bg_white_r1_a80" android:visibility="visible" android:layout_width="1.0dp" android:layout_height="16.0dp" android:layout_marginLeft="3.0dp" />
+        <v.VText android:textStyle="bold" android:textColor="@color/white" android:textColorHint="#ccffffff" android:ellipsize="end" android:gravity="start|center" android:layout_gravity="center_vertical" android:id="@id/chat_input_text" android:paddingRight="2.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="8.0dp" android:maxWidth="195.0dp" android:minWidth="39.0dp" android:hint="@string/LIVE_PLEASE_TALK_SOMTHING" android:lines="1" />
+    </LinearLayout>
+</com.p1.mobile.putong.live.livingroom.common.chat.inputEntry.ChatInputEntryView>

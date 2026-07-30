@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="match_parent" android:keepScreenOn="true" flatten="true" folder="internal.live.square" holder="fragments.livevideo.LiveSquareLiveVideoFrag"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VPullDownRefreshLayout android:id="@id/swipe_refresh" android:background="@color/live_19191e" android:layout_width="match_parent" android:layout_height="match_parent" app:srlEnableAutoLoadMore="false" app:srlEnableHeaderTranslationContent="false" app:srlEnableLoadMore="true" app:srlFooterHeight="40.0dp" app:srlHeaderHeight="88.0dp" app:srlHeaderInsetStart="100.0dp" flatten="true" useId="true">
+        <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+            <v.VRecyclerView android:id="@id/room_list" android:layout_width="match_parent" android:layout_height="match_parent" useId="true" />
+            <v.VLinear android:layout_gravity="center" android:orientation="vertical" android:id="@id/ll_empty" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" useId="true">
+                <v.VImage android:id="@id/iv_empty" android:layout_width="220.0dp" android:layout_height="150.0dp" useId="true" />
+                <v.VText android:textSize="14.0sp" android:textColor="@color/live_white_80_opacity" android:layout_gravity="center_horizontal" android:id="@id/tv_empty" android:layout_width="wrap_content" android:layout_height="wrap_content" useId="true" />
+            </v.VLinear>
+        </v.VFrame>
+    </v.VPullDownRefreshLayout>
+</v.VFrame>

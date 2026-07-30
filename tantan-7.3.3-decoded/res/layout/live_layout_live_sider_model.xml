@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.other.side.LiveSiderLiveItemView android:layout_width="140.0dp" android:layout_height="140.0dp" android:layout_marginBottom="10.0dp" flatten="true" folder="other" holder="side.LiveSiderLiveItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/content" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <com.p1.mobile.putong.live.base.view.LiveSquareMediaView android:id="@id/media_view" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <View android:layout_gravity="bottom" android:id="@id/cover_layer" android:background="@drawable/live_shape_bg_sider_half_cover" android:layout_width="match_parent" android:layout_height="60.0dp" />
+    </FrameLayout>
+    <v.VText android:textSize="11.0sp" android:textColor="#b2ffffff" android:ellipsize="end" android:id="@id/text_anchor_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginRight="6.0dp" android:layout_marginBottom="3.0dp" android:maxLines="1" android:shadowColor="#e3000000" android:shadowDx="0.0" android:shadowDy="1.0" android:shadowRadius="1.0" android:layout_above="@id/text_live_desc" />
+    <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:ellipsize="end" android:id="@id/text_live_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginRight="6.0dp" android:layout_marginBottom="8.0dp" android:maxLines="1" android:shadowColor="#33000000" android:shadowDx="0.0" android:shadowDy="1.0" android:shadowRadius="1.0" android:layout_alignParentBottom="true" />
+</com.p1.mobile.putong.live.livingroom.other.side.LiveSiderLiveItemView>

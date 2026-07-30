@@ -1,0 +1,14 @@
+package p153l;
+
+import com.idv.identity.service.algorithm.IdentityFace;
+
+/* JADX INFO: loaded from: classes7.dex */
+public final class muq0 implements Runnable {
+    @Override // java.lang.Runnable
+    public final void run() {
+        try {
+            IdentityFace.updateState("", 99);
+        } catch (Throwable unused) {
+        }
+    }
+}

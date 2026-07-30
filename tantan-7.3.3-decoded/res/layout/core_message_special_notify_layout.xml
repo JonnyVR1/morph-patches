@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="20.0dp" android:paddingTop="15.0dp" android:paddingRight="20.0dp" android:paddingBottom="15.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VLinear android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:layout_weight="1.0">
+            <v.VText android:textSize="15.0dp" android:textColor="@color/common_black_02" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="特别提醒" android:drawableRight="@null" android:drawablePadding="5.0dp" />
+            <v.VText android:textSize="13.0dp" android:textColor="@color/common_grey_02" android:id="@id/sub_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:text="开启后，Ta的聊天信息可以设置特别提示音，同时带有特殊标识" />
+        </v.VLinear>
+        <v.VSwitchButton android:enabled="false" android:layout_gravity="center" android:id="@id/special_switch" android:layout_width="46.0dp" android:layout_height="30.0dp" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </v.VLinear>
+</FrameLayout>

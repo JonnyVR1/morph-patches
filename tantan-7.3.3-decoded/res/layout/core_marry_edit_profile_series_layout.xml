@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/root" android:background="@color/white" android:paddingTop="6.0dp" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="marry.profile.loop.MarryEditProfileSeriesViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/top_layout" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
+        <v.VImage android:id="@id/left_close_button" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" android:layout_marginStart="8.0dp" />
+        <com.p1.mobile.putong.core.ui.profile.views.SetInfoProgressView android:layout_gravity="center_horizontal" android:id="@id/progress_bar" android:layout_width="175.0dp" android:layout_height="6.0dp" android:layout_marginTop="13.0dp" />
+        <include layout="@layout/core_profile_featured_edit_progress_layout" />
+    </FrameLayout>
+    <v.VFrame android:id="@id/frag_container" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginTop="10.0dp" app:layout_constraintBottom_toTopOf="@id/next_button_container" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/top_layout" />
+    <v.VFrame android:id="@id/next_button_container" android:background="@color/white" android:layout_width="match_parent" android:layout_height="72.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" flatten="false">
+        <v.VButton android:layout_gravity="right|bottom" android:id="@id/next_button" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="40.0dp" android:layout_marginBottom="20.0dp" android:text="@string/ACTION_NEXT" android:layout_marginEnd="20.0dp" android:paddingHorizontal="12.0dp" app:typeface="medium" style="@style/common_button_small_01" />
+    </v.VFrame>
+</androidx.constraintlayout.widget.ConstraintLayout>

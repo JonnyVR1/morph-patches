@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:id="@id/content_frame" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="moments.MomentsSimpleTextAct"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VScroll android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+        <v.VText android:textSize="14.0sp" android:textColor="@color/text_medium" android:id="@id/text" android:paddingLeft="16.0dp" android:paddingTop="16.0dp" android:paddingRight="16.0dp" android:paddingBottom="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" app:typeface="regular" />
+    </v.VScroll>
+</v.VFrame>

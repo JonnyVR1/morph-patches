@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.external.page.setting.LiveFollowPushNoticeItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:paddingStart="12dp">
+    <p151v.VDraweeView
+        android:id="@+id/avatar"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="12dp"
+        app:roundAsCircle="true"/>
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="@color/live_black_80_opacity"
+        android:ellipsize="end"
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="12dp"
+        android:layout_toStartOf="@+id/switch_btn"
+        android:layout_toEndOf="@+id/avatar"/>
+    <p151v.VSwitch
+        android:id="@+id/switch_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        style="@style/live_settings_item_switch"/>
+</com.p051p1.mobile.putong.live.external.page.setting.LiveFollowPushNoticeItemView>

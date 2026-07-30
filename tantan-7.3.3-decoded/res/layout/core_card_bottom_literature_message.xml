@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.views.CardBottomLiteratureMessageLayout android:orientation="vertical" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.views.CardBottomLiteratureMessageLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/container_message" android:paddingBottom="6.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.VText android:textSize="13.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/message" android:background="@drawable/core_bg_book_movies_dramas_msg" android:paddingLeft="12.0dp" android:paddingTop="8.0dp" android:paddingRight="12.0dp" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="211.0dp" android:maxLines="2" />
+        <ImageView android:layout_width="22.0dp" android:layout_height="wrap_content" android:layout_marginLeft="17.0dp" android:layout_marginTop="-1.0dp" android:src="@null" />
+    </LinearLayout>
+    <include android:id="@id/card_bottom_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4.0dp" layout="@layout/core_card_bottom_basic_info" />
+    <include android:id="@id/info_content" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_card_user_content_view" />
+</com.p1.mobile.putong.core.newui.home.views.CardBottomLiteratureMessageLayout>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.intl.operations.VoiceOperationsView android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.recyclerview.widget.RecyclerView android:orientation="horizontal" android:id="@id/recyclerView" android:fadingEdge="horizontal" android:fadingEdgeLength="20.0dp" android:layout_width="132.0dp" android:layout_height="wrap_content" android:requiresFadingEdge="horizontal" />
+</com.p1.mobile.putong.live.livingroom.voice.intl.operations.VoiceOperationsView>

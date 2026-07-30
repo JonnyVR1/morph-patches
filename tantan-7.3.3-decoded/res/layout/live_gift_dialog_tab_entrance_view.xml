@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.gift.view.GiftTabEntranceView android:layout_width="wrap_content" android:layout_height="48.0dp" android:paddingStart="15.0dp" folder="increment" holder="gift.view.GiftTabEntranceView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="14.0sp" android:textColor="@color/live_white_50_opacity" android:gravity="center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:singleLine="true" android:layout_marginStart="12.0dp" android:layout_marginEnd="15.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <v.VImage android:id="@id/dot" android:visibility="gone" android:layout_width="6.0dp" android:layout_height="6.0dp" android:layout_marginTop="12.0dp" android:layout_toRightOf="@id/title" app:layout_constraintStart_toEndOf="@id/title" app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/live_shape_package_gift_red_dot" />
+</com.p1.mobile.putong.live.livingroom.increment.gift.view.GiftTabEntranceView>

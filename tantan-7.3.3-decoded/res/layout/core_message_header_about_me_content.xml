@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:paddingTop="6.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="13.0dp" android:textColor="@color/common_grey_09" android:ellipsize="end" android:id="@id/tv_aboutme_line1" android:paddingTop="0.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="5" android:includeFontPadding="false" />
+    <TextView android:textSize="13.0dp" android:textColor="@color/common_grey_09" android:ellipsize="end" android:id="@id/tv_aboutme_line2" android:paddingTop="0.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="5" android:includeFontPadding="false" />
+    <TextView android:textSize="13.0dp" android:textColor="@color/common_grey_09" android:ellipsize="end" android:id="@id/tv_aboutme_line3" android:paddingTop="0.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="5" android:includeFontPadding="false" />
+    <TextView android:textSize="13.0dp" android:textColor="@color/common_grey_09" android:ellipsize="end" android:id="@id/tv_aboutme_line4" android:paddingTop="0.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="5" android:includeFontPadding="false" />
+    <TextView android:textSize="13.0dp" android:textColor="@color/common_grey_09" android:ellipsize="end" android:id="@id/tv_aboutme_line5" android:paddingTop="0.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="5" android:includeFontPadding="false" />
+</LinearLayout>

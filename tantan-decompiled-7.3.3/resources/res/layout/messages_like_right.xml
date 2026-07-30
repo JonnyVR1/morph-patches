@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemLike xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:id="@+id/content"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    style="@style/messages_item_right">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <p151v.VDraweeView style="@style/core_messages_like_image"/>
+        <p151v.VImage
+            android:layout_gravity="center"
+            android:id="@+id/play"
+            android:visibility="gone"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/core_message_video_play_icon"/>
+    </FrameLayout>
+    <p151v.VImage
+        android:id="@+id/heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:src="0x7f0820fc"/>
+    <p151v.VText
+        android:textColor="#ddffffff"
+        android:id="@+id/text"
+        android:layout_marginRight="15dp"
+        android:text="@string/MESSAGE_MOMENT_LIKED_BY_ME"
+        style="@style/core_messages_like_text"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemLike>

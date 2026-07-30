@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/static_medal_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="70.0dp" android:minHeight="14.0dp" fresco:actualImageScaleType="fitCenter" />
+    <com.tantan.library.svga.SVGAnimationView android:id="@id/dynamic_medal_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="42.0dp" android:minHeight="14.0dp" />
+</FrameLayout>

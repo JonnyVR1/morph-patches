@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:orientation="vertical" android:id="@id/base_root" android:background="#f7f7f7" android:clipChildren="true" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="profile.exp.ProfileListExpandedEditFrag"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/edit_profile_navigation_bar" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" app:title="@string/NEW_PROFILE_PICTURE_EDIT" />
+    <v.VFrame android:id="@id/preview_root" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="44.0dp" flatten="true">
+        <v.VProgressBar android:id="@id/preview_loading_block" android:visibility="visible" style="@style/core_loading_block" />
+    </v.VFrame>
+    <v.VLinear android:orientation="vertical" android:id="@id/edit_root" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="44.0dp" flatten="true">
+        <com.google.android.material.tabs.TabLayout android:id="@id/tabs" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:overScrollMode="never" android:requiresFadingEdge="horizontal" app:tabBackground="@color/transparent" app:tabGravity="center" app:tabIndicatorHeight="0.0dp" app:tabMode="scrollable" app:tabPaddingEnd="0.0dp" app:tabPaddingStart="0.0dp" app:tabRippleColor="@null" />
+        <com.p1.mobile.putong.core.ui.profile.exp.ExpEditTopWarnView android:id="@id/top_warn_view" android:layout_width="match_parent" android:layout_height="54.0dp" android:layout_marginLeft="8.0dp" android:layout_marginRight="8.0dp" />
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/profile_list" android:paddingTop="8.0dp" android:descendantFocusability="blocksDescendants" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="8.0dp" android:layout_marginRight="8.0dp" android:overScrollMode="never" />
+    </v.VLinear>
+    <v.VText android:textSize="16.0dp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/preview_edit_switch" android:background="@drawable/core_exp_preview_switch_bg" android:paddingLeft="26.0dp" android:paddingRight="26.0dp" android:layout_width="wrap_content" android:layout_height="48.0dp" android:layout_marginBottom="20.0dp" android:text="预览资料" android:drawableLeft="@null" android:drawablePadding="8.0dp" app:typeface="medium" />
+    <View android:id="@id/block_operation_cover" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+</v.VFrame>

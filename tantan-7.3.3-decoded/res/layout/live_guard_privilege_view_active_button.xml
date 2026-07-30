@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.knight.view.maindialog.LiveGuardPrivilegeActiveButton android:id="@id/root" android:layout_width="match_parent" android:layout_height="52.0dp" flatten="true" folder="increment" holder="knight.view.maindialog.LiveGuardPrivilegeActiveButton"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:id="@id/content" android:background="@drawable/live_bg_3b70ff_r16" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="50.0dp" flatten="true">
+        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/live_white" android:ellipsize="end" android:id="@id/guard_threshold" android:paddingTop="3.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:paddingStart="20.0dp" android:paddingEnd="20.0dp" />
+        <com.p1.mobile.putong.live.livingroom.view.rollview.LiveTextRollView android:layout_gravity="center" android:id="@id/guard_info" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="4.0dp" android:layout_marginTop="2.0dp" android:layout_marginRight="4.0dp" app:contentTextColor="#b3ffffff" app:contentTextSize="10.0sp" />
+    </v.VLinear>
+</com.p1.mobile.putong.live.livingroom.increment.knight.view.maindialog.LiveGuardPrivilegeActiveButton>

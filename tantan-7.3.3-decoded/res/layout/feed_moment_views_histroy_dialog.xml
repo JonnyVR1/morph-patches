@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:background="@drawable/feed_kankan_square_text_shape" android:paddingBottom="0.0dp" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="61.0dp">
+            <v.VImage android:id="@id/close" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:src="@null" android:layout_centerVertical="true" />
+            <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/feed_cc000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="动态浏览记录" android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <v.VRecyclerView android:id="@id/recycler" android:background="#ffffff" android:paddingTop="0.0dp" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </v.VLinear>
+    <FrameLayout android:id="@id/black_member_by_btn" android:background="@drawable/feed_moment_visitors_privilege_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="120.0dp" android:layout_alignParentBottom="true">
+        <v.VLinear android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:background="@drawable/feed_moment_viewer_privilege_button_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp">
+            <v.VText android:textSize="16.0sp" android:textColor="#e8cb8c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开通黑金会员" />
+            <v.VText android:textSize="12.0sp" android:textColor="#7f6842" android:id="@id/by_des" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="一键解锁全部动态浏览记录" />
+        </v.VLinear>
+    </FrameLayout>
+</RelativeLayout>

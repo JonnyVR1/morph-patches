@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipChildren="false"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <p151v.VButton
+        android:textSize="14sp"
+        android:id="@+id/finish_button"
+        android:layout_height="34dp"
+        android:text="@string/ACTION_DONE"
+        style="@style/common_button_small_01"/>
+</RelativeLayout>

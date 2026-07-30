@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="horizontal" android:paddingLeft="8.0dp" android:paddingRight="20.0dp" android:layout_width="match_parent" android:layout_height="78.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/rank_image" android:visibility="gone" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginLeft="10.0dp" />
+    <v.VText android:textSize="13.0dp" android:textColor="@color/live_white_50_opacity" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/rank_text" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="wrap_content" android:maxLines="1" />
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/avatar" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginStart="12.0dp" app:roundAsCircle="true" />
+    <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:id="@id/content" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" flatten="true">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/live_white_90_opacity" android:gravity="center" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dp" android:maxWidth="148.0dp" android:maxLines="1" android:singleLine="true" />
+        <HorizontalScrollView android:scrollbars="none" android:fadingEdge="horizontal" android:fadingEdgeLength="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:requiresFadingEdge="horizontal">
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/tagsContainer" android:layout_width="match_parent" android:layout_height="24.0dp" flatten="true">
+                <v.VImage android:layout_gravity="center" android:id="@id/gender" android:layout_width="14.0dp" android:layout_height="14.0dp" android:layout_marginEnd="5.0dp" />
+                <com.p1.mobile.putong.live.livingroom.common.usercard.CommonMedalView android:id="@id/medal" android:layout_width="wrap_content" android:layout_height="24.0dp" />
+                <v.VText android:textSize="11.0dp" android:textColor="@color/live_white_50_opacity" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/member_view" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            </LinearLayout>
+        </HorizontalScrollView>
+    </v.VLinear>
+    <v.VLinear android:gravity="center_vertical" android:layout_gravity="end|center" android:orientation="vertical" android:id="@id/right_desc_container" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+        <v.VText android:textSize="11.0dp" android:textColor="@color/live_white_50_opacity" android:gravity="center" android:layout_gravity="end" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_VOICE_FUN_CLUB_EXPERIENCE_POINTS" />
+        <v.VText android:textSize="14.0dp" android:textColor="@color/live_white" android:layout_gravity="center" android:id="@id/right_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="0" />
+    </v.VLinear>
+    <v.VText android:textSize="12.0dp" android:textColor="@color/live_selector_intl_voice_fan_base_task_button_color" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/button" android:background="@drawable/live_selector_intl_voice_fan_base_task_button_bg" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="34.0dp" android:minWidth="78.0dp" />
+    <v.VCheckBox android:gravity="center" android:layout_gravity="end|center" android:id="@id/check" android:background="@drawable/live_selector_intl_voice_fan_base_check_box" android:visibility="gone" android:layout_width="22.0dp" android:layout_height="22.0dp" android:checked="false" android:button="@null" />
+</v.VLinear>

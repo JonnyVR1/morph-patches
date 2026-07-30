@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VText xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/buzz_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="6dp"
+    app:typeface="medium"
+    style="@style/core_onlinematch_label"/>

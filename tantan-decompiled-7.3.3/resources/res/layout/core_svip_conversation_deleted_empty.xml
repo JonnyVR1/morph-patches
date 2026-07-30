@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <p151v.VFrame
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <p151v.VImage
+            android:layout_gravity="bottom|center_horizontal"
+            android:id="@+id/guide_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="0x7f080761"/>
+    </p151v.VFrame>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="#26000000"
+        android:gravity="center_horizontal"
+        android:id="@+id/guide_text"
+        android:paddingTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/CORE_SVIP_RECOVER_UNMATCH_LIST_EMPTY_DESCRIPTION"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif"
+        app:enableEmojis="true"
+        app:typeface="regular"/>
+</p151v.VLinear>

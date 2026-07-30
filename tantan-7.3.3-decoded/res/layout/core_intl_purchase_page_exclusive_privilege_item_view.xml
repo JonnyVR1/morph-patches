@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPurchaseExclusivePrivilegeItemView android:orientation="horizontal" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="20.0dp" holder="purchase.intlpage.IntlPurchaseExclusivePrivilegeItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VIcon android:id="@id/icon" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="9.0dp" android:src="@null" />
+    <v.VLinear android:orientation="vertical" android:id="@id/content_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginBottom="10.0dp" android:layout_marginStart="14.0dp" flatten="true">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_02" android:ellipsize="end" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/privilege" android:layout_width="match_parent" android:layout_height="wrap_content" android:lines="1" android:autoSizeTextType="uniform" app:typeface="medium" />
+        <v.VText android:textSize="12.0sp" android:textColor="@color/common_black_02" android:ellipsize="end" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/privilege_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="7.0dp" android:maxLines="2" android:autoSizeTextType="uniform" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPurchaseExclusivePrivilegeItemView>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VButton android:textSize="12.0sp" android:textColor="@color/core_grey_01" android:layout_gravity="center" android:id="@id/button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="25.0dp" android:text="查看平台相关资质" android:drawableLeft="@null" android:drawableRight="@null" android:drawablePadding="5.0dp" />
+</merge>

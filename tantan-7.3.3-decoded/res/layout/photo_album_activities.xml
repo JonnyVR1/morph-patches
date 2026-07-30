@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="photoalbum.photoalbumactivities.PhotoAlbumActivitiesViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:pointerIcon="text" app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <FrameLayout android:id="@id/top_tips_layout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+            <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center" android:id="@id/top_tips" android:background="@color/message_banner_blue" android:layout_width="match_parent" android:layout_height="40.0dp" android:text="@string/YOU_CAN_MATCH_THOSE_LIKE_OR_COMMENT_YOU" android:maxLines="1" />
+            <v.VImage android:layout_gravity="right|center" android:id="@id/top_tips_close" android:padding="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+        </FrameLayout>
+        <v.VPullDownRefreshLayout android:id="@id/swipe_refresh" android:layout_width="match_parent" android:layout_height="match_parent" app:srlEnableLoadMore="false" flatten="true">
+            <v.VRecyclerView android:scrollbarThumbVertical="@drawable/feed_activity_scroll_bg" android:id="@id/comments" android:scrollbars="vertical" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:divider="@null" android:dividerHeight="0.0dp" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" useId="true" />
+        </v.VPullDownRefreshLayout>
+    </LinearLayout>
+    <v.VLinear android:gravity="center" android:orientation="vertical" android:id="@id/empty" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="167.0dp">
+        <v.VDraweeView android:id="@id/empty_img" android:layout_width="210.0dp" android:layout_height="150.0dp" />
+        <v.VText android:textSize="14.0sp" android:textColor="#26000000" android:gravity="center" android:id="@id/empty_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center_vertical" android:id="@id/post_feed_tv" android:background="@drawable/feed_bg_rounded_fe7e1d" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:visibility="gone" android:clickable="true" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginTop="20.0dp" android:text="去发布" />
+    </v.VLinear>
+</v.VLinear>

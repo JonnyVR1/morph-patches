@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.knight.view.LiveGuardSimpleUserView android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="increment" holder="knight.view.LiveGuardSimpleUserView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar_simple" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_centerInParent="true" app:failureImage="@drawable/live_vector_default_avatar_bg" app:placeholderImage="@drawable/live_vector_default_avatar_bg" app:roundAsCircle="true" />
+</com.p1.mobile.putong.live.livingroom.increment.knight.view.LiveGuardSimpleUserView>

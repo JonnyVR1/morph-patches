@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_enabled="false"
+        android:drawable="@drawable/live_bg_dddddd_r6"/>
+    <item
+        android:state_enabled="true"
+        android:drawable="@drawable/live_shape_ff3a00_gradient_r6"/>
+</selector>

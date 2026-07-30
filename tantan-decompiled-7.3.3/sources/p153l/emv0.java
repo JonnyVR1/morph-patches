@@ -1,0 +1,377 @@
+package p153l;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.RemoteException;
+import androidx.annotation.Nullable;
+import com.google.android.gms.ads.internal.client.zzdu;
+import com.google.android.gms.ads.internal.client.zzfk;
+import com.google.android.gms.ads.internal.client.zzl;
+import com.google.android.gms.ads.internal.client.zzq;
+import com.google.android.gms.ads.internal.client.zzw;
+import com.google.android.gms.ads.internal.util.C2098b;
+import com.google.android.gms.common.internal.Preconditions;
+import com.google.android.gms.internal.ads.zzcei;
+
+/* JADX INFO: loaded from: classes6.dex */
+public final class emv0 extends hxs0 {
+
+    /* JADX INFO: renamed from: a */
+    public final zzq f94694a;
+
+    /* JADX INFO: renamed from: b */
+    public final Context f94695b;
+
+    /* JADX INFO: renamed from: c */
+    public final k4w0 f94696c;
+
+    /* JADX INFO: renamed from: d */
+    public final String f94697d;
+
+    /* JADX INFO: renamed from: e */
+    public final zzcei f94698e;
+
+    /* JADX INFO: renamed from: f */
+    public final wlv0 f94699f;
+
+    /* JADX INFO: renamed from: g */
+    public final o5w0 f94700g;
+
+    /* JADX INFO: renamed from: h */
+    public final v2s0 f94701h;
+
+    /* JADX INFO: renamed from: i */
+    public final xwu0 f94702i;
+
+    /* JADX INFO: renamed from: j */
+    @Nullable
+    public hhu0 f94703j;
+
+    /* JADX INFO: renamed from: k */
+    public boolean f94704k = ((Boolean) jas0.m144075c().m176505a(sgs0.f167952D0)).booleanValue();
+
+    public emv0(Context context, zzq zzqVar, String str, k4w0 k4w0Var, wlv0 wlv0Var, o5w0 o5w0Var, zzcei zzceiVar, v2s0 v2s0Var, xwu0 xwu0Var) {
+        this.f94694a = zzqVar;
+        this.f94697d = str;
+        this.f94695b = context;
+        this.f94696c = k4w0Var;
+        this.f94699f = wlv0Var;
+        this.f94700g = o5w0Var;
+        this.f94698e = zzceiVar;
+        this.f94701h = v2s0Var;
+        this.f94702i = xwu0Var;
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: G */
+    public final synchronized void mo113745G() {
+        Preconditions.checkMainThread("pause must be called on the main UI thread.");
+        hhu0 hhu0Var = this.f94703j;
+        if (hhu0Var != null) {
+            hhu0Var.m152229e().m166368z0(null);
+        }
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: G6 */
+    public final void mo113746G6(i3t0 i3t0Var) {
+        Preconditions.checkMainThread("setAdMetadataListener must be called on the main UI thread.");
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: H3 */
+    public final void mo113747H3(ycu0 ycu0Var) {
+        Preconditions.checkMainThread("setPaidEventListener must be called on the main UI thread.");
+        try {
+            if (!ycu0Var.zzf()) {
+                this.f94702i.m213444e();
+            }
+        } catch (RemoteException e) {
+            dct0.m115294c("Error in making CSI ping for reporting paid event callback", e);
+        }
+        this.f94699f.m207077O(ycu0Var);
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: H7 */
+    public final synchronized void mo113748H7(yhs0 yhs0Var) {
+        Preconditions.checkMainThread("setOnCustomRenderedAdLoadedListener must be called on the main UI thread.");
+        this.f94696c.m148306h(yhs0Var);
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: I3 */
+    public final void mo113750I3(ygt0 ygt0Var) {
+        this.f94699f.m207079R(ygt0Var);
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: J */
+    public final synchronized void mo113751J() {
+        Preconditions.checkMainThread("resume must be called on the main UI thread.");
+        hhu0 hhu0Var = this.f94703j;
+        if (hhu0Var != null) {
+            hhu0Var.m152229e().m166366A0(null);
+        }
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: P7 */
+    public final synchronized void mo113756P7(p1m p1mVar) {
+        if (this.f94703j == null) {
+            dct0.m115298g("Interstitial can not be shown before loaded.");
+            this.f94699f.mo124507k(v8w0.m200327d(9, null, null));
+            return;
+        }
+        if (((Boolean) jas0.m144075c().m176505a(sgs0.f168548z2)).booleanValue()) {
+            this.f94701h.m199147c().mo165757d(new Throwable().getStackTrace());
+        }
+        this.f94703j.m135079j(this.f94704k, (Activity) h950.m134037P2(p1mVar));
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: S4 */
+    public final synchronized void mo113758S4() {
+        Preconditions.checkMainThread("showInterstitial must be called on the main UI thread.");
+        if (this.f94703j == null) {
+            dct0.m115298g("Interstitial can not be shown before loaded.");
+            this.f94699f.mo124507k(v8w0.m200327d(9, null, null));
+        } else {
+            if (((Boolean) jas0.m144075c().m176505a(sgs0.f168548z2)).booleanValue()) {
+                this.f94701h.m199147c().mo165757d(new Throwable().getStackTrace());
+            }
+            this.f94703j.m135079j(this.f94704k, null);
+        }
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: Y3 */
+    public final synchronized void mo113760Y3(boolean z) {
+        Preconditions.checkMainThread("setImmersiveMode must be called on the main UI thread.");
+        this.f94704k = z;
+    }
+
+    /* JADX WARN: Code duplicated, block: B:8:0x0024  */
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: f2 */
+    public final synchronized boolean mo113762f2(zzl zzlVar) {
+        boolean z;
+        try {
+            if (((Boolean) wis0.f189392i.m149974e()).booleanValue()) {
+                if (((Boolean) jas0.m144075c().m176505a(sgs0.f167998Ga)).booleanValue()) {
+                    z = true;
+                } else {
+                    z = false;
+                }
+            } else {
+                z = false;
+            }
+            if (this.f94698e.zzc < ((Integer) jas0.m144075c().m176505a(sgs0.f168010Ha)).intValue() || !z) {
+                Preconditions.checkMainThread("loadAd must be called on the main UI thread.");
+            }
+            bxy0.m106934r();
+            if (C2098b.m12368g(this.f94695b) && zzlVar.zzs == null) {
+                dct0.m115295d("Failed to load the ad because app ID is missing.");
+                wlv0 wlv0Var = this.f94699f;
+                if (wlv0Var != null) {
+                    wlv0Var.mo103145u(v8w0.m200327d(4, null, null));
+                }
+            } else if (!m121385r8()) {
+                q8w0.m175827a(this.f94695b, zzlVar.zzf);
+                this.f94703j = null;
+                return this.f94696c.mo95567a(zzlVar, this.f94697d, new d4w0(this.f94694a), new dmv0(this));
+            }
+            return false;
+        } catch (Throwable th) {
+            throw th;
+        }
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: g */
+    public final synchronized void mo113764g() {
+        Preconditions.checkMainThread("destroy must be called on the main UI thread.");
+        hhu0 hhu0Var = this.f94703j;
+        if (hhu0Var != null) {
+            hhu0Var.m152229e().m166367w0(null);
+        }
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: i8 */
+    public final void mo113766i8(a7t0 a7t0Var) {
+        this.f94700g.m166175K(a7t0Var);
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: l1 */
+    public final void mo113767l1(y7t0 y7t0Var) {
+        Preconditions.checkMainThread("setAppEventListener must be called on the main UI thread.");
+        this.f94699f.m207078P(y7t0Var);
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: n0 */
+    public final synchronized boolean mo113770n0() {
+        return this.f94696c.zza();
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: p0 */
+    public final synchronized boolean mo113771p0() {
+        Preconditions.checkMainThread("isLoaded must be called on the main UI thread.");
+        return m121385r8();
+    }
+
+    /* JADX INFO: renamed from: r8 */
+    public final synchronized boolean m121385r8() {
+        hhu0 hhu0Var = this.f94703j;
+        return (hhu0Var == null || hhu0Var.m135078i()) ? false : true;
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: w7 */
+    public final void mo113777w7(zzl zzlVar, uls0 uls0Var) {
+        this.f94699f.m207076K(uls0Var);
+        mo113762f2(zzlVar);
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: x2 */
+    public final void mo113778x2(xhs0 xhs0Var) {
+        Preconditions.checkMainThread("setAdListener must be called on the main UI thread.");
+        this.f94699f.m207075D(xhs0Var);
+    }
+
+    @Override // p153l.oys0
+    public final Bundle zzd() {
+        Preconditions.checkMainThread("getAdMetadata must be called on the main UI thread.");
+        return new Bundle();
+    }
+
+    @Override // p153l.oys0
+    public final zzq zzg() {
+        return null;
+    }
+
+    @Override // p153l.oys0
+    public final xhs0 zzi() {
+        return this.f94699f.m207080z();
+    }
+
+    @Override // p153l.oys0
+    public final y7t0 zzj() {
+        return this.f94699f.m207074B();
+    }
+
+    @Override // p153l.oys0
+    @Nullable
+    public final synchronized tlu0 zzk() {
+        hhu0 hhu0Var;
+        if (((Boolean) jas0.m144075c().m176505a(sgs0.f168078N6)).booleanValue() && (hhu0Var = this.f94703j) != null) {
+            return hhu0Var.m152228d();
+        }
+        return null;
+    }
+
+    @Override // p153l.oys0
+    public final lpu0 zzl() {
+        return null;
+    }
+
+    @Override // p153l.oys0
+    public final p1m zzn() {
+        return null;
+    }
+
+    @Override // p153l.oys0
+    public final synchronized String zzr() {
+        return this.f94697d;
+    }
+
+    @Override // p153l.oys0
+    @Nullable
+    public final synchronized String zzs() {
+        hhu0 hhu0Var = this.f94703j;
+        if (hhu0Var == null || hhu0Var.m152228d() == null) {
+            return null;
+        }
+        return hhu0Var.m152228d().zzg();
+    }
+
+    @Override // p153l.oys0
+    @Nullable
+    public final synchronized String zzt() {
+        hhu0 hhu0Var = this.f94703j;
+        if (hhu0Var == null || hhu0Var.m152228d() == null) {
+            return null;
+        }
+        return hhu0Var.m152228d().zzg();
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: t */
+    public final void mo113775t() {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: A5 */
+    public final void mo113742A5(was0 was0Var) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: C5 */
+    public final void mo113743C5(tes0 tes0Var) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: I1 */
+    public final void mo113749I1(zzw zzwVar) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: L0 */
+    public final void mo113752L0(zzdu zzduVar) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: R3 */
+    public final void mo113757R3(zzq zzqVar) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: X6 */
+    public final void mo113759X6(String str) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: e2 */
+    public final void mo113761e2(zzfk zzfkVar) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: f7 */
+    public final void mo113763f7(zct0 zct0Var) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: r6 */
+    public final void mo113772r6(String str) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: s4 */
+    public final void mo113774s4(boolean z) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: v3 */
+    public final void mo113776v3(j2t0 j2t0Var) {
+    }
+
+    @Override // p153l.oys0
+    /* JADX INFO: renamed from: E6 */
+    public final void mo113744E6(m2t0 m2t0Var, String str) {
+    }
+}

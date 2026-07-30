@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center_horizontal" android:id="@id/top_area" android:layout_width="110.0dp" android:layout_height="96.0dp">
+        <FrameLayout android:layout_gravity="center_horizontal" android:id="@id/avatar_bg" android:layout_width="96.0dp" android:layout_height="96.0dp" style="@style/vip_alert_avatar_frame_round_bg">
+            <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="82.0dp" android:layout_height="82.0dp" style="@style/core_fresco_profile_white_border" />
+        </FrameLayout>
+        <v.VImage android:layout_gravity="end" android:id="@id/icon" android:layout_width="42.0dp" android:layout_height="42.0dp" android:layout_marginTop="6.0dp" android:src="@null" />
+    </FrameLayout>
+    <v.VText android:textSize="18.0sp" android:textColor="@color/common_origin_01" android:ellipsize="end" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/username" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="70.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="70.0dp" android:lines="1" android:drawablePadding="8.0dp" app:vectorDrawableRight="@drawable/vip_status_vip" />
+</LinearLayout>

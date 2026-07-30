@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.privilege.PrivilegeDescListCustomModelItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="90dp"
+    android:layout_height="120dp"
+    flatten="true"
+    holder="purchase.privilege.PrivilegeDescListCustomModelItem">
+    <p151v.VDraweeView
+        android:id="@+id/header_pic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:actualImageScaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:placeholderImage="@drawable/tf_circle_bounded_light"
+        app:roundBottomLeft="true"
+        app:roundBottomRight="true"
+        app:roundTopLeft="true"
+        app:roundTopRight="true"
+        app:roundedCornerRadius="10dp"/>
+    <p151v.VDraweeView
+        android:id="@+id/mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:actualImageScaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:placeholderImage="0x7f0813b1"
+        app:roundBottomLeft="true"
+        app:roundBottomRight="true"
+        app:roundTopLeft="true"
+        app:roundTopRight="true"
+        app:roundedCornerRadius="10dp"/>
+    <p151v.VText
+        android:textSize="12dp"
+        android:textColor="@color/white"
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/header_pic"
+        app:layout_constraintLeft_toLeftOf="@+id/header_pic"
+        app:layout_constraintRight_toRightOf="@+id/header_pic"/>
+</com.p051p1.mobile.putong.core.p058ui.purchase.privilege.PrivilegeDescListCustomModelItem>

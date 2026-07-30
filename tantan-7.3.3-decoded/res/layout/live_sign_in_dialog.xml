@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="common.signin" holder="SignInView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <View android:id="@id/layout_input_empty" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+        <FrameLayout android:layout_width="match_parent" android:layout_height="400.0dp">
+            <include android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_sign_in_bg" />
+            <FrameLayout android:id="@id/content" android:layout_width="match_parent" android:layout_height="match_parent" />
+        </FrameLayout>
+    </LinearLayout>
+    <include android:id="@id/anim_fame" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_sign_in_dialog_anim_frame" />
+</FrameLayout>

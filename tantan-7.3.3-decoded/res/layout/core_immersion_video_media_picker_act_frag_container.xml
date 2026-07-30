@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@color/core_color_121212" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/root" android:background="@color/core_color_121212" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VImage android:id="@id/close" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="12.0dp" android:src="@null" android:scaleType="center" />
+</FrameLayout>

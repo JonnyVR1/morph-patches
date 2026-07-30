@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VScroll android:layout_width="match_parent" android:layout_height="match_parent" holder="profile.EditAboutMeAct"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:paddingLeft="16.0dp" android:paddingTop="16.0dp" android:paddingRight="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VMaterialEdit android:id="@id/edit_about_me" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/ADD_SELF_INTRODUCTION" android:maxLength="500" android:inputType="textCapSentences|textMultiLine" />
+        <com.p1.mobile.putong.core.ui.profile.FlowLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="32.0dp">
+            <v.VText android:id="@id/tag1" android:layout_width="wrap_content" android:layout_height="40.0dp" style="@style/profile_about_me_tag" />
+            <v.VText android:id="@id/tag2" android:layout_width="wrap_content" android:layout_height="40.0dp" style="@style/profile_about_me_tag" />
+            <v.VText android:id="@id/tag3" android:layout_width="wrap_content" android:layout_height="40.0dp" style="@style/profile_about_me_tag" />
+        </com.p1.mobile.putong.core.ui.profile.FlowLayout>
+    </v.VLinear>
+</v.VScroll>

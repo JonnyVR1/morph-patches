@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:background="@drawable/feed_dialog_bottom_to_top_bg" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="group.dialog.insert.twolevellinkage.FeedPostSelectedCategoryTopicsView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VMenuBar android:id="@id/title_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:menubar_bottom_line_visible="false" app:menubar_icon_left="@null" app:menubar_text_center="@string/FEED_ADD_MOMENT_TOPIC" />
+        <v.VSearchBar android:id="@id/search_bar" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="搜索话题" app:searchbar_cancel_behavior="behavior_float" app:searchbar_cancel_text="@string/ACTION_CANCEL" />
+        <v.VLinear android:layout_gravity="center_horizontal" android:orientation="vertical" android:id="@id/no_result" android:visibility="gone" android:layout_width="210.0dp" android:layout_height="wrap_content" android:layout_marginTop="103.0dp">
+            <ImageView android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:scaleType="centerCrop" />
+            <v.VText android:textSize="14.0sp" android:textColor="@color/feed_26000000" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0dp" android:text="没有符合条件的内容" />
+        </v.VLinear>
+        <LinearLayout android:orientation="vertical" android:id="@id/all_topic_ll" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <com.p1.mobile.putong.feed.newui.group.dialog.insert.selecteditem.FeedPostSelectedHeader android:id="@id/header" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="80.0dp">
+                <v.VRecyclerView android:id="@id/topic_categories" android:background="@color/white" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:divider="@null" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                <v.VRecyclerView android:id="@id/topics" android:background="@color/white" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="2.0dp" android:divider="@null" android:overScrollMode="never" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+        </LinearLayout>
+    </v.VLinear>
+    <v.VButton android:textColor="@color/feed_post_tv_confirm_color" android:layout_gravity="bottom" android:id="@id/ok" android:background="@drawable/common_button_btn_orange_medium" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" android:text="@string/ACTION_CONFIRM" style="@style/common_button_large_01" />
+</v.VFrame>

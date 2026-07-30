@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="26.0dp" />
+            <solid android:color="#ffffff" />
+            <stroke android:width="2.0dp" android:color="#34000000" android:dashWidth="2.0dp" android:dashGap="4.0dp" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/tf_rect_rounded_light" />
+</layer-list>

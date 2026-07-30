@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:background="@color/transparent" android:clipChildren="false" attachToRoot="true" flatten="true" folder="newui" holder="newmeet.feed.likers.MeetItemLikerHeadView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.p1.mobile.putong.core.newui.newmeet.feed.likers.MeetItemLikerHeadDefaultView android:id="@id/title_layout_default" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <com.p1.mobile.putong.core.newui.newmeet.feed.view.MeetItemEntryHeadView android:id="@id/meet_head_layout" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <com.p1.mobile.putong.core.newui.newmeet.feed.view.MeetItemEntryHeadViewMyTabStyle android:id="@id/meet_head_layout_my_tab_style" android:paddingLeft="14.0dp" android:paddingTop="12.0dp" android:paddingRight="14.0dp" android:paddingBottom="8.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="14.0dp" />
+</merge>

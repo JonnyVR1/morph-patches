@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="settings.ChatInputSettingActViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VScroll android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:background="@null" android:layout_width="match_parent" android:layout_height="match_parent">
+            <v.VLinear android:orientation="vertical" android:id="@id/chat_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="28.0dp" android:layout_marginRight="20.0dp">
+                <v.VText android:textSize="15.0sp" android:textColor="@color/common_grey_09" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/CHAT_TITLE" />
+                <v.VListCell android:id="@id/chat_switch" app:listcell_title="@string/SETTINGS_PRESS_ENTER_TO_SEND" app:listcell_title_color="@color/common_black_02" app:listcell_title_size="15.0sp" style="@style/core_newfilter_cell" />
+            </v.VLinear>
+        </v.VLinear>
+    </v.VScroll>
+</v.VLinear>

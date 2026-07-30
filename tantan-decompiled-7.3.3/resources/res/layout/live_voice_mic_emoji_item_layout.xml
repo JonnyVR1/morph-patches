@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.intl.emoji.VoiceMicEmojiItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="83dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="12dp"
+    flatten="true"
+    folder="voice.intl.emoji"
+    holder="VoiceMicEmojiItemView">
+    <FrameLayout
+        android:id="@+id/image_layout"
+        android:background="@drawable/live_bg_white_r20_a04"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        flatten="true">
+        <p151v.VDraweeView
+            android:id="@+id/image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="6dp"
+            app:actualImageScaleType="centerCrop"/>
+    </FrameLayout>
+    <p151v.VText
+        android:textSize="12sp"
+        android:textColor="@color/live_white_40_opacity"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxWidth="80dp"
+        android:layout_below="@+id/image_layout"
+        android:layout_centerHorizontal="true"
+        style="@style/live_setting_text_lines"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.intl.emoji.VoiceMicEmojiItemView>

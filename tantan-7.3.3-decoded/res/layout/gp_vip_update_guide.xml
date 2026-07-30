@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="15.0sp" android:textColor="#6e4101" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:text="@string/INTL_VIP_UPDATE_GUIDE_TITLE" />
+    <v.VRelative android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <FrameLayout android:layout_gravity="center" android:layout_width="130.0dp" android:layout_height="130.0dp" android:layout_centerInParent="true">
+            <v.VImage android:layout_width="match_parent" android:layout_height="match_parent" android:src="@null" />
+            <v.VDraweeView android:id="@id/vip_guide_avatar" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="21.0dp" app:roundAsCircle="true" />
+        </FrameLayout>
+        <v.VImage android:id="@id/vip_guide_avatar_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+    </v.VRelative>
+    <v.VText android:textSize="15.0sp" android:textColor="#212121" android:layout_gravity="center_horizontal" android:id="@id/vip_guide_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="36.0dp" android:layout_marginBottom="25.0dp" android:text="4 Extra Privileges at the SAME Price" />
+</v.VLinear>

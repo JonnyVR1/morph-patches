@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="20dp"
+    android:paddingTop="16dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@+id/img"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp">
+        <p151v.VDraweeView
+            android:id="@+id/avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImage="0x7f081634"
+            app:placeholderImageScaleType="centerCrop"
+            app:roundAsCircle="true"/>
+        <p151v.VDraweeView
+            android:layout_gravity="end|bottom"
+            android:id="@+id/small_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:placeholderImage="0x7f081634"/>
+    </FrameLayout>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="@color/common_black_02"
+        android:gravity="center_vertical"
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+</p151v.VLinear>

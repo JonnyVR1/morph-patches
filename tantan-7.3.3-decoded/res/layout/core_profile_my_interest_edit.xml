@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:id="@id/interests_frame" android:background="@color/white" android:paddingTop="0.0dp" flatten="true" holder="profile.holders.ProfileInterestEditHolder" needPublic="true" style="@style/profile_item_frame_no_padding_new"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:id="@id/edit_title" android:text="@string/PROFILE_SECTION_HEADER_INTERESTS" style="@style/profile_item_title_black_edit" />
+    <v.VLinear android:orientation="horizontal" android:id="@id/sports_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" app:srcCompat="@drawable/core_profile_sport_ic" />
+        <v.VText_Tags android:textColorHint="@color/common_black_80" android:id="@id/sports" android:layout_width="wrap_content" android:layout_marginRight="4.0dp" android:hint="@string/PROFILE_TAGS_CATEGORY_SPORTS_PLACEHOLDER" android:drawablePadding="0.0dp" android:layout_weight="1.0" style="@style/profile_item_item_with_tag_no_bg" />
+        <ImageView android:id="@id/sports_right" android:padding="0.0dp" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="20.0dp" android:src="@null" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/music_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" app:srcCompat="@drawable/core_profile_music_ic" />
+        <v.VText_Tags android:textColorHint="@color/common_black_80" android:id="@id/music" android:layout_width="wrap_content" android:layout_marginRight="4.0dp" android:hint="@string/PROFILE_TAGS_CATEGORY_MUSIC_PLACEHOLDER" android:drawablePadding="0.0dp" android:layout_weight="1.0" style="@style/profile_item_item_with_tag_no_bg" />
+        <ImageView android:id="@id/music_right" android:padding="0.0dp" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="20.0dp" android:src="@null" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/food_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" app:srcCompat="@drawable/core_profile_food_ic" />
+        <v.VText_Tags android:textColorHint="@color/common_black_80" android:id="@id/food" android:layout_width="wrap_content" android:layout_marginRight="4.0dp" android:hint="@string/PROFILE_TAGS_CATEGORY_FOOD_PLACEHOLDER" android:drawablePadding="0.0dp" android:layout_weight="1.0" style="@style/profile_item_item_with_tag_no_bg" />
+        <ImageView android:id="@id/food_right" android:padding="0.0dp" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="20.0dp" android:src="@null" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/movies_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" app:srcCompat="@drawable/core_profile_movie_ic" />
+        <v.VText_Tags android:textColorHint="@color/common_black_80" android:id="@id/movies" android:layout_width="wrap_content" android:layout_marginRight="4.0dp" android:hint="@string/PROFILE_TAGS_CATEGORY_MOVIES_PLACEHOLDER" android:drawablePadding="0.0dp" android:layout_weight="1.0" style="@style/profile_item_item_with_tag_no_bg" />
+        <ImageView android:id="@id/movies_right" android:padding="0.0dp" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="20.0dp" android:src="@null" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/literature_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" app:srcCompat="@drawable/core_profile_reading_ic" />
+        <v.VText_Tags android:textColorHint="@color/common_black_80" android:id="@id/literature" android:layout_width="wrap_content" android:layout_marginRight="4.0dp" android:hint="@string/PROFILE_TAGS_CATEGORY_BOOKS_PLACEHOLDER" android:drawablePadding="0.0dp" android:layout_weight="1.0" style="@style/profile_item_item_with_tag_no_bg" />
+        <ImageView android:id="@id/literature_right" android:padding="0.0dp" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="20.0dp" android:src="@null" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/places_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" app:srcCompat="@drawable/core_profile_trip_ic" />
+        <v.VText_Tags android:textColorHint="@color/common_black_80" android:id="@id/places" android:layout_width="wrap_content" android:layout_marginRight="4.0dp" android:hint="@string/PROFILE_TAGS_CATEGORY_TRAVEL_PLACEHOLDER" android:drawablePadding="0.0dp" android:layout_weight="1.0" style="@style/profile_item_item_with_tag_no_bg" />
+        <ImageView android:id="@id/places_right" android:padding="0.0dp" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="20.0dp" android:src="@null" />
+    </v.VLinear>
+    <LinearLayout android:orientation="vertical" android:id="@id/divider_layout" style="@style/profile_edit_driver">
+        <View android:background="@drawable/core_profile_newui_edit_item_normal" android:layout_width="match_parent" android:layout_height="3.0dp" />
+    </LinearLayout>
+</v.VLinear_Dividers>

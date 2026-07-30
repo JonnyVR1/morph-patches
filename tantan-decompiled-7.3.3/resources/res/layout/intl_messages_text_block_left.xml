@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemMessageBlock xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:id="@+id/content"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    holder="messages.ItemMessageBlock"
+    style="@style/messages_item_left">
+    <p151v.VImage
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:src="0x7f082890"/>
+    <p151v.VImage
+        android:layout_gravity="center"
+        android:id="@+id/block_lock"
+        android:layout_width="62dp"
+        android:layout_height="40dp"
+        android:src="0x7f08288e"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemMessageBlock>

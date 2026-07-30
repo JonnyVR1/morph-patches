@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.feedcenter.FeedCenterLiveVoiceRoomView android:id="@id/live_room_root" android:background="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="false" folder="newui" holder="photoalbum.feedcenter.FeedCenterLiveVoiceRoomView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include layout="@layout/feed_photo_album_activities_time" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:id="@id/live_voice_room_root" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="64.0dp" android:layout_marginRight="16.0dp" flatten="false">
+            <com.p1.mobile.putong.newui.view.VExpandableTextContainer android:id="@id/moment_expandable_text" android:layout_width="match_parent" android:layout_height="wrap_content" app:expandLine="3" app:expandText="@string/DISCOVER_MOMENT_SPREAD" app:isTextExpandSameLine="true" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" app:maxCollapsedLines="4">
+                <com.p1.mobile.putong.newui.view.InnerClickSpanTextView android:textSize="15.0sp" android:textColor="@color/common_black_02" android:ellipsize="end" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                <v.VText android:textSize="15.0sp" android:textColor="@color/common_orange" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" />
+            </com.p1.mobile.putong.newui.view.VExpandableTextContainer>
+            <com.p1.mobile.putong.feed.newui.photoalbum.livevoiceroom.FeedLiveVoiceRoomView android:id="@id/live_root_enter" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/moment_expandable_text" />
+            <View android:id="@id/divider" android:background="#d8d8d8" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="0.5dp" android:layout_marginTop="20.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" />
+        </LinearLayout>
+        <RelativeLayout android:id="@id/live_voice_new_root" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="64.0dp">
+            <v.VDraweeView android:id="@id/voice_new_image" android:layout_width="186.0dp" android:layout_height="186.0dp" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="10.0dp" />
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/feed_bg_voice_image_top" android:layout_width="wrap_content" android:layout_height="24.0dp" android:layout_marginLeft="8.0dp" android:layout_marginTop="8.0dp">
+                <TextView android:textSize="11.0sp" android:textStyle="normal" android:textColor="#ffffff" android:id="@id/voice_new_more_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:text="@string/FEED_MORE_ONE_VOICE_CHAT" />
+                <v.VDraweeView android:id="@id/voice_new_anim" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginLeft="3.0dp" android:layout_marginRight="5.0dp" />
+            </LinearLayout>
+            <TextView android:textSize="15.0sp" android:textColor="#e6000000" android:id="@id/voice_new_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginBottom="20.0dp" android:layout_below="@id/voice_new_image" android:lineSpacingExtra="5.0sp" />
+        </RelativeLayout>
+    </FrameLayout>
+</com.p1.mobile.putong.feed.newui.photoalbum.feedcenter.FeedCenterLiveVoiceRoomView>

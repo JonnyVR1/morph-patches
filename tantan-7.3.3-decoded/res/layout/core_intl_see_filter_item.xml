@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/filter_icon" android:visibility="gone" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginRight="4.0dp" android:src="@drawable/ic_filter_check" />
+    <v.VText_NoTopPadding android:textSize="14.0sp" android:textColor="@color/core_intl_see_filter_item_text" android:id="@id/filter_text" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</merge>

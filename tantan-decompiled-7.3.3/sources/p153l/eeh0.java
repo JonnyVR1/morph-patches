@@ -1,0 +1,22 @@
+package p153l;
+
+import com.p051p1.mobile.putong.core.CoreModule;
+import com.p051p1.mobile.putong.core.data.Privilege;
+import com.p051p1.mobile.putong.data.OMSAction;
+
+/* JADX INFO: loaded from: classes11.dex */
+public class eeh0 extends c4k0 {
+    @Override // p153l.c4k0
+    /* JADX INFO: renamed from: c */
+    public boolean mo106291c(OMSAction oMSAction) {
+        CoreModule.m30933P().m143405a().mo34625wr(this.f79710a.f55069a, "NA,NA,noMatchGuidePage", Privilege.see_who_likes_me);
+        m107886b();
+        return true;
+    }
+
+    @Override // p153l.c4k0
+    /* JADX INFO: renamed from: d */
+    public String mo106292d() {
+        return "svip_dialog";
+    }
+}

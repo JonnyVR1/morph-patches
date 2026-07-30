@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.view.LivePreviewTopView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="view" holder="LivePreviewTopView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VImage android:id="@id/close_image" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" />
+        <v.VLinear android:layout_gravity="center_horizontal" android:orientation="horizontal" android:id="@id/live_push_type_selector" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp">
+            <FrameLayout android:id="@id/live_video" android:layout_width="wrap_content" android:layout_height="28.0dp">
+                <v.VText android:textSize="15.0sp" android:textColor="@color/live_preview_type_selector" android:gravity="center" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_PREVIEW_VIDEO" />
+                <View android:layout_gravity="center|bottom" android:background="@drawable/live_selector_preview_type_indicator" android:layout_width="12.0dp" android:layout_height="3.0dp" />
+            </FrameLayout>
+            <FrameLayout android:id="@id/live_obs" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="28.0dp" android:layout_marginLeft="24.0dp">
+                <v.VText android:textSize="15.0sp" android:textColor="@color/live_preview_type_selector" android:gravity="center" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_PREVIEW_COMPUTER" android:layout_weight="1.0" />
+                <View android:layout_gravity="center|bottom" android:background="@drawable/live_selector_preview_type_indicator" android:layout_width="12.0dp" android:layout_height="3.0dp" />
+            </FrameLayout>
+        </v.VLinear>
+    </FrameLayout>
+    <v.VLinear android:orientation="vertical" android:id="@id/live_cover_container" android:background="@drawable/live_bg_black_r10_a20" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="23.0dp" flatten="true">
+        <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="16.0dp">
+            <FrameLayout android:id="@id/live_cover_parent" android:layout_width="64.0dp" android:layout_height="64.0dp" flatten="true">
+                <v.VDraweeView android:id="@id/live_cover" android:layout_width="match_parent" android:layout_height="match_parent" fresco:failureImage="@drawable/live_shape_preview_cover" fresco:placeholderImage="@drawable/live_shape_preview_cover" fresco:placeholderImageScaleType="centerInside" fresco:roundBottomLeft="true" fresco:roundBottomRight="true" fresco:roundTopLeft="true" fresco:roundTopRight="true" fresco:roundedCornerRadius="10.0dp" style="@style/live_fresco_base" />
+                <v.VText android:textSize="12.0sp" android:textColor="@color/live_white" android:gravity="center" android:layout_gravity="bottom" android:id="@id/checking" android:background="@drawable/live_bg_black_br10_a50" android:visibility="gone" android:layout_width="match_parent" android:layout_height="20.0dp" />
+                <v.VImage android:layout_gravity="right|bottom" android:id="@id/checking_image" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" />
+            </FrameLayout>
+            <RelativeLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/live_margin_start" android:layout_marginRight="@dimen/live_margin_end" android:layout_marginEnd="@dimen/live_margin_end">
+                <v.VEditText android:textSize="18.0sp" android:textColor="@color/white" android:textColorHint="#66ffffff" android:id="@id/live_title" android:background="@null" android:layout_width="match_parent" android:layout_height="30.0dp" android:text="@string/LIVE_COME_TANTAN_LIVE" android:hint="@string/LIVE_INPUT_ROOM_TITLE" android:lines="1" android:singleLine="true" android:inputType="textNoSuggestions" />
+            </RelativeLayout>
+        </v.VLinear>
+    </v.VLinear>
+</com.p1.mobile.putong.live.livingroom.view.LivePreviewTopView>

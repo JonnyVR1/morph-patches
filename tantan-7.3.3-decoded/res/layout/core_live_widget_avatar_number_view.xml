@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveMultiAvatarView android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView android:id="@id/avatar_1" android:layout_width="28.0dp" android:layout_height="28.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView>
+    <com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView android:id="@id/avatar_2" android:layout_width="28.0dp" android:layout_height="28.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView>
+    <com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView android:id="@id/avatar_3" android:layout_width="28.0dp" android:layout_height="28.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView>
+    <com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView android:id="@id/avatar_4" android:layout_width="28.0dp" android:layout_height="28.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView>
+    <com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView android:id="@id/avatar_5" android:layout_width="28.0dp" android:layout_height="28.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView>
+    <com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView android:id="@id/avatar_6" android:layout_width="28.0dp" android:layout_height="28.0dp">
+        <v.VDraweeView android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+    </com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveAvatarNumberItemView>
+</com.p1.mobile.putong.core.newui.home.bubble.internalpush.LiveMultiAvatarView>

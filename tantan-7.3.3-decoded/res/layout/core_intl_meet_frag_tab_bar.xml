@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="horizontal" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="intlmeet.frag.IntlMeetFragTabBar"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/liker_layout" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginStart="12.0dp" android:layout_marginEnd="16.0dp" flatten="true">
+        <v.VText android:textSize="20.0sp" android:textColor="#cc000000" android:gravity="center_vertical" android:id="@id/liker_title" android:paddingTop="3.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/INTL_TTC_MEET_TITLE_0LIKE" />
+    </FrameLayout>
+    <v.VLinear android:orientation="horizontal" android:id="@id/visitor_layout" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="match_parent" flatten="true">
+        <v.VText android:textSize="20.0sp" android:textColor="#66000000" android:gravity="center" android:id="@id/visitor_title" android:paddingTop="3.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/INTL_MEET_TAB_VISITOR_TITLE" />
+        <v.VText android:textSize="10.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="right" android:id="@id/new_match_red_dot" android:background="@drawable/core_intl_meet_frag_tab_red_dot" android:paddingLeft="4.0dp" android:paddingRight="4.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="16.0dp" android:paddingHorizontal="4.0dp" />
+    </v.VLinear>
+</v.VLinear>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:id="@id/literature_container" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <v.VDraweeView android:id="@id/image" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" app:failureImage="@color/white" app:failureImageScaleType="centerInside" app:roundedCornerRadius="10.0dp" />
+        <FrameLayout android:background="@drawable/core_add_artwork_item_bg" android:layout_width="match_parent" android:layout_height="64.5dp" android:layout_alignParentBottom="true" />
+        <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:layout_marginBottom="6.0dp" android:layout_alignParentBottom="true" android:layout_marginHorizontal="6.0dp">
+            <v.VImage android:id="@id/type_watch" android:layout_width="16.0dp" android:layout_height="16.0dp" />
+            <v.VText android:textSize="11.0sp" android:textColor="#ccffffff" android:gravity="center" android:id="@id/watch_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="3.0dp" android:layout_marginTop="1.0dp" android:singleLine="true" />
+        </v.VLinear>
+    </RelativeLayout>
+</v.VFrame>

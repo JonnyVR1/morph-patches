@@ -1,0 +1,91 @@
+package p153l;
+
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Space;
+import android.widget.TextView;
+import com.p051p1.mobile.putong.core.newui.home.NewPictureContainerIndicator;
+import com.p051p1.mobile.putong.core.newui.home.card.opt.DefaultCardViewOpt;
+import com.p051p1.mobile.putong.core.newui.home.views.CardBottomMomentCardTwoView;
+import com.p051p1.mobile.putong.core.newui.home.views.SuperLikeBanner;
+import com.p051p1.mobile.putong.core.newui.home.views.SwipeLikeButton;
+import com.p051p1.mobile.putong.core.newui.view.LinearMeasureOrderLayout;
+import com.p051p1.mobile.putong.core.p058ui.PictureView;
+import com.p051p1.mobile.putong.core.p058ui.likeminded.LikeMindedCardTabView;
+import com.tantan.library.svga.SVGAnimationView;
+import p151v.VDraweeView;
+import p151v.VFrame;
+import p151v.VIcon;
+import p151v.VImage;
+import p151v.VLinear;
+import p151v.VText;
+
+/* JADX INFO: loaded from: classes10.dex */
+public class ind {
+    /* JADX INFO: renamed from: a */
+    public static void m141092a(DefaultCardViewOpt defaultCardViewOpt, View view) {
+        defaultCardViewOpt.f23672Q2 = (DefaultCardViewOpt) view;
+        ViewGroup viewGroup = (ViewGroup) view;
+        defaultCardViewOpt.f23674R2 = (LinearLayout) viewGroup.getChildAt(0);
+        defaultCardViewOpt.f23676S2 = ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(0);
+        defaultCardViewOpt.f23678T2 = (VLinear) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(1);
+        defaultCardViewOpt.f23680U2 = ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(1)).getChildAt(0);
+        defaultCardViewOpt.f23682V2 = (CardBottomMomentCardTwoView) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(1)).getChildAt(1);
+        defaultCardViewOpt.f23684W2 = ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(1)).getChildAt(2);
+        defaultCardViewOpt.f23685X2 = (PictureView) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(2);
+        defaultCardViewOpt.f23686Y2 = (Space) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(3);
+        defaultCardViewOpt.f23687Z2 = ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(4);
+        defaultCardViewOpt.f23688a3 = ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(5);
+        defaultCardViewOpt.f23689b3 = ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(6);
+        defaultCardViewOpt.f23690c3 = ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(7);
+        defaultCardViewOpt.f23691d3 = (LinearMeasureOrderLayout) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8);
+        defaultCardViewOpt.f23692e3 = (VFrame) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(0);
+        defaultCardViewOpt.f23693f3 = (SVGAnimationView) ((ViewGroup) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(0)).getChildAt(0);
+        defaultCardViewOpt.f23694g3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(0)).getChildAt(1);
+        defaultCardViewOpt.f23695h3 = (TextView) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(1);
+        defaultCardViewOpt.f23696i3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(2);
+        defaultCardViewOpt.f23697j3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(3);
+        defaultCardViewOpt.f23698k3 = (VLinear) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(4);
+        defaultCardViewOpt.f23699l3 = (ImageView) ((ViewGroup) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(4)).getChildAt(0);
+        defaultCardViewOpt.f23700m3 = (TextView) ((ViewGroup) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(4)).getChildAt(1);
+        defaultCardViewOpt.f23701n3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(5);
+        defaultCardViewOpt.f23702o3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(6);
+        defaultCardViewOpt.f23703p3 = (VLinear) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(7);
+        defaultCardViewOpt.f23704q3 = (VDraweeView) ((ViewGroup) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(7)).getChildAt(0);
+        defaultCardViewOpt.f23705r3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(7)).getChildAt(1);
+        defaultCardViewOpt.f23706s3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(8);
+        defaultCardViewOpt.f23707t3 = (VImage) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(8)).getChildAt(9);
+        defaultCardViewOpt.f23708u3 = (FrameLayout) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(9);
+        defaultCardViewOpt.f23709v3 = (VLinear) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(10);
+        defaultCardViewOpt.f23710w3 = (VIcon) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(11);
+        defaultCardViewOpt.f23711x3 = (VImage) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(12);
+        defaultCardViewOpt.f23712y3 = (VImage) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(13);
+        defaultCardViewOpt.f23713z3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(14);
+        defaultCardViewOpt.f23656A3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(15);
+        defaultCardViewOpt.f23657B3 = (LikeMindedCardTabView) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(16);
+        defaultCardViewOpt.f23658C3 = (VLinear) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(17);
+        defaultCardViewOpt.f23659D3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(17)).getChildAt(1);
+        defaultCardViewOpt.f23660E3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(18);
+        defaultCardViewOpt.f23661F3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(19);
+        defaultCardViewOpt.f23662G3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(20);
+        defaultCardViewOpt.f23663H3 = (SuperLikeBanner) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(21);
+        defaultCardViewOpt.f23664I3 = (SwipeLikeButton) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(22);
+        defaultCardViewOpt.f23665J3 = (SwipeLikeButton) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(23);
+        defaultCardViewOpt.f23666K3 = (NewPictureContainerIndicator) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(24);
+        defaultCardViewOpt.f23667L3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(25);
+        defaultCardViewOpt.f23668M3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(26);
+        defaultCardViewOpt.f23669N3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(27);
+        defaultCardViewOpt.f23670O3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(28);
+        defaultCardViewOpt.f23671P3 = (ViewStub) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(29);
+        defaultCardViewOpt.f23673Q3 = (LinearLayout) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(30);
+        defaultCardViewOpt.f23675R3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(30)).getChildAt(1);
+        defaultCardViewOpt.f23677S3 = (LinearLayout) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(31);
+        defaultCardViewOpt.f23679T3 = (VText) ((ViewGroup) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(0)).getChildAt(0)).getChildAt(31)).getChildAt(1);
+        defaultCardViewOpt.f23681U3 = (VFrame) viewGroup.getChildAt(1);
+        defaultCardViewOpt.f23683V3 = (ViewStub) ((ViewGroup) viewGroup.getChildAt(1)).getChildAt(0);
+    }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aigestudio="http://schemas.android.com/apk/res-auto" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="27.0dp">
+        <v.VIcon android:id="@id/first_title_close" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginRight="16.0dp" android:src="@null" android:layout_alignParentRight="true" />
+        <v.VIcon android:id="@id/bg_icon" android:layout_width="140.0dp" android:layout_height="110.0dp" android:layout_marginLeft="40.0dp" android:layout_marginTop="8.0dp" android:src="@null" android:layout_alignParentLeft="true" />
+    </v.VRelative>
+    <v.VText android:textSize="24.0sp" android:textColor="@color/common_black_02" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="40.0dp" android:text="开启好友消息提示" />
+    <v.VText android:textSize="15.0sp" android:textColor="#999999" android:id="@id/sub_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="40.0dp" android:text="选择通知接收范围" />
+    <v.VRelative android:id="@id/only_chat" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="40.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="40.0dp" flatten="true">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_02" android:id="@id/only_chat_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="48.0dp" android:text="仅接收好友消息（聊天配对等)" android:layout_weight="1.0" android:layout_centerVertical="true" />
+        <v.VImage android:textStyle="bold" android:id="@id/only_chat_image" android:layout_width="22.0dp" android:layout_height="22.0dp" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </v.VRelative>
+    <v.VRelative android:id="@id/all_check" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="40.0dp" android:layout_marginRight="40.0dp" flatten="true">
+        <v.VText android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/common_black_02" android:id="@id/choose_all_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="48.0dp" android:text="接收全部消息（动态直播等）" android:layout_weight="1.0" android:layout_centerVertical="true" />
+        <v.VImage android:textStyle="bold" android:id="@id/all_check_image" android:layout_width="22.0dp" android:layout_height="22.0dp" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </v.VRelative>
+    <v.VButton android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:id="@id/open_auth" android:background="@drawable/common_button_btn_orange_medium" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="27.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="32.0dp" android:text="立刻开启" />
+</LinearLayout>

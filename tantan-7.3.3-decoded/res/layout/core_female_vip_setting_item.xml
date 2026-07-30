@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="56.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="15.0dp" android:textColor="@color/core_color_80percent_000000" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="21.0dp" android:layout_marginLeft="20.0dp" />
+    <v.VSwitchButton android:layout_gravity="right|center" android:id="@id/switch_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="24.0dp" />
+</FrameLayout>

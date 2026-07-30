@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:gravity="center" android:layout_gravity="center" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" attachToRoot="true" holder="settings.filter.TagNorItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="14.0sp" android:textColor="@color/tag_item_text_bg_selected" android:gravity="center" android:layout_gravity="center" android:id="@id/tv" android:layout_width="wrap_content" android:layout_height="32.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" android:singleLine="true" android:drawablePadding="6.0dp" android:layout_centerInParent="true" android:lineSpacingExtra="4.0sp" />
+</merge>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.voiceslipcard.chatroom.LiveVoiceActivitiesEntryOriginStyleOne android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/live_list_voice_activities_entry_origin_bg" android:layout_width="wrap_content" android:layout_height="52.0dp" flatten="true" folder="voiceslipcard" holder="chatroom.LiveVoiceActivitiesEntryOriginStyleOne"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="6.0dp" />
+    <v.VMarqueeText android:textSize="14.0sp" android:textColor="@color/live_black" android:ellipsize="marquee" android:id="@id/title_text" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="71.0dp" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:layout_marginRight="12.0dp" android:singleLine="true" android:marqueeRepeatLimit="marquee_forever" android:fontFamily="PingFangSC-Semibold" />
+</com.p1.mobile.putong.live.external.voiceslipcard.chatroom.LiveVoiceActivitiesEntryOriginStyleOne>

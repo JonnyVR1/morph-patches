@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemBadgeView android:orientation="vertical" android:id="@id/badge" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="vip.privilege.dlg.PrivilegeContentDlgItemBadgeView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="24.0dp" android:layout_marginTop="16.0dp" android:src="@null" android:layout_alignParentBottom="true" />
+    <RelativeLayout android:background="@drawable/core_privilege_dlg_badge_avatat_bg" android:padding="3.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="115.0dp" android:layout_height="153.0dp" android:layout_marginLeft="65.0dp" android:layout_marginTop="35.0dp">
+        <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="match_parent" android:layout_height="match_parent" app:roundBottomLeft="true" app:roundBottomRight="true" app:roundTopLeft="true" app:roundTopRight="true" app:roundedCornerRadius="8.0dp" />
+        <View android:background="@drawable/core_privilege_dlg_badge_avatat_mask" android:layout_width="match_parent" android:layout_height="47.0dp" android:layout_alignParentBottom="true" />
+        <v.VText android:textSize="11.0sp" android:textColor="@color/white" android:ellipsize="end" android:id="@id/name" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:layout_marginBottom="10.0dp" android:maxLines="1" android:layout_alignParentBottom="true" />
+        <v.VImage android:id="@id/icon" android:layout_width="51.0dp" android:layout_height="29.0dp" android:layout_marginLeft="-14.0dp" android:layout_marginBottom="30.0dp" android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemBadgeView>

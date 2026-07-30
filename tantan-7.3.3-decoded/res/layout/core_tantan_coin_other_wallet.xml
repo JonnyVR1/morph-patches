@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="#f7f7f7" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="wallet.TanTanCoinOtherViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView android:id="@id/coin" android:layout_width="match_parent" android:layout_height="112.0dp" android:layout_marginLeft="-5.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="-5.0dp" app:cardCornerRadius="6.0dp" app:cardElevation="5.0dp" app:cardPreventCornerOverlap="false" app:cardUseCompatPadding="true" app:contentPaddingBottom="8.0dp" app:contentPaddingLeft="16.0dp" app:contentPaddingRight="16.0dp" app:contentPaddingTop="16.0dp">
+        <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:id="@id/unit" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <v.VText_AutoFit android:textSize="48.0dp" android:textColor="@color/core_tt_coin_balance" android:gravity="bottom" android:layout_gravity="bottom" android:id="@id/count" android:paddingRight="4.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginRight="100.0dp" android:text="0" android:paddingEnd="4.0dp" android:layout_marginEnd="100.0dp" />
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="4.0dp" android:layout_marginBottom="-4.0dp" android:layout_below="@id/coin" app:cardCornerRadius="6.0dp" app:cardElevation="5.0dp">
+        <com.p1.mobile.putong.app.web.WebViewX android:id="@id/charge_more" android:paddingTop="2.0dp" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <ProgressBar android:layout_gravity="center" android:id="@id/progress" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <include android:id="@id/error" android:visibility="invisible" layout="@layout/core_base_web_error" />
+        <include android:id="@id/refresh" android:visibility="gone" layout="@layout/core_base_web_refresh" />
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

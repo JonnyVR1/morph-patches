@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/root" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="account.SwitchAccountActViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" app:title="@string/SWITCH_ACCOUNT_TITLE" />
+    <RelativeLayout android:gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="match_parent">
+        <TextView android:textSize="24.0sp" android:textStyle="bold" android:textColor="#de000000" android:gravity="center_horizontal" android:id="@id/prompt_title" android:paddingLeft="30.0dp" android:paddingRight="30.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="70.0dp" android:text="@string/SWITCH_ACCOUNT_BY_CLICK_AVATAR" android:layout_centerHorizontal="true" />
+        <TextView android:textSize="12.0sp" android:textColor="#999999" android:gravity="center" android:id="@id/prompt_detial" android:paddingLeft="30.0dp" android:paddingRight="30.0dp" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="@string/SWITCH_ACCOUNT_CLEAR_ACCOUNT_WARM" android:layout_below="@id/prompt_title" android:layout_centerHorizontal="true" />
+        <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="50.0dp" android:layout_below="@id/prompt_detial">
+            <include android:id="@id/account_one" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="26.0dp" android:layout_weight="1.0" layout="@layout/core_account_view" />
+            <include android:id="@id/account_two" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginRight="26.0dp" android:layout_weight="1.0" layout="@layout/core_account_view" />
+        </LinearLayout>
+        <v.VButton_FakeShadowSmall android:textColor="#de333333" android:id="@id/delete_account" android:visibility="gone" android:layout_margin="42.0dp" android:layout_marginBottom="40.0dp" android:text="@string/SWITCH_ACCOUNT_CLEAR_ACCOUNT" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" style="@style/core_settings_button" />
+    </RelativeLayout>
+</v.VLinear>

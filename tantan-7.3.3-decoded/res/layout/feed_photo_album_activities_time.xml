@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/feed_time" android:paddingLeft="12.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="26.0sp" android:textColor="@color/feed_33000000" android:gravity="top" android:layout_gravity="center_horizontal" android:id="@id/time_day" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="50.0dp" android:singleLine="true" android:includeFontPadding="false" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/feed_33000000" android:gravity="top" android:layout_gravity="center_horizontal" android:id="@id/time_month" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="50.0dp" android:includeFontPadding="false" />
+</v.VLinear>

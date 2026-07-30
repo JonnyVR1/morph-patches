@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="wrap_content" android:layout_height="48.0dp" attachToRoot="true" flatten="true" folder="newui" holder="view.boost.holder.TopBoostViewHolder"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/img_boost_top" android:background="?actionBarItemBackground" android:layout_width="25.0dp" android:layout_height="25.0dp" android:layout_marginRight="8.0dp" android:src="@null" android:scaleType="fitXY" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    <v.VText android:textSize="18.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/boost_label_top" android:background="?actionBarItemBackground" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginTop="1.0dp" android:layout_marginRight="4.0dp" android:maxLines="1" android:layout_alignParentRight="true" />
+    <com.sunshine.engine.particle.SceneView android:id="@id/boost_heart_scene_top" android:paddingBottom="8.0dp" android:visibility="visible" android:layout_width="45.0dp" android:layout_height="48.0dp" android:layout_marginRight="4.0dp" android:layout_alignParentRight="true" />
+</merge>

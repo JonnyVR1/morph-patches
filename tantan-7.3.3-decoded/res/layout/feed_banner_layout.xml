@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center" android:id="@id/banner" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="specialevents.christmas.FeedBannersView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VPager android:layout_gravity="center_horizontal" android:id="@id/page" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VPagerCircleIndicator android:layout_gravity="right|bottom" android:id="@id/indicator" android:layout_width="wrap_content" android:layout_height="8.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="8.0dp" app:indicatorSpacing="5.0dp" app:pageColor="@color/white" app:radius="3.0dp" />
+</FrameLayout>

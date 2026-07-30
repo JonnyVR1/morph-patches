@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListNoSVipItem android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.privilege.content.item.PrivilegeDescListNoSVipItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/title_line" android:background="#f9f9f9" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="12.0dp" />
+    <FrameLayout android:id="@id/title_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/title_line" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/title_container">
+        <LinearLayout android:orientation="vertical" android:id="@id/container" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <FrameLayout android:id="@id/cover_bg" android:background="@drawable/core_privilege_desc_unlock_bg" android:clickable="true" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <v.VButton android:layout_gravity="center" android:id="@id/unlock" android:background="@drawable/core_privilege_desc_unlock_button" android:text="@string/COMMERCIA_PRIVILEGE_CENTER_VIP_UNLOCK_TIPS" style="@style/common_button_medium_01" />
+        </FrameLayout>
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListNoSVipItem>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:id="@id/inapp_half_interstitial_image_frame_layout" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_gravity="center" android:id="@id/half_interstitial_image_relative_layout" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="30.0dp">
+        <ImageView android:id="@id/half_interstitial_image" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:layout_alignParentTop="true" android:contentDescription="@string/ct_inapp_img" android:layout_alignParentStart="true" />
+        <com.clevertap.android.sdk.gif.GifImageView android:id="@id/gifImage" android:focusable="true" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:layout_alignParentTop="true" android:contentDescription="@string/ct_inapp_gif" android:layout_alignParentStart="true" />
+        <FrameLayout android:id="@id/video_frame" android:focusable="true" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_alignParentTop="true" android:contentDescription="@string/ct_inapp_media" android:layout_alignParentStart="true" />
+    </RelativeLayout>
+    <com.clevertap.android.sdk.customviews.CloseImageView android:layout_gravity="end|top" android:layout_width="30.0dp" android:layout_height="30.0dp" android:adjustViewBounds="true" android:contentDescription="@string/ct_inapp_close_btn" />
+</FrameLayout>

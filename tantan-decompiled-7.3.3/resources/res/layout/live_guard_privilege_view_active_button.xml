@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.knight.view.maindialog.LiveGuardPrivilegeActiveButton xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    flatten="true"
+    folder="increment"
+    holder="knight.view.maindialog.LiveGuardPrivilegeActiveButton">
+    <p151v.VLinear
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/content"
+        android:background="@drawable/live_bg_3b70ff_r16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        flatten="true">
+        <TextView
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/live_white"
+            android:ellipsize="end"
+            android:id="@+id/guard_threshold"
+            android:paddingTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"/>
+        <com.p051p1.mobile.putong.live.livingroom.view.rollview.LiveTextRollView
+            android:layout_gravity="center"
+            android:id="@+id/guard_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="4dp"
+            app:contentTextColor="#b3ffffff"
+            app:contentTextSize="10sp"/>
+    </p151v.VLinear>
+</com.p051p1.mobile.putong.live.livingroom.increment.knight.view.maindialog.LiveGuardPrivilegeActiveButton>

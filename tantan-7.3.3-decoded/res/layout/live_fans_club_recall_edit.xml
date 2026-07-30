@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.fansclub.submodule.recall.FansRecallSelectView android:orientation="vertical" android:background="@android:color/white" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="common.fansclub.submodule.recall" holder="FansRecallSelectView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="15.0sp" android:textStyle="bold" android:textColor="@android:color/black" android:layout_gravity="start" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="14.0dp" android:text="@string/LIVE_FANSCLUB_FANS_SELECTED_EVERYDAY" android:layout_marginStart="12.0dp" />
+    <v.VRecyclerView android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginTop="18.0dp" android:layout_marginBottom="56.0dp" android:layout_weight="1.0" android:layout_marginStart="12.0dp" android:nestedScrollingEnabled="false" />
+</com.p1.mobile.putong.live.livingroom.common.fansclub.submodule.recall.FansRecallSelectView>

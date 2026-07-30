@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.view.widgets.FollowVText android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_width="match_parent" android:layout_height="match_parent" app:srcCompat="@drawable/live_vector_activities_follow_guide_bg" />
+    <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/live_white" android:gravity="center" android:paddingBottom="15.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:text="@string/LIVE_ACTIVITY_FOLLOW_SUCCESS_WATCH" android:lineSpacingExtra="6.0sp" />
+</com.p1.mobile.putong.live.external.view.widgets.FollowVText>

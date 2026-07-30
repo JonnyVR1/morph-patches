@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.showcase.ODiamondAllPriceSectionView android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.showcase.ODiamondAllPriceSectionView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/border" android:layout_width="match_parent" android:layout_height="121.0dp" android:layout_marginTop="12.0dp">
+        <v.VText android:textSize="28.0dp" android:textColor="#66ffdea2" android:id="@id/count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:singleLine="true" />
+        <v.VText_AutoFit android:textSize="12.0sp" android:textColor="#66ffdea2" android:gravity="center" android:id="@id/top_price" android:paddingLeft="5.0dp" android:paddingRight="5.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:singleLine="true" app:typeface="medium" />
+        <v.VText_AutoFit android:textSize="15.0sp" android:textColor="#66ffdea2" android:gravity="center" android:id="@id/center_price" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:singleLine="true" />
+    </LinearLayout>
+    <v.VText android:textSize="12.0sp" android:textColor="@color/core_vip_normal_title_text_color" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/label" android:paddingTop="1.0dp" android:visibility="invisible" android:layout_width="74.0dp" android:layout_height="24.0dp" android:maxLines="1" app:typeface="medium" />
+</com.p1.mobile.putong.core.ui.purchase.showcase.ODiamondAllPriceSectionView>

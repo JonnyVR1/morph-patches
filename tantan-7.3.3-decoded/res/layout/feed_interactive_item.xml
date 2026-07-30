@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/group_root" android:background="@drawable/feed_rect_rounded_moment_topic" android:paddingTop="5.0dp" android:paddingBottom="5.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="9.0dp" android:paddingEnd="10.0dp" android:layout_marginEnd="6.0dp" flatten="true" folder="newui" holder="group.interactive.FeedInteractiveItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/selected_interactive_icon" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_marginEnd="2.5dp" app:actualImageScaleType="fitXY" />
+    <TextView android:textSize="12.0dp" android:textColor="@color/common_grey_09" android:ellipsize="end" android:layout_gravity="center_vertical" android:id="@id/selected_interactive" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:layout_marginEnd="3.0dp" />
+</v.VLinear>

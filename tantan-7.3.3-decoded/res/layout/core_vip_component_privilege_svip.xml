@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.privilege.SVIPPrivilegeComponent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/privilege_odiamond_decorate" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:src="@null" />
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="20.0sp" android:textStyle="normal" android:textColor="#ebb958" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/privilege_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="22.0dp" android:layout_marginRight="16.0dp" android:lines="1" android:drawablePadding="6.0dp" app:typeface="medium" />
+        <v.VText android:textSize="14.0sp" android:textStyle="normal" android:textColor="#b2fcd072" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/privilege_summarize" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="12.0dp" />
+        <v.VPager android:id="@id/pager" android:layout_width="match_parent" android:layout_height="230.0dp" android:overScrollMode="never" />
+        <v.VPagerCircleIndicator android:layout_gravity="center_horizontal" android:id="@id/indicator" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="16.0dp" />
+        <com.p1.mobile.putong.core.ui.view.VPagerNewCircleIndicator android:layout_gravity="center_horizontal" android:id="@id/new_circle_indicator" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="16.0dp" />
+        <v.VText android:textSize="12.0sp" android:textColor="#212121" android:gravity="center" android:id="@id/lowprice_tips" android:visibility="gone" android:layout_width="match_parent" android:layout_height="28.0dp" android:layout_marginTop="-4.0dp" android:layout_marginBottom="8.0dp" />
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:id="@id/title_layout" android:layout_width="match_parent" android:layout_height="42.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VEditText android:textSize="16.0sp" android:textStyle="normal" android:textColor="@color/common_000000_80" android:textColorHint="@color/common_000000_20" android:id="@id/edit_text" android:background="@drawable/common_view_card_small_01_bg" android:layout_width="match_parent" android:layout_height="42.0dp" android:maxLines="1" android:drawablePadding="4.0dp" android:layout_centerVertical="true" android:inputType="text" android:imeOptions="actionSearch" android:drawableStart="@null" android:paddingStart="8.0dp" android:paddingEnd="34.0dp" android:layout_toStartOf="@id/cancel" />
+    <FrameLayout android:id="@id/img_cancel_holder" android:visibility="invisible" android:layout_width="40.0dp" android:layout_height="32.0dp" android:layout_centerVertical="true" android:layout_alignEnd="@id/edit_text">
+        <v.VIcon android:layout_gravity="center" android:id="@id/ic_clear" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="fitXY" app:iconStyle="xxxSmall" app:srcCompat="@null" />
+    </FrameLayout>
+    <v.VText android:textSize="16.0sp" android:textStyle="normal" android:textColor="@color/common_grey_03" android:gravity="center" android:id="@id/cancel" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/ACTION_CANCEL" android:layout_centerVertical="true" android:paddingStart="12.0dp" android:paddingEnd="12.0dp" android:layout_alignParentEnd="true" />
+</merge>

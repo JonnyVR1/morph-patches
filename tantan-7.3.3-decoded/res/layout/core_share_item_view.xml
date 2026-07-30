@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/ll_share_layout" android:layout_width="60.0dp" android:layout_height="wrap_content" android:layout_marginEnd="15.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:layout_gravity="center_horizontal" android:id="@id/iv_share_icon" android:layout_width="50.0dp" android:layout_height="50.0dp" android:src="@null" />
+    <TextView android:textSize="10.0sp" android:textStyle="bold" android:textColor="@color/common_grey_09" android:gravity="center_horizontal" android:id="@id/tv_share_title" android:layout_width="60.0dp" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="关注" />
+</v.VLinear>

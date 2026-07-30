@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.MKActivity" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/MKActivityAnimation</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+    <style name="MKTranslucentStyle" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+    <style name="Theme.P1.Light" parent="@style/Theme.AppCompat.Light">
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:textColorSecondary">@color/tantan_orange</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textViewStyle">@style/Widget.AppCompat.TextView.NoFallbackLineSpacing</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Activity</item>
+        <item name="android:dialogTheme">@style/Theme.P1.Light.Dialog</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:forceDarkAllowed">@bool/forceDarkAllowed</item>
+        <item name="actionBarStyle">@style/Widget.P1.Light.ActionBar.Solid</item>
+        <item name="colorAccent">@color/tantan_orange</item>
+        <item name="colorPrimary">@color/tantan_orange</item>
+        <item name="colorPrimaryDark">@color/tantan_orange_dark</item>
+    </style>
+    <style name="Theme.P1.Light.DarkActionBar" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textViewStyle">@style/Widget.AppCompat.TextView.NoFallbackLineSpacing</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Activity</item>
+        <item name="android:actionModeBackground">@color/tantan_orange</item>
+        <item name="android:dialogTheme">@style/Theme.P1.Light.Dialog</item>
+        <item name="android:statusBarColor">@color/tantan_orange_status_dark</item>
+        <item name="android:forceDarkAllowed">@bool/forceDarkAllowed</item>
+        <item name="actionBarStyle">@style/Widget.P1.ActionBar.Solid</item>
+        <item name="colorAccent">@color/tantan_orange</item>
+        <item name="colorPrimary">@color/tantan_orange</item>
+        <item name="colorPrimaryDark">@color/tantan_orange_dark</item>
+    </style>
+    <style name="Theme.P1.Light.NoActionBar.NoForceDark" parent="@style/Theme.P1.Light.NoActionBar">
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+</resources>

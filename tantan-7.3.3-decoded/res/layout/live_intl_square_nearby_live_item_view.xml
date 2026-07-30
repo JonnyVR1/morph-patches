@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.intl.view.widgets.IntlLiveSquareNearbyItemView android:orientation="vertical" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14.0dp" android:layout_marginStart="@dimen/live_square_item_base_margin" android:layout_marginEnd="@dimen/live_square_item_base_margin" flatten="true" folder="intl" holder="view.widgets.IntlLiveSquareNearbyItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content">
+        <com.p1.mobile.putong.live.base.view.LiveSquareMediaView android:id="@id/media_view" android:layout_width="match_parent" android:layout_height="110.0dp" />
+        <include android:id="@id/view_group_live_end" android:visibility="gone" layout="@layout/live_intl_square_item_live_end" />
+        <com.p1.mobile.putong.live.external.intl.view.widgets.IntlLiveSpecialLabelView android:id="@id/view_group_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginStart="8.0dp" android:layout_marginEnd="4.0dp" />
+        <include android:id="@id/view_group_opt_label" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_square_new_opt_label" />
+    </v.VFrame>
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp">
+        <v.VText android:textSize="9.0sp" android:textColor="@color/white" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/tv_age" android:paddingTop="2.0dp" android:paddingBottom="2.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="4.0dp" android:paddingStart="4.0dp" android:paddingEnd="4.0dp" />
+        <v.VText android:textSize="14.0sp" android:textColor="#cc000000" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/tv_live_name" android:layout_width="0.0dp" android:layout_height="wrap_content" android:maxLines="1" android:layout_weight="1.0" />
+    </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dp">
+        <v.VText android:textSize="12.0sp" android:textColor="#66000000" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/tv_distance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:alpha="0.6" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <v.VText android:textSize="12.0sp" android:textColor="#66000000" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/tv_member_count" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="wrap_content" android:maxLines="1" android:alpha="0.6" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/tv_distance" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.p1.mobile.putong.live.external.intl.view.widgets.IntlLiveSquareNearbyItemView>

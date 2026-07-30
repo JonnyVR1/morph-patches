@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:id="@id/questions" android:paddingTop="0.0dp" flatten="true" style="@style/profile_item_frame_no_padding_new"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textStyle="bold" android:id="@id/question_tip" android:background="@color/transparent" android:paddingTop="24.0dp" android:paddingBottom="0.0dp" android:text="@string/PROFILE_SECTION_HEADER_QUESTIONS" style="@style/profile_item_title_black" />
+    <v.VText_Tags android:textSize="16.0sp" android:gravity="center_vertical" android:id="@id/add" android:background="@drawable/tf_rect_light" android:paddingLeft="14.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="17.0dp" android:layout_marginBottom="2.0dp" android:minHeight="48.0dp" android:hint="@string/PROFILE_ANSWERS_ADD_NEW" app:typeface="regular" />
+</v.VLinear_Dividers>

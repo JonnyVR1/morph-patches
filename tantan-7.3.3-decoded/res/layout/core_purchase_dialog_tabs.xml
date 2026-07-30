@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/body" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="purchase.TabsPurchaseDialog"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/tabs_body" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.AutoVDraweeView android:id="@id/place_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="268.0dp" app:actualImageScaleType="fitXY" />
+        <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <com.p1.mobile.putong.core.ui.purchase.PurchaseTabViewContainer android:id="@id/tabs_container" android:padding="4.0dp" android:layout_width="match_parent" android:layout_height="62.0dp" android:layout_marginLeft="10.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="10.0dp" />
+            <com.p1.mobile.putong.core.ui.view.VPagerInPurchaseDialog android:id="@id/pager" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        </v.VLinear>
+    </FrameLayout>
+    <FrameLayout android:id="@id/intl_agreement_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" flatten="true">
+        <FrameLayout android:id="@id/intl_agreement_container_1" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <FrameLayout android:id="@id/intl_agreement_container_2" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </FrameLayout>
+</LinearLayout>

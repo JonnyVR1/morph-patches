@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.internal.vchat.module.giftDialog.view.LiveVChatTrayBackground android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" folder="internal.vchat" holder="module.giftDialog.view.LiveVChatTrayBackground"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:layout_gravity="center_vertical" android:id="@id/native_tray" android:layout_width="180.0dp" android:layout_height="48.0dp" android:layout_marginLeft="10.0dp" />
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/bg_img" android:visibility="gone" android:layout_width="180.0dp" android:layout_height="48.0dp" android:layout_marginLeft="10.0dp" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga_tray" android:layout_width="match_parent" android:layout_height="match_parent" />
+</com.p1.mobile.putong.live.external.internal.vchat.module.giftDialog.view.LiveVChatTrayBackground>

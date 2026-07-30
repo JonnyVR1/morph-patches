@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    holder="MKWebViewFrag"
+    useId="true">
+    <com.hellogroup.p036mk.business.base.p037ui.MKWebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <ProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <include
+        android:id="@+id/error"
+        android:visibility="invisible"
+        layout="@layout/core_base_web_error"/>
+    <include
+        android:id="@+id/refresh"
+        android:visibility="gone"
+        layout="@layout/core_base_web_refresh"/>
+</FrameLayout>

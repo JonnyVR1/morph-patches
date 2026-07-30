@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.virtual.fans.VoiceVirtualFansView android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" holder="virtual.fans.VoiceVirtualFansView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="10.0sp" android:textStyle="bold" android:textColor="@color/live_white_80_opacity" android:gravity="center" android:id="@id/members_count" android:background="@drawable/live_shape_voice_call_apply_manager_bg" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="73.0dp" android:layout_height="26.0dp" android:minHeight="26.0dp" android:text="0" android:maxLines="1" />
+    <v.VText android:textSize="12.0sp" android:textColor="@color/live_white_80_opacity" android:gravity="center" android:layout_gravity="center" android:id="@id/share" android:background="@drawable/live_shape_voice_call_apply_manager_bg" android:layout_width="73.0dp" android:layout_height="26.0dp" android:layout_marginTop="10.0dp" android:text="邀请" android:layout_below="@id/members_count" android:paddingStart="10.0dp" android:paddingEnd="10.0dp" />
+</com.p1.mobile.putong.live.livingroom.virtual.fans.VoiceVirtualFansView>

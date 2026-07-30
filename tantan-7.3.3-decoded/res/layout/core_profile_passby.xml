@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:id="@id/passby" android:paddingTop="0.0dp" flatten="true" style="@style/profile_item_frame_no_padding_new"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="#222222" android:id="@id/times" android:background="@color/transparent" android:paddingBottom="17.0dp" style="@style/profile_item_title_black_no_bg" />
+    <androidx.constraintlayout.widget.ConstraintLayout android:background="@drawable/core_newui_profile_passby_bg" android:layout_width="match_parent" android:layout_height="112.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp">
+        <v.VDraweeView android:id="@id/map_static" android:layout_width="96.0dp" android:layout_height="96.0dp" android:layout_marginRight="7.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" app:roundedCornerRadius="10.0dp" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:paddingRight="136.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent">
+            <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_02" android:ellipsize="end" android:id="@id/location" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:drawablePadding="9.0dp" />
+            <v.VText android:textSize="13.0sp" android:textColor="@color/common_grey_09" android:ellipsize="end" android:id="@id/time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:maxLines="1" />
+        </LinearLayout>
+        <v.VDraweeView android:id="@id/my_pic" android:layout_width="42.0dp" android:layout_height="42.0dp" android:layout_marginRight="50.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" app:roundingBorderWidth="2.0dp" style="@style/core_fresco_profile_white_border" />
+        <v.VDraweeView android:id="@id/other_pic" android:layout_width="42.0dp" android:layout_height="42.0dp" android:layout_marginRight="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" app:roundingBorderWidth="2.0dp" style="@style/core_fresco_profile_white_border" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</v.VLinear_Dividers>

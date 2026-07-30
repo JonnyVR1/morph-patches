@@ -1,0 +1,21 @@
+package p153l;
+
+/* JADX INFO: loaded from: classes6.dex */
+public final class ciu0 implements upx0 {
+
+    /* JADX INFO: renamed from: a */
+    public final lhu0 f81991a;
+
+    /* JADX INFO: renamed from: b */
+    public final kqx0 f81992b;
+
+    public ciu0(lhu0 lhu0Var, kqx0 kqx0Var) {
+        this.f81991a = lhu0Var;
+        this.f81992b = kqx0Var;
+    }
+
+    @Override // p153l.kqx0
+    public final /* bridge */ /* synthetic */ Object zzb() {
+        return new yfu0((hsu0) this.f81992b.zzb(), oct0.f146738f);
+    }
+}

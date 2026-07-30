@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.intlPrivilege.content.item.IntlPrivilegeSubscriptionItem android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="vip.intlPrivilege.content.item.IntlPrivilegeSubscriptionItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VRelative android:id="@id/item_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+        <View android:id="@id/top_line" android:background="#08000000" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" />
+        <View android:id="@id/top_divider_line" android:background="@drawable/core_intl_privilege_item_divider" android:visibility="gone" android:layout_width="match_parent" android:layout_height="1.0dp" />
+        <v.VText android:textSize="15.0sp" android:textColor="#cc000000" android:ellipsize="end" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="25.0dp" android:maxLines="1" android:layout_below="@id/top_line" />
+        <v.VText android:textSize="13.0sp" android:textColor="#66000000" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="44.0dp" android:layout_marginBottom="25.0dp" android:maxLines="2" android:layout_below="@id/title" android:lineSpacingExtra="3.0dp" />
+        <ImageView android:id="@id/arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:src="@null" android:layout_alignParentRight="true" android:layout_centerInParent="true" android:layout_alignParentEnd="true" />
+        <View android:id="@id/divider_line" android:background="@drawable/core_intl_privilege_item_divider" android:visibility="gone" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_below="@id/desc" />
+    </v.VRelative>
+</com.p1.mobile.putong.core.ui.vip.intlPrivilege.content.item.IntlPrivilegeSubscriptionItem>

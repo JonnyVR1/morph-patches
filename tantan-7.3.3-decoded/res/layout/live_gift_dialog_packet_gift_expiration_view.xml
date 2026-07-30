@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.gift.packetgift.PacketGiftExpirationView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="increment" holder="gift.packetgift.PacketGiftExpirationView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/container" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+        <v.VLinear android:orientation="vertical" android:id="@id/content" android:background="@drawable/live_bg_ff8817_r14" android:paddingTop="12.0dp" android:paddingBottom="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="15.0dp" android:paddingEnd="15.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
+            <v.VText android:textSize="10.0sp" android:textColor="@color/live_white_80_opacity" android:gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center_vertical" android:id="@id/firstLine" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" />
+            <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center_vertical" android:id="@id/secondLine" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" />
+            <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center_vertical" android:id="@id/thirdLine" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" />
+        </v.VLinear>
+    </v.VFrame>
+</com.p1.mobile.putong.live.livingroom.increment.gift.packetgift.PacketGiftExpirationView>

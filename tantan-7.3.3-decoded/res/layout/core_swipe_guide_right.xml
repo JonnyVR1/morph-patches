@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.growth.swipeguide.SwipeGuideRightView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="growth.swipeguide.SwipeGuideRightView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/finger" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="187.0dp" android:src="@null" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <v.VText android:textSize="21.0sp" android:textColor="@color/common_white" android:id="@id/title_2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/finger" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/common_white" android:gravity="center" android:id="@id/content_2" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="@string/NEW_USER_GUIDE_RIGHTSWIPE_DETAIL" android:layout_marginStart="35.0dp" android:layout_marginEnd="35.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/title_2" />
+</com.p1.mobile.putong.core.ui.growth.swipeguide.SwipeGuideRightView>

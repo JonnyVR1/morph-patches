@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.view.MessageIdealTypeHeadLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="messages.view.MessageIdealTypeHeadLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="horizontal" android:id="@id/ideal_info_root" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="20.0dp" flatten="true">
+        <v.VImage android:id="@id/ideal_des_img" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="-1.5dp" android:layout_marginRight="6.0dp" android:src="@drawable/core_message_head_location_icon" useId="true" />
+        <v.VText android:textColor="#99000000" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/location_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="2" android:lineHeight="19.0dp" />
+    </LinearLayout>
+    <com.p1.mobile.putong.core.view.CommonLabelShowView android:id="@id/ideal_match_label" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="20.0dp" app:itemMaxLines_="1" app:itemRadius_="8.0dp" />
+    <v.VRecyclerView android:id="@id/ideal_match_pics" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:visibility="gone" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="86.0dp" android:layout_marginLeft="4.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="4.0dp" android:overScrollMode="never" />
+</com.p1.mobile.putong.core.ui.messages.view.MessageIdealTypeHeadLayout>

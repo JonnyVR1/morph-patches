@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.card.expanded.view.ExpandedSuperlikeSendView android:background="#00000000" android:layout_width="match_parent" android:layout_height="match_parent" android:elevation="0.0dp" app:cardBackgroundColor="#00000000" app:cardCornerRadius="20.0dp" app:cardElevation="0.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.tantan.library.svga.SVGAnimationView android:id="@id/superlike_svga_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" />
+    <com.tantan.library.svga.SVGAnimationView android:layout_gravity="center" android:id="@id/superlike_banner" android:layout_width="260.0dp" android:layout_height="160.0dp" />
+</com.p1.mobile.putong.core.newui.home.card.expanded.view.ExpandedSuperlikeSendView>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/common_grey_07"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="messages.model.MessageNicknameSettingViewModel">
+    <FrameLayout
+        android:background="#ffffff"
+        android:paddingLeft="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+        <p151v.VMaterialEdit
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/memo_name"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="@string/CHAT_SET_NICKNAME"
+            android:maxLines="1"
+            android:maxLength="20"
+            android:inputType="text"
+            app:met_bottomSpacing="0dp"
+            app:met_clearButton="true"
+            app:met_clearButtonOffset="2dp"
+            app:met_floatingLabel="none"
+            app:met_hideUnderline="true"
+            app:met_isErrorBottomLineShown="false"/>
+    </FrameLayout>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="#999999"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="8dp"
+        android:text="@string/SET_NICKNAME_CONTENT"/>
+</LinearLayout>

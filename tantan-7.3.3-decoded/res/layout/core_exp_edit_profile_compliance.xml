@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:paddingTop="20.0dp" android:paddingBottom="120.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:gravity="center|top" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="11.0sp" android:textColor="#33000000" android:ellipsize="end" android:id="@id/compliance_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="《个人信息收集清单》" android:lines="1" />
+        <v.VText android:textSize="11.0sp" android:textColor="#33000000" android:ellipsize="end" android:id="@id/compliance_2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="《第三方信息数据共享》" android:lines="1" />
+    </v.VLinear>
+</v.VLinear>

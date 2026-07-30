@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:id="@id/interests_frame" flatten="true" holder="profile.profilelist.itemholders.ProfileInterestItemHolder" style="@style/profile_item_frame_no_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:id="@id/interests_txt" android:paddingBottom="21.0dp" android:text="@string/PROFILE_SECTION_HEADER_INTERESTS" style="@style/profile_item_title" />
+    <v.VText_Tags android:id="@id/sports" android:hint="@string/PROFILE_TAGS_CATEGORY_SPORTS_PLACEHOLDER" app:vectorDrawableLeft="@drawable/profile_sports_ic" style="@style/profile_item_item_with_tag" />
+    <v.VText_Tags android:id="@id/music" android:hint="@string/PROFILE_TAGS_CATEGORY_MUSIC_PLACEHOLDER" app:vectorDrawableLeft="@drawable/profile_music_ic" style="@style/profile_item_item_with_tag" />
+    <v.VText_Tags android:id="@id/food" android:hint="@string/PROFILE_TAGS_CATEGORY_FOOD_PLACEHOLDER" app:vectorDrawableLeft="@drawable/profile_food_ic" style="@style/profile_item_item_with_tag" />
+    <v.VText_Tags android:id="@id/movies" android:hint="@string/PROFILE_TAGS_CATEGORY_MOVIES_PLACEHOLDER" app:vectorDrawableLeft="@drawable/profile_movies_ic" style="@style/profile_item_item_with_tag" />
+    <v.VText_Tags android:id="@id/literature" android:hint="@string/PROFILE_TAGS_CATEGORY_BOOKS_PLACEHOLDER" app:vectorDrawableLeft="@drawable/profile_books_ic" style="@style/profile_item_item_with_tag" />
+    <v.VText_Tags android:id="@id/places" android:hint="@string/PROFILE_TAGS_CATEGORY_TRAVEL_PLACEHOLDER" app:vectorDrawableLeft="@drawable/profile_travel_ic" style="@style/profile_item_item_with_tag" />
+</v.VLinear_Dividers>

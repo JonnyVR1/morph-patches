@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="40.0dp" android:layout_marginRight="40.0dp" android:layout_marginHorizontal="40.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:layout_width="match_parent" android:layout_height="56.0dp">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_80" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:singleLine="true" android:layout_centerVertical="true" android:layout_marginEnd="30.0dp" app:typeface="medium" />
+        <v.VCheckBox android:id="@id/check" android:checked="true" android:button="@null" android:layout_centerVertical="true" android:layout_alignParentEnd="true" style="@style/common_checkbox" />
+    </v.VRelative>
+</v.VFrame>

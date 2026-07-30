@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="increment.gift.upgradegift.view"
+    holder="UpgradeEmptyView">
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/emptyImage"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:src="0x7f0826c1"/>
+    <TextView
+        android:textSize="14sp"
+        android:textColor="#bfbfbf"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="78dp"
+        android:text="@string/LIVE_FANS_CLUB_NO_DATA"/>
+</FrameLayout>

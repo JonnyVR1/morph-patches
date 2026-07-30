@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="settings.momentmuted.MomentMutedViewModel">
+    <p151v.navigationbar.VNavigationBar
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftIcon="0x7f080387"/>
+    <p151v.VFrame
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <p151v.VProgressBar
+            android:id="@+id/loading_block"
+            style="@style/core_loading_block"/>
+        <p151v.VText
+            android:id="@+id/empty"
+            android:text="@string/MOMENTS_UNMUTE_EMPTY_MESSAGE"
+            style="@style/core_general_simple_item"/>
+        <p151v.VList
+            android:id="@+id/users"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/moment_divider_color"
+            android:dividerHeight="1dp"
+            android:headerDividersEnabled="false"
+            android:footerDividersEnabled="false"/>
+    </p151v.VFrame>
+</p151v.VLinear>

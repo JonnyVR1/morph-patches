@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.intl.view.widgets.IntlLiveActivitiesEntrySignIn android:background="@drawable/live_shape_activity_sign_entry_background" android:layout_width="140.0dp" android:layout_height="62.0dp" android:minHeight="40.0dp" flatten="true" folder="intl" holder="view.widgets.IntlLiveActivitiesEntrySignIn"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_gravity="center_vertical" android:background="@drawable/live_bg_ff57b0_r9" android:layout_width="37.0dp" android:layout_height="46.0dp" android:layout_marginStart="8.0dp">
+        <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="center" android:id="@id/sign_in_gift_icon" android:layout_width="37.0dp" android:layout_height="37.0dp" android:scaleType="centerCrop" />
+    </FrameLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/texts" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="11.0dp" android:layout_marginStart="57.0dp" flatten="true">
+        <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:id="@id/title_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="PingFangSC-Semibold" />
+        <v.VText android:textSize="11.0sp" android:textColor="@color/live_white_80_opacity" android:id="@id/desc_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:fontFamily="PingFangSC-Regular" />
+    </LinearLayout>
+</com.p1.mobile.putong.live.external.intl.view.widgets.IntlLiveActivitiesEntrySignIn>

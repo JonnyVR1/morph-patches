@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center"
+    android:id="@+id/root"
+    android:paddingLeft="5dp"
+    android:paddingTop="1dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="1dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="newui"
+    holder="photoalbum.feed.personfeedinminetab.FeedWriterLevelView">
+    <TextView
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:textColor="#774800"
+        android:layout_gravity="center"
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="0sp"/>
+</FrameLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.vip.picks.view.header.PicksHeaderView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/picks_header"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    flatten="true"
+    holder="vip.picks.view.header.PicksHeaderView">
+    <ViewStub
+        android:id="@+id/state_hide"
+        android:layout="@layout/core_picks_header_state_hide"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"/>
+    <ViewStub
+        android:id="@+id/state_expand"
+        android:layout="@layout/core_picks_header_state_expand"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</com.p051p1.mobile.putong.core.p058ui.vip.picks.view.header.PicksHeaderView>

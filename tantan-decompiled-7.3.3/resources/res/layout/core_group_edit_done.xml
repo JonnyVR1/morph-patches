@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <p151v.VText
+        android:enabled="false"
+        android:textSize="13sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/tv_edit_done"
+        android:background="@drawable/core_group_edit_done_bg"
+        android:paddingLeft="9dp"
+        android:paddingTop="6dp"
+        android:paddingRight="9dp"
+        android:paddingBottom="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ACTION_DONE"
+        app:typeface="medium"/>
+</p151v.VFrame>

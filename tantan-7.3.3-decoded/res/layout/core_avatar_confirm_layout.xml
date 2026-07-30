@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="verification.remind.confirm.AvatarConfirmViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0">
+        <v.VLinear android:orientation="vertical" android:background="@drawable/core_avatar_confirm_top_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="20.0dp">
+            <com.p1.mobile.putong.core.ui.VText_Default_Bold android:textSize="18.0dp" android:textColor="@color/common_000000_80" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:text="请确认头像是本人正面照" />
+            <v.VText android:textSize="14.0dp" android:textColor="@color/common_000000_40" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="非本人正面照、多人正面照无法认证成功" />
+            <com.p1.mobile.putong.core.ui.home.view.AutoScaleChildFrameLayout android:layout_gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0">
+                <FrameLayout android:layout_gravity="center" android:paddingTop="18.0dp" android:paddingBottom="26.0dp" android:layout_width="wrap_content" android:layout_height="230.0dp">
+                    <FrameLayout android:layout_gravity="center" android:background="@drawable/core_avatar_confirm_padding_bg" android:padding="6.0dp" android:layout_width="wrap_content" android:layout_height="186.0dp">
+                        <include android:layout_gravity="center" android:id="@id/avatar_view" android:layout_width="141.0dp" android:layout_height="174.0dp" layout="@layout/core_avatar_update_simple_layout" />
+                    </FrameLayout>
+                </FrameLayout>
+            </com.p1.mobile.putong.core.ui.home.view.AutoScaleChildFrameLayout>
+            <v.VLinear android:gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="5.0dp" android:layout_marginRight="20.0dp">
+                <View android:background="@color/common_light_03" android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+                <v.VText android:textSize="12.0dp" android:textColor="@color/common_000000_40" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginRight="10.0dp" android:text="面部采集时注意以下几点" />
+                <View android:background="@color/common_light_03" android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+            </v.VLinear>
+            <v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="36.0dp" android:layout_marginTop="22.0dp" android:layout_marginRight="36.0dp" android:layout_marginBottom="39.0dp">
+                <v.VText android:textSize="13.0dp" android:textColor="@color/common_000000_80" android:id="@id/value_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="正对手机" android:drawableTop="@drawable/core_avatar_confirm_ic_1" android:drawablePadding="7.0dp" />
+                <v.VText android:textSize="13.0dp" android:textColor="@color/common_000000_80" android:layout_gravity="center" android:id="@id/value_2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="光线充足" android:drawableTop="@drawable/core_avatar_confirm_ic_2" android:drawablePadding="7.0dp" />
+                <v.VText android:textSize="13.0dp" android:textColor="@color/common_000000_80" android:layout_gravity="right" android:id="@id/value_3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="脸无遮挡" android:drawableTop="@drawable/core_avatar_confirm_ic_3" android:drawablePadding="7.0dp" />
+            </v.VFrame>
+        </v.VLinear>
+    </v.VLinear>
+    <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="16.0dp" android:textColor="#ffffff" android:gravity="center" android:id="@id/goto_verify" android:background="@drawable/common_button_btn_orange_large" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="20.0dp" android:text="是本人头像，开始认证" />
+    <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="16.0dp" android:textColor="@color/common_000000_40" android:gravity="center" android:id="@id/change_avatar" android:background="@drawable/core_poi_card_round_gray_10" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" android:text="更换头像" />
+    <v.VLinear android:orientation="horizontal" android:id="@id/policy_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="5.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" flatten="false">
+        <v.VCheckBox android:id="@id/agree_check_box" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginTop="2.5dp" android:button="@null" style="@style/common_checkbox" />
+        <v.VText_NoTopPadding android:textSize="14.0dp" android:textColor="@color/common_grey_04" android:id="@id/agree_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp" />
+    </v.VLinear>
+</androidx.appcompat.widget.LinearLayoutCompat>

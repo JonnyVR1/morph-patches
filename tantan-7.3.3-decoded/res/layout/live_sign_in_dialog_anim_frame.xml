@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.signin.main.SignInAnimFrame android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="common.signin.main" holder="SignInAnimFrame"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/mask" android:background="#7f000000" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <FrameLayout android:layout_gravity="bottom" android:id="@id/view_port" android:layout_width="match_parent" android:layout_height="382.0dp" />
+</com.p1.mobile.putong.live.livingroom.common.signin.main.SignInAnimFrame>

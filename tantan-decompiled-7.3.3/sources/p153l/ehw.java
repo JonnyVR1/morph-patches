@@ -1,0 +1,24 @@
+package p153l;
+
+import com.tantanapp.engine.FunctionResultType;
+
+/* JADX INFO: loaded from: classes11.dex */
+public class ehw extends dk2<Boolean> {
+    @Override // p153l.dk2
+    /* JADX INFO: renamed from: c */
+    public String mo116188c() {
+        return "lt";
+    }
+
+    @Override // p153l.dk2
+    /* JADX INFO: renamed from: d */
+    public FunctionResultType mo116189d() {
+        return FunctionResultType.Boolean;
+    }
+
+    @Override // p153l.dk2
+    /* JADX INFO: renamed from: e, reason: merged with bridge method [inline-methods] */
+    public Boolean mo116186a(y1f... y1fVarArr) {
+        return Boolean.valueOf(m116187b(y1fVarArr[0].f197095b) < m116187b(y1fVarArr[1].f197095b));
+    }
+}

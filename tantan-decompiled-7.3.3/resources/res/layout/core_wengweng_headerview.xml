@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    attachToRoot="true"
+    folder="newui"
+    holder="messages.anim.view.wengweng.WengWengHeaderViewViewModel">
+    <p151v.VImage
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/core_intl_buzz_head_bg"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"/>
+    <p151v.VImage
+        android:layout_width="104dp"
+        android:layout_height="40dp"
+        android:src="@drawable/core_intl_buzz_head_bottom_icon"
+        android:scaleType="center"
+        android:layout_alignParentBottom="true"/>
+    <com.p051p1.mobile.putong.core.newui.messages.anim.view.wengweng.WengwengPullHeadAnim
+        android:id="@+id/pullhead_anim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</merge>

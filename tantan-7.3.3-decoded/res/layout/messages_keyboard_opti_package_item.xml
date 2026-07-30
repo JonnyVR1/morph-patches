@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/layout" android:background="@drawable/core_message_opti_emotion_switch_icon_bg" android:layout_width="40.0dp" android:layout_height="32.0dp" android:layout_marginLeft="3.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="4.0dp" android:layout_marginBottom="12.0dp">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/image" android:layout_width="24.0dp" android:layout_height="24.0dp" fresco:actualImageScaleType="fitCenter" fresco:layout_constraintBottom_toBottomOf="parent" fresco:layout_constraintLeft_toLeftOf="parent" fresco:layout_constraintRight_toRightOf="parent" fresco:layout_constraintTop_toTopOf="parent" style="@style/core_im_fresco_base" />
+        <View android:layout_gravity="center" android:id="@id/red_dot" android:background="@drawable/core_message_bar_action_new_dot" android:visibility="gone" android:layout_width="4.0dp" android:layout_height="4.0dp" android:layout_marginTop="-10.0dp" android:layout_marginRight="-10.0dp" />
+    </FrameLayout>
+</FrameLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/low_alert_wrap"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <p151v.VText
+        android:textSize="12sp"
+        android:textColor="@color/core_color_4d000000"
+        android:gravity="center"
+        android:id="@+id/low_alert"
+        android:paddingLeft="20dp"
+        android:paddingTop="3dp"
+        android:paddingRight="20dp"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/USER_INFO_CHECK_PROFILE_HINT_TITLE"
+        android:drawablePadding="10dp"/>
+</FrameLayout>

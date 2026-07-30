@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.result.SeeContent android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" holder="result.SeeContent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="12.0dp">
+        <v.VFrame android:id="@id/content_bg" android:background="@drawable/bg_privilege_desc" android:layout_width="match_parent" android:layout_height="260.0dp" flatten="true">
+            <v.VLinear android:layout_gravity="center|bottom" android:orientation="vertical" android:id="@id/match" android:background="@null" android:paddingLeft="13.0dp" android:paddingRight="13.0dp" android:layout_width="199.0dp" android:layout_height="227.0dp">
+                <v.VText android:textSize="9.699982sp" android:textColor="#757575" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="11.0dp" android:layout_marginBottom="9.0dp" android:text="@string/NAVIGATION_MATCHES" />
+                <v.VLinear android:orientation="horizontal" android:background="@drawable/bg_privilege_see_rec_corners" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="11.0dp" android:layout_marginRight="11.0dp">
+                    <v.VImage android:layout_width="wrap_content" android:layout_height="24.0dp" android:layout_margin="9.0dp" android:src="@null" />
+                    <v.VText android:textSize="12.0sp" android:textColor="#ffffff" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/SEE_WHO_LIKED_ME_INTRO_TITLE" />
+                </v.VLinear>
+                <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="11.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="11.0dp">
+                    <View android:background="@drawable/bg_privilege_see_oval" android:layout_width="23.0dp" android:layout_height="23.0dp" />
+                    <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp">
+                        <View android:background="#d8d8d8" android:layout_width="53.0dp" android:layout_height="7.5999756dp" />
+                        <View android:background="#eeeeee" android:layout_width="53.0dp" android:layout_height="4.0dp" android:layout_marginTop="4.0dp" />
+                    </v.VLinear>
+                </v.VLinear>
+                <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="11.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="11.0dp">
+                    <View android:background="@drawable/bg_privilege_see_oval" android:layout_width="23.0dp" android:layout_height="23.0dp" />
+                    <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp">
+                        <View android:background="#d8d8d8" android:layout_width="53.0dp" android:layout_height="7.5999756dp" />
+                        <View android:background="#eeeeee" android:layout_width="53.0dp" android:layout_height="4.0dp" android:layout_marginTop="4.0dp" />
+                    </v.VLinear>
+                </v.VLinear>
+            </v.VLinear>
+            <v.VLinear android:layout_gravity="center|bottom" android:orientation="vertical" android:id="@id/likers" android:background="@null" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="224.0dp" android:layout_height="wrap_content" flatten="true">
+                <v.VText android:textSize="11.0sp" android:textColor="#4a4a4a" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginBottom="9.0dp" android:text="@string/MATCH_LIST_SEE_WHO_LIKED_ME" />
+                <v.VImage android:id="@id/ic_see_model" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+            </v.VLinear>
+        </v.VFrame>
+        <v.VText android:textSize="14.0sp" android:textColor="#757575" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/description" android:paddingTop="5.0dp" android:paddingBottom="5.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.result.SeeContent>

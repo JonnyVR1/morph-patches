@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.external.internal.virtualVoice.square.header.LiveVoiceInternalQuickEntryItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/root"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="3dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginRight="3dp"
+    flatten="true"
+    folder="internal"
+    holder="virtualVoice.square.header.LiveVoiceInternalQuickEntryItemView">
+    <p151v.VDraweeView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/quick_entry_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="8dp"
+        app:actualImageScaleType="fitXY"/>
+    <p151v.VLinear
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp">
+        <TextView
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/live_white_80_opacity"
+            android:ellipsize="end"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+        <TextView
+            android:textSize="12sp"
+            android:textColor="@color/live_white_40_opacity"
+            android:ellipsize="end"
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </p151v.VLinear>
+</com.p051p1.mobile.putong.live.external.internal.virtualVoice.square.header.LiveVoiceInternalQuickEntryItemView>

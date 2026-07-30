@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="settings.filter.newui.NewUIAbPrivacyViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.ui.settings.filter.newui.NewUiHiddenNearByView android:id="@id/nearby_view" android:background="@color/white" android:visibility="gone" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/core_newfilter_cell" />
+    <View android:id="@id/nearby_line" android:visibility="gone" android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" style="@style/core_newfilter_divider_new_ui_ab" />
+    <v.VListCell android:id="@id/privacy_membership_active_time" app:listcell_title="@string/CORE_SVIP_PRIVACY_PROTECTION_FREEZE_UPDATE_TIME_TITLE" style="@style/core_newfilter_cell_new_ui_ab" />
+    <View android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" style="@style/core_newfilter_divider_new_ui_ab" />
+    <v.VListCell android:id="@id/privacy_membership_location" app:listcell_title="@string/CORE_SVIP_PRIVACY_PROTECTION_HIDE_LOCATION_DISTANCE_TITLE" style="@style/core_newfilter_cell_new_ui_ab" />
+    <View android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" style="@style/core_newfilter_divider_new_ui_ab" />
+    <v.VListCell android:id="@id/privacy_membership_see_only" app:listcell_title="@string/CORE_SVIP_PRIVACY_PROTECTION_LIKED_ONLY_TITLE" style="@style/core_newfilter_cell_new_ui_ab" />
+    <View android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" style="@style/core_newfilter_divider_new_ui_ab" />
+    <v.VListCell android:id="@id/privacy_membership_age" app:listcell_title="@string/CORE_SVIP_PRIVACY_PROTECTION_HIDE_AGE_TITLE" style="@style/core_newfilter_cell_new_ui_ab" />
+    <v.VLinear android:orientation="vertical" android:id="@id/privacy_membership_hide_vip_ll" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <View android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" style="@style/core_newfilter_divider_new_ui_ab" />
+        <v.VListCell android:id="@id/privacy_membership_hide_vip" app:listcell_title="@string/CORE_SVIP_PRIVACY_PROTECTION_HIDE_BADGE_TITLE" style="@style/core_newfilter_cell_new_ui_ab" />
+    </v.VLinear>
+</v.VLinear>

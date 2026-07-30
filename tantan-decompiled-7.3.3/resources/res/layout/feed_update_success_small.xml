@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="15sp"
+    android:textStyle="bold"
+    android:textColor="@color/feed_nearby_topic_color"
+    android:gravity="center_vertical"
+    android:id="@+id/update_success_tv"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>

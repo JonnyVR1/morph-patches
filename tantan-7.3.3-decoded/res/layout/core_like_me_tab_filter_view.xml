@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="match_parent" android:layout_height="42.0dp" attachToRoot="true" holder="home.member.likeme.LikeMeFilterView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/linear" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" android:divider="@drawable/core_like_me_filter_divider" android:showDividers="middle" flatten="true">
+        <FrameLayout android:id="@id/match_filter" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VText android:id="@id/match_text" android:text="已配对" style="@style/core_like_me_filter_item" />
+            <View android:layout_gravity="right" android:id="@id/match_dot" android:background="@drawable/core_member_dot" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_marginTop="-4.0dp" android:layout_marginRight="-2.0dp" />
+        </FrameLayout>
+        <v.VText android:id="@id/nearby_filter" android:text="附近" style="@style/core_like_me_filter_item" />
+        <v.VText android:id="@id/online_filter" android:text="当前在线" style="@style/core_like_me_filter_item" />
+        <v.VText android:id="@id/pop_filter" android:text="最受欢迎" style="@style/core_like_me_filter_item" />
+        <v.VText android:id="@id/verified_filter" android:text="实名认证" style="@style/core_like_me_filter_item" />
+        <v.VText android:id="@id/real_avatar_filter" android:text="真实头像" style="@style/core_like_me_filter_item" />
+        <v.VText android:id="@id/info_rich_filter" android:text="资料丰富" style="@style/core_like_me_filter_item" />
+    </LinearLayout>
+</merge>

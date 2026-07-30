@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="21.0dp">
+        <v.VText android:textSize="20.0sp" android:textColor="#212121" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:text="@string/SENSITIVE_PROMPT_TITLE" />
+        <v.VImage android:layout_gravity="center_vertical" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginLeft="4.0dp" android:src="@null" />
+    </v.VLinear>
+    <v.VText android:textSize="16.0sp" android:textColor="#999999" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="17.0dp" android:layout_marginRight="24.0dp" android:text="@string/SENSITIVE_PROMPT_DESCRIPTION" />
+    <v.VLinear android:layout_gravity="right" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="42.0dp" android:layout_marginBottom="8.0dp">
+        <v.VText android:textSize="14.0sp" android:textColor="#d74d37" android:gravity="center" android:id="@id/positive" android:layout_width="wrap_content" android:layout_height="32.0dp" android:layout_marginRight="8.0dp" android:minWidth="72.0dp" android:text="@string/SENSITIVE_PROMPT_SEND" />
+        <v.VText android:textSize="14.0sp" android:textColor="#d74d37" android:gravity="center" android:id="@id/negative" android:layout_width="wrap_content" android:layout_height="32.0dp" android:layout_marginRight="8.0dp" android:minWidth="72.0dp" android:text="@string/SENSITIVE_PROMPT_CANCEL" />
+    </v.VLinear>
+</v.VLinear>

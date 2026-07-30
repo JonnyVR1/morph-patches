@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/vip_frame"
+    android:background="@drawable/profile_vip_bg"
+    android:paddingLeft="16dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    android:visibility="visible"
+    android:minHeight="64dp"
+    holder="profile.profilelist.itemholders.ProfileVIPBannerItemHolder"
+    style="@style/profile_item_frame_no_padding">
+    <p151v.VImage
+        android:id="@+id/image"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:scaleType="fitXY"/>
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="@color/text_dark"
+        android:layout_gravity="center"
+        android:id="@+id/vip_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:maxLines="1"
+        android:layout_weight="1"/>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="@color/tantan_orange"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/view"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/VIP_VIEW_PRIVILEGE"
+        app:typeface="medium"/>
+</p151v.VLinear>

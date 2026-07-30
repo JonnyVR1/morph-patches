@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:paddingLeft="24.0dp" android:paddingTop="16.0dp" android:paddingRight="24.0dp" android:paddingBottom="16.0dp" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ProgressBar android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginBottom="12.0dp" android:progressDrawable="@null" style="@android:style/Widget.ProgressBar" />
+    <TextView android:textSize="14.0sp" android:textColor="#999" android:id="@id/tv_pay_status" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/SVIP_ALI_PAYING_SURE" />
+</LinearLayout>

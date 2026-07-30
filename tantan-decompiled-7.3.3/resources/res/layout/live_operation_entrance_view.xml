@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.operation.OperationEntranceAnimView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="increment"
+    holder="operation.OperationEntranceAnimView">
+    <p151v.VDraweeView
+        android:id="@+id/operation_icon"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
+        android:layout_centerInParent="true"/>
+</com.p051p1.mobile.putong.live.livingroom.increment.operation.OperationEntranceAnimView>

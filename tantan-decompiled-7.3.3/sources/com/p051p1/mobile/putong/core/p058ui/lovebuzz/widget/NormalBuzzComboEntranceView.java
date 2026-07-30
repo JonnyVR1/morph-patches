@@ -1,0 +1,188 @@
+package com.p051p1.mobile.putong.core.p058ui.lovebuzz.widget;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import com.clevertap.android.sdk.Constants;
+import com.p074ss.bytertc.base.media.screen.RXScreenCaptureService;
+import com.tantanapp.media.ttmediautils.tinker.ShareConstants;
+import kotlin.Metadata;
+import kotlin.jvm.internal.Intrinsics;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import p151v.VImage;
+import p151v.VLinear;
+import p151v.VText;
+import p153l.bnl0;
+import p153l.p9r;
+import p153l.vu40;
+
+/* JADX INFO: loaded from: classes3.dex */
+@Metadata(m88120d1 = {"\u0000T\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\u000b\n\u0002\u0018\u0002\n\u0002\b\u0012\u0018\u00002\u00020\u0001B\u000f\u0012\u0006\u0010\u0003\u001a\u00020\u0002¢\u0006\u0004\b\u0004\u0010\u0005J\u001f\u0010\u000b\u001a\u00020\n2\u0006\u0010\u0007\u001a\u00020\u00062\b\u0010\t\u001a\u0004\u0018\u00010\b¢\u0006\u0004\b\u000b\u0010\fJ\u000f\u0010\r\u001a\u00020\nH\u0016¢\u0006\u0004\b\r\u0010\u000eJ\u000f\u0010\u0010\u001a\u00020\u000fH\u0016¢\u0006\u0004\b\u0010\u0010\u0011J\u000f\u0010\u0012\u001a\u00020\u000fH\u0016¢\u0006\u0004\b\u0012\u0010\u0011J\u000f\u0010\u0013\u001a\u00020\nH\u0016¢\u0006\u0004\b\u0013\u0010\u000eJ\u000f\u0010\u0014\u001a\u00020\nH\u0016¢\u0006\u0004\b\u0014\u0010\u000eJ'\u0010\u001a\u001a\u00020\u00192\u0006\u0010\u0016\u001a\u00020\u00152\u0006\u0010\u0017\u001a\u00020\u00152\u0006\u0010\u0018\u001a\u00020\u0015H\u0016¢\u0006\u0004\b\u001a\u0010\u001bR\"\u0010#\u001a\u00020\u001c8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b\u001d\u0010\u001e\u001a\u0004\b\u001f\u0010 \"\u0004\b!\u0010\"R\"\u0010+\u001a\u00020$8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b%\u0010&\u001a\u0004\b'\u0010(\"\u0004\b)\u0010*R\"\u0010/\u001a\u00020$8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b,\u0010&\u001a\u0004\b-\u0010(\"\u0004\b.\u0010*R\"\u00107\u001a\u0002008\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b1\u00102\u001a\u0004\b3\u00104\"\u0004\b5\u00106R\"\u0010=\u001a\u00020\n8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b8\u00109\u001a\u0004\b:\u0010\u000e\"\u0004\b;\u0010<R\"\u0010A\u001a\u00020\n8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b>\u00109\u001a\u0004\b?\u0010\u000e\"\u0004\b@\u0010<¨\u0006B"}, m88121d2 = {"Lcom/p1/mobile/putong/core/ui/lovebuzz/widget/NormalBuzzComboEntranceView;", "Lcom/p1/mobile/putong/core/ui/lovebuzz/widget/BuzzComboEntranceView;", "Landroid/content/Context;", "context", "<init>", "(Landroid/content/Context;)V", "Landroid/view/LayoutInflater;", "inflater", "Landroid/view/ViewGroup;", "parent", "Landroid/view/View;", "m0", "(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;)Landroid/view/View;", "getIcon", "()Landroid/view/View;", "Landroid/widget/TextView;", "getTitle", "()Landroid/widget/TextView;", "getDesc", "getContentRoot", "getArrowIcon", "", "count", "bonus", ShareConstants.RES_PATH, "", "k0", "(III)V", "Lv/VLinear;", Constants.INAPP_DATA_TAG, "Lv/VLinear;", "get_content_root", "()Lv/VLinear;", "set_content_root", "(Lv/VLinear;)V", "_content_root", "Lv/VText;", "e", "Lv/VText;", "get_content_root_title", "()Lv/VText;", "set_content_root_title", "(Lv/VText;)V", "_content_root_title", "f", "get_content_root_desc", "set_content_root_desc", "_content_root_desc", "Lv/VImage;", "g", "Lv/VImage;", "get_icon", "()Lv/VImage;", "set_icon", "(Lv/VImage;)V", "_icon", "h", "Landroid/view/View;", "get_red_dot", "set_red_dot", "(Landroid/view/View;)V", "_red_dot", RXScreenCaptureService.KEY_INDEX, "get_arrow_icon", "set_arrow_icon", "_arrow_icon", "buzz_intlGmsRelease"}, m88122k = 1, m88123mv = {2, 2, 0}, m88125xi = 48)
+public final class NormalBuzzComboEntranceView extends BuzzComboEntranceView {
+
+    /* JADX INFO: renamed from: d, reason: from kotlin metadata */
+    public VLinear _content_root;
+
+    /* JADX INFO: renamed from: e, reason: from kotlin metadata */
+    public VText _content_root_title;
+
+    /* JADX INFO: renamed from: f, reason: from kotlin metadata */
+    public VText _content_root_desc;
+
+    /* JADX INFO: renamed from: g, reason: from kotlin metadata */
+    public VImage _icon;
+
+    /* JADX INFO: renamed from: h, reason: from kotlin metadata */
+    public View _red_dot;
+
+    /* JADX INFO: renamed from: i, reason: from kotlin metadata */
+    public View _arrow_icon;
+
+    /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+    public NormalBuzzComboEntranceView(@NotNull Context context) {
+        super(context);
+        context.getClass();
+        LayoutInflater layoutInflaterM171370a = p9r.m171370a(context);
+        layoutInflaterM171370a.getClass();
+        m48444m0(layoutInflaterM171370a, this);
+    }
+
+    @Override // com.p051p1.mobile.putong.core.p058ui.lovebuzz.widget.BuzzComboEntranceView
+    @NotNull
+    public View getArrowIcon() {
+        return get_arrow_icon();
+    }
+
+    @Override // com.p051p1.mobile.putong.core.p058ui.lovebuzz.widget.BuzzComboEntranceView
+    @NotNull
+    public View getContentRoot() {
+        return get_content_root();
+    }
+
+    @Override // com.p051p1.mobile.putong.core.p058ui.lovebuzz.widget.BuzzComboEntranceView
+    @NotNull
+    public TextView getDesc() {
+        return get_content_root_desc();
+    }
+
+    @Override // com.p051p1.mobile.putong.core.p058ui.lovebuzz.widget.BuzzComboEntranceView
+    @NotNull
+    public View getIcon() {
+        return get_icon();
+    }
+
+    @Override // com.p051p1.mobile.putong.core.p058ui.lovebuzz.widget.BuzzComboEntranceView
+    @NotNull
+    public TextView getTitle() {
+        return get_content_root_title();
+    }
+
+    @NotNull
+    public final View get_arrow_icon() {
+        View view = this._arrow_icon;
+        if (view != null) {
+            return view;
+        }
+        Intrinsics.m88391r("_arrow_icon");
+        return null;
+    }
+
+    @NotNull
+    public final VLinear get_content_root() {
+        VLinear vLinear = this._content_root;
+        if (vLinear != null) {
+            return vLinear;
+        }
+        Intrinsics.m88391r("_content_root");
+        return null;
+    }
+
+    @NotNull
+    public final VText get_content_root_desc() {
+        VText vText = this._content_root_desc;
+        if (vText != null) {
+            return vText;
+        }
+        Intrinsics.m88391r("_content_root_desc");
+        return null;
+    }
+
+    @NotNull
+    public final VText get_content_root_title() {
+        VText vText = this._content_root_title;
+        if (vText != null) {
+            return vText;
+        }
+        Intrinsics.m88391r("_content_root_title");
+        return null;
+    }
+
+    @NotNull
+    public final VImage get_icon() {
+        VImage vImage = this._icon;
+        if (vImage != null) {
+            return vImage;
+        }
+        Intrinsics.m88391r("_icon");
+        return null;
+    }
+
+    @NotNull
+    public final View get_red_dot() {
+        View view = this._red_dot;
+        if (view != null) {
+            return view;
+        }
+        Intrinsics.m88391r("_red_dot");
+        return null;
+    }
+
+    @Override // com.p051p1.mobile.putong.core.p058ui.lovebuzz.widget.BuzzComboEntranceView
+    /* JADX INFO: renamed from: k0 */
+    public void mo48319k0(int count, int bonus, int res) {
+        super.mo48319k0(count, bonus, res);
+        bnl0.m105524M(get_red_dot(), bonus > 0);
+    }
+
+    @NotNull
+    /* JADX INFO: renamed from: m0 */
+    public final View m48444m0(@NotNull LayoutInflater inflater, @Nullable ViewGroup parent) {
+        inflater.getClass();
+        View viewM202775b = vu40.m202775b(this, inflater, parent);
+        viewM202775b.getClass();
+        return viewM202775b;
+    }
+
+    public final void set_arrow_icon(@NotNull View view) {
+        view.getClass();
+        this._arrow_icon = view;
+    }
+
+    public final void set_content_root(@NotNull VLinear vLinear) {
+        vLinear.getClass();
+        this._content_root = vLinear;
+    }
+
+    public final void set_content_root_desc(@NotNull VText vText) {
+        vText.getClass();
+        this._content_root_desc = vText;
+    }
+
+    public final void set_content_root_title(@NotNull VText vText) {
+        vText.getClass();
+        this._content_root_title = vText;
+    }
+
+    public final void set_icon(@NotNull VImage vImage) {
+        vImage.getClass();
+        this._icon = vImage;
+    }
+
+    public final void set_red_dot(@NotNull View view) {
+        view.getClass();
+        this._red_dot = view;
+    }
+}

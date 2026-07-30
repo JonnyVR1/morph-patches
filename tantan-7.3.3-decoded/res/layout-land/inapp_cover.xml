@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:id="@id/inapp_cover_frame_layout" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_gravity="center" android:id="@id/cover_relative_layout" android:layout_width="match_parent" android:layout_height="match_parent">
+        <ImageView android:id="@id/backgroundImage" android:focusable="true" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:layout_alignParentTop="true" android:contentDescription="@string/ct_inapp_img" android:layout_alignParentStart="true" />
+        <com.clevertap.android.sdk.gif.GifImageView android:id="@id/gifImage" android:focusable="true" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:layout_alignParentTop="true" android:contentDescription="@string/ct_inapp_gif" android:layout_alignParentStart="true" />
+        <TextView android:textSize="30.0sp" android:textStyle="bold" android:textColor="@android:color/black" android:gravity="center" android:id="@id/cover_title" android:focusable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:maxLines="1" android:layout_centerHorizontal="true" />
+        <TextView android:textSize="22.0sp" android:textColor="@android:color/black" android:gravity="center" android:id="@id/cover_message" android:focusable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="50.0dp" android:layout_marginTop="74.0dp" android:layout_marginRight="50.0dp" android:maxLines="2" android:layout_below="@id/cover_title" android:layout_centerHorizontal="true" android:layout_marginStart="50.0dp" android:layout_marginEnd="50.0dp" />
+        <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/cover_linear_layout" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="102.0dp" android:layout_below="@id/cover_message" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true">
+            <Button android:textSize="20.0sp" android:id="@id/cover_button1" android:visibility="gone" android:layout_width="220.0dp" android:layout_height="46.0dp" />
+            <Button android:textSize="20.0sp" android:id="@id/cover_button2" android:visibility="gone" android:layout_width="220.0dp" android:layout_height="46.0dp" android:layout_marginStart="22.0dp" />
+        </LinearLayout>
+    </RelativeLayout>
+    <com.clevertap.android.sdk.customviews.CloseImageView android:layout_gravity="end|top" android:layout_width="30.0dp" android:layout_height="30.0dp" android:layout_marginTop="10.0dp" android:adjustViewBounds="true" android:contentDescription="@string/ct_inapp_close_btn" android:layout_marginEnd="10.0dp" />
+</FrameLayout>

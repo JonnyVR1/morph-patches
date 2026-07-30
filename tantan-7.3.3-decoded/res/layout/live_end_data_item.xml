@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.other.liveend.LiveEndDataItemView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="12.0dp" android:textColor="@color/live_white_40_opacity" android:id="@id/tag" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="12.0dp" />
+    <TextView android:textSize="15.0dp" android:textColor="@color/live_white_80_opacity" android:id="@id/value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="3.0dp" android:layout_marginBottom="12.0dp" android:text="0" />
+</com.p1.mobile.putong.live.livingroom.other.liveend.LiveEndDataItemView>

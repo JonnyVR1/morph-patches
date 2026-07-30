@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_gravity="center_vertical"
+        android:background="#e9e9e9"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+    <p151v.VText
+        android:textSize="13sp"
+        android:textColor="#757575"
+        android:layout_gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/CORE_SVIP_PRIVILEGE_EXCLUSIVE"
+        android:drawableLeft="0x7f0819b2"
+        android:drawablePadding="4dp"
+        app:typeface="regular"/>
+    <View
+        android:layout_gravity="center_vertical"
+        android:background="#e9e9e9"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.view.FeedMomentVisibleRangeItemView android:id="@id/range_ll" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" flatten="true" folder="newui" holder="photoalbum.view.FeedMomentVisibleRangeItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true">
+        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/feed_nearby_topic_color" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <TextView android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/common_grey_03" android:id="@id/subTitle" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" />
+    </LinearLayout>
+    <v.VCheckBox android:id="@id/check_box" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:layout_alignParentRight="true" android:layout_centerVertical="true" style="@style/common_checkbox" />
+</com.p1.mobile.putong.feed.newui.photoalbum.view.FeedMomentVisibleRangeItemView>

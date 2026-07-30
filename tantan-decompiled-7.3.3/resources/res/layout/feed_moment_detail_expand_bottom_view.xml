@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.feed.newui.photoalbum.MomentDetailExpandBottomView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_expand_bottom"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="90dp"
+    flatten="true"
+    folder="newui"
+    holder="photoalbum.MomentDetailExpandBottomView">
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="@color/common_orange"
+        android:gravity="center"
+        android:id="@+id/show_expand"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="展开更多回复"/>
+    <p151v.VText
+        android:textSize="15sp"
+        android:textColor="@color/common_orange"
+        android:gravity="center"
+        android:id="@+id/show_narrow"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="收起"/>
+</com.p051p1.mobile.putong.feed.newui.photoalbum.MomentDetailExpandBottomView>

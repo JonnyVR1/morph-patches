@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VScroll android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="18.0sp" android:textColor="@color/common_black_01" android:gravity="center_horizontal" android:layout_gravity="center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" android:text="@string/PRIVACY_POLICY_DLG_FIRST_TITLE" />
+        <v.VScroll android:scrollbarSize="3.0dp" android:scrollbarThumbVertical="@drawable/scroll_privacy_policy" android:orientation="vertical" android:paddingLeft="26.0dp" android:layout_width="match_parent" android:layout_height="316.0dp" android:layout_marginTop="18.0dp" android:layout_marginRight="8.0dp" android:layout_marginBottom="5.0dp">
+            <v.VLinear android:gravity="left" android:orientation="vertical" android:paddingRight="18.0dp" android:paddingBottom="5.0dp" android:layout_width="match_parent" android:layout_height="match_parent">
+                <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:id="@id/tv_user_agreement_privacy_policy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="@string/PRIVACY_POLICY_DLG_FIRST_CONTENT_WITH_LINK" android:lineSpacingExtra="1.0dp" />
+                <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="@string/PRIVACY_POLICY_DLG_FIRST_CONTENT_1" android:lineSpacingExtra="1.0dp" />
+                <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="@string/PRIVACY_POLICY_DLG_FIRST_CONTENT_2" android:lineSpacingExtra="1.0dp" />
+                <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="@string/PRIVACY_POLICY_DLG_FIRST_CONTENT_3" android:lineSpacingExtra="1.0dp" />
+                <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="@string/PRIVACY_POLICY_DLG_FIRST_CONTENT_4" android:lineSpacingExtra="1.0dp" />
+                <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="@string/PRIVACY_POLICY_DLG_FIRST_CONTENT_5" android:lineSpacingExtra="1.0dp" />
+            </v.VLinear>
+        </v.VScroll>
+    </LinearLayout>
+</v.VScroll>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.bottom.BottomVoiceItemView android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginRight="7.0dp" flatten="true" folder="common.bottom" holder="BottomVoiceItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/content" android:background="@drawable/live_bg_white_r46_a04" android:layout_width="55.0dp" android:layout_height="35.0dp" flatten="true">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/image" android:layout_width="24.0dp" android:layout_height="24.0dp" app:actualImageScaleType="fitXY" />
+        <View android:layout_gravity="right|top" android:id="@id/red_dot" android:background="@drawable/live_bg_ff3938_r3" android:visibility="visible" android:layout_width="8.0dp" android:layout_height="8.0dp" android:layout_marginTop="1.0dp" android:layout_marginRight="1.0dp" />
+        <TextView android:textSize="10.0sp" android:textColor="@color/white" android:gravity="center|bottom" android:layout_gravity="right|top" android:id="@id/tv_num" android:background="@drawable/live_bg_ff6464_r4" android:paddingTop="1.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" />
+    </FrameLayout>
+    <TextView android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/live_black_30_opacity" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/text" android:paddingLeft="1.0dp" android:paddingRight="1.0dp" android:layout_width="56.0dp" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:maxLines="2" android:layout_below="@id/image" android:hyphenationFrequency="full" />
+</com.p1.mobile.putong.live.livingroom.common.bottom.BottomVoiceItemView>

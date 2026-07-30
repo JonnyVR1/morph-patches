@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ReminderView android:layout_width="match_parent" android:layout_height="wrap_content" holder="messages.ReminderView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:background="@drawable/bg_message_reminder" android:padding="10.0dp" android:layout_width="match_parent" android:layout_height="82.0dp" android:layout_marginLeft="66.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="51.0dp" android:layout_marginBottom="10.0dp">
+        <v.VDraweeView android:id="@id/cover" android:visibility="gone" android:layout_width="62.0dp" android:layout_height="62.0dp" android:layout_marginRight="10.0dp" fresco:actualImageScaleType="centerCrop" fresco:roundedCornerRadius="4.0dp" />
+        <v.VImage android:id="@id/play" android:visibility="gone" android:layout_width="26.0dp" android:layout_height="26.0dp" android:layout_marginLeft="18.0dp" android:layout_marginTop="18.0dp" android:src="@null" />
+        <v.VText android:textSize="15.0sp" android:textColor="#de000000" android:ellipsize="end" android:id="@id/text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:maxLines="2" android:layout_toRightOf="@id/cover" />
+        <v.VText android:textSize="12.0sp" android:textColor="#999999" android:id="@id/date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="1.0dp" android:layout_alignLeft="@id/text" android:layout_alignParentBottom="true" />
+        <v.VImage android:id="@id/like" android:padding="10.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</com.p1.mobile.putong.core.ui.messages.ReminderView>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.view.TopicBannerItemView android:orientation="horizontal" android:id="@id/banner_topic_item" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="view.TopicBannerItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRecyclerView android:id="@id/topics_column" android:scrollbars="none" android:clipChildren="false" android:layout_width="0.0dp" android:layout_height="match_parent" android:divider="@null" android:layout_weight="1.0" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    <v.VRecyclerView android:id="@id/topics_column_next" android:scrollbars="none" android:clipChildren="false" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_marginLeft="11.0dp" android:divider="@null" android:layout_weight="1.0" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+</com.p1.mobile.putong.feed.newui.view.TopicBannerItemView>

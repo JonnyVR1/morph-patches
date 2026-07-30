@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="greet.DynamicGreetListViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <v.VLinear android:gravity="center" android:orientation="vertical" android:id="@id/empty" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="167.0dp">
+        <v.VDraweeView android:id="@id/img" android:layout_width="210.0dp" android:layout_height="150.0dp" />
+        <v.VText android:textSize="14.0sp" android:textColor="#26000000" android:gravity="center" android:id="@id/tv" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </v.VLinear>
+    <v.VRecyclerView android:orientation="vertical" android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="match_parent" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+</v.VLinear>

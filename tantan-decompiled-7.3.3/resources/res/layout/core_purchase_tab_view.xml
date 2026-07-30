@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.PurchaseTabView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    holder="purchase.PurchaseTabView">
+    <View
+        android:id="@+id/view"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"/>
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="@color/common_black_02"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-2dp"
+        android:lines="1"
+        android:drawablePadding="6dp"
+        android:layout_above="@+id/view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="6dp"/>
+    <p151v.VText
+        android:textSize="12dp"
+        android:textColor="@color/common_grey_04"
+        android:ellipsize="end"
+        android:id="@+id/tab_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:lines="1"
+        android:layout_below="@+id/view"
+        android:layout_centerHorizontal="true"/>
+    <p151v.VIcon
+        android:id="@+id/discount"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/title"
+        android:layout_above="@+id/view"
+        android:layout_alignTop="@+id/title"/>
+</com.p051p1.mobile.putong.core.p058ui.purchase.PurchaseTabView>

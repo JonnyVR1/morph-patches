@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.feed.newui.photoalbum.feed.like.FeedLikeTabTitleView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    folder="newui"
+    holder="photoalbum.feed.like.FeedLikeTabTitleView">
+    <p151v.VText
+        android:textSize="13sp"
+        android:textColor="@color/white"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/first"
+        android:paddingLeft="14dp"
+        android:paddingTop="3dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="3dp"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:maxLines="1"
+        android:layout_marginEnd="4dp"/>
+    <p151v.VText
+        android:textSize="13sp"
+        android:textColor="@color/common_orange"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/second"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:maxLines="1"
+        app:layout_constraintLeft_toLeftOf="@+id/first"
+        app:layout_constraintRight_toRightOf="@+id/first"/>
+</com.p051p1.mobile.putong.feed.newui.photoalbum.feed.like.FeedLikeTabTitleView>

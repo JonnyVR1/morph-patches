@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/iv_content" android:layout_width="320.0dp" android:layout_height="320.0dp" android:src="@drawable/auto_scan_card" android:scaleType="center" />
+    <TextView android:textSize="16.0sp" android:textColor="@color/identity_ocr_guide_title_color" android:id="@id/tv_guide_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/identity_guide_ocr_photo_title" />
+    <TextView android:textSize="12.0sp" android:textColor="@color/identity_ocr_guide_content_color" android:id="@id/tv_guide_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="60.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="60.0dp" android:text="@string/identity_guide_ocr_photo_msg" android:layout_marginHorizontal="60.0dp" />
+</LinearLayout>

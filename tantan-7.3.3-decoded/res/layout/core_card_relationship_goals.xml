@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/my_information" android:background="@drawable/core_bg_20_ffffff" android:paddingTop="24.0dp" android:paddingBottom="30.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:paddingStart="24.0dp" android:paddingEnd="20.0dp" flatten="true" folder="newui" holder="home.card.expanded.holder.RelationshipGoalsExpandedHolder"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/intl_purpose_title_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="14.0sp" android:textColor="@color/core_color_50percent_000000" android:id="@id/intl_purpose_title" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/INTL_TTC_CLONE_SWIPE_PAGE_RELATIONSHIP_GOAL_TITLE" android:layout_weight="1.0" />
+        <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/intl_purpose_add_wrap" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="13.0sp" android:textColor="#ff702d" android:id="@id/intl_purpose_add" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/INTL_RELATIONSHIP_GOALS_ADD_BTN" />
+        </v.VLinear>
+    </LinearLayout>
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/intl_purpose_wrap" android:background="@drawable/tf_rect_light" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" flatten="true">
+        <v.VImage android:id="@id/intl_purpose_icon" android:layout_width="24.0dp" android:layout_height="24.0dp" />
+        <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="20.0sp" android:textColor="@color/black" android:ellipsize="end" android:id="@id/intl_purpose" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8.0dp" app:typeface="bold" />
+    </LinearLayout>
+</v.VLinear>

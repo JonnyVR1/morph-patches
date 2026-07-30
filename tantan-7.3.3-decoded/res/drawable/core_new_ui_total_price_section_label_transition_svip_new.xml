@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transition
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/core_new_ui_total_price_section_label_svip_normal_new" />
+    <item android:drawable="@drawable/core_new_ui_total_price_section_label_svip_new" />
+</transition>

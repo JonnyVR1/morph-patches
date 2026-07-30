@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:id="@id/intl_purpose_fame" android:background="@color/core_profile_background" android:paddingTop="9.0dp" flatten="true" holder="profile.profilelist.itemholders.EditIntlFriendPurposeItemHolder" style="@style/profile_item_frame_no_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:id="@id/intl_purpse_title" android:paddingTop="12.0dp" android:text="@string/INTL_RELATIONSHIP_GOAL_TITLE" style="@style/profile_item_title" />
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/intl_purpse_layout" android:background="@drawable/tf_rect_light" android:paddingLeft="16.0dp" android:paddingTop="16.0dp" android:paddingRight="20.0dp" android:paddingBottom="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="16.0dp" android:paddingEnd="20.0dp" flatten="true">
+        <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="32.0dp" android:layout_marginEnd="32.0dp" app:srcCompat="@drawable/core_intl_friend_purpose_icon" />
+        <v.VLinear android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VText android:textSize="16.0sp" android:textColor="@color/text_dark" android:textColorHint="@color/text_light" android:gravity="left|center" android:id="@id/intl_purpse" android:focusable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="36.0dp" android:hint="@string/INTL_TTC_PROFILE_ADD_PURPOSE" android:layout_weight="1.0" />
+            <v.VImage android:id="@id/intl_purpse_red_dot" android:background="@drawable/core_intl_profile_me_edit_red_dot" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:layout_marginTop="3.0dp" />
+        </v.VLinear>
+    </LinearLayout>
+</v.VLinear_Dividers>

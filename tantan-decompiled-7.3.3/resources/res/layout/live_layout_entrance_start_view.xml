@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.external.view.widgets.LiveEntranceStartLiveView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@drawable/live_shape_bg_start_live"
+    android:layout_width="104dp"
+    android:layout_height="43dp"
+    android:minHeight="43dp"
+    flatten="true"
+    folder="view"
+    holder="widgets.LiveEntranceStartLiveView">
+    <p151v.VDraweeView
+        android:id="@+id/icon"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="7dp"/>
+    <p151v.VText
+        android:textSize="12sp"
+        android:textColor="@android:color/white"
+        android:ellipsize="end"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="7dp"/>
+</com.p051p1.mobile.putong.live.external.view.widgets.LiveEntranceStartLiveView>

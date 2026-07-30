@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.HourBoardEmptyView android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="increment" holder="leaderboard.hourleaderboard.mainland.HourBoardEmptyView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:layout_gravity="center_horizontal" android:id="@id/empty_icon" android:layout_width="220.0dp" android:layout_height="150.0dp" android:src="@null" android:scaleType="fitXY" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/live_white_30_opacity" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/summary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="150.0dp" android:text="@string/LIVE_HOUR_BOARD_EMPTY_CONTENT_DESC" />
+</com.p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.HourBoardEmptyView>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemMomentChat android:orientation="vertical" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:id="@id/moment_prompt" android:background="@drawable/bg_message_moment_prompt" android:paddingLeft="12.0dp" android:paddingTop="12.0dp" android:paddingRight="12.0dp" android:paddingBottom="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" flatten="true">
+        <FrameLayout android:id="@id/moment_image_container" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VDraweeView android:id="@id/moment_image" android:layout_width="40.0dp" android:layout_height="40.0dp" app:actualImageScaleType="centerCrop" />
+            <v.VImage android:layout_gravity="center" android:id="@id/moment_play" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@drawable/core_message_video_play_icon" />
+        </FrameLayout>
+        <RelativeLayout android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/moment_content_container" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginLeft="8.0dp" android:layout_toRightOf="@id/moment_image_container">
+            <TextView android:textSize="12.0sp" android:textColor="#4a4a4a" android:ellipsize="end" android:id="@id/moment_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:lines="1" />
+            <TextView android:textSize="12.0sp" android:textColor="#bfbfbf" android:ellipsize="end" android:id="@id/moment_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:lines="1" android:layout_below="@id/moment_desc" />
+        </RelativeLayout>
+        <View android:id="@id/line" android:background="#e9e9e9" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginTop="7.5dp" android:layout_below="@id/moment_image_container" />
+        <TextView android:textSize="10.0sp" android:textColor="#bfbfbf" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.5dp" android:text="内容来自朋友圈" android:layout_below="@id/line" />
+    </RelativeLayout>
+    <com.p1.mobile.putong.core.ui.messages.ItemText android:textColorLink="#1565c0" android:autoLink="web" android:id="@id/text" android:paddingLeft="18.0dp" android:paddingTop="9.5dp" android:paddingRight="14.0dp" android:paddingBottom="9.5dp" android:layout_marginTop="10.0dp" android:text="1234" android:lineSpacingExtra="2.0dp" app:enableEmojis="true" app:largeEmojis="true" style="@style/messages_item_left" />
+</com.p1.mobile.putong.core.ui.messages.ItemMomentChat>

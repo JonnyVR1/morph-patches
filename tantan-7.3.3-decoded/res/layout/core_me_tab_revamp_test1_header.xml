@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/test1_header_container" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp">
+        <v.AutoVDraweeView android:id="@id/test1_avatar" android:layout_width="80.0dp" android:layout_height="80.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" app:roundAsCircle="true" />
+        <v.VImage android:id="@id/test1_avatar_edit" android:padding="1.0dp" android:layout_width="26.0dp" android:layout_height="26.0dp" android:src="@null" android:scaleType="fitCenter" app:layout_constraintBottom_toBottomOf="@id/test1_avatar" app:layout_constraintRight_toRightOf="@id/test1_avatar" />
+        <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/test1_name_row" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginStart="12.0dp" app:layout_constraintLeft_toRightOf="@id/test1_avatar" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="@id/test1_avatar">
+            <v.VText_NoTopPadding android:textSize="20.0sp" android:textColor="@color/core_color_010101" android:ellipsize="end" android:id="@id/test1_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="220.0dp" android:singleLine="true" app:fontWeight="700" />
+            <v.VImage android:id="@id/test1_verification_icon" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" android:scaleType="fitXY" android:layout_marginStart="4.0dp" />
+        </v.VLinear>
+        <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/test1_subscription_btn" android:background="@drawable/core_me_tab_revamp_subscription_outline_bg" android:layout_width="wrap_content" android:layout_height="28.0dp" android:layout_marginTop="12.0dp" android:paddingStart="6.0dp" android:paddingEnd="12.0dp" android:layout_marginStart="12.0dp" app:layout_constraintLeft_toRightOf="@id/test1_avatar" app:layout_constraintTop_toBottomOf="@id/test1_name_row">
+            <v.VImage android:id="@id/test1_sub_badge" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" android:scaleType="fitCenter" android:layout_marginEnd="4.0dp" />
+            <v.VText_NoTopPadding android:textSize="11.0sp" android:textColor="#f1bf00" android:id="@id/test1_sub_text" android:layout_width="wrap_content" android:layout_height="wrap_content" app:fontWeight="700" />
+        </v.VLinear>
+        <v.VOnlineIndicator android:id="@id/test1_sub_dot" android:visibility="gone" android:layout_width="8.0dp" android:layout_height="8.0dp" android:translationX="4.0dp" android:translationY="-4.0dp" app:layout_constraintRight_toRightOf="@id/test1_subscription_btn" app:layout_constraintTop_toTopOf="@id/test1_subscription_btn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</v.VLinear>

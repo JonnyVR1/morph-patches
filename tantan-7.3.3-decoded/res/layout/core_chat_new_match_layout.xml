@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="horizontal" android:background="@drawable/core_chat_next_layout_bg" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="36.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/my_image" android:background="@drawable/core_default_head_bg" android:layout_width="24.0dp" android:layout_height="24.0dp" app:actualImageScaleType="centerCrop" app:backgroundImage="@color/white" app:roundAsCircle="true" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:layout_gravity="center_vertical" android:id="@id/next_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" />
+</v.VLinear>

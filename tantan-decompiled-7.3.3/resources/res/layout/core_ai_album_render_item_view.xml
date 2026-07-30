@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.aialbum.view.AiAlbumRenderItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_view"
+    android:layout_width="172dp"
+    android:layout_height="216dp"
+    flatten="true"
+    folder="ui"
+    holder="aialbum.view.AiAlbumRenderItemView">
+    <p151v.VDraweeView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4.5dp"
+        app:actualImageScaleType="centerCrop"
+        app:roundedCornerRadius="8dp"/>
+    <com.tantan.library.svga.SVGAnimationView
+        android:id="@+id/loading_view"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_centerInParent="true"/>
+</com.p051p1.mobile.putong.core.p058ui.aialbum.view.AiAlbumRenderItemView>

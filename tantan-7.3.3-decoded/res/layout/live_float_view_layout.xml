@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.other.floatwindow.FloatView android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="other.floatwindow" holder="FloatView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:background="@color/live_white" android:padding="1.0dp" android:layout_width="match_parent" android:layout_height="match_parent">
+        <FrameLayout android:layout_gravity="center" android:id="@id/player_container" android:background="@null" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <View android:id="@id/player_cover" android:background="@null" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <ViewStub android:id="@id/loading" android:layout="@layout/live_loading_view" android:layout_width="match_parent" android:layout_height="100.0dp" />
+        <v.VText android:textSize="12.0sp" android:textColor="@color/live_white" android:gravity="center_horizontal" android:layout_gravity="center" android:id="@id/text" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_SHOW_IT_NOW" android:shadowColor="#4d000000" android:shadowDy="1.0" />
+        <v.VImage android:layout_gravity="end|top" android:id="@id/iv_close" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_margin="8.0dp" android:scaleType="fitXY" android:layout_centerInParent="true" app:srcCompat="@null" />
+        <v.VImage android:layout_gravity="end|bottom" android:id="@id/iv_voice" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_margin="8.0dp" android:scaleType="fitXY" app:srcCompat="@drawable/live_selector_float_window_voice_selector" />
+    </FrameLayout>
+</com.p1.mobile.putong.live.livingroom.other.floatwindow.FloatView>

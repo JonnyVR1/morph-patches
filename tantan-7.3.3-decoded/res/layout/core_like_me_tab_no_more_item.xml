@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.home.member.likeme.adapter.item.LikeMeUserNoMoreItem android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="26.0dp" android:layout_marginBottom="32.0dp" holder="home.member.likeme.adapter.item.LikeMeUserNoMoreItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="13.0dp" android:textColor="#26000000" android:id="@id/no_more_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="筛选内容已刷完，换个标签试试" android:layout_centerInParent="true" />
+    <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:src="@null" android:layout_toLeftOf="@id/no_more_text" android:layout_centerVertical="true" />
+    <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:src="@null" android:layout_toRightOf="@id/no_more_text" android:layout_centerVertical="true" />
+</com.p1.mobile.putong.core.ui.home.member.likeme.adapter.item.LikeMeUserNoMoreItem>

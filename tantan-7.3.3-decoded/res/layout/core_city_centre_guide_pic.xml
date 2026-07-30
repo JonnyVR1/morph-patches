@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.greet.ItemGreetGuidePic android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="greet.ItemGreetGuidePic"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:background="@drawable/core_message_bar_input_bg" android:layout_width="match_parent" android:layout_height="74.0dp" android:layout_marginLeft="32.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="12.0dp">
+        <v.VLinear android:layout_gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp">
+            <v.VImage android:layout_width="42.0dp" android:layout_height="42.0dp" android:src="@null" />
+            <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp">
+                <v.VText android:textSize="15.0sp" android:textStyle="normal" android:textColor="#cc000000" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="想更快收到回复？" app:typeface="medium" />
+                <TextView android:textSize="13.0sp" android:textStyle="normal" android:textColor="#66000000" android:id="@id/tip" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="发一张展示自我的照片吧" />
+            </v.VLinear>
+        </v.VLinear>
+        <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="right|center" android:id="@id/agree" android:background="@drawable/core_audio_player_view_bg" android:layout_width="67.0dp" android:layout_height="34.0dp" android:layout_marginRight="16.0dp" android:text="发送" app:typeface="medium" />
+    </v.VFrame>
+</com.p1.mobile.putong.core.ui.greet.ItemGreetGuidePic>

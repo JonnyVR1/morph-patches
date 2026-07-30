@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.common.member.LiveMemberFooterDescView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="common"
+    holder="member.LiveMemberFooterDescView">
+    <p151v.VText
+        android:textSize="12sp"
+        android:textColor="#999999"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"/>
+</com.p051p1.mobile.putong.live.livingroom.common.member.LiveMemberFooterDescView>

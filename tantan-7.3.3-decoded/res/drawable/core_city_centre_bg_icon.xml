@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="16.0dp" android:width="16.0dp" android:viewportWidth="16.0" android:viewportHeight="16.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/$core_city_centre_bg_icon__0" android:pathData="M8,8m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
+    <path android:fillColor="#29211f" android:pathData="M8.807,10.805C8.678,9.719 8.11,8.735 7.236,8.083L6.902,7.834C6.331,7.407 6.565,6.5 7.271,6.403L7.686,6.346C8.765,6.198 9.737,5.613 10.376,4.727L10.668,4.32C11.093,3.731 12.016,3.97 12.103,4.691L12.164,5.205C12.293,6.279 12.851,7.254 13.711,7.906L14.033,8.15C14.596,8.577 14.364,9.475 13.665,9.576L13.267,9.634C12.198,9.789 11.237,10.373 10.605,11.252L10.301,11.674C9.877,12.264 8.952,12.026 8.866,11.304L8.807,10.805Z" android:fillType="evenOdd" />
+    <path android:fillColor="#29211f" android:pathData="M6.082,8.265C6.404,8.265 6.666,8.527 6.666,8.85C6.666,9.172 6.404,9.434 6.082,9.434H4.48C4.157,9.434 3.896,9.172 3.896,8.85C3.896,8.527 4.157,8.265 4.48,8.265H6.082Z" android:fillType="evenOdd" />
+    <path android:fillColor="#29211f" android:pathData="M5.08,6.179C5.403,6.179 5.664,6.441 5.664,6.763C5.664,7.086 5.403,7.348 5.08,7.348H2.362C2.039,7.348 1.778,7.086 1.778,6.763C1.778,6.441 2.039,6.179 2.362,6.179H5.08Z" android:fillType="evenOdd" />
+    <path android:fillColor="#29211f" android:pathData="M7.401,10.351C7.724,10.351 7.986,10.613 7.986,10.936C7.986,11.258 7.724,11.52 7.401,11.52H4.684C4.361,11.52 4.099,11.258 4.099,10.936C4.099,10.613 4.361,10.351 4.684,10.351H7.401Z" android:fillType="evenOdd" />
+</vector>

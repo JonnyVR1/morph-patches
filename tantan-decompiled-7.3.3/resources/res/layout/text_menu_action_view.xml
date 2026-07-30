@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/actionBarItemBackground"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="@color/text_menu_color"
+        android:gravity="center"
+        android:id="@+id/menu_text_view"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:duplicateParentState="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/ACTION_DONE"
+        android:layout_centerVertical="true"
+        app:typeface="medium"/>
+</RelativeLayout>

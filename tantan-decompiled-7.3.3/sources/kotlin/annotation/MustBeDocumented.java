@@ -1,0 +1,13 @@
+package kotlin.annotation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.RetentionPolicy;
+import kotlin.Metadata;
+
+/* JADX INFO: loaded from: classes2.dex */
+@java.lang.annotation.Target({ElementType.ANNOTATION_TYPE})
+@Metadata(m88120d1 = {"\u0000\n\n\u0002\u0018\u0002\n\u0002\u0010\u001b\n\u0000\b\u0087\u0002\u0018\u00002\u00020\u0001B\u0000¨\u0006\u0002"}, m88121d2 = {"Lkotlin/annotation/MustBeDocumented;", "", "kotlin-stdlib"}, m88122k = 1, m88123mv = {2, 2, 0}, m88125xi = 48)
+@Target
+@java.lang.annotation.Retention(RetentionPolicy.RUNTIME)
+public @interface MustBeDocumented {
+}

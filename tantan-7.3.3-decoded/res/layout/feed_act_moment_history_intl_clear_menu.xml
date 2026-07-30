@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VText android:textSize="14.0sp" android:textColor="@drawable/feed_intl_menu_moment_history_clear_btn_color" android:gravity="center_vertical" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/ACTION_CLEAR" android:paddingStart="8.0dp" android:paddingEnd="16.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

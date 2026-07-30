@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.model.view.MessageNewProfileSettingHead android:id="@id/head" android:layout_width="match_parent" android:layout_height="206.5dp" flatten="true" holder="messages.model.view.MessageNewProfileSettingHead"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/profile_image_verfication" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentLeft="true" flatten="true">
+        <v.VDraweeView android:id="@id/profile_image" android:layout_marginTop="16.0dp" app:foreground="@color/transparent" style="@style/message_profile_item_image" />
+        <com.p1.mobile.putong.core.ui.view.GradientBgButton android:layout_gravity="right|bottom" android:id="@id/match_from" android:visibility="gone" android:layout_width="16.0dp" android:layout_height="16.0dp" android:scaleType="centerInside" app:iconWidth="6.0dp" />
+    </FrameLayout>
+    <v.VLinear android:gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_below="@id/profile_image_verfication" android:layout_centerHorizontal="true">
+        <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="#212121" android:ellipsize="end" android:gravity="center" android:id="@id/title_big" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="250.0dp" android:text="" android:maxLines="1" android:drawablePadding="4.0dp" app:enableEmojis="true" app:typeface="medium" />
+        <v.VImage android:id="@id/avatar_icon" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginStart="4.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.messages.model.view.MessageNewProfileSettingHead>

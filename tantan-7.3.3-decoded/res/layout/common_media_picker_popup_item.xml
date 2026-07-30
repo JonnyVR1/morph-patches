@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.newui.mediaoperation.mediapicker.item.MediaFolderItemView android:orientation="horizontal" android:background="@drawable/white" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="mediaoperation.mediapicker.item.MediaFolderItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/cover" android:layout_width="60.0dp" android:layout_height="60.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="12.0dp" android:layout_centerVertical="true" fresco:actualImageScaleType="centerCrop" fresco:roundedCornerRadius="6.0dp" />
+    <ImageView android:id="@id/play" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="38.0dp" android:src="@null" android:layout_centerVertical="true" />
+    <ImageView android:id="@id/arrow_right_iv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    <LinearLayout android:layout_gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_toLeftOf="@id/indicator" android:layout_toRightOf="@id/cover" android:layout_centerVertical="true">
+        <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/common_black_02" android:ellipsize="end" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="220.0dp" android:maxLines="1" />
+        <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/common_grey_03" android:ellipsize="end" android:id="@id/size" android:paddingRight="3.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="6.0dp" android:layout_marginTop="3.0dp" android:singleLine="true" />
+    </LinearLayout>
+    <View android:id="@id/divider" android:background="#e2e9ee" android:layout_width="match_parent" android:layout_height="0.5dp" android:layout_marginLeft="15.0dp" android:layout_alignParentBottom="true" />
+</com.p1.mobile.putong.newui.mediaoperation.mediapicker.item.MediaFolderItemView>

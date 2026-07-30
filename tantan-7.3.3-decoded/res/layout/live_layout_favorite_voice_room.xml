@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="internal.virtualVoice.favoritevoice" holder="VoiceInternalFavoriteRoomViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="12.0dp">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="match_parent" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <v.VLinear android:layout_gravity="center_horizontal" android:orientation="vertical" android:id="@id/empty_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="190.0dp" flatten="true">
+            <ImageView android:layout_gravity="center_horizontal" android:id="@id/iv_picture" android:layout_width="220.0dp" android:layout_height="150.0dp" android:src="@null" android:scaleType="fitXY" />
+            <TextView android:textSize="14.0sp" android:textColor="#cc000000" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="暂时没有新的内容" />
+        </v.VLinear>
+    </FrameLayout>
+</v.VLinear>

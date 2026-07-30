@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="445.0dp" android:width="311.0dp" android:viewportWidth="311.0" android:viewportHeight="445.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/$core_boost_confirm_bg__0" android:pathData="M0,24C0,10.75 10.75,0 24,0H287C300.26,0 311,10.75 311,24V421C311,434.26 300.26,445 287,445H24C10.75,445 0,434.26 0,421V24Z" />
+</vector>

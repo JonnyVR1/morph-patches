@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.feed.newui.photoalbum.view.FeedSharelinkView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/feed_share_link_bg"
+    android:paddingLeft="10dp"
+    android:paddingRight="33dp"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    flatten="true"
+    folder="newui"
+    holder="photoalbum.view.FeedSharelinkView">
+    <p151v.VDraweeView
+        android:id="@+id/feed_share_link_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:actualImageScaleType="centerCrop"
+        app:failureImage="@drawable/feed_fresco_placeholder_bg"
+        app:placeholderImage="@drawable/feed_fresco_placeholder_bg"
+        app:roundedCornerRadius="10dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/feed_share_link_icon"
+        android:layout_centerVertical="true">
+        <TextView
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:ellipsize="end"
+            android:id="@+id/feed_share_link_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+        <TextView
+            android:textSize="12sp"
+            android:textColor="@color/feed_4c000000"
+            android:ellipsize="end"
+            android:id="@+id/feed_share_link_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:maxLines="1"/>
+    </LinearLayout>
+</com.p051p1.mobile.putong.feed.newui.photoalbum.view.FeedSharelinkView>

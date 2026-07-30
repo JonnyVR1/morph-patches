@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.HourBoardDialogTopAnimView android:layout_width="match_parent" android:layout_height="207.0dp" flatten="true" folder="increment" holder="leaderboard.hourleaderboard.mainland.HourBoardDialogTopAnimView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/bottom_bg" android:layout_width="match_parent" android:layout_height="207.0dp" app:actualImageScaleType="fitXY" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/bg_svga" android:layout_width="255.0dp" android:layout_height="207.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <v.VImage android:id="@id/top_bg" android:visibility="visible" android:layout_width="match_parent" android:layout_height="207.0dp" android:src="@null" android:scaleType="fitXY" app:layout_constraintTop_toTopOf="parent" />
+</com.p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.HourBoardDialogTopAnimView>

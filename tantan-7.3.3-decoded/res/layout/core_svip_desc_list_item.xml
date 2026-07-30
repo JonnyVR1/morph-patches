@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.result.SVipContentItemView android:layout_width="match_parent" android:layout_height="62.0dp" holder="result.SVipContentItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/icon" android:clipChildren="false" android:layout_width="44.0dp" android:layout_height="44.0dp" android:layout_centerVertical="true">
+        <ImageView android:layout_gravity="center" android:id="@id/origin" android:visibility="visible" android:layout_width="40.0dp" android:layout_height="40.0dp" android:scaleType="fitXY" />
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/see_avatar" android:background="@drawable/core_conversation_local_see_bg" android:padding="4.0dp" android:visibility="gone" android:layout_width="40.0dp" android:layout_height="40.0dp" style="@style/core_fresco_profile_small" />
+        <v.VImage android:layout_gravity="right|bottom" android:id="@id/see_icon" android:background="@null" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:scaleType="centerInside" />
+        <TextView android:textSize="11.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/see_num" android:background="@drawable/core_see_change_head_num_bg" android:visibility="gone" android:layout_width="28.0dp" android:layout_height="16.0dp" android:layout_marginLeft="1.0dp" android:lineSpacingExtra="3.0sp" />
+    </FrameLayout>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_centerVertical="true" android:layout_toStartOf="@id/go" android:layout_toEndOf="@id/icon">
+        <v.VLinear_FillerMeasure android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="14.0dp" app:fillerIndex="0">
+            <v.VText android:textSize="16.0sp" android:textColor="@color/core_svip_item_title_color" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:paddingEnd="4.0dp" app:typeface="medium" />
+            <ImageView android:layout_gravity="center_vertical" android:id="@id/member_badge" android:visibility="gone" android:layout_width="34.0dp" android:layout_height="16.0dp" />
+        </v.VLinear_FillerMeasure>
+        <v.VText android:textSize="12.0sp" android:textColor="@color/core_svip_item_content_text_color" android:ellipsize="end" android:layout_gravity="bottom" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="1" android:layout_marginStart="15.0dp" android:layout_marginEnd="11.0dp" app:typeface="regular" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/go" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentEnd="true">
+        <ImageView android:id="@id/img" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+        <v.VText android:textSize="12.0sp" android:textColor="#f8ae1d" android:gravity="center" android:id="@id/text" android:background="@drawable/core_svip_vip_content_see_btn_bg" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/SEE_ENTER_LOOK_UP" android:lineSpacingExtra="0.0sp" app:typeface="regular" />
+    </FrameLayout>
+    <View android:id="@id/mask" android:background="@color/core_svip_vip_item_mask" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+</com.p1.mobile.putong.core.ui.result.SVipContentItemView>

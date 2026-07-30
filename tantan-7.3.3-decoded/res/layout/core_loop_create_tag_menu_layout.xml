@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="16.0sp" android:textColor="@color/common_orange" android:layout_gravity="right|center" android:id="@id/save" android:paddingLeft="12.0dp" android:paddingTop="6.0dp" android:paddingRight="12.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="14.0dp" android:text="@string/ACTION_DONE" />
+</v.VFrame>

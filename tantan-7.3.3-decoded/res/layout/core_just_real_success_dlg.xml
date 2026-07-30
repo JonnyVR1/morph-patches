@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.justreal.JustRealSuccessLayout android:orientation="horizontal" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.justreal.JustRealSuccessLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center_vertical" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginLeft="16.0dp">
+        <com.facebook.drawee.view.SimpleDraweeView android:id="@id/avatar1" android:background="@drawable/core_bg_oval_white" android:padding="2.0dp" android:layout_width="34.0dp" android:layout_height="34.0dp" app:fadeDuration="0" app:roundAsCircle="true" />
+        <com.facebook.drawee.view.SimpleDraweeView android:id="@id/avatar2" android:background="@drawable/core_bg_oval_white" android:padding="2.0dp" android:visibility="gone" android:layout_width="34.0dp" android:layout_height="34.0dp" android:layout_marginLeft="20.0dp" app:fadeDuration="0" app:roundAsCircle="true" />
+        <com.facebook.drawee.view.SimpleDraweeView android:id="@id/avatar3" android:background="@drawable/core_bg_oval_white" android:padding="2.0dp" android:visibility="gone" android:layout_width="34.0dp" android:layout_height="34.0dp" android:layout_marginLeft="40.0dp" app:fadeDuration="0" app:roundAsCircle="true" />
+        <v.VImage android:layout_gravity="right|bottom" android:id="@id/fake_heart_image" android:background="@drawable/core_bg_oval_white" android:padding="2.0dp" android:layout_width="17.0dp" android:layout_height="17.0dp" android:layout_marginRight="-3.0dp" app:srcCompat="@null" />
+    </FrameLayout>
+    <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginRight="20.0dp">
+        <com.p1.mobile.putong.core.ui.VText_Default_Bold android:textSize="13.0dp" android:textColor="@color/common_000000_80" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="18.0dp" android:text="头像认证审核通过" />
+        <com.p1.mobile.putong.core.ui.VText_Default_Bold android:textSize="13.0dp" android:textColor="#4c000000" android:gravity="center_vertical" android:id="@id/avatar_count" android:layout_width="wrap_content" android:layout_height="18.0dp" android:text="头像认证审核通过" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.home.justreal.JustRealSuccessLayout>

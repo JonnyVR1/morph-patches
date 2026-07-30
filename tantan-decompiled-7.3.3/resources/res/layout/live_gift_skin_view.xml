@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.gift.view.GiftDialogSkinView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="increment"
+    holder="gift.view.GiftDialogSkinView">
+    <p151v.VDraweeView
+        android:id="@+id/title_bg"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:actualImageScaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/title_bg_space"/>
+    <ViewStub
+        android:id="@+id/webViewStub"
+        android:visibility="gone"
+        android:layout="@layout/live_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+</com.p051p1.mobile.putong.live.livingroom.increment.gift.view.GiftDialogSkinView>

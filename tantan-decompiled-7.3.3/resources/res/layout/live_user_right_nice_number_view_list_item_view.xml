@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.external.page.rights.niceNumber.view.RightNiceNumberItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="16sp"
+    android:textColor="@color/live_black_80_opacity"
+    android:gravity="center"
+    android:id="@+id/root"
+    android:background="@drawable/live_shape_user_right_nice_number_list_item_bg_normal"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    flatten="true"
+    folder="page"
+    holder="rights.niceNumber.view.RightNiceNumberItemView"/>

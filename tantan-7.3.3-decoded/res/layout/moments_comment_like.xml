@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/like" android:background="@drawable/moments_feed_button_rounded" android:clipChildren="false" android:clipToPadding="false" android:layout_width="96.0dp" android:layout_height="32.0dp" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:paddingRight="10.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageView android:layout_gravity="center_vertical" android:id="@id/like_indicator" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:src="@null" android:scaleType="fitCenter" />
+        <v.VText android:layout_gravity="center_vertical" android:background="@null" android:layout_marginLeft="6.0dp" android:text="@string/MOMENTS_BUTTON_LIKE_TITLE" style="@style/feed_moment_comment_button_text" />
+    </LinearLayout>
+</FrameLayout>

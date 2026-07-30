@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:orientation="horizontal" android:background="@drawable/tf_rect_light" android:layout_width="match_parent" android:layout_height="80.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="16.0sp" android:textColor="#212121" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/text" android:padding="16.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:drawableRight="@drawable/ic_arrow_right_light" android:drawablePadding="30.0dp" android:layout_weight="100.0" android:drawableEnd="@drawable/ic_arrow_right_light" app:vectorDrawableRight="@drawable/ic_arrow_right_light" />
+    <View android:layout_gravity="end|center" android:id="@id/dot" android:background="@drawable/messages_bar_dot" android:layout_width="8.0dp" android:layout_height="8.0dp" android:layout_margin="40.0dp" />
+</v.VFrame>

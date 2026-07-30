@@ -1,0 +1,35 @@
+package p002l;
+
+import com.p1.mobile.longlink.msg.liveroom.LongLinkLiveMessage;
+import l.p3g0;
+
+/* JADX INFO: loaded from: /tmp/tantan-dex/classes4.dex */
+public class gxu extends bk2<LongLinkLiveMessage.RefreshVoiceRoomLeaderboard, LongLinkLiveMessage.RefreshVoiceRoomLeaderboard> {
+    public gxu(p3g0<LongLinkLiveMessage.RefreshVoiceRoomLeaderboard, LongLinkLiveMessage.RefreshVoiceRoomLeaderboard> p3g0Var, und undVar) {
+        super(p3g0Var, undVar);
+    }
+
+    @Override // p002l.vp2
+    /* JADX INFO: renamed from: B, reason: merged with bridge method [inline-methods] */
+    public boolean mo9246q(LongLinkLiveMessage.RefreshVoiceRoomLeaderboard refreshVoiceRoomLeaderboard, String str) {
+        return true;
+    }
+
+    @Override // p002l.vp2
+    /* JADX INFO: renamed from: b */
+    public Class<LongLinkLiveMessage.RefreshVoiceRoomLeaderboard> mo9244b() {
+        return LongLinkLiveMessage.RefreshVoiceRoomLeaderboard.class;
+    }
+
+    @Override // p002l.vp2
+    /* JADX INFO: renamed from: e */
+    public String mo9245e() {
+        return "voice.leaderboard.refresh";
+    }
+
+    @Override // p002l.bk2
+    /* JADX INFO: renamed from: C, reason: merged with bridge method [inline-methods] */
+    public LongLinkLiveMessage.RefreshVoiceRoomLeaderboard mo9251z(String str, LongLinkLiveMessage.RefreshVoiceRoomLeaderboard refreshVoiceRoomLeaderboard) {
+        return refreshVoiceRoomLeaderboard;
+    }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="wrap_content" android:layout_height="?message_audio_height_left"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.ui.messages.ItemAudio android:id="@id/content" android:layout_width="wrap_content" android:layout_height="?message_audio_height_left">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+            <RelativeLayout android:paddingLeft="?core_msg_layout_padding_left" android:layout_width="match_parent" android:layout_height="?message_audio_layout_height" android:layout_marginTop="?message_audio_layout_top" android:layout_marginEnd="?message_audio_layout_left_right">
+                <com.p1.mobile.putong.core.ui.messages.AudioView android:id="@id/audio_view" android:layout_width="match_parent" android:layout_height="match_parent" app:bgColor="?message_audio_left_bg_color" app:itemType="left" app:paintColor="?message_audio_left_print_color" app:radius="10.0dp" />
+                <ImageView android:id="@id/audio_img" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="?core_msg_left_item_audio_button_img_start" android:layout_centerVertical="true" android:layout_marginStart="12.0dp" />
+                <v.VText android:textSize="@dimen/message_text_size" android:textColor="?message_audio_left_text_color" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginEnd="14.0dp" android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+            <ImageView android:background="?message_audio_left_background" android:layout_width="match_parent" android:layout_height="match_parent" />
+        </RelativeLayout>
+    </com.p1.mobile.putong.core.ui.messages.ItemAudio>
+    <ImageView android:layout_gravity="center_vertical" android:id="@id/audio_dot" android:layout_width="8.0dp" android:layout_height="8.0dp" android:layout_marginLeft="8.0dp" android:src="@drawable/message_audio_unread_dot" />
+    <v.VText android:textSize="10.0sp" android:textStyle="normal" android:textColor="#33000000" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/convert_to_text" android:background="@drawable/core_audio_convert_to_text_btn_bg" android:paddingLeft="6.0dp" android:paddingTop="1.0dp" android:paddingRight="6.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginLeft="8.0dp" android:text="@string/CHAT_VOICE_CONVERT_TO_TEXT_INITIAL_BUTTON" />
+</LinearLayout>

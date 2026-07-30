@@ -1,0 +1,6 @@
+package com.idv.identity.platform.api;
+
+/* JADX INFO: loaded from: classes7.dex */
+public interface IdentityRetCallback {
+    void onIdentityFinish(String str);
+}

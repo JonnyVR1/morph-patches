@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:paddingLeft="24.0dp" android:paddingRight="24.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:id="@id/container_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="20.0dp">
+        <include android:id="@id/move_root_1" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_card_books_movies_dramas_inner_item" />
+        <include android:id="@id/move_root_2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" layout="@layout/core_card_books_movies_dramas_inner_item" />
+        <include android:id="@id/move_root_3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" layout="@layout/core_card_books_movies_dramas_inner_item" />
+    </v.VLinear>
+    <FrameLayout android:id="@id/add_books_movies_dramas" android:background="@drawable/core_exp_bg_profile_edit_btn" android:layout_width="match_parent" android:layout_height="60.0dp">
+        <v.VText android:textSize="16.0dp" android:textColor="@color/common_exp_black_01" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="添加书影剧" />
+    </FrameLayout>
+</v.VLinear>

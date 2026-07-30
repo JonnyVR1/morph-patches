@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginHorizontal="12dp">
+    <p151v.VImage
+        android:id="@+id/icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/core_certification_avatar_priviege_icon_1_new_ui"/>
+    <p151v.VLinear
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+        <p151v.VText_NoTopPadding
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <p151v.VImage
+            android:id="@+id/arrow"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/core_certification_avatar_v2_privilege_item_arrow_icon"
+            android:layout_marginStart="2dp"/>
+    </p151v.VLinear>
+</p151v.VLinear>

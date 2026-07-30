@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@id/group_search_mode">
+        <item android:icon="@null" android:id="@id/menu_search" android:title="@android:string/search_go" android:showAsAction="always" app:actionViewClass="androidx.appcompat.widget.SearchView" app:showAsAction="always" />
+        <item android:id="@id/menu_send" android:minWidth="56.0dp" android:minHeight="56.0dp" android:title="@string/ACTION_SEND" android:showAsAction="always" app:actionLayout="@layout/text_menu_action_view" app:showAsAction="always" />
+    </group>
+</menu>

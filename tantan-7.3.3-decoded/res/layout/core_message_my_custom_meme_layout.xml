@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="#80000000" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="ui" holder="messages.meme.CoreMyCustomMemeViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:id="@id/parent" android:background="@drawable/core_message_popular_meme_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="40.0dp" flatten="true">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="56.0dp">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp">
+                <v.VImage android:id="@id/cancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:src="@null" android:layout_centerVertical="true" />
+                <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_cc000000" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/STICKERS_MY_STICKER" android:layout_centerInParent="true" />
+                <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_cc000000" android:id="@id/manage_top" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="20.0dp" android:text="@string/CHAT_GROUP_MEMBER_MANAGE_OPERATE" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+                <v.VText android:textSize="16.0sp" android:textColor="@color/common_orange" android:id="@id/done_top" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="20.0dp" android:text="@string/STICKERS_ADDED" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+        </RelativeLayout>
+        <GridView android:id="@id/grid" android:background="#ffffff" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+        <LinearLayout android:id="@id/add_btn_layout" android:background="#ffffff" android:paddingLeft="20.0dp" android:paddingTop="10.0dp" android:paddingRight="20.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+            <v.VText android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/add_btn" android:layout_width="match_parent" android:layout_height="56.0dp" android:text="@string/STICKERS_ADD" style="@style/common_button_small_01" />
+        </LinearLayout>
+        <RelativeLayout android:orientation="horizontal" android:id="@id/manage_layout" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" flatten="true">
+            <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_cc000000" android:layout_gravity="center" android:id="@id/move_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/STICKERS_MOVE_TO_FRONT" android:layout_alignParentLeft="true" android:layout_centerVertical="true" app:typeface="medium" />
+            <v.VText android:textSize="16.0sp" android:textColor="@color/common_orange" android:layout_gravity="center" android:id="@id/delete_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/STICKERS_DELETE" android:layout_alignParentRight="true" android:layout_centerVertical="true" app:typeface="medium" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    folder="newui"
+    holder="photoalbum.PhotoAlbumFallsFeedFrag">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        flatten="true">
+        <p151v.VRecyclerView
+            android:id="@+id/moments"
+            android:background="@color/transparent"
+            android:scrollbars="none"
+            android:clipChildren="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            useId="true"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <include
+        android:id="@+id/empty"
+        android:visibility="gone"
+        layout="@layout/common_empty_view"/>
+</FrameLayout>

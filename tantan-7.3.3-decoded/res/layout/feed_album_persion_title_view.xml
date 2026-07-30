@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.feed.newui.FeedAlbumPersionTitleView android:id="@id/content_view" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui.photoalbum.feed.newui" holder="FeedAlbumPersionTitleView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/user_info_container" android:paddingLeft="12.0dp" android:paddingTop="20.0dp" android:paddingRight="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="90.0dp" android:layout_height="130.0dp" fresco:actualImageScaleType="centerCrop" fresco:roundedCornerRadius="12.0dp" />
+        <v.VLinear_FillerMeasure android:orientation="horizontal" android:id="@id/user_info" android:paddingTop="8.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" fresco:fillerIndex="0" fresco:layout_constraintLeft_toRightOf="@id/avatar" fresco:layout_constraintRight_toRightOf="parent" fresco:layout_constraintTop_toTopOf="@id/avatar" flatten="true">
+            <v.VText android:textSize="26.0sp" android:textStyle="bold" android:textColor="#e6000000" android:ellipsize="end" android:layout_gravity="left" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="6.0dp" android:singleLine="true" />
+            <FrameLayout android:layout_gravity="left|center" android:paddingLeft="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <v.VImage android:id="@id/verification_icon" android:visibility="visible" android:layout_width="20.0dp" android:layout_height="20.0dp" android:scaleType="fitXY" />
+            </FrameLayout>
+            <include android:layout_gravity="left|center" android:id="@id/sex_age_content" android:paddingLeft="4.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" layout="@layout/feed_sex_and_age_view" />
+            <FrameLayout android:layout_gravity="left|center" android:paddingLeft="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <v.VImage android:id="@id/img_vip" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="20.0dp" />
+            </FrameLayout>
+            <FrameLayout android:layout_gravity="left|center" android:id="@id/diamond_label_layout" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <com.p1.mobile.putong.newui.view.ODiamondTagLabel android:id="@id/diamond_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" />
+            </FrameLayout>
+        </v.VLinear_FillerMeasure>
+        <v.VText android:textSize="13.0sp" android:textColor="#e6000000" android:ellipsize="end" android:id="@id/click_tip" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:maxLines="1" android:layout_centerHorizontal="true" android:lineSpacingExtra="0.0dp" fresco:layout_constraintLeft_toLeftOf="@id/user_info" fresco:layout_constraintRight_toRightOf="parent" fresco:layout_constraintTop_toBottomOf="@id/user_info" />
+        <v.VText android:textSize="13.0sp" android:textColor="#66000000" android:ellipsize="end" android:id="@id/user_extend" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginRight="8.0dp" android:maxLines="2" android:letterSpacing="-0.05" fresco:layout_constraintLeft_toLeftOf="@id/user_info" fresco:layout_constraintRight_toRightOf="parent" fresco:layout_constraintTop_toBottomOf="@id/click_tip" />
+        <v.VLinear android:gravity="center_vertical" android:id="@id/state_container" android:background="@drawable/feed_personal_state_bg" android:paddingRight="14.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginTop="9.0dp" fresco:layout_constraintLeft_toLeftOf="@id/user_info" fresco:layout_constraintTop_toBottomOf="@id/user_extend">
+            <v.VDraweeView android:id="@id/state_img" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="9.0dp" style="@style/feed_fresco_profile_small" />
+            <v.VText android:textSize="13.0sp" android:textColor="#1a1a1b" android:id="@id/state_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:layout_marginTop="1.0dp" />
+        </v.VLinear>
+        <v.VLine android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginTop="21.0dp" fresco:layout_constraintBottom_toBottomOf="parent" fresco:layout_constraintTop_toBottomOf="@id/avatar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.p1.mobile.putong.feed.newui.photoalbum.feed.personfeedinprofile.FeedWriterLevelInProfileView android:id="@id/personal_feed_writer_level" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" fresco:layout_constraintTop_toBottomOf="@id/user_info_container" />
+</com.p1.mobile.putong.feed.newui.photoalbum.feed.newui.FeedAlbumPersionTitleView>

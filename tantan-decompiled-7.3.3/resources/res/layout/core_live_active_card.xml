@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.active.LiveActiveCard xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    holder="active.LiveActiveCard">
+    <p151v.VDraweeView
+        android:id="@+id/iv_cardpic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:failureImage="@drawable/common_card_image_holder_full_round"
+        fresco:failureImageScaleType="centerInside"
+        fresco:placeholderImage="@color/white"
+        fresco:placeholderImageScaleType="centerInside"
+        fresco:roundBottomLeft="true"
+        fresco:roundBottomRight="true"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="true"
+        fresco:roundedCornerRadius="20dp"
+        style="@style/core_fresco_base"
+        useId="true"/>
+    <Button
+        android:textSize="14sp"
+        android:textColor="#e6000000"
+        android:layout_gravity="bottom"
+        android:id="@+id/btn_bottom"
+        android:background="@drawable/core_live_active_button"
+        android:paddingTop="17dp"
+        android:paddingBottom="17dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/LUCKY_CARD_BTN"
+        android:textAllCaps="false"
+        style="?android:attr/borderlessButtonStyle"
+        useId="true"/>
+</com.p051p1.mobile.putong.core.p058ui.active.LiveActiveCard>

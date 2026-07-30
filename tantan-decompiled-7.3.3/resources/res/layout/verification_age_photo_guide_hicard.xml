@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp">
+    <p151v.VImage
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="0x7f082a83"/>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="#212121"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/AGE_CHECK_INSURANCECARD_PRIVACY_TIPS1"
+        app:typeface="medium"/>
+    <p151v.VText
+        android:textSize="12sp"
+        android:textStyle="normal"
+        android:textColor="#959595"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/AGE_CHECK_INSURANCECARD_PRIVACY_TIPS2"/>
+    <p151v.VText
+        android:textSize="12sp"
+        android:textStyle="normal"
+        android:textColor="#959595"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/AGE_CHECK_INSURANCECARD_PRIVACY_TIPS3"/>
+</p151v.VLinear>

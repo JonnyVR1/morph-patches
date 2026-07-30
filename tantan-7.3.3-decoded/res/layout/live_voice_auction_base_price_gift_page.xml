@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.call.auction.dialog.relationchoose.RelationPageView android:layout_width="match_parent" android:layout_height="match_parent" app:bind_extends="LinearLayout" app:bind_implements="null" app:binding="true" app:columnCount="4" app:rowCount="2"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRecyclerView android:id="@id/relations" android:layout_width="match_parent" android:layout_height="wrap_content" />
+</com.p1.mobile.putong.live.livingroom.voice.call.auction.dialog.relationchoose.RelationPageView>

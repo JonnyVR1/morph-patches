@@ -1,0 +1,108 @@
+package tech.sud.logger;
+
+import tech.sud.base.utils.Utils;
+import tech.sud.base.utils.UtilsBridge;
+
+/* JADX INFO: loaded from: classes3.dex */
+public final class Sudcase {
+
+    /* JADX INFO: renamed from: Suddo, reason: collision with root package name */
+    public final String f210130Suddo;
+
+    /* JADX INFO: renamed from: Sudif, reason: collision with root package name */
+    public String f210131Sudif;
+    public String Sudfor = "util";
+    public boolean Sudint = true;
+    public boolean Sudnew = true;
+    public boolean Sudtry = true;
+    public int Sudbyte = -1;
+    public final String Sudcase = UtilsBridge.getCurrentProcessName();
+
+    /* JADX INFO: renamed from: Sudchar, reason: collision with root package name */
+    public final UtilsBridge.FileHead f210129Sudchar = new UtilsBridge.FileHead("Log");
+    public final boolean Sudelse = true;
+    public long Sudgoto = 20971520;
+    public int Sudlong = 4;
+
+    public Sudcase() {
+        if (!UtilsBridge.isSDCardEnableByEnvironment() || Utils.getApp().getExternalFilesDir(null) == null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(Utils.getApp().getFilesDir());
+            String str = LogUtils.f210127Sudif;
+            sb.append(str);
+            sb.append("log");
+            sb.append(str);
+            this.f210130Suddo = sb.toString();
+            return;
+        }
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append(Utils.getApp().getExternalFilesDir(null));
+        String str2 = LogUtils.f210127Sudif;
+        sb2.append(str2);
+        sb2.append("log");
+        sb2.append(str2);
+        this.f210130Suddo = sb2.toString();
+    }
+
+    public final String toString() {
+        StringBuilder sb = new StringBuilder("process: ");
+        String str = this.Sudcase;
+        sb.append(str == null ? "" : str.replace(":", "_"));
+        String str2 = LogUtils.LINE_SEP;
+        sb.append(str2);
+        sb.append("logSwitch: true");
+        sb.append(str2);
+        sb.append("consoleSwitch: ");
+        sb.append(this.Sudint);
+        sb.append(str2);
+        sb.append("tag: null");
+        UtilsBridge.isSpace("");
+        sb.append(str2);
+        sb.append("headSwitch: ");
+        sb.append(this.Sudnew);
+        sb.append(str2);
+        sb.append("fileSwitch: false");
+        sb.append(str2);
+        sb.append("dir: ");
+        String str3 = this.f210131Sudif;
+        if (str3 == null) {
+            str3 = this.f210130Suddo;
+        }
+        sb.append(str3);
+        sb.append(str2);
+        sb.append("filePrefix: ");
+        sb.append(this.Sudfor);
+        sb.append(str2);
+        sb.append("borderSwitch: ");
+        sb.append(this.Sudtry);
+        sb.append(str2);
+        sb.append("singleTagSwitch: true");
+        sb.append(str2);
+        sb.append("consoleFilter: ");
+        char[] cArr = LogUtils.f210126Suddo;
+        sb.append(cArr[0]);
+        sb.append(str2);
+        sb.append("fileFilter: ");
+        sb.append(cArr[0]);
+        sb.append(str2);
+        sb.append("stackDeep: 1");
+        sb.append(str2);
+        sb.append("stackOffset: 0");
+        sb.append(str2);
+        sb.append("saveDays: ");
+        sb.append(this.Sudbyte);
+        sb.append(str2);
+        sb.append("formatter: ");
+        sb.append(LogUtils.Sudcase);
+        sb.append(str2);
+        sb.append("fileWriter: null");
+        sb.append(str2);
+        sb.append("onConsoleOutputListener: null");
+        sb.append(str2);
+        sb.append("onFileOutputListener: null");
+        sb.append(str2);
+        sb.append("fileExtraHeader: ");
+        sb.append(this.f210129Sudchar.getAppended());
+        return sb.toString();
+    }
+}

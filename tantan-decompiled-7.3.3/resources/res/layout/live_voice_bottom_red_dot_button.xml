@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.bottom.VoiceRedDotButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <p151v.VDraweeView
+        android:id="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <View
+        android:layout_gravity="end|top"
+        android:id="@+id/red_dot"
+        android:background="@drawable/live_shape_voice_setting_red_dot"
+        android:visibility="gone"
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="3dp"/>
+    <TextView
+        android:textSize="10sp"
+        android:textColor="@color/white"
+        android:gravity="bottom|center_horizontal"
+        android:layout_gravity="top|right"
+        android:id="@+id/tv_num"
+        android:background="@drawable/live_bg_ff6464_r4"
+        android:paddingLeft="4dp"
+        android:paddingTop="1dp"
+        android:paddingRight="4dp"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.bottom.VoiceRedDotButton>

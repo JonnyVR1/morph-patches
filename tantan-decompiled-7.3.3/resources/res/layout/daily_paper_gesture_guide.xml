@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.main.DailyPaperGestureView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:background="@color/photo_album_cover_shadow"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:id="@+id/bg"
+        android:background="@drawable/daily_paper_guide_bg"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginLeft="67dp"
+        android:layout_marginRight="67dp"/>
+    <ImageView
+        android:id="@+id/gesture_guide"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:src="0x7f081a66"
+        android:scaleType="centerInside"
+        android:layout_alignLeft="@+id/bg"/>
+    <TextView
+        android:textSize="18dp"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="右滑看昨天日报"
+        android:layout_below="@+id/gesture_guide"
+        android:layout_centerHorizontal="true"/>
+</com.p051p1.mobile.putong.core.p058ui.main.DailyPaperGestureView>

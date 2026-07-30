@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemOperationTopic xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/content"
+    android:background="?attr/message_bubble_bg_left"
+    android:layout_width="256dp"
+    android:layout_height="wrap_content">
+    <p151v.VDraweeView
+        android:id="@+id/pic"
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        fresco:placeholderImage="@color/core_operation_topic_image_place_holder"
+        fresco:roundBottomEnd="false"
+        fresco:roundBottomStart="false"
+        fresco:roundTopEnd="true"
+        fresco:roundTopStart="true"
+        fresco:roundedCornerRadius="10dp"/>
+    <p151v.VText
+        android:textSize="15dp"
+        android:textColor="#cc000000"
+        android:ellipsize="end"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:maxLines="3"
+        android:lineSpacingExtra="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        fresco:typeface="regular"/>
+    <p151v.VText
+        android:textSize="16dp"
+        android:textColor="@color/common_orange"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/button"
+        android:background="@drawable/core_message_common_btn_bg"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="查看详情"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        fresco:typeface="medium"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemOperationTopic>

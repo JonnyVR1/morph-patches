@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/core_bg_20_ffffff"
+    android:paddingTop="24dp"
+    android:paddingBottom="31dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    flatten="true"
+    folder="newui"
+    holder="home.card.expanded.holder.TantanIdHomeCardExpandedHolder">
+    <com.p051p1.mobile.putong.core.p058ui.VText_Medium
+        android:textSize="14sp"
+        android:textColor="@color/core_color_40percent_000000"
+        android:id="@+id/tantan_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tantan ID"/>
+    <com.p051p1.mobile.putong.core.p058ui.VText_Medium
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:id="@+id/tantan_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:maxLines="1"
+        android:singleLine="true"/>
+</p151v.VLinear>

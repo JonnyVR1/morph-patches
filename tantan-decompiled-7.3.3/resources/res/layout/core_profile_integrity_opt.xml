@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.profile.profilelist.view.ProfileIntegrityOptView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:id="@+id/integrity"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:layout_marginTop="3dp">
+    <p151v.VImage
+        android:id="@+id/icon_image"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="0x7f081494"/>
+    <p151v.VText
+        android:textSize="12dp"
+        android:textColor="@color/core_color_30percent_000000"
+        android:gravity="center_vertical"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="4dp"
+        app:typeface="medium"/>
+    <p151v.VText
+        android:textSize="12dp"
+        android:textColor="#fe7e1d"
+        android:gravity="center_vertical"
+        android:id="@+id/add_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="4dp"
+        app:typeface="medium"/>
+    <p151v.VText
+        android:textSize="12dp"
+        android:textColor="@color/core_color_30percent_000000"
+        android:gravity="center_vertical"
+        android:id="@+id/extended_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="4dp"
+        app:typeface="medium"/>
+</com.p051p1.mobile.putong.core.p058ui.profile.profilelist.view.ProfileIntegrityOptView>

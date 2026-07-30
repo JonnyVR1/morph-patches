@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.feed.newui.camera.widget.MaskMenuView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    folder="newui"
+    holder="camera.widget.MaskMenuView">
+    <View
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#8c000000"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/iv_camera_mask"
+            android:background="0x7f0802cf"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="10dp"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_camera_mask"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            app:tabGravity="fill"
+            app:tabMinWidth="20dp"
+            app:tabMode="scrollable"
+            app:tabPaddingEnd="8dp"
+            app:tabPaddingStart="8dp"/>
+    </LinearLayout>
+    <p151v.VPager
+        android:id="@+id/vp_camera_mask"
+        android:background="#5c000000"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"/>
+</com.p051p1.mobile.putong.feed.newui.camera.widget.MaskMenuView>

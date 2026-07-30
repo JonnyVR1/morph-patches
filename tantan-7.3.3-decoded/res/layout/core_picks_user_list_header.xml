@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.picks.view.header.PicksUserHeaderView android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="66.0dp" holder="vip.picks.view.header.PicksUserHeaderView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#cc000000" android:gravity="center_horizontal" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="解锁今日最佳" android:lineSpacingExtra="0.0sp" />
+    <TextView android:textSize="13.0sp" android:textStyle="normal" android:textColor="#66000000" android:gravity="center_horizontal" android:id="@id/subtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:text="为你精心挑选的优质用户，每天中午12点刷新" android:lineSpacingExtra="0.0sp" />
+</com.p1.mobile.putong.core.ui.vip.picks.view.header.PicksUserHeaderView>

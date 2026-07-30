@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:textSize="14.0dp" android:textColor="@color/live_selector_80_40_white" android:id="@id/title" android:background="@drawable/live_selector_pk_tab_bg" android:paddingLeft="13.0dp" android:paddingTop="6.0dp" android:paddingRight="13.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="32.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

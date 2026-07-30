@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_shortAnimTime">
+    <item
+        android:state_selected="true"
+        android:drawable="0x7f081cd4"/>
+    <item
+        android:state_selected="false"
+        android:drawable="0x7f081cd6"/>
+</selector>

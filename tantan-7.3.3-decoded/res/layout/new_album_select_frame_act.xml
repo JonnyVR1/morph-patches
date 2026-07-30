@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/frame" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="mediapicker.NewAlbumSelectFrameAct"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <FrameLayout android:id="@id/video" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginTop="12.0dp" android:layout_marginBottom="12.0dp" android:layout_weight="1.0" />
+    <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="#383e46" android:gravity="center_horizontal" android:layout_gravity="center" android:id="@id/time" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" />
+    <FrameLayout android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:layout_marginBottom="12.0dp">
+        <v.VRecyclerView android:id="@id/recycler" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="18.0dp" android:layout_marginBottom="18.0dp" />
+        <com.p1.mobile.putong.feed.newui.mediapicker.SelectFrameView android:layout_gravity="center_vertical" android:id="@id/cutting" android:layout_width="match_parent" android:layout_height="66.0dp" />
+    </FrameLayout>
+</v.VLinear>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.chat.list.ChatListView android:orientation="vertical" android:visibility="gone" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="common.chat.list" holder="ChatListView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/top_chat_view" android:visibility="gone" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="70.0dp" android:layout_marginTop="-26.0dp" android:layout_marginBottom="7.0dp" android:layout_marginEnd="10.0dp" layout="@layout/live_chat_top_chat_view" />
+    <FrameLayout android:id="@id/message_list_layout" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" flatten="true">
+        <com.p1.mobile.putong.live.base.view.LiveFadeRecyclerView android:id="@id/list" android:fadingEdgeLength="30.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:requiresFadingEdge="vertical" />
+        <v.VText android:textSize="13.0sp" android:textStyle="bold" android:textColor="#ff8817" android:gravity="center" android:layout_gravity="bottom" android:id="@id/new_message_tip" android:background="@drawable/live_bg_white_r10" android:paddingLeft="12.0dp" android:paddingTop="1.0dp" android:paddingRight="9.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="30.0dp" android:text="@string/LIVE_NEW_MESSAGE" android:drawableRight="@drawable/live_vector_new_message_arrow" android:drawablePadding="2.0dp" />
+    </FrameLayout>
+    <include android:id="@id/userNotification" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_chat_user_notification_view" />
+</com.p1.mobile.putong.live.livingroom.common.chat.list.ChatListView>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="48.0dp" flatten="false" folder="newui" holder="group.dialog.insert.selecteditem.FeedSelectTopicItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:layout_gravity="center_vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginRight="32.0dp" android:layout_weight="1.0">
+        <com.p1.mobile.putong.feed.newui.photoalbum.view.FeedLinearWithExtraIconsView android:id="@id/text_with_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" app:fillerIndex="0" flatten="false">
+            <TextView android:textStyle="bold" android:ellipsize="end" android:layout_gravity="left|center" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="sjjsjsjsjs" android:maxLines="1" />
+        </com.p1.mobile.putong.feed.newui.photoalbum.view.FeedLinearWithExtraIconsView>
+    </LinearLayout>
+    <v.VImage android:layout_gravity="center_vertical" android:id="@id/hook" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_marginRight="32.0dp" android:src="@null" />
+</LinearLayout>

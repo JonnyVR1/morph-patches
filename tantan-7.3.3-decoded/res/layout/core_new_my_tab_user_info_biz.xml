@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/head_biz" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="profile.newmine.newprofile.block.BizUserInfoView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp">
+        <FrameLayout android:id="@id/avatar_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
+            <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="70.0dp" android:layout_height="88.0dp" app:actualImageScaleType="centerCrop" app:failureImage="@color/common_light_04" app:placeholderImage="@color/common_light_04" app:roundedCornerRadius="10.0dp" />
+            <v.VImage android:layout_gravity="end|bottom" android:id="@id/profile_edit" android:padding="4.0dp" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" />
+            <com.p1.mobile.putong.core.newui.view.RoundedRectangleProgressView android:id="@id/rectangle_progress" android:visibility="gone" android:layout_width="70.0dp" android:layout_height="88.0dp" />
+        </FrameLayout>
+        <FrameLayout android:id="@id/nickname_container" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_marginTop="13.0dp" android:layout_marginStart="12.0dp" app:layout_constrainedWidth="true" app:layout_constraintLeft_toRightOf="@id/avatar_container" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
+            <LinearLayout android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="34.0dp">
+                <v.VText android:textSize="24.0sp" android:textStyle="bold" android:textColor="@color/common_black_80" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/nickname" android:layout_width="wrap_content" android:layout_height="34.0dp" android:text="@string/MENU_VIEW_PROFILE" android:singleLine="true" android:includeFontPadding="false" android:layout_weight="1.0" app:typeface="medium" />
+                <v.VImage android:id="@id/avatar_icon" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginStart="4.0dp" />
+                <com.p1.mobile.putong.newui.view.ODiamondTagLabel android:id="@id/odiamond_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginStart="4.0dp" />
+                <v.VImage android:id="@id/img_vip" android:layout_width="38.0dp" android:layout_height="20.0dp" android:layout_marginStart="4.0dp" />
+            </LinearLayout>
+        </FrameLayout>
+        <v.VText android:textSize="13.0sp" android:textColor="@color/core_color_66000000" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/desc" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="18.0dp" android:maxLines="1" android:layout_marginStart="12.0dp" app:layout_constraintLeft_toRightOf="@id/avatar_container" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/nickname_container" />
+        <Space android:id="@id/desc_space" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="7.0dp" android:layout_marginStart="12.0dp" app:layout_constraintLeft_toRightOf="@id/avatar_container" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/desc" />
+        <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginStart="12.0dp" app:layout_constraintLeft_toRightOf="@id/avatar_container" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/desc_space">
+            <v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/change_state_container" android:background="@drawable/core_mytab_biz_state_bg" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="32.0dp" flatten="true">
+                <v.VDraweeView android:id="@id/change_state_icon" android:layout_width="14.0dp" android:layout_height="14.0dp" app:actualImageResource="@null" />
+                <v.VText android:textSize="11.0sp" android:textStyle="bold" android:textColor="@color/core_color_66000000" android:ellipsize="end" android:gravity="center_horizontal" android:id="@id/change_state_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" app:typeface="medium" />
+                <v.VIcon android:id="@id/change_state_arrow" android:visibility="gone" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" android:layout_marginStart="-2.0dp" />
+            </v.VLinear>
+            <v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/moment_container" android:background="@drawable/core_mytab_biz_state_bg" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="32.0dp" android:paddingStart="12.0dp" android:paddingEnd="8.0dp" android:layout_marginStart="6.0dp" flatten="true">
+                <v.VText android:textSize="11.0sp" android:textStyle="bold" android:textColor="@color/core_color_66000000" android:gravity="center_horizontal" android:id="@id/moment_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更多状态" android:maxLines="1" app:typeface="medium" />
+                <v.VIcon android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" android:layout_marginStart="-2.0dp" />
+            </v.VLinear>
+        </v.VLinear>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

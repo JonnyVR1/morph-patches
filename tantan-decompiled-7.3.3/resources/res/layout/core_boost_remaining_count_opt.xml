@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.view.boost.view.BoostRemainingCountViewOpt xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="newui"
+    holder="view.boost.view.BoostRemainingCountViewOpt">
+    <ImageView
+        android:id="@+id/remain_icon"
+        android:background="0x7f08056a"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="0x7f08056c"
+        android:scaleType="centerInside"/>
+    <p151v.VText_AutoFit
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:id="@+id/remain_text"
+        android:background="0x7f08056a"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:visibility="gone"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:rotationY="180"
+        app:typeface="medium"/>
+</com.p051p1.mobile.putong.core.newui.view.boost.view.BoostRemainingCountViewOpt>

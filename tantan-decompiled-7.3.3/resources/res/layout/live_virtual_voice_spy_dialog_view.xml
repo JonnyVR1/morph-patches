@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.virtual.room.functions.dialog.spy.SpyDialogView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/transparent"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:bind_extends="LinearLayout"
+    app:binding="true">
+    <p151v.VText
+        android:textSize="15sp"
+        android:textColor="@color/live_white_40_opacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="功能说明"/>
+    <p151v.VLinear
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <p151v.VDraweeView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="137dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="20dp"
+            app:actualImageScaleType="fitXY"/>
+    </p151v.VLinear>
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:id="@+id/go"
+        android:background="@drawable/live_selector_voice_functions_confirm_bt_bg"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="33dp"
+        android:text="开始吧"/>
+</com.p051p1.mobile.putong.live.livingroom.virtual.room.functions.dialog.spy.SpyDialogView>

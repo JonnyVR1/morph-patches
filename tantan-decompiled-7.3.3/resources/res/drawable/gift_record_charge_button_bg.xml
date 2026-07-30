@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <item>
+        <shape>
+            <corners android:radius="6dp"/>
+            <gradient
+                android:startColor="#ff4349"
+                android:endColor="#fe7b3e"
+                android:angle="0"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/tf_rect_light"/>
+</layer-list>

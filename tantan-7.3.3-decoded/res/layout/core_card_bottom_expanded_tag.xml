@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.views.CardBottomTagExpandedLayout android:orientation="vertical" android:visibility="invisible" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.views.CardBottomTagExpandedLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/card_bottom_upper_region" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6.0dp" flatten="true">
+        <include android:id="@id/card_bottom_name_layout" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_card_bottom_expanded_basic_info" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/card_bottom_lower_region" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="60.0dp">
+            <v.VText android:textSize="14.0sp" android:textColor="@color/core_color_60percent_FFFFFF" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="7.0dp" android:text="我的兴趣标签" android:shadowColor="@color/common_light_02" android:shadowDx="1.0" android:shadowDy="1.0" android:lineSpacingExtra="0.0sp" app:typeface="regular" />
+            <com.p1.mobile.putong.core.view.CardLabelShowView android:id="@id/labelshowview" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        </v.VLinear>
+    </FrameLayout>
+</com.p1.mobile.putong.core.newui.home.views.CardBottomTagExpandedLayout>

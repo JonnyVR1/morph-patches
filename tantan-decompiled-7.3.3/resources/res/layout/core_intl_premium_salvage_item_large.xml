@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+    <p151v.VDraweeView
+        android:id="@+id/img"
+        android:background="@drawable/core_intl_salvage_item_bg"
+        android:padding="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:actualImageScaleType="centerCrop"
+        app:roundedCornerRadius="14dp"/>
+    <LinearLayout
+        android:gravity="bottom"
+        android:layout_gravity="bottom"
+        android:background="@drawable/core_intl_salvage_item_bottom"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <TextView
+            android:textSize="14sp"
+            android:textColor="#e5ffffff"
+            android:ellipsize="end"
+            android:id="@+id/tvMeta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="8km · 27"
+            android:maxLines="1"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/ivStar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"/>
+    </LinearLayout>
+</FrameLayout>

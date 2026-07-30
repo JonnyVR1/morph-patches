@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.feed.newui.mediapicker.NewCaptionIndicatorView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_frame"
+    android:background="@drawable/feed_post_bg_image_bound"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/plus"
+        android:background="@drawable/feed_post_bg_plus_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        android:src="0x7f081e65"
+        android:scaleType="centerInside"/>
+</com.p051p1.mobile.putong.feed.newui.mediapicker.NewCaptionIndicatorView>

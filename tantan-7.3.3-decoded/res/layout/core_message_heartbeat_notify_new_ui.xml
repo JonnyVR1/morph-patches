@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemHeartbeatNotifyNewUi android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="ui" holder="messages.ItemHeartbeatNotifyNewUi"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/notify_content" android:background="@drawable/core_message_heartbeat_new_ui_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="10.0dp" flatten="true">
+        <v.VImage android:id="@id/leave_img" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="16.0dp" app:srcCompat="@null" />
+        <v.VLinear android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="68.0dp">
+            <v.VText android:textSize="14.0dp" android:textStyle="bold" android:textColor="@color/core_color_323232" android:id="@id/notify_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/HEART_CHAT_DETAILS_UNMATCH_NOTE_TITLE" />
+            <v.VText android:textSize="13.0dp" android:textColor="#b2b2b2" android:id="@id/notify_subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:text="@string/HEART_CHAT_DETAILS_UNMATCH_NOTE_SUB_TITLE" />
+        </v.VLinear>
+        <View android:layout_gravity="right|center" android:id="@id/debug_flag" android:layout_width="5.0dp" android:layout_height="5.0dp" android:layout_marginRight="20.0dp" />
+    </FrameLayout>
+    <v.VText android:textSize="12.0dp" android:textColor="#33000000" android:gravity="center" android:id="@id/notify_all" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="10.0dp" />
+</com.p1.mobile.putong.core.ui.messages.ItemHeartbeatNotifyNewUi>

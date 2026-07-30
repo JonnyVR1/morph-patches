@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="verification.national.NationalIdViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:paddingStart="20.0dp" android:paddingEnd="20.0dp">
+        <TextView android:textSize="16.0sp" android:textColor="#4c000000" android:id="@id/appealing" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:text="@string/USER_APPEAL_ID_TIPS" />
+        <FrameLayout android:id="@id/name_layout" android:layout_width="match_parent" android:layout_height="64.0dp" android:layout_marginTop="24.0dp" android:layout_below="@id/appealing" flatten="true">
+            <EditText android:textSize="16.0sp" android:textColor="#212121" android:textColorHighlight="#d74d37" android:textColorHint="#d0d0d0" android:id="@id/name_input" android:background="@drawable/core_national_edt_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:hint="@string/ID_VERIFICATION_INFORMATION_INPUT_PAGE_NAME_TIPS" android:singleLine="true" android:maxLength="18" android:paddingStart="20.0dp" android:paddingEnd="45.0dp" android:focusedByDefault="true" useId="true" />
+            <ImageView android:layout_gravity="right|center" android:id="@id/name_clear" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" android:src="@null" android:scaleType="centerInside" android:layout_marginEnd="20.0dp" />
+        </FrameLayout>
+        <FrameLayout android:id="@id/num_layout" android:layout_width="match_parent" android:layout_height="64.0dp" android:layout_marginTop="12.0dp" android:layout_below="@id/name_layout" flatten="true">
+            <EditText android:textSize="16.0sp" android:textColor="#212121" android:textColorHighlight="#d74d37" android:textColorHint="#d0d0d0" android:id="@id/num_input" android:background="@drawable/core_national_edt_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:hint="@string/ID_VERIFICATION_INFORMATION_INPUT_PAGE_ID_NUMBER_TIPS" android:singleLine="true" android:maxLength="18" android:digits="0123456789xX" android:paddingStart="20.0dp" android:paddingEnd="45.0dp" useId="true" />
+            <ImageView android:layout_gravity="right|center" android:id="@id/num_clear" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" android:src="@null" android:scaleType="centerInside" android:layout_marginEnd="20.0dp" />
+        </FrameLayout>
+        <TextView android:textSize="12.0dp" android:textColor="#d74d37" android:id="@id/num_error" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="16.0dp" android:text="@string/ID_VERIFICATION_INFORMATION_INPUT_PAGE_TIPS_WRONG" android:layout_below="@id/num_layout" />
+        <LinearLayout android:id="@id/privacy_lin_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_below="@id/num_error" flatten="true">
+            <v.VCheckBox android:id="@id/privacy_check" android:layout_marginTop="4.0dp" android:layout_marginEnd="8.0dp" style="@style/common_checkbox" />
+            <TextView android:textSize="13.0sp" android:textColor="#b2b2b2" android:id="@id/secret_btn" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4.0dp" android:text="@string/VERIFICATION_POLICY_CHECKBOX_ID_BODY" />
+        </LinearLayout>
+        <TextView android:enabled="false" android:textSize="16.0dp" android:textColor="#ffffff" android:gravity="center" android:id="@id/auth_btn" android:background="@drawable/core_idcard_auth_btn" android:layout_width="match_parent" android:layout_height="60.0dp" android:layout_marginBottom="16.0dp" android:text="@string/ID_VERIFICATION_INFORMATION_INPUT_PAGE_BUTTON_NEXT" android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</LinearLayout>

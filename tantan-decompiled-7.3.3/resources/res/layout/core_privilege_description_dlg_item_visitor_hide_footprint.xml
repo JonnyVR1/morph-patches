@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.vip.privilege.dlg.PrivilegeContentDlgItemVisitorHideFootPrintView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    holder="vip.privilege.dlg.PrivilegeContentDlgItemVisitorHideFootPrintView">
+    <p151v.VImage
+        android:layout_gravity="bottom"
+        android:id="@+id/model"
+        android:layout_width="127dp"
+        android:layout_height="172dp"
+        android:layout_marginBottom="10dp"
+        android:src="0x7f0819d1"
+        android:layout_marginStart="28dp"/>
+    <p151v.AutoVDraweeView
+        android:layout_gravity="bottom"
+        android:id="@+id/avatar"
+        android:drawingCacheQuality="high"
+        android:layout_width="110dp"
+        android:layout_height="137dp"
+        android:layout_marginBottom="32dp"
+        android:rotation="8"
+        android:layout_marginStart="72dp"
+        app:roundedCornerRadius="13dp"
+        app:roundingBorderColor="@color/white"
+        app:roundingBorderWidth="5dp"/>
+    <p151v.VImage
+        android:layout_gravity="bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:src="0x7f0819d2"
+        android:layout_marginStart="120dp"/>
+</com.p051p1.mobile.putong.core.p058ui.vip.privilege.dlg.PrivilegeContentDlgItemVisitorHideFootPrintView>

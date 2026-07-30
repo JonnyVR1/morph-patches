@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.internal.vchat.module.giftDialog.view.gears.LiveVChatGiftGearsLayerView android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" folder="internal.vchat" holder="module.giftDialog.view.gears.LiveVChatGiftGearsLayerView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/gearsProgressView" android:visibility="invisible" android:layout_width="88.0dp" android:layout_height="124.0dp" layout="@layout/live_vchat_gift_dialog_gears_progress_view" />
+</com.p1.mobile.putong.live.external.internal.vchat.module.giftDialog.view.gears.LiveVChatGiftGearsLayerView>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/passby_wrap"
+    android:background="@drawable/core_profile_tag_bg"
+    android:paddingLeft="4dp"
+    android:paddingRight="6dp"
+    android:visibility="gone"
+    android:layout_width="wrap_content"
+    android:layout_height="18dp"
+    android:minHeight="18dp">
+    <p151v.VImage
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="3dp"
+        app:srcCompat="@drawable/core_profile_passby_ic"/>
+    <p151v.VText
+        android:textSize="13dp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/passby_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="18dp"
+        android:lineSpacingExtra="0sp"/>
+</LinearLayout>

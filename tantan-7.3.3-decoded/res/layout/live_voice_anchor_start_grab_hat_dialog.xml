@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="voice" holder="grabhat.view.AnchorStartGameViewMode"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/empty" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/container" android:background="@drawable/live_bg_19191e_tr24" android:paddingRight="20.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="20.0dp" app:layout_constraintBottom_toBottomOf="parent" flatten="true">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="62.0dp">
+            <TextView android:textSize="15.0sp" android:textStyle="normal" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="62.0dp" android:text="@string/LIVE_GRAB_HAT_BECOME_CP" />
+            <v.VImage android:layout_gravity="right|center" android:id="@id/rule" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" />
+        </FrameLayout>
+        <View android:background="@drawable/live_bg_white_r3_a03" android:layout_width="match_parent" android:layout_height="3.0dp" />
+        <ScrollView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="395.0dp" android:overScrollMode="never">
+            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="15.0sp" android:textStyle="normal" android:textColor="#ffffff" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:text="@string/LIVE_HEADLINE_THEME_RULE_TEXT" />
+                <TextView android:textSize="13.0sp" android:textStyle="normal" android:textColor="@color/live_white_60_opacity" android:id="@id/desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="@string/LIVE_AUDIO_CROWN_HOST_RULE2" />
+                <v.VLinear android:orientation="vertical" android:background="@drawable/live_bg_white_r14_a05" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp">
+                    <TextView android:textSize="13.0sp" android:textStyle="normal" android:textColor="#ffffff" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:text="@string/LIVE_MVP_CP_HEAD_FRAME" android:drawableLeft="@null" android:drawableRight="@null" android:drawablePadding="12.0dp" />
+                    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/decorate_view" android:layout_width="375.0dp" android:layout_height="81.0dp" android:layout_marginTop="14.0dp" android:layout_marginBottom="12.0dp" />
+                </v.VLinear>
+            </LinearLayout>
+        </ScrollView>
+        <TextView android:textSize="16.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/start" android:background="@drawable/live_bg_ff698f_r14" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="37.0dp" android:layout_marginBottom="12.0dp" android:text="@string/LIVE_GAME_OPEN" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

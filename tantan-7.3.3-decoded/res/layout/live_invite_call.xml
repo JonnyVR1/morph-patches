@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/live_bg_white_r16" android:layout_width="match_parent" android:layout_height="134.0dp" android:layout_marginLeft="48.0dp" android:layout_marginRight="48.0dp" android:layout_marginHorizontal="48.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="16.0sp" android:textStyle="normal" android:textColor="#323232" android:layout_gravity="center_horizontal" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="42.0dp">
+        <TextView android:textSize="16.0sp" android:textStyle="normal" android:textColor="#838383" android:gravity="center_horizontal" android:id="@id/cancel" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" />
+        <View android:background="@color/common_light_03" android:layout_width="1.0dp" android:layout_height="22.0dp" />
+        <TextView android:textSize="16.0sp" android:textStyle="normal" android:textColor="#fe7e1d" android:gravity="center_horizontal" android:id="@id/accept" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" />
+    </LinearLayout>
+</LinearLayout>

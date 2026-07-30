@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.intlPrivilege.content.item.IntlPrivilegeShowcaseWrapper android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.intlPrivilege.content.item.IntlPrivilegeShowcaseWrapper"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:id="@id/promotion_rl" android:background="@drawable/core_intl_renew_contract_grey_bg" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="12.0dp" flatten="true">
+        <v.VMarqueeText android:textSize="11.0sp" android:textStyle="bold" android:textColor="@color/core_msg_cell_left_text_color" android:ellipsize="marquee" android:gravity="center" android:id="@id/promotion_content" android:layout_width="wrap_content" android:layout_height="36.0dp" android:layout_marginRight="28.0dp" android:scrollHorizontally="true" android:singleLine="true" android:marqueeRepeatLimit="marquee_forever" />
+        <v.VIcon android:id="@id/promotion_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+</com.p1.mobile.putong.core.ui.vip.intlPrivilege.content.item.IntlPrivilegeShowcaseWrapper>

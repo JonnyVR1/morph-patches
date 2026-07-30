@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.greet.ItemGreetingTip xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    holder="greet.ItemGreetingTip"
+    innerClass="true">
+    <p151v.VText
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:textColor="#4c000000"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tip_text"
+        android:paddingLeft="12dp"
+        android:paddingTop="4dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:drawablePadding="4dp"
+        android:lineSpacingExtra="1dp"
+        android:fontFamily="PingFangSC-Regular"/>
+</com.p051p1.mobile.putong.core.p058ui.greet.ItemGreetingTip>

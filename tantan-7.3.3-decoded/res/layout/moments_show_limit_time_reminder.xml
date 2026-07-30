@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/limit_reminder" android:padding="30.0dp" android:clickable="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="82.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:background="#42000000" android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+    <v.VText android:textSize="12.0sp" android:textColor="#89000000" android:gravity="center_horizontal" android:id="@id/reminder" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/USER_INFO_CKECK_MOMENT_FEED_DISPLAY_HALF_YEAR_FOOTER" android:lineSpacingExtra="0.0sp" />
+    <View android:background="#42000000" android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+</v.VLinear>

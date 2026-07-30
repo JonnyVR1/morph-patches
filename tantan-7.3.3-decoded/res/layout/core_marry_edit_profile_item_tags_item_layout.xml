@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:background="@drawable/core_marry_edit_profile_item_tags_item_bg" android:paddingLeft="16.0dp" android:paddingTop="12.0dp" android:paddingRight="16.0dp" android:paddingBottom="12.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:paddingHorizontal="16.0dp" android:paddingVertical="12.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="14.0sp" android:textColor="#cc000000" android:ellipsize="end" android:layout_gravity="center" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:lines="1" app:typeface="medium" />
+</v.VFrame>

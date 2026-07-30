@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame_Shadow android:id="@id/dislike_shadow" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="65.0dp" app:sl_dx="@dimen/core_profile_bottom_dx" app:sl_dy="@dimen/core_profile_bottom_dy" app:sl_shadowColor="@color/core_profile_bottom_shadow_color" app:sl_shadowRadius="8.0dp" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center" android:orientation="horizontal" android:background="@drawable/core_profile_video_quick_chat_bg" android:layout_width="132.0dp" android:layout_height="48.0dp">
+        <v.VImage android:layout_gravity="center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="centerCrop" />
+        <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="视频闪聊" android:layout_marginStart="6.0dp" />
+    </v.VLinear>
+</v.VFrame_Shadow>

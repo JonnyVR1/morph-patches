@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <p151v.AutoVDraweeView
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        fresco:roundedCornerRadius="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+</p151v.VLinear>

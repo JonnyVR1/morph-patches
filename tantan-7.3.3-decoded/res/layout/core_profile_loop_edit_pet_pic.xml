@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="profile.loop.input.ProfileLoopEditPetPicViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:id="@id/content" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_above="@id/action_view" android:layout_below="@id/second_title" />
+    <v.VText android:textSize="24.0sp" android:textColor="#000000" android:id="@id/first_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:text="上传照片" android:layout_centerHorizontal="true" />
+    <v.VText android:textSize="14.0sp" android:textColor="#999999" android:id="@id/second_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="展示你的照片，更容易匹配有趣的人" android:layout_below="@id/first_title" android:layout_centerHorizontal="true" />
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="84.0dp" android:layout_below="@id/second_title">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rv_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_weight="1.0" android:layout_marginStart="20.0dp" android:layout_marginEnd="10.0dp" />
+        <v.VText android:textSize="11.0sp" android:textColor="@color/core_color_cc000000" android:gravity="center_vertical" android:id="@id/tips" android:background="@drawable/core_bg_r10_08000000" android:visibility="gone" android:layout_width="match_parent" android:layout_height="36.0dp" android:layout_marginTop="10.0dp" android:drawablePadding="5.0dp" android:layout_below="@id/rv_content" android:drawableStart="@null" android:paddingStart="12.0dp" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" />
+    </v.VLinear>
+    <include android:id="@id/action_view" android:layout_width="match_parent" android:layout_height="84.0dp" android:layout_alignParentBottom="true" layout="@layout/core_profile_loop_edit_action_layout" />
+</RelativeLayout>

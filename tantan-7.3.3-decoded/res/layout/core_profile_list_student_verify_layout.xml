@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:gravity="center_vertical" android:id="@id/student_verify" android:background="@drawable/profile_student_verification_bg" android:paddingLeft="16.0dp" android:paddingTop="0.0dp" android:paddingBottom="0.0dp" android:visibility="visible" android:minHeight="40.0dp" holder="profile.profilelist.itemholders.ProfileStudentVerifyItemHolder" style="@style/profile_item_frame_no_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:id="@id/flag" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" android:scaleType="fitXY" />
+    <v.VImage android:id="@id/arrow" android:layout_width="9.0dp" android:layout_height="9.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="18.0dp" android:src="@null" android:scaleType="fitXY" android:layout_alignParentRight="true" />
+    <v.VText android:textSize="14.0sp" android:textColor="#dcffffff" android:ellipsize="end" android:id="@id/verify_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:singleLine="true" android:layout_toLeftOf="@id/arrow" android:layout_toRightOf="@id/flag" />
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.newmeet.feed.nearby.MeetNearbyItemView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="newmeet.feed.nearby.MeetNearbyItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/img_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:src="@null" android:scaleType="centerCrop" app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout android:id="@id/header_root" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <com.p1.mobile.putong.core.newui.newmeet.feed.view.MeetItemEntryHeadView android:id="@id/nearby_head_layout" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <com.p1.mobile.putong.core.newui.newmeet.feed.view.MeetItemEntryHeadViewMyTabStyle android:id="@id/meet_head_layout_my_tab_style" android:paddingLeft="14.0dp" android:paddingTop="8.0dp" android:paddingRight="14.0dp" android:paddingBottom="8.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="14.0dp" />
+    </RelativeLayout>
+    <v.VPullUpRecyclerView android:id="@id/list" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/header_root" app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" app:spanCount="2" />
+    <v.VText android:textSize="14.0sp" android:textColor="#61b3cf" android:gravity="center" android:id="@id/show_total" android:background="@drawable/core_meet_bottom_nearby_bg" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginLeft="8.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="8.0dp" android:layout_marginBottom="20.0dp" android:layout_below="@id/list" android:letterSpacing="0.0" app:typeface="medium" />
+</com.p1.mobile.putong.core.newui.newmeet.feed.nearby.MeetNearbyItemView>

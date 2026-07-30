@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.base.arch.card.cardmodel.banner.LiveSquareBannerItemView android:layout_width="match_parent" android:layout_height="80.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/drawee_view" android:layout_width="match_parent" android:layout_height="match_parent" fresco:actualImageScaleType="centerCrop" fresco:placeholderImage="@drawable/live_shape_cover_square_nearby_item_image" fresco:roundBottomLeft="true" fresco:roundBottomRight="true" fresco:roundTopLeft="true" fresco:roundTopRight="true" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:ellipsize="end" android:layout_gravity="start|bottom" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="24.0dp" android:maxLines="2" android:layout_marginHorizontal="12.0dp" />
+    <View android:id="@id/black_cover" android:background="@drawable/live_bg_black_r12_a10" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+</com.p1.mobile.putong.live.base.arch.card.cardmodel.banner.LiveSquareBannerItemView>

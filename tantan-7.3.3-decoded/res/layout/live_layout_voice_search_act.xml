@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/root_view" android:background="#2c2f36" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="internal.virtualVoice.search" holder="LiveVoiceSearchViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:id="@id/container" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <com.p1.mobile.putong.live.external.internal.virtualVoice.search.LiveSearchBar android:textColor="@color/live_gray_32" android:textColorHint="@color/live_gray_cc" android:id="@id/search_bar" android:layout_width="match_parent" android:layout_height="44.0dp" android:layout_marginTop="3.0dp" android:hint="搜索房间号/房间名称/群主" android:layout_marginStart="8.0dp" app:searchbar_cancel_behavior="behavior_pin" />
+        <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_list_empty_error_view" />
+        <v.VRecyclerView android:orientation="vertical" android:id="@id/search_list" android:paddingTop="16.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="4.0dp" android:layout_marginRight="4.0dp" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </v.VLinear>
+</FrameLayout>

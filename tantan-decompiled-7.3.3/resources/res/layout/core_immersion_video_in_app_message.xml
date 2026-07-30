@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <p151v.VDraweeView
+        android:id="@+id/icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="12dp"
+        app:roundedCornerRadius="20dp"/>
+    <p151v.VText
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/common_black_01"
+        android:gravity="center_vertical"
+        android:id="@+id/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="附近又有1个离你800m的妹子喜欢了你"
+        android:layout_weight="1"/>
+    <p151v.VButton
+        android:id="@+id/btn"
+        android:layout_marginLeft="14dp"
+        android:text="看看"
+        style="@style/common_button_small_01"/>
+</p151v.VLinear>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VEditText android:textSize="16.0sp" android:id="@id/email" android:padding="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="10.0dp" android:hint="@string/INPUT_EMAIL_ADDRESS" />
+</FrameLayout>

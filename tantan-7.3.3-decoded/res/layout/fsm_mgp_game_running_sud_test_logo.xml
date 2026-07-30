@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="27.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:background="@drawable/fsm_mgp_game_running_sud_test_logo" android:layout_width="40.0dp" android:layout_height="27.0dp" />
+    <TextView android:textColor="#ffffff" android:layout_gravity="center" android:id="@id/fsm_mgp_game_running_only_test" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/fsm_mgp_game_running_sud_test_tip" />
+</LinearLayout>

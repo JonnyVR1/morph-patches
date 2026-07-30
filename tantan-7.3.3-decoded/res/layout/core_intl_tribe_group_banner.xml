@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.intlmeet.tribe.IntlTribeGroupBanner android:layout_width="match_parent" android:layout_height="200.0dp" folder="newui" holder="intlmeet.tribe.IntlTribeGroupBanner"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/cover" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" app:roundedCornerRadius="20.0dp" />
+    <v.VLinear android:orientation="vertical" android:id="@id/like_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginStart="8.0dp">
+        <v.VText_NoTopPadding android:textSize="11.0sp" android:textColor="@color/black" android:id="@id/like_count" android:background="@drawable/core_intl_tribe_like_bg" android:paddingTop="1.0dp" android:paddingBottom="1.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawablePadding="2.0dp" android:drawableStart="@drawable/core_intl_tribe_like_icon" android:paddingStart="5.0dp" android:paddingEnd="6.0dp" android:paddingVertical="1.0dp" app:fontWeight="500" />
+        <v.VImage android:layout_gravity="center|bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/core_intl_tribe_like_tag_icon" />
+    </v.VLinear>
+    <v.VText_NoTopPadding android:textSize="24.0sp" android:textColor="@color/white" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="84.0dp" android:text="Available Tonight" />
+    <v.VText_NoTopPadding android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center_vertical" android:layout_gravity="center_horizontal" android:id="@id/count" android:background="@drawable/core_intl_meet_tribe_count_bg" android:layout_width="wrap_content" android:layout_height="17.0dp" android:layout_marginTop="121.0dp" android:drawablePadding="2.0dp" android:drawableStart="@drawable/core_intl_meet_tribe_count_icon" android:paddingStart="6.0dp" android:paddingEnd="6.0dp" app:fontWeight="500" />
+</com.p1.mobile.putong.core.newui.intlmeet.tribe.IntlTribeGroupBanner>

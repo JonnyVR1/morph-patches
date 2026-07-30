@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.ui.moments.operation.OperationArticleFeedView android:orientation="vertical" android:background="#ffffff" android:paddingLeft="12.0dp" android:paddingTop="18.0dp" android:paddingRight="12.0dp" android:paddingBottom="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16.0dp" holder="moments.operation.OperationArticleFeedView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="15.0sp" android:textColor="#212121" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <v.VDraweeView android:id="@id/image" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" fresco:roundedCornerRadius="8.0dp" fresco:viewAspectRatio="2.0" />
+</com.p1.mobile.putong.feed.ui.moments.operation.OperationArticleFeedView>

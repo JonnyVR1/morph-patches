@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:background="@drawable/core_limited_trial_see_purchase_dialog_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="purchase.mediator.PurchaseTrialSeeDialog">
+    <FrameLayout
+        android:id="@+id/svga_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        flatten="true">
+        <com.tantan.library.svga.SVGAnimationView
+            android:id="@+id/svga_background"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <com.tantan.library.svga.SVGAnimationView
+            android:id="@+id/svga_avatars"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+    <p151v.VImage
+        android:id="@+id/close"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="0x7f081855"
+        android:layout_marginStart="6dp"/>
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</FrameLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:id="@id/interests_frame" android:paddingTop="0.0dp" flatten="true" holder="profile.holders.ProfileInterestHolder" needPublic="true" style="@style/profile_item_frame_no_padding_new"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:id="@id/interest_tip" android:background="@color/transparent" android:paddingBottom="12.0dp" android:text="@string/PROFILE_SECTION_HEADER_INTERESTS" style="@style/profile_item_title_black_no_bg" />
+    <v.VLinear android:orientation="horizontal" android:id="@id/sports_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:id="@id/sports_left_bg" android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" />
+        <v.VText_Tags android:id="@id/sports" android:hint="@string/PROFILE_TAGS_CATEGORY_SPORTS_PLACEHOLDER" android:drawablePadding="0.0dp" style="@style/profile_item_item_with_tag_no_bg" />
+        <com.p1.mobile.putong.core.ui.profile.views.FlowView android:id="@id/sports_tag" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginBottom="10.0dp" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/music_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:id="@id/music_left_bg" android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" />
+        <v.VText_Tags android:id="@id/music" android:hint="@string/PROFILE_TAGS_CATEGORY_MUSIC_PLACEHOLDER" android:drawablePadding="0.0dp" style="@style/profile_item_item_with_tag_no_bg" />
+        <com.p1.mobile.putong.core.ui.profile.views.FlowView android:id="@id/music_tag" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginBottom="10.0dp" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/food_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:id="@id/food_left_bg" android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" />
+        <v.VText_Tags android:id="@id/food" android:hint="@string/PROFILE_TAGS_CATEGORY_FOOD_PLACEHOLDER" android:drawablePadding="0.0dp" style="@style/profile_item_item_with_tag_no_bg" />
+        <com.p1.mobile.putong.core.ui.profile.views.FlowView android:id="@id/food_tag" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginBottom="10.0dp" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/movies_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:id="@id/movies_left_bg" android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" />
+        <v.VText_Tags android:id="@id/movies" android:hint="@string/PROFILE_TAGS_CATEGORY_MOVIES_PLACEHOLDER" android:drawablePadding="0.0dp" style="@style/profile_item_item_with_tag_no_bg" />
+        <com.p1.mobile.putong.core.ui.profile.views.FlowView android:id="@id/movies_tag" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginBottom="10.0dp" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/literature_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:id="@id/literature_left_bg" android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" />
+        <v.VText_Tags android:id="@id/literature" android:hint="@string/PROFILE_TAGS_CATEGORY_BOOKS_PLACEHOLDER" android:drawablePadding="0.0dp" style="@style/profile_item_item_with_tag_no_bg" />
+        <com.p1.mobile.putong.core.ui.profile.views.FlowView android:id="@id/literature_tag" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginBottom="10.0dp" />
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:id="@id/places_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <ImageView android:id="@id/places_left_bg" android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="20.0dp" />
+        <v.VText_Tags android:id="@id/places" android:hint="@string/PROFILE_TAGS_CATEGORY_TRAVEL_PLACEHOLDER" android:drawablePadding="0.0dp" style="@style/profile_item_item_with_tag_no_bg" />
+        <com.p1.mobile.putong.core.ui.profile.views.FlowView android:id="@id/places_tag" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginBottom="10.0dp" />
+    </v.VLinear>
+</v.VLinear_Dividers>

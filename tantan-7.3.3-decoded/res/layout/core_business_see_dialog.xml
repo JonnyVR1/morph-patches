@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.likers.LikersDialogView android:background="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.likers.LikersDialogView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/offline_dlg_bg" android:background="@drawable/core_offline_see_dialog_gradient_bg" android:layout_width="match_parent" android:layout_height="200.0dp" />
+    <ImageView android:id="@id/offline_dlg_heart_bg" android:layout_width="match_parent" android:layout_height="180.0dp" android:layout_marginTop="10.0dp" android:src="@null" android:scaleType="fitStart" />
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VFrame android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <v.VFrame_Shadow android:layout_gravity="center_horizontal" android:id="@id/style_1" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="26.0dp" app:sl_cornerRadius="42.0dp" app:sl_dy="2.0dp" app:sl_shadowColor="#145d4000" app:sl_shadowRadius="24.0dp">
+                <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar1" android:background="@drawable/core_business_circle_resource" android:padding="4.0dp" android:layout_width="84.0dp" android:layout_height="84.0dp" style="@style/fresco_profile_offline_see" />
+            </v.VFrame_Shadow>
+            <v.VFrame android:layout_gravity="center_horizontal" android:id="@id/style_2" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="26.0dp">
+                <v.VFrame_Shadow android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="42.0dp" app:sl_dy="2.0dp" app:sl_shadowColor="#145d4000" app:sl_shadowRadius="24.0dp">
+                    <v.VDraweeView android:id="@id/avatar2" android:background="@drawable/core_business_circle_resource" android:padding="4.0dp" android:layout_width="84.0dp" android:layout_height="84.0dp" style="@style/fresco_profile_offline_see" />
+                </v.VFrame_Shadow>
+                <v.VFrame_Shadow android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="60.0dp" app:sl_cornerRadius="42.0dp" app:sl_dy="2.0dp" app:sl_shadowColor="#145d4000" app:sl_shadowRadius="24.0dp">
+                    <v.VDraweeView android:id="@id/avatar3" android:background="@drawable/core_business_circle_resource" android:padding="4.0dp" android:layout_width="84.0dp" android:layout_height="84.0dp" style="@style/fresco_profile_offline_see" />
+                </v.VFrame_Shadow>
+            </v.VFrame>
+            <v.VFrame android:layout_gravity="center_horizontal" android:id="@id/style_3" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="26.0dp">
+                <v.VFrame_Shadow android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="42.0dp" app:sl_dy="2.0dp" app:sl_shadowColor="#145d4000" app:sl_shadowRadius="24.0dp">
+                    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/avatar4" android:background="@drawable/core_business_circle_resource" android:padding="4.0dp" android:layout_width="84.0dp" android:layout_height="84.0dp" style="@style/fresco_profile_offline_see" />
+                </v.VFrame_Shadow>
+                <v.VFrame_Shadow android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="110.0dp" app:sl_cornerRadius="42.0dp" app:sl_dy="2.0dp" app:sl_shadowColor="#145d4000" app:sl_shadowRadius="24.0dp">
+                    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/avatar5" android:background="@drawable/core_business_circle_resource" android:padding="4.0dp" android:layout_width="84.0dp" android:layout_height="84.0dp" style="@style/fresco_profile_offline_see" />
+                </v.VFrame_Shadow>
+                <v.VFrame_Shadow android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="42.0dp" app:sl_dy="2.0dp" app:sl_shadowColor="#145d4000" app:sl_shadowRadius="24.0dp">
+                    <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar6" android:background="@drawable/core_business_circle_resource" android:padding="4.0dp" android:layout_width="84.0dp" android:layout_height="84.0dp" style="@style/fresco_profile_offline_see" />
+                </v.VFrame_Shadow>
+            </v.VFrame>
+        </v.VFrame>
+        <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="#212121" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" />
+        <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="#66000000" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/subTitle" android:paddingTop="3.0dp" android:paddingBottom="3.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="7.0dp" android:layout_marginRight="16.0dp" android:lineSpacingExtra="5.0dp" />
+        <v.VButton android:textStyle="bold" android:id="@id/primary" android:background="@drawable/core_rect_rounded_offline_see_gradient" android:layout_marginLeft="24.0dp" android:layout_marginTop="27.0dp" android:layout_marginRight="24.0dp" android:fontFamily="sans-serif" app:typeface="medium" style="@style/common_button_large_01" />
+        <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/common_grey_04" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/secondary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="24.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.vip.likers.LikersDialogView>

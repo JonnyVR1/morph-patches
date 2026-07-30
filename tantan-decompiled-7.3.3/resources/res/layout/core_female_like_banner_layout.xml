@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="0x7f0803c9"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingTop="16dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="72dp">
+        <FrameLayout
+            android:layout_gravity="center_vertical"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+            <p151v.VDraweeView
+                android:layout_gravity="center"
+                android:id="@+id/image_big"
+                android:clickable="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                style="@style/core_fresco_profile_small"/>
+            <p151v.VImage
+                android:layout_gravity="bottom|right"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:srcCompat="0x7f080944"/>
+        </FrameLayout>
+        <p151v.VText
+            android:textSize="16dp"
+            android:textColor="#212121"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/banner_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52dp"
+            android:lineSpacingExtra="2dp"/>
+    </FrameLayout>
+</FrameLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.loveletter.LoveLetterMainLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="406dp">
+    <p151v.AutoVDraweeView
+        android:id="@+id/bg_image"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="118dp"/>
+    <View
+        android:layout_gravity="center_horizontal"
+        android:background="0x7f080d80"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"/>
+    <p151v.AutoVDraweeView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/title_icon_1"
+        android:layout_width="126dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="52dp"
+        app:actualImageScaleType="fitXY"/>
+    <p151v.AutoVDraweeView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/title_icon_2"
+        android:layout_width="216dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="96dp"
+        app:actualImageScaleType="fitXY"/>
+    <include
+        android:id="@+id/center_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="282dp"
+        layout="@layout/core_love_letter_center_text_layout"/>
+</com.p051p1.mobile.putong.core.newui.loveletter.LoveLetterMainLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/root" android:background="@drawable/core_bg_20_ffffff" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" flatten="true" folder="newui" holder="home.card.expanded.holder.ComplimentReceivedCardExpandedHolder"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/header_container" android:background="@drawable/core_bg_compliment_received_header" android:layout_width="match_parent" android:layout_height="40.0dp">
+        <LinearLayout android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="20.0dp">
+            <v.VImage android:id="@id/header_icon" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" />
+            <v.VText_NoTopPadding android:textSize="13.0sp" android:textColor="#1a1a1a" android:id="@id/header_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="She Complimented You" android:layout_marginStart="8.0dp" app:fontWeight="500" />
+        </LinearLayout>
+    </FrameLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/content_container" android:paddingLeft="24.0dp" android:paddingTop="16.0dp" android:paddingRight="24.0dp" android:paddingBottom="30.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText_NoTopPadding android:textSize="16.0sp" android:textColor="#1a1a1a" android:ellipsize="end" android:id="@id/message_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:lineSpacingMultiplier="1.3" app:fontWeight="500" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp">
+            <View android:id="@id/decoration_bar" android:background="@drawable/core_bg_compliment_decoration_bar" android:layout_width="3.0dp" android:layout_height="60.0dp" />
+            <v.AutoVDraweeView android:id="@id/photo_thumbnail" android:layout_width="48.0dp" android:layout_height="60.0dp" android:layout_marginStart="12.0dp" app:roundAsCircle="false" app:roundedCornerRadius="8.0dp" />
+        </LinearLayout>
+    </LinearLayout>
+</v.VLinear>

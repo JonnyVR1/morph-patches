@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.call.auction.dialog.relationlist.view.LiveVoiceAuctionListPage android:layout_width="match_parent" android:layout_height="wrap_content" app:bind_extends="ConstraintLayout" app:binding="true" app:flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.recyclerview.widget.RecyclerView android:orientation="horizontal" android:id="@id/invite_list" android:paddingBottom="24.0dp" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="428.0dp" android:layout_marginTop="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" useId="true" />
+    <include android:id="@id/rv_empty_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="70.0dp" app:layout_constraintLeft_toLeftOf="@id/invite_list" app:layout_constraintRight_toRightOf="@id/invite_list" app:layout_constraintTop_toTopOf="@id/invite_list" layout="@layout/live_empty_view" />
+</com.p1.mobile.putong.live.livingroom.voice.call.auction.dialog.relationlist.view.LiveVoiceAuctionListPage>

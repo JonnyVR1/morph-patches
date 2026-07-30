@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/my_information_more_layout" android:paddingTop="24.0dp" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:id="@id/more_info_title" android:paddingTop="0.0dp" android:visibility="gone" android:text="@string/MORE_INFO" style="@style/profile_item_title_black_edit" />
+    <LinearLayout android:orientation="horizontal" android:id="@id/height_wrap" android:visibility="gone" flatten="true" style="@style/profile_item_info">
+        <v.VText android:layout_gravity="top" android:id="@id/height_tip" android:paddingTop="19.0dp" android:paddingBottom="19.0dp" android:text="@string/HEIGHT" android:layout_weight="2.0" style="@style/profile_item_item_new" />
+        <v.VText android:textColor="@color/core_color_66000000" android:textColorHint="@color/white" android:ellipsize="end" android:gravity="right|center" android:id="@id/height" android:paddingLeft="0.0dp" android:paddingRight="20.0dp" android:maxLines="1" android:drawablePadding="0.0dp" android:layout_weight="3.0" app:drawableRightCompat="@null" style="@style/profile_item_item_new" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/income_wrap" android:visibility="gone" flatten="true" style="@style/profile_item_info">
+        <v.VText android:layout_gravity="top" android:id="@id/income_tip" android:paddingTop="19.0dp" android:paddingBottom="19.0dp" android:text="@string/ANNUAL_INCOME" android:layout_weight="2.0" style="@style/profile_item_item_new" />
+        <v.VText android:textColor="@color/core_color_66000000" android:textColorHint="@color/white" android:ellipsize="end" android:gravity="right|center" android:id="@id/income" android:paddingLeft="0.0dp" android:paddingRight="20.0dp" android:maxLines="1" android:drawablePadding="0.0dp" android:layout_weight="3.0" app:drawableRightCompat="@null" style="@style/profile_item_item_new" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/car_wrap" android:visibility="gone" flatten="true" style="@style/profile_item_info">
+        <v.VText android:layout_gravity="top" android:id="@id/car_tip" android:paddingTop="19.0dp" android:paddingBottom="19.0dp" android:text="@string/CAR_PROPERTY" android:layout_weight="2.0" style="@style/profile_item_item_new" />
+        <v.VText android:textColor="@color/core_color_66000000" android:textColorHint="@color/white" android:ellipsize="end" android:gravity="right|center" android:id="@id/car" android:paddingLeft="0.0dp" android:paddingRight="20.0dp" android:maxLines="1" android:drawablePadding="0.0dp" android:layout_weight="3.0" app:drawableRightCompat="@null" style="@style/profile_item_item_new" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/house_wrap" android:visibility="gone" flatten="true" style="@style/profile_item_info">
+        <v.VText android:layout_gravity="top" android:id="@id/house_tip" android:text="@string/HOUSE_PROPERTY" android:layout_weight="2.0" style="@style/profile_item_item_new" />
+        <v.VText android:textColor="@color/core_color_66000000" android:textColorHint="@color/white" android:ellipsize="end" android:gravity="right|center" android:id="@id/house" android:paddingLeft="0.0dp" android:paddingRight="20.0dp" android:maxLines="1" android:drawablePadding="0.0dp" android:layout_weight="3.0" app:drawableRightCompat="@null" style="@style/profile_item_item_new" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/pet_wrap" android:visibility="gone" flatten="true" style="@style/profile_item_info">
+        <v.VText android:layout_gravity="top" android:id="@id/pet_tip" android:paddingTop="19.0dp" android:paddingBottom="19.0dp" android:text="宠物" android:layout_weight="2.0" style="@style/profile_item_item_new" />
+        <v.VText android:textColor="@color/core_color_66000000" android:textColorHint="@color/white" android:ellipsize="end" android:gravity="right|center" android:id="@id/pet" android:paddingLeft="0.0dp" android:paddingRight="20.0dp" android:maxLines="1" android:drawablePadding="0.0dp" android:layout_weight="3.0" app:drawableRightCompat="@null" style="@style/profile_item_item_new" />
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/info_divider_layout" android:visibility="gone" style="@style/profile_edit_driver">
+        <View android:background="@drawable/core_profile_newui_edit_item_normal" android:layout_width="match_parent" android:layout_height="3.0dp" />
+    </LinearLayout>
+</v.VLinear>

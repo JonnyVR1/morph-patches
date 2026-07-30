@@ -1,0 +1,29 @@
+package kotlinx.coroutines;
+
+import kotlin.Metadata;
+import kotlin.coroutines.Continuation;
+import kotlin.coroutines.jvm.internal.ContinuationImpl;
+import kotlin.coroutines.jvm.internal.DebugMetadata;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/* JADX INFO: loaded from: classes2.dex */
+@Metadata(m87233k = 3, m87234mv = {1, 9, 0}, m87236xi = 48)
+@DebugMetadata(m87373c = "kotlinx.coroutines.AwaitKt", m87374f = "Await.kt", m87375l = {58}, m87376m = "joinAll")
+public final class AwaitKt$joinAll$3 extends ContinuationImpl {
+    Object L$0;
+    int label;
+    /* synthetic */ Object result;
+
+    public AwaitKt$joinAll$3(Continuation<? super AwaitKt$joinAll$3> continuation) {
+        super(continuation);
+    }
+
+    @Override // kotlin.coroutines.jvm.internal.BaseContinuationImpl
+    @Nullable
+    public final Object invokeSuspend(@NotNull Object obj) {
+        this.result = obj;
+        this.label |= Integer.MIN_VALUE;
+        return AwaitKt.m93601b(null, this);
+    }
+}

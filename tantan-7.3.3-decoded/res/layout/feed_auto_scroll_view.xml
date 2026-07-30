@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.status.display.view.FeedAutoScrollView android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="status.display.view.FeedAutoScrollView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_gravity="center" android:id="@id/first" android:layout_width="match_parent" android:layout_height="53.0dp" flatten="true">
+        <v.VDraweeView android:id="@id/first_emotion_img" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginLeft="12.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <v.VText android:textSize="14.0sp" android:textColor="#e6000000" android:id="@id/first_online_number" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginRight="50.0dp" android:maxLines="1" android:singleLine="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toRightOf="@id/first_emotion_img" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_gravity="center" android:id="@id/second" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="56.0dp" flatten="true">
+        <v.VDraweeView android:id="@id/second_emotion_img" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginLeft="12.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <v.VText android:textSize="14.0sp" android:textColor="#e6000000" android:id="@id/second_online_number" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginRight="50.0dp" android:maxLines="1" android:singleLine="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toRightOf="@id/second_emotion_img" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.p1.mobile.putong.feed.newui.status.display.view.FeedAutoScrollView>

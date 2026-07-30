@@ -1,0 +1,56 @@
+package p151v;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+import android.view.View;
+import androidx.annotation.Nullable;
+import p153l.hhc0;
+import p153l.qa00;
+import p153l.z8c0;
+
+/* JADX INFO: loaded from: classes3.dex */
+public class VLine extends View {
+    public VLine(Context context, @Nullable AttributeSet attributeSet, int i) {
+        super(context, attributeSet, i);
+        if (attributeSet == null) {
+            setBackgroundColor(context.getResources().getColor(z8c0.f203358s));
+            return;
+        }
+        TypedArray typedArrayObtainStyledAttributes = context.obtainStyledAttributes(attributeSet, hhc0.f109620N3, i, 0);
+        Drawable drawable = typedArrayObtainStyledAttributes.getDrawable(hhc0.f109626O3);
+        typedArrayObtainStyledAttributes.recycle();
+        setBackground(drawable == null ? new ColorDrawable(context.getResources().getColor(z8c0.f203358s)) : drawable);
+    }
+
+    /* JADX WARN: Code duplicated, block: B:9:0x001c  */
+    @Override // android.view.View
+    public void onMeasure(int i, int i2) {
+        int i3 = qa00.f156317d;
+        int size = View.MeasureSpec.getSize(i);
+        int size2 = View.MeasureSpec.getSize(i2);
+        int mode = View.MeasureSpec.getMode(i2);
+        if (mode != Integer.MIN_VALUE) {
+            if (mode != 0) {
+                if (mode != 1073741824) {
+                    i3 = 0;
+                } else {
+                    i3 = size2;
+                }
+            }
+        } else if (size2 < i3) {
+            i3 = size2;
+        }
+        setMeasuredDimension(size, i3);
+    }
+
+    public VLine(Context context, @Nullable AttributeSet attributeSet) {
+        this(context, attributeSet, 0);
+    }
+
+    public VLine(Context context) {
+        this(context, null);
+    }
+}

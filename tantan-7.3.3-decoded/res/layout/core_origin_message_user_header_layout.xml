@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:id="@id/root_origin" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clipToOutline="false" holder="messages.view.MessageUserHeaderLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="top" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp">
+        <v.VDraweeView android:layout_gravity="bottom" android:id="@id/image_small" android:layout_width="?message_page_profile_pic_size" android:layout_height="?message_page_profile_pic_size" android:layout_marginLeft="10.0dp" android:layout_marginRight="10.0dp" style="@style/core_im_fresco_profile_small" />
+        <FrameLayout android:layout_gravity="bottom" android:id="@id/tickle_anim_content" android:clipChildren="false" android:layout_width="?message_page_profile_pic_size" android:layout_height="?message_page_profile_pic_size" android:layout_marginLeft="8.0dp" android:layout_marginRight="6.0dp" style="@style/core_im_fresco_profile_small" />
+    </FrameLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/profile_bubble" android:background="@drawable/core_message_head_bg" android:paddingBottom="14.0dp" android:layout_width="213.0dp" android:layout_height="280.0dp" android:layout_marginTop="2.0dp" flatten="true">
+        <FrameLayout android:id="@id/layout_profile" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+            <v.VDraweeView android:id="@id/profile_image" android:layout_width="match_parent" android:layout_height="216.0dp" fresco:roundBottomLeft="false" fresco:roundBottomRight="false" fresco:roundTopLeft="true" fresco:roundTopRight="true" fresco:roundedCornerRadius="10.0dp" />
+            <v.VImage android:layout_gravity="left|bottom" android:id="@id/match_from" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="14.0dp" android:layout_marginRight="5.0dp" android:layout_marginBottom="12.0dp" android:scaleType="centerInside" />
+            <v.VImage android:layout_gravity="right|bottom" android:id="@id/intl_instant_match_tag" android:visibility="gone" android:layout_width="170.0dp" android:layout_height="80.0dp" android:layout_marginRight="-24.0dp" android:layout_marginBottom="8.0dp" android:scaleType="fitCenter" />
+        </FrameLayout>
+        <ViewStub android:layout_gravity="bottom" android:id="@id/vs_about_me_oniv" android:layout="@layout/core_message_header_about_me_oniv" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <v.VText android:textSize="16.0sp" android:textColor="@color/text_dark" android:id="@id/date_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="14.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="14.0dp" android:lineSpacingExtra="2.0dp" />
+        <ViewStub android:id="@id/vs_aboutme_content" android:layout="@layout/core_message_header_about_me_content_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="14.0dp" android:layout_marginRight="14.0dp" />
+    </LinearLayout>
+</LinearLayout>

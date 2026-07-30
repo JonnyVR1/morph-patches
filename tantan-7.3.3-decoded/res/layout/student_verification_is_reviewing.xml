@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="17.0sp" android:textColor="#d4452e" android:layout_gravity="center_horizontal" android:id="@id/progress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="25.0dp" />
+    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/progress_anim" android:background="@drawable/student_verification_is_reviewing_animation" android:layout_width="84.0dp" android:layout_height="84.0dp" android:layout_marginTop="26.0dp" />
+    <v.VText android:textSize="12.0sp" android:textColor="#8a000000" android:gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="26.0dp" android:layout_marginTop="18.0dp" android:layout_marginRight="26.0dp" android:layout_marginBottom="30.0dp" android:text="@string/CAMPUS_AUDITING_WITH_HISTORICAL_DATA" android:lineSpacingExtra="4.0sp" />
+</LinearLayout>

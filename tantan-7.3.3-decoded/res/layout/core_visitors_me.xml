@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" holder="visitor.visitorsme.VisitorsMeViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <v.VLinear android:orientation="vertical" android:id="@id/visitors_ll" android:visibility="gone" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="44.0dp" flatten="true">
+        <v.VPullDownRefreshLayout android:id="@id/swipe_refresh" android:layout_width="match_parent" android:layout_height="match_parent" app:srlEnableLoadMore="false" flatten="true">
+            <v.VPullUpRecyclerView android:id="@id/visitors" android:paddingTop="7.0dp" android:scrollbars="none" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:divider="@null" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" useId="true" />
+        </v.VPullDownRefreshLayout>
+    </v.VLinear>
+    <FrameLayout android:layout_gravity="bottom" android:id="@id/privilege" android:background="@drawable/core_visitors_privilege_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="164.0dp" flatten="true">
+        <LinearLayout android:gravity="center" android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/get_privilege" android:background="@drawable/core_visitors_privilege_button_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="31.0dp" android:layout_marginHorizontal="20.0dp">
+            <TextView android:textSize="16.0sp" android:textStyle="normal" android:textColor="#ffdea2" android:gravity="center_horizontal" android:id="@id/button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开通黑金会员" />
+            <TextView android:textSize="13.0sp" android:textColor="#99ffdea2" android:gravity="center_horizontal" android:id="@id/info" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="一键解锁我的访客" android:lineSpacingExtra="1.0sp" />
+        </LinearLayout>
+    </FrameLayout>
+    <v.VLinear android:gravity="center" android:layout_gravity="center_vertical" android:orientation="vertical" android:id="@id/empty" android:paddingBottom="50.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VDraweeView android:id="@id/empty_img" android:layout_width="220.0dp" android:layout_height="150.0dp" />
+        <v.VText android:textSize="14.0sp" android:textColor="#36000000" android:gravity="center" android:id="@id/empty_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" />
+    </v.VLinear>
+    <v.VRelative android:gravity="center_horizontal" android:id="@id/no_permission" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="44.0dp" flatten="true">
+        <v.VImage android:id="@id/permission_img" android:layout_width="220.0dp" android:layout_height="150.0dp" android:layout_marginTop="134.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerHorizontal="true" />
+        <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/core_color_e6000000" android:id="@id/permission_subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_below="@id/permission_img" android:layout_centerHorizontal="true" android:fontFamily="PingFangSc-Medium" />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/common_grey_03" android:gravity="center_horizontal" android:id="@id/permission_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_below="@id/permission_subtitle" android:layout_centerHorizontal="true" android:lineSpacingExtra="15.0dp" />
+        <v.VButton android:textSize="16.0sp" android:textColor="@color/core_color_f9f9f9" android:gravity="center" android:id="@id/permission_btn" android:background="@drawable/core_visitor_setting_btn_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" android:layout_alignParentBottom="true" />
+    </v.VRelative>
+    <FrameLayout android:id="@id/filter_bar_root" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="44.0dp" flatten="true">
+        <View android:id="@id/filter_bar_foreground" android:background="#80000000" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <include android:layout_gravity="top" android:id="@id/filter_bar" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_visitors_filter_bar" />
+    </FrameLayout>
+</FrameLayout>

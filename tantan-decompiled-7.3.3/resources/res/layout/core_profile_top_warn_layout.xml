@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/top_warn_layout"
+    android:paddingTop="12dp"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    flatten="true">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        layout="@layout/core_profile_list_user_audit"/>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        layout="@layout/core_profile_list_user_audit_editable"/>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/core_data_integrity_edit_warn"/>
+    <ViewStub
+        android:id="@+id/stub_pic_cert_guide"
+        android:visibility="gone"
+        android:layout="@layout/core_pic_cert_guide_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        flatten="true"/>
+    <ViewStub
+        android:id="@+id/stub_stock_fake_guide"
+        android:visibility="gone"
+        android:layout="@layout/core_stock_fake_user_my_tab_banner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</FrameLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/identity_ocr_result_id_name_ll"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/identity_ocr_result_page_card_item_height"
+    android:layout_marginLeft="@dimen/identity_ocr_result_page_margin"
+    android:layout_marginRight="@dimen/identity_ocr_result_page_margin"
+    android:layout_marginHorizontal="@dimen/identity_ocr_result_page_margin">
+    <com.idv.identity.ocr.widget.OcrContentTitleView
+        android:textSize="@dimen/identity_ocr_result_page_font_size_small"
+        android:id="@+id/identity_ocr_title_view"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:textDirection="locale"
+        android:textAlignment="textStart"/>
+    <com.idv.identity.ocr.widget.OcrEditText
+        android:textSize="@dimen/identity_ocr_result_page_font_size_small"
+        android:textColor="#000000"
+        android:gravity="center_vertical"
+        android:id="@+id/identity_ocr_result_page_id_value"
+        android:background="@drawable/shape_identity_ocr_id_result_edit_bg_grey"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLength="50"
+        android:layout_weight="1"
+        android:inputType="text"
+        android:textDirection="locale"
+        android:paddingStart="10dp"/>
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:orientation="vertical" android:id="@id/new_feed" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="topic.qatopic.QATopicMultiOptionVoteView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/vote_ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp">
+        <com.p1.mobile.putong.feed.newui.topic.qatopic.FeedQaTopicItem android:id="@id/vote_feed_one" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" />
+        <com.p1.mobile.putong.feed.newui.topic.qatopic.FeedQaTopicItem android:id="@id/vote_feed_two" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="17.0dp" />
+        <com.p1.mobile.putong.feed.newui.topic.qatopic.FeedQaTopicItem android:id="@id/vote_feed_three" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="17.0dp" />
+        <com.p1.mobile.putong.feed.newui.topic.qatopic.FeedQaTopicItem android:id="@id/vote_feed_four" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="17.0dp" />
+        <com.p1.mobile.putong.feed.newui.topic.qatopic.FeedQaTopicItem android:id="@id/vote_feed_five" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="17.0dp" />
+    </LinearLayout>
+</v.VFrame>

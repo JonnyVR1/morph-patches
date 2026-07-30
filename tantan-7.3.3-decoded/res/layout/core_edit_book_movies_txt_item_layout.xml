@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.card.expanded.holder.item.BookMoviesTxtItem android:background="@drawable/core_edit_new_tag_item_bg" android:layout_width="match_parent" android:layout_height="108.0dp" android:layout_marginTop="8.0dp" android:paddingEnd="13.0dp" android:layout_marginStart="7.0dp" flatten="true" folder="newui" holder="home.card.expanded.holder.item.BookMoviesTxtItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/image" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginTop="16.0dp" android:layout_marginStart="14.0dp" />
+    <v.VText_NoTopPadding android:textSize="16.0sp" android:textColor="#cc000000" android:ellipsize="end" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" android:lines="1" android:layout_marginStart="37.0dp" app:fontWeight="500" />
+    <v.VText_NoTopPadding android:textSize="13.0sp" android:textColor="#80000000" android:ellipsize="end" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="43.0dp" android:lines="1" android:layout_marginStart="14.0dp" app:fontWeight="400" />
+    <v.VText_NoTopPadding android:textSize="13.0sp" android:textColor="#33000000" android:ellipsize="end" android:id="@id/hint" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="73.0dp" android:lines="1" android:layout_marginStart="14.0dp" />
+</com.p1.mobile.putong.core.newui.home.card.expanded.holder.item.BookMoviesTxtItem>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:clipChildren="false" holder="account.PhoneVerificationViewModel" style="@style/account_account_root"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VScroll style="@style/account_account_scroll">
+        <LinearLayout android:paddingBottom="8.0dp" android:clipChildren="false" android:clipToPadding="false" style="@style/account_account_frame">
+            <TextView android:textSize="16.0sp" android:textColor="#9b9b9b" android:layout_gravity="center" android:id="@id/bind_mobile_hint" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_marginBottom="25.0dp" android:text="@string/WECHAT_BIND_MOBILE_SAFE_HINT" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <v.VMaterialEdit_FakeSpinner android:id="@id/ccode" style="@style/account_account_spinner" />
+                <v.VMaterialEdit android:id="@id/username" android:hint="@string/SIGNUP_PHONE_NUMBER" style="@style/account_account_username" />
+            </LinearLayout>
+            <FrameLayout android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginBottom="16.0dp">
+                <v.VMaterialEdit android:gravity="center_vertical" android:id="@id/code" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/SIGNUP_COMFIRM_CODE" android:inputType="number" app:met_minCharacters="4" style="@style/account_account_input" />
+                <v.VButton_FakeShadowSmall android:enabled="false" android:textColor="@color/account_get_code_red" android:layout_gravity="right|center" android:id="@id/get_code" android:background="@drawable/account_get_code_red" android:paddingLeft="6.0dp" android:paddingRight="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="7.0dp" android:checked="false" android:minWidth="@dimen/account_item_left_width" android:minHeight="34.0dp" android:text="@string/SIGNUP_GET_CODE" android:stateListAnimator="@anim/widget_button_always_shadow_sla" style="@style/v_button" />
+            </FrameLayout>
+            <v.VText android:textSize="13.0sp" android:textColor="#8d8d8d" android:id="@id/countdown" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8.0dp" />
+            <v.VText android:id="@id/detail" android:layout_marginBottom="8.0dp" android:text="@string/SIGNUP_NUMBER_DESCRIPTION" style="@style/account_account_tips" />
+        </LinearLayout>
+    </v.VScroll>
+    <v.VButton_FakeShadow android:id="@id/continue_" android:text="@string/ACTION_CONTINUE" style="@style/account_account_continue_button" />
+</v.VLinear>

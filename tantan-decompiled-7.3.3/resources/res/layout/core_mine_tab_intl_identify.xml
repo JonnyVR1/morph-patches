@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.profile.newme.NewIdentifyView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@drawable/common_view_card_small_01_bg"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    folder="newui"
+    holder="profile.newme.NewIdentifyView">
+    <p151v.VImage
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tab_identify_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:src="0x7f082957"/>
+    <p151v.VText
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/edit_renzheng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="@string/VERIFICATION_CENTER_TITLE"
+        app:typeface="medium"/>
+</com.p051p1.mobile.putong.core.newui.profile.newme.NewIdentifyView>

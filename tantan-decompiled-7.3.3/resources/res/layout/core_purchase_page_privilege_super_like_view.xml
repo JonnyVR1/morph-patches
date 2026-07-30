@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.page.PurchasePrivilegeSuperLikeView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="purchase.page.PurchasePrivilegeSuperLikeView">
+    <p151v.AutoVDraweeView
+        android:layout_gravity="center"
+        android:id="@+id/avatar_left"
+        android:background="0x7f082a88"
+        android:padding="8dp"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="-30dp"
+        style="@style/core_fresco_profile_white_border"/>
+    <p151v.AutoVDraweeView
+        android:layout_gravity="center"
+        android:id="@+id/avatar_right"
+        android:background="0x7f082a88"
+        android:padding="8dp"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:layout_marginEnd="-30dp"
+        style="@style/core_fresco_profile_white_border"/>
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/icon"
+        android:layout_width="31dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="-28dp"
+        android:src="0x7f0818ee"/>
+</com.p051p1.mobile.putong.core.p058ui.purchase.page.PurchasePrivilegeSuperLikeView>

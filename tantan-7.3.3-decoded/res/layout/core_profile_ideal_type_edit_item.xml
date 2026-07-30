@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:orientation="vertical" android:id="@id/my_ideal_type" android:background="@color/white" android:paddingTop="18.0dp" flatten="true" holder="profile.profilelist.itemholders.EditIdealTypeItemHolder" needPublic="true" style="@style/profile_item_frame_no_padding_new"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:id="@id/my_ideal_title" android:paddingTop="0.0dp" android:layout_width="0.0dp" android:text="我的理想型" android:layout_weight="1.0" style="@style/profile_item_title_black_edit" />
+        <ImageView android:gravity="right|center" android:id="@id/ideal_type_arrow" android:paddingRight="17.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+    </v.VLinear>
+    <LinearLayout android:orientation="horizontal" android:id="@id/my_ideal_edit_ll" flatten="true" style="@style/profile_item_info">
+        <v.VText android:layout_gravity="center_vertical" android:id="@id/ideal_edit_title" android:text="添加我的理想型" android:layout_weight="1.0" style="@style/profile_item_item_new" />
+        <ImageView android:gravity="right|center" android:paddingRight="17.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/core_profile_edit_data_right_add" />
+    </LinearLayout>
+    <com.p1.mobile.putong.core.view.CommonLabelShowView android:id="@id/ideal_tags" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="16.0dp" android:layout_marginHorizontal="20.0dp" app:itemMaxLines_="3" />
+</v.VLinear_Dividers>

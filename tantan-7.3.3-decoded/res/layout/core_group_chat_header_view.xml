@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.group.CoreGroupChatHeaderView android:orientation="vertical" android:id="@id/root_fl" android:paddingLeft="0.0dp" android:paddingTop="10.0dp" android:paddingRight="0.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="false" folder="newui" holder="group.CoreGroupChatHeaderView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:id="@id/group_content" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_grey_09" android:id="@id/title_chat_group" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="群聊" android:layout_centerVertical="true" />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/common_grey_03" android:id="@id/chat_group_more" android:paddingLeft="6.0dp" android:paddingTop="1.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看更多" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </v.VRelative>
+    <v.VLinear android:orientation="vertical" android:id="@id/group_contain" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:layout_marginBottom="18.0dp" />
+    <v.VRelative android:id="@id/chat_room_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:layout_marginBottom="5.0dp">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_grey_09" android:id="@id/title_chat_room" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="聊天室" android:layout_centerVertical="true" />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/common_grey_03" android:id="@id/chat_room_more" android:paddingLeft="6.0dp" android:paddingTop="1.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看更多" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </v.VRelative>
+</com.p1.mobile.putong.core.newui.group.CoreGroupChatHeaderView>

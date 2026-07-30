@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.base.room.RoomView android:id="@id/root" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="base.room.RoomView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:layout_gravity="center_horizontal" android:id="@id/live_bg" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_bg_view" />
+    <include android:layout_gravity="center_horizontal" android:id="@id/live_player" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_player_view" />
+    <include android:layout_gravity="center_horizontal" android:id="@id/push_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_room_pusher_view" />
+    <View android:id="@id/player_mask" android:background="@drawable/live_list_bg_live_mask" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <include android:layout_gravity="center" android:id="@id/rtc_error_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_rtc_error_view" />
+    <v.VFrame android:id="@id/fl_clear_content" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <v.VRelative android:id="@id/bottom_layer" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="30.0dp" flatten="true">
+            <include android:id="@id/jump_room" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dp" android:layout_marginStart="10.0dp" layout="@layout/live_jump_room" />
+            <include android:id="@id/live_pk" android:visibility="gone" android:layout_width="match_parent" android:layout_height="316.0dp" android:layout_marginTop="159.0dp" android:layout_centerHorizontal="true" flatten="true" layout="@layout/live_pk_view" />
+            <include android:id="@id/live_pk_internal" android:visibility="gone" android:layout_width="match_parent" android:layout_height="316.0dp" android:layout_marginTop="159.0dp" android:layout_centerHorizontal="true" flatten="true" layout="@layout/live_pk_view_internal" />
+            <include android:id="@id/live_multi_call" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="150.0dp" android:layout_centerHorizontal="true" flatten="true" layout="@layout/live_multi_call_top_view" />
+            <include android:id="@id/live_multi_pk_points" android:background="@color/red" android:visibility="gone" android:layout_width="match_parent" android:layout_height="16.0dp" android:layout_marginTop="-16.0dp" android:layout_alignTop="@id/live_multi_call" android:layout_centerHorizontal="true" flatten="true" layout="@layout/live_multi_pk_points_layout" />
+            <v.VText android:textSize="15.0dp" android:textColor="@color/live_white_80_opacity" android:gravity="center" android:id="@id/super_manager" android:background="@drawable/live_bg_black_r12_a15" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="36.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="60.0dp" android:layout_marginRight="12.0dp" android:text="管理" android:layout_below="@id/live_avatar_layout" android:layout_alignParentEnd="true" />
+            <include android:id="@id/live_call" android:visibility="gone" android:layout_width="match_parent" android:layout_height="268.0dp" android:layout_marginTop="163.0dp" android:layout_centerHorizontal="true" flatten="true" layout="@layout/live_call_view" />
+            <v.VFrame android:id="@id/live_avatar_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_below="@id/jump_room" flatten="true">
+                <include android:id="@id/live_avatar" android:layout_width="wrap_content" android:layout_height="52.0dp" android:layout_marginStart="@dimen/live_avatar_margin_start" layout="@layout/live_avatar" />
+            </v.VFrame>
+            <v.VRelative android:id="@id/board_entry" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/live_avatar_layout" android:layout_marginStart="12.0dp" flatten="true">
+                <include android:id="@id/announcement_entry" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginTop="4.0dp" android:layout_marginEnd="4.0dp" layout="@layout/live_announcement_entry" />
+                <v.VFrame android:id="@id/hour_board_entry_root" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginEnd="8.0dp" android:layout_toEndOf="@id/announcement_entry" flatten="true">
+                    <include android:id="@id/hour_board_entry" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" layout="@layout/live_hour_leader_board_entry" />
+                    <include android:id="@id/hour_board_new_entry" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" layout="@layout/live_hour_leader_board_new_entry" />
+                </v.VFrame>
+                <FrameLayout android:id="@id/star_board_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginEnd="4.0dp" android:layout_toEndOf="@id/hour_board_entry_root" flatten="true">
+                    <include android:id="@id/star_board_entry" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" layout="@layout/live_star_board_entry" />
+                    <include android:id="@id/intl_star_board_entry" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" layout="@layout/live_intl_star_board_entry" />
+                </FrameLayout>
+            </v.VRelative>
+            <include android:id="@id/sticker_container" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_room_sticker_container" />
+            <com.p1.mobile.putong.live.livingroom.view.TouchSwallowView android:id="@id/operation_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_below="@id/board_entry" android:layout_marginStart="11.0dp" flatten="true">
+                <include android:id="@id/live_operation_entry" android:layout_width="wrap_content" android:layout_height="wrap_content" layout="@layout/live_operation_entry" />
+            </com.p1.mobile.putong.live.livingroom.view.TouchSwallowView>
+            <include android:id="@id/live_bullet" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="-22.0dp" android:layout_below="@id/live_avatar_layout" layout="@layout/live_bullet_notice_container_view" />
+            <include android:id="@id/live_sider_entry_view" android:visibility="invisible" android:layout_width="115.0dp" android:layout_height="20.0dp" android:layout_marginTop="4.0dp" android:layout_below="@id/live_avatar_layout" android:layout_alignParentEnd="true" layout="@layout/live_layout_live_sider_entry" />
+            <com.p1.mobile.putong.live.livingroom.view.TouchSwallowView android:id="@id/fans_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_below="@id/jump_room" android:layout_marginStart="10.0dp" android:layout_toEndOf="@id/live_avatar_layout" android:layout_alignParentEnd="true">
+                <include android:id="@id/live_fans" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" layout="@layout/live_fans" />
+            </com.p1.mobile.putong.live.livingroom.view.TouchSwallowView>
+            <include android:id="@id/live_call_widget" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="89.0dp" android:layout_marginBottom="170.0dp" android:layout_alignParentBottom="true" android:layout_marginStart="10.0dp" layout="@layout/live_call_widget_view" />
+            <include android:orientation="vertical" android:id="@id/live_campaigns" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="60.0dp" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:layout_marginEnd="12.0dp" flatten="true" layout="@layout/live_campaign_view" />
+            <com.p1.mobile.putong.live.livingroom.view.TouchSwallowView android:id="@id/chat_layout" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginBottom="10.0dp" android:layout_alignParentBottom="true">
+                <include android:id="@id/live_chat" android:visibility="gone" android:layout_width="248.0dp" android:layout_height="wrap_content" layout="@layout/live_chat" />
+            </com.p1.mobile.putong.live.livingroom.view.TouchSwallowView>
+            <com.p1.mobile.putong.live.livingroom.common.chat.danmaku.show.DanmakuViewPort android:layout_gravity="bottom" android:id="@id/danmaku_viewport" android:layout_width="match_parent" android:layout_height="144.0dp" android:layout_marginBottom="10.0dp" android:layout_above="@id/chat_layout" />
+        </v.VRelative>
+        <LinearLayout android:layout_gravity="end|bottom" android:orientation="vertical" android:layout_width="230.0dp" android:layout_height="230.0dp" android:layout_marginBottom="50.0dp">
+            <include android:id="@id/newCombo" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="-50.0dp" android:layout_marginStart="40.0dp" layout="@layout/live_intl_gift_combo_view" />
+        </LinearLayout>
+        <v.VFrame android:id="@id/middle_layer" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <include android:id="@id/gift_layer" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_gift_layer" />
+            <include android:id="@id/top_effect_layer" layout="@layout/live_top_effect_layer" />
+        </v.VFrame>
+        <v.VRelative android:id="@id/topside_layer" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <include android:id="@id/live_chat_entry" android:visibility="gone" android:layout_width="248.0dp" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginBottom="10.0dp" android:layout_alignParentBottom="true" layout="@layout/live_chat_input_entry" />
+            <include android:id="@id/live_bottom" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_marginEnd="56.0dp" android:layout_alignParentEnd="true" layout="@layout/live_bottom" />
+            <com.p1.mobile.putong.live.livingroom.common.bubble.LiveBubbleView android:id="@id/live_bubble" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="10.0dp" />
+            <v.VLinear android:orientation="vertical" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="252.0dp" android:layout_alignParentBottom="true">
+                <FrameLayout android:id="@id/gift_trays_layout" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <include android:id="@id/gift_trays" android:layout_width="wrap_content" android:layout_height="wrap_content" layout="@layout/live_gift_trays" />
+                </FrameLayout>
+                <include android:id="@id/admission" android:layout_width="wrap_content" android:layout_height="60.0dp" android:layout_marginTop="-13.0dp" layout="@layout/live_gift_trays_admission" />
+            </v.VLinear>
+            <View android:id="@id/shadow" android:background="@color/live_black_60_opacity" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+            <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <include android:layout_gravity="center" android:id="@id/pre_operation_anim" android:layout_width="wrap_content" android:layout_height="wrap_content" layout="@layout/live_pre_operation_anim_view" />
+            </FrameLayout>
+            <FrameLayout android:id="@id/notification_view" android:visibility="visible" android:layout_width="183.0dp" android:layout_height="48.0dp" android:layout_marginTop="-64.0dp" android:layout_alignTop="@id/gift_trays_layout" android:layout_marginEnd="-3.0dp" android:layout_alignParentEnd="true" />
+            <v.VRelative android:gravity="center" android:id="@id/close_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10.0dp" android:layout_alignParentBottom="true" android:layout_marginEnd="12.0dp" android:layout_alignParentEnd="true" flatten="true">
+                <v.VImage android:id="@id/live_close" android:layout_width="44.0dp" android:layout_height="38.0dp" app:srcCompat="@null" />
+            </v.VRelative>
+        </v.VRelative>
+        <com.p1.mobile.putong.live.livingroom.increment.gift.game.GameEffectView android:layout_gravity="center" android:id="@id/game_player" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <v.VFrame android:id="@id/super_top" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </v.VFrame>
+    <v.VRelative android:gravity="center" android:layout_gravity="end|bottom" android:id="@id/close_layout_clear" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10.0dp" android:layout_marginEnd="12.0dp" flatten="true">
+        <v.VImage android:layout_width="44.0dp" android:layout_height="38.0dp" app:srcCompat="@null" />
+    </v.VRelative>
+</com.p1.mobile.putong.live.livingroom.base.room.RoomView>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.messages.ConversationCityCentreCardLayout android:orientation="vertical" android:id="@id/city_contre_layout" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="messages.ConversationCityCentreCardLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/back_ground" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <View android:background="@drawable/core_city_centre_top_card_bg" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <ImageView android:layout_gravity="right|top" android:id="@id/background_flow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:scaleType="fitXY" />
+    </FrameLayout>
+    <RelativeLayout android:id="@id/card_layout" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="75.0dp" android:layout_marginLeft="10.0dp" android:layout_marginRight="10.0dp" android:layout_alignLeft="@id/back_ground" android:layout_alignRight="@id/back_ground" flatten="true">
+        <FrameLayout android:id="@id/head_layout" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_centerVertical="true" flatten="true">
+            <v.VDraweeView android:id="@id/head" android:layout_width="match_parent" android:layout_height="match_parent" />
+            <View android:id="@id/frame" android:background="@null" android:layout_width="match_parent" android:layout_height="match_parent" />
+        </FrameLayout>
+        <v.VLinear android:orientation="vertical" android:id="@id/info_layout" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_toRightOf="@id/head_layout" android:layout_centerVertical="true" flatten="true">
+            <TextView android:textSize="15.0sp" android:textColor="#cce1d1ac" android:ellipsize="end" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="-2.0dp" android:maxLines="1" />
+            <TextView android:textSize="11.0sp" android:textColor="#66e1d1ac" android:ellipsize="end" android:id="@id/info" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" />
+            <v.VMarqueeText android:textSize="13.0sp" android:textColor="#ffdb89" android:ellipsize="marquee" android:id="@id/des" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:singleLine="true" android:marqueeRepeatLimit="marquee_forever" />
+        </v.VLinear>
+    </RelativeLayout>
+    <View android:id="@id/line" android:background="@drawable/core_city_centre_line" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_below="@id/card_layout" android:layout_alignLeft="@id/back_ground" android:layout_alignRight="@id/back_ground" />
+    <RelativeLayout android:id="@id/bottom_layout" android:layout_width="match_parent" android:layout_height="38.0dp" android:layout_marginLeft="10.0dp" android:layout_marginRight="10.0dp" android:layout_below="@id/line" android:layout_alignLeft="@id/back_ground" android:layout_alignRight="@id/back_ground" flatten="true">
+        <ImageView android:id="@id/icon" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@drawable/core_city_centre_bg_icon" android:layout_centerVertical="true" />
+        <TextView android:textSize="12.0sp" android:textColor="#cce1d1ac" android:id="@id/city_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:text="城市封面" android:layout_toRightOf="@id/icon" android:layout_centerVertical="true" />
+        <TextView android:textSize="12.0sp" android:textColor="#212121" android:gravity="center" android:id="@id/chat_bt" android:background="@drawable/core_city_centre_chat_bg" android:layout_width="72.0dp" android:layout_height="24.0dp" android:layout_marginLeft="4.0dp" android:text="和他聊聊" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+        <TextView android:textSize="12.0sp" android:textColor="#212121" android:gravity="center" android:id="@id/chat_big_bt" android:background="@drawable/core_city_centre_chat_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="28.0dp" android:text="我要上封面" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <com.tantan.library.svga.SVGAnimationView android:id="@id/svga" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_alignLeft="@id/back_ground" android:layout_alignRight="@id/back_ground" android:layout_alignBottom="@id/bottom_layout" />
+</com.p1.mobile.putong.core.newui.messages.ConversationCityCentreCardLayout>

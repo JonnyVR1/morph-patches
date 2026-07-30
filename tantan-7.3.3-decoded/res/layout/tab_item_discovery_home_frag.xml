@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VRelative android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="18.0dp" android:textColor="@color/tab_text_color_live_square_act" android:ellipsize="end" android:gravity="center" android:id="@id/tv_tab_title" android:paddingLeft="27.0dp" android:paddingRight="27.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:maxLines="1" app:typeface="medium" />
+    <v.VImage android:id="@id/dot" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="-19.0dp" android:layout_marginTop="16.0dp" android:src="@drawable/moment_white_dot" android:layout_toRightOf="@id/tv_tab_title" />
+</v.VRelative>

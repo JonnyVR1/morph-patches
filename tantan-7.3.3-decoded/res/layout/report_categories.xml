@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/white" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/reports" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <include layout="@layout/report_category_item" />
+        <include layout="@layout/report_category_item" />
+        <include layout="@layout/report_category_item" />
+        <include layout="@layout/report_category_item" />
+        <include layout="@layout/report_category_item" />
+        <include layout="@layout/report_category_item" />
+        <include layout="@layout/report_category_item" />
+        <include layout="@layout/report_category_item" />
+        <include layout="@layout/report_category_item" />
+    </LinearLayout>
+    <androidx.legacy.widget.Space android:layout_width="0.0dp" android:layout_height="0.0dp" android:layout_weight="1.0" />
+    <v.VText android:textSize="13.0sp" android:textColor="#9b9b9b" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="12.0dp" android:text="@string/REPORT_ENCOURAGE_LINE1" android:lineSpacingExtra="0.0sp" />
+    <v.VText android:textSize="13.0sp" android:textColor="#9b9b9b" android:gravity="center" android:id="@id/note_line_2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="15.0dp" android:text="@string/REPORT_ENCOURAGE_LINE2" android:lineSpacingExtra="0.0sp" />
+</LinearLayout>

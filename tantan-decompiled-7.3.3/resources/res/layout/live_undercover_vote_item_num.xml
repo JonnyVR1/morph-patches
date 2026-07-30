@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="8sp"
+    android:textColor="#1b4173"
+    android:gravity="center"
+    android:background="@drawable/live_shape_bg_undercover_vote_num"
+    android:layout_width="14dp"
+    android:layout_height="14dp"/>

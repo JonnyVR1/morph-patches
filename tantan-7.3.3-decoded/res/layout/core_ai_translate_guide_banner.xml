@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/core_ai_translate_guide_bg" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="3.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/ai_translate_guide_icon" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" />
+    <v.VText android:textSize="13.0sp" android:textColor="@color/black" android:id="@id/ai_translate_guide_text" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginRight="8.0dp" android:text="@string/INTL_TT_AITRANSLATE_GUIDE" android:layout_weight="1.0" app:typeface="medium" />
+    <v.VImage android:id="@id/ai_translate_guide_close" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@drawable/core_message_notify_close_ic" android:scaleType="centerInside" />
+</v.VLinear>

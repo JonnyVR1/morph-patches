@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.camera.MusicCategoryView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="camera.MusicCategoryView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VDraweeView android:layout_gravity="center" android:id="@id/music_center_item_image" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginTop="10.0dp" android:layout_marginBottom="3.0dp" />
+    <TextView android:textSize="14.0sp" android:textColor="#383e46" android:gravity="center" android:layout_gravity="center" android:id="@id/music_center_item_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dp" android:singleLine="true" />
+</com.p1.mobile.putong.feed.newui.camera.MusicCategoryView>

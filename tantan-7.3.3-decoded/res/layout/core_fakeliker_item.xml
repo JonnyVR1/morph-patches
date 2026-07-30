@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.seepage.likers.FakeLikersItem android:layout_width="match_parent" android:layout_height="215.0dp" android:layout_margin="4.0dp" fresco:sl_cornerRadius="0.0dp" fresco:sl_shadowColor="#00000000" fresco:sl_shadowRadius="0.0dp" holder="seepage.likers.FakeLikersItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/image" android:layout_width="match_parent" android:layout_height="match_parent" fresco:actualImageScaleType="centerCrop" fresco:failureImage="@color/white" fresco:failureImageScaleType="centerInside" fresco:placeholderImage="@color/white" fresco:placeholderImageScaleType="centerInside" fresco:roundedCornerRadius="@dimen/core_vip_normal_card_corner" style="@style/core_fresco_base" />
+    <View android:background="@drawable/fakelikers_head_shadow" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VText android:id="@id/left_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" fresco:typeface="medium" style="@style/core_user_card_top_left_label" />
+    <FrameLayout android:layout_gravity="bottom" android:id="@id/fra_desc" android:background="@drawable/core_vip_superlike_game_item_shadaow" android:layout_width="match_parent" android:layout_height="60.0dp" flatten="true">
+        <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginBottom="8.0dp">
+            <TextView android:textSize="12.0sp" android:textColor="@color/core_card_user_text_color_b2ffffff" android:gravity="center" android:id="@id/online_tip" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="-2.0dp" android:layout_marginBottom="3.0dp" android:text="@string/MY_TANTAN_CARD_ONLINE" android:drawableLeft="@drawable/core_vip_suplerlike_online_tip_layer" android:drawablePadding="4.0dp" />
+            <v.VText android:textSize="14.0sp" android:textColor="#fff" android:ellipsize="end" android:gravity="center" android:id="@id/user_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="105.0dp" android:text="21，500m" android:maxLines="1" fresco:typeface="medium" />
+        </LinearLayout>
+        <v.VImage android:layout_gravity="right|bottom" android:id="@id/chat" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginRight="8.0dp" android:layout_marginBottom="8.0dp" android:src="@null" android:scaleType="center" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.seepage.likers.FakeLikersItem>

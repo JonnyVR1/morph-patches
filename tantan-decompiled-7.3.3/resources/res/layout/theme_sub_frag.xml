@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    folder="newui"
+    holder="discovery.TopicUsersListFrag"
+    useRefId="true">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sub_list"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <include
+        android:layout_gravity="center"
+        android:id="@+id/empty_view"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/core_empty_view"/>
+</p151v.VFrame>

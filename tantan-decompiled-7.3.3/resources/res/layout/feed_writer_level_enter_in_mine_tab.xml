@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:id="@+id/tips"
+    android:background="@drawable/feed_writer_level_tips_bg"
+    android:padding="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="newui"
+    holder="photoalbum.feed.wirterlevel.FeedWriterLevelTipsView">
+    <TextView
+        android:textSize="12sp"
+        android:textStyle="normal"
+        android:textColor="#cc000000"
+        android:ellipsize="end"
+        android:id="@+id/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="0x7f081f52"/>
+</LinearLayout>

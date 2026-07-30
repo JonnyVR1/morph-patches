@@ -1,0 +1,34 @@
+package p153l;
+
+import kotlin.Metadata;
+import kotlin.jvm.JvmInline;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import p153l.rke0;
+
+/* JADX INFO: loaded from: classes2.dex */
+@Metadata(m88120d1 = {"\u0000\u001a\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0000\n\u0002\b\u0003\n\u0002\u0010\u000b\n\u0002\b\t\b\u0081@\u0018\u0000*\u000e\b\u0000\u0010\u0002*\b\u0012\u0004\u0012\u00028\u00000\u00012\u00020\u0003B\u0011\u0012\b\u0010\u0004\u001a\u0004\u0018\u00010\u0003¢\u0006\u0004\b\u0005\u0010\u0006R\u0011\u0010\n\u001a\u00020\u00078F¢\u0006\u0006\u001a\u0004\b\b\u0010\tR\u0017\u0010\u000f\u001a\u00028\u00008F¢\u0006\f\u0012\u0004\b\r\u0010\u000e\u001a\u0004\b\u000b\u0010\f\u0088\u0001\u0004\u0092\u0001\u0004\u0018\u00010\u0003¨\u0006\u0010"}, m88121d2 = {"Ll/tke0;", "Ll/rke0;", p7f.LATITUDE_SOUTH, "", "value", "a", "(Ljava/lang/Object;)Ljava/lang/Object;", "", "c", "(Ljava/lang/Object;)Z", "isClosed", "b", "(Ljava/lang/Object;)Ll/rke0;", "getSegment$annotations", "()V", "segment", "kotlinx-coroutines-core"}, m88122k = 1, m88123mv = {1, 9, 0}, m88125xi = 48)
+@JvmInline
+public final class tke0<S extends rke0<S>> {
+    @NotNull
+    /* JADX INFO: renamed from: b */
+    public static final S m191547b(Object obj) {
+        if (obj != pt5.f153988a) {
+            obj.getClass();
+            return (S) obj;
+        }
+        wtq0.m207906a("Does not contain segment");
+        return null;
+    }
+
+    /* JADX INFO: renamed from: c */
+    public static final boolean m191548c(Object obj) {
+        return obj == pt5.f153988a;
+    }
+
+    @NotNull
+    /* JADX INFO: renamed from: a */
+    public static <S extends rke0<S>> Object m191546a(@Nullable Object obj) {
+        return obj;
+    }
+}

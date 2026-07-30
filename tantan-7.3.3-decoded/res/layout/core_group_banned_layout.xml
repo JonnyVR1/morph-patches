@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.view.GroupBannedView android:gravity="center" android:orientation="vertical" android:background="#e6f5f5f5" android:layout_width="match_parent" android:layout_height="match_parent" holder="messages.view.GroupBannedView" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:layout_gravity="center" android:id="@id/banned_img" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_marginTop="-50.0dp" android:src="@drawable/core_ic_chat_group_banned" />
+    <TextView android:textSize="15.0sp" android:textStyle="normal" android:textColor="#666666" android:ellipsize="end" android:gravity="center" android:layout_gravity="center" android:id="@id/banned_text" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="19.0dp" android:minHeight="30.0dp" />
+</com.p1.mobile.putong.core.ui.messages.view.GroupBannedView>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemEmojiText android:textColorLink="@color/core_msg_cell_link_color" android:autoLink="web" android:layout_gravity="left" android:id="@id/content" android:paddingTop="?right_msg_top_padding" android:paddingBottom="?right_msg_bottom_padding" android:lineSpacingExtra="1.5dp" android:paddingStart="?right_msg_left_padding" android:paddingEnd="?right_msg_right_padding" app:enableApngEmojis="true" app:enableEmojis="true" app:largeEmojis="true" style="@style/messages_item_right"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

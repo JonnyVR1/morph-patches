@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/policy" android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.agreement.IntlCommonAgreementComponent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="10.0sp" android:textColor="#7fffffff" android:gravity="center" android:id="@id/renewal_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/VIP_ALERT_AUTO_RENEWAL_TITLE" android:fontFamily="sans-serif-medium" />
+    <TextView android:textSize="10.0sp" android:textColor="#80ffffff" android:gravity="center" android:id="@id/renewal_detail" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dp" android:layout_marginTop="-7.0dp" android:layout_marginRight="5.0dp" android:text="@string/GP_ALERT_AUTO_RENEWAL_DETAIL" android:lineSpacingExtra="3.899994sp" android:fontFamily="sans-serif" />
+</LinearLayout>

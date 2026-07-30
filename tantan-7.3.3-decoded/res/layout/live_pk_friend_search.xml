@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/search_container" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="horizontal" android:id="@id/search_layout" android:layout_width="match_parent" android:layout_height="63.0dp">
+        <LinearLayout android:layout_gravity="bottom" android:orientation="horizontal" android:background="@drawable/live_bg_white_r10_a05" android:layout_width="0.0dp" android:layout_height="42.0dp" android:layout_marginLeft="20.0dp" android:layout_weight="1.0">
+            <ImageView android:layout_gravity="center_vertical" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="8.0dp" android:src="@drawable/live_vector_voice_search_ic" />
+            <EditText android:textSize="16.0dp" android:textColor="@color/live_white" android:textColorHint="@color/live_white_20_opacity" android:layout_gravity="center_vertical" android:id="@id/search_edit" android:background="@null" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_marginLeft="4.0dp" android:layout_marginRight="4.0dp" android:text="" android:hint="输入用户昵称/探探ID搜索" android:maxLines="1" android:singleLine="true" android:layout_weight="1.0" android:inputType="text" android:imeOptions="actionSearch" />
+            <ImageView android:layout_gravity="center_vertical" android:id="@id/search_clean" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="8.0dp" android:src="@null" />
+        </LinearLayout>
+        <TextView android:textSize="16.0dp" android:textColor="@color/live_white_40_opacity" android:gravity="center" android:layout_gravity="bottom" android:id="@id/cancel" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="42.0dp" android:layout_marginLeft="2.0dp" android:layout_marginRight="10.0dp" android:text="取消" />
+    </LinearLayout>
+    <include android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="9.0dp" layout="@layout/live_list_with_empty" />
+</LinearLayout>

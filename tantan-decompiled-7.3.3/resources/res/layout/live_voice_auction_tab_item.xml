@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.call.auction.view.tab.VoiceAuctionTabItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    app:bind_extends="LinearLayout"
+    app:bind_implements="null"
+    app:binding="true">
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="@color/live_white_40_opacity"
+        android:id="@+id/tab"
+        android:background="@drawable/live_selector_gift_wall_tab_item_bg_selector"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="PingFangSC-Medium"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.call.auction.view.tab.VoiceAuctionTabItemView>

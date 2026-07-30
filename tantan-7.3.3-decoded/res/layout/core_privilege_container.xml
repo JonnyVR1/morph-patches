@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/root" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" holder="vip.privilege.vipfrag.VipFragViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/default_bg" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" />
+    <FrameLayout android:id="@id/dark_bg" android:background="@drawable/core_privilege_supreme_partner_content_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <v.VDraweeView android:id="@id/dark_texture_bg" android:layout_width="match_parent" android:layout_height="264.0dp" app:actualImageScaleType="fitXY" app:failureImage="@color/transparent" app:failureImageScaleType="centerInside" app:placeholderImage="@color/transparent" app:placeholderImageScaleType="centerInside" />
+    </FrameLayout>
+    <LinearLayout android:orientation="vertical" android:fitsSystemWindows="true" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" app:title="@string/VIP_MY_PRIVILEGE" />
+        <v.VFrame android:clipChildren="true" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0">
+            <androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@id/coordinatorlayout" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+                <com.p1.mobile.putong.core.ui.vip.privilege.vipfrag.view.TopCardLayout android:id="@id/top_card_layout" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_behavior="com.p1.mobile.putong.core.ui.vip.privilege.vipfrag.behavior.ViewPagerScrollBehavior" />
+                <com.p1.mobile.putong.core.ui.vip.privilege.vipfrag.view.bottom.AlphaTransformerViewPager android:id="@id/viewpager_content" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_behavior="com.p1.mobile.putong.core.ui.vip.privilege.vipfrag.behavior.RecycleViewYBehavior" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/viewpager" />
+                <v.VSegmentBar android:id="@id/tab_layout" android:background="@color/white" app:layout_behavior="com.p1.mobile.putong.core.ui.vip.privilege.vipfrag.behavior.TabLayoutScrollBehavior" app:tabBackground="@drawable/core_privilege_tab_layout_bg" app:tabIndicator="@android:color/transparent" app:tabMinWidth="0.0dp" app:tabPaddingEnd="0.0dp" app:tabPaddingStart="0.0dp" style="@style/VSegmentBarStyle" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </v.VFrame>
+        <FrameLayout android:layout_gravity="bottom" android:id="@id/payment_layout" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+            <com.p1.mobile.putong.core.ui.vip.privilege.content.PrivilegePaymentView android:layout_gravity="bottom" android:id="@id/privilege_payment_view_youth_vip" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <com.p1.mobile.putong.core.ui.vip.privilege.content.PrivilegePaymentView android:layout_gravity="bottom" android:id="@id/privilege_payment_view_female_vip" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <com.p1.mobile.putong.core.ui.vip.privilege.content.PrivilegePaymentView android:layout_gravity="bottom" android:id="@id/privilege_payment_view_vip" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <com.p1.mobile.putong.core.ui.vip.privilege.content.PrivilegePaymentView android:layout_gravity="bottom" android:id="@id/privilege_payment_view_svip" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <com.p1.mobile.putong.core.ui.vip.privilege.content.PrivilegePaymentView android:layout_gravity="bottom" android:id="@id/privilege_payment_view_platinum" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <com.p1.mobile.putong.core.ui.vip.privilege.content.PrivilegePaymentView android:layout_gravity="bottom" android:id="@id/privilege_payment_view_odiamond" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <FrameLayout android:layout_gravity="bottom" android:id="@id/partner_payment_view" android:visibility="gone" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="68.0dp" flatten="true">
+                <FrameLayout android:layout_gravity="bottom" android:background="@drawable/core_privilege_partner_payment_view_bg" android:layout_width="match_parent" android:layout_height="80.0dp">
+                    <v.VText android:textSize="16.0sp" android:textColor="#011703" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/partner_pay_btn" android:background="@drawable/core_privilege_partner_payment_btn_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" android:text="至尊合伙人申请" />
+                </FrameLayout>
+            </FrameLayout>
+            <View android:layout_gravity="right|bottom" android:id="@id/anchor" android:layout_width="1.0dp" android:layout_height="1.0dp" android:layout_marginRight="66.0dp" android:layout_marginBottom="57.0dp" />
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content" android:maxHeight="60.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/ad_container" android:background="@color/color_text_ffffff" android:layout_width="match_parent" android:layout_height="60.0dp" />
+    <com.p1.mobile.putong.core.util.view.RoundTextView android:textSize="11.0sp" android:textColor="@color/color_text_ffffff" android:gravity="center" android:layout_gravity="end|top" android:id="@id/tv_ad" android:background="@color/common_000000_30" android:layout_width="28.0dp" android:layout_height="20.0dp" android:layout_margin="8.0dp" android:text="AD" app:rRadius="6.0dp" />
+    <v.VImage android:id="@id/admob_close" android:paddingTop="6.0dp" android:paddingBottom="2.0dp" android:layout_width="30.0dp" android:layout_height="28.0dp" android:src="@null" android:paddingStart="8.0dp" android:paddingEnd="2.0dp" />
+</v.VFrame>

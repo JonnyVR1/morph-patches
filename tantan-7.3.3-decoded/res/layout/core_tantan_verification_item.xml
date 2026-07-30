@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/tt_verification_root" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" flatten="true" style="@style/core_verification_lin_container"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="12.0sp" android:textColor="@color/black" android:gravity="center" android:background="@drawable/core_verification_center_tag_bg2" android:paddingLeft="8.0dp" android:paddingTop="3.0dp" android:paddingRight="8.0dp" android:paddingBottom="3.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/VERIFICATION_GRADE_SENIOR_NEW" />
+    <TextView android:id="@id/tt_verification_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="@string/ID_VERIFICATION" style="@style/core_verification_title" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp">
+        <ImageView android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" />
+        <v.VText android:id="@id/id_verification_first_line" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/VERIFICATION_CENTER_ID_PRIVILEGES_1" style="@style/core_verification_content" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp">
+        <ImageView android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" />
+        <v.VText android:id="@id/id_verification_second_line" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/VERIFICATION_CENTER_ID_PRIVILEGES_2" style="@style/core_verification_content" />
+    </LinearLayout>
+    <RelativeLayout android:layout_width="48.0dp" android:layout_height="48.0dp" android:layout_marginTop="16.0dp">
+        <v.VDraweeView android:id="@id/profile_image2" android:layout_width="48.0dp" android:layout_height="48.0dp" app:foreground="@color/transparent" style="@style/core_fresco_profile_small" />
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <v.VButton android:textSize="16.0sp" android:gravity="center" android:id="@id/tt_verification_btn" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:minHeight="56.0dp" />
+</LinearLayout>

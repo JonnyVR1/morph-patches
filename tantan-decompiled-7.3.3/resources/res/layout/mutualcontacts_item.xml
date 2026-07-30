@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@null"
+    android:descendantFocusability="beforeDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_margin="12dp">
+        <p151v.VDraweeView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/image"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:placeholderImageScaleType="fitCenter"
+            app:roundAsCircle="true"/>
+        <p151v.VText
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:id="@+id/initials"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="#252525"
+        android:ellipsize="end"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:maxLines="1"
+        android:layout_weight="100"
+        app:enableEmojis="true"
+        app:typeface="regular"/>
+</p151v.VLinear>

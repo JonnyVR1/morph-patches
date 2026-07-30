@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VScroll android:layout_width="match_parent" android:layout_height="match_parent" holder="account.AccountInactiveTipActViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VImage android:layout_gravity="center_horizontal" android:layout_width="136.0dp" android:layout_height="176.0dp" android:layout_marginTop="42.0dp" android:src="@null" />
+        <TextView android:textSize="24.0sp" android:textColor="#212121" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/account_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="41.0dp" android:text="@string/DELETE_ACCOUNT_ALERT_TITLE" />
+        <TextView android:textSize="16.0sp" android:textColor="#999999" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/account_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="30.0dp" android:layout_marginTop="21.0dp" android:layout_marginRight="30.0dp" android:text="@string/DELETE_ACCOUNT_ALERT_HINT" />
+        <TextView android:textSize="16.0sp" android:textColor="#999999" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/has_contract_tip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="30.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="30.0dp" android:text="@string/DELETE_ACCOUNT_PAY_ALERT_HINT" />
+        <v.VButton_FakeShadow android:enabled="true" android:textSize="16.0sp" android:textColor="@color/account_buttons" android:layout_gravity="center_horizontal" android:id="@id/out" android:background="@drawable/rect_tantan_orange_login" android:layout_width="290.0dp" android:layout_height="48.0dp" android:layout_marginTop="55.0dp" android:layout_marginBottom="20.0dp" android:text="@string/DELETE_ACCOUNT_ALERT_FINISH" style="@style/v_button" />
+    </v.VLinear>
+</v.VScroll>

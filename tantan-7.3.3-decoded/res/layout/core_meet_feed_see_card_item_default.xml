@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.newmeet.feed.seecard.MeetSeeDefaultCardItem android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="newmeet.feed.seecard.MeetSeeDefaultCardItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_centerInParent="true" />
+    <v.VText android:textSize="16.0sp" android:textStyle="bold" android:textColor="#e6370f00" android:gravity="center_horizontal" android:id="@id/title" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="2.0dp" android:text="更多喜欢我的人" android:layout_above="@id/subtitle" android:layout_centerInParent="true" android:rotation="-5.0" />
+    <v.VText android:textSize="14.0sp" android:textColor="#4d370f00" android:gravity="center_horizontal" android:id="@id/subtitle" android:paddingRight="3.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="15.0dp" android:text="快去打个招呼吧" android:layout_above="@id/stuff" android:layout_centerHorizontal="true" android:rotation="-5.0" />
+    <View android:id="@id/stuff" android:layout_width="1.0dp" android:layout_height="1.0dp" android:layout_centerInParent="true" flatten="true" />
+    <v.VImage android:id="@id/avatar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_below="@id/stuff" android:layout_centerInParent="true" />
+</com.p1.mobile.putong.core.newui.newmeet.feed.seecard.MeetSeeDefaultCardItem>

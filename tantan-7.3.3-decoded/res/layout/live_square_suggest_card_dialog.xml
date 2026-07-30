@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/live_black_20_opacity" android:layout_width="match_parent" android:layout_height="match_parent" android:alpha="0.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/empty" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+    <FrameLayout android:background="@drawable/live_bg_white_tr24" android:layout_width="match_parent" android:layout_height="460.0dp">
+        <ImageView android:layout_gravity="right|top" android:id="@id/close" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="20.0dp" android:src="@null" />
+        <com.p1.mobile.putong.live.external.internal.live.square.home.submodule.suggest.item.LiveSuggestCardBgView android:id="@id/line_bg" android:layout_width="match_parent" android:layout_height="400.0dp" android:layout_marginTop="50.0dp" />
+        <TextView android:textSize="20.0dp" android:textColor="@color/live_black_80_opacity" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="52.0dp" android:layout_marginRight="20.0dp" android:text="欢迎回来" android:maxLines="1" />
+        <TextView android:textSize="16.0dp" android:textColor="@color/live_black_40_opacity" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="82.0dp" android:layout_marginRight="20.0dp" android:text="快来探索属于你的精彩内容" android:maxLines="1" />
+        <v.VRecyclerView android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="126.0dp" android:layout_marginRight="40.0dp" />
+        <v.VText android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/tv_bottom_title" android:background="@drawable/live_bg_fe7e1d_r10" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="20.0dp" android:text="开始探索" />
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="match_parent" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.ui.messages.view.MessageBarMediaItemSquareLayout android:layout_gravity="center|bottom" android:background="@drawable/core_message_bar_media_item_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="8.0dp">
+        <v.VLinear android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+            <com.p1.mobile.putong.core.ui.messages.view.MessageMediaItemImage android:id="@id/media_image" android:layout_width="40.0dp" android:layout_height="40.0dp" />
+            <v.VText android:textSize="14.0dp" android:gravity="center" android:id="@id/media_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dp" android:layout_marginTop="5.0dp" android:layout_marginRight="5.0dp" />
+        </v.VLinear>
+    </com.p1.mobile.putong.core.ui.messages.view.MessageBarMediaItemSquareLayout>
+    <v.VText android:textSize="10.0dp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="right|top" android:id="@id/tips" android:background="@drawable/core_love_letter_chat_entry_tips_bg" android:paddingLeft="6.0dp" android:paddingTop="3.0dp" android:paddingRight="6.0dp" android:paddingBottom="3.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_margin="8.0dp" android:maxLines="1" android:paddingHorizontal="6.0dp" android:paddingVertical="3.0dp" app:lineHeight="14.0dp" />
+</v.VFrame>

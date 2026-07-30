@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPurchasePageContentNewView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="purchase.intlpage.IntlPurchasePageContentNewView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:overScrollMode="never">
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="vertical" android:id="@id/privilege" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="30.0dp" />
+            <FrameLayout android:id="@id/showcase_root" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" />
+            <FrameLayout android:id="@id/weekly_promo_banner_container" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" />
+            <FrameLayout android:id="@id/introduce" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:layout_marginBottom="200.0dp" />
+        </LinearLayout>
+    </ScrollView>
+    <com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPurchasePagePaymentView android:layout_gravity="bottom" android:id="@id/payment_view" android:visibility="visible" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" />
+</com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPurchasePageContentNewView>

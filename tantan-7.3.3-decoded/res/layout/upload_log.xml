@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="settings.log.UploadLogAct"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:layout_gravity="center_horizontal" android:layout_width="72.0dp" android:layout_height="96.0dp" android:layout_marginTop="118.0dp" android:src="@null" />
+    <v.VProgressBar android:id="@id/process" android:layout_width="match_parent" android:layout_height="2.0dp" android:layout_marginLeft="40.0dp" android:layout_marginTop="80.0dp" android:layout_marginRight="40.0dp" android:progressDrawable="@drawable/log_upload_progress" style="@android:style/Widget.ProgressBar.Horizontal" />
+    <v.VText android:textSize="16.0sp" android:textColor="#757575" android:layout_gravity="center_horizontal" android:id="@id/hint_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="27.0dp" />
+</v.VLinear>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/live_bg_white_r20" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp">
+        <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="#323232" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="47.0dp" android:text="@string/LIVE_FANSGROUP_TIPS_TITLE" />
+        <v.VText android:textSize="14.0sp" android:textColor="#999999" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:text="@string/LIVE_FANSGROUP_TIPS_MESSAGE" android:layout_marginStart="32.0dp" android:layout_marginEnd="32.0dp" />
+        <v.VButton android:enabled="true" android:textSize="16.0sp" android:textColor="@color/live_common_btn_color" android:gravity="center" android:id="@id/enter_room_btn" android:background="@drawable/live_selector_orange_small_btn" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="24.0dp" android:text="@string/LIVE_FANSGROUP_ENTER_LIVE" android:singleLine="true" android:layout_marginStart="32.0dp" android:layout_marginEnd="32.0dp" />
+        <v.VText android:textSize="13.0sp" android:textColor="#cccccc" android:id="@id/ignore_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginBottom="24.0dp" android:text="@string/LIVE_FANSGROUP_IGNORE" />
+    </v.VLinear>
+</v.VFrame>

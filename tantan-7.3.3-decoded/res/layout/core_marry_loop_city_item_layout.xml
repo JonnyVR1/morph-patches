@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/item_root" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center_vertical" android:id="@id/item_content_root" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:minHeight="56.0dp" android:paddingStart="20.0dp" android:paddingEnd="20.0dp" android:layout_marginHorizontal="20.0dp">
+        <TextView android:textSize="16.0sp" android:textColor="#cf000000" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" app:typeface="medium" />
+        <v.VImage android:layout_gravity="right|center" android:id="@id/arrow" android:layout_width="24.0dp" android:layout_height="24.0dp" app:srcCompat="@drawable/core_loop_select_item_arrow_new" />
+    </FrameLayout>
+</FrameLayout>

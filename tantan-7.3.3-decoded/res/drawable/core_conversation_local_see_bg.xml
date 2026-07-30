@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list android:exitFadeDuration="@android:integer/config_mediumAnimTime"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <gradient android:startColor="#eac054" android:endColor="#e9b03d" android:angle="0.0" />
+        </shape>
+    </item>
+    <item android:left="3.0dp" android:top="3.0dp" android:right="3.0dp" android:bottom="3.0dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+</layer-list>

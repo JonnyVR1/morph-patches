@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.active.IntlPartnerActiveCard android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="active.IntlPartnerActiveCard"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/card_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="6.0dp" fresco:actualImageScaleType="centerCrop" fresco:failureImage="@drawable/common_card_image_holder_full_round" fresco:failureImageScaleType="centerInside" fresco:placeholderImage="@color/white" fresco:placeholderImageScaleType="centerInside" fresco:roundedCornerRadius="20.0dp" style="@style/core_fresco_base" />
+    <v.VDraweeView android:id="@id/us_card_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="6.0dp" fresco:actualImageScaleType="centerCrop" fresco:failureImage="@drawable/common_card_image_holder_full_round" fresco:failureImageScaleType="centerInside" fresco:placeholderImage="@color/white" fresco:placeholderImageScaleType="centerInside" style="@style/core_fresco_base" />
+    <v.VDraweeView android:id="@id/card_bottom_bg" android:layout_width="match_parent" android:layout_height="206.0dp" android:layout_alignParentBottom="true" fresco:actualImageScaleType="centerCrop" style="@style/core_fresco_base" />
+    <v.VLinear android:orientation="vertical" android:padding="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+        <v.VLinear android:id="@id/user_info" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VText android:textSize="32.0sp" android:textStyle="bold" android:textColor="#ffffff" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_weight="1.0" />
+            <v.VText android:textSize="32.0sp" android:textColor="#ffffff" android:id="@id/age" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_marginStart="8.0dp" />
+        </v.VLinear>
+        <TextView android:textSize="14.0sp" android:textColor="#ffffff" android:ellipsize="end" android:id="@id/desc_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:maxLines="2" android:layout_marginEnd="90.0dp" />
+        <com.p1.mobile.putong.core.ui.roundcorners.view.RoundLinearLayout android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/btn_bottom" android:paddingTop="17.0dp" android:paddingBottom="17.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" fresco:rRadius="14.0dp">
+            <TextView android:textSize="14.0sp" android:textStyle="bold" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/btn_bottom_text" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        </com.p1.mobile.putong.core.ui.roundcorners.view.RoundLinearLayout>
+    </v.VLinear>
+    <v.VLinear android:orientation="vertical" android:id="@id/buttons_us" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="100.0dp" android:layout_alignParentBottom="true" android:layout_marginEnd="20.0dp" android:layout_alignParentEnd="true">
+        <View android:id="@id/like_us" android:background="@null" android:layout_width="50.0dp" android:layout_height="50.0dp" android:scaleType="centerCrop" />
+        <View android:id="@id/dislike_us" android:background="@null" android:layout_width="50.0dp" android:layout_height="50.0dp" android:layout_marginTop="20.0dp" android:scaleType="centerCrop" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.active.IntlPartnerActiveCard>

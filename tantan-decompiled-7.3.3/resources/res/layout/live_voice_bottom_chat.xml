@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.chat.view.VoiceChatBottomView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chat_input"
+    android:background="@drawable/live_bg_black_r12_a20"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    flatten="true"
+    holder="voice.chat.view.VoiceChatBottomView">
+    <p151v.VText
+        android:textColor="@color/white"
+        android:textColorHint="#b3ffffff"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/chat_input_text"
+        android:paddingLeft="10dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:hint="@string/LIVE_PLEASE_TALK_SOMTHING"
+        android:lines="1"
+        android:layout_weight="1"/>
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/emoji_view"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="8.5dp"
+        android:src="0x7f08228f"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.chat.view.VoiceChatBottomView>

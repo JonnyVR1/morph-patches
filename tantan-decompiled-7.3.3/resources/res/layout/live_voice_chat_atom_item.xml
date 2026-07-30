@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.common.chat.VoiceChatItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="common"
+    holder="chat.VoiceChatItem">
+    <p151v.VLinear
+        android:id="@+id/content_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        flatten="true">
+        <p151v.VText
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            android:id="@+id/content"
+            android:paddingLeft="12dp"
+            android:paddingTop="8dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            app:enableApngEmojis="true"
+            app:enableEmojis="true"
+            app:largeEmojis="true"/>
+        <View
+            android:id="@+id/anchor_right"
+            android:visibility="gone"
+            android:layout_width="14dp"
+            android:layout_height="10dp"/>
+    </p151v.VLinear>
+    <p151v.VDraweeView
+        android:layout_gravity="end|top"
+        android:id="@+id/corner_icon"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+</com.p051p1.mobile.putong.live.livingroom.common.chat.VoiceChatItem>

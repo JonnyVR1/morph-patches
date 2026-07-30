@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.group.GroupSetMemberItemView android:layout_width="match_parent" android:layout_height="wrap_content" holder="messages.group.GroupSetMemberItemView" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VFrame_Squared android:id="@id/frame_member" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="9.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="9.0dp" flatten="true">
+            <v.VDraweeView android:layout_gravity="center" android:id="@id/img_member" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" app:failureImage="@null" app:placeholderImage="@null" app:roundAsCircle="true" />
+            <v.VText android:textSize="9.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/group_identity" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </v.VFrame_Squared>
+        <v.VText android:textSize="11.0sp" android:textColor="#505050" android:ellipsize="end" android:gravity="center_horizontal" android:id="@id/tv_member_name" android:paddingLeft="5.0dp" android:paddingRight="5.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:layout_marginBottom="10.0dp" android:maxLines="1" android:lines="1" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.messages.group.GroupSetMemberItemView>

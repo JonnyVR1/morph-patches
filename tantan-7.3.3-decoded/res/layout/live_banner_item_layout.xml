@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.view.banner.LiveBannerItemView android:layout_width="match_parent" android:layout_height="90.0dp" flatten="true" folder="view" holder="banner.LiveBannerItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/drawee_view" android:layout_width="match_parent" android:layout_height="match_parent" fresco:actualImageScaleType="centerCrop" fresco:roundBottomLeft="true" fresco:roundBottomRight="true" fresco:roundTopLeft="true" fresco:roundTopRight="true" />
+</com.p1.mobile.putong.live.livingroom.view.banner.LiveBannerItemView>

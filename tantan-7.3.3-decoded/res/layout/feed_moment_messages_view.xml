@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.feedbottom.insert.FeedMomentMesagesView android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/message_content" android:background="@drawable/feed_bg_moment_message" android:padding="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="14.0sp" android:textColor="@color/feed_cc000000" android:ellipsize="end" android:id="@id/message_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="13.0dp" android:maxLines="2" android:layout_toLeftOf="@id/message_like_content" android:layout_alignParentLeft="true" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/message_like_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:layout_alignParentRight="true">
+            <ImageView android:id="@id/message_like_icon" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginRight="4.0dp" android:src="@null" />
+            <v.VText android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/feed_33000000" android:id="@id/message_like_count" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+</com.p1.mobile.putong.feed.newui.photoalbum.feedbottom.insert.FeedMomentMesagesView>

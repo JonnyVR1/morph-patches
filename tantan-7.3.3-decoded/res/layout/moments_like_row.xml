@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/like_divider" style="@style/feed_comment_like_divider" />
+    <FrameLayout android:orientation="horizontal" android:id="@id/like_frame" android:background="@color/moments_feed_comment_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48.0dp" flatten="true">
+        <ImageView android:layout_gravity="center_vertical" android:id="@id/like_icon" android:background="@color/moments_feed_comment_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="30.0dp" android:src="@null" android:scaleType="center" />
+        <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="72.0dp">
+            <v.VDraweeView android:id="@id/like_one" style="@style/feed_moment_like_profile" />
+            <v.VImage android:layout_gravity="right|bottom" android:id="@id/verification_icon_one" android:background="@null" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" />
+        </FrameLayout>
+        <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="110.0dp">
+            <v.VDraweeView android:id="@id/like_two" style="@style/feed_moment_like_profile" />
+            <v.VImage android:layout_gravity="right|bottom" android:id="@id/verification_icon_two" android:background="@null" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" />
+        </FrameLayout>
+        <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="148.0dp">
+            <v.VDraweeView android:id="@id/like_three" style="@style/feed_moment_like_profile" />
+            <v.VImage android:layout_gravity="right|bottom" android:id="@id/verification_icon_three" android:background="@null" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" />
+        </FrameLayout>
+        <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="186.0dp">
+            <v.VDraweeView android:id="@id/like_four" style="@style/feed_moment_like_profile" />
+            <v.VImage android:layout_gravity="right|bottom" android:id="@id/verification_icon_four" android:background="@null" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" />
+        </FrameLayout>
+        <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="224.0dp">
+            <v.VDraweeView android:id="@id/like_five" style="@style/feed_moment_like_profile" />
+            <v.VImage android:layout_gravity="right|bottom" android:id="@id/verification_icon_five" android:background="@null" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" />
+        </FrameLayout>
+        <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="262.0dp">
+            <v.VDraweeView android:id="@id/like_six" style="@style/feed_moment_like_profile" />
+            <v.VImage android:layout_gravity="right|bottom" android:id="@id/verification_icon_six" android:background="@null" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" />
+        </FrameLayout>
+        <FrameLayout android:layout_gravity="right|center" android:id="@id/like_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="10.0dp">
+            <v.VText android:textSize="14.0sp" android:textColor="#e20026" android:gravity="center" android:layout_gravity="center" android:id="@id/text" android:padding="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:drawableRight="@null" android:drawablePadding="4.0dp" app:typeface="medium" />
+            <ImageView android:layout_gravity="center" android:background="@drawable/tf_circle_bounded_light" android:layout_width="42.0dp" android:layout_height="42.0dp" />
+        </FrameLayout>
+    </FrameLayout>
+</LinearLayout>

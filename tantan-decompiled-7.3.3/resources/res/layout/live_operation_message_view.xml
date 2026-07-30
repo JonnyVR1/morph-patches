@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.operation.OperationMessageView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/root"
+    android:background="@drawable/live_bg_black_r20_a20"
+    android:paddingLeft="6dp"
+    android:paddingTop="6dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="6dp"
+    android:clipChildren="false"
+    android:layout_width="154dp"
+    android:layout_height="36dp"
+    android:minHeight="36dp"
+    app:bind_extends="LinearLayout"
+    app:binding="true"
+    flatten="true"
+    ignore="true">
+    <p151v.VDraweeView
+        android:id="@+id/operation_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:failureImage="0x7f082429"
+        app:placeholderImage="0x7f082429"/>
+    <com.p051p1.mobile.putong.live.livingroom.increment.gift.turbocard.HorizontalMarqueeView
+        android:id="@+id/operation_text"
+        android:paddingLeft="3dp"
+        android:paddingTop="1dp"
+        android:paddingRight="3dp"
+        android:paddingBottom="1dp"
+        android:focusable="true"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:singleLine="true"
+        android:requiresFadingEdge="horizontal"
+        app:marquee_text_color="@color/white"
+        app:marquee_text_size="12"/>
+</com.p051p1.mobile.putong.live.livingroom.increment.operation.OperationMessageView>

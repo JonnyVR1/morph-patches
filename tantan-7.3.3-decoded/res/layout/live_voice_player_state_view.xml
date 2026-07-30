@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.intl.player.VoiceRoomLoadingView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="voice.intl.player.VoiceRoomLoadingView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ViewStub android:id="@id/loading" android:layout="@layout/live_loading_view" android:layout_width="match_parent" android:layout_height="200.0dp" />
+    <ViewStub android:id="@id/error_stub" android:layout="@layout/live_voice_net_error" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="222.0dp" />
+    <v.VText android:textSize="10.0sp" android:textColor="#80ffffff" android:gravity="center" android:layout_gravity="right" android:id="@id/water_mark" android:paddingLeft="8.0dp" android:paddingTop="2.0dp" android:paddingRight="8.0dp" android:paddingBottom="2.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="76.0dp" android:layout_marginRight="10.0dp" android:shadowColor="#80000000" android:shadowDy="3.0" android:shadowRadius="1.0" />
+</com.p1.mobile.putong.live.livingroom.voice.intl.player.VoiceRoomLoadingView>

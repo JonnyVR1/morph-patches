@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_delete_member"
+        android:minWidth="44dp"
+        android:minHeight="44dp"
+        android:title="@string/CHAT_GROUP_MOVE_MEMBER"
+        android:showAsAction="always"
+        app:actionLayout="@layout/core_menu_delete_group_member"
+        app:showAsAction="always"/>
+</menu>

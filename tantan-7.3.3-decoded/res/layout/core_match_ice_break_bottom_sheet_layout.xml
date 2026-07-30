@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VEditText android:textSize="15.0sp" android:textColor="@color/common_black_01" android:textColorHint="@color/common_light_01" android:gravity="left|top" android:id="@id/edit_text" android:background="@color/white" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="116.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="20.0dp" android:hint="用问题拉近彼此的距离~" android:maxLength="30" android:layout_marginHorizontal="20.0dp" app:typeface="medium" />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/common_light_01" android:layout_gravity="right" android:id="@id/count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="14.0dp" android:text="0/30" android:layout_marginEnd="16.0dp" />
+    </LinearLayout>
+</ScrollView>

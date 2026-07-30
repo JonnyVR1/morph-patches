@@ -1,0 +1,61 @@
+package p153l;
+
+import com.facebook.AuthenticationTokenClaims;
+import java.util.Iterator;
+import java.util.TreeMap;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/* JADX INFO: loaded from: classes7.dex */
+public class d2j0 {
+
+    /* JADX INFO: renamed from: l.d2j0$a */
+    public static class C16426a extends JSONObject {
+
+        /* JADX INFO: renamed from: a */
+        final /* synthetic */ String f84795a;
+
+        /* JADX INFO: renamed from: b */
+        final /* synthetic */ String f84796b;
+
+        /* JADX INFO: renamed from: c */
+        final /* synthetic */ JSONObject f84797c;
+
+        public C16426a(String str, String str2, JSONObject jSONObject) throws Error, RuntimeException {
+            this.f84795a = str;
+            this.f84796b = str2;
+            this.f84797c = jSONObject;
+            try {
+                put(AuthenticationTokenClaims.JSON_KEY_NAME, str);
+                put("workerId", str2);
+                put("data", jSONObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /* JADX INFO: renamed from: a */
+    public static JSONObject m113702a(JSONObject jSONObject) {
+        if (jSONObject == null) {
+            return new JSONObject();
+        }
+        try {
+            Iterator<String> itKeys = jSONObject.keys();
+            TreeMap treeMap = new TreeMap();
+            while (itKeys.hasNext()) {
+                String next = itKeys.next();
+                treeMap.put(next, "" + jSONObject.opt(next));
+            }
+            return new JSONObject(treeMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JSONObject();
+        }
+    }
+
+    /* JADX INFO: renamed from: b */
+    public static String m113703b(String str, String str2, JSONObject jSONObject) {
+        return new C16426a(str, str2, jSONObject).toString();
+    }
+}

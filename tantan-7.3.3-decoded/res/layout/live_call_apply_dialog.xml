@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="recreation" holder="multiplayerchat.view.AudienceApplyView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/view_empty" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+    <FrameLayout android:background="@drawable/live_bg_19191e_tr24" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:paddingTop="32.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <FrameLayout android:layout_width="128.0dp" android:layout_height="wrap_content">
+                <ImageView android:layout_gravity="center" android:id="@id/iv_status_icon" android:background="@drawable/live_bg_white_r16_a04" android:paddingTop="5.0dp" android:paddingBottom="5.0dp" android:visibility="gone" android:layout_width="90.0dp" android:layout_height="74.0dp" android:src="@null" android:paddingStart="7.0dp" android:paddingEnd="7.0dp" />
+                <v.VDraweeView android:layout_gravity="left" android:id="@id/iv_head1" android:layout_width="74.0dp" android:layout_height="74.0dp" android:src="@drawable/live_vector_default_avatar_bg" fresco:actualImageScaleType="centerCrop" fresco:roundAsCircle="true" fresco:roundingBorderColor="#19191e" fresco:roundingBorderWidth="2.0dp" />
+                <v.VDraweeView android:layout_gravity="right" android:id="@id/iv_head2" android:layout_width="74.0dp" android:layout_height="74.0dp" android:src="@drawable/live_vector_default_avatar_bg" fresco:actualImageScaleType="centerCrop" fresco:roundAsCircle="true" fresco:roundingBorderColor="#19191e" fresco:roundingBorderWidth="2.0dp" />
+                <ImageView android:layout_gravity="center|bottom" android:id="@id/iv_status_applying" android:layout_width="27.0dp" android:layout_height="27.0dp" android:src="@null" />
+            </FrameLayout>
+            <TextView android:textSize="18.0dp" android:textColor="@color/live_white" android:id="@id/tv_status" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:text="@string/LIVE_APPLY_VOICE_CALL_ANCHOR" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp">
+                <TextView android:textSize="12.0sp" android:textColor="#80ffffff" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_CALL_PLEASE_OBSERVE" />
+                <TextView android:textSize="12.0sp" android:textColor="#0386cd" android:id="@id/tv_criterion" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_CIVILIZATION_CODE" />
+            </LinearLayout>
+            <TextView android:textSize="16.0sp" android:textColor="#40ffffff" android:gravity="center" android:id="@id/tv_confirm" android:background="@drawable/live_bg_white_r20_a10" android:layout_width="match_parent" android:layout_height="50.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="40.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="32.0dp" android:text="@string/LIVE_CONFIRM_APPLY" />
+        </LinearLayout>
+        <v.VImage android:layout_gravity="right" android:id="@id/iv_show_help" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="16.0dp" android:src="@null" />
+    </FrameLayout>
+</LinearLayout>

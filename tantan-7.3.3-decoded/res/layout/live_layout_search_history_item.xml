@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.square.search.history.LiveSearchHistoryItemView android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="16.0dp" android:paddingEnd="4.0dp" flatten="true" folder="square.search.history" holder="LiveSearchHistoryItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/icon" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginTop="12.5dp" android:layout_marginBottom="11.5dp" app:srcCompat="@null" />
+    <v.VText android:textSize="13.0sp" android:textColor="@color/live_gray_32" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/content" android:layout_width="match_parent" android:layout_height="40.0dp" android:maxLines="1" android:singleLine="true" android:layout_marginStart="12.0dp" android:layout_marginEnd="72.0dp" android:layout_toEndOf="@id/icon" />
+    <v.VImage android:id="@id/close" android:layout_width="40.0dp" android:layout_height="40.0dp" android:scaleType="centerInside" android:layout_centerVertical="true" android:layout_alignParentEnd="true" app:srcCompat="@null" />
+</com.p1.mobile.putong.live.external.square.search.history.LiveSearchHistoryItemView>

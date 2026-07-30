@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" holder="moments.MomentsFeedFragViewModel" useId="true" useRefId="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame_Shadow android:layout_gravity="right|bottom" android:id="@id/operation_layout" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_margin="16.0dp" app:sl_cornerRadius="34.0dp">
+        <v.VImage android:layout_gravity="center" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/feed_operation_tab_bg" />
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/operation_image" android:layout_width="56.0dp" android:layout_height="56.0dp" app:roundAsCircle="true" />
+        <v.VText android:textSize="11.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="right" android:id="@id/operation_count" android:background="@drawable/feed_operation_count_bg" android:paddingLeft="6.0dp" android:paddingRight="6.0dp" android:layout_width="wrap_content" android:layout_height="16.0dp" />
+    </v.VFrame_Shadow>
+    <include layout="@layout/moments_comment_input_bar" />
+</FrameLayout>

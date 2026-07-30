@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemBreakIceMessage android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.ItemBreakIceMessage"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:id="@id/break_ice_content" android:background="@drawable/core_new_messages_prompt" android:paddingBottom="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="10.0dp" flatten="true">
+        <v.VFrame android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp">
+            <com.tantan.library.svga.SVGAnimationView android:id="@id/svga_icon" android:layout_width="20.0dp" android:layout_height="20.0dp" />
+            <v.VImage android:id="@id/normal_icon" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" android:scaleType="fitCenter" />
+            <v.VText android:textSize="14.0sp" android:textStyle="normal" android:textColor="#66000000" android:id="@id/break_ice_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="25.0dp" android:layout_marginTop="2.0dp" />
+            <v.VImage android:layout_gravity="right" android:id="@id/close" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="-1.0dp" android:layout_marginRight="15.0dp" android:layout_marginBottom="-1.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VLinear android:orientation="horizontal" android:id="@id/break_ice_message1_layout" android:background="@drawable/core_bg_10_ffffff" android:paddingLeft="16.0dp" android:paddingTop="8.5dp" android:paddingRight="12.0dp" android:paddingBottom="8.5dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="16.0dp" flatten="true">
+            <v.VText android:textSize="14.0sp" android:textColor="@color/common_black_02" android:layout_gravity="center_vertical" android:id="@id/break_ice_message1_content" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" />
+            <v.VImage android:layout_gravity="center_vertical" android:id="@id/break_ice_message1_send" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="5.0dp" android:src="@null" />
+        </v.VLinear>
+        <v.VLinear android:orientation="horizontal" android:id="@id/break_ice_message2_layout" android:background="@drawable/core_bg_10_ffffff" android:paddingLeft="16.0dp" android:paddingTop="8.5dp" android:paddingRight="12.0dp" android:paddingBottom="8.5dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="16.0dp" flatten="true">
+            <v.VText android:textSize="14.0sp" android:textColor="@color/common_black_02" android:layout_gravity="center_vertical" android:id="@id/break_ice_message2_content" android:paddingTop="1.0dp" android:paddingBottom="1.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" />
+            <v.VImage android:layout_gravity="center_vertical" android:id="@id/break_ice_message2_send" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:layout_marginStart="5.0dp" />
+        </v.VLinear>
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.messages.ItemBreakIceMessage>

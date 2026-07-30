@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.page.PurchasePrivilegeCommonStyleView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    flatten="true"
+    holder="purchase.page.PurchasePrivilegeCommonStyleView">
+    <p151v.VDraweeView
+        android:layout_gravity="bottom|center_horizontal"
+        android:id="@+id/avatar_right"
+        android:background="0x7f081253"
+        android:padding="4dp"
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="-27dp"
+        app:actualImageScaleType="centerCrop"
+        app:roundAsCircle="true"/>
+    <p151v.AutoVDraweeView
+        android:layout_gravity="bottom|center_horizontal"
+        android:id="@+id/avatar_left"
+        android:background="0x7f081253"
+        android:padding="4dp"
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginStart="-27dp"
+        app:actualImageScaleType="centerCrop"
+        app:roundAsCircle="true"/>
+    <p151v.VImage
+        android:layout_gravity="top|center_horizontal"
+        android:id="@+id/icon"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="2dp"
+        android:src="0x7f081254"/>
+</com.p051p1.mobile.putong.core.p058ui.purchase.page.PurchasePrivilegeCommonStyleView>

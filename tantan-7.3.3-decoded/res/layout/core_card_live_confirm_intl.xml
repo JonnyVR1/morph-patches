@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:background="@null" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/avatar" android:layout_width="76.0dp" android:layout_height="76.0dp" android:layout_marginTop="54.0dp" android:layout_marginBottom="34.0dp" app:roundingBorderColor="@color/white" app:roundingBorderWidth="2.0dp" style="@style/core_fresco_profile_white_border" />
+    </v.VFrame>
+    <TextView android:textSize="18.0sp" android:textColor="@android:color/black" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="9.0dp" android:layout_marginRight="32.0dp" android:text="@string/LIVE_CARD_POPUP_TITLE" app:typeface="bold" />
+    <TextView android:textSize="13.0sp" android:textColor="@color/gray_999999" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="32.0dp" android:text="@string/LIVE_CARD_POPUP_DES" app:typeface="medium" />
+</v.VLinear>

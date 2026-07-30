@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/test1_iap_container"
+    android:paddingTop="6dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp">
+    <include layout="@layout/core_me_tab_revamp_iap_card_boost"/>
+    <include layout="@layout/core_me_tab_revamp_iap_card_super_like"/>
+    <include layout="@layout/core_me_tab_revamp_iap_card_compliment"/>
+    <include layout="@layout/core_me_tab_revamp_iap_card_instant_match"/>
+</p151v.VLinear>

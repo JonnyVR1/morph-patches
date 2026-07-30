@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.gift.panel.NewGiftPanelPagerView android:orientation="vertical" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="-13.0dp" holder="gift.panel.NewGiftPanelPagerView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/recyclerView" android:background="@color/transparent" android:paddingLeft="15.0dp" android:paddingRight="14.0dp" android:scrollbars="none" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="205.0dp" android:divider="@null" android:overScrollMode="never" />
+    <v.VImage android:layout_width="match_parent" android:layout_height="35.0dp" android:layout_marginLeft="-15.0dp" android:layout_marginTop="-12.0dp" android:layout_marginRight="-15.0dp" android:src="@null" android:scaleType="fitXY" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <com.p1.mobile.putong.core.ui.gift.HorRecyclerViewIndicator android:layout_gravity="center" android:id="@id/indicator" android:background="@drawable/core_gift_newpanel_item_indicator_bg" android:layout_width="60.0dp" android:layout_height="4.0dp" android:layout_marginTop="-5.0dp" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.gift.panel.NewGiftPanelPagerView>

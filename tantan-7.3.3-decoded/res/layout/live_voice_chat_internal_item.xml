@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.chat.view.VoiceChatInternalItemView android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="voice.chat.view.VoiceChatInternalItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="12.0sp" android:textColor="#66ffffff" android:gravity="center" android:id="@id/tv_time" android:background="@drawable/live_bg_black_r10_a10" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="26.0dp" android:layout_marginTop="16.0dp" android:paddingStart="8.0dp" android:paddingEnd="8.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <com.p1.mobile.putong.live.livingroom.common.avatar.CommonMaskAvatarView android:id="@id/avatar" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginTop="16.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/tv_time" app:layout_goneMarginTop="0.0dp" />
+    <v.VLinear android:orientation="vertical" android:id="@id/ll_message" android:paddingLeft="4.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/avatar" app:layout_constraintTop_toTopOf="@id/avatar" flatten="true">
+        <include android:id="@id/item_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" layout="@layout/live_voice_chat_atom_item" />
+        <include android:id="@id/item_2" android:background="@drawable/live_bg_black_r10_a20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:layout_marginBottom="4.0dp" layout="@layout/live_voice_chat_atom_item" />
+    </v.VLinear>
+</com.p1.mobile.putong.live.livingroom.voice.chat.view.VoiceChatInternalItemView>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/root" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="settings.privacy.PrivacySettingViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VFrame android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VProgressBar android:id="@id/loading_block" style="@style/core_loading_block" />
+        <v.VScroll android:id="@id/scroll" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <LinearLayout android:orientation="vertical" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <com.p1.mobile.putong.core.ui.VText_Medium android:id="@id/normal_setting_tv" android:layout_marginTop="16.0dp" android:text="常规设置" style="@style/core_new_settings_header0" />
+                <v.VListCell android:id="@id/block_contact" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:minHeight="56.0dp" android:paddingHorizontal="20.0dp" app:listcell_subtitle="在探探中屏蔽你的手机通讯录好友" app:listcell_title="屏蔽手机联系人" app:listcell_title_color="@color/common_black_02" app:listcell_title_size="15.0sp" style="@style/core_new_settings_cell" />
+                <com.p1.mobile.putong.core.ui.settings.filter.newui.FilterSwitchCell android:id="@id/hidden" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:paddingHorizontal="20.0dp" app:listcell_subtitle="开启后，指定距离以内的熟人和陌生人都滑不到你" app:listcell_subtitle_max_lines="2" app:listcell_title="不让距离太近的人看到我" style="@style/core_new_settings_cell" />
+                <FrameLayout android:id="@id/hidden_section" android:visibility="gone" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginHorizontal="20.0dp" flatten="true">
+                    <v.VText android:layout_marginTop="4.0dp" android:text="@string/CORE_LIKED_USER_ACTION_BAR_DISTANCE" style="@style/core_newfilter_subtitle" />
+                    <TextView android:layout_gravity="right" android:id="@id/hidden_nearby_info" android:layout_marginTop="4.0dp" style="@style/core_newfilter_value_tip" />
+                    <v.VSlider android:value="0" android:id="@id/hidden_nearby_search" android:layout_marginTop="29.0dp" android:valueFrom="0" android:valueTo="100" style="@style/core_newfilter_slider" />
+                </FrameLayout>
+                <com.p1.mobile.putong.core.ui.VText_Medium android:id="@id/advanced_setting" android:layout_marginTop="24.0dp" android:layout_marginBottom="4.0dp" android:text="高阶" style="@style/core_new_settings_header0" />
+                <include android:id="@id/privacy_layout" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_privacy_setting_advancepart_layout" />
+            </LinearLayout>
+        </v.VScroll>
+    </v.VFrame>
+</v.VLinear>

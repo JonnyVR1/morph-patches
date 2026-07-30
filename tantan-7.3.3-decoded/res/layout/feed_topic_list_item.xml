@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="horizontal" android:id="@id/root" android:background="@drawable/feed_post_bg_topic_rect_rounded" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="32.0dp" folder="newui" holder="photoalbum.feed.personfeedinprofile.TopicListItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="12.0sp" android:textColor="@color/common_black_04" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/topic_text" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:textSize="10.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/anonymous_txt" android:background="@drawable/feed_post_bg_anonymous_topic" android:paddingLeft="6.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="18.0dp" android:layout_marginLeft="4.0dp" android:text="匿名" />
+</v.VLinear>

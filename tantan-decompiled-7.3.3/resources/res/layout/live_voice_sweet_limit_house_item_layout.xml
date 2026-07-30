@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.intl.sweet.view.item.VoiceSweetLimitHouseItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    flatten="true"
+    holder="voice.intl.sweet.view.item.VoiceSweetLimitHouseItemView">
+    <p151v.VDraweeView
+        android:id="@+id/drawee_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        app:actualImageScaleType="centerCrop"/>
+    <TextView
+        android:textSize="11sp"
+        android:textStyle="normal"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:id="@+id/wear_unwear_bt"
+        android:background="@drawable/live_shape_voice_sweet_cp_wear_bg"
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/drawee_view"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="PingFangSC-Medium"/>
+    <TextView
+        android:textSize="9dp"
+        android:textStyle="bold"
+        android:textColor="@color/live_e84b00"
+        android:id="@+id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/wear_unwear_bt"
+        android:layout_centerHorizontal="true"/>
+    <include
+        android:id="@+id/time_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/title_tv"
+        android:layout_centerHorizontal="true"
+        layout="@layout/live_voice_sweet_time_view_layout"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.intl.sweet.view.item.VoiceSweetLimitHouseItemView>

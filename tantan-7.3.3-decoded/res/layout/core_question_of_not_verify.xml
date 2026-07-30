@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/bg" android:background="@drawable/core_question_card_default_bg" android:layout_width="match_parent" android:layout_height="match_parent" app:roundedCornerRadius="20.0dp" />
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <ImageView android:layout_gravity="center_horizontal" android:layout_width="48.0dp" android:layout_height="48.0dp" android:layout_marginTop="28.0dp" android:src="@null" />
+        <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="22.0dp" android:textColor="@color/common_black_80" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="不想头像认证的原因是?" />
+        <LinearLayout android:orientation="vertical" android:id="@id/question_container" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="32.0dp" android:layout_marginTop="32.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="28.0dp" android:layout_marginHorizontal="32.0dp" />
+    </LinearLayout>
+</FrameLayout>

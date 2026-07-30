@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.view.wintimes.PkOtherWinTimesView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="14dp"
+    flatten="true"
+    folder="recreation"
+    holder="pk.view.wintimes.PkOtherWinTimesView">
+    <p151v.VDraweeView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/wave"
+        android:layout_width="18dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="8dp"/>
+    <com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.view.wintimes.PkWinTimesNumView
+        android:layout_gravity="center"
+        android:id="@+id/streak_num"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"/>
+    <p151v.VImage
+        android:id="@+id/pk_streak_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.view.wintimes.PkOtherWinTimesView>

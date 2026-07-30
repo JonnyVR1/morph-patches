@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.recreation.pk.view.PkFriendItemView android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" folder="recreation" holder="pk.view.PkFriendItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/iv_head" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="13.0dp" android:layout_marginBottom="13.0dp" android:layout_centerVertical="true" fresco:actualImageScaleType="centerCrop" fresco:roundAsCircle="true" />
+    <TextView android:textSize="14.0sp" android:textStyle="normal" android:textColor="@color/live_black" android:ellipsize="end" android:id="@id/tv_anchor_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:maxEms="6" android:singleLine="true" android:layout_toRightOf="@id/iv_head" android:layout_centerVertical="true" />
+    <TextView android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tv_pk_invite" android:background="@drawable/live_shape_ff3a00_gradient_r6" android:layout_width="72.0dp" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+</com.p1.mobile.putong.live.livingroom.recreation.pk.view.PkFriendItemView>

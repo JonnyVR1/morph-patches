@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.feed.newui.mediapicker.NewCaptionMediaView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/feed_post_bg_image_bound"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <p151v.VDraweeView
+        android:layout_gravity="center"
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        app:actualImageScaleType="centerCrop"
+        style="@style/feed_post_fresco_moment_small"/>
+    <ImageView
+        android:layout_gravity="top|right"
+        android:id="@+id/delete"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:src="0x7f081e5f"
+        android:scaleType="fitXY"/>
+    <ImageView
+        android:layout_gravity="bottom|right"
+        android:id="@+id/delete_new_ui_ab"
+        android:visibility="gone"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="6dp"
+        android:src="0x7f081e60"
+        android:scaleType="fitXY"/>
+</com.p051p1.mobile.putong.feed.newui.mediapicker.NewCaptionMediaView>

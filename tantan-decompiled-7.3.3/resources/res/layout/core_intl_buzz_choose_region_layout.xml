@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.lovebuzz.widget.BuzzRegionChooseView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/buzz_choose_region_root"
+    android:paddingTop="8dp"
+    android:paddingBottom="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="200dp"/>

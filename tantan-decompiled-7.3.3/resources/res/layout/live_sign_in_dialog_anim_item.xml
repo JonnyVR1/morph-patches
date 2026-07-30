@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.common.signin.main.SignInAnimItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="116dp"
+    android:layout_height="155dp"
+    flatten="true"
+    folder="common.signin.main"
+    holder="SignInAnimItem">
+    <p151v.VImage
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="0x7f08266e"/>
+    <FrameLayout
+        android:layout_gravity="center"
+        android:layout_width="82dp"
+        android:layout_height="121dp">
+        <p151v.VImage
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="0x7f08266d"/>
+        <com.p051p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer
+            android:id="@+id/svga"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+    <p151v.VDraweeView
+        android:layout_gravity="center"
+        android:id="@+id/gift_icon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"/>
+</com.p051p1.mobile.putong.live.livingroom.common.signin.main.SignInAnimItem>

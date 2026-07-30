@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.gift.view.GiftOuterContentView android:layout_width="match_parent" android:layout_height="wrap_content" folder="increment" holder="gift.view.GiftOuterContentView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VPager android:id="@id/pager" android:visibility="visible" android:layout_width="match_parent" android:layout_height="220.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <v.VImage android:layout_gravity="center_horizontal" android:id="@id/live_emptyImage" android:layout_width="220.0dp" android:layout_height="150.0dp" android:layout_marginTop="10.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/live_white_30_opacity" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/live_emptyText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="@string/LIVE_GIFT_EMPTY_TITLE" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/live_emptyImage" />
+    <androidx.constraintlayout.widget.Group android:id="@id/emptyGroup" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" app:constraint_referenced_ids="live_emptyImage,live_emptyText" />
+    <include android:id="@id/packetGiftActionTips" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" layout="@layout/live_packet_gift_tab_tips_view" />
+</com.p1.mobile.putong.live.livingroom.increment.gift.view.GiftOuterContentView>

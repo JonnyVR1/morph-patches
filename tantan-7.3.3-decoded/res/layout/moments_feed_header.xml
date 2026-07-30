@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.ui.moments.MomentsFeedHeadView android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="200.0dp" holder="moments.MomentsFeedHeadView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/background" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="-8.0dp" android:src="@color/moments_profile_placeholder_color" android:scaleType="centerCrop" />
+    <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="97.0dp">
+        <LinearLayout android:orientation="horizontal" android:paddingRight="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <v.VDraweeView android:id="@id/profile" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" style="@style/feed_fresco_profile_small" />
+                <v.VImage android:layout_gravity="right|bottom" android:id="@id/verification_icon" android:background="@null" android:visibility="gone" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginRight="16.0dp" />
+            </FrameLayout>
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <v.VText android:textSize="16.0sp" android:textColor="@color/white" android:layout_gravity="center_vertical" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" app:typeface="regular" />
+                <v.VDraweeView android:layout_gravity="center" android:id="@id/emoji" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginLeft="6.0dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:id="@id/messages" android:background="@drawable/moments_feed_message_rounded" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="72.0dp" android:layout_marginTop="7.0dp" android:minWidth="153.0dp" android:minHeight="34.0dp" flatten="true">
+            <v.VDraweeView android:layout_gravity="center" android:id="@id/messages_profile" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginLeft="8.0dp" style="@style/feed_fresco_profile_small" />
+            <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/messages_count" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginRight="8.0dp" android:layout_weight="1.0" app:typeface="medium" />
+        </LinearLayout>
+    </LinearLayout>
+</com.p1.mobile.putong.feed.ui.moments.MomentsFeedHeadView>

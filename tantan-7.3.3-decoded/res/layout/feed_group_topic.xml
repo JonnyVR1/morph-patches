@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="64.0dp" flatten="true" folder="newui" holder="group.groupdetail.module.relatedtopic.FeedGroupTopicItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/head" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginLeft="16.0dp" app:roundedCornerRadius="6.0dp" />
+    <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#000000" android:id="@id/name" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_weight="1.0" android:lineSpacingExtra="0.0sp" />
+    <TextView android:id="@id/arrow" android:background="@null" android:layout_width="8.0dp" android:layout_height="12.0dp" android:layout_marginRight="16.0dp" />
+</LinearLayout>

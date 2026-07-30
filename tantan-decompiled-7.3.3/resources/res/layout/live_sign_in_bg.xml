@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/live_shape_sign_up_bg_gradient"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.p051p1.mobile.putong.live.base.view.RatioLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:live_ratio="1.4764">
+        <p151v.VDraweeView
+            android:id="@+id/bg_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.p051p1.mobile.putong.live.base.view.RatioLayout>
+    <p151v.VImage
+        android:layout_gravity="end|bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="0x7f08266c"/>
+</FrameLayout>

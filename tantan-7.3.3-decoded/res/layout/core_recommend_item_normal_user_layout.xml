@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.messages.RecommendNormalUserView android:id="@id/online_item" android:clipChildren="false" android:layout_width="65.0dp" android:layout_height="87.0dp" android:layout_marginEnd="9.0dp" folder="newui" holder="messages.RecommendNormalUserView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.ui.headframe.HeaderFrameWrapper android:layout_gravity="center_horizontal" android:id="@id/image" android:clickable="true" android:layout_width="55.0dp" android:layout_height="55.0dp" android:layout_marginTop="7.0dp" app:placeholderImage="@null" app:show_audio_chat_frame="false" />
+    <v.VFrame android:layout_gravity="center_horizontal" android:id="@id/head_layout" android:layout_width="61.0dp" android:layout_height="61.0dp" android:layout_marginTop="7.0dp" flatten="true">
+        <v.VRelative android:layout_gravity="center_horizontal" android:id="@id/vre_online_match" android:visibility="gone" android:layout_width="55.0dp" android:layout_height="55.0dp" android:layout_marginTop="3.0dp">
+            <com.p1.mobile.putong.core.newui.talk.view.NewTalkProgressView android:id="@id/progress" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_centerInParent="true" />
+            <v.VDraweeView android:id="@id/image2" android:layout_width="44.0dp" android:layout_height="44.0dp" android:cropToPadding="false" android:layout_centerInParent="true" app:roundAsCircle="true" style="@style/core_fresco_profile_small" />
+        </v.VRelative>
+        <com.p1.mobile.putong.core.newui.messages.LiveHaloAvatar android:layout_gravity="center_horizontal" android:id="@id/live_avatar" android:visibility="gone" android:layout_width="55.0dp" android:layout_height="55.0dp" app:avatarSize="44.0dp" app:haloSize="55.0dp" />
+        <v.VFrame android:layout_gravity="center_horizontal" android:id="@id/chat_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="39.0dp" flatten="true">
+            <v.VImage android:layout_gravity="center" android:id="@id/chat_label_img" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="9.0sp" android:textColor="@color/white" android:layout_gravity="center|bottom" android:id="@id/chat_label_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="4.0dp" android:text="即刻闪聊" />
+        </v.VFrame>
+    </v.VFrame>
+    <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="13.0sp" android:textColor="#cc000000" android:ellipsize="end" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" />
+</com.p1.mobile.putong.core.newui.messages.RecommendNormalUserView>

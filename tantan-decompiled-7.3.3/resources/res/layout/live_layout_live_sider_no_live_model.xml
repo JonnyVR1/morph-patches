@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#24ffffff"
+    android:layout_width="90dp"
+    android:layout_height="120dp"
+    android:layout_marginTop="8dp">
+    <p151v.VText
+        android:textColor="#80ffffff"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LIVE_SIDEBAR_NO_BOARDCASTE"/>
+</FrameLayout>

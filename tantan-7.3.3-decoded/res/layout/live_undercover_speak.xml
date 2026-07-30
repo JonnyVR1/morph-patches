@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VRelative android:id="@id/undercover_speaker" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="voice.intl.game.undercover.viewmodule.UndercoverSpeakView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="14.0sp" android:textColor="#daf4ff" android:gravity="center_horizontal" android:id="@id/speaker_timer" android:background="@drawable/live_vector_bg_undercover_time" android:paddingTop="10.0dp" android:layout_width="80.0dp" android:layout_height="34.0dp" android:layout_centerHorizontal="true" />
+    <v.VFrame android:id="@id/speaker_layout" android:layout_width="91.0dp" android:layout_height="91.0dp" android:layout_marginTop="80.0dp" android:layout_centerHorizontal="true" flatten="true">
+        <com.p1.mobile.putong.live.base.view.CircularProgressView android:id="@id/speaker_progress" android:layout_width="match_parent" android:layout_height="match_parent" app:backColor="#4dffffff" app:backWidth="3.0dp" app:progColor="#ffeca4" app:progWidth="3.0dp" app:progress="50" />
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/speaker_avatar" android:layout_width="80.0dp" android:layout_height="80.0dp" android:scaleType="centerCrop" />
+    </v.VFrame>
+    <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="#daf4ff" android:id="@id/speaker_num" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_below="@id/speaker_layout" android:layout_centerHorizontal="true" />
+    <v.VText android:textSize="14.0sp" android:textColor="#80daf4ff" android:id="@id/speaker_quest_self" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_below="@id/speaker_num" android:layout_centerHorizontal="true" />
+    <v.VText android:textSize="16.0sp" android:textStyle="bold" android:textColor="#1b4173" android:gravity="center" android:id="@id/speaker_join_btn" android:background="@drawable/live_selector_bg_undercover_btn" android:visibility="gone" android:layout_width="178.0dp" android:layout_height="48.0dp" android:layout_marginBottom="22.0dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+    <v.VText android:textSize="16.0sp" android:textColor="#daf4ff" android:id="@id/speaker_quest_other" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="24.0dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+</v.VRelative>

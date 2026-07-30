@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="311.0dp" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:layout_width="match_parent" android:layout_height="wrap_content" android:src="@null" android:scaleType="fitXY" />
+    <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="#323232" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="寻找以结婚为目的的理想伴侣" />
+    <v.VText android:textSize="14.0sp" android:textColor="#66000000" android:gravity="center" android:id="@id/sub_title_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="32.0dp" android:text="你刚刚将交友目的更改为想结婚，切换到想结婚模式可以更快找到理想伴侣" android:layout_marginHorizontal="32.0dp" />
+    <v.VButton android:id="@id/action" android:layout_marginLeft="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="32.0dp" android:text="切换模式" android:layout_marginHorizontal="32.0dp" style="@style/common_button_large_01" />
+    <v.VText android:textSize="14.0sp" android:textColor="#33000000" android:gravity="center" android:id="@id/cancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginBottom="24.0dp" android:text="暂不切换" />
+</v.VLinear>

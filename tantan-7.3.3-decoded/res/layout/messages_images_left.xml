@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemImages android:orientation="vertical" android:id="@id/content" android:background="@drawable/core_msg_image_cell_bg" android:padding="0.5dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/cover_content" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+        <v.VDraweeView android:id="@id/picture" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <ProgressBar android:layout_gravity="center" android:id="@id/sending" style="@style/core_msg_image_sending_progress_style" />
+        <TextView android:textSize="9.0dp" android:textColor="@color/white" android:gravity="center" android:id="@id/long_pic" android:background="@drawable/core_message_long_img_bg" android:paddingLeft="5.0dp" android:paddingRight="5.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_margin="6.0dp" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.messages.ItemImages>

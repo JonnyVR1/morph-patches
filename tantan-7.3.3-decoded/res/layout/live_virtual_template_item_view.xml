@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.virtual.room.functions.panel.unknown.VirtualTemplateItemView android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5.0dp" flatten="true" folder="virtual.room.functions.panel.unknown" holder="VirtualTemplateItemView" style="@style/live_beauty_plug_item_width" useRefId="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/icon" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="6.0dp" android:layout_marginBottom="6.0dp" android:layout_marginStart="8.0dp" />
+    <v.VText android:textSize="12.0sp" android:textColor="@color/color_ccffffff" android:layout_gravity="center_vertical" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4.0dp" />
+</com.p1.mobile.putong.live.livingroom.virtual.room.functions.panel.unknown.VirtualTemplateItemView>

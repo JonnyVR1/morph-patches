@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.view.RightSideViewGroup android:id="@id/right_sider_group" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="archi.frag.RoomFragView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+        <com.p1.mobile.putong.live.livingroom.view.LiveScrollView android:id="@id/live_scroll_view" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <ViewStub android:id="@id/scroll_layout" android:layout="@layout/live_scroll_guide" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </v.VFrame>
+    <include android:layout_gravity="right" android:id="@id/right_side" android:layout_width="wrap_content" android:layout_height="match_parent" layout="@layout/live_layout_live_sider_dialog" />
+</com.p1.mobile.putong.live.livingroom.view.RightSideViewGroup>

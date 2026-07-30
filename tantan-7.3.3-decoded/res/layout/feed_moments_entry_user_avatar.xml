@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VDraweeView android:id="@id/scroll_img" android:layout_width="30.0dp" android:layout_height="36.0dp" app:roundedCornerRadius="8.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

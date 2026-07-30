@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.intlpage.IntlPurchasePageTabsItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="7dp"
+    holder="purchase.intlpage.IntlPurchasePageTabsItemView">
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="@color/core_color_80ffffff"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:drawablePadding="4dp"/>
+    <p151v.VText
+        android:textSize="13sp"
+        android:textColor="#a99469"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:lines="1"/>
+</com.p051p1.mobile.putong.core.p058ui.purchase.intlpage.IntlPurchasePageTabsItemView>

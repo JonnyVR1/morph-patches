@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VDraweeView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/image"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    fresco:actualImageScaleType="centerCrop"
+    fresco:roundedCornerRadius="0dp"
+    style="@style/core_fresco_moment_small"/>

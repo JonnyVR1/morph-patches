@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.internal.live.square.home.submodule.teenmode.LiveTeenModeViewModel android:layout_gravity="bottom" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="internal.live.square" holder="home.submodule.teenmode.LiveTeenModeViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VButton android:id="@id/teen_mode_button" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" android:text="@string/LIVE_TEEN_MODE_CLOSE" android:layout_marginStart="20.0dp" style="@style/common_button_large_01" />
+</com.p1.mobile.putong.live.external.internal.live.square.home.submodule.teenmode.LiveTeenModeViewModel>

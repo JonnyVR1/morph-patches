@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/root" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="intloperation.flash.FlashStickerViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/bg" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_centerInParent="true" app:actualImageScaleType="centerCrop" style="@style/core_fresco_base" />
+    <include android:id="@id/finding_layout" android:visibility="gone" layout="@layout/core_intl_flash_sticker_act_finding_layout" />
+    <include android:id="@id/setting_layout" android:visibility="gone" layout="@layout/core_intl_flash_sticker_act_setting_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

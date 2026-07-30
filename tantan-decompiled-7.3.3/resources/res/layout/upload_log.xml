@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="settings.log.UploadLogAct">
+    <p151v.VImage
+        android:layout_gravity="center_horizontal"
+        android:layout_width="72dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="118dp"
+        android:src="0x7f08200c"/>
+    <p151v.VProgressBar
+        android:id="@+id/process"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="40dp"
+        android:progressDrawable="@drawable/log_upload_progress"
+        style="@android:style/Widget.ProgressBar.Horizontal"/>
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="#757575"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/hint_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"/>
+</p151v.VLinear>

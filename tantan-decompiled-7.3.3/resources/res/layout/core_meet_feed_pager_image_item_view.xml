@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.newmeet.feed.pager.MeetFeedPageImageItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    folder="newui"
+    holder="newmeet.feed.pager.MeetFeedPageImageItemView">
+    <p151v.VDraweeView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:actualImageScaleType="centerCrop"
+        app:failureImageScaleType="centerInside"
+        app:placeholderImage="@color/white"
+        app:placeholderImageScaleType="centerInside"
+        style="@style/core_fresco_base"/>
+    <View
+        android:id="@+id/strut"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"/>
+    <View
+        android:id="@+id/action_left"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@+id/strut"
+        android:layout_alignParentStart="true"/>
+    <View
+        android:id="@+id/action_right"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/strut"
+        android:layout_alignParentEnd="true"/>
+</com.p051p1.mobile.putong.core.newui.newmeet.feed.pager.MeetFeedPageImageItemView>

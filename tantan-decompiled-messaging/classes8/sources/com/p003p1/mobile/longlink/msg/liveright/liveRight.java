@@ -1,0 +1,6997 @@
+package com.p003p1.mobile.longlink.msg.liveright;
+
+import com.google.protobuf.ByteString;
+import com.google.protobuf.CodedOutputStream;
+import com.google.protobuf.GeneratedMessageLite;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.a;
+import com.google.protobuf.e;
+import com.google.protobuf.h;
+import com.google.protobuf.l;
+import com.google.protobuf.q;
+import com.p003p1.mobile.longlink.msg.livechat.LongLinkChatMessage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
+import l.aag0;
+import l.bz00;
+import l.i860;
+import l.o6z;
+
+/* JADX INFO: loaded from: /tmp/tantan-dex/classes8.dex */
+public final class liveRight {
+
+    /* JADX INFO: renamed from: com.p1.mobile.longlink.msg.liveright.liveRight$1 */
+    public static /* synthetic */ class C03691 {
+
+        /* JADX INFO: renamed from: $SwitchMap$com$google$protobuf$GeneratedMessageLite$MethodToInvoke */
+        static final /* synthetic */ int[] f1664xa1df5c61;
+
+        static {
+            int[] iArr = new int[GeneratedMessageLite.MethodToInvoke.values().length];
+            f1664xa1df5c61 = iArr;
+            try {
+                iArr[GeneratedMessageLite.MethodToInvoke.NEW_MUTABLE_INSTANCE.ordinal()] = 1;
+            } catch (NoSuchFieldError unused) {
+            }
+            try {
+                f1664xa1df5c61[GeneratedMessageLite.MethodToInvoke.IS_INITIALIZED.ordinal()] = 2;
+            } catch (NoSuchFieldError unused2) {
+            }
+            try {
+                f1664xa1df5c61[GeneratedMessageLite.MethodToInvoke.MAKE_IMMUTABLE.ordinal()] = 3;
+            } catch (NoSuchFieldError unused3) {
+            }
+            try {
+                f1664xa1df5c61[GeneratedMessageLite.MethodToInvoke.NEW_BUILDER.ordinal()] = 4;
+            } catch (NoSuchFieldError unused4) {
+            }
+            try {
+                f1664xa1df5c61[GeneratedMessageLite.MethodToInvoke.VISIT.ordinal()] = 5;
+            } catch (NoSuchFieldError unused5) {
+            }
+            try {
+                f1664xa1df5c61[GeneratedMessageLite.MethodToInvoke.MERGE_FROM_STREAM.ordinal()] = 6;
+            } catch (NoSuchFieldError unused6) {
+            }
+            try {
+                f1664xa1df5c61[GeneratedMessageLite.MethodToInvoke.GET_DEFAULT_INSTANCE.ordinal()] = 7;
+            } catch (NoSuchFieldError unused7) {
+            }
+            try {
+                f1664xa1df5c61[GeneratedMessageLite.MethodToInvoke.GET_PARSER.ordinal()] = 8;
+            } catch (NoSuchFieldError unused8) {
+            }
+        }
+    }
+
+    public interface AcquireUserLiveRightMsgOrBuilder extends o6z {
+        AcquireUserLiveRightMsg.AcquireUserLiveRightAction getAction();
+
+        int getActionValue();
+
+        /* synthetic */ q getDefaultInstanceForType();
+
+        long getServerTimeInSeconds();
+
+        UserLiveRight getUserLiveRight();
+
+        boolean hasUserLiveRight();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface AttributeOrBuilder extends o6z {
+        AvatarConfig getAvatarConfig();
+
+        CallEffectConfig getCallEffectConfig();
+
+        ChatShadingConfig getChatShadingConfig();
+
+        /* synthetic */ q getDefaultInstanceForType();
+
+        String getJumpUrl();
+
+        ByteString getJumpUrlBytes();
+
+        ProfileConfig getProfileConfig();
+
+        String getResourceUrl();
+
+        ByteString getResourceUrlBytes();
+
+        Restrict getRestrict();
+
+        String getThumbnailUrl();
+
+        ByteString getThumbnailUrlBytes();
+
+        boolean hasAvatarConfig();
+
+        boolean hasCallEffectConfig();
+
+        boolean hasChatShadingConfig();
+
+        boolean hasProfileConfig();
+
+        boolean hasRestrict();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface AvatarConfigOrBuilder extends o6z {
+        String getAvatarUrl();
+
+        ByteString getAvatarUrlBytes();
+
+        String getConnectorImage();
+
+        ByteString getConnectorImageBytes();
+
+        /* synthetic */ q getDefaultInstanceForType();
+
+        PictureConfig getFrameConfig();
+
+        boolean hasFrameConfig();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface CallEffectConfigOrBuilder extends o6z {
+        String getCircleVoicingUrl();
+
+        ByteString getCircleVoicingUrlBytes();
+
+        String getDefaultIcon();
+
+        ByteString getDefaultIconBytes();
+
+        /* synthetic */ q getDefaultInstanceForType();
+
+        String getHorizontalBg();
+
+        ByteString getHorizontalBgBytes();
+
+        String getHorizontalVoicingUrl();
+
+        ByteString getHorizontalVoicingUrlBytes();
+
+        String getMuteIcon();
+
+        ByteString getMuteIconBytes();
+
+        String getVerticalBg();
+
+        ByteString getVerticalBgBytes();
+
+        String getVerticalVoicingUrl();
+
+        ByteString getVerticalVoicingUrlBytes();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface ChatShadingConfigOrBuilder extends o6z {
+        ColorConfig getBackgroundColorConfig();
+
+        ColorConfig getBorderColorConfig();
+
+        CornerConfig getCornerConfig();
+
+        /* synthetic */ q getDefaultInstanceForType();
+
+        boolean hasBackgroundColorConfig();
+
+        boolean hasBorderColorConfig();
+
+        boolean hasCornerConfig();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface ColorConfigOrBuilder extends o6z {
+        String getColors(int i);
+
+        ByteString getColorsBytes(int i);
+
+        int getColorsCount();
+
+        List<String> getColorsList();
+
+        /* synthetic */ q getDefaultInstanceForType();
+
+        GradientDirection getGradientDirection();
+
+        int getGradientDirectionValue();
+
+        long getTransparency();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface CornerConfigOrBuilder extends o6z {
+        /* synthetic */ q getDefaultInstanceForType();
+
+        String getPictureUrl();
+
+        ByteString getPictureUrlBytes();
+
+        CornerPosition getPosition();
+
+        int getPositionValue();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface PeriodConfigOrBuilder extends o6z {
+        /* synthetic */ q getDefaultInstanceForType();
+
+        FadingType getFadingType();
+
+        int getFadingTypeValue();
+
+        long getFadingValue();
+
+        boolean getShow();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface PictureConfigOrBuilder extends o6z {
+        /* synthetic */ q getDefaultInstanceForType();
+
+        String getDynamicUrl();
+
+        ByteString getDynamicUrlBytes();
+
+        String getStaticUrl();
+
+        ByteString getStaticUrlBytes();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface ProfileConfigOrBuilder extends o6z {
+        PictureConfig getBackgroundPictureConfig();
+
+        /* synthetic */ q getDefaultInstanceForType();
+
+        PictureConfig getTopFrameConfig();
+
+        boolean hasBackgroundPictureConfig();
+
+        boolean hasTopFrameConfig();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface RestrictOrBuilder extends o6z {
+        /* synthetic */ q getDefaultInstanceForType();
+
+        long getGiftIds(int i);
+
+        int getGiftIdsCount();
+
+        List<Long> getGiftIdsList();
+
+        long getGrade();
+
+        ReceiveType getReceiveType();
+
+        int getReceiveTypeValue();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface TopChatUpdateNoticeOrBuilder extends o6z {
+        /* synthetic */ q getDefaultInstanceForType();
+
+        long getRandomDelaySeconds();
+
+        long getTimestamp();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface UserLiveRightOrBuilder extends o6z {
+        Attribute getAttribute();
+
+        long getCreateTimeInSeconds();
+
+        /* synthetic */ q getDefaultInstanceForType();
+
+        String getFromUserId();
+
+        ByteString getFromUserIdBytes();
+
+        String getId();
+
+        ByteString getIdBytes();
+
+        long getLevel();
+
+        String getLiveRightId();
+
+        ByteString getLiveRightIdBytes();
+
+        String getName();
+
+        ByteString getNameBytes();
+
+        PlaceType getPlaceType();
+
+        int getPlaceTypeValue();
+
+        Type getRightType();
+
+        int getRightTypeValue();
+
+        ShowType getShowType();
+
+        int getShowTypeValue();
+
+        UserLiveRightStatus getStatus();
+
+        int getStatusValue();
+
+        String getUserId();
+
+        ByteString getUserIdBytes();
+
+        long getValidEndTimeInSeconds();
+
+        boolean hasAttribute();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    public interface UserLiveRightResourcesOrBuilder extends o6z {
+        /* synthetic */ q getDefaultInstanceForType();
+
+        UserLiveRight getUserLiveRights(int i);
+
+        int getUserLiveRightsCount();
+
+        List<UserLiveRight> getUserLiveRightsList();
+
+        /* synthetic */ boolean isInitialized();
+    }
+
+    private liveRight() {
+    }
+
+    public static void registerAllExtensions(h hVar) {
+    }
+
+    public static final class AcquireUserLiveRightMsg extends GeneratedMessageLite<AcquireUserLiveRightMsg, Builder> implements AcquireUserLiveRightMsgOrBuilder {
+        public static final int ACTION_FIELD_NUMBER = 1;
+        private static final AcquireUserLiveRightMsg DEFAULT_INSTANCE;
+        private static volatile i860<AcquireUserLiveRightMsg> PARSER = null;
+        public static final int SERVERTIMEINSECONDS_FIELD_NUMBER = 3;
+        public static final int USERLIVERIGHT_FIELD_NUMBER = 2;
+        private int action_;
+        private long serverTimeInSeconds_;
+        private UserLiveRight userLiveRight_;
+
+        static {
+            AcquireUserLiveRightMsg acquireUserLiveRightMsg = new AcquireUserLiveRightMsg();
+            DEFAULT_INSTANCE = acquireUserLiveRightMsg;
+            acquireUserLiveRightMsg.makeImmutable();
+        }
+
+        private AcquireUserLiveRightMsg() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearAction() {
+            this.action_ = 0;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearServerTimeInSeconds() {
+            this.serverTimeInSeconds_ = 0L;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearUserLiveRight() {
+            this.userLiveRight_ = null;
+        }
+
+        public static AcquireUserLiveRightMsg getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeUserLiveRight(UserLiveRight userLiveRight) {
+            UserLiveRight userLiveRight2 = this.userLiveRight_;
+            if (userLiveRight2 == null || userLiveRight2 == UserLiveRight.getDefaultInstance()) {
+                this.userLiveRight_ = userLiveRight;
+            } else {
+                this.userLiveRight_ = (UserLiveRight) ((UserLiveRight.Builder) UserLiveRight.newBuilder(this.userLiveRight_).mergeFrom(userLiveRight)).buildPartial();
+            }
+        }
+
+        public static Builder newBuilder(AcquireUserLiveRightMsg acquireUserLiveRightMsg) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(acquireUserLiveRightMsg);
+        }
+
+        public static AcquireUserLiveRightMsg parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static AcquireUserLiveRightMsg parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<AcquireUserLiveRightMsg> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setAction(AcquireUserLiveRightAction acquireUserLiveRightAction) {
+            acquireUserLiveRightAction.getClass();
+            this.action_ = acquireUserLiveRightAction.getNumber();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setActionValue(int i) {
+            this.action_ = i;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setServerTimeInSeconds(long j) {
+            this.serverTimeInSeconds_ = j;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setUserLiveRight(UserLiveRight.Builder builder) {
+            this.userLiveRight_ = (UserLiveRight) builder.build();
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            boolean z = false;
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new AcquireUserLiveRightMsg();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    AcquireUserLiveRightMsg acquireUserLiveRightMsg = (AcquireUserLiveRightMsg) obj2;
+                    int i = this.action_;
+                    boolean z2 = i != 0;
+                    int i2 = acquireUserLiveRightMsg.action_;
+                    this.action_ = hVar.e(z2, i, i2 != 0, i2);
+                    this.userLiveRight_ = hVar.o(this.userLiveRight_, acquireUserLiveRightMsg.userLiveRight_);
+                    long j = this.serverTimeInSeconds_;
+                    boolean z3 = j != 0;
+                    long j2 = acquireUserLiveRightMsg.serverTimeInSeconds_;
+                    this.serverTimeInSeconds_ = hVar.i(z3, j, j2 != 0, j2);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    h hVar2 = (h) obj2;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 8) {
+                                    this.action_ = eVar.p();
+                                } else if (iM == 18) {
+                                    UserLiveRight userLiveRight = this.userLiveRight_;
+                                    UserLiveRight.Builder builder = userLiveRight != null ? (UserLiveRight.Builder) userLiveRight.toBuilder() : null;
+                                    UserLiveRight userLiveRightW = eVar.w(UserLiveRight.parser(), hVar2);
+                                    this.userLiveRight_ = userLiveRightW;
+                                    if (builder != null) {
+                                        builder.mergeFrom(userLiveRightW);
+                                        this.userLiveRight_ = (UserLiveRight) builder.buildPartial();
+                                    }
+                                } else if (iM == 24) {
+                                    this.serverTimeInSeconds_ = eVar.v();
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (InvalidProtocolBufferException e) {
+                            aag0.a(e.setUnfinishedMessage(this));
+                            return null;
+                        } catch (IOException e2) {
+                            aag0.a(new InvalidProtocolBufferException(e2.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (AcquireUserLiveRightMsg.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+        public AcquireUserLiveRightAction getAction() {
+            AcquireUserLiveRightAction acquireUserLiveRightActionForNumber = AcquireUserLiveRightAction.forNumber(this.action_);
+            return acquireUserLiveRightActionForNumber == null ? AcquireUserLiveRightAction.UNRECOGNIZED : acquireUserLiveRightActionForNumber;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+        public int getActionValue() {
+            return this.action_;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iM = this.action_ != AcquireUserLiveRightAction.equip.getNumber() ? CodedOutputStream.m(1, this.action_) : 0;
+            if (this.userLiveRight_ != null) {
+                iM += CodedOutputStream.C(2, getUserLiveRight());
+            }
+            long j = this.serverTimeInSeconds_;
+            if (j != 0) {
+                iM += CodedOutputStream.v(3, j);
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iM;
+            return iM;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+        public long getServerTimeInSeconds() {
+            return this.serverTimeInSeconds_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+        public UserLiveRight getUserLiveRight() {
+            UserLiveRight userLiveRight = this.userLiveRight_;
+            return userLiveRight == null ? UserLiveRight.getDefaultInstance() : userLiveRight;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+        public boolean hasUserLiveRight() {
+            return this.userLiveRight_ != null;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (this.action_ != AcquireUserLiveRightAction.equip.getNumber()) {
+                codedOutputStream.i0(1, this.action_);
+            }
+            if (this.userLiveRight_ != null) {
+                codedOutputStream.w0(2, getUserLiveRight());
+            }
+            long j = this.serverTimeInSeconds_;
+            if (j != 0) {
+                codedOutputStream.u0(3, j);
+            }
+        }
+
+        public enum AcquireUserLiveRightAction implements l.c {
+            equip(0),
+            unequip(1),
+            UNRECOGNIZED(-1);
+
+            public static final int equip_VALUE = 0;
+            private static final l.d<AcquireUserLiveRightAction> internalValueMap = new l.d<AcquireUserLiveRightAction>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsg.AcquireUserLiveRightAction.1
+                public AcquireUserLiveRightAction findValueByNumber(int i) {
+                    return AcquireUserLiveRightAction.forNumber(i);
+                }
+            };
+            public static final int unequip_VALUE = 1;
+            private final int value;
+
+            AcquireUserLiveRightAction(int i) {
+                this.value = i;
+            }
+
+            public static AcquireUserLiveRightAction forNumber(int i) {
+                if (i == 0) {
+                    return equip;
+                }
+                if (i != 1) {
+                    return null;
+                }
+                return unequip;
+            }
+
+            public static l.d<AcquireUserLiveRightAction> internalGetValueMap() {
+                return internalValueMap;
+            }
+
+            public final int getNumber() {
+                return this.value;
+            }
+
+            @Deprecated
+            public static AcquireUserLiveRightAction valueOf(int i) {
+                return forNumber(i);
+            }
+        }
+
+        public static AcquireUserLiveRightMsg parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static AcquireUserLiveRightMsg parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setUserLiveRight(UserLiveRight userLiveRight) {
+            userLiveRight.getClass();
+            this.userLiveRight_ = userLiveRight;
+        }
+
+        public static final class Builder extends GeneratedMessageLite.b<AcquireUserLiveRightMsg, Builder> implements AcquireUserLiveRightMsgOrBuilder {
+            private Builder() {
+                super(AcquireUserLiveRightMsg.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearAction() {
+                copyOnWrite();
+                ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).clearAction();
+                return this;
+            }
+
+            public Builder clearServerTimeInSeconds() {
+                copyOnWrite();
+                ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).clearServerTimeInSeconds();
+                return this;
+            }
+
+            public Builder clearUserLiveRight() {
+                copyOnWrite();
+                ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).clearUserLiveRight();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+            public AcquireUserLiveRightAction getAction() {
+                return ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).getAction();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+            public int getActionValue() {
+                return ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).getActionValue();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+            public long getServerTimeInSeconds() {
+                return ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).getServerTimeInSeconds();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+            public UserLiveRight getUserLiveRight() {
+                return ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).getUserLiveRight();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AcquireUserLiveRightMsgOrBuilder
+            public boolean hasUserLiveRight() {
+                return ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).hasUserLiveRight();
+            }
+
+            public Builder mergeUserLiveRight(UserLiveRight userLiveRight) {
+                copyOnWrite();
+                ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).mergeUserLiveRight(userLiveRight);
+                return this;
+            }
+
+            public Builder setAction(AcquireUserLiveRightAction acquireUserLiveRightAction) {
+                copyOnWrite();
+                ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).setAction(acquireUserLiveRightAction);
+                return this;
+            }
+
+            public Builder setActionValue(int i) {
+                copyOnWrite();
+                ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).setActionValue(i);
+                return this;
+            }
+
+            public Builder setServerTimeInSeconds(long j) {
+                copyOnWrite();
+                ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).setServerTimeInSeconds(j);
+                return this;
+            }
+
+            public Builder setUserLiveRight(UserLiveRight userLiveRight) {
+                copyOnWrite();
+                ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).setUserLiveRight(userLiveRight);
+                return this;
+            }
+
+            public Builder setUserLiveRight(UserLiveRight.Builder builder) {
+                copyOnWrite();
+                ((AcquireUserLiveRightMsg) ((GeneratedMessageLite.b) this).instance).setUserLiveRight(builder);
+                return this;
+            }
+        }
+
+        public static AcquireUserLiveRightMsg parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static AcquireUserLiveRightMsg parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static AcquireUserLiveRightMsg parseFrom(InputStream inputStream) throws IOException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static AcquireUserLiveRightMsg parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static AcquireUserLiveRightMsg parseFrom(e eVar) throws IOException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static AcquireUserLiveRightMsg parseFrom(e eVar, h hVar) throws IOException {
+            return (AcquireUserLiveRightMsg) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public static final class Attribute extends GeneratedMessageLite<Attribute, Builder> implements AttributeOrBuilder {
+        public static final int AVATARCONFIG_FIELD_NUMBER = 11;
+        public static final int CALLEFFECTCONFIG_FIELD_NUMBER = 13;
+        public static final int CHATSHADINGCONFIG_FIELD_NUMBER = 10;
+        private static final Attribute DEFAULT_INSTANCE;
+        public static final int JUMPURL_FIELD_NUMBER = 3;
+        private static volatile i860<Attribute> PARSER = null;
+        public static final int PROFILECONFIG_FIELD_NUMBER = 12;
+        public static final int RESOURCEURL_FIELD_NUMBER = 5;
+        public static final int RESTRICT_FIELD_NUMBER = 4;
+        public static final int THUMBNAILURL_FIELD_NUMBER = 2;
+        private AvatarConfig avatarConfig_;
+        private CallEffectConfig callEffectConfig_;
+        private ChatShadingConfig chatShadingConfig_;
+        private ProfileConfig profileConfig_;
+        private Restrict restrict_;
+        private String thumbnailUrl_ = "";
+        private String jumpUrl_ = "";
+        private String resourceUrl_ = "";
+
+        static {
+            Attribute attribute = new Attribute();
+            DEFAULT_INSTANCE = attribute;
+            attribute.makeImmutable();
+        }
+
+        private Attribute() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearAvatarConfig() {
+            this.avatarConfig_ = null;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearCallEffectConfig() {
+            this.callEffectConfig_ = null;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearChatShadingConfig() {
+            this.chatShadingConfig_ = null;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearJumpUrl() {
+            this.jumpUrl_ = getDefaultInstance().getJumpUrl();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearProfileConfig() {
+            this.profileConfig_ = null;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearResourceUrl() {
+            this.resourceUrl_ = getDefaultInstance().getResourceUrl();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearRestrict() {
+            this.restrict_ = null;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearThumbnailUrl() {
+            this.thumbnailUrl_ = getDefaultInstance().getThumbnailUrl();
+        }
+
+        public static Attribute getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeAvatarConfig(AvatarConfig avatarConfig) {
+            AvatarConfig avatarConfig2 = this.avatarConfig_;
+            if (avatarConfig2 == null || avatarConfig2 == AvatarConfig.getDefaultInstance()) {
+                this.avatarConfig_ = avatarConfig;
+            } else {
+                this.avatarConfig_ = (AvatarConfig) ((AvatarConfig.Builder) AvatarConfig.newBuilder(this.avatarConfig_).mergeFrom(avatarConfig)).buildPartial();
+            }
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeCallEffectConfig(CallEffectConfig callEffectConfig) {
+            CallEffectConfig callEffectConfig2 = this.callEffectConfig_;
+            if (callEffectConfig2 == null || callEffectConfig2 == CallEffectConfig.getDefaultInstance()) {
+                this.callEffectConfig_ = callEffectConfig;
+            } else {
+                this.callEffectConfig_ = (CallEffectConfig) ((CallEffectConfig.Builder) CallEffectConfig.newBuilder(this.callEffectConfig_).mergeFrom(callEffectConfig)).buildPartial();
+            }
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeChatShadingConfig(ChatShadingConfig chatShadingConfig) {
+            ChatShadingConfig chatShadingConfig2 = this.chatShadingConfig_;
+            if (chatShadingConfig2 == null || chatShadingConfig2 == ChatShadingConfig.getDefaultInstance()) {
+                this.chatShadingConfig_ = chatShadingConfig;
+            } else {
+                this.chatShadingConfig_ = (ChatShadingConfig) ((ChatShadingConfig.Builder) ChatShadingConfig.newBuilder(this.chatShadingConfig_).mergeFrom(chatShadingConfig)).buildPartial();
+            }
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeProfileConfig(ProfileConfig profileConfig) {
+            ProfileConfig profileConfig2 = this.profileConfig_;
+            if (profileConfig2 == null || profileConfig2 == ProfileConfig.getDefaultInstance()) {
+                this.profileConfig_ = profileConfig;
+            } else {
+                this.profileConfig_ = (ProfileConfig) ((ProfileConfig.Builder) ProfileConfig.newBuilder(this.profileConfig_).mergeFrom(profileConfig)).buildPartial();
+            }
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeRestrict(Restrict restrict) {
+            Restrict restrict2 = this.restrict_;
+            if (restrict2 == null || restrict2 == Restrict.getDefaultInstance()) {
+                this.restrict_ = restrict;
+            } else {
+                this.restrict_ = (Restrict) ((Restrict.Builder) Restrict.newBuilder(this.restrict_).mergeFrom(restrict)).buildPartial();
+            }
+        }
+
+        public static Builder newBuilder(Attribute attribute) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(attribute);
+        }
+
+        public static Attribute parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (Attribute) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static Attribute parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (Attribute) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<Attribute> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setAvatarConfig(AvatarConfig.Builder builder) {
+            this.avatarConfig_ = (AvatarConfig) builder.build();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setCallEffectConfig(CallEffectConfig.Builder builder) {
+            this.callEffectConfig_ = (CallEffectConfig) builder.build();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setChatShadingConfig(ChatShadingConfig.Builder builder) {
+            this.chatShadingConfig_ = (ChatShadingConfig) builder.build();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setJumpUrl(String str) {
+            str.getClass();
+            this.jumpUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setJumpUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.jumpUrl_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setProfileConfig(ProfileConfig.Builder builder) {
+            this.profileConfig_ = (ProfileConfig) builder.build();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setResourceUrl(String str) {
+            str.getClass();
+            this.resourceUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setResourceUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.resourceUrl_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setRestrict(Restrict.Builder builder) {
+            this.restrict_ = (Restrict) builder.build();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setThumbnailUrl(String str) {
+            str.getClass();
+            this.thumbnailUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setThumbnailUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.thumbnailUrl_ = byteString.toStringUtf8();
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new Attribute();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    Attribute attribute = (Attribute) obj2;
+                    this.thumbnailUrl_ = hVar.f(!this.thumbnailUrl_.isEmpty(), this.thumbnailUrl_, !attribute.thumbnailUrl_.isEmpty(), attribute.thumbnailUrl_);
+                    this.jumpUrl_ = hVar.f(!this.jumpUrl_.isEmpty(), this.jumpUrl_, !attribute.jumpUrl_.isEmpty(), attribute.jumpUrl_);
+                    this.restrict_ = hVar.o(this.restrict_, attribute.restrict_);
+                    this.resourceUrl_ = hVar.f(!this.resourceUrl_.isEmpty(), this.resourceUrl_, true ^ attribute.resourceUrl_.isEmpty(), attribute.resourceUrl_);
+                    this.chatShadingConfig_ = hVar.o(this.chatShadingConfig_, attribute.chatShadingConfig_);
+                    this.avatarConfig_ = hVar.o(this.avatarConfig_, attribute.avatarConfig_);
+                    this.profileConfig_ = hVar.o(this.profileConfig_, attribute.profileConfig_);
+                    this.callEffectConfig_ = hVar.o(this.callEffectConfig_, attribute.callEffectConfig_);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    h hVar2 = (h) obj2;
+                    boolean z = false;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 18) {
+                                    this.thumbnailUrl_ = eVar.L();
+                                } else if (iM == 26) {
+                                    this.jumpUrl_ = eVar.L();
+                                } else if (iM == 34) {
+                                    Restrict restrict = this.restrict_;
+                                    Restrict.Builder builder = restrict != null ? (Restrict.Builder) restrict.toBuilder() : null;
+                                    Restrict restrictW = eVar.w(Restrict.parser(), hVar2);
+                                    this.restrict_ = restrictW;
+                                    if (builder != null) {
+                                        builder.mergeFrom(restrictW);
+                                        this.restrict_ = (Restrict) builder.buildPartial();
+                                    }
+                                } else if (iM == 42) {
+                                    this.resourceUrl_ = eVar.L();
+                                } else if (iM == 82) {
+                                    ChatShadingConfig chatShadingConfig = this.chatShadingConfig_;
+                                    ChatShadingConfig.Builder builder2 = chatShadingConfig != null ? (ChatShadingConfig.Builder) chatShadingConfig.toBuilder() : null;
+                                    ChatShadingConfig chatShadingConfigW = eVar.w(ChatShadingConfig.parser(), hVar2);
+                                    this.chatShadingConfig_ = chatShadingConfigW;
+                                    if (builder2 != null) {
+                                        builder2.mergeFrom(chatShadingConfigW);
+                                        this.chatShadingConfig_ = (ChatShadingConfig) builder2.buildPartial();
+                                    }
+                                } else if (iM == 90) {
+                                    AvatarConfig avatarConfig = this.avatarConfig_;
+                                    AvatarConfig.Builder builder3 = avatarConfig != null ? (AvatarConfig.Builder) avatarConfig.toBuilder() : null;
+                                    AvatarConfig avatarConfigW = eVar.w(AvatarConfig.parser(), hVar2);
+                                    this.avatarConfig_ = avatarConfigW;
+                                    if (builder3 != null) {
+                                        builder3.mergeFrom(avatarConfigW);
+                                        this.avatarConfig_ = (AvatarConfig) builder3.buildPartial();
+                                    }
+                                } else if (iM == 98) {
+                                    ProfileConfig profileConfig = this.profileConfig_;
+                                    ProfileConfig.Builder builder4 = profileConfig != null ? (ProfileConfig.Builder) profileConfig.toBuilder() : null;
+                                    ProfileConfig profileConfigW = eVar.w(ProfileConfig.parser(), hVar2);
+                                    this.profileConfig_ = profileConfigW;
+                                    if (builder4 != null) {
+                                        builder4.mergeFrom(profileConfigW);
+                                        this.profileConfig_ = (ProfileConfig) builder4.buildPartial();
+                                    }
+                                } else if (iM == 106) {
+                                    CallEffectConfig callEffectConfig = this.callEffectConfig_;
+                                    CallEffectConfig.Builder builder5 = callEffectConfig != null ? (CallEffectConfig.Builder) callEffectConfig.toBuilder() : null;
+                                    CallEffectConfig callEffectConfigW = eVar.w(CallEffectConfig.parser(), hVar2);
+                                    this.callEffectConfig_ = callEffectConfigW;
+                                    if (builder5 != null) {
+                                        builder5.mergeFrom(callEffectConfigW);
+                                        this.callEffectConfig_ = (CallEffectConfig) builder5.buildPartial();
+                                    }
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (IOException e) {
+                            aag0.a(new InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        } catch (InvalidProtocolBufferException e2) {
+                            aag0.a(e2.setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (Attribute.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public AvatarConfig getAvatarConfig() {
+            AvatarConfig avatarConfig = this.avatarConfig_;
+            return avatarConfig == null ? AvatarConfig.getDefaultInstance() : avatarConfig;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public CallEffectConfig getCallEffectConfig() {
+            CallEffectConfig callEffectConfig = this.callEffectConfig_;
+            return callEffectConfig == null ? CallEffectConfig.getDefaultInstance() : callEffectConfig;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public ChatShadingConfig getChatShadingConfig() {
+            ChatShadingConfig chatShadingConfig = this.chatShadingConfig_;
+            return chatShadingConfig == null ? ChatShadingConfig.getDefaultInstance() : chatShadingConfig;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public String getJumpUrl() {
+            return this.jumpUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public ByteString getJumpUrlBytes() {
+            return ByteString.copyFromUtf8(this.jumpUrl_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public ProfileConfig getProfileConfig() {
+            ProfileConfig profileConfig = this.profileConfig_;
+            return profileConfig == null ? ProfileConfig.getDefaultInstance() : profileConfig;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public String getResourceUrl() {
+            return this.resourceUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public ByteString getResourceUrlBytes() {
+            return ByteString.copyFromUtf8(this.resourceUrl_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public Restrict getRestrict() {
+            Restrict restrict = this.restrict_;
+            return restrict == null ? Restrict.getDefaultInstance() : restrict;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iK = !this.thumbnailUrl_.isEmpty() ? CodedOutputStream.K(2, getThumbnailUrl()) : 0;
+            if (!this.jumpUrl_.isEmpty()) {
+                iK += CodedOutputStream.K(3, getJumpUrl());
+            }
+            if (this.restrict_ != null) {
+                iK += CodedOutputStream.C(4, getRestrict());
+            }
+            if (!this.resourceUrl_.isEmpty()) {
+                iK += CodedOutputStream.K(5, getResourceUrl());
+            }
+            if (this.chatShadingConfig_ != null) {
+                iK += CodedOutputStream.C(10, getChatShadingConfig());
+            }
+            if (this.avatarConfig_ != null) {
+                iK += CodedOutputStream.C(11, getAvatarConfig());
+            }
+            if (this.profileConfig_ != null) {
+                iK += CodedOutputStream.C(12, getProfileConfig());
+            }
+            if (this.callEffectConfig_ != null) {
+                iK += CodedOutputStream.C(13, getCallEffectConfig());
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iK;
+            return iK;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public String getThumbnailUrl() {
+            return this.thumbnailUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public ByteString getThumbnailUrlBytes() {
+            return ByteString.copyFromUtf8(this.thumbnailUrl_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public boolean hasAvatarConfig() {
+            return this.avatarConfig_ != null;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public boolean hasCallEffectConfig() {
+            return this.callEffectConfig_ != null;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public boolean hasChatShadingConfig() {
+            return this.chatShadingConfig_ != null;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public boolean hasProfileConfig() {
+            return this.profileConfig_ != null;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+        public boolean hasRestrict() {
+            return this.restrict_ != null;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (!this.thumbnailUrl_.isEmpty()) {
+                codedOutputStream.D0(2, getThumbnailUrl());
+            }
+            if (!this.jumpUrl_.isEmpty()) {
+                codedOutputStream.D0(3, getJumpUrl());
+            }
+            if (this.restrict_ != null) {
+                codedOutputStream.w0(4, getRestrict());
+            }
+            if (!this.resourceUrl_.isEmpty()) {
+                codedOutputStream.D0(5, getResourceUrl());
+            }
+            if (this.chatShadingConfig_ != null) {
+                codedOutputStream.w0(10, getChatShadingConfig());
+            }
+            if (this.avatarConfig_ != null) {
+                codedOutputStream.w0(11, getAvatarConfig());
+            }
+            if (this.profileConfig_ != null) {
+                codedOutputStream.w0(12, getProfileConfig());
+            }
+            if (this.callEffectConfig_ != null) {
+                codedOutputStream.w0(13, getCallEffectConfig());
+            }
+        }
+
+        public static Attribute parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (Attribute) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static Attribute parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (Attribute) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setAvatarConfig(AvatarConfig avatarConfig) {
+            avatarConfig.getClass();
+            this.avatarConfig_ = avatarConfig;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setCallEffectConfig(CallEffectConfig callEffectConfig) {
+            callEffectConfig.getClass();
+            this.callEffectConfig_ = callEffectConfig;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setChatShadingConfig(ChatShadingConfig chatShadingConfig) {
+            chatShadingConfig.getClass();
+            this.chatShadingConfig_ = chatShadingConfig;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setProfileConfig(ProfileConfig profileConfig) {
+            profileConfig.getClass();
+            this.profileConfig_ = profileConfig;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setRestrict(Restrict restrict) {
+            restrict.getClass();
+            this.restrict_ = restrict;
+        }
+
+        public static final class Builder extends GeneratedMessageLite.b<Attribute, Builder> implements AttributeOrBuilder {
+            private Builder() {
+                super(Attribute.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearAvatarConfig() {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).clearAvatarConfig();
+                return this;
+            }
+
+            public Builder clearCallEffectConfig() {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).clearCallEffectConfig();
+                return this;
+            }
+
+            public Builder clearChatShadingConfig() {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).clearChatShadingConfig();
+                return this;
+            }
+
+            public Builder clearJumpUrl() {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).clearJumpUrl();
+                return this;
+            }
+
+            public Builder clearProfileConfig() {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).clearProfileConfig();
+                return this;
+            }
+
+            public Builder clearResourceUrl() {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).clearResourceUrl();
+                return this;
+            }
+
+            public Builder clearRestrict() {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).clearRestrict();
+                return this;
+            }
+
+            public Builder clearThumbnailUrl() {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).clearThumbnailUrl();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public AvatarConfig getAvatarConfig() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getAvatarConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public CallEffectConfig getCallEffectConfig() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getCallEffectConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public ChatShadingConfig getChatShadingConfig() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getChatShadingConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public String getJumpUrl() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getJumpUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public ByteString getJumpUrlBytes() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getJumpUrlBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public ProfileConfig getProfileConfig() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getProfileConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public String getResourceUrl() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getResourceUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public ByteString getResourceUrlBytes() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getResourceUrlBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public Restrict getRestrict() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getRestrict();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public String getThumbnailUrl() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getThumbnailUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public ByteString getThumbnailUrlBytes() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).getThumbnailUrlBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public boolean hasAvatarConfig() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).hasAvatarConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public boolean hasCallEffectConfig() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).hasCallEffectConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public boolean hasChatShadingConfig() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).hasChatShadingConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public boolean hasProfileConfig() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).hasProfileConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AttributeOrBuilder
+            public boolean hasRestrict() {
+                return ((Attribute) ((GeneratedMessageLite.b) this).instance).hasRestrict();
+            }
+
+            public Builder mergeAvatarConfig(AvatarConfig avatarConfig) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).mergeAvatarConfig(avatarConfig);
+                return this;
+            }
+
+            public Builder mergeCallEffectConfig(CallEffectConfig callEffectConfig) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).mergeCallEffectConfig(callEffectConfig);
+                return this;
+            }
+
+            public Builder mergeChatShadingConfig(ChatShadingConfig chatShadingConfig) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).mergeChatShadingConfig(chatShadingConfig);
+                return this;
+            }
+
+            public Builder mergeProfileConfig(ProfileConfig profileConfig) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).mergeProfileConfig(profileConfig);
+                return this;
+            }
+
+            public Builder mergeRestrict(Restrict restrict) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).mergeRestrict(restrict);
+                return this;
+            }
+
+            public Builder setAvatarConfig(AvatarConfig avatarConfig) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setAvatarConfig(avatarConfig);
+                return this;
+            }
+
+            public Builder setCallEffectConfig(CallEffectConfig callEffectConfig) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setCallEffectConfig(callEffectConfig);
+                return this;
+            }
+
+            public Builder setChatShadingConfig(ChatShadingConfig chatShadingConfig) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setChatShadingConfig(chatShadingConfig);
+                return this;
+            }
+
+            public Builder setJumpUrl(String str) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setJumpUrl(str);
+                return this;
+            }
+
+            public Builder setJumpUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setJumpUrlBytes(byteString);
+                return this;
+            }
+
+            public Builder setProfileConfig(ProfileConfig profileConfig) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setProfileConfig(profileConfig);
+                return this;
+            }
+
+            public Builder setResourceUrl(String str) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setResourceUrl(str);
+                return this;
+            }
+
+            public Builder setResourceUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setResourceUrlBytes(byteString);
+                return this;
+            }
+
+            public Builder setRestrict(Restrict restrict) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setRestrict(restrict);
+                return this;
+            }
+
+            public Builder setThumbnailUrl(String str) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setThumbnailUrl(str);
+                return this;
+            }
+
+            public Builder setThumbnailUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setThumbnailUrlBytes(byteString);
+                return this;
+            }
+
+            public Builder setAvatarConfig(AvatarConfig.Builder builder) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setAvatarConfig(builder);
+                return this;
+            }
+
+            public Builder setCallEffectConfig(CallEffectConfig.Builder builder) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setCallEffectConfig(builder);
+                return this;
+            }
+
+            public Builder setChatShadingConfig(ChatShadingConfig.Builder builder) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setChatShadingConfig(builder);
+                return this;
+            }
+
+            public Builder setProfileConfig(ProfileConfig.Builder builder) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setProfileConfig(builder);
+                return this;
+            }
+
+            public Builder setRestrict(Restrict.Builder builder) {
+                copyOnWrite();
+                ((Attribute) ((GeneratedMessageLite.b) this).instance).setRestrict(builder);
+                return this;
+            }
+        }
+
+        public static Attribute parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (Attribute) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static Attribute parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (Attribute) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static Attribute parseFrom(InputStream inputStream) throws IOException {
+            return (Attribute) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static Attribute parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (Attribute) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static Attribute parseFrom(e eVar) throws IOException {
+            return (Attribute) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Attribute parseFrom(e eVar, h hVar) throws IOException {
+            return (Attribute) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public static final class AvatarConfig extends GeneratedMessageLite<AvatarConfig, Builder> implements AvatarConfigOrBuilder {
+        public static final int AVATARURL_FIELD_NUMBER = 2;
+        public static final int CONNECTORIMAGE_FIELD_NUMBER = 3;
+        private static final AvatarConfig DEFAULT_INSTANCE;
+        public static final int FRAMECONFIG_FIELD_NUMBER = 1;
+        private static volatile i860<AvatarConfig> PARSER;
+        private String avatarUrl_ = "";
+        private String connectorImage_ = "";
+        private PictureConfig frameConfig_;
+
+        static {
+            AvatarConfig avatarConfig = new AvatarConfig();
+            DEFAULT_INSTANCE = avatarConfig;
+            avatarConfig.makeImmutable();
+        }
+
+        private AvatarConfig() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearAvatarUrl() {
+            this.avatarUrl_ = getDefaultInstance().getAvatarUrl();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearConnectorImage() {
+            this.connectorImage_ = getDefaultInstance().getConnectorImage();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearFrameConfig() {
+            this.frameConfig_ = null;
+        }
+
+        public static AvatarConfig getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeFrameConfig(PictureConfig pictureConfig) {
+            PictureConfig pictureConfig2 = this.frameConfig_;
+            if (pictureConfig2 == null || pictureConfig2 == PictureConfig.getDefaultInstance()) {
+                this.frameConfig_ = pictureConfig;
+            } else {
+                this.frameConfig_ = (PictureConfig) ((PictureConfig.Builder) PictureConfig.newBuilder(this.frameConfig_).mergeFrom(pictureConfig)).buildPartial();
+            }
+        }
+
+        public static Builder newBuilder(AvatarConfig avatarConfig) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(avatarConfig);
+        }
+
+        public static AvatarConfig parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (AvatarConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static AvatarConfig parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (AvatarConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<AvatarConfig> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setAvatarUrl(String str) {
+            str.getClass();
+            this.avatarUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setAvatarUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.avatarUrl_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setConnectorImage(String str) {
+            str.getClass();
+            this.connectorImage_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setConnectorImageBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.connectorImage_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setFrameConfig(PictureConfig.Builder builder) {
+            this.frameConfig_ = (PictureConfig) builder.build();
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new AvatarConfig();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    AvatarConfig avatarConfig = (AvatarConfig) obj2;
+                    this.frameConfig_ = hVar.o(this.frameConfig_, avatarConfig.frameConfig_);
+                    this.avatarUrl_ = hVar.f(!this.avatarUrl_.isEmpty(), this.avatarUrl_, !avatarConfig.avatarUrl_.isEmpty(), avatarConfig.avatarUrl_);
+                    this.connectorImage_ = hVar.f(!this.connectorImage_.isEmpty(), this.connectorImage_, true ^ avatarConfig.connectorImage_.isEmpty(), avatarConfig.connectorImage_);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    h hVar2 = (h) obj2;
+                    boolean z = false;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 10) {
+                                    PictureConfig pictureConfig = this.frameConfig_;
+                                    PictureConfig.Builder builder = pictureConfig != null ? (PictureConfig.Builder) pictureConfig.toBuilder() : null;
+                                    PictureConfig pictureConfigW = eVar.w(PictureConfig.parser(), hVar2);
+                                    this.frameConfig_ = pictureConfigW;
+                                    if (builder != null) {
+                                        builder.mergeFrom(pictureConfigW);
+                                        this.frameConfig_ = (PictureConfig) builder.buildPartial();
+                                    }
+                                } else if (iM == 18) {
+                                    this.avatarUrl_ = eVar.L();
+                                } else if (iM == 26) {
+                                    this.connectorImage_ = eVar.L();
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (IOException e) {
+                            aag0.a(new InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        } catch (InvalidProtocolBufferException e2) {
+                            aag0.a(e2.setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (AvatarConfig.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+        public String getAvatarUrl() {
+            return this.avatarUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+        public ByteString getAvatarUrlBytes() {
+            return ByteString.copyFromUtf8(this.avatarUrl_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+        public String getConnectorImage() {
+            return this.connectorImage_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+        public ByteString getConnectorImageBytes() {
+            return ByteString.copyFromUtf8(this.connectorImage_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+        public PictureConfig getFrameConfig() {
+            PictureConfig pictureConfig = this.frameConfig_;
+            return pictureConfig == null ? PictureConfig.getDefaultInstance() : pictureConfig;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iC = this.frameConfig_ != null ? CodedOutputStream.C(1, getFrameConfig()) : 0;
+            if (!this.avatarUrl_.isEmpty()) {
+                iC += CodedOutputStream.K(2, getAvatarUrl());
+            }
+            if (!this.connectorImage_.isEmpty()) {
+                iC += CodedOutputStream.K(3, getConnectorImage());
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iC;
+            return iC;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+        public boolean hasFrameConfig() {
+            return this.frameConfig_ != null;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (this.frameConfig_ != null) {
+                codedOutputStream.w0(1, getFrameConfig());
+            }
+            if (!this.avatarUrl_.isEmpty()) {
+                codedOutputStream.D0(2, getAvatarUrl());
+            }
+            if (this.connectorImage_.isEmpty()) {
+                return;
+            }
+            codedOutputStream.D0(3, getConnectorImage());
+        }
+
+        public static AvatarConfig parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (AvatarConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static AvatarConfig parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (AvatarConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setFrameConfig(PictureConfig pictureConfig) {
+            pictureConfig.getClass();
+            this.frameConfig_ = pictureConfig;
+        }
+
+        public static final class Builder extends GeneratedMessageLite.b<AvatarConfig, Builder> implements AvatarConfigOrBuilder {
+            private Builder() {
+                super(AvatarConfig.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearAvatarUrl() {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).clearAvatarUrl();
+                return this;
+            }
+
+            public Builder clearConnectorImage() {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).clearConnectorImage();
+                return this;
+            }
+
+            public Builder clearFrameConfig() {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).clearFrameConfig();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+            public String getAvatarUrl() {
+                return ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).getAvatarUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+            public ByteString getAvatarUrlBytes() {
+                return ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).getAvatarUrlBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+            public String getConnectorImage() {
+                return ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).getConnectorImage();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+            public ByteString getConnectorImageBytes() {
+                return ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).getConnectorImageBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+            public PictureConfig getFrameConfig() {
+                return ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).getFrameConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.AvatarConfigOrBuilder
+            public boolean hasFrameConfig() {
+                return ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).hasFrameConfig();
+            }
+
+            public Builder mergeFrameConfig(PictureConfig pictureConfig) {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).mergeFrameConfig(pictureConfig);
+                return this;
+            }
+
+            public Builder setAvatarUrl(String str) {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).setAvatarUrl(str);
+                return this;
+            }
+
+            public Builder setAvatarUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).setAvatarUrlBytes(byteString);
+                return this;
+            }
+
+            public Builder setConnectorImage(String str) {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).setConnectorImage(str);
+                return this;
+            }
+
+            public Builder setConnectorImageBytes(ByteString byteString) {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).setConnectorImageBytes(byteString);
+                return this;
+            }
+
+            public Builder setFrameConfig(PictureConfig pictureConfig) {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).setFrameConfig(pictureConfig);
+                return this;
+            }
+
+            public Builder setFrameConfig(PictureConfig.Builder builder) {
+                copyOnWrite();
+                ((AvatarConfig) ((GeneratedMessageLite.b) this).instance).setFrameConfig(builder);
+                return this;
+            }
+        }
+
+        public static AvatarConfig parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (AvatarConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static AvatarConfig parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (AvatarConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static AvatarConfig parseFrom(InputStream inputStream) throws IOException {
+            return (AvatarConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static AvatarConfig parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (AvatarConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static AvatarConfig parseFrom(e eVar) throws IOException {
+            return (AvatarConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static AvatarConfig parseFrom(e eVar, h hVar) throws IOException {
+            return (AvatarConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public enum BizType implements l.c {
+        grant(0),
+        userHierarchyGrade(1),
+        gift(2),
+        UNRECOGNIZED(-1);
+
+        public static final int gift_VALUE = 2;
+        public static final int grant_VALUE = 0;
+        private static final l.d<BizType> internalValueMap = new l.d<BizType>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.BizType.1
+            public BizType findValueByNumber(int i) {
+                return BizType.forNumber(i);
+            }
+        };
+        public static final int userHierarchyGrade_VALUE = 1;
+        private final int value;
+
+        BizType(int i) {
+            this.value = i;
+        }
+
+        public static BizType forNumber(int i) {
+            if (i == 0) {
+                return grant;
+            }
+            if (i == 1) {
+                return userHierarchyGrade;
+            }
+            if (i != 2) {
+                return null;
+            }
+            return gift;
+        }
+
+        public static l.d<BizType> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static BizType valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public static final class CallEffectConfig extends GeneratedMessageLite<CallEffectConfig, Builder> implements CallEffectConfigOrBuilder {
+        public static final int CIRCLEVOICINGURL_FIELD_NUMBER = 7;
+        public static final int DEFAULTICON_FIELD_NUMBER = 3;
+        private static final CallEffectConfig DEFAULT_INSTANCE;
+        public static final int HORIZONTALBG_FIELD_NUMBER = 2;
+        public static final int HORIZONTALVOICINGURL_FIELD_NUMBER = 6;
+        public static final int MUTEICON_FIELD_NUMBER = 4;
+        private static volatile i860<CallEffectConfig> PARSER = null;
+        public static final int VERTICALBG_FIELD_NUMBER = 1;
+        public static final int VERTICALVOICINGURL_FIELD_NUMBER = 5;
+        private String verticalBg_ = "";
+        private String horizontalBg_ = "";
+        private String defaultIcon_ = "";
+        private String muteIcon_ = "";
+        private String verticalVoicingUrl_ = "";
+        private String horizontalVoicingUrl_ = "";
+        private String circleVoicingUrl_ = "";
+
+        public static final class Builder extends GeneratedMessageLite.b<CallEffectConfig, Builder> implements CallEffectConfigOrBuilder {
+            private Builder() {
+                super(CallEffectConfig.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearCircleVoicingUrl() {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).clearCircleVoicingUrl();
+                return this;
+            }
+
+            public Builder clearDefaultIcon() {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).clearDefaultIcon();
+                return this;
+            }
+
+            public Builder clearHorizontalBg() {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).clearHorizontalBg();
+                return this;
+            }
+
+            public Builder clearHorizontalVoicingUrl() {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).clearHorizontalVoicingUrl();
+                return this;
+            }
+
+            public Builder clearMuteIcon() {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).clearMuteIcon();
+                return this;
+            }
+
+            public Builder clearVerticalBg() {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).clearVerticalBg();
+                return this;
+            }
+
+            public Builder clearVerticalVoicingUrl() {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).clearVerticalVoicingUrl();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public String getCircleVoicingUrl() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getCircleVoicingUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public ByteString getCircleVoicingUrlBytes() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getCircleVoicingUrlBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public String getDefaultIcon() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getDefaultIcon();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public ByteString getDefaultIconBytes() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getDefaultIconBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public String getHorizontalBg() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getHorizontalBg();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public ByteString getHorizontalBgBytes() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getHorizontalBgBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public String getHorizontalVoicingUrl() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getHorizontalVoicingUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public ByteString getHorizontalVoicingUrlBytes() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getHorizontalVoicingUrlBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public String getMuteIcon() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getMuteIcon();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public ByteString getMuteIconBytes() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getMuteIconBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public String getVerticalBg() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getVerticalBg();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public ByteString getVerticalBgBytes() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getVerticalBgBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public String getVerticalVoicingUrl() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getVerticalVoicingUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+            public ByteString getVerticalVoicingUrlBytes() {
+                return ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).getVerticalVoicingUrlBytes();
+            }
+
+            public Builder setCircleVoicingUrl(String str) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setCircleVoicingUrl(str);
+                return this;
+            }
+
+            public Builder setCircleVoicingUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setCircleVoicingUrlBytes(byteString);
+                return this;
+            }
+
+            public Builder setDefaultIcon(String str) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setDefaultIcon(str);
+                return this;
+            }
+
+            public Builder setDefaultIconBytes(ByteString byteString) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setDefaultIconBytes(byteString);
+                return this;
+            }
+
+            public Builder setHorizontalBg(String str) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setHorizontalBg(str);
+                return this;
+            }
+
+            public Builder setHorizontalBgBytes(ByteString byteString) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setHorizontalBgBytes(byteString);
+                return this;
+            }
+
+            public Builder setHorizontalVoicingUrl(String str) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setHorizontalVoicingUrl(str);
+                return this;
+            }
+
+            public Builder setHorizontalVoicingUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setHorizontalVoicingUrlBytes(byteString);
+                return this;
+            }
+
+            public Builder setMuteIcon(String str) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setMuteIcon(str);
+                return this;
+            }
+
+            public Builder setMuteIconBytes(ByteString byteString) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setMuteIconBytes(byteString);
+                return this;
+            }
+
+            public Builder setVerticalBg(String str) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setVerticalBg(str);
+                return this;
+            }
+
+            public Builder setVerticalBgBytes(ByteString byteString) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setVerticalBgBytes(byteString);
+                return this;
+            }
+
+            public Builder setVerticalVoicingUrl(String str) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setVerticalVoicingUrl(str);
+                return this;
+            }
+
+            public Builder setVerticalVoicingUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((CallEffectConfig) ((GeneratedMessageLite.b) this).instance).setVerticalVoicingUrlBytes(byteString);
+                return this;
+            }
+        }
+
+        static {
+            CallEffectConfig callEffectConfig = new CallEffectConfig();
+            DEFAULT_INSTANCE = callEffectConfig;
+            callEffectConfig.makeImmutable();
+        }
+
+        private CallEffectConfig() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearCircleVoicingUrl() {
+            this.circleVoicingUrl_ = getDefaultInstance().getCircleVoicingUrl();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearDefaultIcon() {
+            this.defaultIcon_ = getDefaultInstance().getDefaultIcon();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearHorizontalBg() {
+            this.horizontalBg_ = getDefaultInstance().getHorizontalBg();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearHorizontalVoicingUrl() {
+            this.horizontalVoicingUrl_ = getDefaultInstance().getHorizontalVoicingUrl();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearMuteIcon() {
+            this.muteIcon_ = getDefaultInstance().getMuteIcon();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearVerticalBg() {
+            this.verticalBg_ = getDefaultInstance().getVerticalBg();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearVerticalVoicingUrl() {
+            this.verticalVoicingUrl_ = getDefaultInstance().getVerticalVoicingUrl();
+        }
+
+        public static CallEffectConfig getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        public static Builder newBuilder(CallEffectConfig callEffectConfig) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(callEffectConfig);
+        }
+
+        public static CallEffectConfig parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (CallEffectConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static CallEffectConfig parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (CallEffectConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<CallEffectConfig> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setCircleVoicingUrl(String str) {
+            str.getClass();
+            this.circleVoicingUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setCircleVoicingUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.circleVoicingUrl_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setDefaultIcon(String str) {
+            str.getClass();
+            this.defaultIcon_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setDefaultIconBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.defaultIcon_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setHorizontalBg(String str) {
+            str.getClass();
+            this.horizontalBg_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setHorizontalBgBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.horizontalBg_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setHorizontalVoicingUrl(String str) {
+            str.getClass();
+            this.horizontalVoicingUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setHorizontalVoicingUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.horizontalVoicingUrl_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setMuteIcon(String str) {
+            str.getClass();
+            this.muteIcon_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setMuteIconBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.muteIcon_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setVerticalBg(String str) {
+            str.getClass();
+            this.verticalBg_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setVerticalBgBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.verticalBg_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setVerticalVoicingUrl(String str) {
+            str.getClass();
+            this.verticalVoicingUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setVerticalVoicingUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.verticalVoicingUrl_ = byteString.toStringUtf8();
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new CallEffectConfig();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    CallEffectConfig callEffectConfig = (CallEffectConfig) obj2;
+                    this.verticalBg_ = hVar.f(!this.verticalBg_.isEmpty(), this.verticalBg_, !callEffectConfig.verticalBg_.isEmpty(), callEffectConfig.verticalBg_);
+                    this.horizontalBg_ = hVar.f(!this.horizontalBg_.isEmpty(), this.horizontalBg_, !callEffectConfig.horizontalBg_.isEmpty(), callEffectConfig.horizontalBg_);
+                    this.defaultIcon_ = hVar.f(!this.defaultIcon_.isEmpty(), this.defaultIcon_, !callEffectConfig.defaultIcon_.isEmpty(), callEffectConfig.defaultIcon_);
+                    this.muteIcon_ = hVar.f(!this.muteIcon_.isEmpty(), this.muteIcon_, !callEffectConfig.muteIcon_.isEmpty(), callEffectConfig.muteIcon_);
+                    this.verticalVoicingUrl_ = hVar.f(!this.verticalVoicingUrl_.isEmpty(), this.verticalVoicingUrl_, !callEffectConfig.verticalVoicingUrl_.isEmpty(), callEffectConfig.verticalVoicingUrl_);
+                    this.horizontalVoicingUrl_ = hVar.f(!this.horizontalVoicingUrl_.isEmpty(), this.horizontalVoicingUrl_, !callEffectConfig.horizontalVoicingUrl_.isEmpty(), callEffectConfig.horizontalVoicingUrl_);
+                    this.circleVoicingUrl_ = hVar.f(!this.circleVoicingUrl_.isEmpty(), this.circleVoicingUrl_, true ^ callEffectConfig.circleVoicingUrl_.isEmpty(), callEffectConfig.circleVoicingUrl_);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    boolean z = false;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 10) {
+                                    this.verticalBg_ = eVar.L();
+                                } else if (iM == 18) {
+                                    this.horizontalBg_ = eVar.L();
+                                } else if (iM == 26) {
+                                    this.defaultIcon_ = eVar.L();
+                                } else if (iM == 34) {
+                                    this.muteIcon_ = eVar.L();
+                                } else if (iM == 42) {
+                                    this.verticalVoicingUrl_ = eVar.L();
+                                } else if (iM == 50) {
+                                    this.horizontalVoicingUrl_ = eVar.L();
+                                } else if (iM == 58) {
+                                    this.circleVoicingUrl_ = eVar.L();
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (IOException e) {
+                            aag0.a(new InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        } catch (InvalidProtocolBufferException e2) {
+                            aag0.a(e2.setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (CallEffectConfig.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public String getCircleVoicingUrl() {
+            return this.circleVoicingUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public ByteString getCircleVoicingUrlBytes() {
+            return ByteString.copyFromUtf8(this.circleVoicingUrl_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public String getDefaultIcon() {
+            return this.defaultIcon_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public ByteString getDefaultIconBytes() {
+            return ByteString.copyFromUtf8(this.defaultIcon_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public String getHorizontalBg() {
+            return this.horizontalBg_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public ByteString getHorizontalBgBytes() {
+            return ByteString.copyFromUtf8(this.horizontalBg_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public String getHorizontalVoicingUrl() {
+            return this.horizontalVoicingUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public ByteString getHorizontalVoicingUrlBytes() {
+            return ByteString.copyFromUtf8(this.horizontalVoicingUrl_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public String getMuteIcon() {
+            return this.muteIcon_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public ByteString getMuteIconBytes() {
+            return ByteString.copyFromUtf8(this.muteIcon_);
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iK = !this.verticalBg_.isEmpty() ? CodedOutputStream.K(1, getVerticalBg()) : 0;
+            if (!this.horizontalBg_.isEmpty()) {
+                iK += CodedOutputStream.K(2, getHorizontalBg());
+            }
+            if (!this.defaultIcon_.isEmpty()) {
+                iK += CodedOutputStream.K(3, getDefaultIcon());
+            }
+            if (!this.muteIcon_.isEmpty()) {
+                iK += CodedOutputStream.K(4, getMuteIcon());
+            }
+            if (!this.verticalVoicingUrl_.isEmpty()) {
+                iK += CodedOutputStream.K(5, getVerticalVoicingUrl());
+            }
+            if (!this.horizontalVoicingUrl_.isEmpty()) {
+                iK += CodedOutputStream.K(6, getHorizontalVoicingUrl());
+            }
+            if (!this.circleVoicingUrl_.isEmpty()) {
+                iK += CodedOutputStream.K(7, getCircleVoicingUrl());
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iK;
+            return iK;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public String getVerticalBg() {
+            return this.verticalBg_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public ByteString getVerticalBgBytes() {
+            return ByteString.copyFromUtf8(this.verticalBg_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public String getVerticalVoicingUrl() {
+            return this.verticalVoicingUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CallEffectConfigOrBuilder
+        public ByteString getVerticalVoicingUrlBytes() {
+            return ByteString.copyFromUtf8(this.verticalVoicingUrl_);
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (!this.verticalBg_.isEmpty()) {
+                codedOutputStream.D0(1, getVerticalBg());
+            }
+            if (!this.horizontalBg_.isEmpty()) {
+                codedOutputStream.D0(2, getHorizontalBg());
+            }
+            if (!this.defaultIcon_.isEmpty()) {
+                codedOutputStream.D0(3, getDefaultIcon());
+            }
+            if (!this.muteIcon_.isEmpty()) {
+                codedOutputStream.D0(4, getMuteIcon());
+            }
+            if (!this.verticalVoicingUrl_.isEmpty()) {
+                codedOutputStream.D0(5, getVerticalVoicingUrl());
+            }
+            if (!this.horizontalVoicingUrl_.isEmpty()) {
+                codedOutputStream.D0(6, getHorizontalVoicingUrl());
+            }
+            if (this.circleVoicingUrl_.isEmpty()) {
+                return;
+            }
+            codedOutputStream.D0(7, getCircleVoicingUrl());
+        }
+
+        public static CallEffectConfig parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (CallEffectConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static CallEffectConfig parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (CallEffectConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        public static CallEffectConfig parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (CallEffectConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static CallEffectConfig parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (CallEffectConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static CallEffectConfig parseFrom(InputStream inputStream) throws IOException {
+            return (CallEffectConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static CallEffectConfig parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (CallEffectConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static CallEffectConfig parseFrom(e eVar) throws IOException {
+            return (CallEffectConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static CallEffectConfig parseFrom(e eVar, h hVar) throws IOException {
+            return (CallEffectConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public static final class ChatShadingConfig extends GeneratedMessageLite<ChatShadingConfig, Builder> implements ChatShadingConfigOrBuilder {
+        public static final int BACKGROUNDCOLORCONFIG_FIELD_NUMBER = 2;
+        public static final int BORDERCOLORCONFIG_FIELD_NUMBER = 1;
+        public static final int CORNERCONFIG_FIELD_NUMBER = 3;
+        private static final ChatShadingConfig DEFAULT_INSTANCE;
+        private static volatile i860<ChatShadingConfig> PARSER;
+        private ColorConfig backgroundColorConfig_;
+        private ColorConfig borderColorConfig_;
+        private CornerConfig cornerConfig_;
+
+        static {
+            ChatShadingConfig chatShadingConfig = new ChatShadingConfig();
+            DEFAULT_INSTANCE = chatShadingConfig;
+            chatShadingConfig.makeImmutable();
+        }
+
+        private ChatShadingConfig() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearBackgroundColorConfig() {
+            this.backgroundColorConfig_ = null;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearBorderColorConfig() {
+            this.borderColorConfig_ = null;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearCornerConfig() {
+            this.cornerConfig_ = null;
+        }
+
+        public static ChatShadingConfig getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeBackgroundColorConfig(ColorConfig colorConfig) {
+            ColorConfig colorConfig2 = this.backgroundColorConfig_;
+            if (colorConfig2 == null || colorConfig2 == ColorConfig.getDefaultInstance()) {
+                this.backgroundColorConfig_ = colorConfig;
+            } else {
+                this.backgroundColorConfig_ = (ColorConfig) ((ColorConfig.Builder) ColorConfig.newBuilder(this.backgroundColorConfig_).mergeFrom(colorConfig)).buildPartial();
+            }
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeBorderColorConfig(ColorConfig colorConfig) {
+            ColorConfig colorConfig2 = this.borderColorConfig_;
+            if (colorConfig2 == null || colorConfig2 == ColorConfig.getDefaultInstance()) {
+                this.borderColorConfig_ = colorConfig;
+            } else {
+                this.borderColorConfig_ = (ColorConfig) ((ColorConfig.Builder) ColorConfig.newBuilder(this.borderColorConfig_).mergeFrom(colorConfig)).buildPartial();
+            }
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeCornerConfig(CornerConfig cornerConfig) {
+            CornerConfig cornerConfig2 = this.cornerConfig_;
+            if (cornerConfig2 == null || cornerConfig2 == CornerConfig.getDefaultInstance()) {
+                this.cornerConfig_ = cornerConfig;
+            } else {
+                this.cornerConfig_ = (CornerConfig) ((CornerConfig.Builder) CornerConfig.newBuilder(this.cornerConfig_).mergeFrom(cornerConfig)).buildPartial();
+            }
+        }
+
+        public static Builder newBuilder(ChatShadingConfig chatShadingConfig) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(chatShadingConfig);
+        }
+
+        public static ChatShadingConfig parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static ChatShadingConfig parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<ChatShadingConfig> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setBackgroundColorConfig(ColorConfig.Builder builder) {
+            this.backgroundColorConfig_ = (ColorConfig) builder.build();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setBorderColorConfig(ColorConfig.Builder builder) {
+            this.borderColorConfig_ = (ColorConfig) builder.build();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setCornerConfig(CornerConfig.Builder builder) {
+            this.cornerConfig_ = (CornerConfig) builder.build();
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new ChatShadingConfig();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    ChatShadingConfig chatShadingConfig = (ChatShadingConfig) obj2;
+                    this.borderColorConfig_ = hVar.o(this.borderColorConfig_, chatShadingConfig.borderColorConfig_);
+                    this.backgroundColorConfig_ = hVar.o(this.backgroundColorConfig_, chatShadingConfig.backgroundColorConfig_);
+                    this.cornerConfig_ = hVar.o(this.cornerConfig_, chatShadingConfig.cornerConfig_);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    h hVar2 = (h) obj2;
+                    boolean z = false;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 10) {
+                                    ColorConfig colorConfig = this.borderColorConfig_;
+                                    ColorConfig.Builder builder = colorConfig != null ? (ColorConfig.Builder) colorConfig.toBuilder() : null;
+                                    ColorConfig colorConfigW = eVar.w(ColorConfig.parser(), hVar2);
+                                    this.borderColorConfig_ = colorConfigW;
+                                    if (builder != null) {
+                                        builder.mergeFrom(colorConfigW);
+                                        this.borderColorConfig_ = (ColorConfig) builder.buildPartial();
+                                    }
+                                } else if (iM == 18) {
+                                    ColorConfig colorConfig2 = this.backgroundColorConfig_;
+                                    ColorConfig.Builder builder2 = colorConfig2 != null ? (ColorConfig.Builder) colorConfig2.toBuilder() : null;
+                                    ColorConfig colorConfigW2 = eVar.w(ColorConfig.parser(), hVar2);
+                                    this.backgroundColorConfig_ = colorConfigW2;
+                                    if (builder2 != null) {
+                                        builder2.mergeFrom(colorConfigW2);
+                                        this.backgroundColorConfig_ = (ColorConfig) builder2.buildPartial();
+                                    }
+                                } else if (iM == 26) {
+                                    CornerConfig cornerConfig = this.cornerConfig_;
+                                    CornerConfig.Builder builder3 = cornerConfig != null ? (CornerConfig.Builder) cornerConfig.toBuilder() : null;
+                                    CornerConfig cornerConfigW = eVar.w(CornerConfig.parser(), hVar2);
+                                    this.cornerConfig_ = cornerConfigW;
+                                    if (builder3 != null) {
+                                        builder3.mergeFrom(cornerConfigW);
+                                        this.cornerConfig_ = (CornerConfig) builder3.buildPartial();
+                                    }
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (IOException e) {
+                            aag0.a(new InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        } catch (InvalidProtocolBufferException e2) {
+                            aag0.a(e2.setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (ChatShadingConfig.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+        public ColorConfig getBackgroundColorConfig() {
+            ColorConfig colorConfig = this.backgroundColorConfig_;
+            return colorConfig == null ? ColorConfig.getDefaultInstance() : colorConfig;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+        public ColorConfig getBorderColorConfig() {
+            ColorConfig colorConfig = this.borderColorConfig_;
+            return colorConfig == null ? ColorConfig.getDefaultInstance() : colorConfig;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+        public CornerConfig getCornerConfig() {
+            CornerConfig cornerConfig = this.cornerConfig_;
+            return cornerConfig == null ? CornerConfig.getDefaultInstance() : cornerConfig;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iC = this.borderColorConfig_ != null ? CodedOutputStream.C(1, getBorderColorConfig()) : 0;
+            if (this.backgroundColorConfig_ != null) {
+                iC += CodedOutputStream.C(2, getBackgroundColorConfig());
+            }
+            if (this.cornerConfig_ != null) {
+                iC += CodedOutputStream.C(3, getCornerConfig());
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iC;
+            return iC;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+        public boolean hasBackgroundColorConfig() {
+            return this.backgroundColorConfig_ != null;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+        public boolean hasBorderColorConfig() {
+            return this.borderColorConfig_ != null;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+        public boolean hasCornerConfig() {
+            return this.cornerConfig_ != null;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (this.borderColorConfig_ != null) {
+                codedOutputStream.w0(1, getBorderColorConfig());
+            }
+            if (this.backgroundColorConfig_ != null) {
+                codedOutputStream.w0(2, getBackgroundColorConfig());
+            }
+            if (this.cornerConfig_ != null) {
+                codedOutputStream.w0(3, getCornerConfig());
+            }
+        }
+
+        public static ChatShadingConfig parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static ChatShadingConfig parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setBackgroundColorConfig(ColorConfig colorConfig) {
+            colorConfig.getClass();
+            this.backgroundColorConfig_ = colorConfig;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setBorderColorConfig(ColorConfig colorConfig) {
+            colorConfig.getClass();
+            this.borderColorConfig_ = colorConfig;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setCornerConfig(CornerConfig cornerConfig) {
+            cornerConfig.getClass();
+            this.cornerConfig_ = cornerConfig;
+        }
+
+        public static final class Builder extends GeneratedMessageLite.b<ChatShadingConfig, Builder> implements ChatShadingConfigOrBuilder {
+            private Builder() {
+                super(ChatShadingConfig.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearBackgroundColorConfig() {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).clearBackgroundColorConfig();
+                return this;
+            }
+
+            public Builder clearBorderColorConfig() {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).clearBorderColorConfig();
+                return this;
+            }
+
+            public Builder clearCornerConfig() {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).clearCornerConfig();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+            public ColorConfig getBackgroundColorConfig() {
+                return ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).getBackgroundColorConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+            public ColorConfig getBorderColorConfig() {
+                return ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).getBorderColorConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+            public CornerConfig getCornerConfig() {
+                return ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).getCornerConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+            public boolean hasBackgroundColorConfig() {
+                return ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).hasBackgroundColorConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+            public boolean hasBorderColorConfig() {
+                return ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).hasBorderColorConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ChatShadingConfigOrBuilder
+            public boolean hasCornerConfig() {
+                return ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).hasCornerConfig();
+            }
+
+            public Builder mergeBackgroundColorConfig(ColorConfig colorConfig) {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).mergeBackgroundColorConfig(colorConfig);
+                return this;
+            }
+
+            public Builder mergeBorderColorConfig(ColorConfig colorConfig) {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).mergeBorderColorConfig(colorConfig);
+                return this;
+            }
+
+            public Builder mergeCornerConfig(CornerConfig cornerConfig) {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).mergeCornerConfig(cornerConfig);
+                return this;
+            }
+
+            public Builder setBackgroundColorConfig(ColorConfig colorConfig) {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).setBackgroundColorConfig(colorConfig);
+                return this;
+            }
+
+            public Builder setBorderColorConfig(ColorConfig colorConfig) {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).setBorderColorConfig(colorConfig);
+                return this;
+            }
+
+            public Builder setCornerConfig(CornerConfig cornerConfig) {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).setCornerConfig(cornerConfig);
+                return this;
+            }
+
+            public Builder setBackgroundColorConfig(ColorConfig.Builder builder) {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).setBackgroundColorConfig(builder);
+                return this;
+            }
+
+            public Builder setBorderColorConfig(ColorConfig.Builder builder) {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).setBorderColorConfig(builder);
+                return this;
+            }
+
+            public Builder setCornerConfig(CornerConfig.Builder builder) {
+                copyOnWrite();
+                ((ChatShadingConfig) ((GeneratedMessageLite.b) this).instance).setCornerConfig(builder);
+                return this;
+            }
+        }
+
+        public static ChatShadingConfig parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static ChatShadingConfig parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static ChatShadingConfig parseFrom(InputStream inputStream) throws IOException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static ChatShadingConfig parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static ChatShadingConfig parseFrom(e eVar) throws IOException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static ChatShadingConfig parseFrom(e eVar, h hVar) throws IOException {
+            return (ChatShadingConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public static final class ColorConfig extends GeneratedMessageLite<ColorConfig, Builder> implements ColorConfigOrBuilder {
+        public static final int COLORS_FIELD_NUMBER = 2;
+        private static final ColorConfig DEFAULT_INSTANCE;
+        public static final int GRADIENTDIRECTION_FIELD_NUMBER = 1;
+        private static volatile i860<ColorConfig> PARSER = null;
+        public static final int TRANSPARENCY_FIELD_NUMBER = 3;
+        private int bitField0_;
+        private l.h<String> colors_ = GeneratedMessageLite.emptyProtobufList();
+        private int gradientDirection_;
+        private long transparency_;
+
+        public static final class Builder extends GeneratedMessageLite.b<ColorConfig, Builder> implements ColorConfigOrBuilder {
+            private Builder() {
+                super(ColorConfig.DEFAULT_INSTANCE);
+            }
+
+            public Builder addAllColors(Iterable<String> iterable) {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).addAllColors(iterable);
+                return this;
+            }
+
+            public Builder addColors(String str) {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).addColors(str);
+                return this;
+            }
+
+            public Builder addColorsBytes(ByteString byteString) {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).addColorsBytes(byteString);
+                return this;
+            }
+
+            public Builder clearColors() {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).clearColors();
+                return this;
+            }
+
+            public Builder clearGradientDirection() {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).clearGradientDirection();
+                return this;
+            }
+
+            public Builder clearTransparency() {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).clearTransparency();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+            public String getColors(int i) {
+                return ((ColorConfig) ((GeneratedMessageLite.b) this).instance).getColors(i);
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+            public ByteString getColorsBytes(int i) {
+                return ((ColorConfig) ((GeneratedMessageLite.b) this).instance).getColorsBytes(i);
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+            public int getColorsCount() {
+                return ((ColorConfig) ((GeneratedMessageLite.b) this).instance).getColorsCount();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+            public List<String> getColorsList() {
+                return Collections.unmodifiableList(((ColorConfig) ((GeneratedMessageLite.b) this).instance).getColorsList());
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+            public GradientDirection getGradientDirection() {
+                return ((ColorConfig) ((GeneratedMessageLite.b) this).instance).getGradientDirection();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+            public int getGradientDirectionValue() {
+                return ((ColorConfig) ((GeneratedMessageLite.b) this).instance).getGradientDirectionValue();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+            public long getTransparency() {
+                return ((ColorConfig) ((GeneratedMessageLite.b) this).instance).getTransparency();
+            }
+
+            public Builder setColors(int i, String str) {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).setColors(i, str);
+                return this;
+            }
+
+            public Builder setGradientDirection(GradientDirection gradientDirection) {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).setGradientDirection(gradientDirection);
+                return this;
+            }
+
+            public Builder setGradientDirectionValue(int i) {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).setGradientDirectionValue(i);
+                return this;
+            }
+
+            public Builder setTransparency(long j) {
+                copyOnWrite();
+                ((ColorConfig) ((GeneratedMessageLite.b) this).instance).setTransparency(j);
+                return this;
+            }
+        }
+
+        static {
+            ColorConfig colorConfig = new ColorConfig();
+            DEFAULT_INSTANCE = colorConfig;
+            colorConfig.makeImmutable();
+        }
+
+        private ColorConfig() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addAllColors(Iterable<String> iterable) {
+            ensureColorsIsMutable();
+            a.addAll(iterable, this.colors_);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addColors(String str) {
+            str.getClass();
+            ensureColorsIsMutable();
+            this.colors_.add(str);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addColorsBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            ensureColorsIsMutable();
+            this.colors_.add(byteString.toStringUtf8());
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearColors() {
+            this.colors_ = GeneratedMessageLite.emptyProtobufList();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearGradientDirection() {
+            this.gradientDirection_ = 0;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearTransparency() {
+            this.transparency_ = 0L;
+        }
+
+        private void ensureColorsIsMutable() {
+            if (this.colors_.q()) {
+                return;
+            }
+            this.colors_ = GeneratedMessageLite.mutableCopy(this.colors_);
+        }
+
+        public static ColorConfig getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        public static Builder newBuilder(ColorConfig colorConfig) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(colorConfig);
+        }
+
+        public static ColorConfig parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (ColorConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static ColorConfig parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (ColorConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<ColorConfig> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setColors(int i, String str) {
+            str.getClass();
+            ensureColorsIsMutable();
+            this.colors_.set(i, str);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setGradientDirection(GradientDirection gradientDirection) {
+            gradientDirection.getClass();
+            this.gradientDirection_ = gradientDirection.getNumber();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setGradientDirectionValue(int i) {
+            this.gradientDirection_ = i;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setTransparency(long j) {
+            this.transparency_ = j;
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            boolean z = false;
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new ColorConfig();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    this.colors_.n();
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.g gVar = (GeneratedMessageLite.h) obj;
+                    ColorConfig colorConfig = (ColorConfig) obj2;
+                    int i = this.gradientDirection_;
+                    boolean z2 = i != 0;
+                    int i2 = colorConfig.gradientDirection_;
+                    this.gradientDirection_ = gVar.e(z2, i, i2 != 0, i2);
+                    this.colors_ = gVar.g(this.colors_, colorConfig.colors_);
+                    long j = this.transparency_;
+                    boolean z3 = j != 0;
+                    long j2 = colorConfig.transparency_;
+                    this.transparency_ = gVar.i(z3, j, j2 != 0, j2);
+                    if (gVar == GeneratedMessageLite.g.INSTANCE) {
+                        this.bitField0_ |= colorConfig.bitField0_;
+                    }
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 8) {
+                                    this.gradientDirection_ = eVar.p();
+                                } else if (iM == 18) {
+                                    String strL = eVar.L();
+                                    if (!this.colors_.q()) {
+                                        this.colors_ = GeneratedMessageLite.mutableCopy(this.colors_);
+                                    }
+                                    this.colors_.add(strL);
+                                } else if (iM == 24) {
+                                    this.transparency_ = eVar.v();
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (InvalidProtocolBufferException e) {
+                            aag0.a(e.setUnfinishedMessage(this));
+                            return null;
+                        } catch (IOException e2) {
+                            aag0.a(new InvalidProtocolBufferException(e2.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (ColorConfig.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+        public String getColors(int i) {
+            return (String) this.colors_.get(i);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+        public ByteString getColorsBytes(int i) {
+            return ByteString.copyFromUtf8((String) this.colors_.get(i));
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+        public int getColorsCount() {
+            return this.colors_.size();
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+        public List<String> getColorsList() {
+            return this.colors_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+        public GradientDirection getGradientDirection() {
+            GradientDirection gradientDirectionForNumber = GradientDirection.forNumber(this.gradientDirection_);
+            return gradientDirectionForNumber == null ? GradientDirection.UNRECOGNIZED : gradientDirectionForNumber;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+        public int getGradientDirectionValue() {
+            return this.gradientDirection_;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iM = this.gradientDirection_ != GradientDirection.unknownDirection.getNumber() ? CodedOutputStream.m(1, this.gradientDirection_) : 0;
+            int iL = 0;
+            for (int i2 = 0; i2 < this.colors_.size(); i2++) {
+                iL += CodedOutputStream.L((String) this.colors_.get(i2));
+            }
+            int size = iM + iL + getColorsList().size();
+            long j = this.transparency_;
+            if (j != 0) {
+                size += CodedOutputStream.v(3, j);
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = size;
+            return size;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ColorConfigOrBuilder
+        public long getTransparency() {
+            return this.transparency_;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (this.gradientDirection_ != GradientDirection.unknownDirection.getNumber()) {
+                codedOutputStream.i0(1, this.gradientDirection_);
+            }
+            for (int i = 0; i < this.colors_.size(); i++) {
+                codedOutputStream.D0(2, (String) this.colors_.get(i));
+            }
+            long j = this.transparency_;
+            if (j != 0) {
+                codedOutputStream.u0(3, j);
+            }
+        }
+
+        public static ColorConfig parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (ColorConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static ColorConfig parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (ColorConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        public static ColorConfig parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (ColorConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static ColorConfig parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (ColorConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static ColorConfig parseFrom(InputStream inputStream) throws IOException {
+            return (ColorConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static ColorConfig parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (ColorConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static ColorConfig parseFrom(e eVar) throws IOException {
+            return (ColorConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static ColorConfig parseFrom(e eVar, h hVar) throws IOException {
+            return (ColorConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public static final class CornerConfig extends GeneratedMessageLite<CornerConfig, Builder> implements CornerConfigOrBuilder {
+        private static final CornerConfig DEFAULT_INSTANCE;
+        private static volatile i860<CornerConfig> PARSER = null;
+        public static final int PICTUREURL_FIELD_NUMBER = 1;
+        public static final int POSITION_FIELD_NUMBER = 2;
+        private String pictureUrl_ = "";
+        private int position_;
+
+        public static final class Builder extends GeneratedMessageLite.b<CornerConfig, Builder> implements CornerConfigOrBuilder {
+            private Builder() {
+                super(CornerConfig.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearPictureUrl() {
+                copyOnWrite();
+                ((CornerConfig) ((GeneratedMessageLite.b) this).instance).clearPictureUrl();
+                return this;
+            }
+
+            public Builder clearPosition() {
+                copyOnWrite();
+                ((CornerConfig) ((GeneratedMessageLite.b) this).instance).clearPosition();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CornerConfigOrBuilder
+            public String getPictureUrl() {
+                return ((CornerConfig) ((GeneratedMessageLite.b) this).instance).getPictureUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CornerConfigOrBuilder
+            public ByteString getPictureUrlBytes() {
+                return ((CornerConfig) ((GeneratedMessageLite.b) this).instance).getPictureUrlBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CornerConfigOrBuilder
+            public CornerPosition getPosition() {
+                return ((CornerConfig) ((GeneratedMessageLite.b) this).instance).getPosition();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CornerConfigOrBuilder
+            public int getPositionValue() {
+                return ((CornerConfig) ((GeneratedMessageLite.b) this).instance).getPositionValue();
+            }
+
+            public Builder setPictureUrl(String str) {
+                copyOnWrite();
+                ((CornerConfig) ((GeneratedMessageLite.b) this).instance).setPictureUrl(str);
+                return this;
+            }
+
+            public Builder setPictureUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((CornerConfig) ((GeneratedMessageLite.b) this).instance).setPictureUrlBytes(byteString);
+                return this;
+            }
+
+            public Builder setPosition(CornerPosition cornerPosition) {
+                copyOnWrite();
+                ((CornerConfig) ((GeneratedMessageLite.b) this).instance).setPosition(cornerPosition);
+                return this;
+            }
+
+            public Builder setPositionValue(int i) {
+                copyOnWrite();
+                ((CornerConfig) ((GeneratedMessageLite.b) this).instance).setPositionValue(i);
+                return this;
+            }
+        }
+
+        static {
+            CornerConfig cornerConfig = new CornerConfig();
+            DEFAULT_INSTANCE = cornerConfig;
+            cornerConfig.makeImmutable();
+        }
+
+        private CornerConfig() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearPictureUrl() {
+            this.pictureUrl_ = getDefaultInstance().getPictureUrl();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearPosition() {
+            this.position_ = 0;
+        }
+
+        public static CornerConfig getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        public static Builder newBuilder(CornerConfig cornerConfig) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(cornerConfig);
+        }
+
+        public static CornerConfig parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (CornerConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static CornerConfig parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (CornerConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<CornerConfig> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setPictureUrl(String str) {
+            str.getClass();
+            this.pictureUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setPictureUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.pictureUrl_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setPosition(CornerPosition cornerPosition) {
+            cornerPosition.getClass();
+            this.position_ = cornerPosition.getNumber();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setPositionValue(int i) {
+            this.position_ = i;
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            boolean z = false;
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new CornerConfig();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    CornerConfig cornerConfig = (CornerConfig) obj2;
+                    this.pictureUrl_ = hVar.f(!this.pictureUrl_.isEmpty(), this.pictureUrl_, !cornerConfig.pictureUrl_.isEmpty(), cornerConfig.pictureUrl_);
+                    int i = this.position_;
+                    boolean z2 = i != 0;
+                    int i2 = cornerConfig.position_;
+                    this.position_ = hVar.e(z2, i, i2 != 0, i2);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 10) {
+                                    this.pictureUrl_ = eVar.L();
+                                } else if (iM == 16) {
+                                    this.position_ = eVar.p();
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (IOException e) {
+                            aag0.a(new InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        } catch (InvalidProtocolBufferException e2) {
+                            aag0.a(e2.setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (CornerConfig.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CornerConfigOrBuilder
+        public String getPictureUrl() {
+            return this.pictureUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CornerConfigOrBuilder
+        public ByteString getPictureUrlBytes() {
+            return ByteString.copyFromUtf8(this.pictureUrl_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CornerConfigOrBuilder
+        public CornerPosition getPosition() {
+            CornerPosition cornerPositionForNumber = CornerPosition.forNumber(this.position_);
+            return cornerPositionForNumber == null ? CornerPosition.UNRECOGNIZED : cornerPositionForNumber;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.CornerConfigOrBuilder
+        public int getPositionValue() {
+            return this.position_;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iK = !this.pictureUrl_.isEmpty() ? CodedOutputStream.K(1, getPictureUrl()) : 0;
+            if (this.position_ != CornerPosition.nonePosition.getNumber()) {
+                iK += CodedOutputStream.m(2, this.position_);
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iK;
+            return iK;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (!this.pictureUrl_.isEmpty()) {
+                codedOutputStream.D0(1, getPictureUrl());
+            }
+            if (this.position_ != CornerPosition.nonePosition.getNumber()) {
+                codedOutputStream.i0(2, this.position_);
+            }
+        }
+
+        public static CornerConfig parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (CornerConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static CornerConfig parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (CornerConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        public static CornerConfig parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (CornerConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static CornerConfig parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (CornerConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static CornerConfig parseFrom(InputStream inputStream) throws IOException {
+            return (CornerConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static CornerConfig parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (CornerConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static CornerConfig parseFrom(e eVar) throws IOException {
+            return (CornerConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static CornerConfig parseFrom(e eVar, h hVar) throws IOException {
+            return (CornerConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public enum CornerPosition implements l.c {
+        nonePosition(0),
+        rightTop(1),
+        rightMiddle(2),
+        rightBottom(3),
+        UNRECOGNIZED(-1);
+
+        private static final l.d<CornerPosition> internalValueMap = new l.d<CornerPosition>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.CornerPosition.1
+            public CornerPosition findValueByNumber(int i) {
+                return CornerPosition.forNumber(i);
+            }
+        };
+        public static final int nonePosition_VALUE = 0;
+        public static final int rightBottom_VALUE = 3;
+        public static final int rightMiddle_VALUE = 2;
+        public static final int rightTop_VALUE = 1;
+        private final int value;
+
+        CornerPosition(int i) {
+            this.value = i;
+        }
+
+        public static CornerPosition forNumber(int i) {
+            if (i == 0) {
+                return nonePosition;
+            }
+            if (i == 1) {
+                return rightTop;
+            }
+            if (i == 2) {
+                return rightMiddle;
+            }
+            if (i != 3) {
+                return null;
+            }
+            return rightBottom;
+        }
+
+        public static l.d<CornerPosition> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static CornerPosition valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public enum FadingType implements l.c {
+        never(0),
+        relative(1),
+        absolute(2),
+        UNRECOGNIZED(-1);
+
+        public static final int absolute_VALUE = 2;
+        private static final l.d<FadingType> internalValueMap = new l.d<FadingType>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.FadingType.1
+            public FadingType findValueByNumber(int i) {
+                return FadingType.forNumber(i);
+            }
+        };
+        public static final int never_VALUE = 0;
+        public static final int relative_VALUE = 1;
+        private final int value;
+
+        FadingType(int i) {
+            this.value = i;
+        }
+
+        public static FadingType forNumber(int i) {
+            if (i == 0) {
+                return never;
+            }
+            if (i == 1) {
+                return relative;
+            }
+            if (i != 2) {
+                return null;
+            }
+            return absolute;
+        }
+
+        public static l.d<FadingType> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static FadingType valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public enum GradientDirection implements l.c {
+        unknownDirection(0),
+        fromUpToDown(1),
+        fromLeftToRight(2),
+        fromLeftUpToRightDown(3),
+        UNRECOGNIZED(-1);
+
+        public static final int fromLeftToRight_VALUE = 2;
+        public static final int fromLeftUpToRightDown_VALUE = 3;
+        public static final int fromUpToDown_VALUE = 1;
+        private static final l.d<GradientDirection> internalValueMap = new l.d<GradientDirection>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.GradientDirection.1
+            public GradientDirection findValueByNumber(int i) {
+                return GradientDirection.forNumber(i);
+            }
+        };
+        public static final int unknownDirection_VALUE = 0;
+        private final int value;
+
+        GradientDirection(int i) {
+            this.value = i;
+        }
+
+        public static GradientDirection forNumber(int i) {
+            if (i == 0) {
+                return unknownDirection;
+            }
+            if (i == 1) {
+                return fromUpToDown;
+            }
+            if (i == 2) {
+                return fromLeftToRight;
+            }
+            if (i != 3) {
+                return null;
+            }
+            return fromLeftUpToRightDown;
+        }
+
+        public static l.d<GradientDirection> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static GradientDirection valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public enum LiveRightStatus implements l.c {
+        unknownStatus(0),
+        pending(1),
+        delete(3),
+        UNRECOGNIZED(-1);
+
+        public static final int delete_VALUE = 3;
+        private static final l.d<LiveRightStatus> internalValueMap = new l.d<LiveRightStatus>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.LiveRightStatus.1
+            public LiveRightStatus findValueByNumber(int i) {
+                return LiveRightStatus.forNumber(i);
+            }
+        };
+        public static final int pending_VALUE = 1;
+        public static final int unknownStatus_VALUE = 0;
+        private final int value;
+
+        LiveRightStatus(int i) {
+            this.value = i;
+        }
+
+        public static LiveRightStatus forNumber(int i) {
+            if (i == 0) {
+                return unknownStatus;
+            }
+            if (i == 1) {
+                return pending;
+            }
+            if (i != 3) {
+                return null;
+            }
+            return delete;
+        }
+
+        public static l.d<LiveRightStatus> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static LiveRightStatus valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public enum OperationType implements l.c {
+        auto(0),
+        manual(1),
+        UNRECOGNIZED(-1);
+
+        public static final int auto_VALUE = 0;
+        private static final l.d<OperationType> internalValueMap = new l.d<OperationType>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.OperationType.1
+            public OperationType findValueByNumber(int i) {
+                return OperationType.forNumber(i);
+            }
+        };
+        public static final int manual_VALUE = 1;
+        private final int value;
+
+        OperationType(int i) {
+            this.value = i;
+        }
+
+        public static OperationType forNumber(int i) {
+            if (i == 0) {
+                return auto;
+            }
+            if (i != 1) {
+                return null;
+            }
+            return manual;
+        }
+
+        public static l.d<OperationType> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static OperationType valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public static final class PeriodConfig extends GeneratedMessageLite<PeriodConfig, Builder> implements PeriodConfigOrBuilder {
+        private static final PeriodConfig DEFAULT_INSTANCE;
+        public static final int FADINGTYPE_FIELD_NUMBER = 1;
+        public static final int FADINGVALUE_FIELD_NUMBER = 2;
+        private static volatile i860<PeriodConfig> PARSER = null;
+        public static final int SHOW_FIELD_NUMBER = 3;
+        private int fadingType_;
+        private long fadingValue_;
+        private boolean show_;
+
+        public static final class Builder extends GeneratedMessageLite.b<PeriodConfig, Builder> implements PeriodConfigOrBuilder {
+            private Builder() {
+                super(PeriodConfig.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearFadingType() {
+                copyOnWrite();
+                ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).clearFadingType();
+                return this;
+            }
+
+            public Builder clearFadingValue() {
+                copyOnWrite();
+                ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).clearFadingValue();
+                return this;
+            }
+
+            public Builder clearShow() {
+                copyOnWrite();
+                ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).clearShow();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PeriodConfigOrBuilder
+            public FadingType getFadingType() {
+                return ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).getFadingType();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PeriodConfigOrBuilder
+            public int getFadingTypeValue() {
+                return ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).getFadingTypeValue();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PeriodConfigOrBuilder
+            public long getFadingValue() {
+                return ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).getFadingValue();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PeriodConfigOrBuilder
+            public boolean getShow() {
+                return ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).getShow();
+            }
+
+            public Builder setFadingType(FadingType fadingType) {
+                copyOnWrite();
+                ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).setFadingType(fadingType);
+                return this;
+            }
+
+            public Builder setFadingTypeValue(int i) {
+                copyOnWrite();
+                ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).setFadingTypeValue(i);
+                return this;
+            }
+
+            public Builder setFadingValue(long j) {
+                copyOnWrite();
+                ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).setFadingValue(j);
+                return this;
+            }
+
+            public Builder setShow(boolean z) {
+                copyOnWrite();
+                ((PeriodConfig) ((GeneratedMessageLite.b) this).instance).setShow(z);
+                return this;
+            }
+        }
+
+        static {
+            PeriodConfig periodConfig = new PeriodConfig();
+            DEFAULT_INSTANCE = periodConfig;
+            periodConfig.makeImmutable();
+        }
+
+        private PeriodConfig() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearFadingType() {
+            this.fadingType_ = 0;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearFadingValue() {
+            this.fadingValue_ = 0L;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearShow() {
+            this.show_ = false;
+        }
+
+        public static PeriodConfig getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        public static Builder newBuilder(PeriodConfig periodConfig) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(periodConfig);
+        }
+
+        public static PeriodConfig parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (PeriodConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static PeriodConfig parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (PeriodConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<PeriodConfig> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setFadingType(FadingType fadingType) {
+            fadingType.getClass();
+            this.fadingType_ = fadingType.getNumber();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setFadingTypeValue(int i) {
+            this.fadingType_ = i;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setFadingValue(long j) {
+            this.fadingValue_ = j;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setShow(boolean z) {
+            this.show_ = z;
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            boolean z = false;
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new PeriodConfig();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    PeriodConfig periodConfig = (PeriodConfig) obj2;
+                    int i = this.fadingType_;
+                    boolean z2 = i != 0;
+                    int i2 = periodConfig.fadingType_;
+                    this.fadingType_ = hVar.e(z2, i, i2 != 0, i2);
+                    long j = this.fadingValue_;
+                    boolean z3 = j != 0;
+                    long j2 = periodConfig.fadingValue_;
+                    this.fadingValue_ = hVar.i(z3, j, j2 != 0, j2);
+                    boolean z4 = this.show_;
+                    boolean z5 = periodConfig.show_;
+                    this.show_ = hVar.d(z4, z4, z5, z5);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 8) {
+                                    this.fadingType_ = eVar.p();
+                                } else if (iM == 16) {
+                                    this.fadingValue_ = eVar.v();
+                                } else if (iM == 24) {
+                                    this.show_ = eVar.m();
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (InvalidProtocolBufferException e) {
+                            aag0.a(e.setUnfinishedMessage(this));
+                            return null;
+                        } catch (IOException e2) {
+                            aag0.a(new InvalidProtocolBufferException(e2.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (PeriodConfig.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PeriodConfigOrBuilder
+        public FadingType getFadingType() {
+            FadingType fadingTypeForNumber = FadingType.forNumber(this.fadingType_);
+            return fadingTypeForNumber == null ? FadingType.UNRECOGNIZED : fadingTypeForNumber;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PeriodConfigOrBuilder
+        public int getFadingTypeValue() {
+            return this.fadingType_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PeriodConfigOrBuilder
+        public long getFadingValue() {
+            return this.fadingValue_;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iM = this.fadingType_ != FadingType.never.getNumber() ? CodedOutputStream.m(1, this.fadingType_) : 0;
+            long j = this.fadingValue_;
+            if (j != 0) {
+                iM += CodedOutputStream.v(2, j);
+            }
+            boolean z = this.show_;
+            if (z) {
+                iM += CodedOutputStream.f(3, z);
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iM;
+            return iM;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PeriodConfigOrBuilder
+        public boolean getShow() {
+            return this.show_;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (this.fadingType_ != FadingType.never.getNumber()) {
+                codedOutputStream.i0(1, this.fadingType_);
+            }
+            long j = this.fadingValue_;
+            if (j != 0) {
+                codedOutputStream.u0(2, j);
+            }
+            boolean z = this.show_;
+            if (z) {
+                codedOutputStream.a0(3, z);
+            }
+        }
+
+        public static PeriodConfig parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (PeriodConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static PeriodConfig parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (PeriodConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        public static PeriodConfig parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (PeriodConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static PeriodConfig parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (PeriodConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static PeriodConfig parseFrom(InputStream inputStream) throws IOException {
+            return (PeriodConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static PeriodConfig parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (PeriodConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static PeriodConfig parseFrom(e eVar) throws IOException {
+            return (PeriodConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static PeriodConfig parseFrom(e eVar, h hVar) throws IOException {
+            return (PeriodConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public static final class PictureConfig extends GeneratedMessageLite<PictureConfig, Builder> implements PictureConfigOrBuilder {
+        private static final PictureConfig DEFAULT_INSTANCE;
+        public static final int DYNAMICURL_FIELD_NUMBER = 2;
+        private static volatile i860<PictureConfig> PARSER = null;
+        public static final int STATICURL_FIELD_NUMBER = 1;
+        private String staticUrl_ = "";
+        private String dynamicUrl_ = "";
+
+        public static final class Builder extends GeneratedMessageLite.b<PictureConfig, Builder> implements PictureConfigOrBuilder {
+            private Builder() {
+                super(PictureConfig.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearDynamicUrl() {
+                copyOnWrite();
+                ((PictureConfig) ((GeneratedMessageLite.b) this).instance).clearDynamicUrl();
+                return this;
+            }
+
+            public Builder clearStaticUrl() {
+                copyOnWrite();
+                ((PictureConfig) ((GeneratedMessageLite.b) this).instance).clearStaticUrl();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PictureConfigOrBuilder
+            public String getDynamicUrl() {
+                return ((PictureConfig) ((GeneratedMessageLite.b) this).instance).getDynamicUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PictureConfigOrBuilder
+            public ByteString getDynamicUrlBytes() {
+                return ((PictureConfig) ((GeneratedMessageLite.b) this).instance).getDynamicUrlBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PictureConfigOrBuilder
+            public String getStaticUrl() {
+                return ((PictureConfig) ((GeneratedMessageLite.b) this).instance).getStaticUrl();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PictureConfigOrBuilder
+            public ByteString getStaticUrlBytes() {
+                return ((PictureConfig) ((GeneratedMessageLite.b) this).instance).getStaticUrlBytes();
+            }
+
+            public Builder setDynamicUrl(String str) {
+                copyOnWrite();
+                ((PictureConfig) ((GeneratedMessageLite.b) this).instance).setDynamicUrl(str);
+                return this;
+            }
+
+            public Builder setDynamicUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((PictureConfig) ((GeneratedMessageLite.b) this).instance).setDynamicUrlBytes(byteString);
+                return this;
+            }
+
+            public Builder setStaticUrl(String str) {
+                copyOnWrite();
+                ((PictureConfig) ((GeneratedMessageLite.b) this).instance).setStaticUrl(str);
+                return this;
+            }
+
+            public Builder setStaticUrlBytes(ByteString byteString) {
+                copyOnWrite();
+                ((PictureConfig) ((GeneratedMessageLite.b) this).instance).setStaticUrlBytes(byteString);
+                return this;
+            }
+        }
+
+        static {
+            PictureConfig pictureConfig = new PictureConfig();
+            DEFAULT_INSTANCE = pictureConfig;
+            pictureConfig.makeImmutable();
+        }
+
+        private PictureConfig() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearDynamicUrl() {
+            this.dynamicUrl_ = getDefaultInstance().getDynamicUrl();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearStaticUrl() {
+            this.staticUrl_ = getDefaultInstance().getStaticUrl();
+        }
+
+        public static PictureConfig getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        public static Builder newBuilder(PictureConfig pictureConfig) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(pictureConfig);
+        }
+
+        public static PictureConfig parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (PictureConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static PictureConfig parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (PictureConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<PictureConfig> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setDynamicUrl(String str) {
+            str.getClass();
+            this.dynamicUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setDynamicUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.dynamicUrl_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setStaticUrl(String str) {
+            str.getClass();
+            this.staticUrl_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setStaticUrlBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.staticUrl_ = byteString.toStringUtf8();
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new PictureConfig();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    PictureConfig pictureConfig = (PictureConfig) obj2;
+                    this.staticUrl_ = hVar.f(!this.staticUrl_.isEmpty(), this.staticUrl_, !pictureConfig.staticUrl_.isEmpty(), pictureConfig.staticUrl_);
+                    this.dynamicUrl_ = hVar.f(!this.dynamicUrl_.isEmpty(), this.dynamicUrl_, true ^ pictureConfig.dynamicUrl_.isEmpty(), pictureConfig.dynamicUrl_);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    boolean z = false;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 10) {
+                                    this.staticUrl_ = eVar.L();
+                                } else if (iM == 18) {
+                                    this.dynamicUrl_ = eVar.L();
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (IOException e) {
+                            aag0.a(new InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        } catch (InvalidProtocolBufferException e2) {
+                            aag0.a(e2.setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (PictureConfig.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PictureConfigOrBuilder
+        public String getDynamicUrl() {
+            return this.dynamicUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PictureConfigOrBuilder
+        public ByteString getDynamicUrlBytes() {
+            return ByteString.copyFromUtf8(this.dynamicUrl_);
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iK = !this.staticUrl_.isEmpty() ? CodedOutputStream.K(1, getStaticUrl()) : 0;
+            if (!this.dynamicUrl_.isEmpty()) {
+                iK += CodedOutputStream.K(2, getDynamicUrl());
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iK;
+            return iK;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PictureConfigOrBuilder
+        public String getStaticUrl() {
+            return this.staticUrl_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.PictureConfigOrBuilder
+        public ByteString getStaticUrlBytes() {
+            return ByteString.copyFromUtf8(this.staticUrl_);
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (!this.staticUrl_.isEmpty()) {
+                codedOutputStream.D0(1, getStaticUrl());
+            }
+            if (this.dynamicUrl_.isEmpty()) {
+                return;
+            }
+            codedOutputStream.D0(2, getDynamicUrl());
+        }
+
+        public static PictureConfig parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (PictureConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static PictureConfig parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (PictureConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        public static PictureConfig parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (PictureConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static PictureConfig parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (PictureConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static PictureConfig parseFrom(InputStream inputStream) throws IOException {
+            return (PictureConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static PictureConfig parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (PictureConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static PictureConfig parseFrom(e eVar) throws IOException {
+            return (PictureConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static PictureConfig parseFrom(e eVar, h hVar) throws IOException {
+            return (PictureConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public enum PlaceType implements l.c {
+        videoRoom(0),
+        voiceRoom(1),
+        UNRECOGNIZED(-1);
+
+        private static final l.d<PlaceType> internalValueMap = new l.d<PlaceType>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.PlaceType.1
+            public PlaceType findValueByNumber(int i) {
+                return PlaceType.forNumber(i);
+            }
+        };
+        public static final int videoRoom_VALUE = 0;
+        public static final int voiceRoom_VALUE = 1;
+        private final int value;
+
+        PlaceType(int i) {
+            this.value = i;
+        }
+
+        public static PlaceType forNumber(int i) {
+            if (i == 0) {
+                return videoRoom;
+            }
+            if (i != 1) {
+                return null;
+            }
+            return voiceRoom;
+        }
+
+        public static l.d<PlaceType> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static PlaceType valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public static final class ProfileConfig extends GeneratedMessageLite<ProfileConfig, Builder> implements ProfileConfigOrBuilder {
+        public static final int BACKGROUNDPICTURECONFIG_FIELD_NUMBER = 1;
+        private static final ProfileConfig DEFAULT_INSTANCE;
+        private static volatile i860<ProfileConfig> PARSER = null;
+        public static final int TOPFRAMECONFIG_FIELD_NUMBER = 2;
+        private PictureConfig backgroundPictureConfig_;
+        private PictureConfig topFrameConfig_;
+
+        static {
+            ProfileConfig profileConfig = new ProfileConfig();
+            DEFAULT_INSTANCE = profileConfig;
+            profileConfig.makeImmutable();
+        }
+
+        private ProfileConfig() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearBackgroundPictureConfig() {
+            this.backgroundPictureConfig_ = null;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearTopFrameConfig() {
+            this.topFrameConfig_ = null;
+        }
+
+        public static ProfileConfig getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeBackgroundPictureConfig(PictureConfig pictureConfig) {
+            PictureConfig pictureConfig2 = this.backgroundPictureConfig_;
+            if (pictureConfig2 == null || pictureConfig2 == PictureConfig.getDefaultInstance()) {
+                this.backgroundPictureConfig_ = pictureConfig;
+            } else {
+                this.backgroundPictureConfig_ = (PictureConfig) ((PictureConfig.Builder) PictureConfig.newBuilder(this.backgroundPictureConfig_).mergeFrom(pictureConfig)).buildPartial();
+            }
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeTopFrameConfig(PictureConfig pictureConfig) {
+            PictureConfig pictureConfig2 = this.topFrameConfig_;
+            if (pictureConfig2 == null || pictureConfig2 == PictureConfig.getDefaultInstance()) {
+                this.topFrameConfig_ = pictureConfig;
+            } else {
+                this.topFrameConfig_ = (PictureConfig) ((PictureConfig.Builder) PictureConfig.newBuilder(this.topFrameConfig_).mergeFrom(pictureConfig)).buildPartial();
+            }
+        }
+
+        public static Builder newBuilder(ProfileConfig profileConfig) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(profileConfig);
+        }
+
+        public static ProfileConfig parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (ProfileConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static ProfileConfig parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (ProfileConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<ProfileConfig> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setBackgroundPictureConfig(PictureConfig.Builder builder) {
+            this.backgroundPictureConfig_ = (PictureConfig) builder.build();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setTopFrameConfig(PictureConfig.Builder builder) {
+            this.topFrameConfig_ = (PictureConfig) builder.build();
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new ProfileConfig();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    ProfileConfig profileConfig = (ProfileConfig) obj2;
+                    this.backgroundPictureConfig_ = hVar.o(this.backgroundPictureConfig_, profileConfig.backgroundPictureConfig_);
+                    this.topFrameConfig_ = hVar.o(this.topFrameConfig_, profileConfig.topFrameConfig_);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    h hVar2 = (h) obj2;
+                    boolean z = false;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 10) {
+                                    PictureConfig pictureConfig = this.backgroundPictureConfig_;
+                                    PictureConfig.Builder builder = pictureConfig != null ? (PictureConfig.Builder) pictureConfig.toBuilder() : null;
+                                    PictureConfig pictureConfigW = eVar.w(PictureConfig.parser(), hVar2);
+                                    this.backgroundPictureConfig_ = pictureConfigW;
+                                    if (builder != null) {
+                                        builder.mergeFrom(pictureConfigW);
+                                        this.backgroundPictureConfig_ = (PictureConfig) builder.buildPartial();
+                                    }
+                                } else if (iM == 18) {
+                                    PictureConfig pictureConfig2 = this.topFrameConfig_;
+                                    PictureConfig.Builder builder2 = pictureConfig2 != null ? (PictureConfig.Builder) pictureConfig2.toBuilder() : null;
+                                    PictureConfig pictureConfigW2 = eVar.w(PictureConfig.parser(), hVar2);
+                                    this.topFrameConfig_ = pictureConfigW2;
+                                    if (builder2 != null) {
+                                        builder2.mergeFrom(pictureConfigW2);
+                                        this.topFrameConfig_ = (PictureConfig) builder2.buildPartial();
+                                    }
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (IOException e) {
+                            aag0.a(new InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        } catch (InvalidProtocolBufferException e2) {
+                            aag0.a(e2.setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (ProfileConfig.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ProfileConfigOrBuilder
+        public PictureConfig getBackgroundPictureConfig() {
+            PictureConfig pictureConfig = this.backgroundPictureConfig_;
+            return pictureConfig == null ? PictureConfig.getDefaultInstance() : pictureConfig;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iC = this.backgroundPictureConfig_ != null ? CodedOutputStream.C(1, getBackgroundPictureConfig()) : 0;
+            if (this.topFrameConfig_ != null) {
+                iC += CodedOutputStream.C(2, getTopFrameConfig());
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iC;
+            return iC;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ProfileConfigOrBuilder
+        public PictureConfig getTopFrameConfig() {
+            PictureConfig pictureConfig = this.topFrameConfig_;
+            return pictureConfig == null ? PictureConfig.getDefaultInstance() : pictureConfig;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ProfileConfigOrBuilder
+        public boolean hasBackgroundPictureConfig() {
+            return this.backgroundPictureConfig_ != null;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ProfileConfigOrBuilder
+        public boolean hasTopFrameConfig() {
+            return this.topFrameConfig_ != null;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (this.backgroundPictureConfig_ != null) {
+                codedOutputStream.w0(1, getBackgroundPictureConfig());
+            }
+            if (this.topFrameConfig_ != null) {
+                codedOutputStream.w0(2, getTopFrameConfig());
+            }
+        }
+
+        public static ProfileConfig parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (ProfileConfig) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static ProfileConfig parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (ProfileConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setBackgroundPictureConfig(PictureConfig pictureConfig) {
+            pictureConfig.getClass();
+            this.backgroundPictureConfig_ = pictureConfig;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setTopFrameConfig(PictureConfig pictureConfig) {
+            pictureConfig.getClass();
+            this.topFrameConfig_ = pictureConfig;
+        }
+
+        public static final class Builder extends GeneratedMessageLite.b<ProfileConfig, Builder> implements ProfileConfigOrBuilder {
+            private Builder() {
+                super(ProfileConfig.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearBackgroundPictureConfig() {
+                copyOnWrite();
+                ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).clearBackgroundPictureConfig();
+                return this;
+            }
+
+            public Builder clearTopFrameConfig() {
+                copyOnWrite();
+                ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).clearTopFrameConfig();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ProfileConfigOrBuilder
+            public PictureConfig getBackgroundPictureConfig() {
+                return ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).getBackgroundPictureConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ProfileConfigOrBuilder
+            public PictureConfig getTopFrameConfig() {
+                return ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).getTopFrameConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ProfileConfigOrBuilder
+            public boolean hasBackgroundPictureConfig() {
+                return ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).hasBackgroundPictureConfig();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.ProfileConfigOrBuilder
+            public boolean hasTopFrameConfig() {
+                return ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).hasTopFrameConfig();
+            }
+
+            public Builder mergeBackgroundPictureConfig(PictureConfig pictureConfig) {
+                copyOnWrite();
+                ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).mergeBackgroundPictureConfig(pictureConfig);
+                return this;
+            }
+
+            public Builder mergeTopFrameConfig(PictureConfig pictureConfig) {
+                copyOnWrite();
+                ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).mergeTopFrameConfig(pictureConfig);
+                return this;
+            }
+
+            public Builder setBackgroundPictureConfig(PictureConfig pictureConfig) {
+                copyOnWrite();
+                ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).setBackgroundPictureConfig(pictureConfig);
+                return this;
+            }
+
+            public Builder setTopFrameConfig(PictureConfig pictureConfig) {
+                copyOnWrite();
+                ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).setTopFrameConfig(pictureConfig);
+                return this;
+            }
+
+            public Builder setBackgroundPictureConfig(PictureConfig.Builder builder) {
+                copyOnWrite();
+                ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).setBackgroundPictureConfig(builder);
+                return this;
+            }
+
+            public Builder setTopFrameConfig(PictureConfig.Builder builder) {
+                copyOnWrite();
+                ((ProfileConfig) ((GeneratedMessageLite.b) this).instance).setTopFrameConfig(builder);
+                return this;
+            }
+        }
+
+        public static ProfileConfig parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (ProfileConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static ProfileConfig parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (ProfileConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static ProfileConfig parseFrom(InputStream inputStream) throws IOException {
+            return (ProfileConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static ProfileConfig parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (ProfileConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static ProfileConfig parseFrom(e eVar) throws IOException {
+            return (ProfileConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static ProfileConfig parseFrom(e eVar, h hVar) throws IOException {
+            return (ProfileConfig) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public enum ReceiveType implements l.c {
+        forReceiver(0),
+        forGiver(1),
+        UNRECOGNIZED(-1);
+
+        public static final int forGiver_VALUE = 1;
+        public static final int forReceiver_VALUE = 0;
+        private static final l.d<ReceiveType> internalValueMap = new l.d<ReceiveType>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.ReceiveType.1
+            public ReceiveType findValueByNumber(int i) {
+                return ReceiveType.forNumber(i);
+            }
+        };
+        private final int value;
+
+        ReceiveType(int i) {
+            this.value = i;
+        }
+
+        public static ReceiveType forNumber(int i) {
+            if (i == 0) {
+                return forReceiver;
+            }
+            if (i != 1) {
+                return null;
+            }
+            return forGiver;
+        }
+
+        public static l.d<ReceiveType> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static ReceiveType valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public static final class Restrict extends GeneratedMessageLite<Restrict, Builder> implements RestrictOrBuilder {
+        private static final Restrict DEFAULT_INSTANCE;
+        public static final int GIFTIDS_FIELD_NUMBER = 2;
+        public static final int GRADE_FIELD_NUMBER = 1;
+        private static volatile i860<Restrict> PARSER = null;
+        public static final int RECEIVETYPE_FIELD_NUMBER = 3;
+        private int bitField0_;
+        private l.g giftIds_ = GeneratedMessageLite.emptyLongList();
+        private long grade_;
+        private int receiveType_;
+
+        public static final class Builder extends GeneratedMessageLite.b<Restrict, Builder> implements RestrictOrBuilder {
+            private Builder() {
+                super(Restrict.DEFAULT_INSTANCE);
+            }
+
+            public Builder addAllGiftIds(Iterable<? extends Long> iterable) {
+                copyOnWrite();
+                ((Restrict) ((GeneratedMessageLite.b) this).instance).addAllGiftIds(iterable);
+                return this;
+            }
+
+            public Builder addGiftIds(long j) {
+                copyOnWrite();
+                ((Restrict) ((GeneratedMessageLite.b) this).instance).addGiftIds(j);
+                return this;
+            }
+
+            public Builder clearGiftIds() {
+                copyOnWrite();
+                ((Restrict) ((GeneratedMessageLite.b) this).instance).clearGiftIds();
+                return this;
+            }
+
+            public Builder clearGrade() {
+                copyOnWrite();
+                ((Restrict) ((GeneratedMessageLite.b) this).instance).clearGrade();
+                return this;
+            }
+
+            public Builder clearReceiveType() {
+                copyOnWrite();
+                ((Restrict) ((GeneratedMessageLite.b) this).instance).clearReceiveType();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+            public long getGiftIds(int i) {
+                return ((Restrict) ((GeneratedMessageLite.b) this).instance).getGiftIds(i);
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+            public int getGiftIdsCount() {
+                return ((Restrict) ((GeneratedMessageLite.b) this).instance).getGiftIdsCount();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+            public List<Long> getGiftIdsList() {
+                return Collections.unmodifiableList(((Restrict) ((GeneratedMessageLite.b) this).instance).getGiftIdsList());
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+            public long getGrade() {
+                return ((Restrict) ((GeneratedMessageLite.b) this).instance).getGrade();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+            public ReceiveType getReceiveType() {
+                return ((Restrict) ((GeneratedMessageLite.b) this).instance).getReceiveType();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+            public int getReceiveTypeValue() {
+                return ((Restrict) ((GeneratedMessageLite.b) this).instance).getReceiveTypeValue();
+            }
+
+            public Builder setGiftIds(int i, long j) {
+                copyOnWrite();
+                ((Restrict) ((GeneratedMessageLite.b) this).instance).setGiftIds(i, j);
+                return this;
+            }
+
+            public Builder setGrade(long j) {
+                copyOnWrite();
+                ((Restrict) ((GeneratedMessageLite.b) this).instance).setGrade(j);
+                return this;
+            }
+
+            public Builder setReceiveType(ReceiveType receiveType) {
+                copyOnWrite();
+                ((Restrict) ((GeneratedMessageLite.b) this).instance).setReceiveType(receiveType);
+                return this;
+            }
+
+            public Builder setReceiveTypeValue(int i) {
+                copyOnWrite();
+                ((Restrict) ((GeneratedMessageLite.b) this).instance).setReceiveTypeValue(i);
+                return this;
+            }
+        }
+
+        static {
+            Restrict restrict = new Restrict();
+            DEFAULT_INSTANCE = restrict;
+            restrict.makeImmutable();
+        }
+
+        private Restrict() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addAllGiftIds(Iterable<? extends Long> iterable) {
+            ensureGiftIdsIsMutable();
+            a.addAll(iterable, this.giftIds_);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addGiftIds(long j) {
+            ensureGiftIdsIsMutable();
+            this.giftIds_.u(j);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearGiftIds() {
+            this.giftIds_ = GeneratedMessageLite.emptyLongList();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearGrade() {
+            this.grade_ = 0L;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearReceiveType() {
+            this.receiveType_ = 0;
+        }
+
+        private void ensureGiftIdsIsMutable() {
+            if (this.giftIds_.q()) {
+                return;
+            }
+            this.giftIds_ = GeneratedMessageLite.mutableCopy(this.giftIds_);
+        }
+
+        public static Restrict getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        public static Builder newBuilder(Restrict restrict) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(restrict);
+        }
+
+        public static Restrict parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (Restrict) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static Restrict parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (Restrict) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<Restrict> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setGiftIds(int i, long j) {
+            ensureGiftIdsIsMutable();
+            this.giftIds_.setLong(i, j);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setGrade(long j) {
+            this.grade_ = j;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setReceiveType(ReceiveType receiveType) {
+            receiveType.getClass();
+            this.receiveType_ = receiveType.getNumber();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setReceiveTypeValue(int i) {
+            this.receiveType_ = i;
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            boolean z = false;
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new Restrict();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    this.giftIds_.n();
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.g gVar = (GeneratedMessageLite.h) obj;
+                    Restrict restrict = (Restrict) obj2;
+                    long j = this.grade_;
+                    boolean z2 = j != 0;
+                    long j2 = restrict.grade_;
+                    this.grade_ = gVar.i(z2, j, j2 != 0, j2);
+                    this.giftIds_ = gVar.q(this.giftIds_, restrict.giftIds_);
+                    int i = this.receiveType_;
+                    boolean z3 = i != 0;
+                    int i2 = restrict.receiveType_;
+                    this.receiveType_ = gVar.e(z3, i, i2 != 0, i2);
+                    if (gVar == GeneratedMessageLite.g.INSTANCE) {
+                        this.bitField0_ |= restrict.bitField0_;
+                    }
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 8) {
+                                    this.grade_ = eVar.v();
+                                } else if (iM == 16) {
+                                    if (!this.giftIds_.q()) {
+                                        this.giftIds_ = GeneratedMessageLite.mutableCopy(this.giftIds_);
+                                    }
+                                    this.giftIds_.u(eVar.v());
+                                } else if (iM == 18) {
+                                    int iL = eVar.l(eVar.C());
+                                    if (!this.giftIds_.q() && eVar.d() > 0) {
+                                        this.giftIds_ = GeneratedMessageLite.mutableCopy(this.giftIds_);
+                                    }
+                                    while (eVar.d() > 0) {
+                                        this.giftIds_.u(eVar.v());
+                                    }
+                                    eVar.k(iL);
+                                } else if (iM == 24) {
+                                    this.receiveType_ = eVar.p();
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (InvalidProtocolBufferException e) {
+                            aag0.a(e.setUnfinishedMessage(this));
+                            return null;
+                        } catch (IOException e2) {
+                            aag0.a(new InvalidProtocolBufferException(e2.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (Restrict.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+        public long getGiftIds(int i) {
+            return this.giftIds_.getLong(i);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+        public int getGiftIdsCount() {
+            return this.giftIds_.size();
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+        public List<Long> getGiftIdsList() {
+            return this.giftIds_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+        public long getGrade() {
+            return this.grade_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+        public ReceiveType getReceiveType() {
+            ReceiveType receiveTypeForNumber = ReceiveType.forNumber(this.receiveType_);
+            return receiveTypeForNumber == null ? ReceiveType.UNRECOGNIZED : receiveTypeForNumber;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.RestrictOrBuilder
+        public int getReceiveTypeValue() {
+            return this.receiveType_;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            long j = this.grade_;
+            int iV = j != 0 ? CodedOutputStream.v(1, j) : 0;
+            int iW = 0;
+            for (int i2 = 0; i2 < this.giftIds_.size(); i2++) {
+                iW += CodedOutputStream.w(this.giftIds_.getLong(i2));
+            }
+            int size = iV + iW + getGiftIdsList().size();
+            if (this.receiveType_ != ReceiveType.forReceiver.getNumber()) {
+                size += CodedOutputStream.m(3, this.receiveType_);
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = size;
+            return size;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            getSerializedSize();
+            long j = this.grade_;
+            if (j != 0) {
+                codedOutputStream.u0(1, j);
+            }
+            for (int i = 0; i < this.giftIds_.size(); i++) {
+                codedOutputStream.u0(2, this.giftIds_.getLong(i));
+            }
+            if (this.receiveType_ != ReceiveType.forReceiver.getNumber()) {
+                codedOutputStream.i0(3, this.receiveType_);
+            }
+        }
+
+        public static Restrict parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (Restrict) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static Restrict parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (Restrict) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        public static Restrict parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (Restrict) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static Restrict parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (Restrict) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static Restrict parseFrom(InputStream inputStream) throws IOException {
+            return (Restrict) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static Restrict parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (Restrict) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static Restrict parseFrom(e eVar) throws IOException {
+            return (Restrict) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Restrict parseFrom(e eVar, h hVar) throws IOException {
+            return (Restrict) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public enum ShowType implements l.c {
+        single(0),
+        multiple(1),
+        UNRECOGNIZED(-1);
+
+        private static final l.d<ShowType> internalValueMap = new l.d<ShowType>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.ShowType.1
+            public ShowType findValueByNumber(int i) {
+                return ShowType.forNumber(i);
+            }
+        };
+        public static final int multiple_VALUE = 1;
+        public static final int single_VALUE = 0;
+        private final int value;
+
+        ShowType(int i) {
+            this.value = i;
+        }
+
+        public static ShowType forNumber(int i) {
+            if (i == 0) {
+                return single;
+            }
+            if (i != 1) {
+                return null;
+            }
+            return multiple;
+        }
+
+        public static l.d<ShowType> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static ShowType valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public static final class TopChatUpdateNotice extends GeneratedMessageLite<TopChatUpdateNotice, Builder> implements TopChatUpdateNoticeOrBuilder {
+        private static final TopChatUpdateNotice DEFAULT_INSTANCE;
+        private static volatile i860<TopChatUpdateNotice> PARSER = null;
+        public static final int RANDOMDELAYSECONDS_FIELD_NUMBER = 1;
+        public static final int TIMESTAMP_FIELD_NUMBER = 2;
+        private long randomDelaySeconds_;
+        private long timestamp_;
+
+        public static final class Builder extends GeneratedMessageLite.b<TopChatUpdateNotice, Builder> implements TopChatUpdateNoticeOrBuilder {
+            private Builder() {
+                super(TopChatUpdateNotice.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearRandomDelaySeconds() {
+                copyOnWrite();
+                ((TopChatUpdateNotice) ((GeneratedMessageLite.b) this).instance).clearRandomDelaySeconds();
+                return this;
+            }
+
+            public Builder clearTimestamp() {
+                copyOnWrite();
+                ((TopChatUpdateNotice) ((GeneratedMessageLite.b) this).instance).clearTimestamp();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.TopChatUpdateNoticeOrBuilder
+            public long getRandomDelaySeconds() {
+                return ((TopChatUpdateNotice) ((GeneratedMessageLite.b) this).instance).getRandomDelaySeconds();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.TopChatUpdateNoticeOrBuilder
+            public long getTimestamp() {
+                return ((TopChatUpdateNotice) ((GeneratedMessageLite.b) this).instance).getTimestamp();
+            }
+
+            public Builder setRandomDelaySeconds(long j) {
+                copyOnWrite();
+                ((TopChatUpdateNotice) ((GeneratedMessageLite.b) this).instance).setRandomDelaySeconds(j);
+                return this;
+            }
+
+            public Builder setTimestamp(long j) {
+                copyOnWrite();
+                ((TopChatUpdateNotice) ((GeneratedMessageLite.b) this).instance).setTimestamp(j);
+                return this;
+            }
+        }
+
+        static {
+            TopChatUpdateNotice topChatUpdateNotice = new TopChatUpdateNotice();
+            DEFAULT_INSTANCE = topChatUpdateNotice;
+            topChatUpdateNotice.makeImmutable();
+        }
+
+        private TopChatUpdateNotice() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearRandomDelaySeconds() {
+            this.randomDelaySeconds_ = 0L;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearTimestamp() {
+            this.timestamp_ = 0L;
+        }
+
+        public static TopChatUpdateNotice getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        public static Builder newBuilder(TopChatUpdateNotice topChatUpdateNotice) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(topChatUpdateNotice);
+        }
+
+        public static TopChatUpdateNotice parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static TopChatUpdateNotice parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<TopChatUpdateNotice> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setRandomDelaySeconds(long j) {
+            this.randomDelaySeconds_ = j;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setTimestamp(long j) {
+            this.timestamp_ = j;
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            boolean z = false;
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new TopChatUpdateNotice();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    TopChatUpdateNotice topChatUpdateNotice = (TopChatUpdateNotice) obj2;
+                    long j = this.randomDelaySeconds_;
+                    boolean z2 = j != 0;
+                    long j2 = topChatUpdateNotice.randomDelaySeconds_;
+                    this.randomDelaySeconds_ = hVar.i(z2, j, j2 != 0, j2);
+                    boolean z3 = false;
+                    long j3 = this.timestamp_;
+                    if (j3 != 0) {
+                        z3 = true;
+                    }
+                    long j4 = topChatUpdateNotice.timestamp_;
+                    this.timestamp_ = hVar.i(z3, j3, j4 != 0, j4);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 8) {
+                                    this.randomDelaySeconds_ = eVar.v();
+                                } else if (iM == 16) {
+                                    this.timestamp_ = eVar.v();
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (IOException e) {
+                            aag0.a(new InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        } catch (InvalidProtocolBufferException e2) {
+                            aag0.a(e2.setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (TopChatUpdateNotice.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.TopChatUpdateNoticeOrBuilder
+        public long getRandomDelaySeconds() {
+            return this.randomDelaySeconds_;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            long j = this.randomDelaySeconds_;
+            int iV = j != 0 ? CodedOutputStream.v(1, j) : 0;
+            long j2 = this.timestamp_;
+            if (j2 != 0) {
+                iV += CodedOutputStream.v(2, j2);
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iV;
+            return iV;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.TopChatUpdateNoticeOrBuilder
+        public long getTimestamp() {
+            return this.timestamp_;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            long j = this.randomDelaySeconds_;
+            if (j != 0) {
+                codedOutputStream.u0(1, j);
+            }
+            long j2 = this.timestamp_;
+            if (j2 != 0) {
+                codedOutputStream.u0(2, j2);
+            }
+        }
+
+        public static TopChatUpdateNotice parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static TopChatUpdateNotice parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        public static TopChatUpdateNotice parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static TopChatUpdateNotice parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static TopChatUpdateNotice parseFrom(InputStream inputStream) throws IOException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static TopChatUpdateNotice parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static TopChatUpdateNotice parseFrom(e eVar) throws IOException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static TopChatUpdateNotice parseFrom(e eVar, h hVar) throws IOException {
+            return (TopChatUpdateNotice) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public enum Type implements l.c {
+        emptyType(0),
+        chatShading(1),
+        avatar(2),
+        profile(3),
+        mystery(4),
+        callEffect(5),
+        UNRECOGNIZED(-1);
+
+        public static final int avatar_VALUE = 2;
+        public static final int callEffect_VALUE = 5;
+        public static final int chatShading_VALUE = 1;
+        public static final int emptyType_VALUE = 0;
+        private static final l.d<Type> internalValueMap = new l.d<Type>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.Type.1
+            public Type findValueByNumber(int i) {
+                return Type.forNumber(i);
+            }
+        };
+        public static final int mystery_VALUE = 4;
+        public static final int profile_VALUE = 3;
+        private final int value;
+
+        Type(int i) {
+            this.value = i;
+        }
+
+        public static Type forNumber(int i) {
+            if (i == 0) {
+                return emptyType;
+            }
+            if (i == 1) {
+                return chatShading;
+            }
+            if (i == 2) {
+                return avatar;
+            }
+            if (i == 3) {
+                return profile;
+            }
+            if (i == 4) {
+                return mystery;
+            }
+            if (i != 5) {
+                return null;
+            }
+            return callEffect;
+        }
+
+        public static l.d<Type> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static Type valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+
+    public static final class UserLiveRight extends GeneratedMessageLite<UserLiveRight, Builder> implements UserLiveRightOrBuilder {
+        public static final int ATTRIBUTE_FIELD_NUMBER = 8;
+        public static final int CREATETIMEINSECONDS_FIELD_NUMBER = 10;
+        private static final UserLiveRight DEFAULT_INSTANCE;
+        public static final int FROMUSERID_FIELD_NUMBER = 12;
+        public static final int ID_FIELD_NUMBER = 1;
+        public static final int LEVEL_FIELD_NUMBER = 7;
+        public static final int LIVERIGHTID_FIELD_NUMBER = 3;
+        public static final int NAME_FIELD_NUMBER = 5;
+        private static volatile i860<UserLiveRight> PARSER = null;
+        public static final int PLACETYPE_FIELD_NUMBER = 13;
+        public static final int RIGHTTYPE_FIELD_NUMBER = 4;
+        public static final int SHOWTYPE_FIELD_NUMBER = 6;
+        public static final int STATUS_FIELD_NUMBER = 9;
+        public static final int USERID_FIELD_NUMBER = 2;
+        public static final int VALIDENDTIMEINSECONDS_FIELD_NUMBER = 11;
+        private Attribute attribute_;
+        private long createTimeInSeconds_;
+        private long level_;
+        private int placeType_;
+        private int rightType_;
+        private int showType_;
+        private int status_;
+        private long validEndTimeInSeconds_;
+        private String id_ = "";
+        private String userId_ = "";
+        private String liveRightId_ = "";
+        private String name_ = "";
+        private String fromUserId_ = "";
+
+        static {
+            UserLiveRight userLiveRight = new UserLiveRight();
+            DEFAULT_INSTANCE = userLiveRight;
+            userLiveRight.makeImmutable();
+        }
+
+        private UserLiveRight() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearAttribute() {
+            this.attribute_ = null;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearCreateTimeInSeconds() {
+            this.createTimeInSeconds_ = 0L;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearFromUserId() {
+            this.fromUserId_ = getDefaultInstance().getFromUserId();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearId() {
+            this.id_ = getDefaultInstance().getId();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearLevel() {
+            this.level_ = 0L;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearLiveRightId() {
+            this.liveRightId_ = getDefaultInstance().getLiveRightId();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearName() {
+            this.name_ = getDefaultInstance().getName();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearPlaceType() {
+            this.placeType_ = 0;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearRightType() {
+            this.rightType_ = 0;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearShowType() {
+            this.showType_ = 0;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearStatus() {
+            this.status_ = 0;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearUserId() {
+            this.userId_ = getDefaultInstance().getUserId();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearValidEndTimeInSeconds() {
+            this.validEndTimeInSeconds_ = 0L;
+        }
+
+        public static UserLiveRight getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void mergeAttribute(Attribute attribute) {
+            Attribute attribute2 = this.attribute_;
+            if (attribute2 == null || attribute2 == Attribute.getDefaultInstance()) {
+                this.attribute_ = attribute;
+            } else {
+                this.attribute_ = (Attribute) ((Attribute.Builder) Attribute.newBuilder(this.attribute_).mergeFrom(attribute)).buildPartial();
+            }
+        }
+
+        public static Builder newBuilder(UserLiveRight userLiveRight) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(userLiveRight);
+        }
+
+        public static UserLiveRight parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (UserLiveRight) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static UserLiveRight parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (UserLiveRight) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<UserLiveRight> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setAttribute(Attribute.Builder builder) {
+            this.attribute_ = (Attribute) builder.build();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setCreateTimeInSeconds(long j) {
+            this.createTimeInSeconds_ = j;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setFromUserId(String str) {
+            str.getClass();
+            this.fromUserId_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setFromUserIdBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.fromUserId_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setId(String str) {
+            str.getClass();
+            this.id_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setIdBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.id_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setLevel(long j) {
+            this.level_ = j;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setLiveRightId(String str) {
+            str.getClass();
+            this.liveRightId_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setLiveRightIdBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.liveRightId_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setName(String str) {
+            str.getClass();
+            this.name_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setNameBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.name_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setPlaceType(PlaceType placeType) {
+            placeType.getClass();
+            this.placeType_ = placeType.getNumber();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setPlaceTypeValue(int i) {
+            this.placeType_ = i;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setRightType(Type type) {
+            type.getClass();
+            this.rightType_ = type.getNumber();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setRightTypeValue(int i) {
+            this.rightType_ = i;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setShowType(ShowType showType) {
+            showType.getClass();
+            this.showType_ = showType.getNumber();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setShowTypeValue(int i) {
+            this.showType_ = i;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setStatus(UserLiveRightStatus userLiveRightStatus) {
+            userLiveRightStatus.getClass();
+            this.status_ = userLiveRightStatus.getNumber();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setStatusValue(int i) {
+            this.status_ = i;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setUserId(String str) {
+            str.getClass();
+            this.userId_ = str;
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setUserIdBytes(ByteString byteString) {
+            byteString.getClass();
+            a.checkByteStringIsUtf8(byteString);
+            this.userId_ = byteString.toStringUtf8();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setValidEndTimeInSeconds(long j) {
+            this.validEndTimeInSeconds_ = j;
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            boolean z = false;
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new UserLiveRight();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    GeneratedMessageLite.h hVar = (GeneratedMessageLite.h) obj;
+                    UserLiveRight userLiveRight = (UserLiveRight) obj2;
+                    this.id_ = hVar.f(!this.id_.isEmpty(), this.id_, !userLiveRight.id_.isEmpty(), userLiveRight.id_);
+                    this.userId_ = hVar.f(!this.userId_.isEmpty(), this.userId_, !userLiveRight.userId_.isEmpty(), userLiveRight.userId_);
+                    this.liveRightId_ = hVar.f(!this.liveRightId_.isEmpty(), this.liveRightId_, !userLiveRight.liveRightId_.isEmpty(), userLiveRight.liveRightId_);
+                    int i = this.rightType_;
+                    boolean z2 = i != 0;
+                    int i2 = userLiveRight.rightType_;
+                    this.rightType_ = hVar.e(z2, i, i2 != 0, i2);
+                    this.name_ = hVar.f(!this.name_.isEmpty(), this.name_, !userLiveRight.name_.isEmpty(), userLiveRight.name_);
+                    int i3 = this.showType_;
+                    boolean z3 = i3 != 0;
+                    int i4 = userLiveRight.showType_;
+                    this.showType_ = hVar.e(z3, i3, i4 != 0, i4);
+                    long j = this.level_;
+                    boolean z4 = j != 0;
+                    long j2 = userLiveRight.level_;
+                    this.level_ = hVar.i(z4, j, j2 != 0, j2);
+                    this.attribute_ = hVar.o(this.attribute_, userLiveRight.attribute_);
+                    int i5 = this.status_;
+                    boolean z5 = i5 != 0;
+                    int i6 = userLiveRight.status_;
+                    this.status_ = hVar.e(z5, i5, i6 != 0, i6);
+                    long j3 = this.createTimeInSeconds_;
+                    boolean z6 = j3 != 0;
+                    long j4 = userLiveRight.createTimeInSeconds_;
+                    this.createTimeInSeconds_ = hVar.i(z6, j3, j4 != 0, j4);
+                    long j5 = this.validEndTimeInSeconds_;
+                    boolean z7 = j5 != 0;
+                    long j6 = userLiveRight.validEndTimeInSeconds_;
+                    this.validEndTimeInSeconds_ = hVar.i(z7, j5, j6 != 0, j6);
+                    this.fromUserId_ = hVar.f(!this.fromUserId_.isEmpty(), this.fromUserId_, !userLiveRight.fromUserId_.isEmpty(), userLiveRight.fromUserId_);
+                    int i7 = this.placeType_;
+                    boolean z8 = i7 != 0;
+                    int i8 = userLiveRight.placeType_;
+                    this.placeType_ = hVar.e(z8, i7, i8 != 0, i8);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    h hVar2 = (h) obj2;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            switch (iM) {
+                                case 0:
+                                    break;
+                                case 10:
+                                    this.id_ = eVar.L();
+                                    continue;
+                                case 18:
+                                    this.userId_ = eVar.L();
+                                    continue;
+                                case 26:
+                                    this.liveRightId_ = eVar.L();
+                                    continue;
+                                case LongLinkChatMessage.LiveChatMessage.SOURCE_FIELD_NUMBER /* 32 */:
+                                    this.rightType_ = eVar.p();
+                                    continue;
+                                case 42:
+                                    this.name_ = eVar.L();
+                                    continue;
+                                case 48:
+                                    this.showType_ = eVar.p();
+                                    continue;
+                                case 56:
+                                    this.level_ = eVar.v();
+                                    continue;
+                                case 66:
+                                    Attribute attribute = this.attribute_;
+                                    Attribute.Builder builder = attribute != null ? (Attribute.Builder) attribute.toBuilder() : null;
+                                    Attribute attributeW = eVar.w(Attribute.parser(), hVar2);
+                                    this.attribute_ = attributeW;
+                                    if (builder != null) {
+                                        builder.mergeFrom(attributeW);
+                                        this.attribute_ = (Attribute) builder.buildPartial();
+                                    } else {
+                                        continue;
+                                    }
+                                    break;
+                                case 72:
+                                    this.status_ = eVar.p();
+                                    continue;
+                                case 80:
+                                    this.createTimeInSeconds_ = eVar.v();
+                                    continue;
+                                case 88:
+                                    this.validEndTimeInSeconds_ = eVar.v();
+                                    continue;
+                                case 98:
+                                    this.fromUserId_ = eVar.L();
+                                    continue;
+                                case 104:
+                                    this.placeType_ = eVar.p();
+                                    continue;
+                                default:
+                                    if (!eVar.R(iM)) {
+                                        break;
+                                    }
+                                    break;
+                            }
+                            z = true;
+                        } catch (InvalidProtocolBufferException e) {
+                            aag0.a(e.setUnfinishedMessage(this));
+                            return null;
+                        } catch (IOException e2) {
+                            aag0.a(new InvalidProtocolBufferException(e2.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (UserLiveRight.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public Attribute getAttribute() {
+            Attribute attribute = this.attribute_;
+            return attribute == null ? Attribute.getDefaultInstance() : attribute;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public long getCreateTimeInSeconds() {
+            return this.createTimeInSeconds_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public String getFromUserId() {
+            return this.fromUserId_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public ByteString getFromUserIdBytes() {
+            return ByteString.copyFromUtf8(this.fromUserId_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public String getId() {
+            return this.id_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public ByteString getIdBytes() {
+            return ByteString.copyFromUtf8(this.id_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public long getLevel() {
+            return this.level_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public String getLiveRightId() {
+            return this.liveRightId_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public ByteString getLiveRightIdBytes() {
+            return ByteString.copyFromUtf8(this.liveRightId_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public String getName() {
+            return this.name_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public ByteString getNameBytes() {
+            return ByteString.copyFromUtf8(this.name_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public PlaceType getPlaceType() {
+            PlaceType placeTypeForNumber = PlaceType.forNumber(this.placeType_);
+            return placeTypeForNumber == null ? PlaceType.UNRECOGNIZED : placeTypeForNumber;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public int getPlaceTypeValue() {
+            return this.placeType_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public Type getRightType() {
+            Type typeForNumber = Type.forNumber(this.rightType_);
+            return typeForNumber == null ? Type.UNRECOGNIZED : typeForNumber;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public int getRightTypeValue() {
+            return this.rightType_;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iK = !this.id_.isEmpty() ? CodedOutputStream.K(1, getId()) : 0;
+            if (!this.userId_.isEmpty()) {
+                iK += CodedOutputStream.K(2, getUserId());
+            }
+            if (!this.liveRightId_.isEmpty()) {
+                iK += CodedOutputStream.K(3, getLiveRightId());
+            }
+            if (this.rightType_ != Type.emptyType.getNumber()) {
+                iK += CodedOutputStream.m(4, this.rightType_);
+            }
+            if (!this.name_.isEmpty()) {
+                iK += CodedOutputStream.K(5, getName());
+            }
+            if (this.showType_ != ShowType.single.getNumber()) {
+                iK += CodedOutputStream.m(6, this.showType_);
+            }
+            long j = this.level_;
+            if (j != 0) {
+                iK += CodedOutputStream.v(7, j);
+            }
+            if (this.attribute_ != null) {
+                iK += CodedOutputStream.C(8, getAttribute());
+            }
+            if (this.status_ != UserLiveRightStatus.deleted.getNumber()) {
+                iK += CodedOutputStream.m(9, this.status_);
+            }
+            long j2 = this.createTimeInSeconds_;
+            if (j2 != 0) {
+                iK += CodedOutputStream.v(10, j2);
+            }
+            long j3 = this.validEndTimeInSeconds_;
+            if (j3 != 0) {
+                iK += CodedOutputStream.v(11, j3);
+            }
+            if (!this.fromUserId_.isEmpty()) {
+                iK += CodedOutputStream.K(12, getFromUserId());
+            }
+            if (this.placeType_ != PlaceType.videoRoom.getNumber()) {
+                iK += CodedOutputStream.m(13, this.placeType_);
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iK;
+            return iK;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public ShowType getShowType() {
+            ShowType showTypeForNumber = ShowType.forNumber(this.showType_);
+            return showTypeForNumber == null ? ShowType.UNRECOGNIZED : showTypeForNumber;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public int getShowTypeValue() {
+            return this.showType_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public UserLiveRightStatus getStatus() {
+            UserLiveRightStatus userLiveRightStatusForNumber = UserLiveRightStatus.forNumber(this.status_);
+            return userLiveRightStatusForNumber == null ? UserLiveRightStatus.UNRECOGNIZED : userLiveRightStatusForNumber;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public int getStatusValue() {
+            return this.status_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public String getUserId() {
+            return this.userId_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public ByteString getUserIdBytes() {
+            return ByteString.copyFromUtf8(this.userId_);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public long getValidEndTimeInSeconds() {
+            return this.validEndTimeInSeconds_;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+        public boolean hasAttribute() {
+            return this.attribute_ != null;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            if (!this.id_.isEmpty()) {
+                codedOutputStream.D0(1, getId());
+            }
+            if (!this.userId_.isEmpty()) {
+                codedOutputStream.D0(2, getUserId());
+            }
+            if (!this.liveRightId_.isEmpty()) {
+                codedOutputStream.D0(3, getLiveRightId());
+            }
+            if (this.rightType_ != Type.emptyType.getNumber()) {
+                codedOutputStream.i0(4, this.rightType_);
+            }
+            if (!this.name_.isEmpty()) {
+                codedOutputStream.D0(5, getName());
+            }
+            if (this.showType_ != ShowType.single.getNumber()) {
+                codedOutputStream.i0(6, this.showType_);
+            }
+            long j = this.level_;
+            if (j != 0) {
+                codedOutputStream.u0(7, j);
+            }
+            if (this.attribute_ != null) {
+                codedOutputStream.w0(8, getAttribute());
+            }
+            if (this.status_ != UserLiveRightStatus.deleted.getNumber()) {
+                codedOutputStream.i0(9, this.status_);
+            }
+            long j2 = this.createTimeInSeconds_;
+            if (j2 != 0) {
+                codedOutputStream.u0(10, j2);
+            }
+            long j3 = this.validEndTimeInSeconds_;
+            if (j3 != 0) {
+                codedOutputStream.u0(11, j3);
+            }
+            if (!this.fromUserId_.isEmpty()) {
+                codedOutputStream.D0(12, getFromUserId());
+            }
+            if (this.placeType_ != PlaceType.videoRoom.getNumber()) {
+                codedOutputStream.i0(13, this.placeType_);
+            }
+        }
+
+        public static UserLiveRight parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (UserLiveRight) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static UserLiveRight parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (UserLiveRight) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setAttribute(Attribute attribute) {
+            attribute.getClass();
+            this.attribute_ = attribute;
+        }
+
+        public static final class Builder extends GeneratedMessageLite.b<UserLiveRight, Builder> implements UserLiveRightOrBuilder {
+            private Builder() {
+                super(UserLiveRight.DEFAULT_INSTANCE);
+            }
+
+            public Builder clearAttribute() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearAttribute();
+                return this;
+            }
+
+            public Builder clearCreateTimeInSeconds() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearCreateTimeInSeconds();
+                return this;
+            }
+
+            public Builder clearFromUserId() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearFromUserId();
+                return this;
+            }
+
+            public Builder clearId() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearId();
+                return this;
+            }
+
+            public Builder clearLevel() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearLevel();
+                return this;
+            }
+
+            public Builder clearLiveRightId() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearLiveRightId();
+                return this;
+            }
+
+            public Builder clearName() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearName();
+                return this;
+            }
+
+            public Builder clearPlaceType() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearPlaceType();
+                return this;
+            }
+
+            public Builder clearRightType() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearRightType();
+                return this;
+            }
+
+            public Builder clearShowType() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearShowType();
+                return this;
+            }
+
+            public Builder clearStatus() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearStatus();
+                return this;
+            }
+
+            public Builder clearUserId() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearUserId();
+                return this;
+            }
+
+            public Builder clearValidEndTimeInSeconds() {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).clearValidEndTimeInSeconds();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public Attribute getAttribute() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getAttribute();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public long getCreateTimeInSeconds() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getCreateTimeInSeconds();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public String getFromUserId() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getFromUserId();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public ByteString getFromUserIdBytes() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getFromUserIdBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public String getId() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getId();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public ByteString getIdBytes() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getIdBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public long getLevel() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getLevel();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public String getLiveRightId() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getLiveRightId();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public ByteString getLiveRightIdBytes() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getLiveRightIdBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public String getName() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getName();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public ByteString getNameBytes() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getNameBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public PlaceType getPlaceType() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getPlaceType();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public int getPlaceTypeValue() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getPlaceTypeValue();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public Type getRightType() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getRightType();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public int getRightTypeValue() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getRightTypeValue();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public ShowType getShowType() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getShowType();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public int getShowTypeValue() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getShowTypeValue();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public UserLiveRightStatus getStatus() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getStatus();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public int getStatusValue() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getStatusValue();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public String getUserId() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getUserId();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public ByteString getUserIdBytes() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getUserIdBytes();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public long getValidEndTimeInSeconds() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).getValidEndTimeInSeconds();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightOrBuilder
+            public boolean hasAttribute() {
+                return ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).hasAttribute();
+            }
+
+            public Builder mergeAttribute(Attribute attribute) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).mergeAttribute(attribute);
+                return this;
+            }
+
+            public Builder setAttribute(Attribute attribute) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setAttribute(attribute);
+                return this;
+            }
+
+            public Builder setCreateTimeInSeconds(long j) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setCreateTimeInSeconds(j);
+                return this;
+            }
+
+            public Builder setFromUserId(String str) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setFromUserId(str);
+                return this;
+            }
+
+            public Builder setFromUserIdBytes(ByteString byteString) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setFromUserIdBytes(byteString);
+                return this;
+            }
+
+            public Builder setId(String str) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setId(str);
+                return this;
+            }
+
+            public Builder setIdBytes(ByteString byteString) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setIdBytes(byteString);
+                return this;
+            }
+
+            public Builder setLevel(long j) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setLevel(j);
+                return this;
+            }
+
+            public Builder setLiveRightId(String str) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setLiveRightId(str);
+                return this;
+            }
+
+            public Builder setLiveRightIdBytes(ByteString byteString) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setLiveRightIdBytes(byteString);
+                return this;
+            }
+
+            public Builder setName(String str) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setName(str);
+                return this;
+            }
+
+            public Builder setNameBytes(ByteString byteString) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setNameBytes(byteString);
+                return this;
+            }
+
+            public Builder setPlaceType(PlaceType placeType) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setPlaceType(placeType);
+                return this;
+            }
+
+            public Builder setPlaceTypeValue(int i) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setPlaceTypeValue(i);
+                return this;
+            }
+
+            public Builder setRightType(Type type) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setRightType(type);
+                return this;
+            }
+
+            public Builder setRightTypeValue(int i) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setRightTypeValue(i);
+                return this;
+            }
+
+            public Builder setShowType(ShowType showType) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setShowType(showType);
+                return this;
+            }
+
+            public Builder setShowTypeValue(int i) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setShowTypeValue(i);
+                return this;
+            }
+
+            public Builder setStatus(UserLiveRightStatus userLiveRightStatus) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setStatus(userLiveRightStatus);
+                return this;
+            }
+
+            public Builder setStatusValue(int i) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setStatusValue(i);
+                return this;
+            }
+
+            public Builder setUserId(String str) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setUserId(str);
+                return this;
+            }
+
+            public Builder setUserIdBytes(ByteString byteString) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setUserIdBytes(byteString);
+                return this;
+            }
+
+            public Builder setValidEndTimeInSeconds(long j) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setValidEndTimeInSeconds(j);
+                return this;
+            }
+
+            public Builder setAttribute(Attribute.Builder builder) {
+                copyOnWrite();
+                ((UserLiveRight) ((GeneratedMessageLite.b) this).instance).setAttribute(builder);
+                return this;
+            }
+        }
+
+        public static UserLiveRight parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (UserLiveRight) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static UserLiveRight parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (UserLiveRight) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static UserLiveRight parseFrom(InputStream inputStream) throws IOException {
+            return (UserLiveRight) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static UserLiveRight parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (UserLiveRight) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static UserLiveRight parseFrom(e eVar) throws IOException {
+            return (UserLiveRight) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static UserLiveRight parseFrom(e eVar, h hVar) throws IOException {
+            return (UserLiveRight) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+    }
+
+    public static final class UserLiveRightResources extends GeneratedMessageLite<UserLiveRightResources, Builder> implements UserLiveRightResourcesOrBuilder {
+        private static final UserLiveRightResources DEFAULT_INSTANCE;
+        private static volatile i860<UserLiveRightResources> PARSER = null;
+        public static final int USERLIVERIGHTS_FIELD_NUMBER = 1;
+        private l.h<UserLiveRight> userLiveRights_ = GeneratedMessageLite.emptyProtobufList();
+
+        static {
+            UserLiveRightResources userLiveRightResources = new UserLiveRightResources();
+            DEFAULT_INSTANCE = userLiveRightResources;
+            userLiveRightResources.makeImmutable();
+        }
+
+        private UserLiveRightResources() {
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addAllUserLiveRights(Iterable<? extends UserLiveRight> iterable) {
+            ensureUserLiveRightsIsMutable();
+            a.addAll(iterable, this.userLiveRights_);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addUserLiveRights(UserLiveRight.Builder builder) {
+            ensureUserLiveRightsIsMutable();
+            this.userLiveRights_.add((UserLiveRight) builder.build());
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void clearUserLiveRights() {
+            this.userLiveRights_ = GeneratedMessageLite.emptyProtobufList();
+        }
+
+        private void ensureUserLiveRightsIsMutable() {
+            if (this.userLiveRights_.q()) {
+                return;
+            }
+            this.userLiveRights_ = GeneratedMessageLite.mutableCopy(this.userLiveRights_);
+        }
+
+        public static UserLiveRightResources getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        public static Builder newBuilder(UserLiveRightResources userLiveRightResources) {
+            return (Builder) ((Builder) DEFAULT_INSTANCE.toBuilder()).mergeFrom(userLiveRightResources);
+        }
+
+        public static UserLiveRightResources parseDelimitedFrom(InputStream inputStream) throws IOException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static UserLiveRightResources parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString);
+        }
+
+        public static i860<UserLiveRightResources> parser() {
+            return DEFAULT_INSTANCE.getParserForType();
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void removeUserLiveRights(int i) {
+            ensureUserLiveRightsIsMutable();
+            this.userLiveRights_.remove(i);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setUserLiveRights(int i, UserLiveRight.Builder builder) {
+            ensureUserLiveRightsIsMutable();
+            this.userLiveRights_.set(i, (UserLiveRight) builder.build());
+        }
+
+        public final Object dynamicMethod(GeneratedMessageLite.MethodToInvoke methodToInvoke, Object obj, Object obj2) {
+            switch (C03691.f1664xa1df5c61[methodToInvoke.ordinal()]) {
+                case 1:
+                    return new UserLiveRightResources();
+                case 2:
+                    return DEFAULT_INSTANCE;
+                case 3:
+                    this.userLiveRights_.n();
+                    return null;
+                case 4:
+                    return new Builder();
+                case 5:
+                    this.userLiveRights_ = ((GeneratedMessageLite.h) obj).g(this.userLiveRights_, ((UserLiveRightResources) obj2).userLiveRights_);
+                    GeneratedMessageLite.g gVar = GeneratedMessageLite.g.INSTANCE;
+                    return this;
+                case 6:
+                    e eVar = (e) obj;
+                    h hVar = (h) obj2;
+                    boolean z = false;
+                    while (!z) {
+                        try {
+                            int iM = eVar.M();
+                            if (iM != 0) {
+                                if (iM == 10) {
+                                    if (!this.userLiveRights_.q()) {
+                                        this.userLiveRights_ = GeneratedMessageLite.mutableCopy(this.userLiveRights_);
+                                    }
+                                    this.userLiveRights_.add(eVar.w(UserLiveRight.parser(), hVar));
+                                } else if (!eVar.R(iM)) {
+                                }
+                            }
+                            z = true;
+                        } catch (InvalidProtocolBufferException e) {
+                            aag0.a(e.setUnfinishedMessage(this));
+                            return null;
+                        } catch (IOException e2) {
+                            aag0.a(new InvalidProtocolBufferException(e2.getMessage()).setUnfinishedMessage(this));
+                            return null;
+                        }
+                    }
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    if (PARSER == null) {
+                        synchronized (UserLiveRightResources.class) {
+                            try {
+                                if (PARSER == null) {
+                                    PARSER = new GeneratedMessageLite.c(DEFAULT_INSTANCE);
+                                }
+                            } catch (Throwable th) {
+                                throw th;
+                            }
+                            break;
+                        }
+                    }
+                    return PARSER;
+                default:
+                    bz00.a();
+                    return null;
+            }
+            return DEFAULT_INSTANCE;
+        }
+
+        public int getSerializedSize() {
+            int i = ((GeneratedMessageLite) this).memoizedSerializedSize;
+            if (i != -1) {
+                return i;
+            }
+            int iC = 0;
+            for (int i2 = 0; i2 < this.userLiveRights_.size(); i2++) {
+                iC += CodedOutputStream.C(1, (q) this.userLiveRights_.get(i2));
+            }
+            ((GeneratedMessageLite) this).memoizedSerializedSize = iC;
+            return iC;
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightResourcesOrBuilder
+        public UserLiveRight getUserLiveRights(int i) {
+            return (UserLiveRight) this.userLiveRights_.get(i);
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightResourcesOrBuilder
+        public int getUserLiveRightsCount() {
+            return this.userLiveRights_.size();
+        }
+
+        @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightResourcesOrBuilder
+        public List<UserLiveRight> getUserLiveRightsList() {
+            return this.userLiveRights_;
+        }
+
+        public UserLiveRightOrBuilder getUserLiveRightsOrBuilder(int i) {
+            return (UserLiveRightOrBuilder) this.userLiveRights_.get(i);
+        }
+
+        public List<? extends UserLiveRightOrBuilder> getUserLiveRightsOrBuilderList() {
+            return this.userLiveRights_;
+        }
+
+        public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
+            for (int i = 0; i < this.userLiveRights_.size(); i++) {
+                codedOutputStream.w0(1, (q) this.userLiveRights_.get(i));
+            }
+        }
+
+        public static UserLiveRightResources parseDelimitedFrom(InputStream inputStream, h hVar) throws IOException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseDelimitedFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static UserLiveRightResources parseFrom(ByteString byteString, h hVar) throws InvalidProtocolBufferException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, byteString, hVar);
+        }
+
+        public static final class Builder extends GeneratedMessageLite.b<UserLiveRightResources, Builder> implements UserLiveRightResourcesOrBuilder {
+            private Builder() {
+                super(UserLiveRightResources.DEFAULT_INSTANCE);
+            }
+
+            public Builder addAllUserLiveRights(Iterable<? extends UserLiveRight> iterable) {
+                copyOnWrite();
+                ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).addAllUserLiveRights(iterable);
+                return this;
+            }
+
+            public Builder addUserLiveRights(UserLiveRight userLiveRight) {
+                copyOnWrite();
+                ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).addUserLiveRights(userLiveRight);
+                return this;
+            }
+
+            public Builder clearUserLiveRights() {
+                copyOnWrite();
+                ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).clearUserLiveRights();
+                return this;
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightResourcesOrBuilder
+            public UserLiveRight getUserLiveRights(int i) {
+                return ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).getUserLiveRights(i);
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightResourcesOrBuilder
+            public int getUserLiveRightsCount() {
+                return ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).getUserLiveRightsCount();
+            }
+
+            @Override // com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightResourcesOrBuilder
+            public List<UserLiveRight> getUserLiveRightsList() {
+                return Collections.unmodifiableList(((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).getUserLiveRightsList());
+            }
+
+            public Builder removeUserLiveRights(int i) {
+                copyOnWrite();
+                ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).removeUserLiveRights(i);
+                return this;
+            }
+
+            public Builder setUserLiveRights(int i, UserLiveRight userLiveRight) {
+                copyOnWrite();
+                ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).setUserLiveRights(i, userLiveRight);
+                return this;
+            }
+
+            public Builder addUserLiveRights(int i, UserLiveRight userLiveRight) {
+                copyOnWrite();
+                ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).addUserLiveRights(i, userLiveRight);
+                return this;
+            }
+
+            public Builder setUserLiveRights(int i, UserLiveRight.Builder builder) {
+                copyOnWrite();
+                ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).setUserLiveRights(i, builder);
+                return this;
+            }
+
+            public Builder addUserLiveRights(UserLiveRight.Builder builder) {
+                copyOnWrite();
+                ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).addUserLiveRights(builder);
+                return this;
+            }
+
+            public Builder addUserLiveRights(int i, UserLiveRight.Builder builder) {
+                copyOnWrite();
+                ((UserLiveRightResources) ((GeneratedMessageLite.b) this).instance).addUserLiveRights(i, builder);
+                return this;
+            }
+        }
+
+        public static UserLiveRightResources parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr);
+        }
+
+        public static UserLiveRightResources parseFrom(byte[] bArr, h hVar) throws InvalidProtocolBufferException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, bArr, hVar);
+        }
+
+        public static UserLiveRightResources parseFrom(InputStream inputStream) throws IOException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream);
+        }
+
+        public static UserLiveRightResources parseFrom(InputStream inputStream, h hVar) throws IOException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, inputStream, hVar);
+        }
+
+        public static UserLiveRightResources parseFrom(e eVar) throws IOException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addUserLiveRights(int i, UserLiveRight userLiveRight) {
+            userLiveRight.getClass();
+            ensureUserLiveRightsIsMutable();
+            this.userLiveRights_.add(i, userLiveRight);
+        }
+
+        public static Builder newBuilder() {
+            return (Builder) DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static UserLiveRightResources parseFrom(e eVar, h hVar) throws IOException {
+            return (UserLiveRightResources) GeneratedMessageLite.parseFrom(DEFAULT_INSTANCE, eVar, hVar);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void setUserLiveRights(int i, UserLiveRight userLiveRight) {
+            userLiveRight.getClass();
+            ensureUserLiveRightsIsMutable();
+            this.userLiveRights_.set(i, userLiveRight);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addUserLiveRights(UserLiveRight userLiveRight) {
+            userLiveRight.getClass();
+            ensureUserLiveRightsIsMutable();
+            this.userLiveRights_.add(userLiveRight);
+        }
+
+        /* JADX INFO: Access modifiers changed from: private */
+        public void addUserLiveRights(int i, UserLiveRight.Builder builder) {
+            ensureUserLiveRightsIsMutable();
+            this.userLiveRights_.add(i, (UserLiveRight) builder.build());
+        }
+    }
+
+    public enum UserLiveRightStatus implements l.c {
+        deleted(0),
+        created(5),
+        activated(10),
+        equipped(15),
+        UNRECOGNIZED(-1);
+
+        public static final int activated_VALUE = 10;
+        public static final int created_VALUE = 5;
+        public static final int deleted_VALUE = 0;
+        public static final int equipped_VALUE = 15;
+        private static final l.d<UserLiveRightStatus> internalValueMap = new l.d<UserLiveRightStatus>() { // from class: com.p1.mobile.longlink.msg.liveright.liveRight.UserLiveRightStatus.1
+            public UserLiveRightStatus findValueByNumber(int i) {
+                return UserLiveRightStatus.forNumber(i);
+            }
+        };
+        private final int value;
+
+        UserLiveRightStatus(int i) {
+            this.value = i;
+        }
+
+        public static UserLiveRightStatus forNumber(int i) {
+            if (i == 0) {
+                return deleted;
+            }
+            if (i == 5) {
+                return created;
+            }
+            if (i == 10) {
+                return activated;
+            }
+            if (i != 15) {
+                return null;
+            }
+            return equipped;
+        }
+
+        public static l.d<UserLiveRightStatus> internalGetValueMap() {
+            return internalValueMap;
+        }
+
+        public final int getNumber() {
+            return this.value;
+        }
+
+        @Deprecated
+        public static UserLiveRightStatus valueOf(int i) {
+            return forNumber(i);
+        }
+    }
+}

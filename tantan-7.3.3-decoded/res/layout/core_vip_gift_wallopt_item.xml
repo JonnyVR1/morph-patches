@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.gift.act.GiftWallOptItemVIew android:clipChildren="false" android:layout_width="match_parent" android:layout_height="97.0dp" android:layout_marginLeft="3.5dp" android:layout_marginTop="7.0dp" android:layout_marginRight="3.5dp" holder="gift.act.GiftWallOptItemVIew"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginBottom="10.0dp">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/icon" android:layout_width="62.0dp" android:layout_height="62.0dp" android:layout_marginTop="4.0dp" />
+        <TextView android:textSize="14.0sp" android:textStyle="normal" android:textColor="#212121" android:layout_gravity="center" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:text="甜筒" />
+    </LinearLayout>
+    <v.VText android:textSize="12.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="right" android:id="@id/dot" android:background="@drawable/core_vip_giftwall_item_dotbg" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:layout_width="wrap_content" android:layout_height="18.0dp" android:layout_marginTop="2.0dp" android:layout_marginRight="10.0dp" android:minWidth="31.0dp" android:text="2" android:lineSpacingExtra="0.0sp" android:elevation="1.0dp" app:typeface="medium" />
+</com.p1.mobile.putong.core.ui.gift.act.GiftWallOptItemVIew>

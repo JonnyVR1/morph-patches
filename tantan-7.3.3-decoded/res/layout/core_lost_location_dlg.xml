@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:id="@id/dlg_img" android:layout_width="match_parent" android:layout_height="200.0dp" android:src="@null" android:scaleType="center" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="12.0dp" android:text="@string/LOCATION_PERMISSION_TIPS_POPUP_CONTENT" android:lineSpacingMultiplier="1.2" />
+    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/not_notify_root" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp">
+        <v.VCheckBox android:gravity="center" android:id="@id/not_notify" android:layout_width="16.0dp" android:layout_height="16.0dp" style="@style/common_checkbox" />
+        <v.VText android:textSize="14.0sp" android:textColor="#bfbfbf" android:id="@id/not_notify_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:text="@string/LOCATION_PERMISSION_TIPS_POPUP_NO_PROMPT" />
+    </v.VLinear>
+</LinearLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@drawable/feed_bottom_greet_view_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    folder="newui">
+    <p151v.VDraweeView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/pic_greet"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:roundAsCircle="true"
+        style="@style/feed_fresco_profile_small"/>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="@color/feed_cc000000"
+        android:gravity="center_vertical"
+        android:id="@+id/greet_tv"
+        android:clickable="true"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/pic_greet"
+        app:layout_constraintRight_toLeftOf="@+id/greet_send_tv"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="#fe7e1d"
+        android:id="@+id/greet_send_tv"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发送"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.internal.vchat.view.LiveVChatCalledView android:id="@id/root" android:background="#2b2d2f" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" folder="internal.vchat" holder="view.LiveVChatCalledView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/cover" android:background="@color/live_black_15_opacity" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VDraweeView android:id="@id/avatar" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VImage android:id="@id/connecting_cover" android:background="#992b2d2f" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VLinear android:layout_gravity="center_horizontal" android:orientation="vertical" android:id="@id/top" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="44.0dp" android:layout_marginTop="102.0dp" android:layout_marginRight="44.0dp">
+        <v.VText android:textSize="22.0dp" android:textColor="@color/live_white" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="花好月圆向你发起视频闪聊" android:lineSpacingMultiplier="1.2" app:typeface="medium" />
+        <v.VLinear android:layout_gravity="center_horizontal" android:orientation="horizontal" android:id="@id/price_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13.0dp" flatten="true">
+            <v.VImage android:layout_gravity="center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="6.0dp" android:src="@null" />
+            <v.VText android:textSize="18.0dp" android:textColor="@color/live_white" android:layout_gravity="center" android:id="@id/price" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="120探币/分钟" app:typeface="regular" />
+        </v.VLinear>
+        <TextView android:textSize="18.0dp" android:textColor="@color/live_white" android:gravity="center" android:layout_gravity="center" android:id="@id/price_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="20.0dp" android:text="不足一分钟的通话视为一分钟" />
+    </v.VLinear>
+    <v.VLinear android:layout_gravity="center|bottom" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="50.0dp">
+        <v.VFrame android:id="@id/reject_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+            <v.VImage android:layout_gravity="center_horizontal" android:id="@id/reject_btn" android:layout_width="120.0dp" android:layout_height="74.0dp" android:src="@null" />
+        </v.VFrame>
+        <v.VFrame android:id="@id/accept_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="63.0dp" flatten="true">
+            <v.VImage android:layout_gravity="center_horizontal" android:id="@id/accept_btn" android:background="@drawable/live_bg_00ca48_r37" android:layout_width="120.0dp" android:layout_height="74.0dp" />
+            <v.VImage android:layout_gravity="center" android:id="@id/accept_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </v.VFrame>
+    </v.VLinear>
+    <v.VRelative android:layout_gravity="center" android:id="@id/rl_connecting" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.VText android:textSize="22.0sp" android:textColor="@color/live_white" android:id="@id/tv_connecting" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="建立连接中" android:layout_centerHorizontal="true" />
+        <v.VText android:textSize="22.0sp" android:textColor="@color/live_white" android:id="@id/tv_connecting_anim" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/tv_connecting" />
+    </v.VRelative>
+</com.p1.mobile.putong.live.external.internal.vchat.view.LiveVChatCalledView>

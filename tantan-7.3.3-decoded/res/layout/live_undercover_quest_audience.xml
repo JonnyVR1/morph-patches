@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VRelative android:id="@id/undercover_quest_audience" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="voice.intl.game.undercover.viewmodule.UndercoverQuestAudienceView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/live_undercover_pre" />
+</v.VRelative>

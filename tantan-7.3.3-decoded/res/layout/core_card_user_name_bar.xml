@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@id/custom_tool_bar" android:layout_width="match_parent" android:layout_height="44.0dp" flatten="true" holder="profile.views.HomeCardTopNameViewBar"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear_FillerMeasure android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/name_container" android:paddingTop="2.0dp" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="8.0dp" app:fillerIndex="0" flatten="true">
+        <v.VText android:textSize="21.0sp" android:textStyle="bold" android:textColor="@color/common_exp_black_01" android:ellipsize="end" android:gravity="center_vertical" android:layout_gravity="left|center" android:id="@id/name_tv" android:layout_width="wrap_content" android:layout_height="30.0dp" android:singleLine="true" app:typeface="medium" />
+        <v.VImage android:layout_gravity="left|center" android:id="@id/avatar_icon" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginLeft="4.0dp" />
+        <com.p1.mobile.putong.newui.view.ODiamondTagLabel android:layout_gravity="left|center" android:id="@id/odiamond_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginLeft="4.0dp" />
+        <v.VImage android:layout_gravity="left|center" android:id="@id/img_vip" android:paddingLeft="4.0dp" android:visibility="gone" android:layout_width="38.0dp" android:layout_height="20.0dp" />
+    </v.VLinear_FillerMeasure>
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout holder="profile.profilelist.itemholders.ProfileODiamondItemHolder" style="@style/profile_item_frame_no_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/content_layout" android:layout_width="match_parent" android:layout_height="80.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" flatten="true">
+        <v.VImage android:layout_width="match_parent" android:layout_height="match_parent" android:src="@null" android:scaleType="fitXY" />
+        <LinearLayout android:layout_gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent">
+            <ImageView android:layout_gravity="center_vertical" android:id="@id/icon" android:layout_width="48.0dp" android:layout_height="48.0dp" android:layout_marginLeft="16.0dp" android:src="@null" />
+            <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_weight="1.0" android:layout_toRightOf="@id/icon">
+                <v.VText android:textSize="15.0sp" android:textColor="#edd7a3" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="她是探探限量黑金会员" android:singleLine="true" app:typeface="medium" />
+                <TextView android:textSize="13.0sp" android:textColor="#99edd7a3" android:id="@id/subtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="尊享全平台权益，恭喜配对成功！" android:singleLine="true" />
+            </LinearLayout>
+            <v.VText android:textSize="14.0sp" android:textColor="#edd7a3" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/btn" android:background="@drawable/core_o_diamond_button_gradient" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginRight="16.0dp" android:text="查看" app:typeface="medium" />
+        </LinearLayout>
+        <com.tantan.library.svga.SVGAnimationView android:id="@id/svga" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" />
+    </FrameLayout>
+</FrameLayout>

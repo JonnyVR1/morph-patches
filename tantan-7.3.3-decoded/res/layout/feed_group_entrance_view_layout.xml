@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/entrance_ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" flatten="true" folder="newui" holder="group.FeedGroupEntranceView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp">
+        <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/feed_e6000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="圈子" />
+        <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/common_grey_03" android:id="@id/check_all_groups_tv" android:paddingLeft="5.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看全部" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </v.VRelative>
+    <v.VRecyclerView android:id="@id/group_rv" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="10.0dp" android:divider="@null" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+</v.VLinear>

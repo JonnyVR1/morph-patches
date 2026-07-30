@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder=".home.card.expanded.transform.OldTransNewViewModel" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.newui.home.card.expanded.transform.OldInfoTransOpLayout android:id="@id/action_root" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <View android:id="@id/root_bg_view" android:background="@drawable/core_expanded_card_bg" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <FrameLayout android:layout_gravity="center_horizontal" android:id="@id/welcome_root" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <v.VImage android:id="@id/welcome_bg_view" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" app:srcCompat="@drawable/core_old_info_trans_bg" />
+            <androidx.appcompat.widget.LinearLayoutCompat android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                <com.tantan.library.svga.SVGAnimationView android:id="@id/svga_top_anim_view" android:layout_width="375.0dp" android:layout_height="438.0dp" android:layout_marginTop="10.0dp" />
+                <v.VText android:textSize="30.0dp" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="-15.0dp" android:text="不只看脸" />
+                <v.VText android:textSize="30.0dp" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="探索社交新形象" />
+                <View android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+                <v.VDraweeView android:id="@id/avatar_image" android:layout_width="34.0dp" android:layout_height="34.0dp" android:layout_marginTop="15.0dp" app:roundAsCircle="true" />
+                <v.VText android:textColor="#000000" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" android:text="已为你生成全新资料页\n上滑查看" />
+                <com.tantan.library.svga.SVGAnimationView android:id="@id/svga_bottom_anim_view" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginBottom="50.0dp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </FrameLayout>
+        <com.p1.mobile.putong.core.newui.home.card.expanded.UserProfileExpandedLayout android:id="@id/user_info_layout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="44.0dp" android:alpha="0.0" />
+        <View android:layout_gravity="bottom" android:background="@drawable/core_new_info_buttom_root_bg" android:layout_width="match_parent" android:layout_height="110.0dp" />
+        <v.VLinear android:layout_gravity="bottom" android:orientation="horizontal" android:id="@id/action_button_layout" android:paddingTop="10.0dp" android:paddingBottom="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:alpha="0.0" flatten="true">
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="16.0dp" android:textColor="@color/common_grey_03" android:gravity="center" android:id="@id/edit_profile_btn" android:background="@drawable/core_bg_new_info_edit" android:layout_width="0.0dp" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="5.0dp" android:text="修改资料" android:layout_weight="1.0" />
+            <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="16.0dp" android:textColor="@color/white" android:gravity="center" android:id="@id/save_profile_btn" android:background="@drawable/common_button_btn_orange_large" android:layout_width="0.0dp" android:layout_height="56.0dp" android:layout_marginLeft="5.0dp" android:layout_marginRight="20.0dp" android:text="确认新资料页" android:layout_weight="1.0" />
+        </v.VLinear>
+    </com.p1.mobile.putong.core.newui.home.card.expanded.transform.OldInfoTransOpLayout>
+    <v.VFrame android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/action_bar_layout" android:layout_width="match_parent" android:layout_height="44.0dp" flatten="true">
+        <View android:id="@id/action_bar_bg_view" android:background="#ffffffff" android:layout_width="match_parent" android:layout_height="match_parent" android:alpha="0.0" />
+        <v.VImage android:id="@id/close_btn" android:padding="6.0dp" android:layout_width="44.0dp" android:layout_height="44.0dp" app:srcCompat="@null" />
+        <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="21.0dp" android:textColor="@color/common_000000_80" android:layout_gravity="center_vertical" android:id="@id/action_title" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="48.0dp" android:text="查看全新资料页" android:alpha="0.0" />
+    </v.VFrame>
+</FrameLayout>

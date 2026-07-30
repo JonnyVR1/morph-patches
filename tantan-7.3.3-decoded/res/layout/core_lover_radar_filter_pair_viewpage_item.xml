@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:paddingBottom="50.0dp" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="24.0dp" android:textColor="@color/core_color_80percent_000000" android:gravity="center" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginBottom="40.0dp" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/recyclerview" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="40.0dp" android:layout_marginRight="40.0dp" android:overScrollMode="never" />
+</v.VLinear>

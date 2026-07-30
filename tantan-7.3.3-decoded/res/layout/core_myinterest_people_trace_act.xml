@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/root" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="myinterestpeople.CoreMyInterestPeopleTraceAct"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="@dimen/new_post_bottom_album_bar_height" />
+    <FrameLayout android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent">
+        <RelativeLayout android:id="@id/empty" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent">
+            <ImageView android:id="@id/img_empty" android:layout_width="220.0dp" android:layout_height="150.0dp" android:layout_marginTop="209.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerHorizontal="true" />
+            <TextView android:textSize="14.0sp" android:textColor="#4d323232" android:gravity="center" android:id="@id/txt_tip" android:paddingLeft="36.0dp" android:paddingRight="36.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:text="没有更多了，先去冒个泡让更多的人看到你吧" android:layout_below="@id/img_empty" android:lineSpacingExtra="4.0dp" />
+        </RelativeLayout>
+        <FrameLayout android:id="@id/card_content" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="5.0dp" android:layout_marginTop="0.0dp" android:layout_marginRight="5.0dp" android:layout_marginBottom="20.0dp" />
+    </FrameLayout>
+</LinearLayout>

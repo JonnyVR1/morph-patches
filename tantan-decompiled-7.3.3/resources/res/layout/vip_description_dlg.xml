@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_privilege_dlg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="result.VipContentDlg">
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/collapse"
+        android:padding="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="0x7f081fd9"/>
+    <p151v.VPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="412dp"/>
+    <p151v.VPagerCircleIndicator
+        android:id="@+id/pager_indicator"
+        android:background="@drawable/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="13dp"
+        app:fillColor="#b3000000"
+        app:pageColor="#26000000"
+        app:radius="3dp"/>
+    <View
+        android:background="@drawable/vip_desc_line_buy"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="19dp"/>
+    <p151v.VText
+        android:textSize="17sp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:id="@+id/buy"
+        android:background="@drawable/bg_privilege_vip_buy"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"/>
+</p151v.VLinear>

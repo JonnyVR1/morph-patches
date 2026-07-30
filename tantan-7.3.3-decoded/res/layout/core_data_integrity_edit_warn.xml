@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView android:id="@id/data_integrity_warn" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="12.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" app:cardBackgroundColor="#07000000" app:cardCornerRadius="12.0dp" app:cardElevation="0.0dp" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dp" android:layout_marginTop="13.0dp" android:layout_marginBottom="13.0dp">
+        <com.p1.mobile.putong.core.newui.view.RoundedRectangleProgressView android:layout_gravity="center_vertical" android:id="@id/progress_bg" android:layout_width="28.0dp" android:layout_height="32.0dp" flatten="true" />
+        <com.p1.mobile.putong.core.newui.view.RoundedRectangleProgressView android:layout_gravity="center_vertical" android:id="@id/progress_anim" android:layout_width="28.0dp" android:layout_height="32.0dp" flatten="true" />
+        <v.VImage android:layout_gravity="center" android:id="@id/data_integrity_img" android:visibility="gone" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" />
+        <v.VImage android:layout_gravity="center" android:id="@id/data_integrity_full_img" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" />
+    </FrameLayout>
+    <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="53.0dp" android:layout_marginRight="15.0dp">
+        <v.VText android:textSize="15.0sp" android:textStyle="bold" android:textColor="#cc000000" android:id="@id/text_title" android:layout_width="wrap_content" android:layout_height="wrap_content" app:typeface="medium" />
+        <v.VText android:textSize="13.0sp" android:textColor="#66000000" android:id="@id/text_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" app:typeface="medium" />
+    </v.VLinear>
+</androidx.cardview.widget.CardView>

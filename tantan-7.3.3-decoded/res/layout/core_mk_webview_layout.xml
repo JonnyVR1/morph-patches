@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/root" android:background="@drawable/core_guide_card_bg" android:layout_width="match_parent" android:layout_height="match_parent" useId="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView android:id="@id/container" android:layout_width="match_parent" android:layout_height="match_parent" android:alpha="0.0" app:cardCornerRadius="20.0dp" app:cardElevation="0.0dp">
+        <com.hellogroup.mk.business.base.ui.MKWebView android:id="@id/webview" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </androidx.cardview.widget.CardView>
+    <ProgressBar android:layout_gravity="center" android:id="@id/progress" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:elevation="10.0dp" />
+    <include android:id="@id/error" android:visibility="invisible" layout="@layout/core_base_web_error" />
+    <include android:id="@id/refresh" android:visibility="gone" layout="@layout/core_base_web_refresh" />
+</FrameLayout>

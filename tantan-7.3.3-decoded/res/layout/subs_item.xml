@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.settings.SubsItemView android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="72.0dp" holder="settings.SubsItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginEnd="5.0dp" android:layout_toStartOf="@id/unsub" android:layout_alignParentStart="true">
+        <v.VText android:textSize="16.0sp" android:textColor="#de000000" android:ellipsize="end" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="2" />
+        <v.VText android:textSize="12.0sp" android:textColor="#b9b9b9" android:id="@id/time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" />
+    </LinearLayout>
+    <v.VText android:textSize="12.0sp" android:textColor="@color/common_origin_01" android:id="@id/unsub" android:background="@drawable/settings_subscriptions_unsub_bg" android:padding="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/SETTINGS_SUBSCRIPTIONS_CANCEL" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+</com.p1.mobile.putong.core.ui.settings.SubsItemView>

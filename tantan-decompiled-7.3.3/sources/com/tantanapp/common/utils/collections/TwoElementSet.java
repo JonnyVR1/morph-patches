@@ -1,0 +1,73 @@
+package com.tantanapp.common.utils.collections;
+
+import androidx.annotation.NonNull;
+import java.io.Serializable;
+import java.util.AbstractSet;
+import java.util.Iterator;
+import p153l.mor;
+
+/* JADX INFO: loaded from: classes11.dex */
+public final class TwoElementSet<E> extends AbstractSet<E> implements Serializable {
+    final E element1;
+    final E element2;
+
+    /* JADX INFO: renamed from: com.tantanapp.common.utils.collections.TwoElementSet$a */
+    public class C13801a implements Iterator<E> {
+
+        /* JADX INFO: renamed from: a */
+        public int f56941a = 0;
+
+        public C13801a() {
+        }
+
+        @Override // java.util.Iterator
+        public boolean hasNext() {
+            return this.f56941a <= 1;
+        }
+
+        @Override // java.util.Iterator
+        public E next() {
+            int i = this.f56941a;
+            if (i == 0) {
+                this.f56941a = 1;
+                return TwoElementSet.this.element1;
+            }
+            if (i == 1) {
+                this.f56941a = 2;
+                return TwoElementSet.this.element2;
+            }
+            mor.m159308a();
+            return null;
+        }
+
+        @Override // java.util.Iterator
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    public TwoElementSet(E e, E e2) {
+        this.element1 = e;
+        this.element2 = e2;
+    }
+
+    @Override // java.util.AbstractCollection, java.util.Collection, java.util.Set
+    public boolean contains(Object obj) {
+        E e = this.element1;
+        if (obj == null) {
+            return e == null || this.element2 == null;
+        }
+        return obj.equals(e) || obj.equals(this.element2);
+    }
+
+    @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable, java.util.Set
+    @NonNull
+    public Iterator<E> iterator() {
+        return new C13801a();
+    }
+
+    @Override // java.util.AbstractCollection, java.util.Collection, java.util.Set
+    public int size() {
+        return 2;
+    }
+}

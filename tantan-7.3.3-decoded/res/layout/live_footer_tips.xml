@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.base.view.LiveFooterTipsView android:gravity="center" android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="view.LiveFooterTipsView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/footer_left_icon" android:background="@drawable/live_vector_ic_fansgroup_half_footer" android:layout_width="35.0dp" android:layout_height="4.0dp" />
+    <v.VText android:textSize="12.0sp" android:textColor="#4dffffff" android:id="@id/footer_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_FANSGROUP_LIST_FOOTER" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" />
+    <View android:id="@id/footer_right_icon" android:background="@drawable/live_vector_ic_fansgroup_half_footer" android:layout_width="35.0dp" android:layout_height="4.0dp" />
+</com.p1.mobile.putong.live.base.view.LiveFooterTipsView>

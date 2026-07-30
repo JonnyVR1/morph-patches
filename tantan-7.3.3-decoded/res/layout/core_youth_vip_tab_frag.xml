@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="youthvip.YouthVipTabViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:id="@id/root_view" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="44.0dp" />
+        <androidx.core.widget.NestedScrollView android:id="@id/nested_scroll_view" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <v.VLinear android:orientation="vertical" android:id="@id/content_container" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <ImageView android:id="@id/top_texture_bg" android:layout_width="375.0dp" android:layout_height="150.0dp" android:layout_marginTop="20.0dp" android:src="@null" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                    <v.VLinear android:orientation="vertical" android:id="@id/top_title_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="60.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
+                        <ImageView android:layout_gravity="center_horizontal" android:layout_width="52.0dp" android:layout_height="52.0dp" android:src="@null" />
+                        <TextView android:textSize="24.0dp" android:textStyle="bold" android:textColor="#cc000000" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/top_title" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginTop="8.0dp" android:text="青春交友专区" android:maxLines="1" />
+                        <TextView android:textSize="16.0dp" android:textColor="#66000000" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/top_sub_title" android:layout_width="wrap_content" android:layout_height="22.0dp" android:layout_marginTop="3.0dp" android:text="年轻人专区，结交和你一样的同龄人" android:maxLines="1" />
+                    </v.VLinear>
+                    <include android:layout_gravity="center_horizontal" android:id="@id/youthvip_student_verify" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginTop="14.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/top_title_container" layout="@layout/core_youth_vip_student_verify_view" />
+                    <include android:id="@id/youthvip_location" android:layout_width="match_parent" android:layout_height="92.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="38.0dp" android:layout_marginRight="12.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/youthvip_student_verify" layout="@layout/core_youth_vip_location_view" />
+                    <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="231.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="12.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/youthvip_location">
+                        <include android:id="@id/youthvip_daizi" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" layout="@layout/core_youth_vip_base_privilege_view" />
+                        <View android:layout_width="9.0dp" android:layout_height="0.0dp" />
+                        <include android:id="@id/youthvip_blindbox" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" layout="@layout/core_youth_vip_base_privilege_view" />
+                    </v.VLinear>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </v.VLinear>
+        </androidx.core.widget.NestedScrollView>
+    </v.VLinear>
+</FrameLayout>

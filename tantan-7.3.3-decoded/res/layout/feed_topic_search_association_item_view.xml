@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.mediapicker.buildtopic.TopicSearchAssociationItemView android:id="@id/topic_search_item_container" android:layout_width="match_parent" android:layout_height="38.0dp" flatten="true" folder="newui" holder="mediapicker.buildtopic.TopicSearchAssociationItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="16.0sp" android:textColor="@color/feed_cc000000" android:ellipsize="end" android:id="@id/topic_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginRight="10.0dp" android:maxLines="1" android:layout_toLeftOf="@id/topic_info" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/feed_33000000" android:id="@id/topic_info" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="20.0dp" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+</com.p1.mobile.putong.feed.newui.mediapicker.buildtopic.TopicSearchAssociationItemView>

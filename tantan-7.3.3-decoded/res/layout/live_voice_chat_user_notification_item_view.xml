@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.chat.notification.voice.VoiceUserNotificationItemView android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.5dp" android:layout_marginBottom="2.5dp" android:paddingEnd="10.0dp" app:bind_extends="LinearLayout" app:binding="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/startIcon" android:layout_width="28.0dp" android:layout_height="28.0dp" android:scaleType="centerCrop" android:layout_marginStart="8.0dp" app:roundAsCircle="true" />
+    <v.VText android:textSize="13.0sp" android:textColor="@color/live_white" android:ellipsize="end" android:gravity="start|center" android:id="@id/content" android:layout_width="0.0dp" android:layout_height="wrap_content" android:maxLines="2" android:layout_weight="1.0" android:layout_marginStart="8.0dp" />
+    <v.VImage android:layout_gravity="center_vertical" android:id="@id/arrow" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="centerCrop" android:layout_marginStart="5.0dp" />
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/button" android:visibility="gone" android:layout_width="36.0dp" android:layout_height="24.0dp" android:layout_marginTop="3.0dp" android:layout_marginBottom="3.0dp" android:layout_marginStart="8.0dp" />
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/dynamic_button" android:visibility="gone" android:layout_width="40.0dp" android:layout_height="30.0dp" android:layout_marginStart="8.0dp" android:layout_marginEnd="1.0dp" />
+</com.p1.mobile.putong.live.livingroom.common.chat.notification.voice.VoiceUserNotificationItemView>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VText xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:textSize="16sp"
+    android:textColor="@color/core_group_remove_member_color"
+    android:id="@+id/tv_delete_group_member"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/CHAT_GROUP_MOVE_MEMBER"
+    app:typeface="regular"/>

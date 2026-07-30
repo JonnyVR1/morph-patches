@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:id="@id/base_root" android:clipChildren="true" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="profile.profilelist.imp.ProfileListViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VFrame android:id="@id/root" android:background="@color/white" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <v.VProgressBar android:id="@id/loading_block" style="@style/core_loading_block" />
+        <include android:id="@id/image_content" layout="@layout/core_image_item_layout" />
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/profile_list" android:clipChildren="false" android:clipToPadding="false" android:descendantFocusability="blocksDescendants" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" />
+        <include android:layout_gravity="bottom" android:id="@id/superlike_combo_anim_view" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="50.0dp" layout="@layout/core_super_like_combo_anim_view" />
+        <FrameLayout android:layout_gravity="bottom" android:id="@id/button_container" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <com.p1.mobile.putong.core.ui.profile.views.ProfileCustomBar android:id="@id/profile_custom_bar" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/top_empty_view" />
+            <View android:id="@id/view_core_blur" android:background="@drawable/core_set_blur" android:visibility="gone" android:layout_width="match_parent" android:layout_height="12.0dp" />
+        </v.VLinear>
+    </v.VFrame>
+</v.VFrame>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <p151v.VFrame
+        android:id="@+id/image_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <p151v.VDraweeView
+            android:id="@+id/feed_image"
+            android:background="@drawable/core_marry_feed_image_default_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            fresco:actualImageScaleType="fitCenter"
+            fresco:roundBottomLeft="true"
+            fresco:roundBottomRight="true"
+            fresco:roundTopLeft="true"
+            fresco:roundTopRight="true"
+            fresco:roundedCornerRadius="10dp"/>
+        <p151v.VImage
+            android:layout_gravity="bottom|right"
+            android:id="@+id/feed_image_check"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            android:src="@drawable/core_marry_lifemoment_unselect_ic"/>
+    </p151v.VFrame>
+</p151v.VFrame>

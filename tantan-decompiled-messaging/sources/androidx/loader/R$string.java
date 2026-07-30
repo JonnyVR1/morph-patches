@@ -1,0 +1,5 @@
+package androidx.loader;
+
+/* JADX INFO: loaded from: classes.dex */
+public final class R$string {
+}

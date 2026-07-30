@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/warning"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="38dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    flatten="true">
+    <p151v.VCard
+        android:id="@+id/tv_card_tips"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        flatten="true"
+        style="@style/common_card_small_01">
+        <p151v.VText
+            android:textSize="13sp"
+            android:textColor="@color/common_black_80"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/tips"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="0x7f081120"
+            android:drawablePadding="5dp"/>
+    </p151v.VCard>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/user_audit"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#f4f4f4"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        flatten="true">
+        <p151v.VText
+            android:textSize="13sp"
+            android:textColor="@color/core_color_66000000"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/audit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/INFO_IN_REVIEW_TIP_PROFILE"
+            android:drawablePadding="7dp"
+            android:drawableStart="0x7f08110e"/>
+    </androidx.cardview.widget.CardView>
+    <include layout="@layout/core_data_integrity_warn"/>
+</FrameLayout>

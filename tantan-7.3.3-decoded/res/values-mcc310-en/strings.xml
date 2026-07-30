@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ACTION_SUPERLIKE">Super Crush</string>
+    <string name="ACTION_UNDO">Undo</string>
+    <string name="BOOST_CLICK_BUTTON_TIPS">Turbo in action. See more profiles and get more matches!</string>
+    <string name="BOOST_COMPLETE_PUSH_CONTENT">"You have got %sx views thanks to Turbo
+Browse more profiles and get matched!"</string>
+    <string name="BOOST_FINISHED_SWIPE_CARD">Start exploring</string>
+    <string name="CONSUME_TANTANCOIN_FOR_SUPERLIKE">No Super Crush left. Get more with Coins!</string>
+    <string name="CORE_ACTION_KEEP_SWIPING_TIPS">"Keep browsing profiles to get matches! Once you've matched, you can start chatting here."</string>
+    <string name="CORE_ACTION_KEEP_SWIPING_TITLE">"It's quiet in here!"</string>
+    <string name="CORE_BUSINESS_SUPERLIKE_FIRST_TIME_MALE_DETAIL">Send a Super Crush to %s the other party will receive a notification and see you immediately, increasing the matching rate by more than 5 times!</string>
+    <string name="CORE_BUSINESS_SUPERLIKE_FIRST_TIME_TITLE">Send Super Crush？</string>
+    <string name="CORE_SVIP_SUPERLIKED_SUCCESS">super crush sent</string>
+    <string name="CUSTOM_FIRST_SWIPE_DISLIKE_HER_DETAIL">"She won't be notified"</string>
+    <string name="CUSTOM_FIRST_SWIPE_DISLIKE_HIM_DETAIL">"He won't be notified and he won't be shown to you again."</string>
+    <string name="CUSTOM_FIRST_SWIPE_DISLIKE_TITLE">Not interested?</string>
+    <string name="CUSTOM_FIRST_SWIPE_LIKE_HER_DETAIL">"Tapping the Like button means you like her. If she likes you too it's a match! Otherwise she won't be notified."</string>
+    <string name="CUSTOM_FIRST_SWIPE_LIKE_HIM_DETAIL">"Tapping the Like button means you like him. If he likes you too it's a match! Otherwise he won't be notified."</string>
+    <string name="CUSTOM_FIRST_SWIPE_LIKE_TITLE">Interested?</string>
+    <string name="HELP_CENTER_HOW_TO_USE_TANTAN_DETAIL_1">"If you like what you see, tap the Like button. They won’t know you liked them unless they like you back. Tantan is completely anonymous and rejection-free. 
+"</string>
+    <string name="HELP_CENTER_HOW_TO_USE_TANTAN_DETAIL_2">Tapping the Pass button means you’re not interested in that person. They won’t be shown to you again, and won’t know that you slided on them either. </string>
+    <string name="HELP_CENTER_HOW_TO_USE_TANTAN_SUBTITLE_1">Tap the Like button to send a like</string>
+    <string name="HELP_CENTER_HOW_TO_USE_TANTAN_SUBTITLE_2">Tap the Pass button to send a pass</string>
+    <string name="HELP_CENTER_HOW_TO_USE_TANTAN_TITLE">How does Tantan work?</string>
+    <string name="HELP_CENTER_NOT_ENOUGH_SWIPE_DETAIL">"Unfortunately, you cannot go back. Think before you decide whether to like or pass a profile, make sure you’re not missing a great opportunity.
+
+Luckily, there’s always new users. So don’t worry too much about the one that got away, there’s plenty more to come."</string>
+    <string name="HELP_CENTER_NOT_ENOUGH_SWIPE_TITLE">I’m out of people to browse through. How do I get more?</string>
+    <string name="HELP_CENTER_NO_MATCHES_DETAIL">"Sorry to hear that. Here are some tips you can try out:
+
+1- Have you been sending out Likes? To increase your odds, the more people you like, the larger the possibility that someone will like you back. Try adjusting your preferences and step up your game.
+
+2- Your account may still be under review. This means that you won’t see any new profiles until your account has been validated by our review team. 
+
+To avoid running into these issues, please make sure to use authentic photos and repsect our community guidelines.
+
+If your account is under review, a badge will be shown under our Help Center homepage. Please contact us for further questions if you see this."</string>
+    <string name="HELP_CENTER_QUESTION_HOW_TO_BREAK_THE_ICE_PARAGRAPH_1">Be original, start with a funny opener or give the other person a compliment. It can be on anything, their hair, the way they dress, etc.</string>
+    <string name="HELP_CENTER_QUESTION_HOW_TO_BREAK_THE_ICE_PARAGRAPH_2">Remember, people love talking about themselves. So, what was it that caught your eye when you liked them? Ask them about it!</string>
+    <string name="HELP_CENTER_QUESTION_HOW_TO_USE_TANTAN">How does Tantan work?</string>
+    <string name="HELP_CENTER_QUESTION_HOW_TO_USE_TANTAN_PARAGRAPH_1">For every profile card, you can either like or pass.</string>
+    <string name="HELP_CENTER_QUESTION_HOW_TO_USE_TANTAN_PARAGRAPH_2">"If you like what you see, tap the Like button. Don't worry, they won’t know unless they like you back."</string>
+    <string name="HELP_CENTER_QUESTION_HOW_TO_USE_TANTAN_PARAGRAPH_3">"If someone isn't your type, tap the Pass button. You won't see their profile again and they won't know that you've passed on them."</string>
+    <string name="HELP_CENTER_QUESTION_HOW_TO_USE_TANTAN_PARAGRAPH_4">"When someone you liked has liked you back, well done, you've got a match! Now you can start chatting."</string>
+    <string name="HELP_CENTER_QUESTION_NOT_ENOUGH_SWIPE">"I'm out of profiles to browse through?"</string>
+    <string name="HELP_CENTER_QUESTION_NOT_ENOUGH_SWIPE_PARAGRAPH_1">We get it, you love our app. Good news is that, new users may be signing up for Tantan as you read this sentence! Still, think carefully before you make a decision to not miss any great opportunity.</string>
+    <string name="HELP_CENTER_UNDO_DETAIL">"Yes, you can. Tap the Undo button at the top left corner to get back the last profile. You can subscribe Tantan's VIP services to use Rewind unlimitedly."</string>
+    <string name="HELP_CENTER_UNDO_TITLE">I accidentally passed on someone, can I go back?</string>
+    <string name="INCREASE_MATCHING_TIMES">"5 Super Crushes each day for the ones you find super attractive! It'll increase your match rate by over 5 times!"</string>
+    <string name="INTL_ME_VIP_CARD_INTRO">Unlock your unlimited likes, 5 Super Crushes daily, and more privileges!</string>
+    <string name="INTL_TAROT_MAINPOP_TEXT">"Tarot opens from 9-11 pm. 
+Here's a tip: You might trigger a tarot reading &amp; speed match when you keep sliding!"</string>
+    <string name="INTL_TAROT_READING_INSTRUCTION2">Slide left or right</string>
+    <string name="INTL_TAROT_READING_TEXT">"Tarot reading is an ancient and mysterious fortune telling method. Manifest your question and calm your mind. Once you're ready, slide left or right and select a tarot card. Maybe the card will have an answer for you."</string>
+    <string name="JAILED_LIMIT_MATCH">Explore now</string>
+    <string name="MATCH_BUTTON_KEEP_PLAYING">Back</string>
+    <string name="MATCH_LIST_SEE_WHO_LIKED_ME_NONE_DETAIL">Check more profiles to receive likes</string>
+    <string name="MOMENTS_FEED_SUPER_LIKE_1">"It's a match, thanks to Super Crush!"</string>
+    <string name="MOMENTS_FEED_SUPER_LIKE_2">"It's a match, thanks to Super Crush! Let's chat!"</string>
+    <string name="MOMENTS_FEED_SUPER_LIKE_3">"It's a match, thanks to Super Crush! Of course you should talk more."</string>
+    <string name="NO_WAITING_TO_MATCH">to explore and match now!</string>
+    <string name="PROFILE_GET_MORE_LIKES_TIPS">Send likes more often to get more likes</string>
+    <string name="SEE_WHO_LIKED_ME_EMPTY_TEXT">"You have checked all the people who like you. Currently, there's no new like. Abnormal accounts are automatically filtered out."</string>
+    <string name="SEE_WHO_LIKED_ME_GUIDE_SWIPE_TEXT">Tap the Like or Pass bbutton</string>
+    <string name="SETTINGS_SEND_FEEDBACK_URL">feedback-mobile?locale=us</string>
+    <string name="SIGNUP_PERMISSIONS_ADDRESSBOOK_OK">Start</string>
+    <string name="SUPERLIKE_CARD_BANNER_TEXT_FEMALE">She has a Super Crush on you!</string>
+    <string name="SUPERLIKE_ERROR">"Your Super Crush couldn’t be sent!
+Something went wrong. Please try again."</string>
+    <string name="SUPERLIKE_FIRST_TIME_FEMALE_DETAIL">"She will be notified that you send her a Super Crush.
+You have %s Super Crushes left today."</string>
+    <string name="SUPERLIKE_FIRST_TIME_MALE_DETAIL">"He will be notified that you send him a Super Crush.
+You have %s Super Crushes left today."</string>
+    <string name="SUPERLIKE_FIRST_TIME_TITLE">Send a Super Crush to %s?</string>
+    <string name="SWIPE_TO_WRONG">"Unlimited Undos' got your back every time you regret a decision"</string>
+    <string name="TANTANCOIN_PRICE_FOR_SUPERLIKE">Super Crush: %s Coins each</string>
+    <string name="UNDO_ERROR">Cannot Undo! Please check your network connection.</string>
+    <string name="UNDO_FIRST_TIME_DETAIL">"Undo to the last profile and try to match again!
+
+%s Undos left."</string>
+    <string name="UNDO_FIRST_TIME_TITLE">Made a mistake? Find \"%s\" back!</string>
+    <string name="UNDO_LAST_USER_IS_MATCHED_TITLE">Cannot Undo</string>
+    <string name="UNDO_NO_LAST_CARD_DETAIL">You can only Undo the last profile</string>
+    <string name="UNMATCH_REASON_SWIPED_WRONG">Matched by mistake</string>
+    <string name="VIP_ALERT_CONTENT_LIKE">Send your Likes with no limits</string>
+    <string name="VIP_ALERT_CONTENT_MORE_SUPER_LIKE">"You have used up your Super Crushes!
+Get more and increase your matches by 5x!"</string>
+    <string name="VIP_ALERT_CONTENT_UNDO">Go back and decide again!</string>
+    <string name="VIP_ALERT_DIGEST_LOCATION">Passport to Anywhere</string>
+    <string name="VIP_ALERT_DIGEST_MORE_SUPER_LIKE">Out of Super Crushes!</string>
+    <string name="VIP_ALERT_DIGEST_UNDO">Unlimited Undos</string>
+    <string name="VIP_ALERT_DIGEST_VIP_SUPER_LIKE">%d Free Super Crushes A Day</string>
+    <string name="VIP_ALERT_GET_SUPER_LIKE">Continue</string>
+    <string name="VIP_BREAK_LIKE_LIMIT">Break the daily limit of sending likes to make more connections!</string>
+    <string name="VIP_ITEM_DETAIL_SUPER_LIKE_CONTENT">5 Super Crushes each day reserved for the ones you really like, increasing your match rate by over 5 times!!</string>
+    <string name="VIP_ITEM_DETAIL_SUPER_LIKE_TITLE">Super Crush</string>
+    <string name="VIP_ITEM_DETAIL_UNDO_CONTENT">"Made a mistake?
+Give yourself a second chance using unlimited Undos!"</string>
+    <string name="VIP_ITEM_DETAIL_UNDO_TITLE">Undo!</string>
+    <string name="VIP_ITEM_DETAIL_UNLIMITED_LIKE_CONTENT">Break the limit of sending Likes. Keep browsing profiles and match with more friends!</string>
+    <string name="WALLET_SUPER_LIKE_USE_TIP">Send your Super Crush via homepage</string>
+</resources>

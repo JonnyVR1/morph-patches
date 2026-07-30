@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.virtual.ktv.view.KtvAcousticsItemView android:layout_width="match_parent" android:layout_height="wrap_content" folder="virtual" holder="ktv.view.KtvAcousticsItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/pic" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <ImageView android:id="@id/selected" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="6.0dp" android:src="@null" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <TextView android:textSize="10.0sp" android:textStyle="normal" android:textColor="#66ffffff" android:gravity="center_horizontal" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="6.0dp" android:text="KTV" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" />
+</com.p1.mobile.putong.live.livingroom.virtual.ktv.view.KtvAcousticsItemView>

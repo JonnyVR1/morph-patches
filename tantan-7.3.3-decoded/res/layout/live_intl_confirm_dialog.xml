@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@color/live_white_30_opacity" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_gravity="center" android:orientation="vertical" android:background="@drawable/live_bg_white_r20" android:layout_width="280.0dp" android:layout_height="wrap_content" android:minHeight="158.0dp">
+        <TextView android:textSize="16.0dp" android:textColor="@color/live_black" android:gravity="center" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" android:layout_marginBottom="18.0dp" android:layout_marginStart="32.0dp" android:layout_marginEnd="32.0dp" app:layout_constraintBottom_toTopOf="@id/btnContent" app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout android:layout_gravity="bottom" android:orientation="horizontal" android:id="@id/btnContent" android:paddingTop="18.0dp" android:paddingBottom="18.0dp" android:layout_width="match_parent" android:layout_height="56.0dp" android:divider="@drawable/live_shape_intl_confirm_line" android:showDividers="middle" app:layout_constraintBottom_toBottomOf="parent" flatten="true">
+            <TextView android:textSize="16.0dp" android:textColor="@color/live_black_40_opacity" android:gravity="center" android:id="@id/leftBtn" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/LIVE_CANCEL" android:layout_weight="1.0" />
+            <TextView android:textSize="16.0dp" android:textColor="@color/live_fe7e1d" android:gravity="center" android:id="@id/rightBtn" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/LIVE_VOICE_ROOM_THEME_BUY_NOW" android:layout_weight="1.0" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

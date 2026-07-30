@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+    <p151v.VDraweeView
+        android:id="@+id/img"
+        android:background="@drawable/core_intl_ultra_salvage_small_item_bg"
+        android:padding="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:actualImageScaleType="centerCrop"
+        app:roundedCornerRadius="16dp"/>
+    <p151v.VLinear_FillerMeasure
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:id="@+id/bottom"
+        android:background="@drawable/core_intl_ultra_salvage_small_item_bottom"
+        android:padding="8dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:fillerIndex="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <p151v.VText
+            android:textSize="14sp"
+            android:textColor="#e5ffffff"
+            android:ellipsize="end"
+            android:layout_gravity="start|bottom"
+            android:id="@+id/tvMeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            app:typeface="medium"/>
+        <ImageView
+            android:layout_gravity="end|bottom"
+            android:id="@+id/ivHeart"
+            android:background="0x7f080cb8"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="5dp"/>
+    </p151v.VLinear_FillerMeasure>
+</FrameLayout>

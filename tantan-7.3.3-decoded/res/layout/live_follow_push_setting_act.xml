@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VText android:textSize="14.0sp" android:textColor="#999999" android:id="@id/header_text" android:paddingTop="16.0dp" android:paddingBottom="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/LIVE_FOLLOW_PUSH_NOTICE_HEADER" android:paddingStart="16.0dp" android:paddingEnd="16.0dp" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0">
+        <androidx.recyclerview.widget.RecyclerView android:orientation="vertical" android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="match_parent" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <v.VRelative android:gravity="center" android:id="@id/empty_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent">
+            <v.VText android:textSize="14.0sp" android:textColor="#999999" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_FOLLOW_PUSH_NOTICE_EMPTY" android:layout_centerInParent="true" />
+        </v.VRelative>
+    </FrameLayout>
+    <v.VButton android:textSize="16.0dp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/bottom_button" android:background="@drawable/live_bg_fe7e1d_r10" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginBottom="16.0dp" android:text="@string/LIVE_FOLLOW_PUSH_NOTICE_CLOSE_ALL" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+</v.VLinear>

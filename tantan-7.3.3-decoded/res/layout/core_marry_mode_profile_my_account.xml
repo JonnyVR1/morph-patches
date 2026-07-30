@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="16.0dp" android:paddingEnd="16.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="18.0sp" android:textColor="@color/core_color_80percent_000000" android:id="@id/title" android:paddingTop="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:text="我的账号" app:typeface="medium" />
+    <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/core_color_40percent_000000" android:paddingTop="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="探探ID" android:lineSpacingMultiplier="1.4" app:typeface="medium" />
+        <v.VText android:textSize="15.0sp" android:textColor="@color/core_color_40percent_000000" android:id="@id/des" android:paddingTop="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="72.0dp" android:layout_marginTop="12.0dp" android:lineSpacingMultiplier="1.4" app:typeface="medium" />
+    </v.VLinear>
+    <View android:background="@color/core_color_03percent_000000" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginTop="32.0dp" />
+</v.VLinear>

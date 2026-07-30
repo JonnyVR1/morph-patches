@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.question.QuestionItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    flatten="true"
+    folder="ui.messages.question"
+    holder="QuestionItemView">
+    <p151v.VText
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:textColor="#de000000"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="6dp"/>
+    <p151v.VImage
+        android:layout_gravity="center_vertical"
+        android:id="@+id/delete"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:scaleType="center"
+        android:layout_marginStart="-16dp"
+        android:layout_marginEnd="-16dp"
+        app:srcCompat="@drawable/core_ice_breaking_question_delete_icon"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.question.QuestionItemView>

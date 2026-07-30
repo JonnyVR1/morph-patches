@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemMsgRiskLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="messages.ItemMsgRiskLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:id="@id/container" android:background="@drawable/messages_prompt" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="10.0dp" flatten="true">
+        <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="15.0dp">
+            <v.VImage android:id="@id/iv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+            <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="13.0dp">
+                <v.VText android:textSize="14.0sp" android:textColor="@color/core_msg_cell_left_text_color" android:gravity="left" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:text="@string/MESSAGE_BOTHERING_TITLE_SHORT" app:typeface="medium" />
+                <v.VText android:textSize="13.0sp" android:textColor="@color/core_msg_text_tips_text_color" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="系统检测到对方可能说了冒犯你的话，可以马上匿名举报，探探查实后会对其封号并永久解除配对" android:lineSpacingExtra="2.0dp" app:typeface="regular" />
+            </v.VLinear>
+        </v.VLinear>
+        <FrameLayout android:id="@id/buttons" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="12.0dp" android:layout_marginBottom="2.0dp" flatten="true">
+            <v.VLinear android:gravity="center" android:layout_gravity="center" android:orientation="horizontal" android:id="@id/buttons_wrapper" android:layout_width="match_parent" android:layout_height="53.0dp" android:layout_marginTop="3.0dp" android:showDividers="middle" flatten="true">
+                <FrameLayout android:id="@id/no" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1.0">
+                    <v.VText android:textSize="16.0sp" android:textColor="@color/common_000000_80" android:gravity="center" android:layout_gravity="center" android:id="@id/text" android:layout_width="match_parent" android:layout_height="match_parent" android:text="@string/MESSAGE_BOTHERING_NO" app:typeface="medium" />
+                </FrameLayout>
+                <View android:background="@drawable/core_message_opti_prompt_vertical_divider" android:layout_width="3.0dp" android:layout_height="20.0dp" />
+                <FrameLayout android:id="@id/yes" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1.0">
+                    <v.VText android:textSize="16.0sp" android:textColor="@color/common_000000_80" android:gravity="center" android:layout_gravity="center" android:id="@id/text" android:layout_width="match_parent" android:layout_height="match_parent" android:text="@string/MESSAGE_BOTHERING_YES" app:typeface="medium" />
+                </FrameLayout>
+            </v.VLinear>
+            <v.VText android:textSize="16.0sp" android:textColor="#33000000" android:gravity="center" android:layout_gravity="center" android:id="@id/happy_chatting" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="53.0dp" android:layout_marginTop="3.0dp" android:text="@string/CHAT_SENSITIVE_MESSAGE_AREADY_FEEDBACK" app:typeface="medium" />
+        </FrameLayout>
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.messages.ItemMsgRiskLayout>

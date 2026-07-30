@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.messages.ConversationMatchItemLayout android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="match_parent" folder="newui" holder="messages.ConversationMatchItemLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/new_match_layout" android:clipChildren="false" android:layout_width="0.0dp" android:layout_height="115.0dp" flatten="true">
+        <v.VFrame android:clipChildren="false" android:layout_width="115.0dp" android:layout_height="115.0dp">
+            <View android:id="@id/bg_view" android:layout_width="match_parent" android:layout_height="match_parent" />
+            <v.VDraweeView android:id="@id/me_head" android:layout_width="38.0dp" android:layout_height="38.0dp" android:layout_marginTop="22.0dp" android:layout_marginStart="19.0dp" style="@style/core_special_like_avatar" />
+            <v.VFrame android:layout_gravity="right" android:id="@id/other_other_layout" android:visibility="visible" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginTop="22.0dp" android:layout_marginRight="15.0dp" flatten="true">
+                <v.VDraweeView android:layout_gravity="center" android:id="@id/other_other_head" android:layout_width="54.0dp" android:layout_height="54.0dp" android:scaleType="centerCrop" style="@style/core_special_like_avatar" />
+                <View android:background="@drawable/core_bg_head_match" android:layout_width="match_parent" android:layout_height="match_parent" />
+            </v.VFrame>
+            <v.VFrame android:layout_gravity="right" android:id="@id/other_head_layout" android:visibility="visible" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginTop="22.0dp" android:layout_marginRight="15.0dp" flatten="true">
+                <v.VDraweeView android:layout_gravity="center" android:id="@id/other_head" android:layout_width="54.0dp" android:layout_height="54.0dp" android:scaleType="centerCrop" style="@style/core_special_like_avatar" />
+                <View android:background="@drawable/core_bg_head_match" android:layout_width="match_parent" android:layout_height="match_parent" />
+                <View android:layout_gravity="end|top" android:id="@id/unread_dot" android:background="@drawable/core_fun_right_icon_dot" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_margin="4.0dp" />
+            </v.VFrame>
+            <v.VFrame android:layout_gravity="center_horizontal" android:id="@id/new_head_layout" android:visibility="gone" android:layout_width="60.0dp" android:layout_height="60.0dp" android:layout_marginTop="13.0dp">
+                <v.VDraweeView android:layout_gravity="center" android:id="@id/image" android:background="@drawable/core_default_head_bg" android:layout_width="match_parent" android:layout_height="match_parent" style="@style/core_special_like_avatar" />
+                <v.VFrame android:layout_gravity="bottom" android:id="@id/chat_label" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="-2.0dp" flatten="true">
+                    <v.VImage android:layout_gravity="center|bottom" android:id="@id/chat_label_img" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+                    <v.VText android:textSize="9.0sp" android:textColor="@color/white" android:layout_gravity="center|bottom" android:id="@id/chat_label_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="2.0dp" android:text="即刻闪聊" />
+                </v.VFrame>
+            </v.VFrame>
+            <com.p1.mobile.putong.core.newui.view.LightningView android:textSize="13.0sp" android:textStyle="bold" android:textColor="#ff8231" android:ellipsize="end" android:layout_gravity="center|bottom" android:id="@id/match_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginRight="10.0dp" android:layout_marginBottom="14.0dp" android:text="你有1个新配对" android:singleLine="true" app:enableEmojis="true" app:typeface="medium" />
+        </v.VFrame>
+    </v.VFrame>
+</com.p1.mobile.putong.core.newui.messages.ConversationMatchItemLayout>

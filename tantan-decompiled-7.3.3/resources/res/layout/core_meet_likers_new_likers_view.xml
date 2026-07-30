@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.meet.likers.items.MeetLikersNewLikersView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    folder="newui"
+    holder="meet.likers.items.MeetLikersNewLikersView">
+    <TextView
+        android:textSize="15sp"
+        android:textColor="@color/common_grey_02"
+        android:gravity="center_vertical"
+        android:id="@+id/new_likers_title"
+        android:layout_width="match_parent"
+        android:layout_height="21dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
+        android:text="新增喜欢我的人"
+        android:layout_marginHorizontal="12dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/new_likers_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"/>
+    <View
+        android:id="@+id/new_likers_divider"
+        android:background="@color/common_light_04"
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginHorizontal="12dp"/>
+</com.p051p1.mobile.putong.core.newui.meet.likers.items.MeetLikersNewLikersView>

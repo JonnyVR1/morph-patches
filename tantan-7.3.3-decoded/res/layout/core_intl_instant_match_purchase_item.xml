@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.intlInstantChat.InstantMatchPurchaseSheetItemView android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.intlInstantChat.InstantMatchPurchaseSheetItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:id="@id/content" android:background="@drawable/core_intl_vip_bg_purchase_coin_item_select" android:layout_width="match_parent" android:layout_height="75.0dp" android:layout_marginLeft="5.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="5.0dp">
+        <v.VRelative android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+            <v.VText android:textSize="23.0sp" android:textColor="@color/black" android:gravity="bottom" android:id="@id/count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="0.0dp" android:layout_centerHorizontal="true" />
+            <v.VText android:textSize="13.0sp" android:textColor="#80000000" android:id="@id/price" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginBottom="2.0dp" android:layout_below="@id/count" android:layout_centerHorizontal="true" />
+        </v.VRelative>
+    </v.VRelative>
+    <v.VImage android:layout_gravity="right" android:id="@id/hot_tag" android:visibility="gone" android:layout_width="60.0dp" android:layout_height="33.0dp" android:layout_marginRight="-4.0dp" android:src="@null" android:scaleType="fitXY" />
+    <v.VImage android:layout_gravity="right" android:id="@id/best_value_tag" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="-3.0dp" android:layout_marginRight="-6.0dp" android:src="@null" android:scaleType="fitXY" />
+</com.p1.mobile.putong.core.ui.purchase.intlInstantChat.InstantMatchPurchaseSheetItemView>

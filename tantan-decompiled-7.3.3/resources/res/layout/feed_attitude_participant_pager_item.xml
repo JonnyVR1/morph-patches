@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.feed.newui.photoalbum.attitude.participant.AttitudeParticipantPagerItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    folder="newui"
+    holder="photoalbum.attitude.participant.AttitudeParticipantPagerItem">
+    <RelativeLayout
+        android:id="@+id/noContentRl"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        flatten="true">
+        <ImageView
+            android:id="@+id/no_content_ic"
+            android:layout_width="220dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="90dp"
+            android:src="0x7f081dfd"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/feed_cc000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂时没有用户发表此态度"
+            android:layout_below="@+id/no_content_ic"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:background="@color/transparent"
+        android:scrollbars="none"
+        android:clipChildren="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</com.p051p1.mobile.putong.feed.newui.photoalbum.attitude.participant.AttitudeParticipantPagerItem>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.intl.game.gameRoot.VoiceNewGamePlayRootView android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" holder="voice.intl.game.gameRoot.VoiceNewGamePlayRootView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/live_game_undercover" android:visibility="gone" android:layout_width="match_parent" android:layout_height="290.0dp" android:layout_marginTop="12.0dp" layout="@layout/live_undercover_main" />
+</com.p1.mobile.putong.live.livingroom.voice.intl.game.gameRoot.VoiceNewGamePlayRootView>

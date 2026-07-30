@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.intlmeet.tribe.IntlTribeGroupPurse android:layout_width="146.0dp" android:layout_height="194.0dp" folder="newui" holder="intlmeet.tribe.IntlTribeGroupPurse"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/cover" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="center" app:roundedCornerRadius="20.0dp" />
+    <v.VLinear android:orientation="vertical" android:id="@id/like_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginStart="8.0dp">
+        <v.VText_NoTopPadding android:textSize="11.0sp" android:textColor="@color/black" android:id="@id/like_count" android:background="@drawable/core_intl_tribe_like_bg" android:paddingTop="1.0dp" android:paddingBottom="1.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawablePadding="2.0dp" android:drawableStart="@drawable/core_intl_tribe_like_icon" android:paddingStart="5.0dp" android:paddingEnd="6.0dp" android:paddingVertical="1.0dp" app:fontWeight="500" />
+        <v.VImage android:layout_gravity="center|bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/core_intl_tribe_like_tag_icon" />
+    </v.VLinear>
+    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/icon" android:layout_width="72.0dp" android:layout_height="72.0dp" android:layout_marginTop="8.0dp" android:scaleType="center" />
+    <v.VText_NoTopPadding android:textSize="19.0sp" android:textColor="@color/black" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="120.0dp" android:layout_height="wrap_content" android:layout_marginTop="83.0dp" android:minHeight="40.0dp" android:maxLines="2" android:lineSpacingExtra="-1.0dp" />
+    <v.VLinear android:gravity="center" android:layout_gravity="center_horizontal" android:orientation="horizontal" android:id="@id/user_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="148.0dp">
+        <v.AutoVDraweeView android:id="@id/user_1" android:layout_width="20.0dp" android:layout_height="20.0dp" app:roundedCornerRadius="6.0dp" />
+        <v.AutoVDraweeView android:id="@id/user_2" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginStart="4.0dp" app:roundedCornerRadius="6.0dp" />
+        <v.VText_NoTopPadding android:textSize="11.0sp" android:textColor="@color/black" android:gravity="center" android:id="@id/count" android:background="@drawable/core_bg_white_r6" android:paddingLeft="4.0dp" android:paddingRight="4.0dp" android:layout_width="wrap_content" android:layout_height="20.0dp" android:minWidth="20.0dp" android:layout_marginStart="6.0dp" android:paddingHorizontal="4.0dp" app:fontWeight="500" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.intlmeet.tribe.IntlTribeGroupPurse>

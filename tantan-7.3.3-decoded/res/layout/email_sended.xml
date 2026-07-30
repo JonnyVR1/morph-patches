@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:background="#f6f5f0" android:layout_width="match_parent" android:layout_height="match_parent" holder="settings.verifyemail.EmailSendedActViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="24.0sp" android:textColor="@color/black_4a4a4a" android:gravity="center" android:layout_width="260.0dp" android:layout_height="wrap_content" android:layout_marginTop="72.0dp" android:text="@string/EMAIL_SENT_TEXT" />
+    <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="42.0dp" android:src="@null" />
+    <v.VText android:textSize="16.0sp" android:textColor="@color/gray_999999" android:gravity="center" android:layout_width="278.0dp" android:layout_height="wrap_content" android:layout_marginTop="42.0dp" android:text="@string/OPEN_EMAIL_BOX_TEXT" />
+    <v.VButton android:textSize="16.0sp" android:textColor="@color/account_get_code_red" android:id="@id/resend" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="42.0dp" android:text="@string/RESEND_EMAIL" />
+</v.VLinear>

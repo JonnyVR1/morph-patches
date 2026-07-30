@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.intl.emoji.VoiceTripleDiceView android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="voice.intl.emoji" holder="VoiceTripleDiceView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga_1" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_centerHorizontal="true" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga_2" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginTop="-6.0dp" android:layout_below="@id/svga_1" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga_3" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginLeft="-4.0dp" android:layout_marginTop="-6.0dp" android:layout_toRightOf="@id/svga_2" android:layout_below="@id/svga_1" />
+    <v.VDraweeView android:id="@id/dice_result1" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_centerHorizontal="true" app:actualImageScaleType="centerCrop" />
+    <v.VDraweeView android:id="@id/dice_result2" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginTop="-6.0dp" android:layout_below="@id/dice_result1" app:actualImageScaleType="centerCrop" />
+    <v.VDraweeView android:id="@id/dice_result3" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginLeft="-4.0dp" android:layout_marginTop="-6.0dp" android:layout_toRightOf="@id/dice_result2" android:layout_below="@id/dice_result1" app:actualImageScaleType="centerCrop" />
+</com.p1.mobile.putong.live.livingroom.voice.intl.emoji.VoiceTripleDiceView>

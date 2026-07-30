@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRecyclerView android:id="@id/recycler_view" android:paddingTop="4.0dp" android:descendantFocusability="blocksDescendants" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" />
+    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_list_empty_error_view" />
+</v.VFrame>

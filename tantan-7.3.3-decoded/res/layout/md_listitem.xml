@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VText android:textSize="@dimen/md_listitem_textsize" android:gravity="center_vertical" android:layout_gravity="start" android:id="@id/title" android:paddingLeft="@dimen/md_listitem_margin_left" android:paddingTop="8.0dp" android:paddingRight="@dimen/md_dialog_frame_margin" android:paddingBottom="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/md_listitem_height" android:paddingEnd="@dimen/md_dialog_frame_margin" app:typeface="regular"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

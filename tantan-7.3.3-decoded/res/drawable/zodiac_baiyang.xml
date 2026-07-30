@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list android:opacity="opaque"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <selector>
+            <item android:state_selected="true" android:drawable="@drawable/zodiac_bg_selected" />
+            <item android:drawable="@drawable/zodiac_bg" />
+        </selector>
+    </item>
+    <item android:gravity="center" android:left="13.0dp" android:top="13.0dp" android:right="13.0dp" android:bottom="13.0dp">
+        <selector>
+            <item android:state_selected="true" android:drawable="@drawable/ic_filter_baiyang_selected" />
+            <item android:drawable="@drawable/ic_filter_baiyang" />
+        </selector>
+    </item>
+</layer-list>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.recreation.multiplayerchat.view.RoomPusherView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    folder="recreation"
+    holder="multiplayerchat.view.RoomPusherView">
+    <FrameLayout
+        android:id="@+id/local_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <FrameLayout
+        android:id="@+id/remote_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</com.p051p1.mobile.putong.live.livingroom.recreation.multiplayerchat.view.RoomPusherView>

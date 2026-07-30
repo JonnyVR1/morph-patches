@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <p151v.VImage
+        android:id="@+id/icon_left"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/core_intl_message_no_privilege_icon"
+        android:layout_marginEnd="4dp"/>
+    <p151v.VFrame
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <p151v.VText_NoTopPadding
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="速度速度速度速度速度"/>
+        <View
+            android:layout_gravity="end|bottom"
+            android:id="@+id/tip_target"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"/>
+    </p151v.VFrame>
+    <p151v.VImage
+        android:id="@+id/icon_right"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/core_intl_message_has_read_icon"
+        android:layout_marginStart="4dp"/>
+</p151v.VLinear>

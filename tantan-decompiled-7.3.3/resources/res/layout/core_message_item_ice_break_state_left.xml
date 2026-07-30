@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemIceBreakStateLeft xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/content"
+    android:background="@drawable/core_message_ice_break_state_left"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="4dp"
+    flatten="true"
+    holder="messages.ItemIceBreakStateLeft">
+    <p151v.VDraweeView
+        android:id="@+id/image"
+        android:background="@drawable/core_bg_10_ffffff"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:roundedCornerRadius="10dp"/>
+    <p151v.VLinear
+        android:gravity="start"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp">
+        <p151v.VText
+            android:textSize="13sp"
+            android:textColor="#66000000"
+            android:ellipsize="end"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:lines="1"/>
+        <p151v.VText
+            android:textSize="15sp"
+            android:textColor="@color/core_color_cc000000"
+            android:ellipsize="end"
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:lines="1"/>
+    </p151v.VLinear>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemIceBreakStateLeft>

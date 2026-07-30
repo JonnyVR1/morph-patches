@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.applymanager.VoiceLiveApplyManagerEnterViewModel android:layout_width="wrap_content" android:layout_height="42.0dp" flatten="true" folder="voice" holder="applymanager.VoiceLiveApplyManagerEnterViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/live_shape_voice_call_apply_manager_bg" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:paddingStart="10.0dp" android:paddingEnd="10.0dp" android:layout_marginEnd="6.0dp">
+        <ImageView android:layout_gravity="center_vertical" android:id="@id/icon" android:layout_width="20.0dp" android:layout_height="20.0dp" />
+        <TextView android:textSize="13.0sp" android:textColor="@color/live_white" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:text="@string/LIVE_VOICE_APPLICATION" />
+    </LinearLayout>
+    <TextView android:textSize="13.0sp" android:textColor="@color/live_white" android:gravity="center" android:layout_gravity="end|top" android:id="@id/red_dot" android:background="@drawable/live_bg_ff6464_r10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxHeight="20.0dp" android:minWidth="20.0dp" android:text="0" android:paddingStart="6.0dp" android:paddingEnd="6.0dp" />
+</com.p1.mobile.putong.live.livingroom.voice.applymanager.VoiceLiveApplyManagerEnterViewModel>

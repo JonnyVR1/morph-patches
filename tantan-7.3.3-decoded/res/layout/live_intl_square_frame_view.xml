@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.base.view.LiveIntlSquareFrameView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="view.LiveIntlSquareFrameView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VDraweeView android:id="@id/drawee_view" android:layout_width="match_parent" android:layout_height="match_parent" fresco:actualImageScaleType="centerCrop" />
+</com.p1.mobile.putong.live.base.view.LiveIntlSquareFrameView>

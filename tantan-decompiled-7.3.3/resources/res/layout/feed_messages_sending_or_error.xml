@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame_Anim xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center_vertical"
+    android:id="@+id/sending_or_error"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_width="16dp"
+    android:layout_height="16dp">
+    <p151v.VProgressBar
+        android:id="@+id/sending"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:indeterminateOnly="true"
+        app:cpb_color="@color/tantan_orange"
+        app:cpb_stroke_percentage="0.1"/>
+    <ImageView
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:id="@+id/error"
+        android:background="0x7f081f66"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:typeface="medium"/>
+</p151v.VFrame_Anim>

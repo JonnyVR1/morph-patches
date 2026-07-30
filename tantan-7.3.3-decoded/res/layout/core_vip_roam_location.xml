@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="vip.roam.VipRoamLocationViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:orientation="horizontal" android:id="@id/top_title_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:layout_marginBottom="4.0dp" android:layout_marginStart="20.0dp" flatten="true">
+            <v.VText android:textSize="15.0sp" android:textColor="@color/core_color_66000000" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/current_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/SETTINGS_LOCATION_TYPE_CURRENT" />
+            <v.VImage android:layout_gravity="center_vertical" android:id="@id/title_refresh" android:layout_width="21.0dp" android:layout_height="21.0dp" android:layout_marginLeft="6.0dp" android:src="@null" />
+        </LinearLayout>
+        <include android:id="@id/current_location" layout="@layout/vip_location_item" />
+        <v.VText android:textSize="12.0sp" android:textColor="@color/common_orange" android:id="@id/tv_no_location_permission_tips" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="18.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="18.0dp" android:text="@string/LOCATION_NOPERMISSIONS" android:includeFontPadding="false" android:layout_marginHorizontal="18.0dp" />
+        <v.VText android:textSize="15.0sp" android:textColor="@color/core_color_66000000" android:id="@id/roaming_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginBottom="4.0dp" android:text="@string/SETTINGS_LOCATION_TYPE_ROAMING" android:layout_marginStart="20.0dp" />
+        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+            <v.VList android:id="@id/list" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="52.0dp" android:divider="@null" android:dividerHeight="0.0dp" />
+            <v.VText android:textSize="16.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="bottom" android:id="@id/add_new" android:background="@drawable/common_button_btn_orange_large" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" android:text="添加动态漫游位置" android:minLines="1" android:layout_marginHorizontal="20.0dp" />
+        </FrameLayout>
+    </LinearLayout>
+</v.VLinear>

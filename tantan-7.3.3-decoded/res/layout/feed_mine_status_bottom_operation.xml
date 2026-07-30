@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="status.display.statuspage.view.FeedMineStatusBottomOperationView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textColor="@color/feed_follow_normal_color" android:gravity="center" android:id="@id/time" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" />
+    <TextView android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/common_orange" android:gravity="center" android:id="@id/publishing_tips" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:text="状态更新中..." />
+    <TextView android:textStyle="bold" android:textColor="@color/feed_like_normal_color" android:layout_gravity="center_horizontal" android:id="@id/close" android:background="@drawable/feed_mine_status_bottom_end_status" android:paddingLeft="24.0dp" android:paddingTop="13.0dp" android:paddingRight="24.0dp" android:paddingBottom="13.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:layout_marginBottom="20.0dp" android:text="@string/FEED_STAT_END" />
+</LinearLayout>

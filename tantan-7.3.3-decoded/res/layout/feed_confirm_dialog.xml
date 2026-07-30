@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.dialog.FeedRestrictLayout android:orientation="vertical" android:background="@drawable/feed_confirm_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="20.0dp" library:restrict_width="400.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:library="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="22.0sp" android:textStyle="bold" android:textColor="#212121" android:id="@id/dialogTitle" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="24.0dp" android:layout_marginRight="24.0dp" />
+    <v.VText android:textSize="16.0sp" android:textColor="#535353" android:id="@id/dialogContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="24.0dp" android:layout_marginRight="24.0dp" />
+    <v.VLinear android:gravity="right" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="36.0dp" android:layout_marginRight="24.0dp" android:layout_marginBottom="16.0dp">
+        <v.VButton android:textSize="15.0sp" android:textColor="#bf4b4b" android:gravity="center" android:id="@id/buttonNegative" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="24.0dp" android:minWidth="60.0dp" android:text="@string/ACTION_CANCEL" />
+        <v.VButton android:textSize="15.0sp" android:textColor="#bf4b4b" android:gravity="center" android:id="@id/buttonPositive" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="24.0dp" android:layout_marginLeft="20.0dp" android:minWidth="60.0dp" android:text="@string/ALERT_OK" />
+    </v.VLinear>
+</com.p1.mobile.putong.feed.newui.dialog.FeedRestrictLayout>

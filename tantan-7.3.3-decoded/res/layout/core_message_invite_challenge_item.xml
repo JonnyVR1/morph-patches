@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.messages.expirence.view.ItemInviteChallengeView android:id="@id/parent" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="32.0dp" android:paddingEnd="32.0dp" flatten="true" folder="newui" holder="messages.expirence.view.ItemInviteChallengeView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:id="@id/content" android:background="@drawable/core_bg_dlg_know_my_self" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <FrameLayout android:layout_gravity="center_horizontal" android:clipChildren="false" android:layout_width="90.0dp" android:layout_height="88.0dp" android:layout_marginTop="36.0dp">
+            <androidx.cardview.widget.CardView android:layout_gravity="left" android:layout_width="80.0dp" android:layout_height="80.0dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="40.0dp" app:cardElevation="0.0dp">
+                <v.VDraweeView android:layout_gravity="center" android:id="@id/head" android:layout_width="80.0dp" android:layout_height="80.0dp" android:cropToPadding="false" app:roundingBorderWidth="0.0dp" style="@style/core_fresco_profile_white_border" />
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_gravity="right|bottom" android:layout_width="47.0dp" android:layout_height="47.0dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="40.0dp" app:cardElevation="0.0dp">
+                <v.VDraweeView android:layout_gravity="center" android:background="@null" android:layout_width="40.0dp" android:layout_height="40.0dp" />
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+        <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_010101" android:gravity="center_horizontal" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" android:text="邀你解锁我的三个真相" />
+        <v.VText android:textSize="14.0sp" android:textColor="@color/core_color_919393" android:gravity="center_horizontal" android:id="@id/sub_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="只对你开放哦" />
+        <v.VText android:textSize="16.0sp" android:textColor="@color/white" android:gravity="center_horizontal" android:id="@id/complete" android:background="@drawable/core_immersion_video_bg_12_fe7e1d" android:paddingTop="16.0dp" android:paddingBottom="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="17.0dp" android:layout_marginBottom="24.0dp" android:text="立即解锁" android:layout_marginStart="24.0dp" android:layout_marginEnd="24.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.messages.expirence.view.ItemInviteChallengeView>

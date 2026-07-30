@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.view.TopicRecommendTopicItemView android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="156.0dp" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" folder="newui" holder="photoalbum.view.TopicRecommendTopicItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/topic_head_fl" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="false">
+        <v.VDraweeView android:id="@id/topic_head_image" android:layout_width="38.0dp" android:layout_height="40.0dp" android:scaleType="centerCrop" app:actualImageScaleType="centerCrop" app:placeholderImage="@color/white" app:placeholderImageScaleType="centerInside" app:roundedCornerRadius="12.0dp" style="@style/feed_fresco_base" />
+        <v.VDraweeView android:id="@id/topic_head_shadow" android:layout_width="38.0dp" android:layout_height="40.0dp" android:scaleType="centerCrop" app:actualImageResource="@color/common_grey_03" app:actualImageScaleType="centerCrop" app:placeholderImage="@color/common_grey_03" app:placeholderImageScaleType="centerInside" app:roundedCornerRadius="12.0dp" style="@style/feed_fresco_base" />
+        <v.VImage android:layout_gravity="center" android:id="@id/topic_image_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+    </v.VFrame>
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" flatten="false">
+        <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/feed_nearby_topic_color" android:ellipsize="end" android:id="@id/topic_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/common_grey_03" android:id="@id/topic_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.feed.newui.photoalbum.view.TopicRecommendTopicItemView>

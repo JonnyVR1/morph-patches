@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.momentdetail.feedlist.MomentDetailExpandCommentView android:id="@id/layout_expand_bottom" android:paddingTop="11.0dp" android:paddingBottom="11.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="photoalbum.momentdetail.feedlist.MomentDetailExpandCommentView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/common_orange" android:gravity="center" android:id="@id/show_expand" android:layout_width="wrap_content" android:layout_height="20.0dp" android:text="展开更多评论" android:layout_centerHorizontal="true" />
+    <v.VText android:textSize="15.0sp" android:id="@id/show_narrow" android:background="@null" android:layout_width="9.0dp" android:layout_height="6.0dp" android:layout_marginLeft="9.0dp" android:layout_toRightOf="@id/show_expand" android:layout_centerVertical="true" />
+</com.p1.mobile.putong.feed.newui.photoalbum.momentdetail.feedlist.MomentDetailExpandCommentView>

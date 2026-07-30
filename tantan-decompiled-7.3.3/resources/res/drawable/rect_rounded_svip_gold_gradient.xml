@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="@dimen/rect_corner_radius"/>
+            <gradient
+                android:startColor="#ecae41"
+                android:endColor="#ecae41"
+                android:angle="0"
+                android:centerColor="#f6cb59"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/tf_rect_rounded_light"/>
+</layer-list>

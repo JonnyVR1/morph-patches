@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.views.CardBottomTagLayout android:orientation="vertical" android:visibility="invisible" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.views.CardBottomTagLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/card_bottom_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4.0dp" layout="@layout/core_card_bottom_basic_info" />
+    <v.VLinear android:orientation="vertical" android:id="@id/info_content" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="false">
+        <v.VLinear android:orientation="vertical" android:id="@id/interest_info_content" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+            <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/white" android:id="@id/interest_line1" android:layout_width="match_parent" android:layout_height="wrap_content" android:lines="1" android:singleLine="true" android:shadowColor="@color/common_light_02" android:shadowDx="1.0" android:shadowDy="1.0" android:lineSpacingExtra="0.0sp" android:lineHeight="20.0dp" app:typeface="regular" />
+            <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/white" android:id="@id/interest_line2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:lines="1" android:singleLine="true" android:shadowColor="@color/common_light_02" android:shadowDx="1.0" android:shadowDy="1.0" android:lineSpacingExtra="0.0sp" android:lineHeight="20.0dp" app:typeface="regular" />
+        </v.VLinear>
+        <com.p1.mobile.putong.core.view.CardLabelShowView android:id="@id/labelshowview" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.home.views.CardBottomTagLayout>

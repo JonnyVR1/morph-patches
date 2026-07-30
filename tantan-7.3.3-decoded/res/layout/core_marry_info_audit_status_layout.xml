@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="marry.audit.MarryInfoAuditStatusViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="centerCrop" app:srcCompat="@drawable/core_marry_audit_head_bg" />
+    <ScrollView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="92.0dp">
+        <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:paddingTop="85.0dp" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <v.VImage android:id="@id/head_image" android:layout_width="375.0dp" android:layout_height="182.0dp" app:srcCompat="@null" />
+            <v.VText android:textSize="22.0dp" android:textStyle="bold" android:textColor="@color/black" android:id="@id/audit_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:text="一切以结婚为目的" />
+            <v.VText android:textSize="16.0dp" android:textStyle="bold" android:textColor="@color/common_grey_02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="希望每个人都能遇见自己的理想伴侣" />
+            <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/core_marry_audit_status_item_bg" android:layout_width="match_parent" android:layout_height="82.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="28.0dp" android:layout_marginRight="20.0dp">
+                <v.VImage android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="12.0dp" app:srcCompat="@drawable/core_marry_audit_veri_ic" />
+                <v.VLinear android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0">
+                    <v.VText android:textSize="16.0dp" android:textStyle="bold" android:textColor="@color/common_black_02" android:id="@id/verification_audit_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="实名 · 头像双重认证" />
+                    <v.VText android:textSize="14.0dp" android:textStyle="bold" android:textColor="@color/common_grey_02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="防止诈骗，动机不纯者" />
+                </v.VLinear>
+                <v.VButton android:textSize="14.0dp" android:textStyle="bold" android:textColor="@color/common_white" android:id="@id/check_veri_btn" android:layout_width="67.0dp" android:layout_height="34.0dp" android:layout_marginLeft="11.0dp" android:layout_marginRight="20.0dp" android:text="去认证" style="@style/common_button_small_01" />
+            </v.VLinear>
+            <FrameLayout android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="20.0dp">
+                <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/core_marry_audit_status_item_bg" android:layout_width="match_parent" android:layout_height="82.0dp">
+                    <v.VImage android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="12.0dp" app:srcCompat="@drawable/core_marry_audit_info_ic" />
+                    <v.VLinear android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0">
+                        <v.VText android:textSize="16.0dp" android:textStyle="bold" android:textColor="@color/common_black_02" android:id="@id/user_info_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="专属资料更多了解" />
+                        <v.VText android:textSize="14.0dp" android:textStyle="bold" android:textColor="@color/common_grey_02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="收入、家庭背景一目了然" />
+                    </v.VLinear>
+                    <v.VButton android:textSize="14.0dp" android:textStyle="bold" android:textColor="@color/common_white" android:id="@id/check_info_btn" android:layout_width="67.0dp" android:layout_height="34.0dp" android:layout_marginLeft="11.0dp" android:layout_marginRight="20.0dp" android:text="去完善" style="@style/common_button_small_01" />
+                </v.VLinear>
+                <v.VText android:textSize="10.0dp" android:textStyle="bold" android:textColor="#ff6244" android:gravity="center" android:layout_gravity="right|top" android:id="@id/user_info_fail_tips" android:background="@drawable/core_marry_audit_fail_tips_bg" android:paddingLeft="4.0dp" android:paddingRight="4.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="18.0dp" android:layout_marginTop="-8.0dp" android:layout_marginRight="-4.0dp" android:text="部分未通过审核，请重新填写" />
+            </FrameLayout>
+            <v.VLinear android:orientation="vertical" android:background="@drawable/core_marry_audit_status_item_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="20.0dp">
+                <v.VText android:textSize="13.0dp" android:textStyle="bold" android:textColor="@color/common_grey_04" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:text="- 劝退警示 -" />
+                <v.VText android:textSize="12.0dp" android:textColor="@color/common_grey_02" android:layout_gravity="left" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="20.0dp" android:text="1. 你需补充较多的信息，我们会严格筛选，确保严肃的恋爱环境，提供更精准的匹配 \n2. 如果你不是以结婚为目的请不要加入。聊天过程中如果怀疑对方是骗子或非真心恋爱，欢迎随时举报" />
+            </v.VLinear>
+        </v.VLinear>
+    </ScrollView>
+    <v.VButton android:textSize="16.0dp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="bottom" android:id="@id/exchange_btn" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="20.0dp" android:text="进入" style="@style/common_button" />
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+</FrameLayout>

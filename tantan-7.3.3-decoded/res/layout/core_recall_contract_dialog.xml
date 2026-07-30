@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center" android:background="#fff" android:layout_width="match_parent" android:layout_height="match_parent" holder="renew.RenewPrivilegeRecallDialog"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:id="@id/bg" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <v.VImage android:layout_gravity="right" android:id="@id/close" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="40.0dp" android:layout_marginRight="16.0dp" android:src="@null" />
+    <LinearLayout android:orientation="vertical" android:id="@id/layoutrootview" android:clipChildren="true" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <LinearLayout android:orientation="horizontal" android:id="@id/title_layout" android:clipChildren="true" android:clipToPadding="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="30.0dp" android:layout_marginTop="63.0dp" flatten="true">
+            <v.VText android:textSize="32.0sp" android:textStyle="bold" android:textColor="#212121" android:layout_gravity="bottom" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <v.VText android:textSize="20.0sp" android:textStyle="bold" android:textColor="#212121" android:layout_gravity="bottom" android:id="@id/title_unit" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:text="额外福利" />
+        </LinearLayout>
+        <v.VText android:textSize="22.0sp" android:textStyle="bold" android:textColor="#ff5435" android:id="@id/subtitle" android:paddingRight="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="30.0dp" android:layout_marginTop="8.0dp" android:text="「加速曝光」已失效" />
+        <View android:id="@id/redline" android:background="@color/core_pricerecall2_line_bg_tell" android:layout_width="match_parent" android:layout_height="2.0dp" android:layout_marginLeft="26.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="26.0dp" android:layout_marginBottom="40.0dp" />
+        <TextView android:textSize="25.0sp" android:textStyle="bold" android:textColor="#ff5435" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:text="当前无需扣款\n开通免密支付即可恢复福利" android:lineSpacingExtra="8.0dp" />
+        <v.VText android:textSize="12.0dp" android:textColor="#999999" android:id="@id/tips" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="30.0dp" android:layout_marginTop="16.0dp" android:text="* 加速曝光福利为连续包月会员专享福利 \n   5天后将以￥26/季自动续费" android:lineSpacingExtra="8.0dp" />
+    </LinearLayout>
+    <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="14.0dp" android:textColor="#cc212121" android:gravity="center" android:layout_gravity="center" android:id="@id/deadline" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp" android:text="「加速曝光」已失效 6天" />
+        <v.VImage android:layout_width="match_parent" android:layout_height="wrap_content" android:src="@null" android:scaleType="fitXY" />
+        <RelativeLayout android:id="@id/btn_pay" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp">
+            <TextView android:textSize="15.0dp" android:textColor="#de000000" android:gravity="center" android:id="@id/pay_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:text="支付宝支付" android:drawableLeft="@null" android:drawablePadding="11.0dp" android:layout_centerVertical="true" android:lineSpacingExtra="4.0dp" />
+            <v.VText android:textSize="9.0sp" android:textColor="#ff5435" android:layout_gravity="center_vertical" android:id="@id/prom_text" android:background="@drawable/core_alipay_sell_rect" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:maxLines="1" android:layout_toRightOf="@id/pay_txt" android:layout_centerVertical="true" />
+            <ImageView android:id="@id/arrow" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+        </RelativeLayout>
+        <v.VButton android:textSize="17.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/goto_renew" android:background="@drawable/core_lowprice_select_tips_updown_bg" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="12.0dp" android:text="立即开通恢复福利" />
+    </LinearLayout>
+</FrameLayout>

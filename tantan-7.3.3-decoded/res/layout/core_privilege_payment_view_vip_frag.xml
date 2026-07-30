@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="match_parent" android:layout_height="wrap_content" attachToRoot="true" holder="vip.privilege.content.PrivilegePaymentView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/divider" android:background="#f9f9f9" android:layout_width="match_parent" android:layout_height="3.0dp" />
+    <FrameLayout android:id="@id/payment" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp" />
+    <FrameLayout android:id="@id/agreement" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp" />
+</merge>

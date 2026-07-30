@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge attachToRoot="true" holder="settings.SettingsItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/icon" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginTop="17.0dp" android:layout_marginRight="28.0dp" />
+    <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:paddingTop="14.0dp" android:paddingBottom="14.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="64.0dp" android:layout_toLeftOf="@id/switcher" android:layout_toRightOf="@id/icon">
+        <TextView android:textSize="16.0sp" android:textColor="#de000000" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:lineSpacingExtra="4.0sp" />
+        <TextView android:textSize="12.0sp" android:textColor="#66000000" android:id="@id/subtitle" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:lineSpacingExtra="4.0sp" />
+    </LinearLayout>
+    <v.VSwitch android:id="@id/switcher" android:visibility="gone" android:clickable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+    <View android:id="@id/dot" android:background="@drawable/messages_bar_dot" android:visibility="gone" android:layout_width="8.0dp" android:layout_height="8.0dp" android:layout_marginLeft="5.0dp" android:layout_marginRight="5.0dp" android:layout_toLeftOf="@id/arrow" android:layout_centerVertical="true" />
+    <ImageView android:id="@id/arrow" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+</merge>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.home.views.CardBottomDefaultLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:visibility="invisible"
+    android:clipChildren="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="newui"
+    holder="home.views.CardBottomDefaultLayout">
+    <include
+        android:id="@+id/card_bottom_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        layout="@layout/core_card_bottom_basic_info"/>
+    <include
+        android:id="@+id/info_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/core_card_user_content_view"/>
+</com.p051p1.mobile.putong.core.newui.home.views.CardBottomDefaultLayout>

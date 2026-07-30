@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/empty_view" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <v.VImage android:id="@id/ic_no_live" android:layout_width="220.0dp" android:layout_height="150.0dp" android:scaleType="fitXY" android:layout_centerHorizontal="true" app:srcCompat="@null" />
+        <v.VText android:textSize="14.0sp" android:textColor="@color/live_black_80_opacity" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="@string/LIVE_ANDHOR_SEAERCH_EMPTY_TITLE" android:layout_below="@id/ic_no_live" android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</RelativeLayout>

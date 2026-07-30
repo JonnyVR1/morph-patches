@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.gift.upgradegift.view.UpgradeGiftSelectButton android:layout_width="132.0dp" android:layout_height="36.0dp" flatten="true" folder="increment.gift.upgradegift.view" holder="UpgradeGiftSelectButton"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VDraweeView android:id="@id/buttonBg" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <TextView android:textSize="14.0sp" android:gravity="center" android:id="@id/text" android:layout_width="match_parent" android:layout_height="match_parent" android:maxLines="2" android:layout_marginStart="10.0dp" android:layout_marginEnd="10.0dp" />
+    <FrameLayout android:id="@id/progressLayout" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/progressText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" />
+        <ProgressBar android:layout_gravity="bottom" android:id="@id/progressBar" android:layout_width="match_parent" android:layout_height="4.0dp" android:layout_marginBottom="8.0dp" android:max="100" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" style="@style/live_update_progress_horizontal" />
+    </FrameLayout>
+</com.p1.mobile.putong.live.livingroom.increment.gift.upgradegift.view.UpgradeGiftSelectButton>

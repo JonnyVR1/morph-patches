@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/root_view" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="profile.profilelist.itemholders.ProfileAccountExceptionItemHolder"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="0.0dp">
+        <FrameLayout android:id="@id/user_audit_ll" android:background="#33000000" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginTop="-40.0dp">
+            <v.VText android:textSize="14.0sp" android:textColor="#fff" android:gravity="center" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/INFO_IN_REVIEW_TIP_PROFILE" android:drawablePadding="6.0dp" android:drawableStart="@null" />
+        </FrameLayout>
+    </FrameLayout>
+</FrameLayout>

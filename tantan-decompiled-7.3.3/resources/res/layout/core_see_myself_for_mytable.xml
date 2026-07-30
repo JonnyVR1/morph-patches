@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.p051p1.mobile.putong.core.newui.home.insert.myself.SeeMyselfRootLayout
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/see_myself_view"
+        android:layout_width="280dp"
+        android:layout_height="390dp"
+        android:layout_marginTop="32dp"/>
+    <p151v.VImage
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/see_myself_close"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/core_see_myself_up_icon"/>
+</p151v.VLinear>

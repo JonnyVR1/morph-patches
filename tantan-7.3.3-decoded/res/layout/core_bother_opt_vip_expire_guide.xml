@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/iv_icon" android:layout_width="match_parent" android:layout_height="wrap_content" android:src="@null" />
+    <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="#000000" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/NEW_VIP_EXPIRED_ALERT_TITLE" android:fontFamily="sans-serif-medium" />
+    <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/common_grey_02" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="24.0dp" android:text="@string/NEW_VIP_EXPIRED_ALERT_DESCRIPTION" />
+    <v.VButton android:textStyle="bold" android:id="@id/get" android:layout_marginLeft="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="32.0dp" android:text="@string/NEW_VIP_EXPIRED_ALERT_GET_VIP_BUTTON" app:typeface="regular" style="@style/common_button_large_01" />
+    <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="#cccccc" android:gravity="center" android:id="@id/dismiss" android:background="@drawable/tf_rect_rounded_light" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="12.0dp" android:text="@string/CORE_SVIP_PURCHASE_PRIVILEGE_THANKS" />
+</LinearLayout>

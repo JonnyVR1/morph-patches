@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.home.member.likeme.adapter.item.LikeMeUserNoDataItem android:layout_width="match_parent" android:layout_height="wrap_content" holder="home.member.likeme.adapter.item.LikeMeUserNoDataItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/no_data_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="90.0dp" android:src="@null" android:layout_centerHorizontal="true" />
+    <TextView android:textSize="14.0dp" android:textColor="#26000000" android:gravity="center_horizontal" android:id="@id/no_more_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="喜欢你的人都被你划过了，暂无新喜欢。\n系统已自动为你屏蔽异常用户" android:layout_below="@id/no_data_icon" android:layout_centerHorizontal="true" />
+</com.p1.mobile.putong.core.ui.home.member.likeme.adapter.item.LikeMeUserNoDataItem>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.internal.virtualVoice.square.view.VoiceConversationsEntryAvatarView android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.external.voice.entry.LiveEntryAvatarBorderView android:layout_gravity="left|bottom" android:id="@id/avatar_view_3" android:padding="2.0dp" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="3.0dp" android:layout_marginBottom="3.0dp" android:alpha="0.0" app:roundedCornerRadius="16.0dp" ignore="true" />
+    <com.p1.mobile.putong.live.external.voice.entry.LiveEntryAvatarBorderView android:layout_gravity="left|bottom" android:id="@id/avatar_view_2" android:padding="2.0dp" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="3.0dp" android:layout_marginBottom="3.0dp" app:roundedCornerRadius="16.0dp" ignore="true" />
+    <com.p1.mobile.putong.live.external.voice.entry.LiveEntryAvatarBorderView android:layout_gravity="left|bottom" android:id="@id/avatar_view_1" android:padding="2.0dp" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="3.0dp" android:layout_marginBottom="3.0dp" app:roundedCornerRadius="16.0dp" ignore="true" />
+</com.p1.mobile.putong.live.external.internal.virtualVoice.square.view.VoiceConversationsEntryAvatarView>

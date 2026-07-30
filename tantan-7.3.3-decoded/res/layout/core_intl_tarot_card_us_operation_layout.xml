@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:id="@id/operation_layout" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.ui.GradientBgButton android:id="@id/dislike_us" android:layout_width="60.0dp" android:layout_height="wrap_content" android:layout_marginRight="14.0dp" android:scaleType="centerInside" app:animationEnable="true" app:buttonColorEnd="@color/core_card_ic_us_dislike" app:buttonColorStart="@color/core_card_ic_us_dislike" app:icon="@null" app:iconWidth="24.0dp" />
+    <com.p1.mobile.putong.core.ui.GradientBgButton android:id="@id/like_us" android:layout_width="60.0dp" android:layout_height="wrap_content" android:layout_marginLeft="14.0dp" android:scaleType="centerInside" app:animationEnable="true" app:buttonColorEnd="@color/core_card_ic_us_like_end" app:buttonColorStart="@color/core_card_ic_us_like_start" app:icon="@null" app:iconWidth="24.0dp" />
+</LinearLayout>

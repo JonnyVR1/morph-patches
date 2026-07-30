@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.model.moment.MessageMomentExpandItemPlayView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="messages.model.moment.MessageMomentExpandItemPlayView">
+    <TextureView
+        android:id="@+id/texture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <p151v.VDraweeView
+        android:id="@+id/cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:actualImageScaleType="centerCrop"
+        app:placeholderImage="@color/white"/>
+    <p151v.VImage
+        android:id="@+id/muteBtn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:src="0x7f080f72"/>
+    <p151v.VImage
+        android:id="@+id/playBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="0x7f080f73"
+        android:layout_centerInParent="true"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.model.moment.MessageMomentExpandItemPlayView>

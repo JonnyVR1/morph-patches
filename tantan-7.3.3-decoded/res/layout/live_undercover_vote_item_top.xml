@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:orientation="vertical" android:layout_width="52.0dp" android:layout_height="94.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VRecyclerView android:id="@id/vote_recycle" android:background="@null" android:paddingTop="9.0dp" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="43.0dp" android:paddingStart="4.0dp" android:paddingEnd="4.0dp" />
+    <v.VFrame android:layout_gravity="center|top" android:layout_width="40.0dp" android:layout_height="40.0dp">
+        <v.VDraweeView android:id="@id/vote_avatar" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" fresco:placeholderImage="@drawable/live_vector_default_avatar_bg" fresco:roundAsCircle="true" />
+        <v.VText android:textSize="10.0sp" android:textColor="#1b4173" android:gravity="center" android:id="@id/vote_num" android:background="@drawable/live_shape_bg_undercover_num" android:layout_width="14.0dp" android:layout_height="14.0dp" />
+        <v.VImage android:layout_gravity="bottom" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/live_vector_bg_undercover_vote" android:scaleType="centerCrop" />
+        <v.VText android:textSize="10.0sp" android:textColor="#1b4173" android:layout_gravity="center|bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="2.0dp" android:text="@string/LIVE_ROOM_UNDERCOVER_VOTE" />
+    </v.VFrame>
+</v.VFrame>

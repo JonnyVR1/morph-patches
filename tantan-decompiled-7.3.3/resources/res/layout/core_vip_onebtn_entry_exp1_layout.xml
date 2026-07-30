@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.vip.greet.ProfileOneBtnMatchSendView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:background="@drawable/core_vip_onebtn_match_exp1_bg"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_marginLeft="13dp"
+    android:layout_marginRight="11dp"
+    flatten="true"
+    holder="vip.greet.ProfileOneBtnMatchSendView">
+    <p151v.VImage
+        android:id="@+id/ic"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:src="0x7f081993"
+        android:scaleType="centerCrop"/>
+    <TextView
+        android:textSize="14sp"
+        android:textColor="#0000"
+        android:id="@+id/desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="无需等待 一键配对聊天"
+        android:layout_weight="1"/>
+    <TextView
+        android:textSize="14sp"
+        android:textColor="#a76f11"
+        android:gravity="top|right"
+        android:id="@+id/go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:text="立即配对"/>
+</com.p051p1.mobile.putong.core.p058ui.vip.greet.ProfileOneBtnMatchSendView>

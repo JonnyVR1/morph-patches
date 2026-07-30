@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/operation_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.p051p1.mobile.putong.core.newui.home.views.CardOperationButton
+        android:id="@+id/dislike"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1"
+        app:cob_iconStyle="small"
+        app:iconPressStateColor="@color/white"
+        app:iconStateListAnimator="@animator/core_card_bottom_button_state_animator"
+        app:maxIconZoomRate="0.8"
+        app:normalStateIcon="0x7f080c75"
+        app:normalStateLayerBackground="0x7f080c76"
+        app:pressedStateLayerBackground="0x7f080c76"/>
+    <com.p051p1.mobile.putong.core.newui.home.views.CardOperationButton
+        android:id="@+id/like"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        app:cob_iconStyle="small"
+        app:iconPressStateColor="@color/white"
+        app:iconStateListAnimator="@animator/core_card_bottom_button_state_animator"
+        app:maxIconZoomRate="0.8"
+        app:normalStateIcon="0x7f080c82"
+        app:normalStateLayerBackground="0x7f080c76"
+        app:pressedStateLayerBackground="0x7f080c76"/>
+</LinearLayout>

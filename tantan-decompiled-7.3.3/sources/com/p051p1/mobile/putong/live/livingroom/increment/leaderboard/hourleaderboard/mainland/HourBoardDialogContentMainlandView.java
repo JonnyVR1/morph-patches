@@ -1,0 +1,491 @@
+package com.p051p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.util.Property;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.clevertap.android.sdk.Constants;
+import com.google.android.gms.common.internal.ServiceSpecificExtraArgs;
+import com.p051p1.mobile.putong.data.OMSTemplateModeType;
+import com.p051p1.mobile.putong.live.base.data.BLiveHourLeaderBoard;
+import com.p051p1.mobile.putong.live.base.data.BLiveHourLeaderBoardItem;
+import com.p051p1.mobile.putong.live.base.data.BLiveStormDanmakuGiftResourceType;
+import com.p051p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer;
+import com.p051p1.mobile.putong.live.base.view.DialogTitleBar;
+import com.p051p1.mobile.putong.live.livingroom.R$string;
+import com.p051p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.HourBoardDialogContentMainlandView;
+import com.p074ss.bytertc.base.media.screen.RXScreenCaptureService;
+import java.util.List;
+import kotlin.Metadata;
+import kotlin.jvm.JvmOverloads;
+import kotlin.jvm.internal.DefaultConstructorMarker;
+import kotlin.jvm.internal.Intrinsics;
+import kotlin.jvm.internal.SourceDebugExtension;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import p151v.VDraweeView;
+import p151v.VImage;
+import p153l.bil;
+import p153l.bnl0;
+import p153l.evl;
+import p153l.fjl;
+import p153l.izs;
+import p153l.mdc0;
+import p153l.n3d0;
+import p153l.n9c0;
+import p153l.qa00;
+import p153l.uhl;
+import p153l.wo0;
+import p153l.zft;
+
+/* JADX INFO: loaded from: classes4.dex */
+@Metadata(m88120d1 = {"\u0000\u009a\u0001\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\t\n\u0002\u0010\u000b\n\u0002\b\u000f\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\n\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\b\n\u0002\u0018\u0002\n\u0002\b\u0004\u0018\u00002\u00020\u00012\u00020\u0002B'\b\u0007\u0012\u0006\u0010\u0004\u001a\u00020\u0003\u0012\n\b\u0002\u0010\u0006\u001a\u0004\u0018\u00010\u0005\u0012\b\b\u0002\u0010\b\u001a\u00020\u0007¢\u0006\u0004\b\t\u0010\nJ\u0017\u0010\u000e\u001a\u00020\r2\u0006\u0010\f\u001a\u00020\u000bH\u0002¢\u0006\u0004\b\u000e\u0010\u000fJ\u000f\u0010\u0010\u001a\u00020\rH\u0002¢\u0006\u0004\b\u0010\u0010\u0011J\u000f\u0010\u0012\u001a\u00020\rH\u0014¢\u0006\u0004\b\u0012\u0010\u0011J\u0017\u0010\u0013\u001a\u00020\u000b2\u0006\u0010\u0004\u001a\u00020\u0003H\u0016¢\u0006\u0004\b\u0013\u0010\u0014J\u0017\u0010\u0017\u001a\u00020\r2\u0006\u0010\u0016\u001a\u00020\u0015H\u0016¢\u0006\u0004\b\u0017\u0010\u0018J\u000f\u0010\u0019\u001a\u00020\u0007H\u0016¢\u0006\u0004\b\u0019\u0010\u001aJ\u001d\u0010\u001e\u001a\u00020\r2\f\u0010\u001d\u001a\b\u0012\u0004\u0012\u00020\u001c0\u001bH\u0016¢\u0006\u0004\b\u001e\u0010\u001fJ\u0017\u0010\"\u001a\u00020\r2\u0006\u0010!\u001a\u00020 H\u0016¢\u0006\u0004\b\"\u0010#J\u0017\u0010%\u001a\u00020\r2\u0006\u0010$\u001a\u00020\u001cH\u0016¢\u0006\u0004\b%\u0010&J\u000f\u0010'\u001a\u00020\rH\u0016¢\u0006\u0004\b'\u0010\u0011J\u000f\u0010(\u001a\u00020\rH\u0016¢\u0006\u0004\b(\u0010\u0011J\u000f\u0010)\u001a\u00020\rH\u0016¢\u0006\u0004\b)\u0010\u0011J\u0017\u0010,\u001a\u00020\r2\u0006\u0010+\u001a\u00020*H\u0016¢\u0006\u0004\b,\u0010-J\u000f\u0010.\u001a\u00020\rH\u0016¢\u0006\u0004\b.\u0010\u0011J\u000f\u0010/\u001a\u00020\u0007H\u0016¢\u0006\u0004\b/\u0010\u001aR\"\u00105\u001a\u00020\u000b8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b0\u00101\u001a\u0004\b2\u00103\"\u0004\b4\u0010\u000fR\"\u00109\u001a\u00020\u000b8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b6\u00101\u001a\u0004\b7\u00103\"\u0004\b8\u0010\u000fR\"\u0010A\u001a\u00020:8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b;\u0010<\u001a\u0004\b=\u0010>\"\u0004\b?\u0010@R\"\u0010H\u001a\u00020B8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b\u0013\u0010C\u001a\u0004\bD\u0010E\"\u0004\bF\u0010GR\"\u0010P\u001a\u00020I8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\bJ\u0010K\u001a\u0004\bL\u0010M\"\u0004\bN\u0010OR\"\u0010W\u001a\u00020Q8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b(\u0010R\u001a\u0004\bS\u0010T\"\u0004\bU\u0010VR\"\u0010[\u001a\u00020\u000b8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\bX\u00101\u001a\u0004\bY\u00103\"\u0004\bZ\u0010\u000fR\"\u0010c\u001a\u00020\\8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b]\u0010^\u001a\u0004\b_\u0010`\"\u0004\ba\u0010bR\"\u0010j\u001a\u00020d8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\b\u001e\u0010e\u001a\u0004\bf\u0010g\"\u0004\bh\u0010iR\"\u0010r\u001a\u00020k8\u0006@\u0006X\u0086.¢\u0006\u0012\n\u0004\bl\u0010m\u001a\u0004\bn\u0010o\"\u0004\bp\u0010qR\u0018\u0010v\u001a\u0004\u0018\u00010s8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\bt\u0010uR\u0018\u0010!\u001a\u0004\u0018\u00010 8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\bw\u0010xR\u0018\u0010{\u001a\u0004\u0018\u00010\u00158\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\by\u0010zR\u0018\u0010\u007f\u001a\u0004\u0018\u00010|8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b}\u0010~¨\u0006\u0080\u0001"}, m88121d2 = {"Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardDialogContentMainlandView;", "Landroidx/constraintlayout/widget/ConstraintLayout;", "Ll/evl;", "Landroid/content/Context;", "context", "Landroid/util/AttributeSet;", "attrs", "", "defStyleAttr", "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;I)V", "Landroid/view/View;", OMSTemplateModeType.view, "", "j0", "(Landroid/view/View;)V", "m0", "()V", "onFinishInflate", "g", "(Landroid/content/Context;)Landroid/view/View;", "Ll/uhl;", "actionListener", "K", "(Ll/uhl;)V", "getDialogViewHeight", "()I", "", "Lcom/p1/mobile/putong/live/base/data/BLiveHourLeaderBoardItem;", "allLeaderboards", BLiveStormDanmakuGiftResourceType.f45292l, "(Ljava/util/List;)V", "Lcom/p1/mobile/putong/live/base/data/BLiveHourLeaderBoard;", "leaderBoard", "H", "(Lcom/p1/mobile/putong/live/base/data/BLiveHourLeaderBoard;)V", "hourLeaderBoard", "Y", "(Lcom/p1/mobile/putong/live/base/data/BLiveHourLeaderBoardItem;)V", "G", RXScreenCaptureService.KEY_INDEX, "onDestroy", "", "show", "I", "(Z)V", "b", "getContentHeight", Constants.INAPP_DATA_TAG, "Landroid/view/View;", "get_empty", "()Landroid/view/View;", "set_empty", "_empty", "e", "get_bg", "set_bg", "_bg", "Lv/VDraweeView;", "f", "Lv/VDraweeView;", "get_bottom_bg", "()Lv/VDraweeView;", "set_bottom_bg", "(Lv/VDraweeView;)V", "_bottom_bg", "Lcom/p1/mobile/putong/live/base/mmsdk/AnimEffectPlayer;", "Lcom/p1/mobile/putong/live/base/mmsdk/AnimEffectPlayer;", "get_bg_svga", "()Lcom/p1/mobile/putong/live/base/mmsdk/AnimEffectPlayer;", "set_bg_svga", "(Lcom/p1/mobile/putong/live/base/mmsdk/AnimEffectPlayer;)V", "_bg_svga", "Lv/VImage;", "h", "Lv/VImage;", "get_top_bg", "()Lv/VImage;", "set_top_bg", "(Lv/VImage;)V", "_top_bg", "Lcom/p1/mobile/putong/live/base/view/DialogTitleBar;", "Lcom/p1/mobile/putong/live/base/view/DialogTitleBar;", "get_title_bar", "()Lcom/p1/mobile/putong/live/base/view/DialogTitleBar;", "set_title_bar", "(Lcom/p1/mobile/putong/live/base/view/DialogTitleBar;)V", "_title_bar", "j", "get_top_divider", "set_top_divider", "_top_divider", "Landroidx/recyclerview/widget/RecyclerView;", "k", "Landroidx/recyclerview/widget/RecyclerView;", "get_recyclerView", "()Landroidx/recyclerview/widget/RecyclerView;", "set_recyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V", "_recyclerView", "Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardEmptyView;", "Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardEmptyView;", "get_empty_view", "()Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardEmptyView;", "set_empty_view", "(Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardEmptyView;)V", "_empty_view", "Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardMainlandMeItemView;", "m", "Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardMainlandMeItemView;", "get_own", "()Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardMainlandMeItemView;", "set_own", "(Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardMainlandMeItemView;)V", "_own", "Ll/fjl;", "n", "Ll/fjl;", "boardAdapter", "o", "Lcom/p1/mobile/putong/live/base/data/BLiveHourLeaderBoard;", "p", "Ll/uhl;", ServiceSpecificExtraArgs.CastExtraArgs.LISTENER, "Landroid/animation/Animator;", "q", "Landroid/animation/Animator;", "bgAnim", "livingroom_intlGmsRelease"}, m88122k = 1, m88123mv = {2, 2, 0}, m88125xi = 48)
+@SourceDebugExtension
+public final class HourBoardDialogContentMainlandView extends ConstraintLayout implements evl {
+
+    /* JADX INFO: renamed from: d, reason: from kotlin metadata */
+    public View _empty;
+
+    /* JADX INFO: renamed from: e, reason: from kotlin metadata */
+    public View _bg;
+
+    /* JADX INFO: renamed from: f, reason: from kotlin metadata */
+    public VDraweeView _bottom_bg;
+
+    /* JADX INFO: renamed from: g, reason: from kotlin metadata */
+    public AnimEffectPlayer _bg_svga;
+
+    /* JADX INFO: renamed from: h, reason: from kotlin metadata */
+    public VImage _top_bg;
+
+    /* JADX INFO: renamed from: i, reason: from kotlin metadata */
+    public DialogTitleBar _title_bar;
+
+    /* JADX INFO: renamed from: j, reason: from kotlin metadata */
+    public View _top_divider;
+
+    /* JADX INFO: renamed from: k, reason: from kotlin metadata */
+    public RecyclerView _recyclerView;
+
+    /* JADX INFO: renamed from: l, reason: from kotlin metadata */
+    public HourBoardEmptyView _empty_view;
+
+    /* JADX INFO: renamed from: m, reason: from kotlin metadata */
+    public HourBoardMainlandMeItemView _own;
+
+    /* JADX INFO: renamed from: n, reason: from kotlin metadata */
+    @Nullable
+    public fjl boardAdapter;
+
+    /* JADX INFO: renamed from: o, reason: from kotlin metadata */
+    @Nullable
+    public BLiveHourLeaderBoard leaderBoard;
+
+    /* JADX INFO: renamed from: p, reason: from kotlin metadata */
+    @Nullable
+    public uhl listener;
+
+    /* JADX INFO: renamed from: q, reason: from kotlin metadata */
+    @Nullable
+    public Animator bgAnim;
+
+    /* JADX INFO: renamed from: com.p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.HourBoardDialogContentMainlandView$a */
+    @Metadata(m88120d1 = {"\u0000\u0017\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0003*\u0001\u0000\b\n\u0018\u00002\u00020\u0001J\u0017\u0010\u0005\u001a\u00020\u00042\u0006\u0010\u0003\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u0005\u0010\u0006¨\u0006\u0007"}, m88121d2 = {"com/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardDialogContentMainlandView$a", "Landroid/animation/AnimatorListenerAdapter;", "Landroid/animation/Animator;", "animation", "", "onAnimationStart", "(Landroid/animation/Animator;)V", "livingroom_intlGmsRelease"}, m88122k = 1, m88123mv = {2, 2, 0}, m88125xi = 48)
+    public static final class C13014a extends AnimatorListenerAdapter {
+        public C13014a() {
+        }
+
+        @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+        public void onAnimationStart(Animator animation) {
+            animation.getClass();
+            bnl0.m105525M0(HourBoardDialogContentMainlandView.this.get_bg_svga(), true);
+        }
+    }
+
+    /* JADX INFO: renamed from: com.p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.HourBoardDialogContentMainlandView$b */
+    @Metadata(m88120d1 = {"\u0000\u0011\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\u0002\n\u0002\b\u0003*\u0001\u0000\b\n\u0018\u00002\u00020\u0001J\u000f\u0010\u0003\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u0003\u0010\u0004¨\u0006\u0005"}, m88121d2 = {"com/p1/mobile/putong/live/livingroom/increment/leaderboard/hourleaderboard/mainland/HourBoardDialogContentMainlandView$b", "Ll/wo0;", "", "g", "()V", "livingroom_intlGmsRelease"}, m88122k = 1, m88123mv = {2, 2, 0}, m88125xi = 48)
+    public static final class C13015b extends wo0 {
+        public C13015b() {
+        }
+
+        @Override // p153l.wo0
+        /* JADX INFO: renamed from: g */
+        public void mo70786g() {
+            super.mo70786g();
+            BLiveHourLeaderBoard bLiveHourLeaderBoard = HourBoardDialogContentMainlandView.this.leaderBoard;
+            if (bLiveHourLeaderBoard != null) {
+                HourBoardDialogContentMainlandView hourBoardDialogContentMainlandView = HourBoardDialogContentMainlandView.this;
+                if (bLiveHourLeaderBoard.isHeaderBgAnimFinish) {
+                    return;
+                }
+                Animator animator = hourBoardDialogContentMainlandView.bgAnim;
+                if (animator != null) {
+                    animator.start();
+                }
+                bLiveHourLeaderBoard.isHeaderBgAnimFinish = true;
+            }
+        }
+    }
+
+    public /* synthetic */ HourBoardDialogContentMainlandView(Context context, AttributeSet attributeSet, int i, int i2, DefaultConstructorMarker defaultConstructorMarker) {
+        this(context, (i2 & 2) != 0 ? null : attributeSet, (i2 & 4) != 0 ? 0 : i);
+    }
+
+    /* JADX INFO: renamed from: h0 */
+    public static void m75993h0(HourBoardDialogContentMainlandView hourBoardDialogContentMainlandView, View view) {
+        uhl uhlVar = hourBoardDialogContentMainlandView.listener;
+        if (uhlVar != null) {
+            uhlVar.mo76108G();
+        }
+    }
+
+    /* JADX INFO: renamed from: i0 */
+    public static void m75994i0(HourBoardDialogContentMainlandView hourBoardDialogContentMainlandView, View view) {
+        uhl uhlVar;
+        BLiveHourLeaderBoard bLiveHourLeaderBoard = hourBoardDialogContentMainlandView.leaderBoard;
+        if (bLiveHourLeaderBoard == null || (uhlVar = hourBoardDialogContentMainlandView.listener) == null) {
+            return;
+        }
+        String str = bLiveHourLeaderBoard.helperPageUrl;
+        str.getClass();
+        uhlVar.mo76106E(str, true);
+    }
+
+    /* JADX INFO: renamed from: m0 */
+    private final void m75997m0() {
+        ObjectAnimator objectAnimatorOfFloat = ObjectAnimator.ofFloat(get_bg_svga(), (Property<AnimEffectPlayer, Float>) View.TRANSLATION_X, -qa00.m175859d(100.0f), 0.0f);
+        objectAnimatorOfFloat.setInterpolator(new DecelerateInterpolator());
+        objectAnimatorOfFloat.setDuration(1500L);
+        ObjectAnimator objectAnimatorOfFloat2 = ObjectAnimator.ofFloat(get_bg_svga(), (Property<AnimEffectPlayer, Float>) View.ALPHA, 0.0f, 1.0f);
+        objectAnimatorOfFloat2.setInterpolator(new DecelerateInterpolator());
+        objectAnimatorOfFloat2.setDuration(1500L);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(objectAnimatorOfFloat, objectAnimatorOfFloat2);
+        animatorSet.addListener(new C13014a());
+        this.bgAnim = animatorSet;
+    }
+
+    @Override // p153l.evl
+    /* JADX INFO: renamed from: G */
+    public void mo75932G() {
+        get_own().reset();
+        HourBoardHeaderView hourBoardHeaderView = (HourBoardHeaderView) get_recyclerView().findViewWithTag(Integer.valueOf(mdc0.f135896B3));
+        if (hourBoardHeaderView != null) {
+            hourBoardHeaderView.m76021G();
+        }
+    }
+
+    @Override // p153l.evl
+    /* JADX INFO: renamed from: H */
+    public void mo75933H(@NotNull BLiveHourLeaderBoard leaderBoard) {
+        leaderBoard.getClass();
+        this.leaderBoard = leaderBoard;
+        fjl fjlVar = this.boardAdapter;
+        if (fjlVar != null) {
+            fjlVar.m125821T(leaderBoard);
+        }
+    }
+
+    @Override // p153l.evl
+    /* JADX INFO: renamed from: I */
+    public void mo75934I(boolean show) {
+        fjl fjlVar = this.boardAdapter;
+        if (fjlVar != null) {
+            fjlVar.m125820S(show);
+        }
+    }
+
+    @Override // p153l.evl
+    /* JADX INFO: renamed from: K */
+    public void mo75935K(@NotNull uhl actionListener) {
+        actionListener.getClass();
+        this.listener = actionListener;
+        bnl0.m105509E0(get_empty(), new View.OnClickListener() { // from class: l.zhl
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                HourBoardDialogContentMainlandView.m75993h0(this.f204431a, view);
+            }
+        });
+        bnl0.m105524M(get_title_bar(), true);
+        get_title_bar().setFAQListener(new View.OnClickListener() { // from class: l.ail
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                HourBoardDialogContentMainlandView.m75994i0(this.f71544a, view);
+            }
+        });
+        get_title_bar().m69898f(n3d0.m161280d(R$string.f47835U), n9c0.f140856p1);
+        get_title_bar().setRightView(3);
+        this.boardAdapter = new fjl(this.listener);
+        get_recyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
+        get_recyclerView().setAdapter(this.boardAdapter);
+        m75997m0();
+    }
+
+    @Override // p153l.evl
+    /* JADX INFO: renamed from: Y */
+    public void mo75936Y(@NotNull BLiveHourLeaderBoardItem hourLeaderBoard) {
+        hourLeaderBoard.getClass();
+        hourLeaderBoard.isOwn = true;
+        get_own().setOnClickListener(null);
+        get_own().m76052M(hourLeaderBoard, this.leaderBoard);
+    }
+
+    @Override // p153l.evl
+    /* JADX INFO: renamed from: b */
+    public void mo75937b() {
+        fjl fjlVar = this.boardAdapter;
+        if (fjlVar != null) {
+            fjlVar.m125816I();
+        }
+        this.leaderBoard = null;
+        Animator animator = this.bgAnim;
+        if (animator != null) {
+            animator.cancel();
+        }
+        Animator animator2 = this.bgAnim;
+        if (animator2 != null) {
+            animator2.end();
+        }
+        get_bg_svga().m69688o();
+        bnl0.m105525M0(get_bg_svga(), false);
+    }
+
+    @Override // p153l.evl
+    @NotNull
+    /* JADX INFO: renamed from: g */
+    public View mo75938g(@NotNull Context context) {
+        context.getClass();
+        return this;
+    }
+
+    @Override // p153l.evl
+    public int getContentHeight() {
+        return (bnl0.m105590x0(getContext()) - get_empty().getHeight()) - qa00.m175859d(2.0f);
+    }
+
+    @Override // p153l.evl
+    public int getDialogViewHeight() {
+        return bnl0.m105588w0() - qa00.m175859d(145.0f);
+    }
+
+    @NotNull
+    public final View get_bg() {
+        View view = this._bg;
+        if (view != null) {
+            return view;
+        }
+        Intrinsics.m88391r("_bg");
+        return null;
+    }
+
+    @NotNull
+    public final AnimEffectPlayer get_bg_svga() {
+        AnimEffectPlayer animEffectPlayer = this._bg_svga;
+        if (animEffectPlayer != null) {
+            return animEffectPlayer;
+        }
+        Intrinsics.m88391r("_bg_svga");
+        return null;
+    }
+
+    @NotNull
+    public final VDraweeView get_bottom_bg() {
+        VDraweeView vDraweeView = this._bottom_bg;
+        if (vDraweeView != null) {
+            return vDraweeView;
+        }
+        Intrinsics.m88391r("_bottom_bg");
+        return null;
+    }
+
+    @NotNull
+    public final View get_empty() {
+        View view = this._empty;
+        if (view != null) {
+            return view;
+        }
+        Intrinsics.m88391r("_empty");
+        return null;
+    }
+
+    @NotNull
+    public final HourBoardEmptyView get_empty_view() {
+        HourBoardEmptyView hourBoardEmptyView = this._empty_view;
+        if (hourBoardEmptyView != null) {
+            return hourBoardEmptyView;
+        }
+        Intrinsics.m88391r("_empty_view");
+        return null;
+    }
+
+    @NotNull
+    public final HourBoardMainlandMeItemView get_own() {
+        HourBoardMainlandMeItemView hourBoardMainlandMeItemView = this._own;
+        if (hourBoardMainlandMeItemView != null) {
+            return hourBoardMainlandMeItemView;
+        }
+        Intrinsics.m88391r("_own");
+        return null;
+    }
+
+    @NotNull
+    public final RecyclerView get_recyclerView() {
+        RecyclerView recyclerView = this._recyclerView;
+        if (recyclerView != null) {
+            return recyclerView;
+        }
+        Intrinsics.m88391r("_recyclerView");
+        return null;
+    }
+
+    @NotNull
+    public final DialogTitleBar get_title_bar() {
+        DialogTitleBar dialogTitleBar = this._title_bar;
+        if (dialogTitleBar != null) {
+            return dialogTitleBar;
+        }
+        Intrinsics.m88391r("_title_bar");
+        return null;
+    }
+
+    @NotNull
+    public final VImage get_top_bg() {
+        VImage vImage = this._top_bg;
+        if (vImage != null) {
+            return vImage;
+        }
+        Intrinsics.m88391r("_top_bg");
+        return null;
+    }
+
+    @NotNull
+    public final View get_top_divider() {
+        View view = this._top_divider;
+        if (view != null) {
+            return view;
+        }
+        Intrinsics.m88391r("_top_divider");
+        return null;
+    }
+
+    @Override // p153l.evl
+    /* JADX INFO: renamed from: i */
+    public void mo75939i() {
+        get_recyclerView().scrollToPosition(0);
+    }
+
+    /* JADX INFO: renamed from: j0 */
+    public final void m75998j0(View view) {
+        bil.m104488a(this, view);
+    }
+
+    @Override // p153l.evl
+    /* JADX INFO: renamed from: l */
+    public void mo75941l(@NotNull List<? extends BLiveHourLeaderBoardItem> allLeaderboards) {
+        allLeaderboards.getClass();
+        bnl0.m105524M(get_empty_view(), allLeaderboards.isEmpty());
+        bnl0.m105524M(get_recyclerView(), true);
+        fjl fjlVar = this.boardAdapter;
+        if (fjlVar != null) {
+            fjlVar.m125822U(allLeaderboards);
+        }
+        get_bg_svga().m69688o();
+        get_bg_svga().mo69685l("https://auto.tancdn.com/v1/raw/f9f9b9db-0e97-4823-8f39-547baf3e7f4f12.pdf", -1, new C13015b());
+    }
+
+    @Override // p153l.evl
+    public void onDestroy() {
+        fjl fjlVar = this.boardAdapter;
+        if (fjlVar != null) {
+            fjlVar.m125819R();
+        }
+    }
+
+    @Override // android.view.View
+    public void onFinishInflate() {
+        super.onFinishInflate();
+        m75998j0(this);
+        bnl0.m105505C0(get_empty(), (int) (bnl0.m105588w0() * 0.22413793f));
+        bnl0.m105540X(get_empty_view(), (int) (bnl0.m105588w0() * 0.3140394f));
+        izs.m142870u("context_livingAct", get_bottom_bg(), zft.f204200H, bnl0.m105592y0(), qa00.m175859d(207.0f));
+    }
+
+    public final void set_bg(@NotNull View view) {
+        view.getClass();
+        this._bg = view;
+    }
+
+    public final void set_bg_svga(@NotNull AnimEffectPlayer animEffectPlayer) {
+        animEffectPlayer.getClass();
+        this._bg_svga = animEffectPlayer;
+    }
+
+    public final void set_bottom_bg(@NotNull VDraweeView vDraweeView) {
+        vDraweeView.getClass();
+        this._bottom_bg = vDraweeView;
+    }
+
+    public final void set_empty(@NotNull View view) {
+        view.getClass();
+        this._empty = view;
+    }
+
+    public final void set_empty_view(@NotNull HourBoardEmptyView hourBoardEmptyView) {
+        hourBoardEmptyView.getClass();
+        this._empty_view = hourBoardEmptyView;
+    }
+
+    public final void set_own(@NotNull HourBoardMainlandMeItemView hourBoardMainlandMeItemView) {
+        hourBoardMainlandMeItemView.getClass();
+        this._own = hourBoardMainlandMeItemView;
+    }
+
+    public final void set_recyclerView(@NotNull RecyclerView recyclerView) {
+        recyclerView.getClass();
+        this._recyclerView = recyclerView;
+    }
+
+    public final void set_title_bar(@NotNull DialogTitleBar dialogTitleBar) {
+        dialogTitleBar.getClass();
+        this._title_bar = dialogTitleBar;
+    }
+
+    public final void set_top_bg(@NotNull VImage vImage) {
+        vImage.getClass();
+        this._top_bg = vImage;
+    }
+
+    public final void set_top_divider(@NotNull View view) {
+        view.getClass();
+        this._top_divider = view;
+    }
+
+    /* JADX WARN: 'this' call moved to the top of the method (can break code semantics) */
+    @JvmOverloads
+    public HourBoardDialogContentMainlandView(@NotNull Context context, @Nullable AttributeSet attributeSet) {
+        this(context, attributeSet, 0, 4, null);
+        context.getClass();
+    }
+
+    /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+    @JvmOverloads
+    public HourBoardDialogContentMainlandView(@NotNull Context context, @Nullable AttributeSet attributeSet, int i) {
+        super(context, attributeSet, i);
+        context.getClass();
+    }
+
+    /* JADX WARN: 'this' call moved to the top of the method (can break code semantics) */
+    @JvmOverloads
+    public HourBoardDialogContentMainlandView(@NotNull Context context) {
+        this(context, null, 0, 6, null);
+        context.getClass();
+    }
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemMessageFakeLockItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="?attr/message_bubble_bg_left_diamond"
+        android:paddingTop="?attr/left_msg_top_padding"
+        android:paddingBottom="?attr/left_msg_bottom_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="?attr/left_msg_left_padding"
+        android:paddingEnd="?attr/left_msg_right_padding">
+        <p151v.VImage
+            android:id="@+id/lock_img"
+            android:visibility="gone"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="3dp"
+            android:src="0x7f080960"/>
+        <com.p051p1.mobile.putong.core.p058ui.messages.ItemText
+            android:textColor="?attr/message_text_content_color_left"
+            android:textColorLink="@color/core_msg_cell_link_color"
+            android:gravity="center_vertical"
+            android:autoLink="web"
+            android:id="@+id/lock_text"
+            android:background="#00000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="24dp"
+            android:lineSpacingExtra="1.5dp"
+            app:enableApngEmojis="true"
+            app:enableEmojis="true"
+            app:largeEmojis="true"
+            style="@style/messages_item_left"/>
+    </LinearLayout>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemMessageFakeLockItem>

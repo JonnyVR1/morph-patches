@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" holder="purchase.intlUpgrade.IntlUpgradePurchaseSheetDialog"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.AutoVDraweeView android:id="@id/remote_purchase_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="fitXY" app:roundBottomEnd="false" app:roundBottomLeft="false" app:roundBottomRight="false" app:roundTopEnd="true" app:roundTopStart="true" app:roundedCornerRadius="20.0dp" />
+    <v.AutoVDraweeView android:id="@id/image_purchase" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:maxHeight="300.0dp" app:actualImageScaleType="fitXY" app:roundBottomEnd="false" app:roundBottomLeft="false" app:roundBottomRight="false" app:roundTopEnd="true" app:roundTopStart="true" app:roundedCornerRadius="20.0dp" />
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <FrameLayout android:id="@id/privilege_root" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <LinearLayout android:orientation="horizontal" android:id="@id/showcase_root" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </v.VLinear>
+</v.VFrame>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame_ColorFilter android:layout_gravity="center" android:id="@id/buttons" android:visibility="invisible" android:clickable="true" android:descendantFocusability="blocksDescendants" android:layout_width="64.0dp" android:layout_height="64.0dp" useId="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_gravity="center" android:id="@id/play" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/core_newui_video_play_bg" useId="true" />
+    <v.VProgressBar android:layout_gravity="center" android:id="@id/loading" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="10.0dp" android:indeterminateOnly="true" app:cpb_color="@color/white" app:cpb_stroke_percentage="0.1" useId="true" />
+    <v.VImage android:layout_gravity="center" android:id="@id/pause" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/core_newui_video_pause_bg" useId="true" />
+</v.VFrame_ColorFilter>

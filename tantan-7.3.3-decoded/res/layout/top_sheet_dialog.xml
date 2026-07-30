@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/top_sheet_touch_outside" android:layout_width="match_parent" android:layout_height="match_parent" android:soundEffectsEnabled="false" />
+    <FrameLayout android:layout_gravity="center|top" android:id="@id/design_top_sheet" android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_behavior="com.p1.mobile.putong.feed.newui.mediapicker.TopSheetBehavior" style="@style/Feed.Widget.Design.TopSheet.Modal" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

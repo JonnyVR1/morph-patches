@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.picks.view.header.PicksStateExpandView android:orientation="vertical" android:background="@null" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.picks.view.header.PicksStateExpandView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:id="@id/title_layout" android:layout_width="match_parent" android:layout_height="32.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="14.0dp" android:layout_marginRight="9.0dp" flatten="true">
+        <v.VImage android:layout_gravity="center_vertical" android:id="@id/title_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+        <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/white" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:text="每日心动" android:lineSpacingExtra="0.0sp" />
+        <Space android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" />
+        <v.VImage android:layout_gravity="center_vertical" android:id="@id/close" android:layout_width="32.0dp" android:layout_height="match_parent" android:layout_marginRight="5.0dp" android:src="@null" android:scaleType="centerInside" />
+    </LinearLayout>
+    <v.VPullUpRecyclerView android:id="@id/list" android:clipChildren="false" android:clipToPadding="false" android:layout_width="391.0dp" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginTop="5.0dp" android:layout_marginRight="10.0dp" android:layout_marginBottom="10.0dp" android:layout_below="@id/title_layout" android:layout_marginHorizontal="10.0dp" />
+    <v.VText android:textSize="15.0sp" android:textStyle="normal" android:textColor="#ff658d" android:layout_gravity="center" android:id="@id/goto_picks" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:paddingBottom="16.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看全部" android:layout_below="@id/list" android:layout_centerHorizontal="true" android:lineSpacingExtra="0.0sp" android:paddingHorizontal="10.0dp" />
+</com.p1.mobile.putong.core.ui.vip.picks.view.header.PicksStateExpandView>

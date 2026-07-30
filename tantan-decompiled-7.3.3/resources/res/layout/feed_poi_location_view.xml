@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:id="@+id/poi_location_root"
+    android:background="@drawable/feed_rect_rounded_moment_topic"
+    android:paddingLeft="6dp"
+    android:paddingTop="6dp"
+    android:paddingRight="6dp"
+    android:paddingBottom="6dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="newui"
+    holder="photoalbum.view.FeedPoiLocationView">
+    <p151v.VDraweeView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/poi_location_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:actualImageScaleType="centerCrop"
+        app:placeholderImage="0x7f081e26"
+        app:placeholderImageScaleType="centerCrop"/>
+    <TextView
+        android:textSize="12sp"
+        android:textColor="@color/common_grey_09"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/poi_locaiton_name"
+        android:paddingBottom="1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <p151v.VImage
+        android:layout_gravity="center_vertical"
+        android:id="@+id/poi_arrow_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="0x7f081ea6"
+        android:scaleType="center"/>
+</p151v.VLinear>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="56dp">
+    <p151v.VText
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/common_black_01"
+        android:id="@+id/filter_bar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <p151v.VIcon
+        android:id="@+id/filter_bar_arrow"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginLeft="6dp"
+        android:src="0x7f080348"/>
+</LinearLayout>

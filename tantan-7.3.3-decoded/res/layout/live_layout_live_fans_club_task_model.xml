@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.fansclub.widget.LiveFansClubTaskModelView android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="72.0dp" flatten="true" folder="common.fansclub.widget" holder="LiveFansClubTaskModelView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VDraweeView android:id="@id/drawee_view" android:layout_width="48.0dp" android:layout_height="48.0dp" android:scaleType="fitXY" android:layout_marginStart="12.0dp" />
+    <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="12.0dp" android:layout_marginEnd="25.0dp" flatten="true">
+        <v.VText android:textSize="15.0sp" android:textColor="#e6000000" android:id="@id/task_title" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <v.VText android:textSize="13.0sp" android:textColor="#66000000" android:id="@id/task_score" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" />
+    </LinearLayout>
+    <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/button_to_finish" android:background="@drawable/live_bg_ff8817_r12" android:layout_width="66.0dp" android:layout_height="40.0dp" android:text="去完成" android:layout_marginEnd="12.0dp" />
+</com.p1.mobile.putong.live.livingroom.common.fansclub.widget.LiveFansClubTaskModelView>

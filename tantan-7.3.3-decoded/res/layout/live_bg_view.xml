@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.base.room.LiveBgView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="base" holder="room.LiveBgView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/background_top" android:layout_width="match_parent" android:layout_height="match_parent" fresco:actualImageScaleType="centerCrop" fresco:failureImage="@drawable/transparent" fresco:failureImageScaleType="fitXY" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" />
+</com.p1.mobile.putong.live.livingroom.base.room.LiveBgView>

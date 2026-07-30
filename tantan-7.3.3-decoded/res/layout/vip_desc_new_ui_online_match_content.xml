@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.result.OnlineMatchContent android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" holder="result.OnlineMatchContent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="12.0dp">
+        <v.VFrame android:id="@id/content_bg" android:background="@drawable/bg_privilege_desc" android:layout_width="match_parent" android:layout_height="260.0dp">
+            <v.VImage android:layout_gravity="center|bottom" android:id="@id/ic_online_match" android:layout_width="250.0dp" android:layout_height="wrap_content" android:src="@null" android:scaleType="fitEnd" />
+        </v.VFrame>
+        <v.VText android:textSize="14.0sp" android:textColor="#757575" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/description" android:paddingTop="5.0dp" android:paddingBottom="5.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:minHeight="44.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.result.OnlineMatchContent>

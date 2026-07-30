@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="mediapicker.picker.MediaPickerViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ViewStub android:id="@id/login_ui_opt_top_bar" android:layout="@layout/login_ui_opt_mediapicker_topbar" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <com.google.android.material.tabs.TabLayout android:id="@id/tabs" android:background="@color/tantan_orange" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_scrollFlags="scroll|enterAlways" app:tabIndicatorColor="@color/white" app:tabSelectedTextColor="@color/white" app:tabTextColor="#94ffffff" />
+    <include ignore="true" layout="@layout/include_album_request_permission" />
+    <com.flipboard.bottomsheet.BottomSheetLayout android:id="@id/bottomsheet" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <FrameLayout android:orientation="vertical" android:background="@color/tantan_lemon_white" android:layout_width="match_parent" android:layout_height="match_parent">
+            <v.VPager android:id="@id/pager" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="52.0dp" android:layout_weight="100.0" />
+            <v.VProgressBar android:layout_gravity="center" android:id="@id/loading" android:visibility="gone" android:layout_width="40.0dp" android:layout_height="40.0dp" android:indeterminate="true" app:cpb_color="@color/accountnew_facebook_blue" app:cpb_stroke_width="4.0dp" />
+            <View android:layout_gravity="bottom" android:background="@null" android:focusable="false" android:clickable="false" android:layout_width="match_parent" android:layout_height="8.0dp" android:layout_marginBottom="52.0dp" />
+            <LinearLayout android:gravity="center" android:layout_gravity="bottom" android:id="@id/float_layer_hint" android:background="#eed34530" android:visibility="visible" android:layout_width="match_parent" android:layout_height="70.0dp" android:layout_marginBottom="52.0dp">
+                <ImageView android:layout_gravity="center_vertical" android:id="@id/image" android:layout_width="50.0dp" android:layout_height="50.0dp" android:layout_marginLeft="5.0dp" android:src="@null" />
+                <TextView android:textSize="17.0sp" android:textColor="@color/white" android:ellipsize="end" android:layout_gravity="center_vertical" android:id="@id/message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:text="@string/PICK_MEDIA_REAL_PROFILE_HINT" android:maxLines="2" />
+            </LinearLayout>
+            <FrameLayout android:layout_gravity="bottom" android:id="@id/footer" android:background="@color/white" android:clickable="true" android:layout_width="match_parent" android:layout_height="56.0dp" flatten="true">
+                <v.VText android:textSize="14.0sp" android:textColor="@color/tantan_orange" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/folders" android:background="@drawable/tf_rect_light" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:singleLine="true" android:textAllCaps="true" app:typeface="medium" />
+                <v.VText android:textSize="14.0sp" android:textColor="@color/orange_disabled_light" android:gravity="center_vertical" android:layout_gravity="right" android:id="@id/preview" android:background="@drawable/tf_rect_light" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:minWidth="1.0dp" android:minHeight="1.0dp" android:text="@string/ACTION_PREVIEW" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:textAllCaps="true" app:typeface="medium" />
+            </FrameLayout>
+        </FrameLayout>
+    </com.flipboard.bottomsheet.BottomSheetLayout>
+</LinearLayout>

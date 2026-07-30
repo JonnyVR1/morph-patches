@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.fans.VoiceLiveFansItem android:layout_gravity="center_vertical" android:clipChildren="false" android:layout_width="40.0dp" android:layout_height="@dimen/live_fans_height" android:layout_marginStart="-1.0dp" android:layout_marginEnd="-1.0dp" flatten="true" folder="voice" holder="fans.VoiceLiveFansItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.livingroom.common.avatar.CommonMaskAvatarView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="44.0dp" android:layout_height="44.0dp" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="center" android:id="@id/svga" android:layout_width="60.0dp" android:layout_height="60.0dp" />
+    <TextView android:textSize="8.0sp" android:textStyle="bold" android:textColor="@color/white" android:ellipsize="none" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/reward_point" android:background="@drawable/live_bg_black_r5_a40" android:paddingLeft="4.0dp" android:paddingRight="4.0dp" android:layout_width="wrap_content" android:layout_height="12.0dp" android:layout_marginBottom="2.0dp" android:singleLine="true" />
+</com.p1.mobile.putong.live.livingroom.voice.fans.VoiceLiveFansItem>

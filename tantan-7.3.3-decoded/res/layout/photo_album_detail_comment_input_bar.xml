@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/comment_bar" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:layout_gravity="bottom" android:id="@id/shadow" android:background="#f7f7f7" android:clickable="false" android:layout_width="match_parent" android:layout_height="3.0dp" />
+    <LinearLayout android:orientation="horizontal" android:id="@id/root" android:background="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48.0dp">
+        <v.VEditText android:textSize="14.0sp" android:textColorHint="@color/text_light" android:layout_gravity="center_vertical" android:id="@id/text" android:background="@null" android:paddingLeft="20.0dp" android:paddingTop="6.0dp" android:paddingRight="4.0dp" android:paddingBottom="6.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:hint="@string/HINT_SAY_SOMETHING" android:maxLines="3" android:maxLength="180" android:layout_weight="1.0" android:inputType="textShortMessage|textCapSentences|textMultiLine" app:typeface="regular" style="@style/v_edit_text" />
+        <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/feed_input_orange_disabled_light" android:gravity="center" android:id="@id/send" android:background="@drawable/tf_rect_light" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/MESSAGES_SEND" android:singleLine="true" android:textAllCaps="true" app:textAllCaps="false" />
+    </LinearLayout>
+    <v.VLinear android:id="@id/emoji_ll" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="horizontal" android:background="@drawable/core_bg_10_ffffff" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="match_parent" android:layout_height="42.0dp" android:layout_marginTop="8.0dp" android:paddingHorizontal="10.0dp">
+        <v.VText android:textSize="14.0sp" android:textColor="@color/common_black_02" android:gravity="center" android:layout_gravity="center" android:id="@id/content" android:paddingTop="1.0dp" android:paddingBottom="1.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </v.VLinear>
+</v.VFrame>

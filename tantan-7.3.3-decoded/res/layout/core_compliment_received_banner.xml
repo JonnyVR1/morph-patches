@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.views.innerpush.ComplimentReceivedBannerLayout android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.views.innerpush.ComplimentReceivedBannerLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center_horizontal" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp">
+        <LinearLayout android:gravity="center_vertical" android:layout_gravity="center" android:orientation="horizontal" android:paddingTop="12.0dp" android:paddingBottom="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="12.0dp" android:paddingEnd="16.0dp">
+            <v.VDraweeView android:id="@id/image_small" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginEnd="12.0dp" style="@style/core_fresco_profile_small" />
+            <LinearLayout android:orientation="vertical" android:id="@id/title_and_sub" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="240.0dp" flatten="true">
+                <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="#1a1a1a" android:ellipsize="end" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" />
+                <v.VText android:textSize="12.0sp" android:textColor="#666666" android:ellipsize="end" android:id="@id/sub_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:maxLines="2" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</com.p1.mobile.putong.core.newui.home.views.innerpush.ComplimentReceivedBannerLayout>

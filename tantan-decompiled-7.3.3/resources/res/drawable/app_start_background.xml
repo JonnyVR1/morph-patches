@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+    <item android:drawable="@color/color_splash_background"/>
+    <item android:bottom="120dp">
+        <bitmap
+            android:gravity="fill_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="0x7f0820ed"
+            android:filter="true"/>
+    </item>
+    <item
+        android:gravity="bottom|center_horizontal"
+        android:bottom="72dp">
+        <bitmap
+            android:gravity="bottom|center_horizontal"
+            android:src="0x7f0820ef"/>
+    </item>
+</layer-list>

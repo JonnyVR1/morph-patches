@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.wallet.TanTanCoinPayCoolsView android:background="#161313" android:layout_width="match_parent" android:layout_height="90.0dp" android:layout_below="@id/coin" app:rRadius="12.0dp" app:rStrokeColor="#1fffeed6" app:rStrokeWidth="1.0dp" flatten="true" holder="wallet.TanTanCoinPayCoolsView" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.AutoVDraweeView android:id="@id/icon" android:layout_width="81.0dp" android:layout_height="66.0dp" android:layout_centerVertical="true" android:layout_marginStart="8.0dp" app:actualImageScaleType="centerCrop" />
+    <v.VLinear android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/price" android:layout_marginStart="8.0dp" android:layout_marginEnd="24.0dp" android:layout_toEndOf="@id/icon">
+        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#f2d9bb" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/TANTANCOIN" />
+        <v.VText android:textSize="12.0sp" android:textColor="#b3e6caab" android:id="@id/desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="@string/INTL_WALLET_PREMIUM_SKU_SUBTITLE" app:typeface="medium" />
+    </v.VLinear>
+    <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="#e6caab" android:gravity="center" android:id="@id/price" android:background="@null" android:layout_width="wrap_content" android:layout_height="23.0dp" android:minWidth="78.0dp" android:text="@string/TANTANCOIN_RECHARGE_BUTTON" android:layout_alignParentEnd="true" />
+</com.p1.mobile.putong.core.ui.wallet.TanTanCoinPayCoolsView>

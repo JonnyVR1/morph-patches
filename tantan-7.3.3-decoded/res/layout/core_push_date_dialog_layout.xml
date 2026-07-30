@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aigestudio="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:layout_width="match_parent" android:layout_height="61.0dp" android:layout_marginTop="10.0dp">
+        <v.VIcon android:id="@id/first_title_close" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="20.0dp" android:src="@null" android:layout_centerVertical="true" android:layout_alignParentStart="true" />
+        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/black" android:id="@id/first_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="选择开启时段" android:layout_centerInParent="true" />
+        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#fe7e1d" android:id="@id/first_title_finish" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="完成" android:layout_centerVertical="true" android:layout_marginEnd="20.0dp" android:layout_alignParentEnd="true" />
+    </v.VRelative>
+    <View android:background="#08000000" android:layout_width="match_parent" android:layout_height="3.0dp" />
+    <v.VFrame android:id="@id/layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="22.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="22.0dp">
+        <View android:layout_gravity="center_vertical" android:background="@drawable/core_profile_curtain_bg" android:layout_width="match_parent" android:layout_height="56.0dp" />
+        <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <com.p1.mobile.putong.core.ui.profile.views.WheelPicker android:layout_gravity="center" android:id="@id/push_wheel_center_left" android:background="#ffffff" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginRight="10.0dp" android:layout_weight="1.0" aigestudio:wheel_atmospheric="true" aigestudio:wheel_curtain="true" aigestudio:wheel_curtain_color="#f7f7f7" aigestudio:wheel_curtain_height="56.0dp" aigestudio:wheel_curved="true" aigestudio:wheel_cyclic="false" aigestudio:wheel_item_text_color="@color/core_color_26000000" aigestudio:wheel_selected_item_text_color="#cc000000" />
+            <com.p1.mobile.putong.core.ui.profile.views.WheelPicker android:layout_gravity="center" android:id="@id/push_wheel_center_right" android:background="#ffffff" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginRight="20.0dp" android:layout_weight="1.0" aigestudio:wheel_atmospheric="true" aigestudio:wheel_curtain="true" aigestudio:wheel_curtain_color="#f7f7f7" aigestudio:wheel_curtain_height="56.0dp" aigestudio:wheel_curved="true" aigestudio:wheel_cyclic="false" aigestudio:wheel_item_text_color="@color/core_color_26000000" aigestudio:wheel_item_text_size="18.0sp" aigestudio:wheel_selected_item_text_color="#cc000000" />
+        </v.VLinear>
+    </v.VFrame>
+</LinearLayout>

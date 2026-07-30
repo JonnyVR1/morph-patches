@@ -1,0 +1,166 @@
+package com.p000p1.mobile.putong.data;
+
+import androidx.annotation.NonNull;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.protobuf.nano.CodedOutputByteBufferNano;
+import com.google.protobuf.nano.MessageNano;
+import com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter;
+import com.tantanapp.common.data.BaseData;
+import com.tantanapp.common.data.DataChecker;
+import com.tantanapp.common.data.JsonAdapter;
+import com.tantanapp.common.data.MessageNanoAdapter;
+import com.tantanapp.common.data.ProtobufAdapter;
+import com.tantanapp.common.data.ProtobufIndex;
+import com.tantanapp.common.data.ValueObject;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import l.nb5;
+
+/* JADX INFO: loaded from: /tmp/tantan-dex/classes12.dex */
+public class AdRewardResult extends ValueObject implements Cloneable, Serializable {
+    public static final String TYPE = "adrewardresult";
+
+    @NonNull
+    @ProtobufIndex(index = 1)
+    public String status;
+    public static ProtobufAdapter<AdRewardResult> PROTOBUF_ADAPTER = new MessageNanoAdapter<AdRewardResult>() { // from class: com.p1.mobile.putong.data.AdRewardResult.1
+        {
+            ((ProtobufAdapter) this).wireFormat = 2;
+        }
+
+        public int computeAndCacheSize(AdRewardResult adRewardResult) {
+            String str = adRewardResult.status;
+            int iO = str != null ? CodedOutputByteBufferNano.o(1, str) : 0;
+            ((MessageNano) adRewardResult).cachedSize = iO;
+            return iO;
+        }
+
+        /* JADX INFO: renamed from: parse, reason: merged with bridge method [inline-methods] */
+        public AdRewardResult m17641parse(nb5 nb5Var) throws IOException {
+            AdRewardResult adRewardResult = new AdRewardResult();
+            while (true) {
+                int iU = nb5Var.u();
+                if (iU == 0) {
+                    if (adRewardResult.status != null) {
+                        break;
+                    }
+                    adRewardResult.status = "";
+                    break;
+                }
+                if (iU != 10) {
+                    if (adRewardResult.status != null) {
+                        break;
+                    }
+                    adRewardResult.status = "";
+                    return adRewardResult;
+                }
+                adRewardResult.status = nb5Var.s();
+            }
+            return adRewardResult;
+        }
+
+        public void serialize(AdRewardResult adRewardResult, CodedOutputByteBufferNano codedOutputByteBufferNano) throws IOException {
+            String str = adRewardResult.status;
+            if (str != null) {
+                codedOutputByteBufferNano.R(1, str);
+            }
+        }
+    };
+    public static JsonAdapter<AdRewardResult> JSON_ADAPTER = new ObjectJsonAdapter<AdRewardResult>() { // from class: com.p1.mobile.putong.data.AdRewardResult.2
+        public Class getDataClass() {
+            return AdRewardResult.class;
+        }
+
+        @Override // com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        /* JADX INFO: renamed from: newInstance */
+        public AdRewardResult mo17830newInstance() {
+            return new AdRewardResult();
+        }
+
+        public boolean parseField(AdRewardResult adRewardResult, String str, JsonParser jsonParser, String str2, ArrayList<BaseData> arrayList, DataChecker dataChecker) throws IOException {
+            str.getClass();
+            if (!str.equals("status")) {
+                return false;
+            }
+            adRewardResult.status = jsonParser.getValueAsString();
+            return true;
+        }
+
+        public boolean parseFieldCheck(AdRewardResult adRewardResult, String str, JsonParser jsonParser, String str2, ArrayList<BaseData> arrayList, DataChecker dataChecker) {
+            str.getClass();
+            if (str.equals("status")) {
+                return true;
+            }
+            return super.parseFieldCheck(adRewardResult, str, jsonParser, str2, arrayList, dataChecker);
+        }
+
+        @Override // com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public void serializeFields(AdRewardResult adRewardResult, JsonGenerator jsonGenerator) throws IOException {
+            String str = adRewardResult.status;
+            if (str != null) {
+                jsonGenerator.writeStringField("status", str);
+            }
+        }
+
+        @Override // com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public /* bridge */ /* synthetic */ boolean parseFieldCheck(ValueObject valueObject, String str, JsonParser jsonParser, String str2, ArrayList arrayList, DataChecker dataChecker) {
+            return parseFieldCheck((AdRewardResult) valueObject, str, jsonParser, str2, (ArrayList<BaseData>) arrayList, dataChecker);
+        }
+
+        @Override // com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public /* bridge */ /* synthetic */ boolean parseField(ValueObject valueObject, String str, JsonParser jsonParser, String str2, ArrayList arrayList, DataChecker dataChecker) throws IOException {
+            return parseField((AdRewardResult) valueObject, str, jsonParser, str2, (ArrayList<BaseData>) arrayList, dataChecker);
+        }
+    };
+
+    public static AdRewardResult new_() {
+        AdRewardResult adRewardResult = new AdRewardResult();
+        adRewardResult.nullCheck();
+        return adRewardResult;
+    }
+
+    /* JADX INFO: renamed from: clone, reason: collision with other method in class and merged with bridge method [inline-methods] and merged with bridge method [inline-methods] */
+    public AdRewardResult m17640clone() {
+        AdRewardResult adRewardResult = new AdRewardResult();
+        adRewardResult.status = this.status;
+        return adRewardResult;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof AdRewardResult) {
+            return ValueObject.util_equals(this.status, ((AdRewardResult) obj).status);
+        }
+        return false;
+    }
+
+    public String getClassParseName() {
+        return TYPE;
+    }
+
+    public int hashCode() {
+        int i = ((ValueObject) this).hashCode;
+        if (i != 0) {
+            return i;
+        }
+        int i2 = i * 41;
+        String str = this.status;
+        int iHashCode = i2 + (str != null ? str.hashCode() : 0);
+        ((ValueObject) this).hashCode = iHashCode;
+        return iHashCode;
+    }
+
+    public void nullCheck() {
+        if (this.status == null) {
+            this.status = "";
+        }
+    }
+
+    public String toJson() {
+        return JSON_ADAPTER.serialize(this);
+    }
+}

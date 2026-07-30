@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.call.auction.view.VoiceAuctionAvatarView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <p151v.VDraweeView
+        android:layout_gravity="bottom|right"
+        android:id="@+id/avatar_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        fresco:roundBottomLeft="true"
+        fresco:roundBottomRight="true"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="true"
+        fresco:roundedCornerRadius="10dp"
+        ignore="true"/>
+    <p151v.VDraweeView
+        android:layout_gravity="bottom|right"
+        android:id="@+id/avatar_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        fresco:roundBottomLeft="true"
+        fresco:roundBottomRight="true"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="true"
+        fresco:roundedCornerRadius="10dp"
+        ignore="true"/>
+    <p151v.VDraweeView
+        android:layout_gravity="bottom|right"
+        android:id="@+id/avatar_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        fresco:roundBottomLeft="true"
+        fresco:roundBottomRight="true"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="true"
+        fresco:roundedCornerRadius="10dp"
+        ignore="true"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.call.auction.view.VoiceAuctionAvatarView>

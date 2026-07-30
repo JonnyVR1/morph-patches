@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="marry.profile.loop.address.MarryLoopHometownViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="生活瞬间" app:typeface="medium" style="@style/marry_loop_edit_title_text" />
+    <v.VList android:id="@id/select_view" android:paddingBottom="84.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="11.0dp" android:listSelector="#00000000" android:divider="@null" android:layout_below="@id/second_title" />
+</v.VLinear>

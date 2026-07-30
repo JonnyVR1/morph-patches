@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/tv_trace_point" android:background="@drawable/live_shape_request_ring" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="10.0dp" android:layout_marginBottom="10.0dp" />
+    <View android:id="@id/view_trace_ling" android:background="#cccccc" android:layout_width="1.0dp" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginTop="2.0dp" android:layout_marginBottom="2.0dp" android:layout_below="@id/tv_trace_point" android:layout_alignBottom="@id/content_layout" />
+    <LinearLayout android:orientation="vertical" android:id="@id/content_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_toRightOf="@id/tv_trace_point">
+        <TextView android:textSize="14.0sp" android:textColor="@color/live_498e00" android:id="@id/time_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="300ms" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/live_498e00" android:id="@id/current_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="300ms" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/live_black" android:id="@id/class_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ssssss" android:layout_toRightOf="@id/tv_trace_point" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/live_black" android:id="@id/method_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ssssss" android:layout_toRightOf="@id/tv_trace_point" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/live_black" android:id="@id/line_number" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ssssss" android:layout_toRightOf="@id/tv_trace_point" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/live_498e00" android:id="@id/describe" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="sjjsjsjsjsjsjsjsjjs 300ms" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/live_gray_66" android:id="@id/stackInfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="sjjsjsjsjsjsjsjsjjs 300ms" />
+    </LinearLayout>
+</RelativeLayout>

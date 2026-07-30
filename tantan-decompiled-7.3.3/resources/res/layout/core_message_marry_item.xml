@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemMarry xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="right"
+    android:orientation="vertical"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    holder="messages.ItemMarry">
+    <com.p051p1.mobile.putong.core.p058ui.messages.ItemText
+        android:autoLink="web"
+        android:id="@+id/marry_prologue"
+        android:text="右边的内容"
+        android:lineSpacingExtra="1.5dp"
+        app:enableApngEmojis="true"
+        app:enableEmojis="true"
+        app:largeEmojis="true"
+        style="@style/messages_marry_item_right"/>
+    <com.p051p1.mobile.putong.core.p058ui.messages.ItemText
+        android:autoLink="web"
+        android:id="@+id/set_marry_prologue"
+        android:layout_marginTop="12dp"
+        android:text="设置开场白"
+        android:drawableLeft="0x7f080ee9"
+        android:drawablePadding="3dp"
+        android:lineSpacingExtra="1.5dp"
+        app:enableApngEmojis="true"
+        app:enableEmojis="true"
+        app:largeEmojis="true"
+        style="@style/messages_marry_declaration_set_right"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemMarry>

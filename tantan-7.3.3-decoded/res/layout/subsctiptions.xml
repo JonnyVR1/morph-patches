@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="settings.subscriptions.SubscriptionsActViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VProgressBar android:id="@id/loading_block" android:visibility="visible" style="@style/core_loading_block" />
+        <v.VRecyclerView android:id="@id/list" android:paddingTop="10.0dp" android:visibility="invisible" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </v.VFrame>
+</v.VLinear>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.messages.ItemBirthdayTip xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="newui"
+    holder="messages.ItemBirthdayTip">
+    <p151v.VLinear
+        android:gravity="center_vertical"
+        android:layout_gravity="center"
+        android:background="@drawable/core_message_birthday_tip_item_bg"
+        android:paddingLeft="12.75dp"
+        android:paddingRight="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <p151v.VImage
+            android:layout_gravity="center_vertical"
+            android:id="@+id/icon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+        <com.p051p1.mobile.putong.core.p058ui.VText_Bold
+            android:textSize="13sp"
+            android:textColor="#4d000000"
+            android:gravity="center_horizontal"
+            android:id="@+id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="1dp"/>
+    </p151v.VLinear>
+</com.p051p1.mobile.putong.core.newui.messages.ItemBirthdayTip>

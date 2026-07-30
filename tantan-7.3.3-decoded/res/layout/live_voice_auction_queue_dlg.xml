@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="564.0dp" app:bind_extends="com.p1.mobile.putong.live.livingroom.archi.dialogcenter.BaseDialogHolder" app:bind_implements="null" app:binding="true" app:flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="horizontal" android:paddingRight="32.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VImage android:layout_gravity="center_vertical" android:id="@id/back" android:background="@null" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginLeft="20.0dp" />
+        <v.VText android:textSize="16.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@id/title" android:paddingTop="16.0dp" android:paddingBottom="16.0dp" android:layout_width="0.0dp" android:layout_height="64.0dp" android:text="拍拍队列" android:layout_weight="1.0" />
+    </v.VLinear>
+    <View android:background="@color/live_white_03_opacity" android:layout_width="match_parent" android:layout_height="2.0dp" />
+    <include android:id="@id/tabView" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" layout="@layout/live_voice_auction_queue_tab_layout" />
+    <v.VPager android:id="@id/viewPager" android:layout_width="match_parent" android:layout_height="432.0dp" android:layout_marginTop="10.0dp" />
+</v.VLinear>

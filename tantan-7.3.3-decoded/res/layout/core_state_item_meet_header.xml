@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.newmeet.header.MeetStateHeaderItem android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" folder="newui" holder="newmeet.header.MeetStateHeaderItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:layout_width="61.0dp" android:layout_height="61.0dp" android:layout_marginStart="9.0dp" android:layout_marginEnd="9.0dp">
+        <v.VDraweeView android:id="@id/avatar" android:background="@drawable/core_conversation_local_live_bg" android:padding="7.0dp" android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
+        <v.VIcon android:layout_gravity="right|bottom" android:id="@id/icon" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginBottom="2.0dp" android:scaleType="centerInside" android:layout_marginEnd="2.0dp" />
+    </v.VFrame>
+    <v.VText android:textSize="13.0sp" android:textColor="#cc000000" android:ellipsize="end" android:gravity="center" android:id="@id/title" android:layout_width="match_parent" android:layout_height="18.0dp" android:layout_marginLeft="5.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="5.0dp" android:lines="1" />
+    <v.VText android:textSize="11.0sp" android:textColor="#4c000000" android:ellipsize="end" android:gravity="center" android:id="@id/status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dp" android:layout_marginTop="1.0dp" android:layout_marginRight="5.0dp" android:lines="1" />
+</com.p1.mobile.putong.core.newui.newmeet.header.MeetStateHeaderItem>

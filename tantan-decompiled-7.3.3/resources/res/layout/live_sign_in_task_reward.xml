@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.common.signin.main.TaskRewardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    flatten="true"
+    folder="common.signin.main"
+    holder="TaskRewardView">
+    <p151v.VDraweeView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/icon"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="4dp"/>
+    <p151v.VText
+        android:textSize="10sp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:alpha="0.8"/>
+</com.p051p1.mobile.putong.live.livingroom.common.signin.main.TaskRewardView>

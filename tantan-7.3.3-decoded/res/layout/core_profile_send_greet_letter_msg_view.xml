@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.greet.ProfileSendGrentAndLetterView android:gravity="center" android:layout_width="match_parent" android:layout_height="56.0dp" flatten="true" holder="vip.greet.ProfileSendGrentAndLetterView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/send_greet_view" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/core_profile_send_greet_msg_view" useId="true" />
+    <include android:id="@id/send_letter_view" android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/core_profile_send_letter_msg_view" useId="true" />
+</com.p1.mobile.putong.core.ui.vip.greet.ProfileSendGrentAndLetterView>

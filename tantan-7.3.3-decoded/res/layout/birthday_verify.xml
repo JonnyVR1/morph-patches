@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" holder="growth.agealert.birthdayverify.BirthdayVerifyViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/linear" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VImage android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:src="@null" />
+        <v.VText android:textSize="20.0sp" android:textColor="@color/common_grey_01" android:gravity="center" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:text="请确认生日信息" />
+        <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:gravity="center" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:text="你当前的生日为系统默认日期\n选择正确的日期才能获得精准推荐" />
+        <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@id/ll_data_picker" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="40.0dp">
+            <cn.qqtheme.framework.wheelview.WheelView android:layout_gravity="center_vertical" android:id="@id/wl_year" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="6.0dp" android:layout_weight="1.0" />
+            <View android:background="@color/transparent" android:layout_width="2.0dp" android:layout_height="match_parent" />
+            <cn.qqtheme.framework.wheelview.WheelView android:layout_gravity="center_vertical" android:id="@id/wl_month" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="12.0dp" android:layout_weight="1.0" />
+            <View android:background="@color/transparent" android:layout_width="2.0dp" android:layout_height="match_parent" />
+            <cn.qqtheme.framework.wheelview.WheelView android:layout_gravity="center_vertical" android:id="@id/wl_day" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="12.0dp" android:layout_weight="1.0" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:enabled="false" android:textSize="16.0sp" android:textColor="@color/common_white_01" android:gravity="center" android:layout_gravity="bottom" android:id="@id/tv_confirm" android:background="@color/common_grey_03" android:layout_width="match_parent" android:layout_height="56.0dp" android:text="确认" android:layout_alignParentBottom="true" />
+</RelativeLayout>

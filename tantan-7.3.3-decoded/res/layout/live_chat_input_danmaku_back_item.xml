@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.chat.danmaku.input.normal.NormalDanmakuListShadowItem android:background="@drawable/live_shape_normal_danmuku_back" android:layout_width="34.0dp" android:layout_height="34.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

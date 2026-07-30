@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:background="@color/white" android:clipChildren="true" android:layout_width="match_parent" android:layout_height="match_parent" android:transitionName="shareNames" holder="statussquare.CoreStatusSquareTabFrag"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:id="@id/bg_view" android:background="@color/white" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VImage android:id="@id/bg_img_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="29.0dp" android:layout_marginTop="10.0dp" android:src="@null" />
+        <v.VImage android:id="@id/bg_img_2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_alignParentRight="true" />
+        <v.VImage android:id="@id/bg_img_3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="127.0dp" android:src="@null" android:layout_alignParentBottom="true" />
+    </v.VRelative>
+    <v.VPullDownRefreshLayout android:id="@id/swipe_refresh" android:layout_width="match_parent" android:layout_height="match_parent" app:srlEnableAutoLoadMore="false" app:srlEnableLoadMore="true" app:srlEnableRefresh="false" flatten="true">
+        <com.p1.mobile.putong.core.ui.statussquare.CoreStateSquareRecycleView android:id="@id/square_rv" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" useId="true" />
+    </v.VPullDownRefreshLayout>
+    <v.VLinear android:gravity="center" android:orientation="vertical" android:id="@id/no_data" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+        <v.VText android:textSize="14.0sp" android:textColor="#4c323232" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="暂时没有状态" />
+    </v.VLinear>
+</v.VFrame>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="16.0sp" android:textColor="#cc000000" android:gravity="center_horizontal" android:layout_gravity="start|bottom" android:background="@null" android:paddingTop="4.0dp" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="28.0dp" android:maxLines="1" android:singleLine="true" />
+    <androidx.appcompat.widget.AppCompatSeekBar android:layout_gravity="bottom" android:id="@id/seek_bar" android:background="@android:color/transparent" android:paddingLeft="34.0dp" android:paddingTop="14.0dp" android:paddingRight="34.0dp" android:paddingBottom="14.0dp" android:layout_width="match_parent" android:layout_height="30.0dp" android:maxHeight="4.0dp" android:progressDrawable="@drawable/live_list_ktv_tuning_seek_bar_bg" android:minHeight="4.0dp" android:thumb="@drawable/live_shape_ktv_tuning_seek_bar_thumb" />
+</merge>

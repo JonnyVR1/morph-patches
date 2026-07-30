@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VDraweeView android:id="@id/image_one" android:layout_width="match_parent" android:layout_height="match_parent" fresco:roundedCornerRadius="12.0dp" style="@style/feed_fresco_moment_small"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto" />

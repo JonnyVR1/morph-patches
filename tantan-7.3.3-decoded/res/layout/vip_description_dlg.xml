@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:background="@drawable/bg_privilege_dlg" android:layout_width="match_parent" android:layout_height="wrap_content" holder="result.VipContentDlg"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:layout_gravity="center_horizontal" android:id="@id/collapse" android:padding="18.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+    <v.VPager android:id="@id/pager" android:layout_width="match_parent" android:layout_height="412.0dp" />
+    <v.VPagerCircleIndicator android:id="@id/pager_indicator" android:background="@drawable/transparent" android:layout_width="match_parent" android:layout_height="6.0dp" android:layout_marginTop="13.0dp" app:fillColor="#b3000000" app:pageColor="#26000000" app:radius="3.0dp" />
+    <View android:background="@drawable/vip_desc_line_buy" android:layout_width="match_parent" android:layout_height="2.0dp" android:layout_marginTop="19.0dp" />
+    <v.VText android:textSize="17.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/buy" android:background="@drawable/bg_privilege_vip_buy" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="8.0dp" />
+</v.VLinear>

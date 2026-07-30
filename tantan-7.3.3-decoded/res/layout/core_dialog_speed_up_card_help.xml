@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:background="@drawable/core_dialog_speed_up_card_help" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:layout_gravity="end" android:id="@id/help_dlg_close" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:src="@null" android:layout_marginEnd="20.0dp" />
+    <v.VText android:textSize="24.0sp" android:textColor="#e6000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="34.0dp" android:text="加速卡" android:layout_marginStart="40.0dp" />
+    <v.VText android:textSize="16.0sp" android:textColor="#4c000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginBottom="35.0dp" android:text="优先推荐快人一步\n使用本特权后，我们会向其他附近在线的闪聊用户优先推荐你，使你更加快速地得到匹配。但囿于区域和时间段的影响，匹配过程仍有可能出现等待。系统会根据你的成功匹配扣除相应闪聊次数，希望能帮你快速认识有趣的新朋友" android:lineSpacingExtra="8.0sp" android:layout_marginStart="40.0dp" android:layout_marginEnd="40.0dp" />
+</v.VLinear>

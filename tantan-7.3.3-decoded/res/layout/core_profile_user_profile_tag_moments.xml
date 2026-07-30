@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/moment_tag_wrap" android:background="@drawable/core_profile_tag_bg" android:visibility="gone" android:layout_width="18.0dp" android:layout_height="18.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_width="12.0dp" android:layout_height="12.0dp" android:src="@null" android:scaleType="fitXY" />
+</LinearLayout>

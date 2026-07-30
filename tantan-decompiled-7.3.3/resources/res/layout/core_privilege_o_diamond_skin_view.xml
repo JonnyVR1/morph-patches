@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.privilege.PrivilegeODiamondSkin xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="purchase.privilege.PrivilegeODiamondSkin">
+    <FrameLayout
+        android:layout_gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="102dp">
+        <p151v.AutoVDraweeView
+            android:id="@+id/avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"/>
+        <p151v.VImage
+            android:background="0x7f081272"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <p151v.VImage
+            android:layout_gravity="right"
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="0x7f08140e"/>
+    </FrameLayout>
+</com.p051p1.mobile.putong.core.p058ui.purchase.privilege.PrivilegeODiamondSkin>

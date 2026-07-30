@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/icon_image" android:layout_width="96.0dp" android:layout_height="98.0dp" android:layout_marginTop="14.0dp" android:layout_marginBottom="18.0dp" fresco:actualImageScaleType="fitXY" style="@style/core_fresco_base" />
+</FrameLayout>

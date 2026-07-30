@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="page.setting" holder="hideavatar.HideAvatarViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <com.p1.mobile.putong.live.livingroom.increment.gift.upgradegift.view.FixedScrollView android:background="#f7f7f7" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <v.VPager android:id="@id/viewPager" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="400.0dp" android:layout_marginTop="16.0dp" android:paddingStart="30.0dp" android:paddingEnd="30.0dp" />
+            <v.VPagerCircleIndicator android:gravity="center_vertical" android:layout_gravity="center_horizontal" android:id="@id/indicator" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" app:fillColor="#ff3a00" app:pageColor="#19000000" app:radius="3.0dp" />
+            <v.VText android:textSize="14.0sp" android:textColor="#999999" android:id="@id/text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:lineSpacingExtra="6.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+        </LinearLayout>
+    </com.p1.mobile.putong.live.livingroom.increment.gift.upgradegift.view.FixedScrollView>
+</v.VLinear>

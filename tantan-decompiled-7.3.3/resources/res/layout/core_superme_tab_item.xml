@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.supreme.hometab.SupremeTabItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center_vertical"
+    android:background="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    folder="newui"
+    holder="supreme.hometab.SupremeTabItem">
+    <TextView
+        android:textSize="14dp"
+        android:textColor="@color/core_supreme_item_text_selector"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/title"
+        android:background="@drawable/core_supreme_item_bg_selector"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"/>
+    <View
+        android:layout_gravity="right"
+        android:id="@+id/red_dot"
+        android:background="@drawable/core_supreme_dot"
+        android:visibility="gone"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="6dp"/>
+</com.p051p1.mobile.putong.core.newui.supreme.hometab.SupremeTabItem>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.vip.privilege.dlg.PrivilegeContentDlgItemDiamondServiceView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="vip.privilege.dlg.PrivilegeContentDlgItemDiamondServiceView">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentBottom="true">
+        <p151v.VImage
+            android:layout_gravity="center"
+            android:id="@+id/bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="0x7f0813a4"/>
+        <p151v.VDraweeView
+            android:layout_gravity="right"
+            android:id="@+id/avatar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="25dp"
+            app:roundAsCircle="true"
+            app:roundedCornerRadius="8dp"/>
+    </FrameLayout>
+</com.p051p1.mobile.putong.core.p058ui.vip.privilege.dlg.PrivilegeContentDlgItemDiamondServiceView>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.constellationmatch.ConstellationCard android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/space" flatten="true" holder="constellationmatch.ConstellationCard"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center" android:id="@id/hide_card_bg" android:visibility="invisible" android:layout_width="175.0dp" android:layout_height="234.0dp" app:actualImageScaleType="centerInside" app:failureImage="@color/transparent" app:failureImageScaleType="centerInside" app:placeholderImage="@color/transparent" app:placeholderImageScaleType="centerInside" style="@style/core_fresco_base" useId="true" />
+    <v.VImage android:layout_gravity="center" android:layout_width="103.0dp" android:layout_height="162.0dp" android:src="@null" />
+</com.p1.mobile.putong.core.ui.constellationmatch.ConstellationCard>

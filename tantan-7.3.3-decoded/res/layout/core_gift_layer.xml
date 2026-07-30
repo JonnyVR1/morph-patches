@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.gift.layer.CoreGiftLayer android:orientation="vertical" android:id="@id/root" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="gift.layer.CoreGiftLayer"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.tantan.library.svga.SVGAnimationView android:layout_gravity="center" android:id="@id/svga" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <com.tantanapp.media.ttmediaeffect.video.VideoEffectPlayer android:layout_gravity="center" android:id="@id/video_player" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" />
+    <LinearLayout android:gravity="center" android:layout_gravity="center|bottom" android:orientation="vertical" android:id="@id/bottom_layout" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="32.0dp" flatten="true">
+        <v.VText android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center" android:id="@id/preview_tip" android:background="@drawable/core_gift_preview_tip_bg" android:paddingLeft="18.0dp" android:paddingRight="18.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="34.0dp" />
+        <FrameLayout android:id="@id/txh_tip" android:background="@drawable/core_gift_preview_thx_bg" android:visibility="gone" android:layout_width="168.0dp" android:layout_height="48.0dp">
+            <TextView android:textSize="18.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="感谢" android:drawableLeft="@null" android:drawablePadding="2.0dp" />
+        </FrameLayout>
+        <v.VImage android:id="@id/close" android:layout_width="42.0dp" android:layout_height="42.0dp" android:layout_marginTop="20.0dp" android:src="@null" />
+    </LinearLayout>
+</com.p1.mobile.putong.core.ui.gift.layer.CoreGiftLayer>

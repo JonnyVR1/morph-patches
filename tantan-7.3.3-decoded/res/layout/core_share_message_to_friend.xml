@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:orientation="vertical" android:background="@drawable/core_share_message_to_friend_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <View android:layout_gravity="center_horizontal" android:background="@drawable/core_share_message_to_friend_sheet_indicator_bg" android:layout_width="37.0dp" android:layout_height="5.0dp" android:layout_marginTop="12.0dp" />
+        <v.VText android:textSize="24.0sp" android:textColor="#e6000000" android:id="@id/title" android:paddingLeft="40.0dp" android:paddingRight="40.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="46.0dp" android:text="@string/CHAT_GROUP_ADD_CHOOSE_FRIEND" app:typeface="medium" />
+        <v.VText android:textSize="15.0sp" android:textColor="#4c000000" android:id="@id/subtitle" android:paddingLeft="40.0dp" android:paddingRight="40.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="每次分享最多选择5位好友" />
+        <v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:layout_marginBottom="87.0dp">
+            <v.VRecyclerView android:id="@id/friend_list" android:paddingBottom="40.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="300.0dp" />
+            <v.VText android:textSize="14.0sp" android:textStyle="normal" android:textColor="#4c323232" android:gravity="center" android:layout_gravity="center" android:id="@id/empty_hint" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="28.0dp" android:text="你暂时还没有好友" android:drawableTop="@null" android:drawablePadding="2.0dp" android:lineSpacingExtra="6.0sp" />
+        </v.VFrame>
+    </v.VLinear>
+    <View android:layout_gravity="bottom" android:background="@drawable/core_share_message_to_friend_bottom_cover_bg" android:layout_width="match_parent" android:layout_height="130.0dp" />
+    <v.VButton android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="bottom" android:id="@id/btn_bottom" android:background="@drawable/core_share_message_to_friend_btn_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="40.0dp" android:layout_marginRight="40.0dp" android:layout_marginBottom="39.0dp" android:text="分享" />
+</v.VFrame>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VRelative xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pick_message_container"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:showDividers="beginning"
+    flatten="true"
+    holder="messages.model.MessagePickAllViewModel">
+    <View
+        android:background="@color/common_light_04"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignParentTop="true"/>
+    <p151v.VCheckBox
+        android:id="@+id/pick_message_all"
+        android:background="@drawable/core_message_select_checkbox"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="18dp"
+        android:button="@null"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="18dp"/>
+    <p151v.VText
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#e6000000"
+        android:paddingTop="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/REPORT_CONTENT_CHAT_SELECT_ALL"
+        android:layout_toRightOf="@+id/pick_message_all"
+        android:layout_centerVertical="true"
+        app:typeface="medium"/>
+</p151v.VRelative>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="settings.BusinessLicenseViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VScroll android:paddingBottom="95.0dp" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent">
+            <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:background="@null" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+                <v.VText android:id="@id/license" android:minHeight="68.0dp" android:text="营业执照" style="@style/settings_text_new_arrow" />
+                <View android:background="#ececec" android:layout_width="match_parent" android:layout_height="1.0dp" />
+                <v.VText android:id="@id/telecommunications" android:minHeight="68.0dp" android:text="增值电信业务许可证" style="@style/settings_text_new_arrow" />
+                <View android:background="#ececec" android:layout_width="match_parent" android:layout_height="1.0dp" />
+                <v.VText android:id="@id/broadcasting" android:minHeight="68.0dp" android:text="广播电视节目经营许可证" style="@style/settings_text_new_arrow" />
+                <View android:background="#ececec" android:layout_width="match_parent" android:layout_height="1.0dp" />
+                <v.VText android:id="@id/internet" android:minHeight="68.0dp" android:text="网络文化经营许可证" style="@style/settings_text_new_arrow" />
+                <View android:background="#ececec" android:layout_width="match_parent" android:layout_height="1.0dp" />
+            </LinearLayout>
+        </v.VScroll>
+    </FrameLayout>
+</v.VLinear>

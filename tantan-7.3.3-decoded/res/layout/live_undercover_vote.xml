@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VRelative android:id="@id/undercover_vote" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="voice.intl.game.undercover.viewmodule.UndercoverVoteView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="14.0sp" android:textColor="#daf4ff" android:gravity="center" android:id="@id/vote_timer" android:background="@drawable/live_vector_bg_undercover_time" android:layout_width="80.0dp" android:layout_height="34.0dp" android:layout_centerHorizontal="true" />
+    <v.VText android:textSize="14.0sp" android:textColor="#daf4ff" android:id="@id/vote_tips" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="@string/LIVE_ROOM_UNDERCOVER_VOTE_TIPS" android:layout_below="@id/vote_timer" android:layout_centerHorizontal="true" />
+    <v.VRecyclerView android:id="@id/vote_recycle1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_below="@id/vote_tips" android:layout_centerHorizontal="true" />
+    <v.VRecyclerView android:id="@id/vote_recycle2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="16.0dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+</v.VRelative>

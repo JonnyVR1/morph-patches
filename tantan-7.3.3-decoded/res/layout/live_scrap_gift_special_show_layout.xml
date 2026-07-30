@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:clipChildren="false" android:addStatesFromChildren="true" android:layout_width="match_parent" android:layout_height="match_parent" android:minWidth="247.0dp" android:minHeight="188.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/bottom_svga_view" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="33.0dp" />
+    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/gift_show_view" android:layout_width="160.0dp" android:layout_height="160.0dp" android:layout_marginTop="10.0dp" android:layout_marginBottom="16.0dp" app:actualImageScaleType="fitCenter" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/top_svga_view" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="27.0dp" />
+</merge>

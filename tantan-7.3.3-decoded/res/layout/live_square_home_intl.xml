@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:id="@id/root" android:background="@color/white" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="intl" holder="livesquare.home.IntlLiveSquareHomeViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/title_bar" android:padding="0.0dp" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="@dimen/live_tool_bar_height" fresco:contentInsetStart="0.0dp" flatten="true">
+        <View android:layout_gravity="bottom" android:id="@id/tool_bar_line" android:background="#19000000" android:layout_width="match_parent" android:layout_height="1.0dp" />
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent">
+            <com.google.android.material.tabs.TabLayout android:layout_gravity="start|center" android:id="@id/tabs" android:clipChildren="false" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" android:overScrollMode="never" fresco:tabBackground="@null" fresco:tabGravity="fill" fresco:tabIndicatorHeight="0.0dp" fresco:tabMaxWidth="350.0dp" fresco:tabMinWidth="20.0dp" fresco:tabMode="scrollable" fresco:tabPaddingEnd="6.0dp" fresco:tabPaddingStart="9.0dp" fresco:tabTextAppearance="@style/liveTitleLayoutTextAppearance" />
+            <LinearLayout android:gravity="center_vertical" android:layout_gravity="end" android:orientation="horizontal" android:id="@id/ll_buttons" android:layout_width="wrap_content" android:layout_height="match_parent" flatten="true">
+                <v.VDraweeView android:layout_gravity="end|center" android:id="@id/board_entry" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="6.0dp" android:scaleType="fitXY" fresco:placeholderImage="@null" />
+                <v.VDraweeView android:layout_gravity="end|center" android:id="@id/img_live_setting" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="6.0dp" android:scaleType="fitXY" fresco:placeholderImage="@drawable/live_selector_square_home_setting" />
+                <v.VDraweeView android:layout_gravity="end|center" android:id="@id/create_voice" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="6.0dp" android:scaleType="fitXY" fresco:placeholderImage="@null" />
+                <v.VDraweeView android:layout_gravity="end|center" android:id="@id/start_live" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="6.0dp" android:scaleType="fitXY" fresco:placeholderImage="@null" />
+                <v.VText android:textSize="12.0sp" android:textColor="@android:color/white" android:gravity="center" android:id="@id/start_live_second" android:background="@drawable/live_bg_fe7e1d_r10" android:visibility="gone" android:layout_width="57.0dp" android:layout_height="32.0dp" android:layout_marginEnd="6.0dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <View android:layout_gravity="end|center" android:id="@id/red_point" android:background="@drawable/live_shape_tab_red_bg" android:visibility="gone" android:layout_width="10.0dp" android:layout_height="10.0dp" android:layout_marginBottom="10.0dp" android:layout_marginEnd="6.0dp" />
+    </v.VFrame>
+    <v.VFrame android:id="@id/content_container" android:clickable="true" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="56.0dp" flatten="true">
+        <com.p1.mobile.putong.live.external.view.widgets.NoSaveStateViewPager android:id="@id/v_pager" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </v.VFrame>
+    <View android:id="@id/view_live_blur" android:background="@drawable/live_shape_set_blur" android:visibility="gone" android:layout_width="match_parent" android:layout_height="12.0dp" android:layout_marginTop="56.0dp" />
+</FrameLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VRelative xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="helpcenter.questionandanswer.QuestionAndAnswerViewModel">
+    <p151v.navigationbar.VNavigationBar
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftIcon="0x7f080387"/>
+    <p151v.VScroll
+        android:paddingBottom="40dp"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/navigation_bar">
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            flatten="true">
+            <p151v.VText
+                android:textSize="30sp"
+                android:textColor="@color/tantan_orange"
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="long long long long long long long long long long long title"
+                app:typeface="medium"/>
+        </LinearLayout>
+    </p151v.VScroll>
+    <View
+        android:id="@+id/view_core_blur"
+        android:background="@drawable/core_set_blur"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_below="@+id/navigation_bar"/>
+</p151v.VRelative>

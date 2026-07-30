@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.intl.roombg.common.VoiceLiveRoomBgSettingItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="voice.intl"
+    holder="roombg.common.VoiceLiveRoomBgSettingItemView">
+    <p151v.VDraweeView
+        android:id="@+id/item_bg"
+        android:layout_width="107dp"
+        android:layout_height="match_parent"
+        app:actualImageScaleType="centerCrop"/>
+    <ImageView
+        android:id="@+id/iv_choose"
+        android:visibility="gone"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="6dp"
+        android:src="0x7f082804"
+        android:layout_alignEnd="@+id/item_bg"/>
+    <ImageView
+        android:id="@+id/iv_preview"
+        android:visibility="gone"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="6dp"
+        android:src="0x7f0827be"
+        android:layout_alignEnd="@+id/item_bg"/>
+    <TextView
+        android:textSize="11dp"
+        android:textColor="@color/live_white_80_opacity"
+        android:id="@+id/bgPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_alignBottom="@+id/item_bg"
+        android:layout_centerHorizontal="true"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.intl.roombg.common.VoiceLiveRoomBgSettingItemView>

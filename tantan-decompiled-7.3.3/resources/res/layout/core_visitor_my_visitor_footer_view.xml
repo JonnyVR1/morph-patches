@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.visitor.myvisitors.MyVisitorsFooterView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingTop="24dp"
+    android:paddingBottom="48dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="visitor.myvisitors.MyVisitorsFooterView">
+    <p151v.VImage
+        android:id="@+id/left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="0x7f0819cb"/>
+    <TextView
+        android:textColor="@color/common_light_01"
+        android:gravity="center"
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginHorizontal="5dp"/>
+    <p151v.VImage
+        android:id="@+id/right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="0x7f0819cb"/>
+</com.p051p1.mobile.putong.core.p058ui.visitor.myvisitors.MyVisitorsFooterView>

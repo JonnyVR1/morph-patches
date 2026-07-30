@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/rv_questionnaire" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginRight="40.0dp" android:overScrollMode="never" android:nestedScrollingEnabled="false" android:layout_marginHorizontal="40.0dp" />
+    <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/button" android:background="@drawable/core_certification_bottom_sheet_button_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="24.0dp" android:layout_marginRight="20.0dp" android:text="选好了" android:layout_marginHorizontal="20.0dp" />
+</v.VLinear>

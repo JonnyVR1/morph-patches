@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_message_profile"
+    android:clipChildren="false"
+    android:layout_width="56dp"
+    android:layout_height="56dp">
+    <p151v.VFrame
+        android:id="@+id/menu_message_profile_click"
+        android:background="?attr/actionBarItemBackground"
+        android:clipChildren="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/btn"
+            android:layout_width="12dp"
+            android:layout_height="24dp"
+            android:src="0x7f080fa5"
+            android:scaleType="fitXY"
+            android:layout_centerInParent="true"/>
+    </p151v.VFrame>
+</p151v.VFrame>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VText android:textSize="14.0sp" android:textColor="#66ffffff" android:gravity="center" android:layout_width="match_parent" android:layout_height="70.0dp" android:text="@string/LIVE_DISCOVER_HAS_NO_MORE_MOMENTS"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

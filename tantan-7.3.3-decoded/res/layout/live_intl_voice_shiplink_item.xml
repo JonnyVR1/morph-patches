@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.base.arch.card.cardmodel.feed.VoiceShipLinkItemView android:orientation="vertical" android:paddingBottom="12.0dp" android:layout_width="80.0dp" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:layout_gravity="center_horizontal" android:background="@drawable/live_shape_voice_room_square_ship_link_item_circle" android:layout_width="61.0dp" android:layout_height="61.0dp">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="47.0dp" android:layout_height="47.0dp" app:failureImage="@drawable/live_vector_default_avatar_bg" app:failureImageScaleType="centerCrop" app:placeholderImage="@drawable/live_vector_default_avatar_bg" app:placeholderImageScaleType="centerCrop" app:roundAsCircle="true" />
+    </v.VFrame>
+    <v.VText android:textSize="12.0sp" android:textColor="@color/live_white" android:ellipsize="end" android:layout_gravity="center_horizontal" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:maxWidth="61.0dp" android:text="Jesus Je…" android:singleLine="true" />
+    <v.VText android:textSize="11.0sp" android:textColor="@color/live_white_40_opacity" android:ellipsize="end" android:layout_gravity="center_horizontal" android:id="@id/ship" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:maxWidth="61.0dp" android:text="Jesus Je…" android:singleLine="true" />
+</com.p1.mobile.putong.live.base.arch.card.cardmodel.feed.VoiceShipLinkItemView>

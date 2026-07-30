@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.question.MaleChatGuideView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.question.MaleChatGuideView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <FrameLayout android:layout_gravity="bottom" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VDraweeView android:layout_gravity="bottom" android:id="@id/image_small" android:layout_width="?message_page_profile_pic_size" android:layout_height="?message_page_profile_pic_size" android:layout_marginLeft="8.0dp" android:layout_marginRight="6.0dp" style="@style/core_im_fresco_profile_small" />
+            <v.VImage android:layout_gravity="right|bottom" android:id="@id/verification_icon" android:background="@null" android:visibility="gone" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginRight="6.0dp" useId="true" />
+            <com.p1.mobile.putong.core.ui.view.GradientBgButton android:layout_gravity="right|bottom" android:id="@id/match_from" android:visibility="gone" android:layout_width="14.0dp" android:layout_height="14.0dp" android:layout_marginRight="5.0dp" android:scaleType="centerInside" app:iconWidth="6.0dp" />
+        </FrameLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/profile_bubble" android:paddingLeft="20.0dp" android:paddingTop="16.0dp" android:paddingRight="14.0dp" android:paddingBottom="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="58.0dp" flatten="true" style="@style/messages_item_left">
+            <v.VText android:textSize="12.0sp" android:textColor="#bdbdbd" android:id="@id/tv_questions_count_hint" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="我特别好奇这些问题，愿意聊聊吗？" />
+            <v.VLinear android:orientation="horizontal" android:id="@id/first_question" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" flatten="true">
+                <v.VText android:textSize="14.0sp" android:textColor="#595959" android:layout_gravity="center_vertical" android:id="@id/first_question_text" android:paddingTop="4.0dp" android:paddingBottom="4.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:layout_weight="1.0" />
+                <v.VText android:textSize="14.0sp" android:textColor="#d74d37" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/first_question_chat" android:background="@drawable/core_ice_breaking_button_bg" android:layout_width="77.0dp" android:layout_height="28.0dp" android:text="聊这个" />
+            </v.VLinear>
+            <v.VLinear android:orientation="horizontal" android:id="@id/second_question" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" flatten="true">
+                <v.VText android:textSize="14.0sp" android:textColor="#595959" android:layout_gravity="center_vertical" android:id="@id/second_question_text" android:paddingTop="4.0dp" android:paddingBottom="4.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:layout_weight="1.0" />
+                <v.VText android:textSize="14.0sp" android:textColor="#d74d37" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/second_question_chat" android:background="@drawable/core_ice_breaking_button_bg" android:layout_width="77.0dp" android:layout_height="28.0dp" android:text="聊这个" />
+            </v.VLinear>
+            <v.VLinear android:orientation="horizontal" android:id="@id/third_question" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" flatten="true">
+                <v.VText android:textSize="14.0sp" android:textColor="#595959" android:layout_gravity="center_vertical" android:id="@id/third_question_text" android:paddingTop="4.0dp" android:paddingBottom="4.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:layout_weight="1.0" />
+                <v.VText android:textSize="14.0sp" android:textColor="#d74d37" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/third_question_chat" android:background="@drawable/core_ice_breaking_button_bg" android:layout_width="77.0dp" android:layout_height="28.0dp" android:text="聊这个" />
+            </v.VLinear>
+        </LinearLayout>
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.messages.question.MaleChatGuideView>

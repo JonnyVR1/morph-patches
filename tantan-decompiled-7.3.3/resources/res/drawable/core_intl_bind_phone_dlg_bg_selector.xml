@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_shortAnimTime">
+    <item
+        android:state_enabled="true"
+        android:drawable="@drawable/common_button_btn_orange_medium"/>
+    <item android:drawable="@drawable/core_intl_bind_phone_dlg_bg_disable"/>
+</selector>

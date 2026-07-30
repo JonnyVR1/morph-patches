@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.intlmeet.visitor.IntlMeetVisitorsEmptyItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:background="@color/white"
+    android:paddingTop="80dp"
+    android:paddingBottom="80dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="80dp"
+    flatten="true"
+    folder="newui"
+    holder="intlmeet.visitor.IntlMeetVisitorsEmptyItemView">
+    <ImageView
+        android:id="@+id/empty_img"
+        android:layout_width="220dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="-10dp"
+        android:src="0x7f080b47"
+        android:scaleType="centerCrop"/>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="@color/common_000000_40"
+        android:gravity="center"
+        android:id="@+id/empty_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/INTL_VAS_VISITOR_NONE"/>
+</com.p051p1.mobile.putong.core.newui.intlmeet.visitor.IntlMeetVisitorsEmptyItemView>

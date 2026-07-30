@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.mediapicker.chatat.ChatAtQuestionItemView android:id="@id/topic_search_item_container" android:background="@drawable/feed_post_chat_question_item_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="newui" holder="mediapicker.chatat.ChatAtQuestionItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/common_black_01" android:id="@id/ques_tv" android:paddingLeft="14.0dp" android:paddingTop="7.0dp" android:paddingRight="14.0dp" android:paddingBottom="7.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</com.p1.mobile.putong.feed.newui.mediapicker.chatat.ChatAtQuestionItemView>

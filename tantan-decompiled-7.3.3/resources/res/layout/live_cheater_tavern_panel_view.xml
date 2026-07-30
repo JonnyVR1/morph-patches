@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.virtual.game.VirtualGamePanelViewModel xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include
+        android:id="@+id/member_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
+        layout="@layout/live_virtual_voice_member_view"/>
+    <com.p051p1.mobile.putong.live.livingroom.view.TouchSwallowView
+        android:id="@+id/game_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</com.p051p1.mobile.putong.live.livingroom.virtual.game.VirtualGamePanelViewModel>

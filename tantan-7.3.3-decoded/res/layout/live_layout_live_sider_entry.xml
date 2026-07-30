@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.other.side.entry.LiveSiderEntryView android:layout_width="115.0dp" android:layout_height="22.0dp" flatten="true" folder="other" holder="side.entry.LiveSiderEntryView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="115.0dp" android:layout_height="22.0dp" android:layout_alignParentRight="true">
+        <v.VDraweeView android:id="@id/image_1" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginLeft="3.0dp" android:layout_centerVertical="true" fresco:actualImageScaleType="centerCrop" fresco:roundAsCircle="true" fresco:roundingBorderColor="@color/white" fresco:roundingBorderWidth="1.0dp" />
+        <v.VDraweeView android:id="@id/image_2" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginLeft="15.0dp" android:layout_centerVertical="true" fresco:actualImageScaleType="centerCrop" fresco:roundAsCircle="true" fresco:roundingBorderColor="@color/white" fresco:roundingBorderWidth="1.0dp" />
+        <v.VDraweeView android:id="@id/image_3" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginLeft="27.0dp" android:layout_centerVertical="true" fresco:actualImageScaleType="centerCrop" fresco:roundAsCircle="true" fresco:roundingBorderColor="@color/white" fresco:roundingBorderWidth="1.0dp" />
+    </RelativeLayout>
+    <RelativeLayout android:background="@drawable/live_bg_black_lr8_a15" android:layout_width="wrap_content" android:layout_height="22.0dp" android:layout_alignParentRight="true">
+        <v.VImage android:id="@id/icon_live_sider_entry" android:layout_width="14.0dp" android:layout_height="16.0dp" android:layout_marginLeft="6.0dp" android:scaleType="centerCrop" android:layout_centerVertical="true" android:alpha="0.0" android:layout_marginEnd="2.0dp" fresco:srcCompat="@null" />
+        <TextView android:textSize="10.0sp" android:textColor="@color/live_white_90_opacity" android:gravity="center" android:id="@id/text" android:padding="0.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_SIDEBAR_MORE_ROOM" android:singleLine="true" android:layout_toRightOf="@id/icon_live_sider_entry" android:layout_centerVertical="true" android:layout_marginEnd="12.0dp" />
+    </RelativeLayout>
+</com.p1.mobile.putong.live.livingroom.other.side.entry.LiveSiderEntryView>

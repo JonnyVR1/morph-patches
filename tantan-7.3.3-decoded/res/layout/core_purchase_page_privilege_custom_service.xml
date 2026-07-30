@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeCustomService android:id="@id/root" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="purchase.page.PurchasePrivilegeCustomService"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center" android:layout_width="103.0dp" android:layout_height="90.0dp">
+        <v.VImage android:id="@id/img_background" android:background="@null" android:layout_width="103.0dp" android:layout_height="90.0dp" />
+        <v.AutoVDraweeView android:layout_gravity="right" android:id="@id/img_avatar" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginTop="5.0dp" android:layout_marginEnd="4.0dp" app:roundAsCircle="true" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeCustomService>

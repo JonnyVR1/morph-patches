@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.home.virtualcard.HomeNewBizCardView android:layout_width="match_parent" android:layout_height="match_parent" app:cardCornerRadius="20.0dp" app:cardElevation="0.0dp" flatten="true" holder="home.virtualcard.HomeNewBizCardView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/card_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@null" android:scaleType="centerCrop" />
+    <v.VLinear android:gravity="center" android:layout_gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24.0dp">
+        <v.VImage android:id="@id/icon" android:layout_width="48.0dp" android:layout_height="48.0dp" android:src="@null" android:scaleType="centerCrop" />
+        <v.VText android:textSize="22.0sp" android:textColor="#8d2d8f" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="抢先告白" app:typeface="medium" />
+        <v.VText android:textColor="#668d2d8f" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:text="无需配对，直接向对方表达你的心意！" />
+    </v.VLinear>
+    <v.VDraweeView android:layout_gravity="center" android:id="@id/img" android:layout_width="359.0dp" android:layout_height="334.0dp" android:scaleType="center" app:actualImageScaleType="centerCrop" />
+    <v.VButton android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/ok" android:background="@null" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="58.0dp" android:layout_marginRight="58.0dp" android:layout_marginBottom="40.0dp" android:text="获取抢先告白" />
+</com.p1.mobile.putong.core.ui.home.virtualcard.HomeNewBizCardView>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.recreation.multiPk.dialog.view.MultiCallPkBoardFootView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="recreation.multiPk.dialog.view"
+    holder="MultiCallPkBoardFootView">
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <p151v.VImage
+            android:layout_gravity="center_vertical"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:src="0x7f0823fc"/>
+        <p151v.VText
+            android:textSize="13sp"
+            android:textColor="@color/live_white_20_opacity"
+            android:id="@+id/tv_foot_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最多展示前50名"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"/>
+        <p151v.VImage
+            android:layout_gravity="center_vertical"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:src="0x7f0823fc"/>
+    </LinearLayout>
+</com.p051p1.mobile.putong.live.livingroom.recreation.multiPk.dialog.view.MultiCallPkBoardFootView>

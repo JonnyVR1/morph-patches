@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.messages.expirence.view.ItemTestChallengeView android:id="@id/content" android:background="?message_bubble_bg_left" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="newui" holder="messages.expirence.view.ItemTestChallengeView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:id="@id/content_child" android:background="@drawable/core_bg_18_f9f9f9" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxWidth="271.0dp" flatten="true">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="83.0dp" flatten="true">
+            <v.VDraweeView android:id="@id/pic_img" android:layout_width="match_parent" android:layout_height="83.0dp" app:actualImageScaleType="fitXY" />
+            <v.VText android:textSize="21.0sp" android:textColor="@color/white" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="测测你的真相" android:layout_centerVertical="true" android:paddingStart="19.0dp" />
+        </RelativeLayout>
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_02" android:id="@id/sub_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14.0dp" android:text="我对你的测试感兴趣，已完成你的测试邀请" android:lineSpacingExtra="1.0dp" android:paddingStart="16.0dp" android:paddingEnd="16.0dp" />
+        <v.VText android:textSize="16.0sp" android:textColor="@color/core_msg_cell_link_color" android:gravity="center" android:id="@id/complete" android:background="@drawable/core_bg_10_ffffff" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginTop="11.0dp" android:layout_marginBottom="12.0dp" android:text="查看我们能否成为饭友" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.messages.expirence.view.ItemTestChallengeView>

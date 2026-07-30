@@ -1,0 +1,46 @@
+package p149l;
+
+import com.p046p1.mobile.putong.core.data.PurchaseType;
+import com.p046p1.mobile.putong.core.p053ui.purchase.C8765d;
+import com.p046p1.mobile.putong.core.p053ui.purchase.agreement.AgreementComponent;
+import com.p046p1.mobile.putong.data.PayMethod;
+import com.p046p1.mobile.putong.data.tenum.TEnum;
+import com.tantanapp.common.utils.NullChecker;
+import java.util.List;
+import kotlin.Metadata;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/* JADX INFO: loaded from: classes9.dex */
+@Metadata(m87231d1 = {"\u0000.\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0003\u0018\u00002\u00020\u0001B\u001d\u0012\u0006\u0010\u0003\u001a\u00020\u0002\u0012\f\u0010\u0006\u001a\b\u0012\u0004\u0012\u00020\u00050\u0004¢\u0006\u0004\b\u0007\u0010\bJ+\u0010\u000f\u001a\u00020\u000e2\u0006\u0010\t\u001a\u00020\u00052\b\u0010\u000b\u001a\u0004\u0018\u00010\n2\b\u0010\r\u001a\u0004\u0018\u00010\fH\u0016¢\u0006\u0004\b\u000f\u0010\u0010¨\u0006\u0011"}, m87232d2 = {"Ll/ji0;", "Ll/o5;", "Lcom/p1/mobile/putong/core/data/PurchaseType;", "purchaseType", "", "Lcom/p1/mobile/putong/core/ui/purchase/d;", "purchaseSections", "<init>", "(Lcom/p1/mobile/putong/core/data/PurchaseType;Ljava/util/List;)V", "section", "Lcom/p1/mobile/putong/core/ui/purchase/agreement/AgreementComponent$AgreementState;", "agreementState", "Lcom/p1/mobile/putong/data/PayMethod;", "currentPayMethod", "", "a", "(Lcom/p1/mobile/putong/core/ui/purchase/d;Lcom/p1/mobile/putong/core/ui/purchase/agreement/AgreementComponent$AgreementState;Lcom/p1/mobile/putong/data/PayMethod;)Z", "pay_intlGmsRelease"}, m87233k = 1, m87234mv = {2, 2, 0}, m87236xi = 48)
+public final class ji0 extends AbstractC18843o5 {
+    /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+    public ji0(@NotNull PurchaseType purchaseType, @NotNull List<? extends C8765d> list) {
+        super(purchaseType, list);
+        purchaseType.getClass();
+        list.getClass();
+    }
+
+    /* JADX INFO: renamed from: d */
+    public static Boolean m141615d(C8765d c8765d) {
+        return Boolean.valueOf(NullChecker.m81303a(c8765d.m53520b()) && c8765d.m53531m() && c8765d.m53520b().m53601s().quarterly() && (rxa0.m181502w(c8765d.m53520b().m53601s()) || rxa0.m181501v("svip", c8765d.m53520b().m53601s())));
+    }
+
+    @Override // p149l.AbstractC18843o5
+    /* JADX INFO: renamed from: a */
+    public boolean mo116616a(@NotNull C8765d section, @Nullable AgreementComponent.AgreementState agreementState, @Nullable PayMethod currentPayMethod) {
+        section.getClass();
+        if (!sab0.m182899q(getPurchaseType()) || !TEnum.equals(currentPayMethod, "alipay") || vwb.m200337m(m162743b(), new w9j() { // from class: l.ii0
+            @Override // p149l.w9j
+            public final Object call(Object obj) {
+                return ji0.m141615d((C8765d) obj);
+            }
+        })) {
+            return false;
+        }
+        if (section.m53531m() && NullChecker.m81303a(section.m53520b()) && section.m53520b().m53601s().quarterly()) {
+            return true;
+        }
+        return NullChecker.m81303a(section.m53522d()) && section.m53522d().m53601s().quarterly();
+    }
+}

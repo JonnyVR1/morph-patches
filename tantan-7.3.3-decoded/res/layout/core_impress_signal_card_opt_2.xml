@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.impresssignal.ImpressSignalCardNewUIView android:id="@id/root_vieww" android:layout_width="match_parent" android:layout_height="match_parent" app:cardCornerRadius="20.0dp" app:cardElevation="0.0dp" flatten="true" holder="impresssignal.ImpressSignalCardNewUIView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+        <include android:id="@id/image" layout="@layout/profile_picture_item" />
+        <View android:id="@id/image_bottom_shadow_cover" android:background="@drawable/core_card_bottom_shadow_cover_bg" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="103.0dp" />
+        <View android:layout_gravity="bottom" android:id="@id/bottom_shadow_cover" android:background="@drawable/core_card_bottom_shadow_cover_1_bg" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="0.0dp" />
+    </v.VFrame>
+    <com.p1.mobile.putong.core.newui.view.LinearMeasureOrderLayout android:gravity="center_vertical" android:id="@id/top_left_container" android:layout_width="280.0dp" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp" app:measureLayoutOrientation="horizontal" app:measureReverse="true" flatten="true">
+        <v.VText android:ellipsize="end" android:id="@id/type" android:layout_marginRight="5.0dp" android:maxLines="1" android:singleLine="true" android:drawablePadding="2.0dp" style="@style/core_card_small_tag" />
+        <v.VLinear android:id="@id/certification_container" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="5.0dp" />
+        <v.VText android:id="@id/on_line" android:paddingLeft="8.0dp" android:visibility="invisible" android:text="当前在线" style="@style/core_card_small_tag" />
+    </com.p1.mobile.putong.core.newui.view.LinearMeasureOrderLayout>
+    <v.VFrame android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VLinear android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginRight="108.0dp" android:layout_marginBottom="80.0dp">
+            <include android:id="@id/card_bottom_info" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_card_bottom_basic_info" />
+            <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:id="@id/describe" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:maxLines="2" />
+            <include android:id="@id/info_content" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" layout="@layout/core_card_user_content_view" />
+            <v.VLinear android:orientation="horizontal" android:id="@id/image_ll" android:visibility="gone" android:layout_width="match_parent" android:layout_height="64.0dp" android:layout_marginTop="8.0dp" flatten="true">
+                <v.VDraweeView android:id="@id/image1" android:layout_width="64.0dp" android:layout_height="64.0dp" app:actualImageScaleType="centerCrop" app:backgroundImage="@drawable/core_card_moment_image_bg" app:roundedCornerRadius="10.0dp" app:roundingBorderColor="#3dffffff" app:roundingBorderWidth="1.5dp" />
+                <v.VDraweeView android:id="@id/image2" android:layout_width="64.0dp" android:layout_height="64.0dp" android:layout_marginLeft="5.0dp" app:actualImageScaleType="centerCrop" app:backgroundImage="@drawable/core_card_moment_image_bg" app:roundedCornerRadius="10.0dp" app:roundingBorderColor="#3dffffff" app:roundingBorderWidth="1.5dp" />
+                <v.VDraweeView android:id="@id/image3" android:layout_width="64.0dp" android:layout_height="64.0dp" android:layout_marginLeft="5.0dp" app:actualImageScaleType="centerCrop" app:backgroundImage="@drawable/core_card_moment_image_bg" app:roundedCornerRadius="10.0dp" app:roundingBorderColor="#3dffffff" app:roundingBorderWidth="1.5dp" />
+            </v.VLinear>
+        </v.VLinear>
+        <v.VLinear android:gravity="center" android:layout_gravity="right|bottom" android:orientation="vertical" android:id="@id/new_view_profile_layout" android:background="@drawable/core_bg_6_32ffffff" android:visibility="visible" android:layout_width="76.0dp" android:layout_height="24.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="80.0dp">
+            <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看资料" android:drawableRight="@null" android:drawablePadding="2.0dp" />
+        </v.VLinear>
+        <v.VText android:textSize="16.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="right|bottom" android:id="@id/chat" android:background="@drawable/core_bg_10_33ffffff" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_margin="16.0dp" android:drawablePadding="2.0dp" />
+    </v.VFrame>
+</com.p1.mobile.putong.core.ui.impresssignal.ImpressSignalCardNewUIView>

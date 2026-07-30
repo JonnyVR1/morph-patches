@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.greet.GreetingItemRootLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="13.0sp" android:textStyle="normal" android:textColor="#4c000000" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/common_tips_text" android:paddingLeft="12.0dp" android:paddingTop="4.0dp" android:paddingRight="12.0dp" android:paddingBottom="4.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="25.0dp" android:layout_marginRight="25.0dp" android:layout_marginBottom="21.0dp" android:drawablePadding="4.0dp" android:lineSpacingExtra="1.0dp" android:fontFamily="PingFangSC-Regular" />
+    <ViewStub android:id="@id/odmanond_pay_sub" android:layout="@layout/core_greeting_odmamond_pay_notify" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="10.0dp" />
+    <ViewStub android:id="@id/core_city_centre_guide_pic_sub" android:layout="@layout/core_city_centre_guide_pic" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginBottom="10.0dp" />
+</com.p1.mobile.putong.core.ui.greet.GreetingItemRootLayout>

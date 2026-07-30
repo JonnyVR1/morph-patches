@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="32.19998dp" android:width="69.19998dp" android:viewportWidth="69.2" android:viewportHeight="32.2"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <group>
+        <clip-path android:pathData="M8.1 0.1H61.1C65.5183 0.1 69.1 3.68172 69.1 8.1V24.1C69.1 28.5183 65.5183 32.1 61.1 32.1H8.1C3.68172 32.1 0.1 28.5183 0.1 24.1V8.1C0.1 3.68172 3.68172 0.1 8.1 0.1Z" />
+        <group android:pivotX="34.6" android:pivotY="16.1" android:scaleX="2.0" android:scaleY="6.982" android:rotation="-180.0" android:translateX="1.0" android:translateY="2.246">
+            <path android:fillColor="@drawable/$core_o_diamond_spring_promotion_view_get_button_bg__0" android:pathData="M0.1 0.1V32.1H69.1V0.1" />
+        </group>
+    </group>
+</vector>

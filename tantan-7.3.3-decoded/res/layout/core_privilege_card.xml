@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.privilege.PrivilegeCard android:id="@id/root" android:layout_width="wrap_content" android:layout_height="wrap_content" holder="vip.privilege.PrivilegeCard"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/card_bg" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
+        <FrameLayout android:id="@id/texture_content" android:visibility="gone" android:clipChildren="true" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="8.0dp" flatten="true">
+            <com.tantan.library.svga.SVGAnimationView android:id="@id/texture_svga" android:layout_width="306.0dp" android:layout_height="116.0dp" android:layout_marginLeft="-2.0dp" />
+        </FrameLayout>
+        <com.tantan.library.svga.SVGAnimationView android:id="@id/light_svga" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" />
+        <RelativeLayout android:id="@id/card_rectangle" android:background="@drawable/core_vip_privilege_card_border" android:clipToPadding="true" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="6.0dp" flatten="true">
+            <v.VImage android:id="@id/card_texture" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5.0dp" android:layout_marginBottom="5.0dp" android:scaleType="centerCrop" />
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/ll_title" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="14.0dp" android:layout_marginTop="18.0dp" flatten="true">
+                <v.VImage android:id="@id/iv_title_icon_simple" android:visibility="gone" android:layout_width="48.0dp" android:layout_height="40.0dp" android:layout_marginRight="8.0dp" android:src="@null" />
+                <v.VLinear android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp">
+                    <v.VLinear android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/title_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" flatten="true">
+                        <v.VImage android:id="@id/iv_title_icon" android:layout_width="wrap_content" android:layout_height="20.0dp" android:src="@null" />
+                        <v.VText android:textSize="19.0sp" android:textColor="@color/common_white" android:ellipsize="end" android:gravity="center" android:layout_gravity="center" android:id="@id/tv_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:singleLine="true" android:includeFontPadding="false" app:typeface="medium" />
+                    </v.VLinear>
+                    <v.VText android:textSize="9.0sp" android:textColor="@color/common_white" android:ellipsize="end" android:id="@id/description_new" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="3.0dp" android:maxLines="1" android:includeFontPadding="false" />
+                </v.VLinear>
+            </LinearLayout>
+            <v.VText android:textSize="11.0sp" android:textColor="@color/common_white" android:ellipsize="end" android:id="@id/description" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="17.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="17.0dp" android:maxLines="2" android:includeFontPadding="false" android:layout_below="@id/ll_title" />
+            <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="18.0dp" android:layout_marginRight="11.0dp" android:layout_marginBottom="11.0dp" android:minHeight="32.0dp" android:layout_alignParentBottom="true">
+                <v.VDraweeView android:id="@id/avatar" android:layout_width="24.0dp" android:layout_height="24.0dp" style="@style/core_fresco_profile_small" />
+                <v.VText android:textSize="11.0sp" android:textColor="@color/common_white" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/user_privilege" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_marginLeft="5.0dp" android:maxLines="2" android:includeFontPadding="false" android:layout_weight="1.0" />
+                <v.VText android:textSize="12.0sp" android:textColor="#ff5f23" android:gravity="center" android:layout_gravity="center" android:id="@id/goto_renew" android:background="@drawable/core_privilege_vip_gotorenew_bg" android:visibility="gone" android:layout_width="57.0dp" android:layout_height="32.0dp" android:text="@string/REV_AUTOBENEFIT_RENEW" />
+            </v.VLinear>
+        </RelativeLayout>
+        <com.tantan.library.svga.SVGAnimationView android:id="@id/icon_svga" android:layout_width="90.0dp" android:layout_height="90.0dp" android:scaleType="centerCrop" />
+        <com.tantan.library.svga.SVGAnimationView android:id="@id/icon_roted_svga" android:layout_width="90.0dp" android:layout_height="90.0dp" android:scaleType="centerCrop" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.vip.privilege.PrivilegeCard>

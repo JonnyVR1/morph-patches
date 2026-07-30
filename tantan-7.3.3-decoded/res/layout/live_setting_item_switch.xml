@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.bottom.items.switchview.VoiceSwitchItemView android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginRight="7.0dp" app:bind_extends="LinearLayout" app:bind_implements="com.p1.mobile.putong.live.livingroom.common.bottom.RedDot" app:binding="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/content" android:background="@drawable/live_bg_white_r46_a04" android:layout_width="55.0dp" android:layout_height="35.0dp" flatten="true">
+        <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga_view" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" />
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/guide_gift_icon" android:layout_width="24.0dp" android:layout_height="24.0dp" />
+        <FrameLayout android:layout_gravity="center" android:layout_width="28.0dp" android:layout_height="28.0dp">
+            <FrameLayout android:layout_gravity="right|bottom" android:id="@id/switch_layout" android:layout_width="11.0dp" android:layout_height="6.0dp" android:layout_marginRight="3.0dp" android:layout_marginBottom="3.0dp" flatten="true">
+                <View android:id="@id/point_bg" android:background="@drawable/live_selector_preview_switch_status_enable" android:layout_width="11.0dp" android:layout_height="6.0dp" />
+                <View android:layout_gravity="center_vertical" android:id="@id/round_point" android:background="@drawable/live_selector_preview_switch_point_bg" android:layout_width="3.0dp" android:layout_height="3.0dp" android:layout_marginLeft="2.0dp" android:layout_marginRight="2.0dp" />
+            </FrameLayout>
+        </FrameLayout>
+        <View android:layout_gravity="right|top" android:id="@id/red_dot" android:background="@drawable/live_bg_ff3938_r3" android:visibility="gone" android:layout_width="8.0dp" android:layout_height="8.0dp" android:layout_marginTop="1.0dp" android:layout_marginRight="1.0dp" />
+    </FrameLayout>
+    <TextView android:textSize="10.0sp" android:textStyle="bold" android:textColor="@color/live_black_30_opacity" android:ellipsize="end" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" style="@style/live_setting_text_lines" />
+</com.p1.mobile.putong.live.livingroom.voice.bottom.items.switchview.VoiceSwitchItemView>

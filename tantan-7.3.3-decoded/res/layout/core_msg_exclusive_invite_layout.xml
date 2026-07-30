@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemExclusiveInviteLayout android:orientation="vertical" android:id="@id/content" android:background="@drawable/core_exclusive_msg_item_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="horizontal" android:paddingTop="14.0dp" android:paddingBottom="14.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VImage android:layout_gravity="center_vertical" android:layout_width="44.0dp" android:layout_height="44.0dp" android:layout_marginLeft="14.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="14.0dp">
+            <v.VText android:textSize="15.0dp" android:textColor="@color/common_black_02" android:gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="21.0dp" android:text="1v1专属聊天邀请" />
+            <v.VText android:textSize="13.0dp" android:textColor="@color/common_grey_03" android:gravity="center_vertical" android:id="@id/sub_title" android:layout_width="wrap_content" android:layout_height="18.0dp" android:layout_marginTop="3.0dp" android:text="是否愿意30分钟内，只和我聊？" />
+        </v.VLinear>
+    </v.VLinear>
+    <v.VText android:textSize="16.0dp" android:gravity="center" android:layout_gravity="center" android:id="@id/action_btn" android:layout_width="wrap_content" android:layout_height="56.0dp" android:text="接受邀请 42s" />
+</com.p1.mobile.putong.core.ui.messages.ItemExclusiveInviteLayout>

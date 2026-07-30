@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.ui.roundcorners.view.RoundLinearLayout android:gravity="center_horizontal" android:layout_gravity="center" android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="32.0dp" android:layout_marginEnd="32.0dp" app:rRadius="20.0dp">
+        <ImageView android:id="@id/iv_top" android:layout_width="wrap_content" android:layout_height="180.0dp" android:src="@null" />
+        <v.VText android:textSize="18.0dp" android:textColor="@color/core_color_323232" android:ellipsize="end" android:gravity="center" android:id="@id/tv_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/INLT_TTC_UNDERTAKE_POP_ONE" />
+        <v.VText android:textSize="13.0dp" android:textColor="@color/core_4c000000" android:gravity="center" android:id="@id/tv_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginStart="32.0dp" android:layout_marginEnd="32.0dp" />
+        <v.VText android:id="@id/btn_confirm" android:layout_marginTop="16.0dp" android:layout_marginBottom="40.0dp" android:layout_marginStart="31.0dp" android:layout_marginEnd="31.0dp" app:typeface="medium" style="@style/common_button_large_01" />
+    </com.p1.mobile.putong.core.ui.roundcorners.view.RoundLinearLayout>
+</v.VFrame>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="14sp"
+    android:textColor="@drawable/feed_intl_menu_moment_history_clear_btn_color"
+    android:gravity="center_vertical"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:text="@string/ACTION_CLEAR"
+    android:paddingStart="8dp"
+    android:paddingEnd="16dp"/>

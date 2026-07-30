@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/one_pic_avatar" android:background="@null" android:padding="15.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" fresco:roundAsCircle="true" />
+    <v.VImage android:layout_gravity="right|bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:layout_marginBottom="9.0dp" android:src="@null" />
+</v.VFrame>

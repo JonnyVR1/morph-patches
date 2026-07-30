@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemLoveBuzzUnlockSuccess android:orientation="vertical" android:id="@id/root" android:paddingBottom="10.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" holder="messages.ItemLoveBuzzUnlockSuccess"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp">
+        <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/left_head" android:layout_width="72.0dp" android:layout_height="72.0dp" fresco:roundAsCircle="true" />
+        <v.VDraweeView android:id="@id/right_head" android:layout_width="80.0dp" android:layout_height="80.0dp" android:scaleType="centerCrop" android:layout_marginStart="-8.0dp" fresco:roundAsCircle="true" fresco:roundingBorderColor="@color/white" fresco:roundingBorderWidth="4.0dp" />
+    </v.VLinear>
+    <v.VText android:textSize="18.0sp" android:textColor="@color/common_black_01" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:text="@string/INTL_BUZZ_IM_UNLOCK_SUCCESS_TITLE" fresco:typeface="medium" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/core_color_80000000" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="@string/INTL_BUZZ_IM_UNLOCK_SUCCESS_DESCRIPTION" android:layout_marginStart="24.0dp" android:layout_marginEnd="24.0dp" fresco:typeface="regular" />
+</com.p1.mobile.putong.core.ui.messages.ItemLoveBuzzUnlockSuccess>

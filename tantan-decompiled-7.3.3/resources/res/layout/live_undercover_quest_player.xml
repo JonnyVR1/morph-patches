@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VRelative xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/undercover_quest_player"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="voice.intl.game.undercover.viewmodule.UndercoverQuestPlayerView">
+    <p151v.VDraweeView
+        android:id="@+id/user_avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="84dp"
+        android:scaleType="centerCrop"
+        android:layout_centerHorizontal="true"
+        fresco:placeholderImage="@drawable/live_vector_default_avatar_bg"
+        fresco:roundAsCircle="true"/>
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="#daf4ff"
+        android:id="@+id/user_quest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+</p151v.VRelative>

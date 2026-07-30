@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemLimitTimePic android:orientation="vertical" android:id="@id/content" android:layout_width="140.0dp" android:layout_height="wrap_content" flatten="true" holder="messages.ItemLimitTimePic"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:background="@drawable/core_msg_switch_image_cell_bg" android:padding="1.0dp" android:layout_width="140.0dp" android:layout_height="140.0dp">
+        <v.VDraweeView android:id="@id/drawee_view" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <v.VLinear android:layout_gravity="center" android:orientation="vertical" android:id="@id/limit_pic_layout" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+            <ImageView android:layout_gravity="center_horizontal" android:id="@id/limit_icon" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" />
+            <TextView android:textSize="15.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/limit_des" android:layout_width="wrap_content" android:layout_height="28.0dp" android:layout_marginTop="12.0dp" android:text="未读将过期" />
+            <TextView android:textSize="11.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/limit_time" android:background="@drawable/bg_message_pic_limit_time" android:paddingTop="2.0dp" android:paddingBottom="2.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawablePadding="3.0dp" android:drawableStart="@null" android:paddingStart="3.0dp" android:paddingEnd="5.0dp" />
+        </v.VLinear>
+        <v.VLinear android:layout_gravity="center" android:orientation="vertical" android:id="@id/limit_expired_layout" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true">
+            <ImageView android:layout_gravity="center_horizontal" android:id="@id/expired_icon" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" />
+            <TextView android:textSize="15.0sp" android:textColor="#b3ffffff" android:gravity="center" android:id="@id/expired_des" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="已过期" />
+        </v.VLinear>
+    </FrameLayout>
+    <TextView android:textSize="10.0sp" android:textColor="#33000000" android:id="@id/read_des" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" />
+</com.p1.mobile.putong.core.ui.messages.ItemLimitTimePic>

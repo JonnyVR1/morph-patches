@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="settings.momentmuted.MomentMutedViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VProgressBar android:id="@id/loading_block" style="@style/core_loading_block" />
+        <v.VText android:id="@id/empty" android:text="@string/MOMENTS_UNMUTE_EMPTY_MESSAGE" style="@style/core_general_simple_item" />
+        <v.VList android:id="@id/users" android:layout_width="match_parent" android:layout_height="match_parent" android:divider="@color/moment_divider_color" android:dividerHeight="1.0dp" android:headerDividersEnabled="false" android:footerDividersEnabled="false" />
+    </v.VFrame>
+</v.VLinear>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.chat.LiveChatItem android:id="@id/root" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="common" holder="chat.LiveChatItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="horizontal" android:id="@id/content_parent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.5dp" android:layout_marginBottom="1.5dp" flatten="true">
+        <com.p1.mobile.putong.live.livingroom.view.AutoRefreshTextView android:textSize="12.0sp" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/flow_content" android:paddingLeft="6.0dp" android:paddingTop="4.0dp" android:paddingRight="6.0dp" android:paddingBottom="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="25.0dp" android:layout_weight="1.0" android:lineSpacingExtra="1.0dp" app:enableApngEmojis="true" app:enableEmojis="true" app:largeEmojis="true" />
+        <View android:id="@id/anchor_right" android:visibility="gone" android:layout_width="14.0dp" android:layout_height="10.0dp" android:layout_weight="0.0" />
+    </LinearLayout>
+    <v.VDraweeView android:layout_gravity="end|top" android:id="@id/corner_icon" android:visibility="gone" android:layout_width="30.0dp" android:layout_height="30.0dp" />
+</com.p1.mobile.putong.live.livingroom.common.chat.LiveChatItem>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.camera.widget.MakeupDownloadItemView android:orientation="vertical" android:id="@id/camera_makeup_download_item_root" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="newui" holder="camera.widget.MakeupDownloadItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="62.0dp" android:layout_height="62.0dp">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/camera_makeup_image" android:background="@drawable/feed_camera_effect_bg" android:layout_width="52.0dp" android:layout_height="52.0dp" android:scaleType="center" app:actualImageResource="@drawable/feed_camera_effect_bg" app:roundedCornerRadius="12.0dp" />
+        <ImageView android:layout_gravity="right|bottom" android:id="@id/camera_makeup_download_status" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="6.0dp" android:layout_marginBottom="6.0dp" android:src="@null" />
+        <ImageView android:layout_gravity="center" android:id="@id/camera_makeup_select" android:layout_width="62.0dp" android:layout_height="62.0dp" android:src="@drawable/feed_camera_filter_item_selected" android:scaleType="centerInside" />
+    </FrameLayout>
+    <v.VText android:textSize="12.0dp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center" android:id="@id/camera_makeup_name" android:layout_width="62.0dp" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="filter name" />
+    <v.VText android:textSize="12.0dp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center" android:id="@id/camera_makeup_value" android:layout_width="62.0dp" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="30" />
+</com.p1.mobile.putong.feed.newui.camera.widget.MakeupDownloadItemView>

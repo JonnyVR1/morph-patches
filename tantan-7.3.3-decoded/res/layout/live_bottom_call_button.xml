@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.bottom.BottomCallButton android:background="@drawable/live_bg_black_r12_a15" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="common" holder="bottom.BottomCallButton"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VDraweeView android:id="@id/icon" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <View android:layout_gravity="right|top" android:id="@id/red_dot" android:background="@drawable/live_bg_ff3938_r3" android:visibility="gone" android:layout_width="8.0dp" android:layout_height="8.0dp" />
+    <TextView android:textSize="10.0sp" android:textColor="@color/white" android:gravity="center_horizontal" android:layout_gravity="right|top" android:id="@id/tv_num" android:background="@drawable/live_shape_bottom_btn_num_dot_bg" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" android:minWidth="14.0dp" />
+</com.p1.mobile.putong.live.livingroom.common.bottom.BottomCallButton>

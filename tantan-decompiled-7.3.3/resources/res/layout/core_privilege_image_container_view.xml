@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.privilege.PrivilegeImageContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="purchase.privilege.PrivilegeImageContainerView">
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="0x7f082a8e"
+        android:scaleType="centerInside"/>
+</com.p051p1.mobile.putong.core.p058ui.purchase.privilege.PrivilegeImageContainerView>

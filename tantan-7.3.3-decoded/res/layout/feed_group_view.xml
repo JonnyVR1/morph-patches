@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.view.FeedGroupView android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="photoalbum.view.FeedGroupView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:id="@id/feed_group_rl" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3.5dp" android:layout_marginBottom="18.0dp" flatten="true">
+        <v.VRelative android:id="@id/header_icon" android:visibility="visible" android:layout_width="38.0dp" android:layout_height="40.0dp" android:layout_marginStart="12.0dp">
+            <v.VDraweeView android:id="@id/head" android:layout_width="38.0dp" android:layout_height="40.0dp" android:scaleType="centerCrop" app:actualImageScaleType="centerCrop" app:failureImage="@color/common_light_04" app:placeholderImage="@color/common_light_04" app:roundedCornerRadius="12.0dp" style="@style/feed_fresco_base" />
+            <v.VRelative android:id="@id/group" android:background="@drawable/feed_group_detail_enter_icon_bg" android:visibility="gone" android:layout_width="38.0dp" android:layout_height="40.0dp">
+                <v.VImage android:id="@id/group_img" android:layout_width="14.0dp" android:layout_height="14.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+            </v.VRelative>
+        </v.VRelative>
+        <v.VLinear android:orientation="vertical" android:id="@id/group_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="14.0dp" android:layout_toRightOf="@id/header_icon" flatten="true">
+            <v.VRelative android:id="@id/group_head_rl" android:layout_width="match_parent" android:layout_height="40.0dp" flatten="true">
+                <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_toLeftOf="@id/group_arrow" android:layout_centerVertical="true">
+                    <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/feed_nearby_topic_color" android:id="@id/group_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="旅途中拍的最喜欢的照片" android:singleLine="true" />
+                    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/group_count_ll" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" flatten="true">
+                        <v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content">
+                            <v.VFrame android:id="@id/pic_three_fl" android:background="@drawable/feed_single_topic_image_bg" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginLeft="26.0dp" flatten="true">
+                                <v.VDraweeView android:layout_gravity="center" android:id="@id/pic_three" android:layout_width="16.0dp" android:layout_height="16.0dp" style="@style/feed_fresco_profile_small_recommend" />
+                            </v.VFrame>
+                            <v.VFrame android:id="@id/pic_two_fl" android:background="@drawable/feed_single_topic_image_bg" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginLeft="13.0dp" flatten="true">
+                                <v.VDraweeView android:layout_gravity="center" android:id="@id/pic_two" android:layout_width="16.0dp" android:layout_height="16.0dp" style="@style/feed_fresco_profile_small_recommend" />
+                            </v.VFrame>
+                            <v.VFrame android:id="@id/pic_one_fl" android:background="@drawable/feed_single_topic_image_bg" android:layout_width="18.0dp" android:layout_height="18.0dp" flatten="true">
+                                <v.VDraweeView android:layout_gravity="center" android:id="@id/pic_one" android:layout_width="16.0dp" android:layout_height="16.0dp" style="@style/feed_fresco_profile_small_recommend" />
+                            </v.VFrame>
+                        </v.VFrame>
+                        <v.VText android:textSize="12.0sp" android:textColor="@color/common_grey_03" android:id="@id/count_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="等人更新了36条内容" />
+                    </v.VLinear>
+                </v.VLinear>
+                <v.VImage android:id="@id/group_arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="0.5dp" android:layout_marginRight="15.0dp" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </v.VRelative>
+            <TextView android:textSize="15.0sp" android:textColor="@color/common_black_04" android:ellipsize="end" android:id="@id/group_content_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:layout_marginRight="16.0dp" android:text="﻿@张嘻嘻：夏至的冰镇可乐，喝一口就值两块五，一定要记得多喝几口水哈。" android:maxLines="2" android:lineSpacingExtra="3.0sp" />
+            <v.VFrame android:id="@id/group_media_fl" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginRight="16.0dp" flatten="true">
+                <com.p1.mobile.putong.feed.newui.view.FeedAudioPlayerView android:id="@id/audio_player" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                <v.VFrame android:id="@id/images_frame" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_pic_new_feed" />
+                    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_pic_new_feed" />
+                    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_pic_new_feed" />
+                    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_pic_new_feed" />
+                    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_pic_new_feed" />
+                    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_pic_new_feed" />
+                    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_pic_new_feed" />
+                    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_pic_new_feed" />
+                    <include android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/moments_pic_new_feed" />
+                </v.VFrame>
+                <include android:id="@id/cover_for_kitkat" android:visibility="gone" android:layout_width="94.0dp" android:layout_height="94.0dp" layout="@layout/moments_video_new_feed" />
+            </v.VFrame>
+        </v.VLinear>
+    </v.VRelative>
+</com.p1.mobile.putong.feed.newui.photoalbum.view.FeedGroupView>

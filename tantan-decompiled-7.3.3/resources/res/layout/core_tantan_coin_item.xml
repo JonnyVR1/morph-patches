@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.result.TanTanCoinItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:elevation="4dp"
+    holder="result.TanTanCoinItem">
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="@color/common_grey_01"
+        android:ellipsize="end"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="52dp"
+        android:lines="1"
+        android:lineSpacingExtra="0sp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="52dp"
+        app:typeface="medium"/>
+    <p151v.VText
+        android:textSize="12sp"
+        android:textColor="@color/common_grey_03"
+        android:ellipsize="end"
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="12dp"
+        android:lines="2"
+        android:layout_below="@+id/title"
+        android:lineSpacingExtra="4sp"/>
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="40dp"
+        android:layout_height="22dp"
+        android:layout_marginRight="-1dp"
+        android:src="0x7f082a16"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="-1dp"
+        android:layout_alignParentEnd="true"/>
+</com.p051p1.mobile.putong.core.p058ui.result.TanTanCoinItem>

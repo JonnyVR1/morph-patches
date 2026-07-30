@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="voice" holder="intl.manager.IntlVoiceLiveManageViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/empty" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/contentView" android:background="@color/live_19191e" android:clickable="true" android:layout_width="match_parent" android:layout_height="486.0dp" app:layout_constraintBottom_toBottomOf="parent" flatten="true">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="64.0dp">
+            <TextView android:textSize="16.0dp" android:textStyle="normal" android:textColor="@color/live_white_80_opacity" android:layout_gravity="center" android:id="@id/managerDialogTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_VOICE_MANAGER_DIALOG_TITLE" />
+            <ImageView android:layout_gravity="end|center" android:id="@id/voiceManagerExplain" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" android:layout_marginEnd="20.0dp" />
+        </FrameLayout>
+        <View android:id="@id/line" android:background="@color/live_white_03_opacity" android:layout_width="match_parent" android:layout_height="3.0dp" />
+        <com.p1.mobile.putong.live.livingroom.voice.intl.manager.invite.IntlVoiceLiveManagerInvitePageView android:id="@id/onlineView" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </LinearLayout>
+</FrameLayout>

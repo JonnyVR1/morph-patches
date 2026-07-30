@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="profile.loop.input.ProfileLoopTextInputViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/input_view" layout="@layout/core_profile_loop_text_input_base" />
+    <include android:layout_gravity="bottom" android:id="@id/action_view" android:layout_width="match_parent" android:layout_height="84.0dp" layout="@layout/core_profile_loop_edit_action_layout" />
+</FrameLayout>

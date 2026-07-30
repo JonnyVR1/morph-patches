@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.gift.opt.view.GiftPanelBottomBar android:orientation="horizontal" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="50.0dp" holder="gift.opt.view.GiftPanelBottomBar"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VPagerCircleIndicator android:gravity="center_vertical" android:layout_gravity="center" android:id="@id/indicator" android:layout_width="wrap_content" android:layout_height="wrap_content" app:fillColor="#ff8817" app:pageColor="#1a000000" />
+    <v.VText android:textSize="14.0sp" android:textColor="#ff8817" android:gravity="center" android:layout_gravity="end" android:id="@id/charge" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="充值" android:drawablePadding="1.0dp" android:drawableEnd="@null" android:paddingStart="15.0dp" android:paddingEnd="15.0dp" app:typeface="medium" />
+</com.p1.mobile.putong.core.ui.gift.opt.view.GiftPanelBottomBar>

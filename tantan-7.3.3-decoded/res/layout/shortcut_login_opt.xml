@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" holder="accountnew.loginopt.viewmodel.ShortCutLoginOptViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="52.0dp">
+        <ImageView android:layout_gravity="center_horizontal" android:layout_width="80.0dp" android:layout_height="80.0dp" android:src="@null" />
+        <v.VButton android:id="@id/continue_opt" android:layout_marginLeft="32.0dp" android:layout_marginTop="72.0dp" android:layout_marginRight="32.0dp" android:checked="false" android:text="一键登录" style="@style/common_button_large_01" />
+        <TextView android:textSize="16.0sp" android:textColor="@color/common_orange" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/change_opt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:text="@string/WECHAT_BIND_MOBILE_ACTION_SWITCH_ACCOUNT_NEW" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center_vertical" android:layout_gravity="center|bottom" android:orientation="horizontal" android:id="@id/terms_frame" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="16.0dp" flatten="true">
+        <v.VCheckBox android:id="@id/terms_check" android:layout_marginRight="8.0dp" style="@style/common_checkbox" />
+        <v.VText android:textSize="12.0sp" android:textColor="@color/common_grey_04" android:textColorHighlight="@color/transparent" android:textColorLink="#b2b2b2" android:id="@id/agreement_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:lineSpacingExtra="4.0sp" />
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.messages.ConversationsList android:id="@id/swipe_layout" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="messages.ConversationsList"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.p1.mobile.putong.core.newui.messages.anim.view.PullQuickChatLayout android:id="@id/list_layout" android:layout_width="match_parent" android:layout_height="match_parent" android:transitionName="shareNames" flatten="true" useId="true">
+        <FrameLayout android:id="@id/list_linear_layout" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" useId="true">
+            <com.p1.mobile.putong.core.newui.messages.ConvCellList android:id="@id/list" android:layout_width="match_parent" android:layout_height="match_parent" android:listSelector="@color/transparent" android:divider="@null" android:dividerHeight="0.0dp" android:footerDividersEnabled="false" useId="true" />
+            <include android:id="@id/filter_layout" android:visibility="gone" layout="@layout/core_conversation_filter_layout" useId="true" />
+        </FrameLayout>
+    </com.p1.mobile.putong.core.newui.messages.anim.view.PullQuickChatLayout>
+</com.p1.mobile.putong.core.newui.messages.ConversationsList>

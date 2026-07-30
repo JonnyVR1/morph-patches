@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/root_layout" android:background="@color/white" android:paddingBottom="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="growth.fakeexperience.presenter.FakeUploadPhotoViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VText android:textSize="21.0sp" android:textColor="@color/core_color_e6000000" android:gravity="center_horizontal" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="23.0dp" android:text="@string/CONFIRM_UPLOAD_PHOTO_TITLE" android:layout_below="@id/navigation_bar" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" />
+    <v.VLinear android:id="@id/content" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_below="@id/title" />
+    <v.VText android:textSize="15.0sp" android:textColor="@color/core_color_e6000000" android:id="@id/good_example" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="24.0dp" android:text="@string/UPLOAD_PHOTO_TIPS_ENTRANCE" android:layout_above="@id/complete" android:layout_centerHorizontal="true" />
+    <v.VText android:textColor="@color/white" android:id="@id/complete" android:background="@drawable/common_button_btn_orange_medium" android:layout_width="match_parent" android:layout_height="56.0dp" android:text="完成" android:layout_alignParentBottom="true" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" style="@style/common_button_large" />
+</RelativeLayout>

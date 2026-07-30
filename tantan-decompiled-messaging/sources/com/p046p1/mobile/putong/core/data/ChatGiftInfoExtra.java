@@ -1,0 +1,214 @@
+package com.p046p1.mobile.putong.core.data;
+
+import androidx.annotation.NonNull;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.protobuf.nano.CodedOutputByteBufferNano;
+import com.p046p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter;
+import com.tantanapp.common.data.BaseData;
+import com.tantanapp.common.data.DataChecker;
+import com.tantanapp.common.data.JsonAdapter;
+import com.tantanapp.common.data.MessageNanoAdapter;
+import com.tantanapp.common.data.ProtobufAdapter;
+import com.tantanapp.common.data.ProtobufIndex;
+import com.tantanapp.common.data.ValueObject;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import p149l.nb5;
+
+/* JADX INFO: loaded from: classes10.dex */
+public class ChatGiftInfoExtra extends ValueObject implements Cloneable, Serializable {
+    public static final String TYPE = "chatgiftinfoextra";
+
+    @ProtobufIndex(index = 4)
+    public boolean beThanked;
+
+    @NonNull
+    @ProtobufIndex(index = 1)
+    public String giftRecordId;
+
+    @ProtobufIndex(index = 2)
+    public boolean isOpened;
+
+    @ProtobufIndex(index = 3)
+    public boolean needOpen;
+    public static ProtobufAdapter<ChatGiftInfoExtra> PROTOBUF_ADAPTER = new MessageNanoAdapter<ChatGiftInfoExtra>() { // from class: com.p1.mobile.putong.core.data.ChatGiftInfoExtra.1
+        {
+            this.wireFormat = 2;
+        }
+
+        @Override // com.tantanapp.common.data.ProtobufAdapter
+        public int computeAndCacheSize(ChatGiftInfoExtra chatGiftInfoExtra) {
+            String str = chatGiftInfoExtra.giftRecordId;
+            int iM17233o = (str != null ? CodedOutputByteBufferNano.m17233o(1, str) : 0) + CodedOutputByteBufferNano.m17220b(2, chatGiftInfoExtra.isOpened) + CodedOutputByteBufferNano.m17220b(3, chatGiftInfoExtra.needOpen) + CodedOutputByteBufferNano.m17220b(4, chatGiftInfoExtra.beThanked);
+            chatGiftInfoExtra.cachedSize = iM17233o;
+            return iM17233o;
+        }
+
+        @Override // com.tantanapp.common.data.ProtobufAdapter
+        public ChatGiftInfoExtra parse(nb5 nb5Var) throws IOException {
+            ChatGiftInfoExtra chatGiftInfoExtra = new ChatGiftInfoExtra();
+            while (true) {
+                int iM158752u = nb5Var.m158752u();
+                if (iM158752u == 0) {
+                    if (chatGiftInfoExtra.giftRecordId != null) {
+                        break;
+                    }
+                    chatGiftInfoExtra.giftRecordId = "";
+                    break;
+                }
+                if (iM158752u == 10) {
+                    chatGiftInfoExtra.giftRecordId = nb5Var.m158750s();
+                } else if (iM158752u == 16) {
+                    chatGiftInfoExtra.isOpened = nb5Var.m158738g();
+                } else if (iM158752u == 24) {
+                    chatGiftInfoExtra.needOpen = nb5Var.m158738g();
+                } else {
+                    if (iM158752u != 32) {
+                        if (chatGiftInfoExtra.giftRecordId != null) {
+                            break;
+                        }
+                        chatGiftInfoExtra.giftRecordId = "";
+                        return chatGiftInfoExtra;
+                    }
+                    chatGiftInfoExtra.beThanked = nb5Var.m158738g();
+                }
+            }
+            return chatGiftInfoExtra;
+        }
+
+        @Override // com.tantanapp.common.data.ProtobufAdapter
+        public void serialize(ChatGiftInfoExtra chatGiftInfoExtra, CodedOutputByteBufferNano codedOutputByteBufferNano) throws IOException {
+            String str = chatGiftInfoExtra.giftRecordId;
+            if (str != null) {
+                codedOutputByteBufferNano.m17261R(1, str);
+            }
+            codedOutputByteBufferNano.m17244A(2, chatGiftInfoExtra.isOpened);
+            codedOutputByteBufferNano.m17244A(3, chatGiftInfoExtra.needOpen);
+            codedOutputByteBufferNano.m17244A(4, chatGiftInfoExtra.beThanked);
+        }
+    };
+    public static JsonAdapter<ChatGiftInfoExtra> JSON_ADAPTER = new ObjectJsonAdapter<ChatGiftInfoExtra>() { // from class: com.p1.mobile.putong.core.data.ChatGiftInfoExtra.2
+        @Override // com.tantanapp.common.data.JsonAdapter
+        public Class getDataClass() {
+            return ChatGiftInfoExtra.class;
+        }
+
+        @Override // com.p046p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public ChatGiftInfoExtra newInstance() {
+            return new ChatGiftInfoExtra();
+        }
+
+        public boolean parseField(ChatGiftInfoExtra chatGiftInfoExtra, String str, JsonParser jsonParser, String str2, ArrayList<BaseData> arrayList, DataChecker dataChecker) throws IOException {
+            str.getClass();
+            switch (str) {
+                case "giftRecordId":
+                    chatGiftInfoExtra.giftRecordId = jsonParser.getValueAsString();
+                    return true;
+                case "beThanked":
+                    chatGiftInfoExtra.beThanked = jsonParser.getValueAsBoolean();
+                    return true;
+                case "isOpened":
+                    chatGiftInfoExtra.isOpened = jsonParser.getValueAsBoolean();
+                    return true;
+                case "needOpen":
+                    chatGiftInfoExtra.needOpen = jsonParser.getValueAsBoolean();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public boolean parseFieldCheck(ChatGiftInfoExtra chatGiftInfoExtra, String str, JsonParser jsonParser, String str2, ArrayList<BaseData> arrayList, DataChecker dataChecker) {
+            str.getClass();
+            switch (str) {
+                case "giftRecordId":
+                case "beThanked":
+                case "isOpened":
+                case "needOpen":
+                    return true;
+                default:
+                    return super.parseFieldCheck(chatGiftInfoExtra, str, jsonParser, str2, arrayList, dataChecker);
+            }
+        }
+
+        @Override // com.p046p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public void serializeFields(ChatGiftInfoExtra chatGiftInfoExtra, JsonGenerator jsonGenerator) throws IOException {
+            String str = chatGiftInfoExtra.giftRecordId;
+            if (str != null) {
+                jsonGenerator.writeStringField("giftRecordId", str);
+            }
+            jsonGenerator.writeBooleanField("isOpened", chatGiftInfoExtra.isOpened);
+            jsonGenerator.writeBooleanField("needOpen", chatGiftInfoExtra.needOpen);
+            jsonGenerator.writeBooleanField("beThanked", chatGiftInfoExtra.beThanked);
+        }
+
+        @Override // com.p046p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public /* bridge */ /* synthetic */ boolean parseFieldCheck(ValueObject valueObject, String str, JsonParser jsonParser, String str2, ArrayList arrayList, DataChecker dataChecker) {
+            return parseFieldCheck((ChatGiftInfoExtra) valueObject, str, jsonParser, str2, (ArrayList<BaseData>) arrayList, dataChecker);
+        }
+
+        @Override // com.p046p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public /* bridge */ /* synthetic */ boolean parseField(ValueObject valueObject, String str, JsonParser jsonParser, String str2, ArrayList arrayList, DataChecker dataChecker) throws IOException {
+            return parseField((ChatGiftInfoExtra) valueObject, str, jsonParser, str2, (ArrayList<BaseData>) arrayList, dataChecker);
+        }
+    };
+
+    public static ChatGiftInfoExtra new_() {
+        ChatGiftInfoExtra chatGiftInfoExtra = new ChatGiftInfoExtra();
+        chatGiftInfoExtra.nullCheck();
+        return chatGiftInfoExtra;
+    }
+
+    @Override // com.tantanapp.common.data.ValueObject, com.google.protobuf.nano.MessageNano
+    /* JADX INFO: renamed from: clone */
+    public ChatGiftInfoExtra mo223809clone() {
+        ChatGiftInfoExtra chatGiftInfoExtra = new ChatGiftInfoExtra();
+        chatGiftInfoExtra.giftRecordId = this.giftRecordId;
+        chatGiftInfoExtra.isOpened = this.isOpened;
+        chatGiftInfoExtra.needOpen = this.needOpen;
+        chatGiftInfoExtra.beThanked = this.beThanked;
+        return chatGiftInfoExtra;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof ChatGiftInfoExtra)) {
+            return false;
+        }
+        ChatGiftInfoExtra chatGiftInfoExtra = (ChatGiftInfoExtra) obj;
+        return ValueObject.util_equals(this.giftRecordId, chatGiftInfoExtra.giftRecordId) && this.isOpened == chatGiftInfoExtra.isOpened && this.needOpen == chatGiftInfoExtra.needOpen && this.beThanked == chatGiftInfoExtra.beThanked;
+    }
+
+    @Override // com.tantanapp.common.data.ValueObject
+    public String getClassParseName() {
+        return TYPE;
+    }
+
+    public int hashCode() {
+        int i = this.hashCode;
+        if (i != 0) {
+            return i;
+        }
+        int i2 = i * 41;
+        String str = this.giftRecordId;
+        int iHashCode = ((((((i2 + (str != null ? str.hashCode() : 0)) * 41) + (this.isOpened ? 1231 : 1237)) * 41) + (this.needOpen ? 1231 : 1237)) * 41) + (this.beThanked ? 1231 : 1237);
+        this.hashCode = iHashCode;
+        return iHashCode;
+    }
+
+    @Override // com.tantanapp.common.data.ValueObject
+    public void nullCheck() {
+        if (this.giftRecordId == null) {
+            this.giftRecordId = "";
+        }
+    }
+
+    @Override // com.tantanapp.common.data.ValueObject
+    public String toJson() {
+        return JSON_ADAPTER.serialize(this);
+    }
+}

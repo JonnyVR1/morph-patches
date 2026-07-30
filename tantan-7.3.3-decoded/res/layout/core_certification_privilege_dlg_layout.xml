@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/root" android:background="@drawable/core_certification_bottom_sheet_bg" android:paddingBottom="20.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" holder="verification.CertPrivilegeDlg"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:layout_gravity="center_horizontal" android:id="@id/collapse" android:background="@drawable/core_privilege_desc_dlg_collapse" android:layout_width="30.0dp" android:layout_height="5.0dp" android:layout_marginTop="12.0dp" />
+    <v.VPager android:id="@id/pager" android:layout_width="match_parent" android:layout_height="330.0dp" />
+    <v.VPagerCircleIndicator android:id="@id/pager_indicator" android:background="@drawable/transparent" android:layout_width="wrap_content" android:layout_height="7.0dp" android:layout_marginLeft="40.0dp" android:layout_marginTop="11.0dp" app:fillColor="@color/common_orange" app:pageColor="@color/common_light_01" app:radius="3.0dp" />
+    <v.VText_NoTopPadding android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/btn" android:background="@drawable/core_low_photo_bottom_sheet_photo_button_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="43.0dp" android:layout_marginRight="20.0dp" android:text="立即认证" android:layout_marginEnd="9.0dp" android:layout_marginHorizontal="20.0dp" app:fontWeight="600" />
+</v.VLinear>

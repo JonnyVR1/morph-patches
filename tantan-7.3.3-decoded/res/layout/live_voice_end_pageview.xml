@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VRelative android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="voice.intl.liveend.VoiceLiveEndPageView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/heart_beat_value_layout" android:background="@drawable/live_bg_black_r10_a40" android:layout_width="match_parent" android:layout_height="42.0dp" android:layout_marginBottom="5.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp">
+        <v.VImage android:id="@id/icon" android:background="@null" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginLeft="12.0dp" />
+        <v.VText android:textColor="#a8aab0" android:gravity="center_vertical" android:id="@id/title" android:paddingTop="2.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="4.0dp" android:text="@string/LIVE_VOICE_SUM" />
+        <v.VText android:textColor="#a8aab0" android:gravity="end|center" android:id="@id/heart_beat_value" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" android:layout_marginEnd="12.0dp" />
+    </v.VLinear>
+    <v.smart_refresh.SmartRefreshLayout android:id="@id/refreshLayout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/heart_beat_value_layout" flatten="true">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/listView" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </v.smart_refresh.SmartRefreshLayout>
+    <ImageView android:id="@id/emptyImage" android:background="@null" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="50.0dp" android:layout_centerHorizontal="true" />
+    <TextView android:textSize="14.0dp" android:textColor="@color/live_white_30_opacity" android:id="@id/emptyText" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:layout_below="@id/emptyImage" android:layout_centerHorizontal="true" />
+</v.VRelative>

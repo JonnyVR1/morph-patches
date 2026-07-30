@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="group.GroupCreateNameViewModel" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VScroll android:id="@id/scroll_view" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VLinear android:orientation="vertical" android:paddingTop="56.0dp" android:paddingBottom="88.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <v.VText android:textSize="22.0sp" android:textColor="#222222" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:text="@string/CHAT_GROUP_NAME_PHOTO" />
+            <v.VText android:textSize="13.0sp" android:textColor="#a8a8a8" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="20.0dp" android:text="@string/CHAT_GROUP_NAME_AND_PHOTO" />
+            <androidx.cardview.widget.CardView android:layout_gravity="center_horizontal" android:id="@id/avatar_card" android:layout_width="160.0dp" android:layout_height="160.0dp" android:layout_marginTop="30.0dp" app:cardCornerRadius="80.0dp" app:cardElevation="0.0dp" app:cardMaxElevation="0.0dp">
+                <v.VImage android:id="@id/avatar_placeholder" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/core_group_create_avatar" />
+                <v.VDraweeView android:id="@id/avatar" android:layout_width="match_parent" android:layout_height="match_parent" />
+            </androidx.cardview.widget.CardView>
+            <FrameLayout android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="40.0dp" android:layout_marginRight="20.0dp">
+                <v.VEditText android:textSize="16.0sp" android:textColor="#222222" android:textColorHint="#d0d0d0" android:gravity="center_vertical" android:id="@id/name" android:background="@drawable/core_group_create_edit_text_background" android:paddingLeft="12.0dp" android:paddingRight="44.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:hint="@string/GROUPCHAT_SET_GROUP_NAME_REMIND" android:maxLength="15" android:inputType="text" />
+                <v.VImage android:layout_gravity="right|center" android:id="@id/name_clear" android:padding="12.0dp" android:layout_width="44.0dp" android:layout_height="44.0dp" android:src="@drawable/core_group_create_edit_text_clear" />
+            </FrameLayout>
+        </v.VLinear>
+    </v.VScroll>
+    <v.VButton android:textSize="14.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="bottom" android:id="@id/next" android:background="@drawable/core_group_create_button_background" android:layout_width="match_parent" android:layout_height="44.0dp" android:layout_marginLeft="30.0dp" android:layout_marginRight="30.0dp" android:layout_marginBottom="10.0dp" android:text="@string/CHAT_GROUP_NAME_AND_NEXT" />
+    <v.VFrame android:background="@drawable/core_group_create_actionbar_background" android:layout_width="match_parent" android:layout_height="56.0dp">
+        <v.VImage android:id="@id/actionbar_back" android:padding="16.0dp" android:layout_width="56.0dp" android:layout_height="56.0dp" android:src="@drawable/core_actionbar_back" />
+    </v.VFrame>
+</v.VFrame>

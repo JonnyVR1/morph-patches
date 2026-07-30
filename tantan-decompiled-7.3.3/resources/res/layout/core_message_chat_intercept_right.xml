@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemChatInterceptRight xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="messages.ItemChatInterceptRight">
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/chat_intercept_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        flatten="true">
+        <p151v.VText
+            android:textColor="@color/core_msg_text_tips_text_color"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/chat_intercept_confirm"
+            android:paddingLeft="10dp"
+            android:paddingTop="4dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26.5dp"
+            android:layout_marginRight="26.5dp"/>
+    </LinearLayout>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemChatInterceptRight>

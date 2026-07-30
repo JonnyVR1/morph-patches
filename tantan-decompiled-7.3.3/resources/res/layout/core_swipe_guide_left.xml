@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.growth.swipeguide.SwipeGuideLeftView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="growth.swipeguide.SwipeGuideLeftView">
+    <p151v.VText
+        android:textSize="21sp"
+        android:textColor="@color/common_white"
+        android:gravity="center"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="235dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="@color/common_white"
+        android:gravity="center"
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/TTT_NEW_USER_GUIDE_LEFTSWIPE_DETAIL"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:typeface="regular"/>
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="@color/common_white"
+        android:gravity="center"
+        android:id="@+id/start"
+        android:background="@drawable/core_new_swipe_guide_left_know"
+        android:layout_width="247dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="56dp"
+        android:text="@string/NEW_USER_GUIDE_LEFTSWIPE_BUTTON"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:typeface="medium"/>
+</com.p051p1.mobile.putong.core.p058ui.growth.swipeguide.SwipeGuideLeftView>

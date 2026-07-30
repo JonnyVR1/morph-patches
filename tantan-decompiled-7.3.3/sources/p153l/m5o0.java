@@ -1,0 +1,95 @@
+package p153l;
+
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import com.p051p1.mobile.putong.live.livingroom.common.chat.danmaku.show.DanmakuViewPort;
+import com.p051p1.mobile.putong.live.livingroom.common.chat.list.ChatListView;
+import com.p051p1.mobile.putong.live.livingroom.increment.campaign.LiveCampaignView;
+import com.p051p1.mobile.putong.live.livingroom.increment.gift.giftlayer.LiveGiftLayer;
+import com.p051p1.mobile.putong.live.livingroom.increment.gift.topeffect.view.TopEffectLayer;
+import com.p051p1.mobile.putong.live.livingroom.increment.gift.tray.LiveEnterRoomView;
+import com.p051p1.mobile.putong.live.livingroom.increment.gift.tray.LiveGiftTrays;
+import com.p051p1.mobile.putong.live.livingroom.increment.leaderboard.intlstarboard.IntlLiveStarBoardEntryView;
+import com.p051p1.mobile.putong.live.livingroom.intl.gift.IntlGiftComboView;
+import com.p051p1.mobile.putong.live.livingroom.view.TouchSwallowView;
+import com.p051p1.mobile.putong.live.livingroom.voice.applymanager.VoiceLiveApplyManagerEnterViewModel;
+import com.p051p1.mobile.putong.live.livingroom.voice.basebuild.notice.VoiceTopNoticeView;
+import com.p051p1.mobile.putong.live.livingroom.voice.bottom.BottomMenuView;
+import com.p051p1.mobile.putong.live.livingroom.voice.bottom.VoiceBottomView;
+import com.p051p1.mobile.putong.live.livingroom.voice.bubble.VoiceLiveBubbleView;
+import com.p051p1.mobile.putong.live.livingroom.voice.chat.view.VoiceChatBottomView;
+import com.p051p1.mobile.putong.live.livingroom.voice.fans.VoiceFansView;
+import com.p051p1.mobile.putong.live.livingroom.voice.grabhat.view.VoiceGrabHatFloatViewMode;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.chatgroup.VoiceChatGroupEnterView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.close.VoiceCloseView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.flymic.VoiceFlyMicContainer;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.game.gameRoot.VoiceNewGamePlayRootView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.heartbeat.VoiceTopHeartBeatView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.heatbox.VoiceLiveHeatBoxEntryView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.increment.bullet.VoiceLiveBulletView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.increment.leaderboard.hourleaderboard.widget.VoiceLiveHourBoardEntryView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.newoperation.VoiceNewOperationView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.operations.VoiceOperationsView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.p069pk.VoicePkMvpView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.p069pk.VoicePkTimeView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.preview.VoicePreviewViewModel;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.roombg.common.VoiceBackgroundView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.roominfobar.VoiceRoomInfoView;
+import com.p051p1.mobile.putong.live.livingroom.voice.intl.root.VoiceLiveView;
+import p151v.VFrame;
+
+/* JADX INFO: loaded from: classes4.dex */
+public class m5o0 {
+    /* JADX INFO: renamed from: a */
+    public static void m157113a(VoiceLiveView voiceLiveView, View view) {
+        ViewGroup viewGroup = (ViewGroup) view;
+        voiceLiveView.f54275d = (VoiceBackgroundView) viewGroup.getChildAt(0);
+        voiceLiveView.f54276e = (TouchSwallowView) viewGroup.getChildAt(1);
+        voiceLiveView.f54277f = (VoiceFansView) ((ViewGroup) viewGroup.getChildAt(1)).getChildAt(0);
+        voiceLiveView.f54278g = (VoiceCloseView) viewGroup.getChildAt(2);
+        voiceLiveView.f54279h = (VoicePkMvpView) viewGroup.getChildAt(3);
+        voiceLiveView.f54280i = (VoiceRoomInfoView) viewGroup.getChildAt(4);
+        voiceLiveView.f54281j = (LiveCampaignView) viewGroup.getChildAt(5);
+        voiceLiveView.f54282k = (VoiceNewOperationView) viewGroup.getChildAt(6);
+        voiceLiveView.f54283l = (VoiceLiveApplyManagerEnterViewModel) viewGroup.getChildAt(7);
+        voiceLiveView.f54284m = (VoiceNewGamePlayRootView) viewGroup.getChildAt(8);
+        voiceLiveView.f54285n = (VoiceOperationsView) viewGroup.getChildAt(9);
+        voiceLiveView.f54286o = (RecyclerView) ((ViewGroup) viewGroup.getChildAt(9)).getChildAt(0);
+        voiceLiveView.f54287p = (FrameLayout) viewGroup.getChildAt(10);
+        voiceLiveView.f54288q = (ConstraintLayout) viewGroup.getChildAt(11);
+        voiceLiveView.f54289r = (VoiceTopHeartBeatView) ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(0);
+        voiceLiveView.f54290s = (IntlLiveStarBoardEntryView) ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(1);
+        voiceLiveView.f54291t = (VoiceLiveHourBoardEntryView) ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(2);
+        voiceLiveView.f54292u = (VoiceLiveHeatBoxEntryView) ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(3);
+        voiceLiveView.f54293v = (VoiceTopNoticeView) ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(4);
+        voiceLiveView.f54294w = (VoiceChatGroupEnterView) ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(5);
+        voiceLiveView.f54295x = viewGroup.getChildAt(12);
+        voiceLiveView.f54296y = (ChatListView) viewGroup.getChildAt(13);
+        voiceLiveView.f54297z = (FrameLayout) viewGroup.getChildAt(14);
+        voiceLiveView.f54252A = viewGroup.getChildAt(15);
+        voiceLiveView.f54253B = (VoicePkTimeView) viewGroup.getChildAt(16);
+        voiceLiveView.f54254C = (VoiceGrabHatFloatViewMode) viewGroup.getChildAt(17);
+        voiceLiveView.f54255D = (VoiceBottomView) viewGroup.getChildAt(18);
+        voiceLiveView.f54256E = (VoiceChatBottomView) ((ViewGroup) viewGroup.getChildAt(18)).getChildAt(0);
+        voiceLiveView.f54257F = (BottomMenuView) ((ViewGroup) viewGroup.getChildAt(18)).getChildAt(1);
+        voiceLiveView.f54258G = (LiveGiftTrays) viewGroup.getChildAt(19);
+        voiceLiveView.f54259H = (DanmakuViewPort) viewGroup.getChildAt(20);
+        voiceLiveView.f54260I = (FrameLayout) ((ViewGroup) viewGroup.getChildAt(21)).getChildAt(0);
+        voiceLiveView.f54261J = (IntlGiftComboView) ((ViewGroup) viewGroup.getChildAt(22)).getChildAt(0);
+        voiceLiveView.f54262K = (VoiceLiveBulletView) viewGroup.getChildAt(23);
+        voiceLiveView.f54263L = (VFrame) viewGroup.getChildAt(24);
+        voiceLiveView.f54264M = (VoiceFlyMicContainer) ((ViewGroup) viewGroup.getChildAt(24)).getChildAt(0);
+        voiceLiveView.f54265N = (LiveGiftLayer) ((ViewGroup) viewGroup.getChildAt(24)).getChildAt(1);
+        voiceLiveView.f54266O = (TopEffectLayer) ((ViewGroup) viewGroup.getChildAt(24)).getChildAt(2);
+        voiceLiveView.f54267P = (LiveEnterRoomView) viewGroup.getChildAt(25);
+        voiceLiveView.f54268Q = (LiveEnterRoomView) viewGroup.getChildAt(25);
+        voiceLiveView.f54269R = (VFrame) viewGroup.getChildAt(26);
+        voiceLiveView.f54270S = (VoiceLiveBubbleView) ((ViewGroup) viewGroup.getChildAt(26)).getChildAt(0);
+        voiceLiveView.f54271T = viewGroup.getChildAt(27);
+        voiceLiveView.f54272U = (VoicePreviewViewModel) viewGroup.getChildAt(28);
+        voiceLiveView.f54273V = (FrameLayout) viewGroup.getChildAt(29);
+    }
+}

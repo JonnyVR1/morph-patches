@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VImage android:id="@id/left_avatar" android:layout_width="180.0dp" android:layout_height="152.0dp" android:src="@null" />
+        </RelativeLayout>
+        <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp">
+            <v.VText android:textSize="22.0sp" android:textColor="@color/core_color_80percent_000000" android:gravity="center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" app:typeface="medium" />
+            <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_40percent_000000" android:gravity="center" android:id="@id/title_des" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:text="每天12点，为你推荐新朋友" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" app:typeface="medium" />
+        </v.VLinear>
+        <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp">
+            <v.VText android:textSize="16.0sp" android:textColor="#ffbb00" android:gravity="center" android:id="@id/hour_1" android:background="@drawable/core_bg_6_33ffbb00" android:layout_width="24.0dp" android:layout_height="36.0dp" android:text="0" app:typeface="medium" />
+            <v.VText android:textSize="16.0sp" android:textColor="#ffbb00" android:gravity="center" android:id="@id/hour_2" android:background="@drawable/core_bg_6_33ffbb00" android:layout_width="24.0dp" android:layout_height="36.0dp" android:text="0" android:layout_marginStart="3.0dp" app:typeface="medium" />
+            <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_marginStart="8.0dp" />
+            <v.VText android:textSize="16.0sp" android:textColor="#ffbb00" android:gravity="center" android:id="@id/minute_1" android:background="@drawable/core_bg_6_33ffbb00" android:layout_width="24.0dp" android:layout_height="36.0dp" android:text="0" android:layout_marginStart="8.0dp" app:typeface="medium" />
+            <v.VText android:textSize="16.0sp" android:textColor="#ffbb00" android:gravity="center" android:id="@id/minute_2" android:background="@drawable/core_bg_6_33ffbb00" android:layout_width="24.0dp" android:layout_height="36.0dp" android:text="0" android:layout_marginStart="3.0dp" app:typeface="medium" />
+            <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_marginStart="8.0dp" />
+            <v.VText android:textSize="16.0sp" android:textColor="#ffbb00" android:gravity="center" android:id="@id/second_1" android:background="@drawable/core_bg_6_33ffbb00" android:layout_width="24.0dp" android:layout_height="36.0dp" android:text="0" android:layout_marginStart="8.0dp" app:typeface="medium" />
+            <v.VText android:textSize="16.0sp" android:textColor="#ffbb00" android:gravity="center" android:id="@id/second_2" android:background="@drawable/core_bg_6_33ffbb00" android:layout_width="24.0dp" android:layout_height="36.0dp" android:text="0" android:layout_marginStart="3.0dp" app:typeface="medium" />
+        </v.VLinear>
+        <v.VButton android:textSize="16.0sp" android:id="@id/switch_mode" android:layout_width="251.0dp" android:layout_height="56.0dp" android:layout_marginTop="60.0dp" android:text="切换到恋爱模式" style="@style/common_button_large_01" />
+    </v.VLinear>
+</v.VLinear>

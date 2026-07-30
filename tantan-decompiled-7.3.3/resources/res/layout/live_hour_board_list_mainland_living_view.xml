@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.base.view.LivingNewTagView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/live_shape_hour_board_living_tag_bg"
+    android:visibility="gone"
+    android:layout_width="21dp"
+    android:layout_height="15dp"
+    holder="view.LivingNewTagView">
+    <com.p051p1.mobile.putong.live.base.view.LiveMainlandTagView
+        android:layout_gravity="center"
+        android:id="@+id/living"
+        android:layout_width="21dp"
+        android:layout_height="15dp"/>
+</com.p051p1.mobile.putong.live.base.view.LivingNewTagView>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="vip.privilegeNewUi.HelperManagerActViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VRelative android:id="@id/help_layout" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="12.0dp">
+        <v.VText android:textSize="16.0sp" android:textColor="#cc000000" android:id="@id/tv_helper" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/INTL_GP_SUBSCRIPTION_MANAGEMENT_FAQ" android:layout_centerVertical="true" />
+        <ImageView android:id="@id/helper_arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:src="@null" android:layout_alignParentRight="true" android:layout_centerInParent="true" android:layout_alignParentEnd="true" />
+    </v.VRelative>
+    <v.VFrame android:id="@id/official_layout" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp">
+        <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VText android:textSize="16.0sp" android:textColor="#cc000000" android:id="@id/official_helper" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/INTL_APP_OW_SUBSCRIPTION_ENTRY_LIST_OW_TITLE" />
+            <v.VText android:textSize="12.0sp" android:textColor="@color/common_000000_40" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/INTL_APP_OW_SUBSCRIPTION_ENTRY_LIST_OW_SUBTITLE" />
+        </LinearLayout>
+        <ImageView android:layout_gravity="end|center" android:id="@id/official_arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+    </v.VFrame>
+    <v.VFrame android:id="@id/web_subscription_layout" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp">
+        <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.VText android:textSize="16.0sp" android:textColor="#cc000000" android:id="@id/web_subscription_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/INTL_APP_OW_SUBSCRIPTION_MANAGEMENT_LIST_OW_TITLE" />
+            <v.VText android:textSize="12.0sp" android:textColor="@color/common_000000_40" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/INTL_APP_OW_SUBSCRIPTION_MANAGEMENT_LIST_OW_SUBTITLE" />
+        </LinearLayout>
+        <ImageView android:layout_gravity="end|center" android:id="@id/web_subscription_arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+    </v.VFrame>
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/low_alert_wrap"
+    android:paddingTop="18dp"
+    android:paddingBottom="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <p151v.VText
+            android:id="@+id/edit_title"
+            android:paddingTop="0dp"
+            android:text="我的照片"
+            style="@style/profile_item_title_black_edit"/>
+        <p151v.VImage
+            android:layout_gravity="right"
+            android:id="@+id/update"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="-2dp"
+            android:src="@drawable/core_profile_upload_icon"
+            android:layout_marginEnd="20dp"/>
+    </FrameLayout>
+    <p151v.VFrame
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-3dp">
+        <include layout="@layout/core_profile_integrity_opt"/>
+    </p151v.VFrame>
+</p151v.VLinear>

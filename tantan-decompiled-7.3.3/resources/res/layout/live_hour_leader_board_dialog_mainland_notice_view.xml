@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.HourBoardTopNoticeView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    flatten="true"
+    folder="increment"
+    holder="leaderboard.hourleaderboard.mainland.HourBoardTopNoticeView">
+    <p151v.VImage
+        android:id="@+id/left_icon"
+        android:layout_width="44dp"
+        android:layout_height="18dp"
+        android:src="0x7f0823ae"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/marqueeText"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <p151v.VMarqueeText
+        android:textSize="13sp"
+        android:textColor="@color/live_white_40_opacity"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:layout_gravity="center"
+        android:id="@+id/marqueeText"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="9.5dp"
+        android:layout_marginRight="9.5dp"
+        android:maxWidth="163dp"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/right_icon"
+        app:layout_constraintStart_toEndOf="@+id/left_icon"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <p151v.VImage
+        android:id="@+id/right_icon"
+        android:layout_width="44dp"
+        android:layout_height="18dp"
+        android:src="0x7f0823af"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/marqueeText"
+        app:layout_constraintTop_toTopOf="parent"/>
+</com.p051p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.HourBoardTopNoticeView>

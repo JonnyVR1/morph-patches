@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeVoiceView android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="purchase.page.PurchasePrivilegeVoiceView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.tantan.library.svga.SVGAnimationView android:id="@id/voice_bg_anim" android:layout_width="130.0dp" android:layout_height="130.0dp" android:scaleType="centerCrop" app:layout_constraintBottom_toBottomOf="@id/avatar_right_container" app:layout_constraintLeft_toLeftOf="@id/avatar_right_container" app:layout_constraintRight_toRightOf="@id/avatar_right_container" app:layout_constraintTop_toTopOf="@id/avatar_right_container" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@id/guideline_l" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.46" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@id/guideline_r" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.54" />
+    <FrameLayout android:id="@id/avatar_left_container" android:background="@drawable/core_purchase_page_voice_privilege_head_bg" android:padding="3.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="77.0dp" android:layout_height="77.0dp" app:layout_constraintBottom_toBottomOf="@id/avatar_right_container" app:layout_constraintRight_toLeftOf="@id/guideline_r" app:layout_constraintTop_toTopOf="@id/avatar_right_container" flatten="true" style="@style/vip_alert_avatar_frame_round_bg">
+        <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar_left" android:layout_width="match_parent" android:layout_height="match_parent" app:roundingBorderWidth="3.0dp" style="@style/core_fresco_profile_white_border" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/avatar_right_container" android:clipChildren="false" android:clipToPadding="false" android:layout_width="77.0dp" android:layout_height="77.0dp" android:layout_marginTop="8.0dp" app:layout_constraintLeft_toRightOf="@id/guideline_l" app:layout_constraintTop_toTopOf="parent" flatten="true" style="@style/vip_alert_avatar_frame_round_bg">
+        <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar_right" android:layout_width="71.0dp" android:layout_height="71.0dp" style="@style/core_fresco_profile_white_border" />
+    </FrameLayout>
+    <v.VLinear android:gravity="center_vertical" android:id="@id/voice_anim_container" android:background="@drawable/core_vip_auido_match_privilege_voice_bg" android:layout_width="59.0dp" android:layout_height="27.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" flatten="true">
+        <v.VImage android:id="@id/voice_anim_ic" android:layout_width="15.0dp" android:layout_height="15.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_marginStart="7.5dp" />
+        <com.tantan.library.svga.SVGAnimationView android:id="@id/voice_anim" android:layout_width="22.5dp" android:layout_height="12.0dp" android:scaleType="fitCenter" android:layout_marginStart="3.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeVoiceView>

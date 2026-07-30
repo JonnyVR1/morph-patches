@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@drawable/core_theme_recommendation_message_hint_bg"
+    android:paddingLeft="12dp"
+    android:paddingTop="18dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true">
+    <p151v.VImage
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginRight="8dp"
+        android:src="0x7f0808d7"/>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="#606060"
+        android:id="@+id/greet_hint_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</p151v.VLinear>

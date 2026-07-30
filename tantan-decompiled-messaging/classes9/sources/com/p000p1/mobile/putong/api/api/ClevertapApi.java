@@ -1,0 +1,77 @@
+package com.p000p1.mobile.putong.api.api;
+
+import com.p1.mobile.putong.data.Meta;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import kotlin.Metadata;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
+import kotlinx.coroutines.CoroutineStart;
+import l.d4e;
+import l.hh3;
+import l.t1k;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import p006l.xh5;
+
+/* JADX INFO: loaded from: /tmp/tantan-dex/classes9.dex */
+@Metadata(d1 = {"\u0000(\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0010$\n\u0002\u0010\u000e\n\u0002\u0010\u0000\n\u0002\u0010 \n\u0002\u0010\u0002\n\u0002\b\u0006\u0018\u00002\u00020\u0001:\u0002\r\u000eB\u0007¢\u0006\u0004\b\u0002\u0010\u0003J?\u0010\u000b\u001a\u00020\t20\u0010\n\u001a,\u0012\u0012\u0012\u0010\u0012\u0004\u0012\u00020\u0006\u0012\u0004\u0012\u00020\u0007\u0018\u00010\u0005\u0012\f\u0012\n\u0012\u0004\u0012\u00020\u0006\u0018\u00010\b\u0012\u0006\u0012\u0004\u0018\u00010\t0\u0004¢\u0006\u0004\b\u000b\u0010\f¨\u0006\u000f"}, d2 = {"Lcom/p1/mobile/putong/api/api/ClevertapApi;", "Ll/xh5;", "<init>", "()V", "Lkotlin/Function2;", "", "", "", "", "", "call", "x", "(Lkotlin/jvm/functions/Function2;)V", "CleverTapProfileInfo", "CleverTapProfileInfoBean", "putong-common_intlGmsRelease"}, k = 1, mv = {2, 2, 0}, xi = 48)
+public final class ClevertapApi extends xh5 {
+
+    @Metadata(d1 = {"\u0000\u0018\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0007\u0018\u00002\u00020\u0001B\u001b\u0012\b\u0010\u0002\u001a\u0004\u0018\u00010\u0003\u0012\b\u0010\u0004\u001a\u0004\u0018\u00010\u0005¢\u0006\u0004\b\u0006\u0010\u0007R\u0013\u0010\u0002\u001a\u0004\u0018\u00010\u0003¢\u0006\b\n\u0000\u001a\u0004\b\b\u0010\tR\u0013\u0010\u0004\u001a\u0004\u0018\u00010\u0005¢\u0006\b\n\u0000\u001a\u0004\b\n\u0010\u000b¨\u0006\f"}, d2 = {"Lcom/p1/mobile/putong/api/api/ClevertapApi$CleverTapProfileInfo;", "Ljava/io/Serializable;", "meta", "Lcom/p1/mobile/putong/data/Meta;", "data", "Lcom/p1/mobile/putong/api/api/ClevertapApi$CleverTapProfileInfoBean;", "<init>", "(Lcom/p1/mobile/putong/data/Meta;Lcom/p1/mobile/putong/api/api/ClevertapApi$CleverTapProfileInfoBean;)V", "getMeta", "()Lcom/p1/mobile/putong/data/Meta;", "getData", "()Lcom/p1/mobile/putong/api/api/ClevertapApi$CleverTapProfileInfoBean;", "putong-common_intlGmsRelease"}, k = 1, mv = {2, 2, 0}, xi = 48)
+    public static final class CleverTapProfileInfo implements Serializable {
+
+        @Nullable
+        private final CleverTapProfileInfoBean data;
+
+        @Nullable
+        private final Meta meta;
+
+        public CleverTapProfileInfo(@Nullable Meta meta, @Nullable CleverTapProfileInfoBean cleverTapProfileInfoBean) {
+            this.meta = meta;
+            this.data = cleverTapProfileInfoBean;
+        }
+
+        @Nullable
+        public final CleverTapProfileInfoBean getData() {
+            return this.data;
+        }
+
+        @Nullable
+        public final Meta getMeta() {
+            return this.meta;
+        }
+    }
+
+    @Metadata(d1 = {"\u0000 \n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010%\n\u0002\u0010\u000e\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010 \n\u0002\b\u0007\u0018\u00002\u00020\u0001B-\u0012\u0014\u0010\u0002\u001a\u0010\u0012\u0004\u0012\u00020\u0004\u0012\u0004\u0012\u00020\u0005\u0018\u00010\u0003\u0012\u000e\u0010\u0006\u001a\n\u0012\u0004\u0012\u00020\u0004\u0018\u00010\u0007¢\u0006\u0004\b\b\u0010\tR\u001f\u0010\u0002\u001a\u0010\u0012\u0004\u0012\u00020\u0004\u0012\u0004\u0012\u00020\u0005\u0018\u00010\u0003¢\u0006\b\n\u0000\u001a\u0004\b\n\u0010\u000bR\u0019\u0010\u0006\u001a\n\u0012\u0004\u0012\u00020\u0004\u0018\u00010\u0007¢\u0006\b\n\u0000\u001a\u0004\b\f\u0010\r¨\u0006\u000e"}, d2 = {"Lcom/p1/mobile/putong/api/api/ClevertapApi$CleverTapProfileInfoBean;", "Ljava/io/Serializable;", "profile", "", "", "", "removedKeys", "", "<init>", "(Ljava/util/Map;Ljava/util/List;)V", "getProfile", "()Ljava/util/Map;", "getRemovedKeys", "()Ljava/util/List;", "putong-common_intlGmsRelease"}, k = 1, mv = {2, 2, 0}, xi = 48)
+    public static final class CleverTapProfileInfoBean implements Serializable {
+
+        @Nullable
+        private final Map<String, Object> profile;
+
+        @Nullable
+        private final List<String> removedKeys;
+
+        public CleverTapProfileInfoBean(@Nullable Map<String, Object> map, @Nullable List<String> list) {
+            this.profile = map;
+            this.removedKeys = list;
+        }
+
+        @Nullable
+        public final Map<String, Object> getProfile() {
+            return this.profile;
+        }
+
+        @Nullable
+        public final List<String> getRemovedKeys() {
+            return this.removedKeys;
+        }
+    }
+
+    /* JADX INFO: renamed from: x */
+    public final void m1424x(@NotNull Function2<? super Map<String, ? extends Object>, ? super List<String>, Unit> call) {
+        call.getClass();
+        hh3.d(t1k.INSTANCE, d4e.b(), (CoroutineStart) null, new ClevertapApi$fetchProfile$1(call, null), 2, (Object) null);
+    }
+}

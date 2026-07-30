@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:id="@id/core_preview_default_cover" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="mediapreview.aboveattach.DefaultPreviewAttach"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/tool_bar_back_cover" android:background="@drawable/core_preview_tool_bar_cover_back" android:layout_width="match_parent" android:layout_height="84.0dp" />
+    <include android:id="@id/tool_bar" layout="@layout/core_preview_tool_bar" />
+</v.VFrame>

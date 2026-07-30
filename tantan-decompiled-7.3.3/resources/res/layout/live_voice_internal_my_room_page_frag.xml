@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#2c2f36"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.p051p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer
+        android:id="@+id/svga_view"
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        android:scaleType="centerCrop"/>
+    <p151v.VLinear
+        android:orientation="vertical"
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <p151v.navigationbar.VNavigationBar
+            android:id="@+id/page_title_bar"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"/>
+        <p151v.VPullDownRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            app:srlEnableLoadMore="false">
+            <p151v.VFrame
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <p151v.VRecyclerView
+                    android:id="@+id/recycler_view"
+                    android:paddingTop="4dp"
+                    android:descendantFocusability="blocksDescendants"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"/>
+                <include
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    layout="@layout/live_list_empty_error_view"/>
+            </p151v.VFrame>
+        </p151v.VPullDownRefreshLayout>
+    </p151v.VLinear>
+</p151v.VFrame>

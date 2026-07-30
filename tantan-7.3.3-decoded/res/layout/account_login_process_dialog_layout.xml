@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VRelative android:layout_width="match_parent" android:layout_height="278.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VButton android:id="@id/bt_process_continue_opt" android:layout_marginLeft="40.0dp" android:layout_marginRight="40.0dp" android:layout_marginBottom="50.0dp" android:text="同意并继续" android:layout_alignParentBottom="true" style="@style/common_button_large_01" />
+    <v.VImage android:id="@id/iv_process_close" android:padding="5.0dp" android:layout_width="26.0dp" android:layout_height="wrap_content" android:layout_marginTop="25.0dp" android:layout_marginRight="17.0dp" android:src="@null" android:layout_alignParentRight="true" />
+    <v.VText android:textSize="12.0sp" android:textColor="@color/common_grey_04" android:textColorHighlight="@color/transparent" android:textColorLink="@color/welcome_privacy_link" android:id="@id/tv_process_privacy_policy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="40.0dp" android:text="《用户协议》和《隐私策略》" android:layout_below="@id/iv_process_title" />
+    <v.VText android:textSize="24.0sp" android:textColor="#010101" android:gravity="left" android:id="@id/iv_process_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="60.0dp" android:layout_marginRight="40.0dp" android:text="请阅读并同意以下条款" />
+</v.VRelative>

@@ -1,0 +1,9 @@
+package com.p051p1.mobile.android.p053ui.cropiwa.shape;
+
+import android.graphics.Bitmap;
+import java.io.Serializable;
+
+/* JADX INFO: loaded from: classes8.dex */
+public interface CropIwaShapeMask extends Serializable {
+    Bitmap applyMaskTo(Bitmap bitmap);
+}

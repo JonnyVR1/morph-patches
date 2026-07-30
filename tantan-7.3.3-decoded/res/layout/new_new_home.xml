@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/root" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="home.NewNewHomeViewModel" useRefId="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/background" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="44.0dp" />
+    <v.VFrame android:id="@id/card" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="44.0dp" flatten="true">
+        <v.VFrame android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/content" android:paddingLeft="8.0dp" android:paddingTop="12.0dp" android:paddingRight="8.0dp" android:paddingBottom="12.0dp" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <v.VLinear android:orientation="vertical" android:id="@id/core_home_card_content_column" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+                <FrameLayout android:id="@id/intl_home_swipe_discount_banner_slot" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:elevation="3.0dp" />
+                <FrameLayout android:id="@id/core_home_card_stack_host" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" android:clipToOutline="false">
+                    <RelativeLayout android:layout_gravity="center_horizontal" android:id="@id/card_loading" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="48.0dp">
+                        <androidx.appcompat.widget.AppCompatImageView android:id="@id/loading_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/core_card_loading_bg" android:scaleType="centerCrop" />
+                        <v.VFrame_Squared android:id="@id/radar" android:layout_width="match_parent" android:layout_height="416.0dp" android:layout_centerInParent="true">
+                            <v.VDraweeView android:layout_gravity="center" android:id="@id/image" android:layout_width="@dimen/radar_image_size" android:layout_height="@dimen/radar_image_size" android:outlineSpotShadowColor="#19979797" app:backgroundImage="@color/common_light_04" app:roundingBorderPadding="3.0dp" style="@style/core_fresco_profile_white_border" />
+                        </v.VFrame_Squared>
+                    </RelativeLayout>
+                    <include android:id="@id/empty_card" android:visibility="gone" layout="@layout/core_empty_card_layout" />
+                    <include android:id="@id/error_net_cover" android:visibility="gone" layout="@layout/core_home_net_error_layout" />
+                </FrameLayout>
+            </v.VLinear>
+        </v.VFrame>
+        <com.sunshine.engine.particle.SceneView android:layout_gravity="center|top" android:id="@id/boost_heart_scene" android:visibility="gone" android:layout_width="90.0dp" android:layout_height="135.0dp" />
+        <v.VText android:textSize="14.0dp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="right|top" android:id="@id/boost_tips" android:background="@null" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginRight="5.0dp" android:text="@string/BOOST_CLICK_BUTTON_TIPS" />
+        <ViewStub android:id="@id/certification_tips" android:visibility="gone" android:layout="@layout/core_card_certification_tips" android:layout_width="match_parent" android:layout_height="58.0dp" android:layout_marginTop="44.0dp" />
+    </v.VFrame>
+    <ViewStub android:id="@id/us_layout" android:layout="@layout/core_home_us_layout" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <FrameLayout android:id="@id/superlike_combo_root" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <include android:layout_gravity="top" android:id="@id/home_title_layout" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_home_card_title_layout" />
+</FrameLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:id="@+id/frame"
+    android:background="@drawable/core_message_opti_meme_bg"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:minHeight="48dp">
+    <ImageView
+        android:gravity="center"
+        android:id="@+id/item_emoji"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:scaleType="fitXY"/>
+</LinearLayout>

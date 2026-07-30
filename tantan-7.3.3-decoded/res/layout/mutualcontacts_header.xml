@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:background="#f5f6f1" android:layout_width="match_parent" android:layout_height="wrap_content" holder="mutualcontacts.MutualContactsAct"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="24.0dp" android:src="@null" />
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="24.0dp">
+        <v.VText android:textColor="#434343" android:id="@id/we_found_n" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp" app:typeface="medium" />
+        <v.VText android:textSize="13.0sp" android:textColor="#545454" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/MUTUAL_CONTACTS_EXPLANATION_INFO" />
+    </LinearLayout>
+</LinearLayout>

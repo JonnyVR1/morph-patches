@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear_Dividers xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/publicId"
+    android:paddingTop="30dp"
+    android:paddingBottom="4dp"
+    holder="profile.profilelist.itemholders.ProfilePicPostItemHolder"
+    style="@style/profile_item_frame_no_padding">
+    <p151v.VText
+        android:textSize="15sp"
+        android:textColor="@color/common_black_80"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/pic_post_text"
+        android:paddingLeft="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/FEED_PIC_SHARE"
+        android:layout_weight="1"
+        app:typeface="regular"/>
+    <p151v.VSwitchButton
+        android:layout_gravity="center_vertical"
+        android:id="@+id/pic_post_switch"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:checked="false"/>
+</p151v.VLinear_Dividers>

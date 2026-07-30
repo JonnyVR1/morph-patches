@@ -1,0 +1,24 @@
+package org.fourthline.cling.model.message.header;
+
+import java.util.Locale;
+import p153l.bke;
+
+/* JADX INFO: loaded from: classes3.dex */
+public class NTEventHeader extends UpnpHeader<String> {
+    public NTEventHeader() {
+        setValue("upnp:event");
+    }
+
+    @Override // org.fourthline.cling.model.message.header.UpnpHeader
+    public String getString() {
+        return getValue();
+    }
+
+    @Override // org.fourthline.cling.model.message.header.UpnpHeader
+    public void setString(String str) throws InvalidHeaderException {
+        if (str.toLowerCase(Locale.ROOT).equals(getValue())) {
+            return;
+        }
+        bke.m104797a("Invalid event NT header value: ".concat(str));
+    }
+}

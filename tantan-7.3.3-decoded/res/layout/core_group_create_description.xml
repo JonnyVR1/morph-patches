@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="group.GroupCreateDescriptionViewModel" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VScroll android:id="@id/scroll_view" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0">
+        <v.VLinear android:orientation="vertical" android:paddingBottom="88.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <v.VText android:textSize="22.0sp" android:textColor="#222222" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:text="@string/CHAT_GROUP_INTRODUCTION" />
+            <v.VText android:textSize="13.0sp" android:textColor="#a8a8a8" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="20.0dp" android:text="@string/CHAT_GROUP_INTRODUCTION_TIPS" />
+            <v.VEditText android:textSize="16.0sp" android:textColor="#222222" android:textColorHint="#d0d0d0" android:gravity="left|top" android:id="@id/description" android:background="@drawable/core_group_create_edit_text_background" android:paddingLeft="15.0dp" android:paddingTop="11.0dp" android:paddingRight="15.0dp" android:paddingBottom="11.0dp" android:layout_width="match_parent" android:layout_height="210.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="30.0dp" android:layout_marginRight="16.0dp" android:hint="@string/CHAT_GROUP_INTRODUCTION_YINDAO" android:inputType="textMultiLine" />
+            <TextView android:textSize="13.0sp" android:textColor="#a8a8a8" android:layout_gravity="right" android:id="@id/description_counter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:layout_marginRight="16.0dp" />
+        </v.VLinear>
+    </v.VScroll>
+    <v.VButton android:textSize="14.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="bottom" android:id="@id/next" android:background="@drawable/core_group_create_button_background" android:layout_width="match_parent" android:layout_height="44.0dp" android:layout_marginLeft="30.0dp" android:layout_marginRight="30.0dp" android:layout_marginBottom="10.0dp" android:text="@string/CHAT_GROUP_INTRODUCTION_FINISH" />
+</v.VLinear>

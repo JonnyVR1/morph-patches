@@ -446,6 +446,58 @@ private val mb90ClassFingerprint = Fingerprint(
     ),
 )
 
+// joa: privilege expiry checker (separate from xma, reads server data directly via CoreModule).
+// Controls teaser banners in the conversations tab (e.g. "X girls Y miles away just liked you").
+// Methods like i4() return T3("seeWhoLikedMe") which is TRUE when expired → banner shows as teaser.
+// Patching these to the "active" value hides the teasers.
+private val joaClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("seeWhoLikedMe"),
+        string("oDiamond"),
+        methodCall(name = "guessedCurrentServerTime"),
+    ),
+)
+
+private val joaI4Fingerprint = Fingerprint(
+    classFingerprint = joaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("seeWhoLikedMe")),
+)
+
+private val joaG3Fingerprint = Fingerprint(
+    classFingerprint = joaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("oDiamond")),
+)
+
+private val joaE4Fingerprint = Fingerprint(
+    classFingerprint = joaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("roaming")),
+)
+
+private val joaF4Fingerprint = Fingerprint(
+    classFingerprint = joaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("svip")),
+)
+
+private val joaJ4Fingerprint = Fingerprint(
+    classFingerprint = joaClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Z",
+    parameters = emptyList(),
+    filters = listOf(string("superLikeMembership")),
+)
+
 // ── Stable-class fingerprints ──
 
 private val userIsUltraPremiumFingerprint = Fingerprint(
@@ -2068,6 +2120,29 @@ val premiumUnlockPatch = bytecodePatch(
         // pib: membership flip REMOVED for 7.3.3
         // The g9 method no longer has Membership.active field access.
         // User.isVIP()/isUltraPremium() patches already handle premium status override.
+
+        // joa: privilege expiry checker — hides teaser banners in conversations tab
+        // ("X girls Y miles away just liked you", etc.). joa is separate from xma and
+        // reads server privilege data directly via CoreModule.
+        // i4()=seeWhoLikedMe, G3()=oDiamond, e4()=roaming, f4()=svip, j4()=superLike
+        // All return T3(id) which is TRUE when expired → banner shows. Patch to FALSE.
+        joaClassFingerprint.matchOrNull()?.classDef?.let { joaClassDef ->
+            joaI4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+            joaG3Fingerprint.matchOrNull(joaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+            joaE4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+            joaF4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+            joaJ4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_FALSE)
+            }
+        }
 
         // jh30/xp30/xnx: dark upgrade card suppression — moved to Pass 1 (classDefForEach)
         // to handle both Me tab variants (xp30 with p0() getter, xnx with U() getter).

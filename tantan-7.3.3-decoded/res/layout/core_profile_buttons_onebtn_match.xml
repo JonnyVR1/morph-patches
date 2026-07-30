@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_gravity="center|bottom" android:id="@id/buttons_onebtn_match" android:background="@drawable/core_profile_buttons_onebtn_match_bg" android:paddingLeft="0.0dp" android:paddingTop="0.0dp" android:paddingBottom="3.0dp" android:layout_width="match_parent" android:layout_height="200.0dp" flatten="true" holder="profile.holders.ProfileOneMatchButtons" needPublic="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:layout_gravity="bottom" android:id="@id/buttons_onebtn_match_root" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:divider="@drawable/core_profile_bottom_btn_divider" android:showDividers="middle" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_goneMarginLeft="0.0dp" flatten="true">
+        <RelativeLayout android:layout_gravity="center|bottom" android:id="@id/like_and_dislike_refactor" android:paddingLeft="-10.0dp" android:paddingRight="-10.0dp" android:visibility="visible" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="200.0dp" android:layout_marginBottom="3.0dp" flatten="true">
+            <v.VText android:id="@id/superlike_popup" android:background="@null" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_above="@id/btn_wrapper" android:layout_centerHorizontal="true" />
+            <v.VLinear android:id="@id/btn_wrapper" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" flatten="true">
+                <v.VFrame_Shadow android:id="@id/dislike_shadow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toLeftOf="@id/superlike_shadow" android:layout_alignParentBottom="true" app:sl_cornerRadius="80.0dp" app:sl_dx="@dimen/core_profile_bottom_dx" app:sl_dy="@dimen/core_profile_bottom_dy" app:sl_shadowColor="@color/core_profile_bottom_shadow_color" app:sl_shadowRadius="8.0dp" flatten="true">
+                    <RelativeLayout android:layout_gravity="center" android:id="@id/dislike" android:background="@drawable/core_newui_profile_btn_dislike_bg" android:layout_width="48.0dp" android:layout_height="48.0dp">
+                        <v.VImage android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+                    </RelativeLayout>
+                </v.VFrame_Shadow>
+                <v.VFrame_Shadow android:id="@id/superlike_shadow" android:background="@drawable/core_newui_profile_btn_superlike_bg" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_centerInParent="true" app:sl_cornerRadius="90.0dp" app:sl_dx="@dimen/core_profile_bottom_dx" app:sl_dy="@dimen/core_profile_bottom_dy" app:sl_shadowColor="@color/core_profile_bottom_shadow_color" app:sl_shadowRadius="8.0dp" flatten="true">
+                    <v.VFrame_FlipContainer android:layout_gravity="center" android:id="@id/superlike" android:background="@drawable/core_newui_profile_btn_superlike_bg" android:clipChildren="false" android:clipToPadding="false" android:layout_width="48.0dp" android:layout_height="48.0dp" app:mainChildIndex="0" app:otherChildIndex="1" flatten="true">
+                        <v.VImage android:layout_gravity="center" android:id="@id/superlike_btn" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+                        <v.VText android:textSize="22.0sp" android:textColor="#00adff" android:gravity="center" android:layout_gravity="center" android:id="@id/superlike_turn_tv" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="32" app:typeface="medium" />
+                    </v.VFrame_FlipContainer>
+                </v.VFrame_Shadow>
+                <v.VFrame_Shadow android:id="@id/like_shadow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/superlike_shadow" android:layout_alignParentBottom="true" app:sl_cornerRadius="90.0dp" app:sl_dx="@dimen/core_profile_bottom_dx" app:sl_dy="@dimen/core_profile_bottom_dy" app:sl_shadowColor="@color/core_profile_bottom_shadow_color" app:sl_shadowRadius="8.0dp" flatten="true">
+                    <RelativeLayout android:layout_gravity="center" android:id="@id/like" android:background="@drawable/core_newui_profile_btn_like_bg" android:layout_width="48.0dp" android:layout_height="48.0dp">
+                        <v.VImage android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+                    </RelativeLayout>
+                </v.VFrame_Shadow>
+            </v.VLinear>
+        </RelativeLayout>
+        <v.VLinear android:gravity="center" android:layout_gravity="center|bottom" android:orientation="horizontal" android:id="@id/shadow_follow_change_like" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="48.0dp" android:layout_marginBottom="15.0dp" android:elevation="1.0dp">
+            <v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/superlike_shadow_follow_change_like" android:background="@drawable/core_vip_onebtn_match_exp2_superlike_bg" android:layout_width="48.0dp" android:layout_height="48.0dp">
+                <v.VImage android:layout_gravity="center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+            </v.VLinear>
+            <v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/like_shadow_follow_change_like" android:background="@drawable/core_newui_profile_btn_like_bg" android:layout_width="48.0dp" android:layout_height="48.0dp" android:layout_marginStart="20.0dp">
+                <v.VImage android:layout_gravity="center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+            </v.VLinear>
+        </v.VLinear>
+        <v.VFrame_Shadow android:layout_gravity="center|bottom" android:id="@id/superlike_shadow_single" android:visibility="gone" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="0.0dp" app:sl_dy="0.0dp" app:sl_shadowColor="#fff" app:sl_shadowRadius="0.0dp" flatten="true">
+            <v.VLinear android:gravity="center_vertical" android:layout_gravity="center|bottom" android:orientation="horizontal" android:id="@id/superlike_shadow_single_bg" android:background="@drawable/core_vip_onebtn_match_exp2_superlike_bg" android:layout_width="132.0dp" android:layout_height="48.0dp" android:layout_marginBottom="15.0dp" flatten="true">
+                <v.VImage android:id="@id/superlike_shadow_single_icon" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="20.0dp" android:src="@null" android:scaleType="centerCrop" />
+                <v.VText android:textSize="14.0sp" android:textColor="#fff" android:gravity="center" android:id="@id/superlike_shadow_single_tv" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="6.0dp" android:text="超级喜欢" />
+            </v.VLinear>
+        </v.VFrame_Shadow>
+        <v.VLinear android:gravity="center" android:layout_gravity="center|bottom" android:orientation="horizontal" android:id="@id/match" android:background="@drawable/core_vip_onebtn_match_exp2_bg" android:layout_width="132.0dp" android:layout_height="48.0dp" android:layout_marginBottom="15.0dp" android:elevation="1.0dp" flatten="true">
+            <v.VImage android:layout_gravity="center" android:id="@id/match_icon" android:layout_width="26.0dp" android:layout_height="26.0dp" android:src="@null" android:scaleType="centerCrop" />
+            <com.p1.mobile.putong.core.ui.vip.widget.LetterRemainingSwitcherView android:textSize="14.0sp" android:gravity="center" android:id="@id/match_remaining_switch" android:visibility="gone" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginStart="8.0dp" app:contentTextBold="false" app:contentTextColor="#e8ca8a" app:contentTextSize="14.0sp" app:interval="2000" />
+        </v.VLinear>
+    </v.VLinear>
+</androidx.constraintlayout.widget.ConstraintLayout>

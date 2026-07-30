@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector android:exitFadeDuration="@android:integer/config_shortAnimTime"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:drawable="@drawable/feed_over_heat_state_time_bg_selected" />
+    <item android:drawable="@drawable/feed_over_heat_state_time_bg_default" />
+</selector>

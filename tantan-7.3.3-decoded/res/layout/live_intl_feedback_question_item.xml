@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.intl.feedback.item.IntlFeedbackQuestionItemView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56.0dp" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" flatten="true" holder="intl.feedback.item.IntlFeedbackQuestionItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:layout_gravity="center_vertical" android:id="@id/question" android:layout_width="match_parent" android:layout_height="56.0dp" flatten="true">
+        <v.VText android:textSize="15.0dp" android:textStyle="bold" android:textColor="@color/live_black_80_opacity" android:layout_gravity="center_vertical" android:id="@id/question_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginEnd="10.0dp" />
+        <v.VImage android:layout_gravity="end|center" android:id="@id/question_icon" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" />
+    </v.VLinear>
+    <v.VText android:textSize="15.0dp" android:textColor="@color/live_black_40_opacity" android:id="@id/answer" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginBottom="16.0dp" />
+</com.p1.mobile.putong.live.external.intl.feedback.item.IntlFeedbackQuestionItemView>

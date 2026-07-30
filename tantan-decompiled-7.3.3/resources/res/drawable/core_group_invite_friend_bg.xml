@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <size
+                android:height="50dp"
+                android:width="50dp"/>
+            <solid android:color="#ffbf0f"/>
+            <corners android:radius="14dp"/>
+        </shape>
+    </item>
+    <item
+        android:gravity="center"
+        android:height="28dp"
+        android:width="28dp"
+        android:drawable="@drawable/core_group_invite_friend"/>
+</layer-list>

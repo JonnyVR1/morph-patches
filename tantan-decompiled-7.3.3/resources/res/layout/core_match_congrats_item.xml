@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/pic_view"
+        layout="@layout/profile_picture_item"/>
+    <com.p051p1.mobile.putong.core.p058ui.match.view.ViewPagerClickChangeView
+        android:id="@+id/click_change_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/root"
+    android:background="@drawable/feed_post_bg_topic_rect_rounded"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:layout_width="wrap_content"
+    android:layout_height="32dp"
+    folder="newui"
+    holder="photoalbum.feed.personfeedinprofile.TopicListItemView">
+    <TextView
+        android:textSize="12sp"
+        android:textColor="@color/common_black_04"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/topic_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/anonymous_txt"
+        android:background="@drawable/feed_post_bg_anonymous_topic"
+        android:paddingLeft="6dp"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_marginLeft="4dp"
+        android:text="匿名"/>
+</p151v.VLinear>

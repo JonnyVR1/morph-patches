@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="bottom" android:id="@id/footer_frame_layout" android:layout_width="match_parent" android:layout_height="170.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/footer_relative_layout" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:orientation="horizontal" android:id="@id/footer_linear_layout_1" android:focusable="true" android:layout_width="match_parent" android:layout_height="118.0dp">
+            <FrameLayout android:id="@id/footer_media_container" android:layout_width="78.0dp" android:layout_height="78.0dp" android:layout_marginTop="20.0dp" android:layout_marginStart="20.0dp">
+                <ImageView android:id="@id/footer_icon" android:focusable="true" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter" android:contentDescription="@string/ct_inapp_img" />
+                <com.clevertap.android.sdk.gif.GifImageView android:id="@id/gifImage" android:focusable="true" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter" android:contentDescription="@string/ct_inapp_gif" />
+            </FrameLayout>
+            <LinearLayout android:orientation="vertical" android:id="@id/footer_linear_layout_2" android:layout_width="match_parent" android:layout_height="118.0dp" android:paddingStart="20.0dp" android:paddingEnd="20.0dp">
+                <TextView android:textSize="@dimen/txt_size_inapp_footer_title" android:textStyle="bold" android:id="@id/footer_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" />
+                <TextView android:textSize="@dimen/txt_size_inapp_footer_message" android:id="@id/footer_message" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:maxLines="3" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:id="@id/footer_linear_layout_3" android:layout_width="match_parent" android:layout_height="52.0dp" android:weightSum="2.0" android:layout_below="@id/footer_linear_layout_1">
+            <Button android:textSize="@dimen/txt_size_inapp_footer_button" android:id="@id/footer_button_1" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" />
+            <Button android:textSize="@dimen/txt_size_inapp_footer_button" android:id="@id/footer_button_2" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" />
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

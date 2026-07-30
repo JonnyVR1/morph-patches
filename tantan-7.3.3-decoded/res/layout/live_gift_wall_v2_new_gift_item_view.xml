@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.gift.giftwallnew.LiveGiftWallNewGiftItemView android:background="@drawable/live_bg_white_r10_a05" android:layout_width="90.0dp" android:layout_height="146.0dp" flatten="true" folder="increment" holder="gift.giftwallnew.LiveGiftWallNewGiftItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/bg_image" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="fitXY" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/bg_svga" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VDraweeView android:id="@id/icon" android:layout_width="48.0dp" android:layout_height="48.0dp" app:failureImage="@null" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:placeholderImage="@null" />
+        <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/live_white_80_opacity" android:gravity="center" android:id="@id/name" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="礼物名" android:singleLine="true" android:layout_marginStart="10.0dp" android:layout_marginEnd="10.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/icon" />
+        <v.VDraweeView android:id="@id/medal_bg" android:layout_width="28.0dp" android:layout_height="14.0dp" android:layout_marginTop="6.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/name" />
+        <include android:id="@id/five_star" android:layout_width="0.0dp" android:layout_height="11.199982dp" android:layout_marginTop="11.399994dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/medal_bg" app:layout_constraintWidth_default="wrap" layout="@layout/live_gift_wall_five_star_view" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.p1.mobile.putong.live.livingroom.increment.gift.giftwallnew.LiveGiftWallNewGiftItemView>

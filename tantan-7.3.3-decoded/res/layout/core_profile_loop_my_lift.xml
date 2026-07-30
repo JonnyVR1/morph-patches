@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="profile.loop.input.ProfileLoopMyLifeViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VScroll android:layout_width="match_parent" android:layout_height="match_parent" android:layout_above="@id/action_view">
+        <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="24.0sp" android:textStyle="bold" android:textColor="#000000" android:gravity="center" android:id="@id/first_title" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="3.0dp" android:layout_marginRight="40.0dp" android:text="我的生活" android:layout_centerHorizontal="true" android:layout_marginHorizontal="40.0dp" />
+            <TextView android:textSize="14.0sp" android:textStyle="normal" android:textColor="#999999" android:gravity="center" android:id="@id/second_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="40.0dp" android:text="展示兴趣爱好、生活日常，匹配合适的人" android:layout_below="@id/first_title" android:layout_centerHorizontal="true" android:lineSpacingExtra="0.0sp" android:layout_marginHorizontal="40.0dp" />
+            <com.p1.mobile.putong.core.ui.profile.MediaReorderCards android:id="@id/reorders" android:paddingLeft="20.0dp" android:paddingRight="10.0dp" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_below="@id/second_title" app:cardNums="9" />
+        </v.VLinear>
+    </v.VScroll>
+    <include android:id="@id/action_view" android:layout_width="match_parent" android:layout_height="84.0dp" android:layout_alignParentBottom="true" layout="@layout/core_profile_loop_edit_action_layout" />
+</RelativeLayout>

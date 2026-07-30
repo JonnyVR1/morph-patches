@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="intl" holder="livesquare.fragments.followTab.IntlLiveSquareFollowFrag"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VPullDownRefreshLayout android:id="@id/swipe_refresh" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingStart="4.0dp" android:paddingEnd="4.0dp" app:srlEnableLoadMore="false" flatten="true">
+        <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent" android:layout_height="match_parent">
+            <v.VRecyclerView android:orientation="vertical" android:id="@id/recycler_view" android:descendantFocusability="blocksDescendants" android:layout_width="match_parent" android:layout_height="match_parent" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" app:layout_behavior="@string/appbar_scrolling_view_behavior" useId="true" />
+            <v.VRelative android:id="@id/view_group_network_error" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" useId="true">
+                <v.VImage android:id="@id/img_network_error" android:layout_width="102.0dp" android:layout_height="80.0dp" android:layout_marginTop="160.0dp" android:scaleType="fitXY" android:layout_centerHorizontal="true" app:srcCompat="@drawable/live_vector_ic_network_not_available" useId="true" />
+                <v.VText android:textSize="16.0sp" android:textColor="#d8d8d8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:text="@string/LIVE_THE_CURRENT_NETWORK_IS_UNAVAILABLE" android:layout_below="@id/img_network_error" android:layout_centerHorizontal="true" useId="true" />
+            </v.VRelative>
+            <v.VRelative android:id="@id/view_group_no_live_activity" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" useId="true">
+                <v.VImage android:id="@id/img_no_live" android:layout_width="100.0dp" android:layout_height="100.0dp" android:layout_marginTop="160.0dp" android:scaleType="fitXY" android:layout_centerHorizontal="true" app:srcCompat="@drawable/live_vector_ic_live_square_no_live" useId="true" />
+                <v.VText android:textSize="16.0sp" android:textColor="#d8d8d8" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:text="@string/LIVE_NO_ACTIVITY" android:layout_below="@id/img_no_live" android:layout_centerHorizontal="true" useId="true" />
+            </v.VRelative>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </v.VPullDownRefreshLayout>
+</v.VFrame>

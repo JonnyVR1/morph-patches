@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector android:constantSize="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:id="@id/pressed">
+        <bitmap android:gravity="center" android:src="@null" />
+    </item>
+    <item android:id="@id/not_pressed">
+        <bitmap android:gravity="center" android:src="@null" />
+    </item>
+</selector>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:orientation="vertical" android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent" android:layoutDirection="ltr">
+            <View android:id="@id/identity_rect_mask_gap_view" android:layout_width="match_parent" android:layout_height="0.0dp" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent" android:layoutDirection="ltr">
+                <View android:id="@id/identity_rect_mask_gap_left" android:layout_width="0.0dp" android:layout_height="match_parent" />
+                <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layoutDirection="ltr">
+                    <ImageView android:id="@id/identity_ocr_img_idcard_front_mask" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/identity_ocr_img_idcard_front_mask" android:scaleType="fitXY" />
+                    <ImageView android:id="@id/identity_ocr_passport_hold" android:visibility="gone" android:layout_width="match_parent" android:layout_height="18.0dp" android:src="@drawable/identity_booth_map_icon" android:scaleType="fitXY" />
+                </LinearLayout>
+                <View android:id="@id/identity_rect_mask_gap_right" android:layout_width="0.0dp" android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+        <View android:id="@id/identity_rect_mask_view_background" android:background="#000000" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <com.idv.identity.ocr.widget.RectMaskView android:id="@id/identity_rect_mask_view" android:layout_width="match_parent" android:layout_height="match_parent" android:src="#000000" android:alpha="0.7" />
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+            <View android:id="@id/identity_rect_mask_scan_line_gap_view" android:layout_width="match_parent" android:layout_height="0.0dp" />
+            <ImageView android:layout_gravity="center_horizontal" android:id="@id/identity_ocr_img_idcard_scan_line" android:layout_width="40.0dp" android:layout_height="@dimen/identity_ocr_scan_line_height" android:src="@drawable/identity_ocr_img_idcard_scan_line" android:scaleType="fitXY" />
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

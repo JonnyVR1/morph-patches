@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff5e8"
+    android:layout_width="wrap_content"
+    android:layout_height="80dp"
+    app:rRadius="16dp">
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="@color/core_color_80000000"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxLines="1"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
+</p151v.VFrame>

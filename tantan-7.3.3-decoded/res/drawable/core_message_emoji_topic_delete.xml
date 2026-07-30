@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:height="48.0dp" android:width="72.0dp" android:drawable="@drawable/core_message_emoji_send_topic_bg_enable" />
+    <item android:gravity="center" android:height="32.0dp" android:width="32.0dp" android:drawable="@drawable/core_message_group_topic_emoji_close" />
+</layer-list>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="core_message_real_item_width">256.0dp</dimen>
+</resources>

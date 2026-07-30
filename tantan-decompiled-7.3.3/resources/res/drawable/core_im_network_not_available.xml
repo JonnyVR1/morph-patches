@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="150dp"
+    android:width="210dp"
+    android:viewportWidth="210"
+    android:viewportHeight="150">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="m106.164,127.653 l28.366,-21.858a2.275,2.275 0,0 0,0.812 -2.395c-3.7,-13.56 -16.107,-23.529 -30.842,-23.529 -14.709,0 -27.098,9.934 -30.822,23.457a2.272,2.272 0,0 0,0.824 2.407l28.893,21.928c0.82,0.622 1.954,0.617 2.769,-0.01"
+        android:strokeColor="#000"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeAlpha="0.1"
+        android:fillAlpha="0.1"
+        android:fillType="evenOdd"/>
+    <path
+        android:fillColor="#000"
+        android:pathData="M100.583,97.549a2.642,2.642 0,1 1,-5.284 0,2.642 2.642,0 0,1 5.284,0M115.701,97.549a2.642,2.642 0,1 1,-5.285 0,2.642 2.642,0 0,1 5.285,0"
+        android:strokeAlpha="0.1"
+        android:fillAlpha="0.1"
+        android:fillType="evenOdd"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M100.137,107.214s1.488,-3.529 5.64,-3.529c4.022,0 5.64,3.529 5.64,3.529M131.342,73.312a47.094,47.094 0,0 1,16.965 21.594M60.693,94.907C67.485,77.345 84.538,64.89 104.5,64.89c1.613,0 3.206,0.081 4.777,0.24"
+        android:strokeColor="#000"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeAlpha="0.1"
+        android:fillAlpha="0.1"
+        android:fillType="evenOdd"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M162,84.06C151.67,62.72 129.804,48 104.5,48 79.196,48 57.33,62.719 47,84.06"
+        android:strokeColor="#000"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeAlpha="0.1"
+        android:fillAlpha="0.1"
+        android:fillType="evenOdd"/>
+</vector>

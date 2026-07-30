@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/marker" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:background="@drawable/map_preview_panel_blue" android:paddingLeft="4.0dp" android:paddingTop="1.0dp" android:paddingRight="4.0dp" android:paddingBottom="3.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+            <v.VText android:textSize="13.0dp" android:textColor="@color/white" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="-11.0dp" android:text="Go" />
+        </LinearLayout>
+        <v.VText android:textSize="16.0dp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center" android:id="@id/text" android:background="@drawable/map_preview_panel_grey" android:paddingLeft="14.0dp" android:paddingRight="8.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:singleLine="true" android:maxLength="25" android:drawableRight="@null" android:drawablePadding="10.0dp" />
+    </LinearLayout>
+    <FrameLayout android:layout_gravity="center" android:layout_width="72.0dp" android:layout_height="16.0dp">
+        <ImageView android:layout_gravity="center" android:background="@drawable/map_preview_panel_grey2" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginTop="-9.0dp" android:rotation="225.0" />
+    </FrameLayout>
+</LinearLayout>

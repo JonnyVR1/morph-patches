@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemTagGuide android:id="@id/content" android:paddingLeft="32.0dp" android:paddingTop="10.0dp" android:paddingRight="32.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="32.0dp" flatten="true" holder="messages.ItemTagGuide"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:background="@drawable/core_messages_tag_guide_bg" android:padding="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <v.VImage android:id="@id/left_icon" android:layout_width="40.0dp" android:layout_height="40.0dp" android:src="@null" android:layout_centerVertical="true" />
+        <v.VLinear android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/left_icon" android:layout_centerVertical="true" android:layout_marginStart="12.0dp" android:layout_marginEnd="60.0dp">
+            <v.VText android:textSize="15.0sp" android:textColor="@color/core_color_cc000000" android:ellipsize="end" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="他邀请你添加标签" android:maxLines="1" android:fontFamily="PingFangSC-Medium" />
+            <v.VText android:textSize="13.0sp" android:textColor="@color/core_color_66000000" android:ellipsize="end" android:id="@id/sub_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="完善标签找到更多话题！" android:maxLines="1" android:fontFamily="PingFangSC-Regular" />
+        </v.VLinear>
+        <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:id="@id/complete" android:background="@drawable/core_messages_tag_guide_button_unselect_bg" android:paddingLeft="12.0dp" android:paddingTop="7.0dp" android:paddingRight="12.0dp" android:paddingBottom="7.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="添加" android:layout_centerVertical="true" android:fontFamily="PingFangSC-Medium" android:layout_alignParentEnd="true" android:paddingHorizontal="12.0dp" android:paddingVertical="7.0dp" />
+    </RelativeLayout>
+</com.p1.mobile.putong.core.ui.messages.ItemTagGuide>

@@ -1,0 +1,168 @@
+package com.p051p1.mobile.putong.core.p058ui.vip.privilege.vipfrag.view;
+
+import android.content.Context;
+import android.graphics.Rect;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.animation.TranslateAnimation;
+import androidx.viewpager.widget.ViewPager;
+import com.tantanapp.ijk.media.player.IjkMediaPlayer;
+import kotlin.Metadata;
+import kotlin.jvm.JvmOverloads;
+import kotlin.jvm.internal.DefaultConstructorMarker;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import p153l.cf60;
+
+/* JADX INFO: loaded from: classes12.dex */
+@Metadata(m88120d1 = {"\u0000B\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0010\u0007\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0005\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u000e\u0018\u0000 &2\u00020\u0001:\u0001'B\u001d\b\u0007\u0012\u0006\u0010\u0003\u001a\u00020\u0002\u0012\n\b\u0002\u0010\u0005\u001a\u0004\u0018\u00010\u0004¢\u0006\u0004\b\u0006\u0010\u0007J\u0017\u0010\u000b\u001a\u00020\n2\u0006\u0010\t\u001a\u00020\bH\u0016¢\u0006\u0004\b\u000b\u0010\fJ\u0017\u0010\r\u001a\u00020\n2\u0006\u0010\t\u001a\u00020\bH\u0016¢\u0006\u0004\b\r\u0010\fJ\u0017\u0010\u0011\u001a\u00020\u00102\u0006\u0010\u000f\u001a\u00020\u000eH\u0002¢\u0006\u0004\b\u0011\u0010\u0012J\u000f\u0010\u0013\u001a\u00020\u0010H\u0002¢\u0006\u0004\b\u0013\u0010\u0014J\u000f\u0010\u0015\u001a\u00020\u0010H\u0002¢\u0006\u0004\b\u0015\u0010\u0014R\u0016\u0010\u0019\u001a\u00020\u00168\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u0017\u0010\u0018R\u0014\u0010\u001d\u001a\u00020\u001a8\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\u001b\u0010\u001cR\u0016\u0010 \u001a\u00020\n8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u001e\u0010\u001fR\u0016\u0010#\u001a\u00020\u000e8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b!\u0010\"R\u0016\u0010%\u001a\u00020\n8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b$\u0010\u001f¨\u0006("}, m88121d2 = {"Lcom/p1/mobile/putong/core/ui/vip/privilege/vipfrag/view/BounceBackViewPager;", "Landroidx/viewpager/widget/ViewPager;", "Landroid/content/Context;", "context", "Landroid/util/AttributeSet;", "attrs", "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V", "Landroid/view/MotionEvent;", "ev", "", "onInterceptTouchEvent", "(Landroid/view/MotionEvent;)Z", "onTouchEvent", "", IjkMediaPlayer.OnNativeInvokeListener.ARG_OFFSET, "", "d0", "(F)V", "b0", "()V", "c0", "", "M0", "I", "currentPosition", "Landroid/graphics/Rect;", "N0", "Landroid/graphics/Rect;", "mRect", "O0", "Z", "handleDefault", "P0", "F", "preX", "Q0", "inTouch", "Companion", "a", "b_core_intlGmsRelease"}, m88122k = 1, m88123mv = {2, 2, 0}, m88125xi = 48)
+public final class BounceBackViewPager extends ViewPager {
+
+    /* JADX INFO: renamed from: R0 */
+    public static final float f38671R0 = 0.0f;
+
+    /* JADX INFO: renamed from: M0, reason: from kotlin metadata */
+    public int currentPosition;
+
+    /* JADX INFO: renamed from: N0, reason: from kotlin metadata */
+    @NotNull
+    public final Rect mRect;
+
+    /* JADX INFO: renamed from: O0, reason: from kotlin metadata */
+    public boolean handleDefault;
+
+    /* JADX INFO: renamed from: P0, reason: from kotlin metadata */
+    public float preX;
+
+    /* JADX INFO: renamed from: Q0, reason: from kotlin metadata */
+    public boolean inTouch;
+
+    /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+    @JvmOverloads
+    public BounceBackViewPager(@NotNull Context context, @Nullable AttributeSet attributeSet) {
+        super(context, attributeSet);
+        context.getClass();
+        this.mRect = new Rect();
+        this.handleDefault = true;
+    }
+
+    /* JADX INFO: renamed from: b0 */
+    public final void m58623b0() {
+        if (this.mRect.isEmpty()) {
+            return;
+        }
+        m58624c0();
+    }
+
+    /* JADX INFO: renamed from: c0 */
+    public final void m58624c0() {
+        TranslateAnimation translateAnimation = new TranslateAnimation(getLeft(), this.mRect.left, 0.0f, 0.0f);
+        translateAnimation.setDuration(300L);
+        startAnimation(translateAnimation);
+        Rect rect = this.mRect;
+        layout(rect.left, rect.top, rect.right, rect.bottom);
+        this.mRect.setEmpty();
+        this.handleDefault = true;
+    }
+
+    /* JADX INFO: renamed from: d0 */
+    public final void m58625d0(float offset) {
+        if (this.mRect.isEmpty()) {
+            this.mRect.set(getLeft(), getTop(), getRight(), getBottom());
+        }
+        this.handleDefault = false;
+        int i = (int) (offset * 0.5f);
+        layout(getLeft() + i, getTop(), getRight() + i, getBottom());
+    }
+
+    @Override // androidx.viewpager.widget.ViewPager, android.view.ViewGroup
+    public boolean onInterceptTouchEvent(@NotNull MotionEvent ev) {
+        ev.getClass();
+        if (ev.getAction() == 0) {
+            this.preX = ev.getX();
+            this.currentPosition = getCurrentItem();
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    /* JADX WARN: Code duplicated, block: B:59:0x00ff  */
+    @Override // androidx.viewpager.widget.ViewPager, android.view.View
+    public boolean onTouchEvent(@NotNull MotionEvent ev) {
+        ev.getClass();
+        cf60 adapter = getAdapter();
+        if (adapter == null) {
+            return super.onTouchEvent(ev);
+        }
+        int action = ev.getAction();
+        if (action == 0) {
+            this.inTouch = false;
+        } else if (action == 1) {
+            m58623b0();
+        } else if (action == 2) {
+            if (adapter.getCount() == 1) {
+                float x = ev.getX();
+                float f = x - this.preX;
+                this.preX = x;
+                float f2 = f38671R0;
+                if (f > f2 || f < (-f2)) {
+                    m58625d0(f);
+                } else if (!this.handleDefault) {
+                    int i = (int) (f * 0.5f);
+                    if (getLeft() + i != this.mRect.left) {
+                        layout(getLeft() + i, getTop(), getRight() + i, getBottom());
+                    }
+                }
+            } else {
+                int i2 = this.currentPosition;
+                if (i2 == 0 || i2 == adapter.getCount() - 1) {
+                    float x2 = ev.getX();
+                    float f3 = x2 - this.preX;
+                    this.preX = x2;
+                    int i3 = this.currentPosition;
+                    boolean z = this.inTouch;
+                    if (i3 == 0) {
+                        if (!z && f3 > f38671R0) {
+                            m58625d0(f3);
+                        } else if (this.handleDefault) {
+                            this.inTouch = true;
+                        } else {
+                            int i4 = (int) (f3 * 0.5f);
+                            if (getLeft() + i4 >= this.mRect.left) {
+                                layout(getLeft() + i4, getTop(), getRight() + i4, getBottom());
+                            }
+                        }
+                    } else if (!z && f3 < (-f38671R0)) {
+                        m58625d0(f3);
+                    } else if (this.handleDefault) {
+                        this.inTouch = true;
+                    } else {
+                        int i5 = (int) (f3 * 0.5f);
+                        if (getRight() + i5 <= this.mRect.right) {
+                            layout(getLeft() + i5, getTop(), getRight() + i5, getBottom());
+                        }
+                    }
+                } else {
+                    this.handleDefault = true;
+                }
+            }
+            if (!this.handleDefault) {
+                return true;
+            }
+        } else if (action == 3) {
+            m58623b0();
+        }
+        return super.onTouchEvent(ev);
+    }
+
+    /* JADX WARN: 'this' call moved to the top of the method (can break code semantics) */
+    /* JADX WARN: Multi-variable type inference failed */
+    @JvmOverloads
+    public BounceBackViewPager(@NotNull Context context) {
+        this(context, null, 2, 0 == true ? 1 : 0);
+        context.getClass();
+    }
+
+    public /* synthetic */ BounceBackViewPager(Context context, AttributeSet attributeSet, int i, DefaultConstructorMarker defaultConstructorMarker) {
+        this(context, (i & 2) != 0 ? null : attributeSet);
+    }
+}

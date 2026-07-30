@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.base.arch.card.cardmodel.feed.LiveFeedCardView android:orientation="vertical" android:background="@drawable/live_shape_feed_card_bg" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="136.0dp" android:layout_marginTop="4.0dp" android:layout_marginBottom="4.0dp" android:layout_marginStart="@dimen/live_square_item_base_margin" android:layout_marginEnd="@dimen/live_square_item_base_margin"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/static_bg_view" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/dynamic_bg_view" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleX="1.01" android:scaleY="1.01" />
+    <v.VLinear android:orientation="horizontal" android:id="@id/attribute_container" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="12.0dp">
+        <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/attribute_image" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" />
+        <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="center_vertical" android:id="@id/attribute_icon" android:layout_width="20.0dp" android:layout_height="20.0dp" />
+        <TextView android:textSize="12.0dp" android:textColor="@color/live_white_70_opacity" android:gravity="center" android:id="@id/attribute_text" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="3.0dp" android:layout_marginBottom="2.0dp" />
+    </v.VLinear>
+    <v.VDraweeView android:layout_gravity="right|top" android:id="@id/label_view" android:layout_width="38.0dp" android:layout_height="21.0dp" android:layout_marginTop="-1.0px" android:layout_marginRight="-1.0px" app:actualImageScaleType="fitXY" />
+    <TextView android:textSize="18.0dp" android:textStyle="bold" android:textColor="@color/live_white" android:ellipsize="end" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="36.0dp" android:layout_marginRight="12.0dp" android:maxLines="2" />
+    <include android:layout_gravity="bottom" android:id="@id/avatar_number" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginLeft="12.0dp" android:layout_marginBottom="12.0dp" layout="@layout/live_widget_avatar_number_view" />
+</com.p1.mobile.putong.live.base.arch.card.cardmodel.feed.LiveFeedCardView>

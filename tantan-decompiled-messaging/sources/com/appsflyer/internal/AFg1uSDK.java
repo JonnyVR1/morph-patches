@@ -1,0 +1,53 @@
+package com.appsflyer.internal;
+
+import com.appsflyer.AFLogger;
+import java.util.concurrent.TimeUnit;
+import kotlin.Result;
+import kotlin.ResultKt;
+import kotlin.jvm.JvmOverloads;
+import kotlin.text.StringsKt;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/* JADX INFO: loaded from: classes.dex */
+public final class AFg1uSDK {
+    private static /* synthetic */ boolean AFAdRevenueData(AFg1uSDK aFg1uSDK, String str) {
+        return getMonetizationNetwork(str, TimeUnit.HOURS, 1L);
+    }
+
+    @JvmOverloads
+    private static boolean getMonetizationNetwork(@Nullable String str, @NotNull TimeUnit timeUnit, long j) {
+        Long lP;
+        Object objM223820constructorimpl;
+        timeUnit.getClass();
+        if (str != null && (lP = StringsKt.m93390p(str)) != null) {
+            try {
+                Result.Companion companion = Result.INSTANCE;
+                objM223820constructorimpl = Result.m223820constructorimpl(Boolean.valueOf(Math.abs(lP.longValue() - (AFb1tSDK.getMonetizationNetwork().getCurrencyIso4217Code().component3().getRevenue() / 1000)) < timeUnit.toSeconds(1L)));
+            } catch (Throwable th) {
+                Result.Companion companion2 = Result.INSTANCE;
+                objM223820constructorimpl = Result.m223820constructorimpl(ResultKt.m87238a(th));
+            }
+            Throwable thM223823exceptionOrNullimpl = Result.m223823exceptionOrNullimpl(objM223820constructorimpl);
+            if (thM223823exceptionOrNullimpl != null) {
+                StringBuilder sb = new StringBuilder("Could not convert ");
+                sb.append(str);
+                sb.append(" to TS");
+                AFLogger.afErrorLog(sb.toString(), thM223823exceptionOrNullimpl);
+            }
+            if (Result.m223826isFailureimpl(objM223820constructorimpl)) {
+                objM223820constructorimpl = null;
+            }
+            Boolean bool = (Boolean) objM223820constructorimpl;
+            if (bool != null) {
+                return bool.booleanValue();
+            }
+        }
+        return false;
+    }
+
+    @JvmOverloads
+    public final boolean getRevenue(@Nullable String str) {
+        return AFAdRevenueData(this, str);
+    }
+}

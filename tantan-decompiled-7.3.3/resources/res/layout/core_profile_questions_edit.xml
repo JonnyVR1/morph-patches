@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear_Dividers xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/questions"
+    android:background="@color/white"
+    android:paddingTop="18dp"
+    flatten="true"
+    style="@style/profile_item_frame_no_padding_new">
+    <p151v.VText
+        android:id="@+id/question_tip"
+        android:paddingTop="0dp"
+        android:text="@string/PROFILE_SECTION_HEADER_QUESTIONS"
+        style="@style/profile_item_title_black_edit"/>
+    <include layout="@layout/core_profile_integrity_opt"/>
+    <p151v.VText_Tags
+        android:textSize="14sp"
+        android:gravity="center_vertical"
+        android:id="@+id/add"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginTop="12dp"
+        android:hint="@string/PROFILE_ANSWERS_ADD_NEW"
+        android:forceDarkAllowed="false"
+        app:typeface="regular"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/divider_layout"
+        android:paddingTop="17dp"
+        android:layout_height="20dp"
+        style="@style/profile_edit_driver">
+        <View
+            android:background="@drawable/core_profile_newui_edit_item_normal"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"/>
+    </LinearLayout>
+</p151v.VLinear_Dividers>

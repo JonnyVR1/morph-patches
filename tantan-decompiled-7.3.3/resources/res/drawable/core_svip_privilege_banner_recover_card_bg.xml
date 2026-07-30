@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="76dp"
+    android:width="341dp"
+    android:viewportWidth="341"
+    android:viewportHeight="76">
+    <group>
+        <clip-path android:pathData="M8 0H333C337.418 0 341 3.58172 341 8V68C341 72.4183 337.418 76 333 76H8C3.58172 76 0 72.4183 0 68V8C0 3.58172 3.58172 0 8 0Z"/>
+        <group
+            android:pivotX="170.5"
+            android:pivotY="38"
+            android:scaleX="3.089"
+            android:scaleY="14.024"
+            android:rotation="77.276"
+            android:translateX="1.095"
+            android:translateY="-3.424">
+            <path
+                android:fillColor="@drawable/_core_svip_privilege_banner_recover_card_bg__0_res_0x7f08004c"
+                android:pathData="M0 0V76H341V0"/>
+        </group>
+    </group>
+</vector>

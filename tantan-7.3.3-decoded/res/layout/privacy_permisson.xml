@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="settings.privacyandpremisson.PrivacyAndPremissonViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VProgressBar android:id="@id/loading_block" style="@style/core_loading_block" />
+        <v.VScroll android:id="@id/scroll" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <v.VText android:id="@id/contacts_title" android:layout_marginTop="8.0dp" android:text="@string/SETTINGS_SECTION_PRIVACY" style="@style/core_settings_header0" />
+                <include layout="@layout/privacy_contacts" />
+                <View android:id="@id/divider" android:layout_marginTop="7.0dp" style="@style/core_settings_divider" />
+                <v.VText android:id="@id/album_title" android:layout_marginTop="8.0dp" android:text="@string/MOMENT_MY_ALBUM" style="@style/core_settings_header0" />
+                <v.VLinear android:id="@id/do_not_show_my_album_to_not_matched" android:layout_marginTop="0.0dp" flatten="true" style="@style/core_settings_clickable_item">
+                    <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" style="@style/core_settings_stacked_frame">
+                        <v.VText android:id="@id/do_not_show_my_album_text" android:layout_marginBottom="0.0dp" android:text="@string/SETTINGS_DO_NOT_SHOW_MY_ALBUM_TO_NOT_MATCHED" android:maxLines="2" style="@style/core_settings_primary" />
+                    </LinearLayout>
+                    <v.VSwitch style="@style/core_settings_item_switch" />
+                </v.VLinear>
+                <v.VLinear android:id="@id/do_not_send_moment" android:layout_marginTop="0.0dp" flatten="true" style="@style/core_settings_clickable_item">
+                    <v.VText android:gravity="center_vertical" android:id="@id/do_not_send_moment_" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="72.0dp" android:text="更新头像、自我介绍自动发布动态" android:maxLines="2" android:layout_weight="1.0" style="@style/core_settings_primary" />
+                    <v.VSwitch style="@style/core_settings_item_switch" />
+                </v.VLinear>
+                <View android:id="@id/divider_moment" android:layout_marginTop="7.0dp" style="@style/core_settings_divider" />
+                <v.VText android:id="@id/mode" android:layout_marginTop="8.0dp" android:text="模式设置" style="@style/core_settings_header0" />
+                <v.VLinear android:id="@id/marriage_mode_layout" android:layout_marginTop="0.0dp" flatten="true" style="@style/core_settings_clickable_item">
+                    <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" style="@style/core_settings_stacked_frame">
+                        <v.VText android:id="@id/do_not_show_my_album_text2" android:layout_marginBottom="0.0dp" android:text="想结婚模式" android:maxLines="2" style="@style/core_settings_primary" />
+                    </LinearLayout>
+                    <v.VSwitch style="@style/core_settings_item_switch" />
+                </v.VLinear>
+                <v.VLinear android:id="@id/dark_mode_layout" android:layout_marginTop="0.0dp" flatten="true" style="@style/core_settings_clickable_item">
+                    <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" style="@style/core_settings_stacked_frame">
+                        <v.VText android:layout_marginBottom="0.0dp" android:text="深色模式" android:maxLines="2" style="@style/core_settings_primary" />
+                    </LinearLayout>
+                    <ImageView android:layout_gravity="right|center" android:src="@null" style="@style/core_settings_arrow" />
+                </v.VLinear>
+                <View android:id="@id/divider_mode" android:layout_marginTop="7.0dp" style="@style/core_settings_divider" />
+                <v.VText android:id="@id/moments_title" android:layout_marginTop="8.0dp" android:text="@string/MOMENTS_TITLE" style="@style/core_settings_header0" />
+                <v.VLinear android:orientation="vertical" android:layout_marginTop="0.0dp" android:layout_marginBottom="17.0dp" flatten="true" style="@style/core_settings_clickable_item">
+                    <v.VFrame android:id="@id/moments_muted" style="@style/core_settings_clickable_item">
+                        <v.VText android:id="@id/title" android:text="@string/SETTINGS_MUTED_USERS" style="@style/core_settings_header1" />
+                        <ImageView android:layout_gravity="right|center" android:src="@null" style="@style/core_settings_arrow" />
+                    </v.VFrame>
+                    <v.VFrame android:id="@id/like_love_content" android:visibility="gone" style="@style/core_settings_clickable_item">
+                        <v.VText android:id="@id/like_love_tv" android:text="点赞后自动喜欢" style="@style/core_settings_header1" />
+                        <v.VSwitch android:layout_gravity="right|center" style="@style/core_settings_item_switch" />
+                    </v.VFrame>
+                </v.VLinear>
+            </LinearLayout>
+        </v.VScroll>
+    </v.VFrame>
+</v.VLinear>

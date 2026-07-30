@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.privilege.PrivilegeODiamondSkin android:padding="10.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.privilege.PrivilegeODiamondSkin"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_gravity="center" android:layout_width="80.0dp" android:layout_height="102.0dp">
+        <v.AutoVDraweeView android:id="@id/avatar" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="5.0dp" />
+        <v.VImage android:background="@null" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <v.VImage android:layout_gravity="right" android:id="@id/icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.purchase.privilege.PrivilegeODiamondSkin>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="62.0dp" android:paddingStart="10.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="start" android:id="@id/svga" android:layout_width="30.0dp" android:layout_height="match_parent" android:layout_marginStart="@dimen/live_margin_start" />
+    <v.VText android:textSize="16.0sp" android:textColor="#ffdd19" android:gravity="center" android:id="@id/tv_rank" android:visibility="gone" android:layout_width="30.0dp" android:layout_height="match_parent" android:layout_marginLeft="@dimen/live_margin_start" android:layout_marginStart="@dimen/live_margin_start" />
+    <FrameLayout android:id="@id/fl_avatar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_toRightOf="@id/svga" android:layout_centerVertical="true">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/iv_head" android:layout_width="36.0dp" android:layout_height="36.0dp" fresco:failureImage="@drawable/live_vector_default_avatar_bg" fresco:placeholderImage="@drawable/live_vector_default_avatar_bg" fresco:roundAsCircle="true" />
+    </FrameLayout>
+    <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_toRightOf="@id/fl_avatar" android:layout_centerVertical="true">
+        <com.p1.mobile.putong.live.livingroom.royal.LiveGradientTextView android:textSize="14.0sp" android:textColor="@color/white" android:ellipsize="end" android:id="@id/tv_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxEms="6" android:singleLine="true" />
+        <LinearLayout android:orientation="horizontal" android:id="@id/ll_user_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp">
+            <TextView android:textSize="9.0sp" android:textStyle="normal" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@id/tv_age" android:background="@drawable/live_bg_85b9f2_r2" android:paddingLeft="1.0dp" android:layout_width="30.0dp" android:layout_height="14.0dp" android:drawableLeft="@null" android:drawablePadding="1.0dp" />
+            <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/user_level" android:visibility="gone" android:layout_width="30.0dp" android:layout_height="14.0dp" android:layout_marginLeft="6.0dp" fresco:actualImageScaleType="fitXY" />
+        </LinearLayout>
+        <v.VImage android:id="@id/mystery_icon" android:visibility="gone" android:layout_width="14.0dp" android:layout_height="14.0dp" android:src="@null" />
+    </LinearLayout>
+    <TextView android:textSize="12.0sp" android:textColor="@color/live_ff8817" android:gravity="end" android:id="@id/tv_heart" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+</RelativeLayout>

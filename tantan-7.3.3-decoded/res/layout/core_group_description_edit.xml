@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:paddingLeft="16.0dp" android:paddingTop="16.0dp" android:paddingRight="16.0dp" android:layout_width="match_parent" android:layout_height="match_parent" holder="messages.group.GroupDescriptionEditViewModel" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VEditText android:textSize="16.0sp" android:textColor="#222222" android:textColorHint="#d0d0d0" android:gravity="left|top" android:id="@id/edit_group_description" android:background="@drawable/core_group_edit_view_bg" android:paddingLeft="10.0dp" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="210.0dp" android:hint="@string/CHAT_GROUP_INTRODUCTION_YINDAO" android:maxLength="300" app:typeface="medium" />
+    <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dp">
+        <v.VText android:textSize="13.0sp" android:textColor="#a8a8a8" android:id="@id/tv_group_desc_limit" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/CHAT_GROUP_ONE_CHANCE_NEW" android:layout_weight="1.0" app:typeface="regular" />
+        <v.VText android:textSize="13.0sp" android:textColor="#a8a8a8" android:layout_gravity="right" android:id="@id/tv_group_desc_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginTop="5.0dp" android:text="0/300" />
+    </v.VLinear>
+</v.VLinear>

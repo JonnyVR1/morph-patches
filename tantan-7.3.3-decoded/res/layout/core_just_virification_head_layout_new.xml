@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.justreal.JustRealHeadLayout android:background="@drawable/core_just_verification_bg" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:paddingBottom="50.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:alpha="0.0" android:translationY="50.0dp" flatten="true" folder="newui" holder="home.justreal.NewJustRealHeadLayoutViewHome"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:id="@id/avatar_placeholder_ic" android:visibility="gone" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginTop="11.0dp" android:src="@null" />
+    <com.p1.mobile.putong.core.newui.home.justreal.JustRealAvatarRootLayout android:id="@id/avatar_root" android:layout_width="match_parent" android:layout_height="28.0dp" android:layout_marginTop="11.0dp" />
+    <include android:id="@id/new_content_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="34.0dp" layout="@layout/core_just_virification_head_content_layout" />
+    <com.p1.mobile.putong.core.ui.VText_Default_Bold android:textSize="11.5dp" android:textColor="#2a6f94" android:gravity="center" android:layout_gravity="right" android:id="@id/goto_verify_center" android:background="@drawable/core_white_bg_8dp_radius" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="26.0dp" android:layout_marginTop="12.0dp" android:text="去认证" />
+</com.p1.mobile.putong.core.newui.home.justreal.JustRealHeadLayout>

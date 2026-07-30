@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center|bottom" android:id="@id/root" android:background="@drawable/core_profile_buttons_bg_expand" android:paddingLeft="0.0dp" android:paddingTop="0.0dp" android:paddingBottom="3.0dp" android:layout_width="match_parent" android:layout_height="161.0dp" flatten="true" holder="profile.profilelist.buttons.layout.expanded.ExpVideoChatButtonLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:layout_gravity="center|bottom" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:divider="@drawable/core_profile_bottom_btn_divider" android:showDividers="middle" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_goneMarginLeft="0.0dp">
+        <v.VFrame_Shadow android:layout_gravity="center|bottom" android:id="@id/superlike_shadow_single" android:visibility="visible" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="0.0dp" app:sl_dy="0.0dp" app:sl_shadowColor="#fff" app:sl_shadowRadius="0.0dp" flatten="true">
+            <v.VLinear android:gravity="center_vertical" android:layout_gravity="center|bottom" android:orientation="horizontal" android:background="@drawable/core_vip_onebtn_match_exp2_superlike_bg" android:layout_width="132.0dp" android:layout_height="48.0dp" android:layout_marginBottom="15.0dp">
+                <v.VImage android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="20.0dp" android:src="@null" android:scaleType="centerCrop" />
+                <v.VText android:textSize="14.0sp" android:textColor="#fff" android:gravity="center" android:id="@id/superlike_text" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="6.0dp" android:text="超级喜欢" />
+            </v.VLinear>
+        </v.VFrame_Shadow>
+        <v.VFrame_Shadow android:layout_gravity="center|bottom" android:id="@id/chat_shadow_single" android:visibility="gone" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="0.0dp" app:sl_dy="0.0dp" app:sl_shadowColor="#fff" app:sl_shadowRadius="0.0dp" flatten="true">
+            <v.VLinear android:gravity="center_vertical" android:layout_gravity="center|bottom" android:orientation="horizontal" android:background="@drawable/core_profile_video_chat_chat_bg" android:layout_width="132.0dp" android:layout_height="48.0dp" android:layout_marginBottom="15.0dp">
+                <v.VImage android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="20.0dp" android:src="@null" android:scaleType="centerCrop" />
+                <v.VText android:textSize="14.0sp" android:textColor="#fff" android:gravity="center" android:id="@id/chat_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="立即聊天" />
+            </v.VLinear>
+        </v.VFrame_Shadow>
+        <v.VFrame_Shadow android:layout_gravity="center|bottom" android:id="@id/video_chat_shadow" android:layout_width="wrap_content" android:layout_height="wrap_content" app:sl_cornerRadius="0.0dp" app:sl_dy="0.0dp" app:sl_shadowColor="@color/core_profile_bottom_shadow_color" app:sl_shadowRadius="0.0dp" flatten="true">
+            <v.VLinear android:gravity="center" android:orientation="horizontal" android:background="@drawable/core_profile_video_quick_chat_bg" android:layout_width="132.0dp" android:layout_height="48.0dp" android:layout_marginBottom="15.0dp">
+                <v.VImage android:layout_gravity="center" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="centerCrop" />
+                <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/videochat_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="视频闪聊" android:layout_marginStart="6.0dp" />
+            </v.VLinear>
+        </v.VFrame_Shadow>
+    </v.VLinear>
+</FrameLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="voice.call.anchor.VoiceCallListViewModel">
+    <View
+        android:id="@+id/view_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/live_bg_white_tr8"
+        android:layout_width="match_parent"
+        android:layout_height="358dp">
+        <com.google.android.material.tabs.TabLayout
+            android:layout_gravity="center"
+            android:id="@+id/tabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:overScrollMode="never"
+            app:tabBackground="@null"
+            app:tabIndicator="@null"
+            app:tabMode="scrollable"
+            app:tabPaddingEnd="20dp"
+            app:tabPaddingStart="20dp"
+            app:tabRippleColor="@color/transparent"
+            app:tabSelectedTextColor="#212121"
+            app:tabTextAppearance="@style/live_voice_call_tab_style"
+            app:tabTextColor="#999999"/>
+        <View
+            android:background="#ebebeb"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <p151v.VPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="72dp">
+    <p151v.VDraweeView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/avatar_view"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        app:actualImageScaleType="centerCrop"
+        app:roundAsCircle="true"/>
+    <View
+        android:layout_gravity="bottom"
+        android:id="@+id/on_line_view"
+        android:background="@drawable/live_shape_voice_share_online_icon_bg"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="41dp"/>
+    <TextView
+        android:textSize="15sp"
+        android:textColor="@color/live_white_80_opacity"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/friend_name"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:maxLines="1"
+        android:layout_marginStart="67dp"
+        android:layout_marginEnd="40dp"/>
+    <ImageView
+        android:layout_gravity="end|center_vertical"
+        android:id="@+id/selected_image"
+        android:padding="4dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/live_selector_voice_preview"/>
+</FrameLayout>

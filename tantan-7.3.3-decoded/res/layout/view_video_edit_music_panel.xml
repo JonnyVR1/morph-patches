@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="#ccffffff" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:id="@id/music_id" android:layout_width="match_parent" android:layout_height="40.0dp" android:text="music id" />
+    <TextView android:id="@id/music_panel_name" android:layout_width="match_parent" android:layout_height="40.0dp" android:text="music name" />
+    <TextView android:layout_width="match_parent" android:layout_height="25.0dp" android:text="video_volume" />
+    <EditText android:id="@id/music_panel_video_volume" android:layout_width="match_parent" android:layout_height="40.0dp" android:text="50" />
+    <TextView android:layout_width="match_parent" android:layout_height="25.0dp" android:text="music_volume" />
+    <EditText android:id="@id/music_panel_music_volume" android:layout_width="match_parent" android:layout_height="40.0dp" android:text="50" />
+    <com.p1.mobile.putong.feed.newui.camera.widget.MusicRangeSeekView android:id="@id/music_panel_seek_view" android:layout_width="match_parent" android:layout_height="140.0dp" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="50.0dp">
+        <EditText android:gravity="center" android:id="@id/music_panel_start_time" android:layout_width="0.0dp" android:layout_height="50.0dp" android:hint="start time" android:layout_weight="1.0" />
+        <View android:layout_width="100.0dp" android:layout_height="match_parent" />
+        <EditText android:gravity="center" android:id="@id/music_panel_stop_time" android:layout_width="0.0dp" android:layout_height="50.0dp" android:hint="stop time" android:layout_weight="1.0" />
+    </LinearLayout>
+    <TextView android:gravity="center" android:id="@id/music_panel_ok" android:layout_width="match_parent" android:layout_height="50.0dp" android:text="OK" />
+    <TextView android:gravity="center" android:id="@id/music_panel_item_1" android:layout_width="match_parent" android:layout_height="50.0dp" android:text="music1" />
+    <TextView android:gravity="center" android:id="@id/music_panel_item_2" android:layout_width="match_parent" android:layout_height="50.0dp" android:text="music2" />
+    <TextView android:gravity="center" android:id="@id/music_panel_item_3" android:layout_width="match_parent" android:layout_height="50.0dp" android:text="music3" />
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="vip.privilege.dlg.PrivilegeContentDlg">
+    <View
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/collapse"
+        android:background="@drawable/core_privilege_desc_dlg_collapse"
+        android:layout_width="30dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="15dp"/>
+    <p151v.VPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"/>
+    <p151v.VPagerCircleIndicator
+        android:id="@+id/pager_indicator"
+        android:background="@drawable/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="7dp"
+        android:layout_marginLeft="40dp"
+        app:fillColor="@color/common_orange"
+        app:pageColor="@color/common_light_01"
+        app:radius="3dp"/>
+    <p151v.VButton
+        android:textColor="@color/common_white"
+        android:id="@+id/buy"
+        android:background="@drawable/core_vip_bg_purchase_dialog_payment_button_vip"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="46dp"
+        style="@style/common_button_large"/>
+</p151v.VLinear>

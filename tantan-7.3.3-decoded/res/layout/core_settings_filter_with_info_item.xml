@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge attachToRoot="true" holder="settings.filter.SettingsFilterItemWithInfo"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toLeftOf="@id/switcher" app:layout_constraintTop_toTopOf="parent">
+        <TextView android:textSize="16.0sp" android:textColor="#de000000" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:drawablePadding="3.0dp" android:lineSpacingExtra="4.0sp" />
+        <TextView android:textSize="12.0sp" android:textColor="#bdbdbd" android:ellipsize="end" android:id="@id/info" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:lines="1" android:lineSpacingExtra="0.0sp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toLeftOf="@id/switcher" app:layout_constraintTop_toBottomOf="@id/title" />
+    </LinearLayout>
+    <View android:id="@id/dot" android:background="@drawable/core_intl_messages_bar_dot" android:visibility="gone" android:layout_width="8.0dp" android:layout_height="8.0dp" android:layout_marginLeft="5.0dp" android:layout_marginRight="5.0dp" android:layout_centerVertical="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/switcher" app:layout_constraintTop_toTopOf="parent" />
+    <v.VSwitch android:id="@id/switcher" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
+</merge>

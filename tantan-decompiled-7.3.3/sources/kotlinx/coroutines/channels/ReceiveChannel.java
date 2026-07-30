@@ -1,0 +1,102 @@
+package kotlinx.coroutines.channels;
+
+import com.immomo.momomediaext.sei.BaseSei;
+import java.util.concurrent.CancellationException;
+import kotlin.Deprecated;
+import kotlin.Metadata;
+import kotlin.ResultKt;
+import kotlin.coroutines.Continuation;
+import kotlin.internal.LowPriorityInOverloadResolution;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import p153l.c4s;
+import p153l.pr3;
+import p153l.uyp;
+import p153l.wtq0;
+import p153l.zke0;
+
+/* JADX INFO: loaded from: classes2.dex */
+@Metadata(m88120d1 = {"\u00008\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0006\bf\u0018\u0000*\u0006\b\u0000\u0010\u0001 \u00012\u00020\u0002J\u0010\u0010\u0003\u001a\u00028\u0000H¦@¢\u0006\u0004\b\u0003\u0010\u0004J\u001c\u0010\u0006\u001a\b\u0012\u0004\u0012\u00028\u00000\u0005H¦@ø\u0001\u0000ø\u0001\u0001¢\u0006\u0004\b\u0006\u0010\u0004J\u001b\u0010\u0007\u001a\b\u0012\u0004\u0012\u00028\u00000\u0005H&ø\u0001\u0000ø\u0001\u0001¢\u0006\u0004\b\u0007\u0010\bJ\u0016\u0010\n\u001a\b\u0012\u0004\u0012\u00028\u00000\tH¦\u0002¢\u0006\u0004\b\n\u0010\u000bJ!\u0010\u0010\u001a\u00020\u000f2\u0010\b\u0002\u0010\u000e\u001a\n\u0018\u00010\fj\u0004\u0018\u0001`\rH&¢\u0006\u0004\b\u0010\u0010\u0011R\u001a\u0010\u0015\u001a\b\u0012\u0004\u0012\u00028\u00000\u00128&X¦\u0004¢\u0006\u0006\u001a\u0004\b\u0013\u0010\u0014R \u0010\u0017\u001a\u000e\u0012\n\u0012\b\u0012\u0004\u0012\u00028\u00000\u00050\u00128&X¦\u0004¢\u0006\u0006\u001a\u0004\b\u0016\u0010\u0014\u0082\u0002\u000b\n\u0002\b!\n\u0005\b¡\u001e0\u0001¨\u0006\u0018"}, m88121d2 = {"Lkotlinx/coroutines/channels/ReceiveChannel;", "E", "", c4s.C_ZONE, "(Lkotlin/coroutines/Continuation;)Ljava/lang/Object;", "Lkotlinx/coroutines/channels/a;", "r", "p", "()Ljava/lang/Object;", "Lkotlinx/coroutines/channels/ChannelIterator;", "iterator", "()Lkotlinx/coroutines/channels/ChannelIterator;", "Ljava/util/concurrent/CancellationException;", "Lkotlinx/coroutines/CancellationException;", "cause", "", "n", "(Ljava/util/concurrent/CancellationException;)V", "Ll/zke0;", BaseSei.f14626Z, "()Ll/zke0;", "onReceive", "o", "onReceiveCatching", "kotlinx-coroutines-core"}, m88122k = 1, m88123mv = {1, 9, 0}, m88125xi = 48)
+public interface ReceiveChannel<E> {
+
+    @Metadata(m88122k = 3, m88123mv = {1, 9, 0}, m88125xi = 48)
+    public static final class DefaultImpls {
+        /* JADX INFO: renamed from: a */
+        public static /* synthetic */ void m94876a(ReceiveChannel receiveChannel, CancellationException cancellationException, int i, Object obj) {
+            if (obj != null) {
+                pr3.m173429a("Super calls with default arguments not supported in this target, function: cancel");
+                return;
+            }
+            if ((i & 1) != 0) {
+                cancellationException = null;
+            }
+            receiveChannel.mo94782n(cancellationException);
+        }
+
+        /* JADX WARN: Code duplicated, block: B:7:0x0013  */
+        @Deprecated
+        @LowPriorityInOverloadResolution
+        @Nullable
+        /* JADX INFO: renamed from: b */
+        public static <E> Object m94877b(@NotNull ReceiveChannel<? extends E> receiveChannel, @NotNull Continuation<? super E> continuation) throws Throwable {
+            ReceiveChannel$receiveOrNull$1 receiveChannel$receiveOrNull$1;
+            Object objMo94793r;
+            if (continuation instanceof ReceiveChannel$receiveOrNull$1) {
+                receiveChannel$receiveOrNull$1 = (ReceiveChannel$receiveOrNull$1) continuation;
+                int i = receiveChannel$receiveOrNull$1.label;
+                if ((i & Integer.MIN_VALUE) != 0) {
+                    receiveChannel$receiveOrNull$1.label = i - Integer.MIN_VALUE;
+                } else {
+                    receiveChannel$receiveOrNull$1 = new ReceiveChannel$receiveOrNull$1(continuation);
+                }
+            } else {
+                receiveChannel$receiveOrNull$1 = new ReceiveChannel$receiveOrNull$1(continuation);
+            }
+            Object obj = receiveChannel$receiveOrNull$1.result;
+            Object objM198688e = uyp.m198688e();
+            int i2 = receiveChannel$receiveOrNull$1.label;
+            if (i2 == 0) {
+                ResultKt.m88128b(obj);
+                receiveChannel$receiveOrNull$1.label = 1;
+                objMo94793r = receiveChannel.mo94793r(receiveChannel$receiveOrNull$1);
+                if (objMo94793r == objM198688e) {
+                    return objM198688e;
+                }
+            } else {
+                if (i2 != 1) {
+                    wtq0.m207906a("call to 'resume' before 'invoke' with coroutine");
+                    return null;
+                }
+                ResultKt.m88128b(obj);
+                objMo94793r = ((C15521a) obj).getHolder();
+            }
+            return C15521a.m94887f(objMo94793r);
+        }
+    }
+
+    @Nullable
+    /* JADX INFO: renamed from: C */
+    Object mo94727C(@NotNull Continuation<? super E> continuation);
+
+    @NotNull
+    ChannelIterator<E> iterator();
+
+    /* JADX INFO: renamed from: n */
+    void mo94782n(@Nullable CancellationException cause);
+
+    @NotNull
+    /* JADX INFO: renamed from: o */
+    zke0<C15521a<E>> mo94785o();
+
+    @NotNull
+    /* JADX INFO: renamed from: p */
+    Object mo94788p();
+
+    @Nullable
+    /* JADX INFO: renamed from: r */
+    Object mo94793r(@NotNull Continuation<? super C15521a<? extends E>> continuation);
+
+    @NotNull
+    /* JADX INFO: renamed from: z */
+    zke0<E> mo94802z();
+}

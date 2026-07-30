@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemMessageCallToBuy android:orientation="vertical" android:id="@id/content" android:background="?message_bubble_bg_left" android:clipChildren="false" android:clipToPadding="false" android:layout_width="210.0dp" android:layout_height="wrap_content" android:minWidth="210.0dp" flatten="true" holder="messages.ItemMessageCallToBuy"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/gaussian_section" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VDraweeView android:id="@id/gaussian_profile" android:layout_width="match_parent" android:layout_height="120.0dp" android:minWidth="210.0dp" app:roundBottomLeft="false" app:roundBottomRight="false" app:roundTopLeft="true" app:roundTopRight="true" app:roundedCornerRadius="@dimen/core_common_radius" />
+    </FrameLayout>
+    <v.VText android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/common_black_02" android:id="@id/sub_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="16.0dp" android:lineSpacingMultiplier="1.05" app:typeface="medium" />
+    <v.VText android:textSize="14.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/button" android:background="@drawable/core_message_opti_call_to_buy_gradient_golden" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="16.0dp" />
+</com.p1.mobile.putong.core.ui.messages.ItemMessageCallToBuy>

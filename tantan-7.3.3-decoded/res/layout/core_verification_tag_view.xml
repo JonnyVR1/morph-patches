@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.VerificationTagView android:layout_gravity="center_vertical" android:visibility="gone" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="16.0dp" android:minWidth="76.0dp" flatten="true" folder="newui" holder="home.VerificationTagView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Space android:id="@id/space" android:layout_width="4.0dp" android:layout_height="16.0dp" />
+    <v.VText android:textSize="12.0sp" android:textColor="#54c7fc" android:gravity="left|center" android:id="@id/verification_tag_text" android:background="@drawable/core_pic_verification_tag_bg" android:paddingLeft="11.0dp" android:paddingRight="5.0dp" android:layout_width="wrap_content" android:layout_height="16.0dp" android:layout_marginLeft="12.0dp" android:text="真实头像" app:typeface="medium" />
+    <v.VImage android:layout_gravity="left|center" android:id="@id/verification_tag_img" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginLeft="4.0dp" android:src="@null" />
+</com.p1.mobile.putong.core.newui.home.VerificationTagView>

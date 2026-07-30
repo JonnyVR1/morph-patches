@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:clipChildren="false"
+    holder="accountnew.PhoneNumberVerifyViewModel"
+    style="@style/account_account_root">
+    <p151v.VScroll style="@style/account_account_scroll">
+        <LinearLayout
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            style="@style/account_account_frame">
+            <p151v.VText
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="@string/SEND_SMS_TO_GET_ACCOUNT_BACK"/>
+            <LinearLayout
+                android:id="@+id/number_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                flatten="true">
+                <p151v.VMaterialEdit_FakeSpinner
+                    android:id="@+id/ccode"
+                    style="@style/account_account_spinner"/>
+                <p151v.VMaterialEdit
+                    android:id="@+id/number"
+                    android:hint="@string/SIGNUP_PHONE_NUMBER"
+                    style="@style/account_account_username"/>
+            </LinearLayout>
+        </LinearLayout>
+    </p151v.VScroll>
+    <p151v.VButton_FakeShadow
+        android:enabled="true"
+        android:id="@+id/continue_"
+        android:text="@string/ACTION_NEXT"
+        style="@style/account_account_continue_button"/>
+</p151v.VLinear>

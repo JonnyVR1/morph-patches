@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/root_view" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/shadow" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VFrame android:layout_gravity="bottom" android:background="@drawable/feed_share_my_state_bg" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <View android:background="@drawable/feed_select_and_post_state_header_bg" android:layout_width="match_parent" android:layout_height="240.0dp" />
+        <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/dialog_ll" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <View android:layout_gravity="center" android:id="@id/view_line" android:background="@drawable/common_handlebar_handler" android:layout_width="36.0dp" android:layout_height="5.0dp" android:layout_marginTop="12.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            <v.VText android:textSize="20.0sp" android:textColor="#010101" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="26.0dp" android:text="分享状态，与好友即刻开聊" android:lineSpacingExtra="1.0sp" />
+            <v.VText android:textSize="14.0sp" android:textColor="@color/live_chat_input_enable_false" android:layout_gravity="center_horizontal" android:id="@id/hint" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="7.0dp" android:text="24小时后将自动消失" android:lineSpacingExtra="7.0sp" />
+            <v.VFrame android:layout_width="match_parent" android:layout_height="119.0dp" android:layout_marginTop="18.0dp">
+                <com.p1.mobile.putong.feed.newui.status.display.view.FeedSmoothSpeedRecycle android:id="@id/state_recycle" android:background="@color/transparent" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="100.0dp" android:divider="@null" useId="true" />
+                <TextView android:textSize="16.0sp" android:textColor="#e6000000" android:gravity="center" android:layout_gravity="bottom" android:id="@id/my_state_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/state_recycle" />
+            </v.VFrame>
+            <LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:id="@id/input_ll" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="40.0dp">
+                <v.VEditText android:textSize="16.0sp" android:textColor="#cc000000" android:textColorHint="@color/feed_comment_reply_text_color" android:gravity="left|center" android:id="@id/input" android:background="@drawable/feed_state_status_cursor_bg" android:paddingLeft="20.0dp" android:focusable="true" android:focusableInTouchMode="true" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56.0dp" android:hint="说说你的此刻状态..." android:singleLine="true" android:maxLength="30" android:inputType="text" android:textCursorDrawable="@drawable/feed_guide_states_cursor_bg" />
+            </LinearLayout>
+            <TextView android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/post" android:background="@drawable/feed_comment_send_bg" android:visibility="visible" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="28.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="20.0dp" android:text="去发布" />
+        </v.VLinear>
+    </v.VFrame>
+</FrameLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="62dp"
+        android:layout_height="62dp">
+        <p151v.VDraweeView
+            android:layout_gravity="center"
+            android:id="@+id/camera_filter_image"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:scaleType="center"
+            app:actualImageResource="@drawable/feed_camera_effect_bg"
+            app:roundedCornerRadius="12dp"/>
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/camera_filter_select"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:src="@drawable/feed_camera_filter_item_selected"
+            android:scaleType="centerInside"/>
+    </FrameLayout>
+    <TextView
+        android:textSize="12dp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/camera_filter_name"
+        android:layout_width="62dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="filter name"/>
+    <TextView
+        android:textSize="12dp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/camera_filter_value"
+        android:layout_width="62dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="50"/>
+</LinearLayout>

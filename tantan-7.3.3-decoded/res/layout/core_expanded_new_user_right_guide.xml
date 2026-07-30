@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@drawable/core_expanded_guide_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/swipe_guide_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" app:roundedCornerRadius="20.0dp" />
+    <v.VLinear android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <v.VImage android:layout_width="80.0dp" android:layout_height="75.0dp" app:srcCompat="@drawable/core_expanded_guide_right_ic" />
+        <com.p1.mobile.putong.core.ui.VText_Default_Bold android:textSize="18.0dp" android:textColor="#ffffff" android:id="@id/right_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" />
+        <v.VText android:textSize="14.0dp" android:textColor="#ffffff" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="若对方也喜欢你，即可配对聊天" />
+    </v.VLinear>
+</FrameLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.nearby.NearbyFooterView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="nearby.NearbyFooterView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0dp">
+        <v.VImage android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:src="@null" android:scaleType="centerInside" />
+        <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="#26000000" android:gravity="center" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="没有更多附近的人" />
+        <v.VImage android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:src="@null" android:scaleType="centerInside" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.nearby.NearbyFooterView>

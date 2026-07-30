@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemReminder xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/content"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:fillerIndex="1"
+    style="@style/messages_item_right">
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="0x7f082014"/>
+    <p151v.VText
+        android:textColor="@color/white"
+        android:textColorLink="#9fe6ff"
+        android:gravity="center_vertical"
+        android:autoLink="web"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/text"
+        android:paddingLeft="4dp"
+        android:paddingTop="9.5dp"
+        android:paddingRight="18dp"
+        android:paddingBottom="9.5dp"
+        android:minHeight="42dp"
+        android:lineSpacingExtra="2dp"
+        app:enableEmojis="true"
+        app:largeEmojis="true"
+        style="@style/messages_bubble"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemReminder>

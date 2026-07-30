@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <View android:background="@drawable/feed_rounded_dialog_indicator" android:layout_width="37.0dp" android:layout_height="5.0dp" android:layout_marginTop="15.0dp" android:layout_alignParentTop="true" android:layout_centerHorizontal="true" />
+        <TextView android:textSize="21.0sp" android:textStyle="bold" android:textColor="@color/feed_e6000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="50.0dp" android:text="表态的人" android:layout_alignParentLeft="true" />
+        <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/feed_4c000000" android:id="@id/cancel_attitude" android:background="@drawable/feed_bg_rounded_07000" android:paddingLeft="15.0dp" android:paddingTop="8.0dp" android:paddingRight="15.0dp" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="45.0dp" android:layout_marginRight="20.0dp" android:text="取消表态" android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="58.0dp" android:layout_marginTop="10.0dp">
+        <View android:background="@color/feed_07000000" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_alignParentBottom="true" />
+        <com.google.android.material.tabs.TabLayout android:id="@id/tabs" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="58.0dp" app:tabBackground="@color/transparent" app:tabIndicatorColor="@color/feed_fe7e1d" app:tabIndicatorHeight="3.0dp" app:tabRippleColor="@color/transparent" />
+    </RelativeLayout>
+    <com.p1.mobile.putong.feed.newui.photoalbum.attitude.participant.BottomSheetNestedProxyView android:id="@id/nested_proxy_view" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VPager android:id="@id/viewpager" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </com.p1.mobile.putong.feed.newui.photoalbum.attitude.participant.BottomSheetNestedProxyView>
+</LinearLayout>

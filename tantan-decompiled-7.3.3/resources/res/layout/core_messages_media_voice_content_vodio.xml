@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/media"
+    android:background="#f4f4f6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/messages_media_divider_vertical"
+    android:showDividers="middle">
+    <LinearLayout style="@style/messages_media_col">
+        <p151v.VLinear
+            android:id="@+id/video"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            style="@style/messages_media_item_frame">
+            <p151v.VImage
+                android:src="0x7f0828cb"
+                style="@style/core_messages_media_item_image"/>
+            <p151v.VText
+                android:text="@string/INTERACTION_RECORD_VIDEO"
+                style="@style/core_messages_media_item_text"/>
+        </p151v.VLinear>
+        <Space
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            style="@style/messages_media_item_frame"/>
+    </LinearLayout>
+    <LinearLayout style="@style/messages_media_col">
+        <Space
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            style="@style/messages_media_item_frame"/>
+        <Space
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            style="@style/messages_media_item_frame"/>
+    </LinearLayout>
+    <LinearLayout style="@style/messages_media_col">
+        <Space
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            style="@style/messages_media_item_frame"/>
+        <Space
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            style="@style/messages_media_item_frame"/>
+    </LinearLayout>
+</LinearLayout>

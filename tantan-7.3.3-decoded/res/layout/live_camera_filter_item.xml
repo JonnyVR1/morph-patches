@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="68.0dp" android:layout_height="60.0dp" android:layout_marginTop="14.0dp">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/camera_filter_image" android:layout_width="52.0dp" android:layout_height="52.0dp" android:scaleType="center" app:failureImage="@drawable/live_shape_camera_filter_item_place_holder" app:placeholderImage="@drawable/live_shape_camera_filter_item_place_holder" app:roundAsCircle="true" />
+        <ImageView android:layout_gravity="center" android:id="@id/camera_filter_select" android:background="@drawable/live_shape_camera_filter_item_selected" android:layout_width="52.0dp" android:layout_height="52.0dp" android:src="@null" android:scaleType="centerInside" />
+        <v.VText android:textSize="9.0sp" android:textStyle="normal" android:textColor="@color/live_white" android:gravity="center" android:id="@id/suggest" android:background="@drawable/live_shape_beauty_suggest_text_bg" android:paddingTop="1.0dp" android:paddingBottom="1.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="@string/LIVE_FILTER_SUGGEST" android:singleLine="true" android:paddingStart="3.0dp" android:paddingEnd="3.0dp" android:layout_marginStart="4.0dp" />
+    </FrameLayout>
+    <v.VText android:textSize="12.0dp" android:textColor="#383e46" android:ellipsize="end" android:gravity="center" android:layout_gravity="center" android:id="@id/camera_filter_name" android:layout_width="68.0dp" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:maxLines="2" android:singleLine="true" />
+</LinearLayout>

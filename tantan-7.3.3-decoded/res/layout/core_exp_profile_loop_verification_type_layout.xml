@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VImage android:id="@id/icon_1" android:layout_width="48.0dp" android:layout_height="48.0dp" app:srcCompat="@null" />
+        <v.VLinear android:gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp">
+            <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="15.0dp" android:textColor="@color/common_000000_80" android:id="@id/title_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="获得认证标识" />
+            <v.VText android:textSize="13.0dp" android:textColor="@color/common_000000_40" android:id="@id/subtitle_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:text="个人资料上会显示头像本人认证标识" />
+        </v.VLinear>
+    </v.VLinear>
+    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="30.0dp">
+        <v.VImage android:id="@id/icon_2" android:layout_width="48.0dp" android:layout_height="48.0dp" app:srcCompat="@null" />
+        <v.VLinear android:gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp">
+            <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="15.0dp" android:textColor="@color/common_000000_80" android:id="@id/title_2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="只看认证用户特权" />
+            <v.VText android:textSize="13.0dp" android:textColor="@color/common_000000_40" android:id="@id/subtitle_2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:text="划卡时可以筛选完成头像本人认证的用户" />
+        </v.VLinear>
+    </v.VLinear>
+    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="30.0dp">
+        <v.VImage android:id="@id/icon_3" android:layout_width="48.0dp" android:layout_height="48.0dp" app:srcCompat="@drawable/core_new_avatar_success_detail_ic4" />
+        <v.VLinear android:gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp">
+            <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="15.0dp" android:textColor="@color/common_000000_80" android:id="@id/title_3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="系统优先推荐" />
+            <v.VText android:textSize="13.0dp" android:textColor="@color/common_000000_40" android:id="@id/subtitle_3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:text="系统会优先把你推荐给其他用户" />
+        </v.VLinear>
+    </v.VLinear>
+    <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:id="@id/button" android:background="@drawable/common_exp_button_btn_orange_small" android:paddingLeft="47.0dp" android:paddingRight="47.0dp" android:layout_width="wrap_content" android:layout_height="56.0dp" android:layout_marginTop="48.0dp" android:text="立即认证，获得特权" android:paddingHorizontal="47.0dp" />
+</v.VLinear>

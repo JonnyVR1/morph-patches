@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="settings.personaldetails.PersonalDetailsViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VProgressBar android:id="@id/loading_block" android:visibility="visible" style="@style/core_loading_block" />
+        <v.VScroll android:id="@id/scroll" android:visibility="invisible" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <v.VLinear android:id="@id/my_gender" style="@style/core_settings_stacked_frame">
+                    <v.VText android:text="@string/SETTINGS_YOUR_GENDER" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/text" style="@style/settings_secondary_disable" />
+                </v.VLinear>
+                <v.VLinear android:id="@id/full_name" style="@style/core_settings_stacked_frame">
+                    <v.VText android:text="@string/EDIT_SETTINGS_CELL_FULL_NAME" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/text" style="@style/core_settings_secondary" />
+                </v.VLinear>
+                <v.VLinear android:id="@id/birthdate" style="@style/core_settings_stacked_frame">
+                    <v.VText android:text="@string/SETTINGS_BIRTHDAY" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/text" style="@style/core_settings_secondary" />
+                </v.VLinear>
+                <v.VLinear android:id="@id/blood_type" android:visibility="gone" style="@style/core_settings_stacked_frame">
+                    <v.VText android:text="@string/BLOOD_TYPE" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/text" style="@style/core_settings_secondary" />
+                </v.VLinear>
+                <v.VLinear android:id="@id/add_emoji" android:visibility="gone" style="@style/core_settings_stacked_frame">
+                    <v.VText android:text="@string/INTL_MY_EMOJI" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/text" android:text="@string/INTL_ADD_EMOJI" android:drawableLeft="@null" android:drawablePadding="8.0dp" style="@style/core_settings_secondary" />
+                    <v.VDraweeView android:id="@id/emoji" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginLeft="16.0dp" />
+                </v.VLinear>
+            </LinearLayout>
+        </v.VScroll>
+    </v.VFrame>
+</v.VLinear>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="common.debugdialog.TraceDataDialog"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:id="@id/title_bar" android:background="@color/live_323333" android:layout_width="match_parent" android:layout_height="54.0dp">
+        <ImageView android:id="@id/back_iv" android:padding="6.0dp" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginLeft="12.0dp" android:src="@null" android:layout_centerVertical="true" />
+        <TextView android:textSize="20.0dp" android:textColor="@color/live_white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="trace日志" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <com.google.android.material.tabs.TabLayout android:layout_gravity="center_horizontal" android:id="@id/tab_layout" android:paddingBottom="3.0dp" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_below="@id/title_bar" app:tabTextColor="@color/live_black_81_opacity" />
+    <androidx.viewpager.widget.ViewPager android:id="@id/view_pager" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/tab_layout" />
+</RelativeLayout>

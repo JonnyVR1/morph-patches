@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.card.expanded.view.ExpandedBasicInfoRootLayout android:orientation="vertical" android:id="@id/expanded_card_baseinfo_root" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.card.expanded.holder.InterestsCardExpandeHolder"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:id="@id/content_layout" android:background="@drawable/core_bg_20_ffffff" android:paddingTop="24.0dp" android:paddingBottom="30.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:paddingStart="24.0dp" android:paddingEnd="20.0dp" flatten="true">
+        <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp">
+            <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="14.0sp" android:textColor="@color/core_color_50percent_000000" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="兴趣爱好" />
+        </v.VLinear>
+        <com.p1.mobile.putong.core.newui.home.card.expanded.view.ExpandedCardCommonLabelView android:id="@id/card_label_show_view" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.home.card.expanded.view.ExpandedBasicInfoRootLayout>

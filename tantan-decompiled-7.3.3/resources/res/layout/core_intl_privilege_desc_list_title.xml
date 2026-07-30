@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.vip.privilegeNewUi.content.item.IntlPrivilegeDescListTitle xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="vip.privilegeNewUi.content.item.IntlPrivilegeDescListTitle">
+    <TextView
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:textColor="#66000000"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"/>
+    <p151v.VImage
+        android:id="@+id/icon"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="0x7f0817ce"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@+id/title"/>
+    <TextView
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:textColor="#33000000"
+        android:id="@+id/right_text"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+</com.p051p1.mobile.putong.core.p058ui.vip.privilegeNewUi.content.item.IntlPrivilegeDescListTitle>

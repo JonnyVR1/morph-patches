@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/post_group_view" android:background="@drawable/feed_post_guide_three_bg" android:layout_width="match_parent" android:layout_height="86.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" flatten="true" folder="newui" holder="photoalbum.postguide.FeedPostGuideThreeView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VText android:textSize="14.0sp" android:textColor="@color/feed_33000000" android:ellipsize="end" android:id="@id/post_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="19.0dp" android:layout_marginRight="16.0dp" android:text="发布动态认识更多新朋友" android:singleLine="true" />
+    <v.VLinear android:orientation="horizontal" android:id="@id/post_guide_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="14.0dp">
+        <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:scaleType="centerInside" />
+        <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:src="@null" android:scaleType="centerInside" />
+        <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:src="@null" android:scaleType="centerInside" />
+        <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:src="@null" android:scaleType="centerInside" />
+    </v.VLinear>
+</v.VLinear>

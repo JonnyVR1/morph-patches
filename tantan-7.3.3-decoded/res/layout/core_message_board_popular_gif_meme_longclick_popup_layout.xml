@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:id="@id/top_layout" android:background="@null" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:layout_alignParentTop="true">
+        <v.VDraweeView android:gravity="center" android:layout_gravity="center" android:id="@id/img" android:layout_width="94.0dp" android:layout_height="94.0dp" android:layout_marginLeft="25.0dp" android:layout_marginTop="25.0dp" android:layout_marginRight="25.0dp" fresco:actualImageScaleType="fitCenter" fresco:roundBottomLeft="true" fresco:roundBottomRight="true" fresco:roundTopLeft="true" fresco:roundTopRight="true" fresco:roundedCornerRadius="10.0dp" style="@style/core_im_fresco_base" />
+        <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginBottom="4.0dp">
+            <v.VText android:textSize="12.0sp" android:textColor="#212121" android:gravity="center" android:id="@id/add_btn" android:layout_width="68.0dp" android:layout_height="44.0dp" android:text="添加表情" android:singleLine="true" fresco:typeface="medium" />
+        </LinearLayout>
+    </LinearLayout>
+    <FrameLayout android:id="@id/arrow" android:background="@null" android:clipChildren="false" android:layout_width="12.0dp" android:layout_height="6.0dp" android:layout_marginTop="-4.0dp" android:layout_below="@id/top_layout" />
+</RelativeLayout>

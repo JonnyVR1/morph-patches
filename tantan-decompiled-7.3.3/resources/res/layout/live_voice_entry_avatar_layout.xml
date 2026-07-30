@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <com.p051p1.mobile.putong.p070ui.MultipleChatIconView
+        android:id="@+id/avatars"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <FrameLayout
+        android:id="@+id/tag_group"
+        android:padding="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:textSize="9sp"
+            android:gravity="center"
+            android:id="@+id/tag"
+            android:paddingTop="0.3dp"
+            android:paddingBottom="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:lines="1"
+            android:maxLength="8"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"/>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

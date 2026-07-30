@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemRecalled android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/date_header" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" layout="@layout/messages_item_date_header" />
+    <v.VText android:layout_gravity="center" android:id="@id/text" android:background="@drawable/messages_message_recall" android:layout_width="wrap_content" android:layout_height="wrap_content" style="@style/core_im_msg_cell_text_tips" />
+</com.p1.mobile.putong.core.ui.messages.ItemRecalled>

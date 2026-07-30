@@ -1,0 +1,12 @@
+package p149l;
+
+import android.os.IInterface;
+import android.os.RemoteException;
+import java.util.List;
+
+/* JADX INFO: loaded from: classes6.dex */
+public interface nbs0 extends IInterface {
+    String zzg() throws RemoteException;
+
+    List zzh() throws RemoteException;
+}

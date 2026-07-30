@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingEnd="14.0dp" folder="newui" holder="status.entrance.followheader.FeedStateHeaderItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <com.p1.mobile.putong.feed.newui.status.entrance.followheader.FeedVDraweeView android:id="@id/head" android:layout_width="48.0dp" android:layout_height="48.0dp" app:roundAsCircle="true" />
+        <TextView android:textSize="11.0sp" android:textStyle="bold" android:textColor="@color/feed_nearby_topic_color" android:ellipsize="end" android:layout_gravity="center" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:maxWidth="48.0dp" android:maxLines="1" />
+    </v.VLinear>
+    <v.VDraweeView android:id="@id/state_bg" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginLeft="26.0dp" android:layout_marginTop="23.0dp" />
+    <v.VDraweeView android:id="@id/state_bg_two" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginLeft="29.0dp" android:layout_marginTop="26.0dp" />
+    <v.VDraweeView android:id="@id/state" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginLeft="30.0dp" android:layout_marginTop="27.0dp" />
+</v.VFrame>

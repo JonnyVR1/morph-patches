@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.external.page.profile.myroom.view.MyRoomInProfileDoubleView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="112dp"
+    flatten="true"
+    folder="page.profile.myroom.view"
+    holder="MyRoomInProfileDoubleView">
+    <include
+        android:id="@+id/item1"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        android:layout_weight="1"
+        android:layout_marginStart="20dp"
+        layout="@layout/live_my_room_in_profile_audio_item"/>
+    <include
+        android:id="@+id/item2"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp"
+        layout="@layout/live_my_room_in_profile_video_item"/>
+</com.p051p1.mobile.putong.live.external.page.profile.myroom.view.MyRoomInProfileDoubleView>

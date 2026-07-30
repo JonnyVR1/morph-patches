@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:id="@id/popup_root" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content">
+            <v.VLinear android:orientation="vertical" android:id="@id/popup_normal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <v.VImage android:layout_gravity="center_vertical" android:id="@id/popup_image" android:layout_width="match_parent" android:layout_height="200.0dp" android:scaleType="center" />
+                    <v.VImage android:layout_gravity="right|top" android:id="@id/close" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_margin="16.0dp" android:src="@null" />
+                </v.VFrame>
+                <Space android:id="@id/popup_top_space" android:visibility="gone" android:layout_width="match_parent" android:layout_height="32.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                <v.VFrame android:id="@id/popup_custom_root" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/common_000000_80" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/popup_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginRight="32.0dp" android:maxLines="2" />
+                <v.VText android:textSize="14.0sp" android:textColor="@color/common_000000_40" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/popup_subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="16.0dp" android:lineSpacingMultiplier="1.2" />
+                <LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:id="@id/checkbox" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="12.0dp" android:layout_below="@id/tv_content">
+                    <v.VCheckBox android:id="@id/check" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginTop="3.0dp" android:checked="false" android:button="@null" style="@style/common_checkbox" />
+                    <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/common_000000_20" android:layout_gravity="center_vertical" android:id="@id/reminder" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="不再提示" android:layout_marginStart="4.0dp" />
+                </LinearLayout>
+            </v.VLinear>
+            <v.VLinear android:orientation="vertical" android:id="@id/popup_pagers" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <v.VPager android:id="@id/popup_pager" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="256.0dp" android:overScrollMode="never" />
+                <v.VPagerCircleIndicator android:layout_gravity="center_horizontal" android:id="@id/popup_indicator" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="16.0dp" app:fillColor="@color/common_orange" app:pageColor="@color/common_light_02" app:radius="3.5dp" />
+            </v.VLinear>
+        </v.VFrame>
+        <v.VButton android:ellipsize="end" android:id="@id/popup_positive_primary_button" android:layout_marginLeft="32.0dp" android:layout_marginRight="32.0dp" android:lines="1" style="@style/common_button_large_01" />
+        <v.VButton android:ellipsize="end" android:id="@id/popup_positive_secondary_button" android:layout_marginLeft="32.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="32.0dp" android:lines="1" style="@style/common_button_large_01" />
+        <v.VButton android:ellipsize="end" android:id="@id/popup_positive_third_button" android:visibility="gone" android:layout_marginLeft="32.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="32.0dp" android:lines="1" style="@style/common_button_large_05" />
+        <v.VText android:textSize="14.0sp" android:textColor="@color/common_000000_20" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/popup_negative" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="11.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="16.0dp" />
+        <Space android:id="@id/popup_bottom_space" android:layout_width="match_parent" android:layout_height="32.0dp" />
+    </LinearLayout>
+    <v.VText android:textSize="14.0sp" android:textColor="@color/common_000000_20" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/popup_bottom_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="12.0dp" android:lineSpacingMultiplier="1.2" />
+</LinearLayout>

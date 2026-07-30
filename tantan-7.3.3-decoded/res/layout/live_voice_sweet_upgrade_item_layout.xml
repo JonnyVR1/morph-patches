@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.intl.sweet.view.item.VoiceSweetUpgradeItemView android:background="@null" android:layout_width="86.0dp" android:layout_height="111.0dp" android:layout_marginLeft="3.0dp" android:layout_marginRight="3.0dp" flatten="true" holder="voice.intl.sweet.view.item.VoiceSweetUpgradeItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/drawee_view" android:layout_width="58.0dp" android:layout_height="58.0dp" android:layout_marginTop="17.0dp" android:layout_centerHorizontal="true" app:actualImageScaleType="centerInside" />
+    <v.VText android:textSize="12.0sp" android:textColor="#f8831c" android:gravity="center" android:id="@id/gift_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:layout_marginTop="1.0dp" android:layout_marginRight="2.0dp" android:layout_below="@id/drawee_view" android:layout_centerHorizontal="true" android:fontFamily="PingFangSC-Regular" />
+</com.p1.mobile.putong.live.livingroom.voice.intl.sweet.view.item.VoiceSweetUpgradeItemView>

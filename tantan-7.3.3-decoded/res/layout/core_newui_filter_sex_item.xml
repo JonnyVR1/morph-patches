@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.settings.filter.newui.NewFilterGenderItem android:background="@drawable/core_newui_filter_zodiacs_item_bg" android:clipChildren="false" android:layout_width="102.0dp" android:layout_height="102.0dp" attachToRoot="true" holder="settings.filter.newui.NewFilterGenderItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_horizontal" android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <v.VImage android:id="@id/img" android:layout_width="40.0dp" android:layout_height="40.0dp" android:src="@drawable/core_newfilter_choose_male_seletor" android:scaleType="centerCrop" />
+        <v.VText_AutoFit android:textSize="14.0sp" android:textColor="@color/core_newui_filter_check_text_color" android:ellipsize="end" android:gravity="center" android:id="@id/tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:singleLine="true" />
+    </LinearLayout>
+    <v.VImage android:layout_gravity="right" android:id="@id/choose_ic" android:visibility="invisible" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginTop="-12.0dp" android:layout_marginRight="-12.0dp" android:src="@null" android:scaleType="centerCrop" />
+</com.p1.mobile.putong.core.ui.settings.filter.newui.NewFilterGenderItem>

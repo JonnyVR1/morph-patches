@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.photoalbum.QAMomentPostBar android:orientation="vertical" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="photoalbum.QAMomentPostBar"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/state_fl" android:background="#ff5c31" android:layout_width="match_parent" android:layout_height="48.0dp" flatten="true">
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center_vertical" android:layout_gravity="left|center" android:id="@id/moment_upload_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginRight="96.0dp" android:text="@string/FEED_POST_FAILED_RETRY" android:maxLines="2" />
+        <ImageView android:layout_gravity="right|center" android:id="@id/moment_upload_retry" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="53.0dp" android:src="@null" />
+        <ImageView android:layout_gravity="right|center" android:id="@id/moment_upload_delete" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="16.0dp" android:src="@null" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/moment_upload_shadow" android:background="@drawable/feed_qa_topic_rect_rounded_progress_gradient" android:layout_width="match_parent" android:layout_height="48.0dp" flatten="true">
+        <ProgressBar android:layout_gravity="bottom" android:id="@id/moment_upload_progress" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="20.0dp" android:max="500" android:progress="0" android:progressDrawable="@drawable/feed_qa_topic_moment_upload_progress" style="?android:progressBarStyleHorizontal" />
+    </FrameLayout>
+</com.p1.mobile.putong.feed.newui.photoalbum.QAMomentPostBar>

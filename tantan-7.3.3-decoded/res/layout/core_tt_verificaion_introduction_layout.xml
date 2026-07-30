@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="verification.national.IntroductionViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <ScrollView android:background="#f7f7f7" android:paddingTop="16.0dp" android:paddingBottom="16.0dp" android:scrollbars="none" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1.0">
+        <LinearLayout android:orientation="vertical" android:background="@drawable/core_tantan_introduction_card_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp">
+            <v.VImage android:id="@id/img_content" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@null" android:scaleType="fitXY" />
+        </LinearLayout>
+    </ScrollView>
+    <Button android:textSize="16.0dp" android:textColor="#ffffff" android:gravity="center" android:id="@id/auth_btn" android:background="@color/common_orange" android:visibility="visible" android:layout_width="match_parent" android:layout_height="60.0dp" android:text="@string/VERIFICATION_STATE_BEGIN_IDENTIFICATION" android:layout_alignParentBottom="true" />
+</LinearLayout>

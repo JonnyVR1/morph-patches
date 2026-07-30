@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemPictureWithPayLeft android:orientation="vertical" android:id="@id/content" android:layout_width="210.0dp" android:layout_height="wrap_content" flatten="true" holder="messages.ItemPictureWithPayLeft"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:background="?message_bubble_bg_left" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <v.AutoVDraweeView android:id="@id/drawee_view" android:layout_width="210.0dp" android:layout_height="210.0dp" />
+            <v.AutoVDraweeView android:id="@id/image_2" android:visibility="gone" android:layout_width="108.0dp" android:layout_height="165.0dp" android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/other_infos" android:layout_width="210.0dp" android:layout_height="wrap_content" flatten="true">
+            <v.VText android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/common_black_02" android:ellipsize="end" android:id="@id/text_view" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:maxLines="3" android:lineSpacingExtra="1.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+            <RelativeLayout android:id="@id/pay_method" android:paddingLeft="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" flatten="true">
+                <v.VImage android:id="@id/pay_method_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:layout_marginTop="5.0dp" android:src="@null" android:scaleType="fitCenter" android:layout_centerVertical="true" />
+                <v.VText android:textSize="12.0sp" android:textColor="#80000000" android:gravity="center" android:id="@id/pay_method_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp" android:text="支付宝" android:drawablePadding="6.0dp" android:layout_toRightOf="@id/pay_method_icon" android:layout_centerVertical="true" app:typeface="medium" />
+                <ImageView android:id="@id/pay_method_arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="6.0dp" android:src="@null" android:scaleType="center" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <v.VText android:textSize="16.0dp" android:textColor="@color/common_orange" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/button" android:background="@drawable/core_message_action_btn_bg" android:layout_width="match_parent" android:layout_height="42.0dp" android:layout_marginTop="6.0dp" android:layout_marginBottom="16.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+            <v.VText android:textSize="14.0sp" android:textStyle="normal" android:textColor="#27000000" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/cancel" android:visibility="gone" android:layout_width="match_parent" android:layout_height="42.0dp" android:layout_marginTop="-12.0dp" android:layout_marginBottom="8.0dp" android:lineSpacingExtra="2.0sp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+        </LinearLayout>
+    </v.VLinear>
+    <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp">
+        <v.VCheckBox android:layout_gravity="center_vertical" android:id="@id/check" android:visibility="gone" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginRight="8.0dp" android:checked="false" style="@style/core_svip_year_checkbox" />
+        <v.VText android:textSize="10.0sp" android:textColor="#de000000" android:id="@id/agreement" android:layout_width="match_parent" android:layout_height="wrap_content" android:alpha="0.25" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.messages.ItemPictureWithPayLeft>

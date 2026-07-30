@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/live_bg_19191e_tr24" android:layout_width="match_parent" android:layout_height="234.0dp" app:bind_extends="com.p1.mobile.putong.live.livingroom.archi.dialogcenter.BaseDialogHolder" app:bind_implements="null" app:binding="true" app:flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView android:textSize="16.0sp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="21.0dp" android:layout_marginBottom="21.0dp" android:text="@string/LIVE_CALL_FINISH" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <include android:id="@id/crv_time" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" layout="@layout/live_call_result_common_view" />
+        <include android:id="@id/crv_heart" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" layout="@layout/live_call_result_common_view" />
+        <include android:id="@id/crv_add_fans" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" layout="@layout/live_call_result_common_view" />
+    </LinearLayout>
+    <TextView android:textSize="16.0sp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/tv_confirm" android:background="@drawable/live_bg_ff8817_r14" android:layout_width="match_parent" android:layout_height="50.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="40.0dp" android:layout_marginRight="20.0dp" android:text="@string/LIVE_CONFIRM" />
+    <View android:layout_width="match_parent" android:layout_height="33.0dp" />
+</LinearLayout>

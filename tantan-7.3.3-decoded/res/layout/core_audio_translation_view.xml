@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.AudioTranslationView android:background="@drawable/core_audio_translation_view_bg" android:paddingLeft="14.0dp" android:paddingTop="14.0dp" android:paddingRight="14.0dp" android:paddingBottom="14.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="41.0dp" holder="messages.AudioTranslationView" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <v.VText android:textSize="16.0sp" android:textStyle="normal" android:textColor="@color/core_msg_cell_left_text_color" android:layout_gravity="center_vertical" android:id="@id/translation_text" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:lineSpacingExtra="3.0sp" />
+        <ProgressBar android:layout_gravity="center_vertical" android:id="@id/translate_progress" style="@style/core_audio_translate_progress_style" />
+    </v.VFrame>
+</com.p1.mobile.putong.core.ui.messages.AudioTranslationView>

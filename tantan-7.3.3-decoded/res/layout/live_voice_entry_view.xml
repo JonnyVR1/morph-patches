@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.external.voiceslipcard.chatroom.LiveVoiceEntryView android:visibility="invisible" android:descendantFocusability="afterDescendants" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="voiceslipcard" holder="chatroom.LiveVoiceEntryView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/badge_layout" android:layout_below="@id/badge_layout" flatten="true">
+        <include android:layout_gravity="end|bottom" android:id="@id/content_origin_one" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="52.0dp" layout="@layout/live_layout_voice_activities_entry_origin_style_one" />
+        <include android:layout_gravity="end|bottom" android:id="@id/content_origin_two" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="70.0dp" layout="@layout/live_layout_voice_activities_entry_origin_style_two" />
+        <include android:layout_gravity="end|bottom" android:id="@id/content_read" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="70.0dp" layout="@layout/live_layout_voice_activities_entry_read" />
+        <include android:layout_gravity="end|bottom" android:id="@id/content_unread" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="70.0dp" layout="@layout/live_layout_voice_activities_entry_unread" />
+    </v.VFrame>
+    <v.VFrame android:id="@id/badge_layout" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="-22.0dp" android:layout_marginBottom="-20.0dp" flatten="true">
+        <v.VText android:textSize="13.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/badge_text" android:background="@drawable/live_shape_voice_activities_red_dot_text_bg" android:paddingLeft="6.0dp" android:paddingRight="6.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="24.0dp" android:minHeight="24.0dp" />
+        <v.VImage android:id="@id/badge_red_dot" android:padding="5.0dp" android:visibility="gone" android:layout_width="23.0dp" android:layout_height="23.0dp" app:srcCompat="@drawable/live_shape_circle_red_dot" />
+    </v.VFrame>
+</com.p1.mobile.putong.live.external.voiceslipcard.chatroom.LiveVoiceEntryView>

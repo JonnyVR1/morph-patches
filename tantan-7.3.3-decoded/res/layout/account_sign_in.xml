@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:clipChildren="false" holder="account.SignInViewModel" style="@style/account_account_root"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VScroll style="@style/account_account_scroll">
+        <LinearLayout style="@style/account_account_frame">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <v.VMaterialEdit_FakeSpinner android:id="@id/ccode" style="@style/account_account_spinner" />
+                <v.VMaterialEdit android:id="@id/username" android:hint="@string/SIGNUP_PHONE_NUMBER" style="@style/account_account_username" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp">
+                <v.VMaterialEdit android:id="@id/password" android:hint="@string/LOGIN_YOUR_PASSWORD" style="@style/account_account_password_free_length" />
+            </LinearLayout>
+            <v.VText android:textSize="14.0sp" android:layout_gravity="center_horizontal" android:id="@id/forget_password" android:padding="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:minHeight="0.0dp" android:hint="@string/LOGIN_FORGOT_PASSWORD" app:typeface="regular" />
+        </LinearLayout>
+    </v.VScroll>
+    <v.VButton_FakeShadow android:enabled="true" android:id="@id/sign_in" android:text="@string/LOGIN_SIGN_IN" style="@style/account_account_continue_button" />
+</LinearLayout>

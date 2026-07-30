@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.gift.packetgift.progress.view.PacketProgressView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="36dp"
+    flatten="true"
+    folder="increment"
+    holder="gift.packetgift.progress.view.PacketProgressView">
+    <include
+        android:id="@+id/countdownView"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/live_gift_dialog_packet_progress_countdown_view"/>
+    <include
+        android:id="@+id/progressBar"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/countdownView"
+        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/live_gift_dialog_packet_progress_bar_view"/>
+</com.p051p1.mobile.putong.live.livingroom.increment.gift.packetgift.progress.view.PacketProgressView>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.privilege.PurchaseDlgItemVisitorHideFootPrint android:gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="match_parent" holder="purchase.privilege.PurchaseDlgItemVisitorHideFootPrint"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/left" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_marginEnd="54.0dp" app:roundAsCircle="true" app:roundingBorderColor="#422c1d" app:roundingBorderWidth="4.0dp" />
+    <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/right" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_marginStart="54.0dp" app:roundAsCircle="true" app:roundingBorderColor="#422c1d" app:roundingBorderWidth="4.0dp" />
+    <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar" android:background="@null" android:padding="5.0dp" android:layout_width="89.0dp" android:layout_height="89.0dp" app:roundAsCircle="true" />
+    <v.VImage android:layout_gravity="center" android:layout_width="34.0dp" android:layout_height="34.0dp" android:layout_marginTop="36.0dp" android:src="@null" />
+</com.p1.mobile.putong.core.ui.purchase.privilege.PurchaseDlgItemVisitorHideFootPrint>

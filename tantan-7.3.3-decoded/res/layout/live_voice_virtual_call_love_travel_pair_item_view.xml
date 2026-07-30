@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.virtual.loveplanet.travel.VoiceVirtualLoveTeamInfoView android:clipChildren="false" android:layout_width="155.0dp" android:layout_height="155.0dp" flatten="true" holder="virtual.loveplanet.travel.VoiceVirtualLoveTeamInfoView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="center" android:id="@id/svga" android:layout_width="155.0dp" android:layout_height="155.0dp" />
+    <TextView android:textSize="10.0sp" android:textColor="@color/live_white" android:ellipsize="marquee" android:layout_gravity="center_horizontal" android:id="@id/tv_tips" android:background="@null" android:paddingTop="4.0dp" android:paddingBottom="8.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:paddingStart="6.0dp" android:paddingEnd="6.0dp" />
+    <TextView android:textSize="10.0sp" android:textStyle="bold" android:textColor="@color/live_FFFF16" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/tv_star_value" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_marginTop="28.0dp" />
+    <LinearLayout android:gravity="center" android:layout_gravity="center_horizontal" android:orientation="horizontal" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="48.0dp">
+        <include android:id="@id/user_info_left" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="-2.0dp" layout="@layout/live_voice_virtual_call_love_item_info_view" />
+        <include android:id="@id/user_info_right" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="-2.0dp" layout="@layout/live_voice_virtual_call_love_item_info_view" />
+    </LinearLayout>
+</com.p1.mobile.putong.live.livingroom.virtual.loveplanet.travel.VoiceVirtualLoveTeamInfoView>

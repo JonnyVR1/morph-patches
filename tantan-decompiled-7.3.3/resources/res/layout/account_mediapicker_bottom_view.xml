@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:id="@+id/white_bg"
+        android:background="@drawable/account_media_picker_bottom_bg"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <p151v.VImage
+        android:id="@+id/image_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:src="0x7f0801b3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <p151v.VText
+        android:textSize="14sp"
+        android:textColor="@color/common_black_02"
+        android:id="@+id/tv_camera_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SIGN_UP_IMAGE_UPLOAD_CONTENT"
+        app:layout_constraintBottom_toBottomOf="@+id/white_bg"
+        app:layout_constraintLeft_toRightOf="@+id/image_tip"
+        app:layout_constraintTop_toTopOf="@+id/white_bg"/>
+    <p151v.VButton_FakeShadow
+        android:enabled="true"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/common_white_01"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/start_camera"
+        android:background="@drawable/account_button_btn_orange_large"
+        android:visibility="gone"
+        android:layout_width="53dp"
+        android:layout_height="34dp"
+        android:layout_margin="16dp"
+        android:text="拍照"
+        app:layout_constraintBottom_toBottomOf="@+id/white_bg"
+        app:layout_constraintEnd_toEndOf="@+id/white_bg"
+        app:layout_constraintLeft_toRightOf="@+id/tv_camera_tip"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

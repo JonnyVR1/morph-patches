@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.view.bounty.PkBountyIndicatorView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:id="@+id/root"
+    android:layout_width="wrap_content"
+    android:layout_height="26dp"
+    flatten="true"
+    folder="recreation"
+    holder="pk.view.bounty.PkBountyIndicatorView">
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/light_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"/>
+    <com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.view.bounty.PkHorizontalMarqueeView
+        android:layout_gravity="center"
+        android:id="@+id/marquee_view"
+        android:focusable="true"
+        android:visibility="gone"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="14dp"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:singleLine="true"
+        android:requiresFadingEdge="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:marquee_text_color="#ffae25"
+        app:marquee_text_size="12"/>
+</com.p051p1.mobile.putong.live.livingroom.recreation.p067pk.view.bounty.PkBountyIndicatorView>

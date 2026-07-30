@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.fansclub.widget.LiveFansClubBigWigsUserItemView android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="68.0dp" flatten="true" folder="common.fansclub.widget" holder="LiveFansClubBigWigsUserItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="18.0sp" android:gravity="center" android:id="@id/rank_text" android:layout_width="30.0dp" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginStart="12.0dp" />
+    <v.VDraweeView android:id="@id/drawee_view" android:layout_width="48.0dp" android:layout_height="48.0dp" android:scaleType="fitXY" android:layout_centerVertical="true" android:layout_marginStart="48.0dp" app:roundAsCircle="true" />
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" android:layout_toStartOf="@id/score_text" android:layout_toEndOf="@id/drawee_view">
+        <v.VText android:textSize="14.0sp" android:textColor="#e6000000" android:ellipsize="end" android:id="@id/user_name_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="1" />
+        <View android:id="@id/fans_medal" android:visibility="gone" android:layout_width="50.0dp" android:layout_height="14.0dp" android:layout_marginTop="2.0dp" />
+    </LinearLayout>
+    <v.VText android:textSize="11.0sp" android:textColor="#ff8817" android:ellipsize="end" android:id="@id/score_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="150.0dp" android:layout_centerVertical="true" android:layout_marginEnd="20.0dp" android:layout_alignParentEnd="true" />
+</com.p1.mobile.putong.live.livingroom.common.fansclub.widget.LiveFansClubBigWigsUserItemView>

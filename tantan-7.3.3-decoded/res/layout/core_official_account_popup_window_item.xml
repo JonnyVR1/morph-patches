@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="14.0sp" android:textColor="#333333" android:gravity="center" android:id="@id/pop_item_textView" android:paddingLeft="10.0dp" android:paddingTop="12.0dp" android:paddingRight="10.0dp" android:paddingBottom="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxEms="10" android:singleLine="true" />
+    <View android:id="@id/pop_item_line" android:background="#e9e9e9" android:layout_width="match_parent" android:layout_height="0.5dp" android:layout_marginLeft="9.0dp" android:layout_marginRight="9.0dp" />
+</LinearLayout>

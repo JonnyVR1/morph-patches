@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.main.ConversationsPage xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="main.ConversationsPage">
+    <p151v.VRecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@color/transparent"
+        android:scrollingCache="false"
+        useId="true"/>
+</com.p051p1.mobile.putong.core.p058ui.main.ConversationsPage>

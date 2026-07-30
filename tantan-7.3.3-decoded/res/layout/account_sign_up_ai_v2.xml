@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent" holder="accountai.SignUpAiV2ViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VRelative android:id="@id/title_sign_up_ai_rl" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginBottom="8.0dp" app:layout_constraintTop_toTopOf="parent" flatten="true">
+        <com.p1.mobile.putong.account.ui.accountai.new2021.view.StepSeekBar android:id="@id/step_progress_view" android:layout_width="160.0dp" android:layout_height="6.0dp" android:layout_marginLeft="24.0dp" android:layout_marginRight="24.0dp" android:layout_marginBottom="8.0dp" android:max="4" android:progress="3" android:progressDrawable="@drawable/account_signup_progress_bg" android:thumb="@color/transparent" android:layout_centerInParent="true" />
+        <v.VImage android:id="@id/img_close" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" android:scaleType="fitCenter" android:layout_centerVertical="true" android:layout_marginStart="10.0dp" />
+        <v.VText android:textSize="16.0sp" android:textColor="@color/common_000000_40" android:id="@id/title_jump" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="跳过" android:layout_centerVertical="true" android:layout_marginEnd="20.0dp" android:layout_alignParentEnd="true" />
+    </v.VRelative>
+    <v.VScroll android:id="@id/scroll_sign_up_ai" android:scrollbars="vertical" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginTop="24.0dp" android:layout_marginBottom="20.0dp" android:fillViewport="true" app:layout_constraintBottom_toTopOf="@id/sign_up_continue" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/title_sign_up_ai_rl" flatten="true">
+        <v.VLinear android:orientation="vertical" android:id="@id/content_sign_up_ai" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <androidx.viewpager2.widget.ViewPager2 android:id="@id/sign_up_vp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        </v.VLinear>
+    </v.VScroll>
+    <v.VButton_FakeShadow android:id="@id/sign_up_continue" android:background="@drawable/common_button_btn_orange_medium_v2" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="20.0dp" android:text="确认" android:layout_marginHorizontal="20.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" style="@style/common_button_large_01" />
+</androidx.constraintlayout.widget.ConstraintLayout>

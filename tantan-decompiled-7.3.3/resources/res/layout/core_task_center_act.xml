@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <p151v.navigationbar.VNavigationBar
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        app:leftIcon="0x7f080387"/>
+    <p151v.VRecyclerView
+        android:id="@+id/list"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginRight="12dp"/>
+    <p151v.VFrame
+        android:id="@+id/error_view"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp">
+        <p151v.VImage
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/img_network_error"
+            android:layout_width="220dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/core_member_network_not_available"/>
+        <p151v.VText
+            android:textSize="14sp"
+            android:textColor="#323232"
+            android:gravity="center"
+            android:id="@+id/tv_network_tips"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="155dp"
+            android:layout_marginRight="28dp"
+            android:text="当前网络不可用"
+            app:typeface="medium"/>
+    </p151v.VFrame>
+</p151v.VFrame>

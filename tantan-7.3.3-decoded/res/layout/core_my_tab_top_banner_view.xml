@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.profile.newmine.newprofile.mytab.NotifyHeaderViewV2 android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="profile.newmine.newprofile.mytab.NotifyHeaderViewV2"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/banner" android:background="@drawable/core_my_tab_banner_bg" android:layout_width="match_parent" android:layout_height="36.0dp" android:layout_marginLeft="10.0dp" android:layout_marginRight="10.0dp" android:layout_marginHorizontal="10.0dp">
+        <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="12.0sp" android:textColor="@color/black" android:gravity="center" android:layout_gravity="center" android:id="@id/tips" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:drawablePadding="2.0dp" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.newui.profile.newmine.newprofile.mytab.NotifyHeaderViewV2>

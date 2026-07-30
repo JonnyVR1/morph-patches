@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="24.0dp" android:width="24.0dp" android:viewportWidth="24.0" android:viewportHeight="24.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <clip-path android:pathData="M-4.0919,14.1213L12.8787,-2.8492L29.8492,14.1213L12.8787,31.0919z" />
+        <path android:fillColor="#fff" android:pathData="M14.2929,7.0503c0.3627,-0.3627 0.9348,-0.3889 1.3265,-0.0778L15.7071,7.0503l4.2426,4.2426c0.3627,0.3627 0.3889,0.9348 0.0778,1.3265L19.9497,12.7071l-4.2426,4.2426c-0.3903,0.3903 -1.0239,0.3903 -1.4142,-0 -0.3627,-0.3627 -0.3889,-0.9348 -0.0778,-1.3265L14.2929,15.5355l2.5357,-2.5357l-5.8287,0.0007c-0.5515,-0 -0.9998,-0.4483 -1.0006,-1.0006 0.0007,-0.5523 0.4483,-0.9998 1.0006,-1.0006L16.8286,11.0002L14.2929,8.4645c-0.3627,-0.3627 -0.3889,-0.9348 -0.0778,-1.3265L14.2929,7.0503z" android:fillType="evenOdd" />
+    </group>
+    <group>
+        <clip-path android:pathData="M0,0H24V24H0z" />
+        <path android:fillColor="#fff" android:pathData="M5,5L12,5A1,1 0,0 1,13 6L13,6A1,1 0,0 1,12 7L5,7A1,1 0,0 1,4 6L4,6A1,1 0,0 1,5 5z" android:fillType="evenOdd" />
+    </group>
+    <group>
+        <clip-path android:pathData="M0,0H24V24H0z" />
+        <path android:fillColor="#fff" android:pathData="M5,17L12,17A1,1 0,0 1,13 18L13,18A1,1 0,0 1,12 19L5,19A1,1 0,0 1,4 18L4,18A1,1 0,0 1,5 17z" android:fillType="evenOdd" />
+    </group>
+    <group>
+        <clip-path android:pathData="M0,0H24V24H0z" />
+        <path android:fillColor="#fff" android:pathData="M5,5L5,5A1,1 0,0 1,6 6L6,18A1,1 0,0 1,5 19L5,19A1,1 0,0 1,4 18L4,6A1,1 0,0 1,5 5z" android:fillType="evenOdd" />
+    </group>
+</vector>

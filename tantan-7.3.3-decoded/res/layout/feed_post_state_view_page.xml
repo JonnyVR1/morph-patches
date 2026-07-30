@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center" android:id="@id/root_view" android:background="@drawable/feed_tab_post_icon_bg" android:layout_width="wrap_content" android:layout_height="34.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VDraweeView android:id="@id/status_send_img" android:visibility="visible" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="4.0dp" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/status_send_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:text="@string/FEED_STAT_SEND" />
+</v.VLinear>

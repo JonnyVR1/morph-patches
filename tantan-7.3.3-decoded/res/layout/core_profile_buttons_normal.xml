@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center|bottom" android:id="@id/root" android:paddingLeft="0.0dp" android:paddingTop="0.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="142.0dp" flatten="true" holder="profile.profilelist.buttons.layout.NormalButtonLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:layout_gravity="bottom" android:id="@id/buttons_bg" android:background="@drawable/core_profile_buttons_bg_expand" android:layout_width="match_parent" android:layout_height="142.0dp" />
+    <v.VLinear android:layout_gravity="center|bottom" android:id="@id/like_and_dislike_refactor" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8.0dp">
+        <v.VLinear android:id="@id/btn_wrapper" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" flatten="true">
+            <RelativeLayout android:layout_gravity="center" android:id="@id/dislike_shadow" android:background="@drawable/core_card_profile_expand_btn_bg" android:layout_width="52.0dp" android:layout_height="52.0dp" flatten="true">
+                <v.VImage android:id="@id/dislike_icon" android:layout_width="50.0dp" android:layout_height="50.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+            </RelativeLayout>
+            <RelativeLayout android:layout_gravity="center" android:id="@id/superlike_shadow" android:background="@drawable/core_card_profile_expand_btn_bg" android:layout_width="52.0dp" android:layout_height="52.0dp" flatten="true">
+                <v.VImage android:id="@id/superlike_btn" android:layout_width="50.0dp" android:layout_height="50.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+            </RelativeLayout>
+            <RelativeLayout android:layout_gravity="center" android:id="@id/like_shadow" android:background="@drawable/core_card_profile_expand_btn_bg" android:layout_width="52.0dp" android:layout_height="52.0dp" flatten="true">
+                <v.VImage android:id="@id/like_icon" android:layout_width="50.0dp" android:layout_height="50.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+            </RelativeLayout>
+            <v.VLinear android:gravity="center" android:layout_gravity="center|bottom" android:orientation="horizontal" android:id="@id/match" android:background="@drawable/core_card_btn_match_bg" android:paddingRight="20.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="50.0dp" android:layout_marginBottom="1.0dp" android:minWidth="122.0dp" android:paddingStart="20.0dp" android:elevation="1.0dp" flatten="true">
+                <v.VImage android:layout_gravity="center" android:layout_width="28.0dp" android:layout_height="28.0dp" android:src="@null" android:scaleType="centerCrop" />
+                <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="16.0sp" android:textColor="#f9e7ff" android:gravity="center" android:id="@id/match_remaining_switch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/INTL_TTC_INSTANT_MATCH_BTN" android:layout_marginStart="6.0dp" />
+            </v.VLinear>
+            <RelativeLayout android:layout_gravity="center|bottom" android:id="@id/chat_shadow" android:background="@drawable/core_card_profile_expand_btn_bg" android:visibility="gone" android:layout_width="106.0dp" android:layout_height="50.0dp" android:layout_marginBottom="1.0dp" flatten="true">
+                <v.VImage android:id="@id/chat_icon" android:layout_width="50.0dp" android:layout_height="50.0dp" android:src="@null" android:layout_centerInParent="true" />
+            </RelativeLayout>
+        </v.VLinear>
+    </v.VLinear>
+</FrameLayout>

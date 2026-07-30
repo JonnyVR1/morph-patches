@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/root" android:background="@drawable/core_bg_20_ffffff" android:paddingLeft="24.0dp" android:paddingTop="24.0dp" android:paddingRight="24.0dp" android:paddingBottom="30.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" flatten="true" folder="newui" holder="home.card.expanded.holder.ProfileComplimentCardExpandedHolder"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="14.0sp" android:textColor="@color/core_color_50percent_000000" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/INTL_PROFILE_COMPLIMENT_TITLE" />
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/input_mock_container" android:background="@drawable/core_bg_compliment_input_mock" android:paddingLeft="16.0dp" android:paddingRight="12.0dp" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="14.0dp">
+        <v.VImage android:id="@id/compliment_icon" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="centerInside" />
+        <v.VText_NoTopPadding android:textSize="15.0sp" android:textColor="#66000000" android:id="@id/input_placeholder" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/INTL_COMPLIMENT_VIEW_INPUT_PLACEHOLDER" android:layout_weight="1.0" android:layout_marginStart="10.0dp" />
+    </LinearLayout>
+</v.VLinear>

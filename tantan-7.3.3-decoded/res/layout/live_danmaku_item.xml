@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.chat.danmaku.show.DanmakuItem android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/root" android:layout_width="wrap_content" android:layout_height="32.0dp" android:paddingStart="3.0dp" android:paddingEnd="6.0dp" flatten="true" folder="common.chat.danmaku.show" holder="DanmakuItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.live.livingroom.common.avatar.CommonMaskAvatarView android:id="@id/avatar" android:layout_width="27.0dp" android:layout_height="27.0dp" />
+    <View android:layout_width="1.0dp" android:layout_height="5.0dp" />
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <v.VText android:textSize="13.0sp" android:textColor="@color/live_white_80_opacity" android:ellipsize="end" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="118.0dp" android:maxLines="1" />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/live_white_40_opacity" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=": " />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/white" android:ellipsize="end" android:id="@id/message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:maxLength="44" app:enableApngEmojis="true" app:enableEmojis="true" app:largeEmojis="true" />
+    </LinearLayout>
+    <com.immomo.svgaplayer.view.MomoSVGAImageView android:layout_gravity="center_vertical" android:id="@id/emoji" android:layout_width="27.0dp" android:layout_height="27.0dp" android:layout_marginLeft="3.0dp" />
+    <View android:layout_width="3.0dp" android:layout_height="1.0dp" />
+</com.p1.mobile.putong.live.livingroom.common.chat.danmaku.show.DanmakuItem>

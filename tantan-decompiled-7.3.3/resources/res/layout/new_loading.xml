@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.idv.identity.platform.iOSLoadingView
+        android:id="@+id/iOSLoadingView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+    <TextView
+        android:textSize="14dp"
+        android:textColor="#000000"
+        android:gravity="center_horizontal"
+        android:id="@+id/identity_loading_frame_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/identity_final_handleing"/>
+</LinearLayout>

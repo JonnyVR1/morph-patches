@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:paddingLeft="24.0dp" android:paddingTop="16.0dp" android:paddingRight="24.0dp" android:paddingBottom="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <ImageView android:background="@drawable/changelog_dot" android:layout_width="16.0dp" android:layout_height="16.0dp" />
+        <v.VText android:textAppearance="@style/common_text_style_body_01_b_m" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp">
+        <v.VText android:background="#dedede" android:layout_width="1.0dp" android:layout_height="match_parent" android:layout_marginLeft="8.0dp" />
+        <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" />
+    </LinearLayout>
+</LinearLayout>

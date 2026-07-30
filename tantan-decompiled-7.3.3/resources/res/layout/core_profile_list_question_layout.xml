@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear_Dividers xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/questions"
+    holder="profile.profilelist.itemholders.ProfileQuestionItemHolder"
+    style="@style/profile_item_frame_no_padding">
+    <p151v.VText
+        android:id="@+id/profile_item_title_questions_txt"
+        android:text="@string/PROFILE_SECTION_HEADER_QUESTIONS"
+        style="@style/profile_item_title"/>
+    <p151v.VText
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:id="@+id/add"
+        android:background="@drawable/tf_rect_light"
+        android:paddingLeft="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minHeight="48dp"
+        android:hint="@string/PROFILE_ANSWERS_ADD_NEW"
+        app:typeface="regular"/>
+</p151v.VLinear_Dividers>

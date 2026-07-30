@@ -1,0 +1,589 @@
+package com.p000p1.mobile.putong.data;
+
+import androidx.annotation.NonNull;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.protobuf.nano.CodedOutputByteBufferNano;
+import com.google.protobuf.nano.MessageNano;
+import com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter;
+import com.tantanapp.common.data.BaseData;
+import com.tantanapp.common.data.DataChecker;
+import com.tantanapp.common.data.JsonAdapter;
+import com.tantanapp.common.data.MessageNanoAdapter;
+import com.tantanapp.common.data.ProtobufAdapter;
+import com.tantanapp.common.data.ProtobufIndex;
+import com.tantanapp.common.data.ValueObject;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import l.nb5;
+
+/* JADX INFO: loaded from: /tmp/tantan-dex/classes12.dex */
+public class UserLiveLabel extends ValueObject implements Cloneable, Serializable {
+    public static final String LIVE_MULTI_CALL = "onMultiCall";
+    public static final String LIVE_ON_CALL_STATE = "onCall";
+    public static final String LIVE_STATE = "onLive";
+    public static final String TYPE = "userlivelabel";
+    public static final String VOICE_STATE = "onVoice";
+
+    @NonNull
+    @ProtobufIndex(index = 9)
+    public String anchorId;
+
+    @NonNull
+    @ProtobufIndex(index = 5)
+    public String buttonTitle;
+
+    @NonNull
+    @ProtobufIndex(index = 11)
+    public String groupId;
+
+    @NonNull
+    @ProtobufIndex(index = 3)
+    public String iconTitle;
+
+    @NonNull
+    @ProtobufIndex(index = 6)
+    public String liveId;
+
+    @NonNull
+    @ProtobufIndex(index = 8)
+    public String liveState;
+
+    @NonNull
+    @ProtobufIndex(index = 1)
+    public String mainTitle;
+
+    @NonNull
+    @ProtobufIndex(index = 12)
+    public LiveMultiCallInfoInLabel multiCallInfo;
+
+    @ProtobufIndex(index = 7)
+    public boolean ongoingCall;
+
+    @NonNull
+    @ProtobufIndex(index = 13)
+    public String schema;
+
+    @NonNull
+    @ProtobufIndex(index = 2)
+    public String subTitle;
+
+    @NonNull
+    @ProtobufIndex(index = 4)
+    public String userId;
+
+    @NonNull
+    @ProtobufIndex(index = 10)
+    public String voiceRoomTopicId;
+    public static ProtobufAdapter<UserLiveLabel> PROTOBUF_ADAPTER = new MessageNanoAdapter<UserLiveLabel>() { // from class: com.p1.mobile.putong.data.UserLiveLabel.1
+        {
+            ((ProtobufAdapter) this).wireFormat = 2;
+        }
+
+        public int computeAndCacheSize(UserLiveLabel userLiveLabel) {
+            String str = userLiveLabel.mainTitle;
+            int iO = str != null ? CodedOutputByteBufferNano.o(1, str) : 0;
+            String str2 = userLiveLabel.subTitle;
+            if (str2 != null) {
+                iO += CodedOutputByteBufferNano.o(2, str2);
+            }
+            String str3 = userLiveLabel.iconTitle;
+            if (str3 != null) {
+                iO += CodedOutputByteBufferNano.o(3, str3);
+            }
+            String str4 = userLiveLabel.userId;
+            if (str4 != null) {
+                iO += CodedOutputByteBufferNano.o(4, str4);
+            }
+            String str5 = userLiveLabel.buttonTitle;
+            if (str5 != null) {
+                iO += CodedOutputByteBufferNano.o(5, str5);
+            }
+            String str6 = userLiveLabel.liveId;
+            if (str6 != null) {
+                iO += CodedOutputByteBufferNano.o(6, str6);
+            }
+            int iB = iO + CodedOutputByteBufferNano.b(7, userLiveLabel.ongoingCall);
+            String str7 = userLiveLabel.liveState;
+            if (str7 != null) {
+                iB += CodedOutputByteBufferNano.o(8, str7);
+            }
+            String str8 = userLiveLabel.anchorId;
+            if (str8 != null) {
+                iB += CodedOutputByteBufferNano.o(9, str8);
+            }
+            String str9 = userLiveLabel.voiceRoomTopicId;
+            if (str9 != null) {
+                iB += CodedOutputByteBufferNano.o(10, str9);
+            }
+            String str10 = userLiveLabel.groupId;
+            if (str10 != null) {
+                iB += CodedOutputByteBufferNano.o(11, str10);
+            }
+            LiveMultiCallInfoInLabel liveMultiCallInfoInLabel = userLiveLabel.multiCallInfo;
+            if (liveMultiCallInfoInLabel != null) {
+                iB += CodedOutputByteBufferNano.l(12, liveMultiCallInfoInLabel, LiveMultiCallInfoInLabel.PROTOBUF_ADAPTER);
+            }
+            String str11 = userLiveLabel.schema;
+            if (str11 != null) {
+                iB += CodedOutputByteBufferNano.o(13, str11);
+            }
+            ((MessageNano) userLiveLabel).cachedSize = iB;
+            return iB;
+        }
+
+        /* JADX INFO: renamed from: parse, reason: merged with bridge method [inline-methods] */
+        public UserLiveLabel m19184parse(nb5 nb5Var) throws IOException {
+            UserLiveLabel userLiveLabel = new UserLiveLabel();
+            while (true) {
+                switch (nb5Var.u()) {
+                    case 0:
+                        if (userLiveLabel.mainTitle == null) {
+                            userLiveLabel.mainTitle = "";
+                        }
+                        if (userLiveLabel.subTitle == null) {
+                            userLiveLabel.subTitle = "";
+                        }
+                        if (userLiveLabel.iconTitle == null) {
+                            userLiveLabel.iconTitle = "";
+                        }
+                        if (userLiveLabel.userId == null) {
+                            userLiveLabel.userId = "";
+                        }
+                        if (userLiveLabel.buttonTitle == null) {
+                            userLiveLabel.buttonTitle = "";
+                        }
+                        if (userLiveLabel.liveId == null) {
+                            userLiveLabel.liveId = "";
+                        }
+                        if (userLiveLabel.liveState == null) {
+                            userLiveLabel.liveState = "";
+                        }
+                        if (userLiveLabel.anchorId == null) {
+                            userLiveLabel.anchorId = "";
+                        }
+                        if (userLiveLabel.voiceRoomTopicId == null) {
+                            userLiveLabel.voiceRoomTopicId = "";
+                        }
+                        if (userLiveLabel.groupId == null) {
+                            userLiveLabel.groupId = "";
+                        }
+                        if (userLiveLabel.multiCallInfo == null) {
+                            userLiveLabel.multiCallInfo = LiveMultiCallInfoInLabel.new_();
+                        }
+                        if (userLiveLabel.schema == null) {
+                            userLiveLabel.schema = "";
+                        }
+                        break;
+                    case 10:
+                        userLiveLabel.mainTitle = nb5Var.s();
+                        continue;
+                    case 18:
+                        userLiveLabel.subTitle = nb5Var.s();
+                        continue;
+                    case 26:
+                        userLiveLabel.iconTitle = nb5Var.s();
+                        continue;
+                    case 34:
+                        userLiveLabel.userId = nb5Var.s();
+                        continue;
+                    case 42:
+                        userLiveLabel.buttonTitle = nb5Var.s();
+                        continue;
+                    case 50:
+                        userLiveLabel.liveId = nb5Var.s();
+                        continue;
+                    case 56:
+                        userLiveLabel.ongoingCall = nb5Var.g();
+                        continue;
+                    case 66:
+                        userLiveLabel.liveState = nb5Var.s();
+                        continue;
+                    case 74:
+                        userLiveLabel.anchorId = nb5Var.s();
+                        continue;
+                    case 82:
+                        userLiveLabel.voiceRoomTopicId = nb5Var.s();
+                        continue;
+                    case 90:
+                        userLiveLabel.groupId = nb5Var.s();
+                        continue;
+                    case 98:
+                        userLiveLabel.multiCallInfo = (LiveMultiCallInfoInLabel) nb5Var.l(LiveMultiCallInfoInLabel.PROTOBUF_ADAPTER);
+                        continue;
+                    case 106:
+                        userLiveLabel.schema = nb5Var.s();
+                        continue;
+                    default:
+                        if (userLiveLabel.mainTitle == null) {
+                            userLiveLabel.mainTitle = "";
+                        }
+                        if (userLiveLabel.subTitle == null) {
+                            userLiveLabel.subTitle = "";
+                        }
+                        if (userLiveLabel.iconTitle == null) {
+                            userLiveLabel.iconTitle = "";
+                        }
+                        if (userLiveLabel.userId == null) {
+                            userLiveLabel.userId = "";
+                        }
+                        if (userLiveLabel.buttonTitle == null) {
+                            userLiveLabel.buttonTitle = "";
+                        }
+                        if (userLiveLabel.liveId == null) {
+                            userLiveLabel.liveId = "";
+                        }
+                        if (userLiveLabel.liveState == null) {
+                            userLiveLabel.liveState = "";
+                        }
+                        if (userLiveLabel.anchorId == null) {
+                            userLiveLabel.anchorId = "";
+                        }
+                        if (userLiveLabel.voiceRoomTopicId == null) {
+                            userLiveLabel.voiceRoomTopicId = "";
+                        }
+                        if (userLiveLabel.groupId == null) {
+                            userLiveLabel.groupId = "";
+                        }
+                        if (userLiveLabel.multiCallInfo == null) {
+                            userLiveLabel.multiCallInfo = LiveMultiCallInfoInLabel.new_();
+                        }
+                        if (userLiveLabel.schema == null) {
+                            userLiveLabel.schema = "";
+                            return userLiveLabel;
+                        }
+                        break;
+                }
+            }
+            return userLiveLabel;
+        }
+
+        public void serialize(UserLiveLabel userLiveLabel, CodedOutputByteBufferNano codedOutputByteBufferNano) throws IOException {
+            String str = userLiveLabel.mainTitle;
+            if (str != null) {
+                codedOutputByteBufferNano.R(1, str);
+            }
+            String str2 = userLiveLabel.subTitle;
+            if (str2 != null) {
+                codedOutputByteBufferNano.R(2, str2);
+            }
+            String str3 = userLiveLabel.iconTitle;
+            if (str3 != null) {
+                codedOutputByteBufferNano.R(3, str3);
+            }
+            String str4 = userLiveLabel.userId;
+            if (str4 != null) {
+                codedOutputByteBufferNano.R(4, str4);
+            }
+            String str5 = userLiveLabel.buttonTitle;
+            if (str5 != null) {
+                codedOutputByteBufferNano.R(5, str5);
+            }
+            String str6 = userLiveLabel.liveId;
+            if (str6 != null) {
+                codedOutputByteBufferNano.R(6, str6);
+            }
+            codedOutputByteBufferNano.A(7, userLiveLabel.ongoingCall);
+            String str7 = userLiveLabel.liveState;
+            if (str7 != null) {
+                codedOutputByteBufferNano.R(8, str7);
+            }
+            String str8 = userLiveLabel.anchorId;
+            if (str8 != null) {
+                codedOutputByteBufferNano.R(9, str8);
+            }
+            String str9 = userLiveLabel.voiceRoomTopicId;
+            if (str9 != null) {
+                codedOutputByteBufferNano.R(10, str9);
+            }
+            String str10 = userLiveLabel.groupId;
+            if (str10 != null) {
+                codedOutputByteBufferNano.R(11, str10);
+            }
+            LiveMultiCallInfoInLabel liveMultiCallInfoInLabel = userLiveLabel.multiCallInfo;
+            if (liveMultiCallInfoInLabel != null) {
+                codedOutputByteBufferNano.K(12, liveMultiCallInfoInLabel, LiveMultiCallInfoInLabel.PROTOBUF_ADAPTER);
+            }
+            String str11 = userLiveLabel.schema;
+            if (str11 != null) {
+                codedOutputByteBufferNano.R(13, str11);
+            }
+        }
+    };
+    public static JsonAdapter<UserLiveLabel> JSON_ADAPTER = new ObjectJsonAdapter<UserLiveLabel>() { // from class: com.p1.mobile.putong.data.UserLiveLabel.2
+        public Class getDataClass() {
+            return UserLiveLabel.class;
+        }
+
+        @Override // com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        /* JADX INFO: renamed from: newInstance */
+        public UserLiveLabel mo17830newInstance() {
+            return new UserLiveLabel();
+        }
+
+        public boolean parseField(UserLiveLabel userLiveLabel, String str, JsonParser jsonParser, String str2, ArrayList<BaseData> arrayList, DataChecker dataChecker) throws IOException {
+            str.getClass();
+            switch (str) {
+                case "subTitle":
+                    userLiveLabel.subTitle = jsonParser.getValueAsString();
+                    return true;
+                case "buttonTitle":
+                    userLiveLabel.buttonTitle = jsonParser.getValueAsString();
+                    return true;
+                case "iconTitle":
+                    userLiveLabel.iconTitle = jsonParser.getValueAsString();
+                    return true;
+                case "ongoingCall":
+                    userLiveLabel.ongoingCall = jsonParser.getValueAsBoolean();
+                    return true;
+                case "liveId":
+                    userLiveLabel.liveId = jsonParser.getValueAsString();
+                    return true;
+                case "anchorId":
+                    userLiveLabel.anchorId = jsonParser.getValueAsString();
+                    return true;
+                case "schema":
+                    userLiveLabel.schema = jsonParser.getValueAsString();
+                    return true;
+                case "userId":
+                    userLiveLabel.userId = jsonParser.getValueAsString();
+                    return true;
+                case "mainTitle":
+                    userLiveLabel.mainTitle = jsonParser.getValueAsString();
+                    return true;
+                case "groupId":
+                    userLiveLabel.groupId = jsonParser.getValueAsString();
+                    return true;
+                case "voiceRoomTopicId":
+                    userLiveLabel.voiceRoomTopicId = jsonParser.getValueAsString();
+                    return true;
+                case "liveState":
+                    userLiveLabel.liveState = jsonParser.getValueAsString();
+                    return true;
+                case "multiCallInfo":
+                    userLiveLabel.multiCallInfo = (LiveMultiCallInfoInLabel) LiveMultiCallInfoInLabel.JSON_ADAPTER.parse(jsonParser, str2, arrayList, dataChecker);
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public boolean parseFieldCheck(UserLiveLabel userLiveLabel, String str, JsonParser jsonParser, String str2, ArrayList<BaseData> arrayList, DataChecker dataChecker) {
+            str.getClass();
+            switch (str) {
+                case "subTitle":
+                case "buttonTitle":
+                case "iconTitle":
+                case "ongoingCall":
+                case "liveId":
+                case "anchorId":
+                case "schema":
+                case "userId":
+                case "mainTitle":
+                case "groupId":
+                case "voiceRoomTopicId":
+                case "liveState":
+                case "multiCallInfo":
+                    return true;
+                default:
+                    return super.parseFieldCheck(userLiveLabel, str, jsonParser, str2, arrayList, dataChecker);
+            }
+        }
+
+        @Override // com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public void serializeFields(UserLiveLabel userLiveLabel, JsonGenerator jsonGenerator) throws IOException {
+            String str = userLiveLabel.mainTitle;
+            if (str != null) {
+                jsonGenerator.writeStringField("mainTitle", str);
+            }
+            String str2 = userLiveLabel.subTitle;
+            if (str2 != null) {
+                jsonGenerator.writeStringField("subTitle", str2);
+            }
+            String str3 = userLiveLabel.iconTitle;
+            if (str3 != null) {
+                jsonGenerator.writeStringField("iconTitle", str3);
+            }
+            String str4 = userLiveLabel.userId;
+            if (str4 != null) {
+                jsonGenerator.writeStringField("userId", str4);
+            }
+            String str5 = userLiveLabel.buttonTitle;
+            if (str5 != null) {
+                jsonGenerator.writeStringField("buttonTitle", str5);
+            }
+            String str6 = userLiveLabel.liveId;
+            if (str6 != null) {
+                jsonGenerator.writeStringField("liveId", str6);
+            }
+            jsonGenerator.writeBooleanField("ongoingCall", userLiveLabel.ongoingCall);
+            String str7 = userLiveLabel.liveState;
+            if (str7 != null) {
+                jsonGenerator.writeStringField("liveState", str7);
+            }
+            String str8 = userLiveLabel.anchorId;
+            if (str8 != null) {
+                jsonGenerator.writeStringField("anchorId", str8);
+            }
+            String str9 = userLiveLabel.voiceRoomTopicId;
+            if (str9 != null) {
+                jsonGenerator.writeStringField("voiceRoomTopicId", str9);
+            }
+            String str10 = userLiveLabel.groupId;
+            if (str10 != null) {
+                jsonGenerator.writeStringField("groupId", str10);
+            }
+            if (userLiveLabel.multiCallInfo != null) {
+                jsonGenerator.writeFieldName("multiCallInfo");
+                LiveMultiCallInfoInLabel.JSON_ADAPTER.serialize(userLiveLabel.multiCallInfo, jsonGenerator, true);
+            }
+            String str11 = userLiveLabel.schema;
+            if (str11 != null) {
+                jsonGenerator.writeStringField(OfficialAccountActionType.schema, str11);
+            }
+        }
+
+        @Override // com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public /* bridge */ /* synthetic */ boolean parseFieldCheck(ValueObject valueObject, String str, JsonParser jsonParser, String str2, ArrayList arrayList, DataChecker dataChecker) {
+            return parseFieldCheck((UserLiveLabel) valueObject, str, jsonParser, str2, (ArrayList<BaseData>) arrayList, dataChecker);
+        }
+
+        @Override // com.p000p1.mobile.putong.dbcenter.parse.ObjectJsonAdapter
+        public /* bridge */ /* synthetic */ boolean parseField(ValueObject valueObject, String str, JsonParser jsonParser, String str2, ArrayList arrayList, DataChecker dataChecker) throws IOException {
+            return parseField((UserLiveLabel) valueObject, str, jsonParser, str2, (ArrayList<BaseData>) arrayList, dataChecker);
+        }
+    };
+
+    public static UserLiveLabel new_() {
+        UserLiveLabel userLiveLabel = new UserLiveLabel();
+        userLiveLabel.nullCheck();
+        return userLiveLabel;
+    }
+
+    /* JADX INFO: renamed from: clone, reason: collision with other method in class and merged with bridge method [inline-methods] and merged with bridge method [inline-methods] */
+    public UserLiveLabel m19183clone() {
+        UserLiveLabel userLiveLabel = new UserLiveLabel();
+        userLiveLabel.mainTitle = this.mainTitle;
+        userLiveLabel.subTitle = this.subTitle;
+        userLiveLabel.iconTitle = this.iconTitle;
+        userLiveLabel.userId = this.userId;
+        userLiveLabel.buttonTitle = this.buttonTitle;
+        userLiveLabel.liveId = this.liveId;
+        userLiveLabel.ongoingCall = this.ongoingCall;
+        userLiveLabel.liveState = this.liveState;
+        userLiveLabel.anchorId = this.anchorId;
+        userLiveLabel.voiceRoomTopicId = this.voiceRoomTopicId;
+        userLiveLabel.groupId = this.groupId;
+        LiveMultiCallInfoInLabel liveMultiCallInfoInLabel = this.multiCallInfo;
+        if (liveMultiCallInfoInLabel != null) {
+            userLiveLabel.multiCallInfo = liveMultiCallInfoInLabel.m18354clone();
+        }
+        userLiveLabel.schema = this.schema;
+        return userLiveLabel;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof UserLiveLabel)) {
+            return false;
+        }
+        UserLiveLabel userLiveLabel = (UserLiveLabel) obj;
+        return ValueObject.util_equals(this.mainTitle, userLiveLabel.mainTitle) && ValueObject.util_equals(this.subTitle, userLiveLabel.subTitle) && ValueObject.util_equals(this.iconTitle, userLiveLabel.iconTitle) && ValueObject.util_equals(this.userId, userLiveLabel.userId) && ValueObject.util_equals(this.buttonTitle, userLiveLabel.buttonTitle) && ValueObject.util_equals(this.liveId, userLiveLabel.liveId) && this.ongoingCall == userLiveLabel.ongoingCall && ValueObject.util_equals(this.liveState, userLiveLabel.liveState) && ValueObject.util_equals(this.anchorId, userLiveLabel.anchorId) && ValueObject.util_equals(this.voiceRoomTopicId, userLiveLabel.voiceRoomTopicId) && ValueObject.util_equals(this.groupId, userLiveLabel.groupId) && ValueObject.util_equals(this.multiCallInfo, userLiveLabel.multiCallInfo) && ValueObject.util_equals(this.schema, userLiveLabel.schema);
+    }
+
+    public String getClassParseName() {
+        return TYPE;
+    }
+
+    public int hashCode() {
+        int i = ((ValueObject) this).hashCode;
+        if (i != 0) {
+            return i;
+        }
+        int i2 = i * 41;
+        String str = this.mainTitle;
+        int iHashCode = (i2 + (str != null ? str.hashCode() : 0)) * 41;
+        String str2 = this.subTitle;
+        int iHashCode2 = (iHashCode + (str2 != null ? str2.hashCode() : 0)) * 41;
+        String str3 = this.iconTitle;
+        int iHashCode3 = (iHashCode2 + (str3 != null ? str3.hashCode() : 0)) * 41;
+        String str4 = this.userId;
+        int iHashCode4 = (iHashCode3 + (str4 != null ? str4.hashCode() : 0)) * 41;
+        String str5 = this.buttonTitle;
+        int iHashCode5 = (iHashCode4 + (str5 != null ? str5.hashCode() : 0)) * 41;
+        String str6 = this.liveId;
+        int iHashCode6 = (((iHashCode5 + (str6 != null ? str6.hashCode() : 0)) * 41) + (this.ongoingCall ? 1231 : 1237)) * 41;
+        String str7 = this.liveState;
+        int iHashCode7 = (iHashCode6 + (str7 != null ? str7.hashCode() : 0)) * 41;
+        String str8 = this.anchorId;
+        int iHashCode8 = (iHashCode7 + (str8 != null ? str8.hashCode() : 0)) * 41;
+        String str9 = this.voiceRoomTopicId;
+        int iHashCode9 = (iHashCode8 + (str9 != null ? str9.hashCode() : 0)) * 41;
+        String str10 = this.groupId;
+        int iHashCode10 = (iHashCode9 + (str10 != null ? str10.hashCode() : 0)) * 41;
+        LiveMultiCallInfoInLabel liveMultiCallInfoInLabel = this.multiCallInfo;
+        int iHashCode11 = (iHashCode10 + (liveMultiCallInfoInLabel != null ? liveMultiCallInfoInLabel.hashCode() : 0)) * 41;
+        String str11 = this.schema;
+        int iHashCode12 = iHashCode11 + (str11 != null ? str11.hashCode() : 0);
+        ((ValueObject) this).hashCode = iHashCode12;
+        return iHashCode12;
+    }
+
+    public boolean isLiveChat() {
+        return LIVE_STATE.equals(this.liveState) || LIVE_MULTI_CALL.equals(this.liveState);
+    }
+
+    public boolean isMultiCallGoing() {
+        return this.multiCallInfo.onGoing;
+    }
+
+    public boolean isVoiceChat() {
+        return VOICE_STATE.equals(this.liveState);
+    }
+
+    public void nullCheck() {
+        if (this.mainTitle == null) {
+            this.mainTitle = "";
+        }
+        if (this.subTitle == null) {
+            this.subTitle = "";
+        }
+        if (this.iconTitle == null) {
+            this.iconTitle = "";
+        }
+        if (this.userId == null) {
+            this.userId = "";
+        }
+        if (this.buttonTitle == null) {
+            this.buttonTitle = "";
+        }
+        if (this.liveId == null) {
+            this.liveId = "";
+        }
+        if (this.liveState == null) {
+            this.liveState = "";
+        }
+        if (this.anchorId == null) {
+            this.anchorId = "";
+        }
+        if (this.voiceRoomTopicId == null) {
+            this.voiceRoomTopicId = "";
+        }
+        if (this.groupId == null) {
+            this.groupId = "";
+        }
+        if (this.multiCallInfo == null) {
+            this.multiCallInfo = LiveMultiCallInfoInLabel.new_();
+        }
+        if (this.schema == null) {
+            this.schema = "";
+        }
+    }
+
+    public String toJson() {
+        return JSON_ADAPTER.serialize(this);
+    }
+}

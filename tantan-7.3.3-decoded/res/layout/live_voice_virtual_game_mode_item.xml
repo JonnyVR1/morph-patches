@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center" android:layout_width="87.0dp" android:layout_height="100.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/bg_view" android:layout_width="75.0dp" android:layout_height="75.0dp" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="10.0dp" />
+    <View android:layout_gravity="center_horizontal" android:id="@id/bg_view_select_live_view" android:background="@drawable/live_voice_game_mode_item_line_bg" android:visibility="gone" android:layout_width="75.0dp" android:layout_height="75.0dp" />
+    <View android:layout_gravity="center_horizontal" android:id="@id/bg_view_select_view" android:background="@drawable/live_voice_game_mode_item_bg" android:visibility="gone" android:layout_width="75.0dp" android:layout_height="75.0dp" />
+    <TextView android:textColor="@color/live_white_40_opacity" android:gravity="center" android:layout_gravity="bottom" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" />
+</FrameLayout>

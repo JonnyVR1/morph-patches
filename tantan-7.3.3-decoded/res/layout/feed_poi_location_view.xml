@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/poi_location_root" android:background="@drawable/feed_rect_rounded_moment_topic" android:paddingLeft="6.0dp" android:paddingTop="6.0dp" android:paddingRight="6.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="newui" holder="photoalbum.view.FeedPoiLocationView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/poi_location_icon" android:layout_width="16.0dp" android:layout_height="16.0dp" app:actualImageScaleType="centerCrop" app:placeholderImage="@null" app:placeholderImageScaleType="centerCrop" />
+    <TextView android:textSize="12.0sp" android:textColor="@color/common_grey_09" android:layout_gravity="center_vertical" android:id="@id/poi_locaiton_name" android:paddingBottom="1.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <v.VImage android:layout_gravity="center_vertical" android:id="@id/poi_arrow_icon" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" android:scaleType="center" />
+</v.VLinear>

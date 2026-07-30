@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VFrame xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <p151v.VDraweeView
+        android:id="@+id/image_one"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/feed_fresco_moment_small"/>
+    <p151v.VImage
+        android:layout_gravity="center"
+        android:id="@+id/play"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/feed_message_video_play_icon"/>
+</p151v.VFrame>

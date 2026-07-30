@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/tip_and_service"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    flatten="true"
+    folder="common.chat.danmaku.input.tips"
+    holder="NormalTipsViewModel">
+    <com.p051p1.mobile.putong.live.base.view.LiveFadeRecyclerView
+        android:orientation="horizontal"
+        android:id="@+id/input_chat_tip_list"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:layout_marginStart="2dp"/>
+    <FrameLayout
+        android:id="@+id/service"
+        android:background="@drawable/live_bg_19191e_r12_a90"
+        android:visibility="gone"
+        android:layout_width="74dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="12dp">
+        <p151v.VText
+            android:textSize="13sp"
+            android:textStyle="normal"
+            android:textColor="@color/live_white"
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/LIVE_VIP_SERVICE_ENTRANCE_CONTENT"
+            android:drawableLeft="0x7f082740"
+            android:drawablePadding="2dp"/>
+        <View
+            android:layout_gravity="top|right"
+            android:id="@+id/red_dot"
+            android:background="@drawable/live_bg_ff3938_r3"
+            android:visibility="gone"
+            android:layout_width="8dp"
+            android:layout_height="8dp"/>
+    </FrameLayout>
+</LinearLayout>

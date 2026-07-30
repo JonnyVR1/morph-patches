@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.voicecall.VoiceCallControlView android:orientation="vertical" android:visibility="gone" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.voicecall.VoiceCallControlView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="15.0dp" android:textColor="#33000000" android:gravity="center" android:id="@id/tip" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginTop="10.0dp" android:layout_marginBottom="25.0dp" android:alpha="0.0" />
+        <FrameLayout android:id="@id/time_root" android:background="@drawable/core_voice_call_panel_time_bg" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="30.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="30.0dp" android:layout_marginBottom="25.0dp" android:alpha="0.0" flatten="true">
+            <com.tantan.library.svga.SVGAnimationView android:id="@id/svg_play_view" android:layout_width="match_parent" android:layout_height="48.0dp" />
+            <TextView android:textSize="15.0dp" android:textColor="#ffffff" android:gravity="center" android:id="@id/time" android:visibility="visible" android:layout_width="match_parent" android:layout_height="48.0dp" />
+        </FrameLayout>
+    </FrameLayout>
+    <LinearLayout android:layout_gravity="center" android:paddingBottom="20.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="30.0dp" android:layout_marginRight="30.0dp">
+        <v.VImage android:id="@id/hang" android:background="@drawable/core_quickaudio_voicecall_hang_bg" android:layout_width="98.0dp" android:layout_height="48.0dp" android:src="@null" android:scaleType="center" android:alpha="0.0" />
+        <View android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+        <com.p1.mobile.putong.core.ui.view.VoiceCallCheckeableImage android:id="@id/mut" android:background="@drawable/core_quickaudio_voicecall_ic_bg" android:layout_width="48.0dp" android:layout_height="48.0dp" android:src="@drawable/core_quickaudio_voicecall_mute_selector" android:scaleType="center" android:alpha="0.0" />
+        <View android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+        <com.p1.mobile.putong.core.ui.view.VoiceCallCheckeableImage android:id="@id/hands" android:background="@drawable/core_quickaudio_voicecall_ic_bg" android:layout_width="48.0dp" android:layout_height="48.0dp" android:src="@drawable/core_quickaudio_voicecall_hands_selector" android:scaleType="center" android:alpha="0.0" />
+        <View android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+        <v.VImage android:id="@id/zoom" android:background="@drawable/core_quickaudio_voicecall_ic_bg" android:layout_width="48.0dp" android:layout_height="48.0dp" android:src="@null" android:scaleType="center" android:alpha="0.0" />
+    </LinearLayout>
+</com.p1.mobile.putong.core.ui.messages.voicecall.VoiceCallControlView>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/item_root" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:layout_gravity="center_vertical" android:id="@id/item_content_root" android:background="@drawable/core_marry_edit_profile_multiple_item_bg" android:paddingLeft="16.0dp" android:paddingTop="17.0dp" android:paddingRight="12.0dp" android:paddingBottom="17.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56.0dp">
+        <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="16.0sp" android:textColor="#ff000000" android:ellipsize="end" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:maxLines="2" android:layout_weight="1.0" android:paddingEnd="12.0dp" />
+        <v.VImage android:layout_gravity="right|center" android:id="@id/arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" app:srcCompat="@null" />
+        <v.VImage android:layout_gravity="right|center" android:id="@id/check_box" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="centerInside" />
+    </v.VLinear>
+</FrameLayout>

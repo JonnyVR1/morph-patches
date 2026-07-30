@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.messages.ConversationItemUserStatesView android:orientation="horizontal" android:clipChildren="false" android:descendantFocusability="beforeDescendants" android:layout_width="match_parent" android:layout_height="72.0dp" folder="newui" holder="messages.ConversationItemUserStatesView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <v.VImage android:layout_gravity="center" android:id="@id/icon" android:layout_width="55.0dp" android:layout_height="55.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
+        <v.VImage android:gravity="center" android:layout_gravity="end|top" android:id="@id/new_state_red_dot" android:background="@drawable/core_match_reminder_bg" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="10.0dp" />
+    </v.VFrame>
+    <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:id="@id/content" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:layout_weight="1.0">
+        <v.VText android:textSize="15.0sp" android:textStyle="bold" android:textColor="#e6000000" android:ellipsize="end" android:layout_gravity="left|center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="好友状态" android:maxLines="1" app:typeface="medium" />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/common_grey_09" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/message" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="分享此刻状态，与好友即刻开聊" android:singleLine="true" android:layout_weight="1.0" app:typeface="regular" />
+    </LinearLayout>
+    <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/common_grey_03" android:gravity="center" android:layout_gravity="center" android:id="@id/look_over" android:background="@drawable/core_see_change_look_bg" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginRight="12.0dp" android:text="查看" android:paddingStart="12.0dp" android:paddingEnd="12.0dp" />
+</com.p1.mobile.putong.core.newui.messages.ConversationItemUserStatesView>

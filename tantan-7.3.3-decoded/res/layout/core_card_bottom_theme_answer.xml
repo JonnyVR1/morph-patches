@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.views.CardBottomThemeAnswerView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.views.CardBottomThemeAnswerView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/card_bottom_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="94.0dp" android:layout_marginBottom="4.0dp" layout="@layout/core_card_bottom_basic_info" />
+    <v.VLinear android:orientation="vertical" android:id="@id/info_content" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <include android:id="@id/user_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="94.0dp" layout="@layout/core_card_user_content_view" />
+        <v.VLinear android:orientation="vertical" android:id="@id/theme_answer_layout" android:background="@drawable/core_card_theme_answer_bg" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:layout_width="match_parent" android:layout_height="72.0dp" android:layout_marginTop="8.0dp" flatten="true">
+            <v.VLinear android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <v.VDraweeView android:id="@id/theme_icon" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginTop="14.5dp" />
+                <v.VText android:textSize="12.0sp" android:textColor="@color/color_ccffffff" android:ellipsize="end" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:maxLines="1" android:layout_marginStart="2.0dp" app:typeface="medium" />
+            </v.VLinear>
+            <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="#e6ffffff" android:ellipsize="end" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.5dp" android:maxLines="1" android:lineSpacingExtra="1.0dp" />
+        </v.VLinear>
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.home.views.CardBottomThemeAnswerView>

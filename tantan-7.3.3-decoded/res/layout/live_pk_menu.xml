@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" folder="recreation" holder="pk.module.PkMenuModule"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/empty" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+    <LinearLayout android:orientation="vertical" android:background="@drawable/live_bg_white_tr8" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <FrameLayout android:id="@id/title_container_view" android:layout_width="match_parent" android:layout_height="48.0dp" flatten="true">
+            <v.VImage android:layout_gravity="center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:text="@string/LIVE_CONNECT_TO_PK" />
+            <v.VImage android:layout_gravity="right|center" android:id="@id/iv_show_help" android:padding="6.0dp" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginRight="6.0dp" android:src="@null" />
+        </FrameLayout>
+        <LinearLayout android:orientation="horizontal" android:id="@id/broadcast_container_view" android:background="#33ffbb00" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="24.0dp" android:layout_marginBottom="6.0dp" flatten="true">
+            <v.VImage android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+            <include android:layout_gravity="center_vertical" android:id="@id/scroll_view_container" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginStart="10.0dp" flatten="true" layout="@layout/live_pk_up_down_scroll_view_layout" />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="182.0dp">
+            <LinearLayout android:orientation="vertical" android:id="@id/pk_seek" android:clipChildren="false" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_weight="1.0">
+                <FrameLayout android:layout_gravity="center" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <v.VImage android:layout_gravity="center" android:id="@id/iv_pk_seek" android:background="@null" android:layout_width="88.0dp" android:layout_height="88.0dp" />
+                    <v.VImage android:layout_gravity="right|top" android:id="@id/iv_pk_bounty_logo" android:visibility="visible" android:layout_width="48.0dp" android:layout_height="17.0dp" android:layout_marginTop="2.0dp" android:src="@null" android:layout_marginEnd="-2.0dp" />
+                </FrameLayout>
+                <v.VText android:textSize="14.0sp" android:textColor="#f57c00" android:layout_gravity="center" android:id="@id/tv_pk_seek" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:text="@string/LIVE_PK_SEEKING_TITLE" android:singleLine="true" />
+                <v.VText android:textSize="11.0sp" android:textColor="#999999" android:layout_gravity="center" android:id="@id/tv_pk_win_times" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="@string/LIVE_PK_SEEK_WINTIMES" android:singleLine="true" />
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:id="@id/pk_invite" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_weight="1.0">
+                <FrameLayout android:layout_gravity="center" android:layout_width="88.0dp" android:layout_height="88.0dp">
+                    <v.VImage android:id="@id/iv_invite_friend" android:background="@null" android:layout_width="88.0dp" android:layout_height="88.0dp" />
+                    <TextView android:textSize="10.0sp" android:textStyle="normal" android:textColor="@color/white" android:gravity="center_horizontal" android:layout_gravity="right|top" android:id="@id/tv_friend_num" android:background="@drawable/live_shape_pk_friend_num_bg" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="6.0dp" />
+                </FrameLayout>
+                <v.VText android:textSize="14.0sp" android:textColor="#923bff" android:gravity="center" android:layout_gravity="center" android:id="@id/tv_invite_friend" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:text="@string/LIVE_FRIENDS_PK" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

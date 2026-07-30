@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="inapp_button_height">42.0dp</dimen>
+    <dimen name="mdtp_date_picker_header_height">456.0dp</dimen>
+    <dimen name="mdtp_date_picker_header_width">220.0dp</dimen>
+    <dimen name="mdtp_date_picker_title_padding">14.0dp</dimen>
+    <dimen name="mdtp_header_height">96.0dp</dimen>
+    <dimen name="mdtp_left_side_width">400.0dp</dimen>
+    <dimen name="mdtp_time_label_size">64.0dp</dimen>
+    <dimen name="mdtp_time_label_subscript_size">32.0dp</dimen>
+    <dimen name="txt_size_inapp_button">16.0sp</dimen>
+    <dimen name="txt_size_inapp_footer_button">16.0sp</dimen>
+    <dimen name="txt_size_inapp_footer_message">14.0sp</dimen>
+    <dimen name="txt_size_inapp_footer_title">18.0sp</dimen>
+    <dimen name="txt_size_inapp_half_button">16.0sp</dimen>
+    <dimen name="txt_size_inapp_half_message">16.0sp</dimen>
+    <dimen name="txt_size_inapp_half_title">21.0sp</dimen>
+    <dimen name="txt_size_inapp_message">18.0sp</dimen>
+    <dimen name="txt_size_inapp_title">22.0sp</dimen>
+</resources>

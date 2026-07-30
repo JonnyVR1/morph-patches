@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:background="@color/common_grey_07" android:layout_width="match_parent" android:layout_height="match_parent" holder="settings.filter.newui.NewFilterActViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:layout_width="match_parent" android:layout_height="44.0dp">
+        <v.VImage android:layout_gravity="start|center" android:id="@id/close" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" android:scaleType="centerCrop" android:layout_marginStart="10.0dp" />
+        <v.VText android:textSize="20.0sp" android:textColor="@color/common_exp_black_01" android:layout_gravity="start|center" android:id="@id/filter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/CORE_LIKED_USER_ACTION_BAR_FILTER" android:layout_marginStart="46.0dp" app:typeface="medium" />
+        <View android:layout_gravity="center|top" android:id="@id/line" android:layout_width="1.0dp" android:layout_height="1.0dp" />
+        <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="right|center" android:id="@id/save" android:background="@drawable/core_bg_theme_color_r10" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="34.0dp" android:text="@string/CORE_PAYTIPS_MAKE_SURE" android:layout_marginEnd="10.0dp" android:paddingHorizontal="12.0dp" app:typeface="medium" />
+    </v.VFrame>
+    <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VScroll android:id="@id/scroll" android:scrollbars="none" android:fadingEdge="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" flatten="true">
+            <v.VLinear android:orientation="vertical" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent">
+                <include android:id="@id/base_setting" layout="@layout/core_newui_filter_basesetting_new_ui_ab" />
+                <v.VLinear android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0dp">
+                    <View android:layout_gravity="center_vertical" android:background="#08000000" android:layout_width="60.0dp" android:layout_height="2.0dp" android:layout_marginEnd="20.0dp" />
+                    <v.VImage android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" app:srcCompat="@null" />
+                    <v.VText android:layout_gravity="center_vertical" android:text="SVIP" style="@style/core_newfilter_title_new_ui_ab" />
+                    <v.VText android:layout_gravity="center_vertical" android:text="高级筛选" android:layout_marginStart="3.0dp" style="@style/core_newfilter_title_new_ui_ab" />
+                    <View android:layout_gravity="center_vertical" android:background="#08000000" android:layout_width="60.0dp" android:layout_height="2.0dp" android:layout_marginStart="20.0dp" />
+                </v.VLinear>
+                <v.VText android:textSize="15.0sp" android:textColor="@color/common_exp_black_03" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:layout_marginBottom="12.0dp" android:text="开通SVIP，可解锁更多筛选功能" />
+                <v.VLinear android:orientation="vertical" android:paddingBottom="20.0dp" style="@style/core_newfilter_view_group">
+                    <v.VText android:id="@id/advance_title" android:text="@string/CORE_SVIP_PURCHASE_PRIVILEGE_ADVANCED_FILTER_TITLE" style="@style/core_newfilter_subtitle_new_ui_ab" />
+                    <include android:id="@id/advance_layout" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_newfilter_advancepart_layout_new_ui_ab" />
+                </v.VLinear>
+                <v.VLinear android:orientation="vertical" android:paddingBottom="16.0dp" android:clipChildren="false" style="@style/core_newfilter_view_group">
+                    <v.VText android:id="@id/zodiac_title" android:text="合适的星座" style="@style/core_newfilter_subtitle_new_ui_ab" />
+                    <FrameLayout android:id="@id/zodiacs_tags_layout" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="24.0dp" android:layout_marginEnd="24.0dp" flatten="true">
+                        <com.p1.mobile.putong.core.ui.settings.filter.tags.TagContainerLayout android:id="@id/zodiacs_tags" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="20.0dp" app:column="3" app:horSpace="8.0dp" app:iscenter="true" app:verSpace="8.0dp" />
+                        <v.VText android:textSize="10.0sp" android:textColor="#fff" android:gravity="center" android:id="@id/filter_best_zodiacs" android:background="@drawable/core_bg_6_black" android:paddingLeft="5.0dp" android:paddingRight="5.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="19.0dp" />
+                    </FrameLayout>
+                </v.VLinear>
+                <v.VLinear android:orientation="vertical" android:paddingBottom="20.0dp" android:layout_marginBottom="31.0dp" style="@style/core_newfilter_view_group">
+                    <v.VText android:id="@id/privacy_title" android:text="@string/CORE_SVIP_PURCHASE_PRIVILEGE_PRIVACY_PROTECTION_TITLE" style="@style/core_newfilter_subtitle_new_ui_ab" />
+                    <include android:id="@id/privacy_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" layout="@layout/core_newfilter_privacy_layout_new_ui_ab" />
+                </v.VLinear>
+            </v.VLinear>
+        </v.VScroll>
+    </v.VFrame>
+</v.VLinear>

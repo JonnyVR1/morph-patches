@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardBottomHintView android:id="@id/root" android:layout_width="45.0dp" android:layout_height="440.0dp" flatten="true" folder="newui" holder="poi.view.FeedPoiCardBottomHintView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/visible_content" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@null" android:scaleType="fitXY" />
+</com.p1.mobile.putong.core.newui.poi.view.FeedPoiCardBottomHintView>

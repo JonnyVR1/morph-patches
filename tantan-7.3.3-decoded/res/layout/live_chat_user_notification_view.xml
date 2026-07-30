@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.chat.notification.UserNotificationView android:gravity="center_vertical" android:orientation="vertical" android:id="@id/root" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="common" holder="chat.notification.UserNotificationView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/notification_one" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_chat_user_notification_item_view" />
+    <include android:id="@id/notification_two" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_chat_user_notification_item_view" />
+</com.p1.mobile.putong.live.livingroom.common.chat.notification.UserNotificationView>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="44.0dp" app:leftIcon="@null" />
+    <v.VRecyclerView android:id="@id/list" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="12.0dp" android:layout_marginTop="44.0dp" android:layout_marginRight="12.0dp" />
+    <v.VFrame android:id="@id/error_view" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="260.0dp">
+        <v.VImage android:layout_gravity="center_horizontal" android:id="@id/img_network_error" android:layout_width="220.0dp" android:layout_height="150.0dp" app:srcCompat="@drawable/core_member_network_not_available" />
+        <v.VText android:textSize="14.0sp" android:textColor="#323232" android:gravity="center" android:id="@id/tv_network_tips" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="28.0dp" android:layout_marginTop="155.0dp" android:layout_marginRight="28.0dp" android:text="当前网络不可用" app:typeface="medium" />
+    </v.VFrame>
+</v.VFrame>

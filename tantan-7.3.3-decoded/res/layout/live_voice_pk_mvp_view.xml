@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.intl.pk.VoicePkMvpView android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" holder="voice.intl.pk.VoicePkMvpView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/mvp_bg" android:layout_width="81.0dp" android:layout_height="63.0dp" />
+    <v.VDraweeView android:id="@id/left_user" android:layout_width="29.0dp" android:layout_height="29.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="18.0dp" app:placeholderImage="@null" app:roundAsCircle="true" app:roundingBorderColor="#ffe3a1" app:roundingBorderWidth="1.0dp" />
+    <v.VDraweeView android:layout_gravity="right" android:id="@id/right_user" android:layout_width="29.0dp" android:layout_height="29.0dp" android:layout_marginTop="18.0dp" android:layout_marginRight="16.0dp" app:placeholderImage="@null" app:roundAsCircle="true" app:roundingBorderColor="#ffe3a1" app:roundingBorderWidth="1.0dp" />
+</com.p1.mobile.putong.live.livingroom.voice.intl.pk.VoicePkMvpView>

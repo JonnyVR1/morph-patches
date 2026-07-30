@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    holder="verification.VerificationCenterExplainViewModel">
+    <p151v.navigationbar.VNavigationBar
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <p151v.VScroll
+        android:background="@color/common_white"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+        <p151v.VLinear
+            android:orientation="vertical"
+            android:background="@drawable/core_tantan_introduction_card_bg"
+            android:paddingBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="20dp">
+            <p151v.VDraweeView
+                android:id="@+id/img_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
+        </p151v.VLinear>
+    </p151v.VScroll>
+</p151v.VLinear>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/pic_verify" android:background="@drawable/pic_verification_bg" android:paddingLeft="16.0dp" android:paddingTop="0.0dp" android:paddingBottom="0.0dp" android:visibility="visible" android:minHeight="40.0dp" flatten="true" holder="profile.profilelist.itemholders.ProfileVerifyViewHolder" style="@style/profile_item_frame_no_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:id="@id/pic_verify_flag" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" android:scaleType="fitXY" android:layout_centerVertical="true" />
+    <v.VImage android:id="@id/pic_verify_arrow" android:layout_width="9.0dp" android:layout_height="9.0dp" android:layout_marginRight="18.0dp" android:src="@null" android:scaleType="fitXY" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    <v.VText android:textSize="14.0sp" android:textColor="#dcffffff" android:id="@id/pic_verify_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_toLeftOf="@id/pic_verify_arrow" android:layout_toRightOf="@id/pic_verify_flag" android:layout_centerVertical="true" />
+</RelativeLayout>

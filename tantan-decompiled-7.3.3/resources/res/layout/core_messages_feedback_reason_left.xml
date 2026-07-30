@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemFeedbackReason xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:background="?attr/message_bubble_bg_left"
+    flatten="true"
+    holder="messages.ItemFeedbackReason"
+    style="@style/core_messages_questions"
+    useRefId="true">
+    <View
+        android:layout_width="2000dp"
+        android:layout_height="0dp"/>
+    <include
+        android:id="@+id/text"
+        layout="@layout/messages_text_left"/>
+    <p151v.VLinear
+        android:id="@+id/answers"
+        android:layout_width="match_parent"
+        android:layout_margin="0dp"
+        style="@style/messages_answers"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemFeedbackReason>

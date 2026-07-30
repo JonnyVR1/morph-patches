@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/root_layout" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:background="@drawable/core_recorder_media_dlg_bg" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VImage android:layout_gravity="right" android:id="@id/close_dlg" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="16.0dp" app:srcCompat="@drawable/core_update_avatar_dlg_delete" />
+        <v.VText android:textSize="24.0dp" android:textStyle="bold" android:textColor="@color/common_black_01" android:layout_gravity="center_horizontal" android:id="@id/title_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="上传更多照片" />
+        <v.VText android:textSize="14.0dp" android:textColor="#999999" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="分享更多照片有更大概率获得喜欢！" />
+        <FrameLayout android:id="@id/content_layout" android:paddingTop="22.0dp" android:paddingBottom="64.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <v.VText android:textSize="16.0sp" android:textColor="@drawable/core_btn_done_text_color_selector" android:gravity="center" android:id="@id/done" android:background="@drawable/core_btn_done_bg_selector" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="40.0dp" android:layout_marginRight="40.0dp" android:layout_marginBottom="46.0dp" android:text="完成" />
+    </LinearLayout>
+</FrameLayout>

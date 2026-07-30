@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.home.views.CardIntlPictureViewOpt xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:rRadius="20dp"
+    flatten="true"
+    folder="newui"
+    holder="home.views.CardIntlPictureViewOpt">
+    <com.p051p1.mobile.putong.core.p058ui.profile.views.VPager_SquaredRefactor
+        android:id="@+id/images"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <p151v.VFrame
+        android:id="@+id/shadow_top"
+        android:background="@drawable/core_card_pic_top_shadow_cover_bg_new"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        flatten="true"/>
+    <FrameLayout
+        android:id="@+id/image_indicator_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        flatten="true">
+        <com.p051p1.mobile.putong.core.newui.home.NewPictureContainerIndicator
+            android:id="@+id/image_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="16dp"
+            app:indicatorColor="#33f6f6f6"
+            app:indicatorMargin="3dp"
+            app:indicatorSelectedColor="@color/white"/>
+    </FrameLayout>
+</com.p051p1.mobile.putong.core.newui.home.views.CardIntlPictureViewOpt>

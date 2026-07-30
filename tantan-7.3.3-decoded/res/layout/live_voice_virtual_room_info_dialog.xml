@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="virtual.roomInfo.VoiceVirtualRoomInfoDialog"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHeight_percent="0.85" app:layout_constraintStart_toStartOf="parent" flatten="true">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="16.0dp">
+            <View android:background="@drawable/live_bg_19191e_tr24" android:layout_width="match_parent" android:layout_height="match_parent" />
+            <View android:id="@id/top_bg" android:background="@drawable/live_shape_virtual_room_info_dialog_top_bg" android:layout_width="match_parent" android:layout_height="186.0dp" />
+        </FrameLayout>
+        <v.VScroll android:id="@id/scroll_view" android:paddingBottom="88.0dp" android:scrollbars="none" android:fadingEdge="vertical" android:fadingEdgeLength="200.0dp" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" flatten="true">
+            <LinearLayout android:orientation="vertical" android:id="@id/switch_container" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+                <include android:id="@id/cover_item" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_voice_virtual_room_info_cover_item" />
+                <include android:id="@id/name_item" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_voice_virtual_room_info_title_item" />
+                <include android:id="@id/notice_item" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_voice_virtual_room_info_announce_view" />
+                <include android:id="@id/hot_item" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_voice_virtual_room_info_hot_view" />
+                <include android:id="@id/group_category" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/live_voice_virtual_room_info_item" />
+                <include android:id="@id/group_tags" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_voice_virtual_room_info_tags_view" />
+                <include android:id="@id/check_in_view" android:layout_width="match_parent" android:layout_height="101.0dp" layout="@layout/live_voice_virtual_room_info_check_in_user_view" />
+                <include android:id="@id/message_remind" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/live_voice_virtual_room_info_item" />
+                <include android:id="@id/top_caht_switch" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/live_voice_virtual_room_info_switch_item_view" />
+                <include android:id="@id/settle_free_switch" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/live_voice_virtual_room_info_switch_item_view" />
+                <include android:id="@id/call_switch" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/live_voice_virtual_room_info_switch_item_view" />
+                <include android:id="@id/personal_room_switch" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/live_voice_virtual_room_info_switch_item_view" />
+                <include android:id="@id/gift_effect_switch" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/live_voice_virtual_room_info_switch_item_view" />
+                <include android:id="@id/set_room_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/live_voice_virtual_room_info_item" />
+                <include android:id="@id/privilege" android:layout_width="match_parent" android:layout_height="56.0dp" layout="@layout/live_voice_virtual_room_info_item" />
+            </LinearLayout>
+        </v.VScroll>
+        <include android:id="@id/info_item" android:layout_width="match_parent" android:layout_height="186.0dp" layout="@layout/live_voice_virtual_room_info_title_grade_item" />
+        <TextView android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/float_btn" android:background="@drawable/live_bg_fe7e1d_r10" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="16.0dp" android:text="申请入驻" android:translationZ="3.0dp" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

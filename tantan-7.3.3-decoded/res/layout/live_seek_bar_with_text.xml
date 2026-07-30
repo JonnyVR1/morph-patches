@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="18.0sp" android:textColor="@color/white" android:gravity="center_horizontal" android:layout_gravity="start|bottom" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="40.0dp" android:maxLines="1" android:singleLine="true" android:shadowColor="#4c000000" android:shadowRadius="2.0" />
+    <androidx.appcompat.widget.AppCompatSeekBar android:layout_gravity="bottom" android:id="@id/seek_bar" android:background="@android:color/transparent" android:paddingLeft="30.0dp" android:paddingTop="14.0dp" android:paddingRight="30.0dp" android:paddingBottom="14.0dp" android:layout_width="match_parent" android:layout_height="50.0dp" android:maxHeight="4.0dp" android:progressDrawable="@drawable/live_list_camera_filter_seek_bar" android:minHeight="4.0dp" android:thumb="@drawable/live_shape_camera_filter_seek_bar_thumb" />
+</merge>

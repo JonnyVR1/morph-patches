@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:background="@drawable/live_intl_voice_fan_base_popup_bg" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp">
+        <TextView android:textSize="12.0dp" android:textStyle="bold" android:textColor="#bc3270" android:gravity="center" android:layout_gravity="center" android:id="@id/item1" android:layout_width="wrap_content" android:layout_height="36.0dp" android:minWidth="92.0dp" android:text="@string/LIVE_VOICE_CP_GAME_RULE" />
+        <View android:background="#1abc3270" android:layout_width="match_parent" android:layout_height="1.0dp" />
+        <TextView android:textSize="12.0dp" android:textStyle="bold" android:textColor="#bc3270" android:gravity="center" android:layout_gravity="center" android:id="@id/item2" android:layout_width="wrap_content" android:layout_height="36.0dp" android:minWidth="92.0dp" android:text="@string/LIVE_VOICE_CANCEL_RELATIONSHIP" />
+    </v.VLinear>
+</v.VFrame>

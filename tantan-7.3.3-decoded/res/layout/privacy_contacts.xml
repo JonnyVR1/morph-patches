@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/contacts_frame" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+            <v.VFrame android:id="@id/hide_contacts" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="@string/HIDE_CONTACTS" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/setting_describe" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="@string/SETTINGS_HIDE_CONTACTS_INFO" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/settings_stacked_frame_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/show_mutual_contacts" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="@string/SETTINGS_SHOW_MUTUAL_CONTACTS" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/setting_mutual_contacts_describe" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="@string/SETTINGS_MUTUAL_CONTACTS_INFO" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/show_mutual_contacts_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/message_repeat_warn_layout" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="消息重复提醒" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/message_repeat_warn" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="允许系统给好友发送消息" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/message_repeat_warn_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/wechat_notify" android:visibility="gone" android:layout_marginTop="0.0dp" flatten="true" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="微信通知" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/wechat_notify_subtitle" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="在微信上接收通知，不错过重要消息" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/wechat_notify_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/accept_quickchat_broadcast" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="闪聊推送" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/setting_accept_qc" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="接受闪聊聊天邀请" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/accept_qc_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/frame_ai_picture_switch" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:id="@id/tv_ai_picture_title" android:layout_marginBottom="0.0dp" android:text="送我魔法照片" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/tv_ai_picture" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="允许好友为我的头像生成魔法照" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/ai_picture_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/frame_conversation_cell_fold_switch" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:id="@id/conversation_cell_fold__title" android:layout_marginBottom="0.0dp" android:text="早期聊天折叠" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/conversation_cell_fold" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="折叠大于7天未聊天会话" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/conversation_cell_fold_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/frame_conversation_cell_weakened_switch" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:id="@id/conversation_cell_weakened__title" android:layout_marginBottom="0.0dp" android:text="早期消息提醒弱化" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/conversation_cell_weakened" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="开启后超过7天的未读消息提醒将弱化展示" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/conversation_cell_weakened_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/receive_veri_msg_layout" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:id="@id/receive_veri_msg_title" android:layout_marginBottom="0.0dp" android:text="消息接收" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/receive_veri_msg_content" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="只和认证用户聊天" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/receive_veri_msg_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/frame_heartbeat_switch" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:id="@id/tv_heartbeat_title" android:layout_marginBottom="0.0dp" android:text="心动信号推送" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/tv_heartbeat" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="接收心动信号为你捕捉缘分" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/heartbeat_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/show_me_voice_state" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:ellipsize="end" android:layout_marginBottom="0.0dp" android:text="展示我在聊天室的状态" style="@style/core_settings_primary" />
+                </LinearLayout>
+                <ImageView android:layout_gravity="right|center" android:src="@null" style="@style/core_settings_arrow" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/receive_voice_note" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:ellipsize="end" android:id="@id/tip_text" android:layout_marginBottom="0.0dp" android:text="接收聊天室通知范围" style="@style/core_settings_primary" />
+                </LinearLayout>
+                <ImageView android:layout_gravity="right|center" android:src="@null" style="@style/core_settings_arrow" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/personalize_suggest" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="@string/SETTINGS_PERSONALIZE_SUGGEST" style="@style/core_settings_primary" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/personalize_suggest_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/personalize_ads_suggest" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="使用个性化广告推荐" style="@style/core_settings_primary" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/personalize_ads_suggest_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/personalize_suggest_description" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:ellipsize="end" android:layout_marginBottom="0.0dp" android:text="@string/PERSONALIZED_RECOMMENDATION_DOCUMENT_TITLE" style="@style/core_settings_primary" />
+                </LinearLayout>
+                <ImageView android:layout_gravity="right|center" android:src="@null" style="@style/core_settings_arrow" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/self_share" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="接受好友分享我的名片" style="@style/core_settings_primary" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/self_share_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VLinear android:id="@id/hide_school" android:visibility="gone" android:layout_marginTop="0.0dp" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="@string/CAMPUS_HIDE_SCHOOL" style="@style/core_settings_primary" />
+                    <v.VText android:paddingTop="5.0dp" android:paddingRight="0.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="@string/CAMPUS_HIDE_SCHOOL_TIP" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch style="@style/core_settings_item_switch" />
+            </v.VLinear>
+            <v.VFrame android:id="@id/hide_vip_badges" android:visibility="gone" android:layout_marginTop="0.0dp" flatten="true" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:id="@id/setting_hide_vip_title" android:layout_marginBottom="0.0dp" android:text="@string/HIDE_VIP_TAG_TITLE" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/setting_hide_vip_describe" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:visibility="gone" android:layout_width="wrap_content" android:text="@string/HIDE_VIP_TAG_SUBTITLE" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/hide_vip_badges_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <v.VFrame android:id="@id/online_reminder" android:visibility="gone" style="@style/core_settings_clickable_item">
+                <LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dp" android:layout_marginEnd="60.0dp" style="@style/core_settings_stacked_frame">
+                    <v.VText android:layout_marginBottom="0.0dp" android:text="上线提醒" style="@style/core_settings_primary" />
+                    <v.VText android:id="@id/online_reminder_describe" android:paddingTop="5.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:text="上线时允许通知好友你上线了" style="@style/settings_small_des" />
+                </LinearLayout>
+                <v.VSwitch android:id="@id/online_reminder_switch" style="@style/core_settings_item_switch" />
+            </v.VFrame>
+            <LinearLayout android:orientation="horizontal" android:id="@id/rule" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="12.0dp">
+                <ImageView android:id="@id/bind_switch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:src="@null" />
+                <TextView android:id="@id/bind_rule" android:paddingLeft="3.0dp" android:paddingTop="0.0dp" android:paddingBottom="0.0dp" android:layout_width="wrap_content" android:layout_marginLeft="3.0dp" android:text="" style="@style/settings_small_des" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="horizontal" android:background="@drawable/core_conv_search_input_bg" android:layout_width="match_parent" android:layout_height="44.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="8.0dp" flatten="true" folder="newui"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_gravity="center_vertical" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginStart="11.0dp" app:srcCompat="@null" />
+    <v.VText android:textSize="16.0sp" android:textColor="#33000000" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="39.0dp" android:text="输入昵称/聊天内容/ID搜索" />
+</FrameLayout>

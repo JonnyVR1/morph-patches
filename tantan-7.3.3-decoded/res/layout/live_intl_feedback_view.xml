@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="intl.feedback" holder="IntlFeedbackViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/page_title_bar" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="44.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <v.VRecyclerView android:id="@id/question_list" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginTop="8.0dp" app:layout_constraintBottom_toTopOf="@id/vipService" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/page_title_bar" />
+    <v.VText android:textSize="16.0dp" android:textColor="@color/live_white_90_opacity" android:gravity="center" android:id="@id/vipService" android:background="@drawable/live_selector_button_invitation" android:layout_width="335.0dp" android:layout_height="56.0dp" android:layout_marginBottom="12.0dp" android:text="@string/LIVE_CUSTOMER_SERVICE_VIP" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

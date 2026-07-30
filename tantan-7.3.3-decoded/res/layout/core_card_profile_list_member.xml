@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.roundcorners.view.RoundFrameLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/intl_vip_frame" android:visibility="visible" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginTop="12.0dp" android:layout_marginBottom="-4.0dp" app:rRadius="12.0dp" flatten="true" folder="newui" holder="home.card.expanded.holder.ProfileListMemberCardExpandedHolder"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="40.0dp">
+        <v.VImage android:layout_gravity="center_vertical" android:id="@id/image" android:layout_width="20.0dp" android:layout_height="20.0dp" android:scaleType="fitXY" android:layout_marginStart="20.0dp" />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/black" android:ellipsize="end" android:id="@id/status" android:layout_width="0.0dp" android:layout_height="wrap_content" android:maxLines="1" android:singleLine="true" android:layout_weight="1.0" android:layout_marginStart="8.0dp" />
+        <v.VImage android:gravity="center" android:id="@id/view" android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginEnd="16.0dp" />
+        <v.VText android:textSize="13.0sp" android:textColor="#ae953f" android:id="@id/btn_click" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/VIP_VIEW_PRIVILEGE" android:layout_marginStart="8.0dp" android:layout_marginEnd="20.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.roundcorners.view.RoundFrameLayout>

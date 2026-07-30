@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.recharge.LocalNewFirstRechargeSubGiftItemView android:gravity="left" android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingStart="3.0dp" flatten="true" folder="increment" holder="recharge.LocalNewFirstRechargeSubGiftItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center" android:id="@id/sub_icon_img" android:layout_width="16.0dp" android:layout_height="match_parent" android:layout_marginEnd="7.0dp" app:actualImageScaleType="centerInside" />
+    <v.VText android:textSize="12.0sp" android:textColor="@color/live_ff4747" android:ellipsize="end" android:gravity="start" android:layout_gravity="center_vertical" android:id="@id/sub_title_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" />
+</com.p1.mobile.putong.live.livingroom.increment.recharge.LocalNewFirstRechargeSubGiftItemView>

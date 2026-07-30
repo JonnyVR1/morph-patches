@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/root_bg_view" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="loveletter.LoveLetterAnimDialog"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.tantan.library.svga.SVGAnimationView android:layout_gravity="center" android:id="@id/svg_anim" android:layout_width="match_parent" android:layout_height="match_parent" />
+</FrameLayout>

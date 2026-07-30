@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:background="@drawable/live_bg_white_r16" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="40.0dp" android:layout_marginEnd="40.0dp">
+        <v.VText android:textSize="16.0sp" android:textColor="#323232" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" android:layout_marginBottom="43.0dp" android:text="@string/LIVE_SLIDE_CARD_TIPS_CONTENT" android:layout_marginStart="30.0dp" android:layout_marginEnd="30.0dp" />
+        <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="17.0dp">
+            <v.VText android:textSize="16.0sp" android:textColor="#838383" android:gravity="center" android:id="@id/keep_mute" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_SLIDE_CARD_TIPS_CLOSE" android:layout_weight="1.0" />
+            <View android:background="#33979797" android:layout_width="1.0dp" android:layout_height="20.0dp" />
+            <v.VText android:textSize="16.0sp" android:textColor="#fe7e1d" android:gravity="center" android:id="@id/switch_open" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_SLIDE_CARD_TIPS_OPEN" android:layout_weight="1.0" />
+        </v.VLinear>
+    </v.VLinear>
+</v.VFrame>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.privilege.PurchaseDlgItemSVipSayHiView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="purchase.privilege.PurchaseDlgItemSVipSayHiView">
+    <p151v.VImage
+        android:id="@+id/bg"
+        android:layout_width="87dp"
+        android:layout_height="105.64dp"
+        android:layout_marginTop="14dp"
+        android:src="0x7f0813ab"
+        android:layout_marginStart="5dp"/>
+    <p151v.AutoVDraweeView
+        android:layout_gravity="center"
+        android:id="@+id/avatar"
+        android:layout_width="74.6dp"
+        android:layout_height="95.76dp"
+        android:layout_marginBottom="-15dp"
+        android:layout_alignBottom="@+id/bg"
+        android:rotation="10"
+        android:layout_marginStart="-20dp"
+        android:layout_toEndOf="@+id/bg"
+        app:roundedCornerRadius="14dp"
+        app:roundingBorderColor="@color/white"
+        app:roundingBorderWidth="4dp"/>
+    <p151v.VImage
+        android:id="@+id/greeting_ic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="0x7f0813a6"
+        android:layout_alignBottom="@+id/bg"
+        android:layout_marginEnd="-7dp"
+        android:layout_alignEnd="@+id/bg"/>
+</com.p051p1.mobile.putong.core.p058ui.purchase.privilege.PurchaseDlgItemSVipSayHiView>

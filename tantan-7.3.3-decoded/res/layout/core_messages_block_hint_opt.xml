@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:id="@id/icon" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginTop="6.0dp" />
+    <v.VText android:textSize="12.0sp" android:textColor="#212121" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="6.0dp" android:text="@string/MESSAGE_LIMITED_CHAT_PAGE_CONTENT" />
+</LinearLayout>

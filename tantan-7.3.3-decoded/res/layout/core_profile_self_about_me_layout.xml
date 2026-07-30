@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:orientation="vertical" android:id="@id/self_about_me" android:background="@color/white" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="profile.profilelist.itemholders.ProfileAboutMeItemHolder"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <v.VText android:textSize="18.0sp" android:textColor="@color/common_black_02" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:layout_marginBottom="12.0dp" android:text="@string/PROFILE_PERSONAL_INFO_ABOUT_ME" />
+            <v.VText android:textSize="15.0sp" android:textColor="@color/common_grey_09" android:layout_gravity="center_vertical" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp" />
+            <com.p1.mobile.putong.core.ui.profile.views.FlowView android:id="@id/tag" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <v.VRecyclerView android:orientation="horizontal" android:id="@id/photo_list" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="wrap_content" android:divider="@null" android:nestedScrollingEnabled="false" android:paddingHorizontal="16.0dp" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <include android:id="@id/photo_error_info" android:visibility="gone" flatten="true" layout="@layout/core_profile_self_about_me_photo_error_info" />
+        </v.VLinear>
+        <v.VFrame android:id="@id/bubble_container" android:background="@color/transparent" android:visibility="visible" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </v.VFrame>
+</v.VLinear_Dividers>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.common.chat.ChatView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="common"
+    holder="chat.ChatView">
+    <include
+        android:id="@+id/message_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/chat_tip_placeholder"
+        flatten="true"
+        layout="@layout/live_chat_list"/>
+    <View
+        android:id="@+id/chat_tip_placeholder"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_above="@+id/chat_input"/>
+    <View
+        android:id="@+id/chat_input"
+        android:paddingLeft="8dp"
+        android:layout_width="195dp"
+        android:layout_height="38dp"
+        android:layout_alignParentBottom="true"
+        flatten="true"/>
+</com.p051p1.mobile.putong.live.livingroom.common.chat.ChatView>

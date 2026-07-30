@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.intlslguide.IntlSlGuideDialogView android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/core_intl_sl_guide_dialog_bg" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="home.intlslguide.IntlSlGuideDialogView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/avatar_area" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="190.0dp" flatten="true">
+        <v.VImage android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="46.0dp" android:src="@drawable/core_intl_card_sl_guide_dlg_bg" />
+        <v.VFrame android:layout_gravity="center_horizontal" android:id="@id/avatar_container" android:clipChildren="false" android:layout_width="94.0dp" android:layout_height="120.0dp" android:layout_marginTop="36.0dp" flatten="true">
+            <v.AutoVDraweeView android:id="@id/avatar" android:layout_width="94.0dp" android:layout_height="120.0dp" app:roundedCornerRadius="12.0dp" />
+            <v.VFrame android:layout_gravity="center|bottom" android:id="@id/sl_icon_container" android:background="@drawable/core_intl_sl_guide_icon_bg" android:layout_width="50.0dp" android:layout_height="50.0dp" android:layout_marginBottom="-25.0dp" flatten="true">
+                <v.VImage android:layout_gravity="center" android:id="@id/sl_icon" android:layout_width="23.0dp" android:layout_height="23.0dp" android:src="@drawable/core_intl_card_sl_guide_dlg_sl_icon" />
+            </v.VFrame>
+        </v.VFrame>
+    </v.VFrame>
+    <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/content_container" android:paddingLeft="32.0dp" android:paddingRight="32.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="32.0dp" flatten="true">
+        <v.VText_NoTopPadding android:textSize="18.0sp" android:textColor="#000000" android:ellipsize="end" android:gravity="center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="2" app:fontWeight="500" />
+        <v.VText_NoTopPadding android:textSize="14.0sp" android:textColor="#66000000" android:gravity="center" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:lineSpacingExtra="2.0dp" app:fontWeight="400" />
+        <v.VText_NoTopPadding android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/btn_send" android:background="@drawable/core_intl_sl_guide_btn_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="15.0dp" app:fontWeight="500" />
+        <v.VText_NoTopPadding android:textSize="14.0sp" android:textColor="#33000000" android:gravity="center" android:id="@id/btn_skip" android:paddingBottom="20.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" app:fontWeight="600" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.newui.home.intlslguide.IntlSlGuideDialogView>

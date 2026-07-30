@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_selected="true"
+        android:drawable="@drawable/live_bg_fe7e1d_r16"/>
+    <item android:state_selected="false">
+        <shape>
+            <corners android:radius="16dp"/>
+            <solid android:color="#f8f8f8"/>
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="false">
+        <shape android:shape="oval">
+            <size android:height="5.0dp" android:width="5.0dp" />
+            <solid android:color="@color/live_323333_10_opacity" />
+        </shape>
+    </item>
+    <item android:state_selected="true" android:drawable="@drawable/live_shape_voice_campaign_round_white" />
+</selector>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="12.0dp" android:paddingRight="20.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VIcon android:id="@id/super_like_icon" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginRight="8.0dp" android:src="@null" />
+    <v.VText android:textSize="16.0sp" android:textColor="@color/common_black_01" android:gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/CORE_SVIP_SUPERLIKED_SUCCESS" app:typeface="medium" />
+</v.VLinear>

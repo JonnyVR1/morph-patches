@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.common.bottom.filter.view.BeautyItemView android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="60.0dp" android:layout_height="match_parent" android:layout_marginTop="14.0dp" flatten="true" folder="common.bottom.filter.view" holder="BeautyItemView" style="@style/live_beauty_plug_item_width" useRefId="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/icon" android:layout_width="30.0dp" android:layout_height="30.0dp" android:src="@drawable/live_selector_beauty_facewidth" />
+    <v.VText android:textSize="12.0sp" android:textColor="@drawable/live_selector_beauty_text_color" android:ellipsize="end" android:gravity="center_horizontal" android:id="@id/name" android:layout_width="60.0dp" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:maxLines="2" style="@style/live_beauty_plug_item_width" />
+    <v.VText android:textSize="12.0sp" android:textColor="@drawable/live_selector_beauty_text_color" android:gravity="center_horizontal" android:id="@id/value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" />
+</com.p1.mobile.putong.live.livingroom.common.bottom.filter.view.BeautyItemView>

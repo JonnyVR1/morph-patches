@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:layout_gravity="start" android:orientation="vertical" android:id="@id/root" android:background="@drawable/core_bg_white_tr24" android:paddingBottom="20.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="profile.exp.ExpTagGuidePhotoBottomSheet"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:layout_gravity="end" android:id="@id/close" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginTop="16.0dp" android:src="@null" android:layout_marginEnd="16.0dp" />
+    <v.VImage android:id="@id/title_image" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginLeft="40.0dp" android:src="@null" />
+    <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="22.0sp" android:textColor="@color/common_exp_black_01" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="选择标签，添加生活照" android:layout_marginStart="40.0dp" />
+    <v.VText android:textSize="16.0sp" android:textColor="@color/common_exp_black_03" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="22.0dp" android:layout_marginTop="6.0dp" android:text="根据你添加过的标签，向你推荐" android:layout_marginStart="40.0dp" />
+    <ScrollView android:layout_width="match_parent" android:layout_height="264.0dp" android:layout_marginLeft="40.0dp" android:layout_marginTop="32.0dp" android:layout_marginRight="40.0dp" android:layout_marginBottom="60.0dp">
+        <com.p1.mobile.putong.core.ui.profile.views.FlowTagsView android:id="@id/tags" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </ScrollView>
+</v.VLinear>

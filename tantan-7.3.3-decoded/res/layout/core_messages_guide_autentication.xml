@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemGuideAuthentication android:id="@id/content" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.ItemGuideAuthentication"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:id="@id/container" android:background="@drawable/core_new_messages_prompt" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginRight="32.0dp" flatten="true">
+        <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="15.0dp">
+            <v.VImage android:id="@id/icon" android:layout_width="42.0dp" android:layout_height="42.0dp" android:src="@null" />
+            <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp">
+                <v.VText android:textSize="15.0sp" android:textColor="@color/core_msg_cell_left_text_color" android:gravity="left" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="让相处更安心" app:typeface="medium" />
+                <v.VText android:textSize="13.0sp" android:textColor="#66000000" android:id="@id/subtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="对方暂未完成认证，可以邀请他完成真人认证，让聊天更安心" android:lineSpacingExtra="2.0dp" app:typeface="regular" />
+            </v.VLinear>
+        </v.VLinear>
+        <FrameLayout android:id="@id/buttons" android:layout_width="match_parent" android:layout_height="42.0dp" android:layout_marginTop="16.0dp" android:layout_marginBottom="16.0dp" flatten="true">
+            <v.VText android:textSize="15.0sp" android:textColor="#fe7e1d" android:gravity="center" android:layout_gravity="center" android:id="@id/autentication" android:background="@drawable/core_bg_10_ffffff" android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" app:typeface="medium" />
+        </FrameLayout>
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.messages.ItemGuideAuthentication>

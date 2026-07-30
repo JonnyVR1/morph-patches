@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.view.MagicGestureItemView android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="view" holder="MagicGestureItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center" android:orientation="vertical" android:layout_width="70.0dp" android:layout_height="70.0dp">
+        <v.VDraweeView android:id="@id/icon" android:layout_width="34.0dp" android:layout_height="34.0dp" android:layout_marginLeft="18.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="18.0dp" fresco:actualImageScaleType="fitXY" fresco:failureImageScaleType="fitXY" fresco:placeholderImageScaleType="fitXY" />
+        <v.VText android:textSize="10.0sp" android:textColor="#e6ffffff" android:gravity="center_horizontal" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:layout_marginBottom="7.0dp" />
+    </v.VLinear>
+    <v.VRecyclerView android:orientation="horizontal" android:id="@id/list" android:visibility="visible" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" fresco:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" useId="true" />
+</com.p1.mobile.putong.live.livingroom.view.MagicGestureItemView>

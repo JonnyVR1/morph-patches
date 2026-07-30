@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.common.signin.medal.SmallMedal xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="54dp"
+    android:layout_height="54dp"
+    flatten="true"
+    folder="common.signin.medal"
+    holder="SmallMedal">
+    <p151v.VDraweeView
+        android:layout_gravity="center"
+        android:id="@+id/medal"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+</com.p051p1.mobile.putong.live.livingroom.common.signin.medal.SmallMedal>

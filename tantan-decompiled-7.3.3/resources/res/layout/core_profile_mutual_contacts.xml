@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VLinear xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/common_contacts_wrap"
+    android:paddingTop="0dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    style="@style/profile_item_frame_no_padding_new">
+    <p151v.VText
+        android:textColor="@color/common_black_02"
+        android:id="@+id/mutual_contacts_title"
+        android:background="@color/transparent"
+        android:text="@string/MUTUAL_CONTACTS_FRIEND_TITLE"
+        style="@style/profile_item_title_black"/>
+    <p151v.VText_Tags
+        android:textSize="15sp"
+        android:textColor="#66000000"
+        android:ellipsize="end"
+        android:id="@+id/mutual_contacts"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:maxLines="1"
+        style="@style/profile_item_item_with_tag"/>
+</p151v.VLinear>

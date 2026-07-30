@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:id="@id/stat_likes" android:background="@drawable/core_bg_12_ffffff" android:paddingBottom="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" flatten="true" folder="newui" holder="home.card.expanded.holder.ProfileListStatLikesCardExpandeHolder"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:paddingTop="12.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VImage android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" android:layout_marginStart="20.0dp" />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/core_color_80percent_000000" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/text" android:layout_width="0.0dp" android:layout_height="wrap_content" android:singleLine="true" android:layout_weight="100.0" android:layout_marginStart="8.0dp" />
+        <v.VButton android:textSize="13.0sp" android:textColor="#f08016" android:gravity="center" android:id="@id/share" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="160.0dp" android:minWidth="85.0dp" android:text="@string/PROFILE_SHARE_LIKES_BUTTON" android:singleLine="true" android:textAllCaps="true" android:paddingEnd="19.0dp" app:typeface="medium" />
+    </LinearLayout>
+    <v.VText android:textSize="13.0sp" android:textColor="@color/core_color_50percent_000000" android:id="@id/guide" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:text="@string/PROFILE_GET_MORE_LIKES_TIPS" android:layout_marginStart="49.0dp" android:layout_marginEnd="19.0dp" />
+</v.VLinear>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector android:exitFadeDuration="@android:integer/config_shortAnimTime"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape>
+            <size android:height="5.0dp" android:width="5.0dp" />
+            <solid android:color="@color/common_orange" />
+            <corners android:radius="2.5dp" />
+        </shape>
+    </item>
+    <item android:state_selected="false">
+        <shape>
+            <size android:height="5.0dp" android:width="5.0dp" />
+            <solid android:color="@color/feed_post_bg_audio_cover" />
+            <corners android:radius="2.5dp" />
+        </shape>
+    </item>
+</selector>

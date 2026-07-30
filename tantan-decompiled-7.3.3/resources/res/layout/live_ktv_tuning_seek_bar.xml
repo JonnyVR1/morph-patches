@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="#cc000000"
+        android:gravity="center_horizontal"
+        android:layout_gravity="start|bottom"
+        android:background="0x7f0823a5"
+        android:paddingTop="4dp"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:maxLines="1"
+        android:singleLine="true"/>
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:layout_gravity="bottom"
+        android:id="@+id/seek_bar"
+        android:background="@android:color/transparent"
+        android:paddingLeft="34dp"
+        android:paddingTop="14dp"
+        android:paddingRight="34dp"
+        android:paddingBottom="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:maxHeight="4dp"
+        android:progressDrawable="@drawable/live_list_ktv_tuning_seek_bar_bg"
+        android:minHeight="4dp"
+        android:thumb="@drawable/live_shape_ktv_tuning_seek_bar_thumb"/>
+</merge>

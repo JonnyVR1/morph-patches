@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" holder="verification.VerificationCenterExplainViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <v.VScroll android:background="@color/common_white" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never">
+        <v.VLinear android:orientation="vertical" android:background="@drawable/core_tantan_introduction_card_bg" android:paddingBottom="40.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="20.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="20.0dp">
+            <v.VDraweeView android:id="@id/img_content" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" />
+        </v.VLinear>
+    </v.VScroll>
+</v.VLinear>

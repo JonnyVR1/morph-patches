@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.home.views.CardBottomProfileExpandedLayout android:orientation="vertical" android:visibility="invisible" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.views.CardBottomProfileExpandedLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/card_bottom_upper_region" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
+        <include android:id="@id/card_bottom_name_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4.0dp" layout="@layout/core_card_bottom_expanded_basic_info" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/card_bottom_lower_region" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" flatten="true">
+        <include android:id="@id/card_bottom_info_profile_item" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_card_bottom_expanded_profile_item" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.newui.home.views.CardBottomProfileExpandedLayout>

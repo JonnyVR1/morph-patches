@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:padding="16.0dp" android:layout_width="match_parent" android:layout_height="match_parent" holder="messages.group.GroupNicknameSetViewModel" innerClass="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:background="@drawable/core_set_group_name_bg" android:paddingLeft="10.0dp" android:layout_width="match_parent" android:layout_height="48.0dp">
+        <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/group_member_avatar" android:layout_width="32.0dp" android:layout_height="32.0dp" app:actualImageScaleType="centerCrop" app:failureImage="@null" app:placeholderImage="@null" app:roundAsCircle="true" />
+        <v.VEditText android:textSize="17.0sp" android:textStyle="normal" android:textColor="#222222" android:textColorHint="#d0d0d0" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/edit_set_nickname" android:background="@null" android:paddingLeft="10.0dp" android:paddingRight="40.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="32.0dp" android:singleLine="true" android:maxLength="15" android:focusedByDefault="true" app:met_clearButton="true" />
+        <v.VImage android:layout_gravity="right|center" android:id="@id/clear" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:src="@drawable/core_group_create_edit_text_clear" />
+    </v.VFrame>
+    <v.VText android:textSize="13.0sp" android:textColor="#a8a8a8" android:layout_gravity="right" android:id="@id/tv_nickname_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginTop="7.0dp" android:text="0/15" />
+</v.VLinear>

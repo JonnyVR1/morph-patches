@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemAiPictureLeft android:orientation="vertical" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4.0dp" flatten="true" holder="messages.ItemAiPictureLeft"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/cover_content" android:layout_width="210.0dp" android:layout_height="280.0dp" flatten="true">
+        <v.VDraweeView android:id="@id/picture" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" app:placeholderImage="@color/core_color_f9f9f9" app:roundBottomEnd="false" app:roundBottomStart="false" app:roundTopEnd="true" app:roundTopStart="true" app:roundedCornerRadius="10.0dp" />
+        <ProgressBar android:layout_gravity="center" android:id="@id/sending" style="@style/core_msg_image_sending_progress_style" />
+        <v.VLinear android:gravity="center" android:layout_gravity="bottom" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="12.5dp" android:layout_marginStart="12.0dp">
+            <v.VImage android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@null" />
+            <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/describe" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="魔法照" android:layout_marginStart="2.0dp" />
+        </v.VLinear>
+    </FrameLayout>
+    <v.VLinear android:orientation="horizontal" android:background="@drawable/core_messages_ai_picture_left_button_bg" android:layout_width="210.0dp" android:layout_height="56.0dp" android:divider="@drawable/core_message_opti_prompt_vertical_divider" android:showDividers="middle" android:dividerPadding="18.0dp">
+        <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_cc000000" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/dislike" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="不喜欢" android:layout_weight="1.0" />
+        <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_cc000000" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/like" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="喜欢" android:layout_weight="1.0" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.messages.ItemAiPictureLeft>

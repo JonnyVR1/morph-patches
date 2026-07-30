@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemUnknownText xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:textColorLink="#9fe6ff"
+    android:autoLink="web"
+    android:id="@+id/content"
+    android:paddingTop="?attr/right_msg_top_padding"
+    android:paddingBottom="?attr/right_msg_bottom_padding"
+    android:text="@string/UNKNOWN_MESSAGE_CONTENT"
+    android:lineSpacingExtra="2dp"
+    android:paddingStart="?attr/right_msg_left_padding"
+    android:paddingEnd="?attr/right_msg_right_padding"
+    app:enableEmojis="true"
+    app:largeEmojis="true"
+    style="@style/messages_item_right"/>

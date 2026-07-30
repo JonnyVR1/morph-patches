@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/empty" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="480.0dp">
+        <v.VDraweeView android:layout_gravity="bottom" android:id="@id/background" android:background="@drawable/live_bg_19191e_tr24" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="17.0dp" app:actualImageScaleType="centerCrop" />
+        <v.VLinear android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+            <FrameLayout android:background="@drawable/live_bg_19191e_oval" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="19.0dp">
+                <v.VDraweeView android:id="@id/avatar" android:layout_width="80.0dp" android:layout_height="80.0dp" android:layout_margin="3.0dp" app:roundAsCircle="true" />
+            </FrameLayout>
+            <TextView android:textSize="20.0dp" android:textColor="@color/white" android:id="@id/user_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="9.0dp" android:layout_marginRight="24.0dp" />
+            <v.VLinear android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginLeft="24.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="24.0dp">
+                <com.p1.mobile.putong.live.livingroom.common.usercard.CommonMedalView android:id="@id/medal" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginRight="16.0dp" />
+                <TextView android:textSize="10.0dp" android:textColor="@color/live_white_50_opacity" android:gravity="center" android:layout_gravity="center" android:id="@id/member_num_text" android:layout_width="wrap_content" android:layout_height="24.0dp" android:text="权益名称" android:drawablePadding="4.0dp" />
+            </v.VLinear>
+            <FrameLayout android:background="@null" android:layout_width="match_parent" android:layout_height="159.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="18.0dp" android:layout_marginRight="20.0dp">
+                <com.p1.mobile.putong.live.livingroom.voice.intl.fanbase.GradientTextView android:textSize="12.0sp" android:textStyle="bold" android:gravity="center" android:layout_gravity="center_horizontal" android:background="@null" android:layout_width="210.0dp" android:layout_height="32.0dp" android:text="@string/LIVE_VOICE_FUN_CLUB_PRIVILEGE" app:gradientEndColor="#ff6ee2" app:gradientStartColor="#ffd6f7" />
+                <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="26.0dp" android:layout_marginTop="51.0dp">
+                    <v.VDraweeView android:id="@id/reward_icon_1" android:layout_width="70.0dp" android:layout_height="70.0dp" />
+                    <TextView android:textSize="10.0dp" android:textColor="@color/live_white_60_opacity" android:layout_gravity="center_horizontal" android:id="@id/reward_name_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="78.0dp" android:text="权益名称" />
+                </FrameLayout>
+                <FrameLayout android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="51.0dp">
+                    <v.VDraweeView android:id="@id/reward_icon_2" android:layout_width="70.0dp" android:layout_height="70.0dp" />
+                    <TextView android:textSize="10.0dp" android:textColor="@color/live_white_60_opacity" android:layout_gravity="center_horizontal" android:id="@id/reward_name_2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="78.0dp" android:text="权益名称" />
+                </FrameLayout>
+                <FrameLayout android:layout_gravity="right" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="51.0dp" android:layout_marginRight="26.0dp">
+                    <v.VDraweeView android:id="@id/reward_icon_3" android:layout_width="70.0dp" android:layout_height="70.0dp" />
+                    <TextView android:textSize="10.0dp" android:textColor="@color/live_white_60_opacity" android:layout_gravity="center_horizontal" android:id="@id/reward_name_3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="78.0dp" android:text="权益名称" />
+                </FrameLayout>
+            </FrameLayout>
+            <v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/bottom_button" android:background="@drawable/live_intl_voice_fan_base_join_button_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="52.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="46.0dp">
+                <View android:background="@null" android:layout_width="26.0dp" android:layout_height="22.0dp" android:layout_marginRight="4.0dp" />
+                <TextView android:textSize="16.0dp" android:textColor="@color/white" android:layout_gravity="center" android:id="@id/bottom_button_text" android:layout_width="wrap_content" android:layout_height="22.0dp" android:text="立即加入" />
+                <View android:background="@null" android:layout_width="26.0dp" android:layout_height="22.0dp" android:layout_marginLeft="4.0dp" />
+            </v.VLinear>
+        </v.VLinear>
+    </FrameLayout>
+</v.VLinear>

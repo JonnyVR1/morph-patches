@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.increment.recharge.LocalNewFirstRechargeSubGiftItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="left"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="3dp"
+    flatten="true"
+    folder="increment"
+    holder="recharge.LocalNewFirstRechargeSubGiftItemView">
+    <p151v.VDraweeView
+        android:layout_gravity="center"
+        android:id="@+id/sub_icon_img"
+        android:layout_width="16dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="7dp"
+        app:actualImageScaleType="centerInside"/>
+    <p151v.VText
+        android:textSize="12sp"
+        android:textColor="@color/live_ff4747"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/sub_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"/>
+</com.p051p1.mobile.putong.live.livingroom.increment.recharge.LocalNewFirstRechargeSubGiftItemView>

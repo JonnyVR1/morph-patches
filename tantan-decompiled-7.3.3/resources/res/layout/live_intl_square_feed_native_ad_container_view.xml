@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.external.intl.livesquare.admob.IntlLiveSquareFeedNativeAdView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="176dp"
+    android:layout_height="168dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="@dimen/live_square_item_base_margin"
+    android:layout_marginEnd="@dimen/live_square_item_base_margin"
+    flatten="true"
+    folder="intl"
+    holder="livesquare.admob.IntlLiveSquareFeedNativeAdView"/>

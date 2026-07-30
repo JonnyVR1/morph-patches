@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.gift.opt.view.GiftOuterPagerItemView android:orientation="vertical" android:background="@color/transparent" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" holder="gift.opt.view.GiftOuterPagerItemView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VPager android:id="@id/pager" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <include android:id="@id/panel_bottom_bar" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="50.0dp" android:layout_alignParentBottom="true" layout="@layout/core_gift_panel_bottom_bar" />
+</com.p1.mobile.putong.core.ui.gift.opt.view.GiftOuterPagerItemView>

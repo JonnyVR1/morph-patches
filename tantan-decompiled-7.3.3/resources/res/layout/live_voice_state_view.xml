@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.intl.player.VoiceOrignalStateView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    holder="voice.intl.player.VoiceOrignalStateView">
+    <TextView
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:textColor="@color/live_white"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LIVE_VOICE_CHAT_END"/>
+    <TextView
+        android:textSize="12sp"
+        android:textStyle="normal"
+        android:textColor="@color/live_white"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/LIVE_VOICE_GO_TO_OTHER_ROOM"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.intl.player.VoiceOrignalStateView>

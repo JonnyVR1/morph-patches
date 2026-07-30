@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/core_vip_normal_card_corner"/>
+    <stroke
+        android:width="4dp"
+        android:color="@color/core_purchase_dialog_platinum_color_primary_new"/>
+</shape>

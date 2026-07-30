@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.recreation.pk.view.wintimes.PkWinTimesContainerView android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="recreation" holder="pk.view.wintimes.PkWinTimesContainerView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:layout_gravity="start" android:id="@id/anchor_view" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_marginStart="10.0dp" flatten="true" layout="@layout/live_pk_anchor_win_times_container_view" />
+    <include android:layout_gravity="end" android:id="@id/other_view" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" android:layout_marginEnd="10.0dp" flatten="true" layout="@layout/live_pk_other_win_times_container_view" />
+</com.p1.mobile.putong.live.livingroom.recreation.pk.view.wintimes.PkWinTimesContainerView>

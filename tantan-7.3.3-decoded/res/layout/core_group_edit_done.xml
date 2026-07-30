@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:enabled="false" android:textSize="13.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@id/tv_edit_done" android:background="@drawable/core_group_edit_done_bg" android:paddingLeft="9.0dp" android:paddingTop="6.0dp" android:paddingRight="9.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ACTION_DONE" app:typeface="medium" />
+</v.VFrame>

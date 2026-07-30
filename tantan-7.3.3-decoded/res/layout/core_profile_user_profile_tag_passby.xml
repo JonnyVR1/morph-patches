@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/passby_wrap" android:background="@drawable/core_profile_tag_bg" android:paddingLeft="4.0dp" android:paddingRight="6.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="18.0dp" android:minHeight="18.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="3.0dp" app:srcCompat="@drawable/core_profile_passby_ic" />
+    <v.VText android:textSize="13.0dp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/passby_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="18.0dp" android:lineSpacingExtra="0.0sp" />
+</LinearLayout>

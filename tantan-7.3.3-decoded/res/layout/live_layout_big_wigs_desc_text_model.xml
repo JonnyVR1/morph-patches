@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VText android:textSize="13.0sp" android:textColor="@color/live_black_30_opacity" android:gravity="center" android:paddingLeft="27.0dp" android:paddingTop="12.0dp" android:paddingRight="27.0dp" android:paddingBottom="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="27.0dp" android:paddingVertical="12.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

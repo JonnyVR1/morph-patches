@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.view.KeyboardMediaLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/media"
+    android:background="@color/common_white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/messages_media_divider_vertical"
+    android:showDividers="middle"
+    holder="messages.view.KeyboardMediaLayout">
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/media_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <p151v.VPagerCircleIndicator
+        android:layout_gravity="bottom|center_horizontal"
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:fillColor="#939393"
+        app:pageColor="#c2c2c2"
+        app:radius="3dp"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.view.KeyboardMediaLayout>

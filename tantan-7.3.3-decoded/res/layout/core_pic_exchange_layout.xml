@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.newpic.PicExchangeLayout android:orientation="vertical" android:background="@color/black" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="messages.newpic.PicExchangeLayout"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/close_icon" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginLeft="8.0dp" android:layout_marginTop="6.0dp" android:layout_marginBottom="6.0dp" android:src="@null" />
+    <FrameLayout android:id="@id/top_tab_layout" android:layout_width="match_parent" android:layout_height="30.0dp" android:layout_marginTop="30.0dp" android:layout_marginBottom="42.0dp" flatten="true">
+        <v.VLinear android:layout_gravity="center_horizontal" android:orientation="horizontal" android:id="@id/fun_tab" android:layout_width="wrap_content" android:layout_height="match_parent" flatten="true">
+            <TextView android:textSize="15.0sp" android:textColor="@color/white" android:id="@id/pic_exchange" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="以图换图" android:drawableBottom="@drawable/core_pic_exchange_line_bg" />
+            <TextView android:textSize="15.0sp" android:textColor="#80ffffff" android:id="@id/limit_shooting" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="95.0dp" android:text="限时快拍" />
+        </v.VLinear>
+        <TextView android:textSize="15.0sp" android:textColor="#ffffff" android:layout_gravity="center" android:id="@id/pre_warn" android:layout_width="wrap_content" android:layout_height="match_parent" android:alpha="0.6" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/surface_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" />
+    <FrameLayout android:id="@id/fun_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="76.0dp" flatten="true">
+        <ImageView android:layout_gravity="start|center" android:id="@id/random_photo_or_del" android:layout_width="54.0dp" android:layout_height="54.0dp" android:layout_marginLeft="42.28dp" android:src="@drawable/core_pic_exchange_random_bg" />
+        <ImageView android:layout_gravity="center" android:id="@id/take_photo" android:layout_width="72.0dp" android:layout_height="72.0dp" android:src="@null" />
+        <ImageView android:layout_gravity="end|center" android:id="@id/choose_photo" android:layout_width="54.0dp" android:layout_height="54.0dp" android:layout_marginRight="42.28dp" android:src="@drawable/core_pic_exchange_photo_bg" />
+    </FrameLayout>
+</com.p1.mobile.putong.core.ui.messages.newpic.PicExchangeLayout>

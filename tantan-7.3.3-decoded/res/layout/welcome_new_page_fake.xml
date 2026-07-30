@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/page" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:layout_width="match_parent" android:layout_height="match_parent" holder="splash.FakeSplashViewOld"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VFrame_FixRatio android:layout_gravity="center_horizontal" android:id="@id/fix_ratio" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="36.0dp">
+        <v.VImage android:id="@id/image" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </v.VFrame_FixRatio>
+    <v.VText android:textSize="20.0sp" android:textColor="#999999" android:ellipsize="end" android:gravity="center" android:id="@id/text" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="36.0dp" android:maxLines="3" android:lineSpacingMultiplier="1.1" />
+</FrameLayout>

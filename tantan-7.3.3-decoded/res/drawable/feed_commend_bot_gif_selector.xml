@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector android:exitFadeDuration="@android:integer/config_shortAnimTime"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:drawable="@null" />
+    <item android:state_selected="false" android:drawable="@drawable/feed_commend_gif_icon_day_light" />
+</selector>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemLiveVirtualVoice android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.ItemLiveVirtualVoice"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:background="@drawable/core_onlinematch_mess_header2_bg" android:paddingTop="14.0dp" android:paddingBottom="14.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="14.0dp" android:paddingEnd="14.0dp">
+        <v.VDraweeView android:id="@id/image" android:layout_width="44.0dp" android:layout_height="44.0dp" android:scaleType="fitCenter" app:roundedCornerRadius="@dimen/core_common_radius" />
+        <v.VText android:textSize="15.0dp" android:textColor="@color/common_black_02" android:ellipsize="end" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:text="" android:maxLines="1" android:layout_marginStart="12.0dp" android:layout_toEndOf="@id/image" app:typeface="medium" />
+        <v.VText android:textSize="13.0dp" android:textColor="@color/common_grey_03" android:ellipsize="end" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:maxLines="1" android:layout_below="@id/title" android:layout_marginStart="12.0dp" android:layout_toEndOf="@id/image" />
+    </RelativeLayout>
+</com.p1.mobile.putong.core.ui.messages.ItemLiveVirtualVoice>

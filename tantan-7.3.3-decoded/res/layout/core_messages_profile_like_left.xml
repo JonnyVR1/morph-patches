@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemProfileLike android:orientation="vertical" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.p1.mobile.putong.core.ui.messages.ItemText android:textColorLink="@color/white" android:autoLink="web" android:id="@id/text" android:paddingTop="?left_msg_top_padding" android:paddingBottom="?left_msg_bottom_padding" android:lineSpacingExtra="1.5dp" android:paddingStart="?left_msg_left_padding" android:paddingEnd="?left_msg_right_padding" app:enableEmojis="true" app:largeEmojis="true" style="@style/messages_item_left" />
+    <com.p1.mobile.putong.core.ui.messages.view.MessageLinearMaxWidth android:orientation="horizontal" android:id="@id/content_layout" android:background="@drawable/core_bg_18_f9f9f9" android:layout_width="wrap_content" android:layout_height="60.0dp" android:layout_marginTop="?core_msg_left_profileLike_margin_top" android:layout_marginStart="?core_msg_left_profileLike_margin_start" app:isLeft="true">
+        <v.VFrame android:layout_gravity="center_vertical" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginTop="10.0dp" android:layout_marginBottom="10.0dp" android:layout_marginStart="10.0dp">
+            <v.VDraweeView android:id="@id/cover" android:layout_width="match_parent" android:layout_height="match_parent" app:roundBottomLeft="true" app:roundBottomRight="true" app:roundTopLeft="true" app:roundTopRight="true" app:roundedCornerRadius="10.0dp" app:roundingBorderWidth="0.0dp" />
+            <v.VImage android:id="@id/icon" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerInside" />
+        </v.VFrame>
+        <v.VLinear android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="6.0dp" android:layout_marginEnd="14.0dp">
+            <v.VText android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/common_black_02" android:ellipsize="end" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:lineSpacingExtra="2.0sp" />
+            <v.VText android:textSize="12.0sp" android:textColor="@color/common_grey_03" android:ellipsize="end" android:id="@id/desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:singleLine="true" />
+        </v.VLinear>
+    </com.p1.mobile.putong.core.ui.messages.view.MessageLinearMaxWidth>
+</com.p1.mobile.putong.core.ui.messages.ItemProfileLike>

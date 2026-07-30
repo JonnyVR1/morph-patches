@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.tantan.library.svga.SVGAnimationView android:id="@id/swipe_action" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <v.VIcon android:layout_gravity="center" android:id="@id/swipe_undo" android:visibility="invisible" android:src="@null" android:alpha="0.8" style="@style/common_icon_xxxLarge" />
+</merge>

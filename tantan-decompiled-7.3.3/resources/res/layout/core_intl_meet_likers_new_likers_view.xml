@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.intlmeet.likers.items.IntlMeetLikersNewLikersView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    folder="newui"
+    holder="intlmeet.likers.items.IntlMeetLikersNewLikersView">
+    <TextView
+        android:textSize="14sp"
+        android:textColor="@color/common_black"
+        android:gravity="center_vertical"
+        android:id="@+id/new_likers_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginHorizontal="12dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/new_likers_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"/>
+</com.p051p1.mobile.putong.core.newui.intlmeet.likers.items.IntlMeetLikersNewLikersView>

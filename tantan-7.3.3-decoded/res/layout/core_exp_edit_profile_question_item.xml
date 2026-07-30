@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="horizontal" android:paddingLeft="24.0dp" android:paddingRight="24.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VText android:textSize="14.0dp" android:textColor="@color/common_exp_black_02" android:gravity="center_vertical" android:id="@id/question" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" />
+        <View android:background="@null" android:layout_width="20.0dp" android:layout_height="20.0dp" />
+    </v.VLinear>
+    <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="16.0dp" android:textColor="@color/common_exp_black_01" android:id="@id/answer" android:paddingLeft="24.0dp" android:paddingRight="24.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" />
+    <com.p1.mobile.putong.core.ui.profile.exp.ExpEditDividerView android:id="@id/divider" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="12.0dp" />
+</v.VLinear>

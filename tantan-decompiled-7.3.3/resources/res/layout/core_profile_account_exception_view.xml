@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    holder="profile.profilelist.itemholders.ProfileAccountExceptionItemHolder">
+    <FrameLayout
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <FrameLayout
+            android:id="@+id/user_audit_ll"
+            android:background="#33000000"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="-40dp">
+            <p151v.VText
+                android:textSize="14sp"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/INFO_IN_REVIEW_TIP_PROFILE"
+                android:drawablePadding="6dp"
+                android:drawableStart="0x7f081110"/>
+        </FrameLayout>
+    </FrameLayout>
+</FrameLayout>

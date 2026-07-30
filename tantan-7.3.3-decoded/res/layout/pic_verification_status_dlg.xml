@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/abc_dialog_material_background_roundedbig_revealinner" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_gravity="center_horizontal" android:id="@id/profile_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="62.0dp">
+        <v.VDraweeView android:id="@id/profile" android:layout_width="144.0dp" android:layout_height="144.0dp" style="@style/core_fresco_profile_small" />
+        <v.VImage android:layout_gravity="right|bottom" android:id="@id/verification_icon" android:background="@null" android:layout_width="28.0dp" android:layout_height="28.0dp" />
+    </FrameLayout>
+</LinearLayout>

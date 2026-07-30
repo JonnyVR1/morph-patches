@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:paddingLeft="24.0dp" android:paddingRight="24.0dp" android:paddingBottom="20.0dp" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="28.0dp">
+        <com.p1.mobile.putong.core.ui.VText_Medium android:gravity="center_vertical" android:id="@id/title_text" android:layout_width="match_parent" android:layout_height="28.0dp" />
+        <View android:layout_gravity="right|center" android:id="@id/title_right_arrow" android:background="@null" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" />
+    </FrameLayout>
+    <v.VLinear android:id="@id/sub_title_layout" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <include layout="@layout/exp_core_profile_integrity_opt" />
+    </v.VLinear>
+</v.VLinear>

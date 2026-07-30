@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.bottom.VoiceBottomView android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:layout_gravity="bottom" android:id="@id/chat_input" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="38.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="8.0dp" android:layout_marginBottom="2.0dp" android:layout_weight="1.0" layout="@layout/live_voice_bottom_chat" />
+    <com.p1.mobile.putong.live.livingroom.voice.bottom.BottomMenuView android:gravity="right|bottom" android:layout_gravity="right|bottom" android:orientation="horizontal" android:id="@id/bottom_menu_view" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" />
+</com.p1.mobile.putong.live.livingroom.voice.bottom.VoiceBottomView>

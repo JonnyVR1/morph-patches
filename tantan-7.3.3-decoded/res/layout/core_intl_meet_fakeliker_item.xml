@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.intlmeet.likers.items.IntlMeetFakeLikersItem android:layout_width="match_parent" android:layout_height="216.0dp" fresco:sl_cornerRadius="0.0dp" fresco:sl_shadowColor="#00000000" fresco:sl_shadowRadius="0.0dp" folder="newui" holder="intlmeet.likers.items.IntlMeetFakeLikersItem"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/image" android:layout_width="match_parent" android:layout_height="match_parent" fresco:actualImageScaleType="centerCrop" fresco:failureImage="@color/white" fresco:failureImageScaleType="centerInside" fresco:placeholderImage="@color/white" fresco:placeholderImageScaleType="centerInside" fresco:roundedCornerRadius="@dimen/core_vip_normal_card_corner" style="@style/core_fresco_base" />
+    <v.VLinear android:id="@id/super_like_tag_ll" android:background="@drawable/core_intl_see_superlike_tag_bg" android:paddingLeft="6.0dp" android:paddingTop="3.0dp" android:paddingRight="8.0dp" android:paddingBottom="3.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginTop="8.0dp" android:paddingVertical="3.0dp" flatten="true">
+        <v.VText android:textSize="11.0sp" android:textStyle="bold" android:textColor="@color/white" android:id="@id/super_like_tag_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <v.VImage android:id="@id/superlike_tag_iv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
+    </v.VLinear>
+    <View android:background="@drawable/fakelikers_head_shadow" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <FrameLayout android:layout_gravity="bottom" android:id="@id/fra_desc" android:background="@drawable/core_vip_superlike_game_item_shadaow" android:layout_width="match_parent" android:layout_height="93.0dp" flatten="true">
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_gravity="bottom" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="8.0dp">
+            <FrameLayout android:id="@id/info" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="20.0dp" android:layout_marginBottom="1.0dp" fresco:layout_constraintBottom_toTopOf="@id/desc" fresco:layout_constraintEnd_toEndOf="parent" fresco:layout_constraintStart_toStartOf="parent" flatten="true">
+                <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="20.0dp">
+                    <v.VText_NoTopPadding android:textSize="14.0sp" android:textColor="#e5ffffff" android:ellipsize="end" android:layout_gravity="start|center" android:id="@id/see_name" android:layout_width="0.0dp" android:layout_height="wrap_content" android:maxLines="1" android:layout_weight="1.0" fresco:fontWeight="500" />
+                    <v.VText_NoTopPadding android:textSize="14.0sp" android:textColor="#e5ffffff" android:ellipsize="end" android:layout_gravity="start|center" android:id="@id/see_age" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:layout_marginStart="3.0dp" fresco:fontWeight="500" />
+                    <v.VImage android:layout_gravity="start|center" android:id="@id/verification_icon" android:background="@null" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginStart="2.0dp" />
+                    <Space android:layout_width="40.0dp" android:layout_height="match_parent" />
+                </LinearLayout>
+                <View android:layout_gravity="start|center" android:id="@id/mask_name" android:background="@drawable/core_intl_see_name_mask_bg" android:visibility="visible" android:layout_width="100.0dp" android:layout_height="20.0dp" />
+            </FrameLayout>
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/desc" android:layout_width="0.0dp" android:layout_height="wrap_content" fresco:layout_constraintBottom_toBottomOf="parent" fresco:layout_constraintEnd_toEndOf="parent" fresco:layout_constraintStart_toStartOf="parent" flatten="true">
+                <v.VImage android:id="@id/user_desc_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="2.0dp" />
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="#fff" android:ellipsize="end" android:gravity="start" android:id="@id/user_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" />
+            </LinearLayout>
+            <View android:id="@id/mask_desc" android:background="@drawable/core_intl_see_item_desc_mask" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="0.0dp" fresco:layout_constraintBottom_toBottomOf="@id/desc" fresco:layout_constraintLeft_toLeftOf="@id/desc" fresco:layout_constraintRight_toRightOf="@id/desc" fresco:layout_constraintTop_toTopOf="@id/desc" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</com.p1.mobile.putong.core.newui.intlmeet.likers.items.IntlMeetFakeLikersItem>

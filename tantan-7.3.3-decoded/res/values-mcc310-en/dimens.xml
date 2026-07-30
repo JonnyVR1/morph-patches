@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="core_match_profile_heart_margin">-140.0dp</dimen>
+    <dimen name="core_match_profile_image_overlap">-10.0dp</dimen>
+    <dimen name="core_match_profile_image_size">120.0dp</dimen>
+    <dimen name="core_match_profile_image_size_height">140.0dp</dimen>
+</resources>

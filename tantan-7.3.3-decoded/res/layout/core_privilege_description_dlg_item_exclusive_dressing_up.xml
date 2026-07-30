@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemSupremePartnerExclusiveDressingUpView android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="vip.privilege.dlg.PrivilegeContentDlgItemSupremePartnerExclusiveDressingUpView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.AutoVDraweeView android:layout_gravity="bottom" android:id="@id/img_avatar" android:drawingCacheQuality="high" android:layout_width="120.0dp" android:layout_height="160.0dp" android:layout_marginBottom="14.0dp" android:layout_marginStart="42.0dp" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="12.0dp" />
+    <v.AutoVDraweeView android:layout_gravity="bottom" android:id="@id/img_decorate" android:drawingCacheQuality="high" android:layout_width="128.0dp" android:layout_height="168.0dp" android:layout_marginBottom="10.0dp" android:layout_marginStart="38.0dp" app:actualImageScaleType="centerCrop" />
+</com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemSupremePartnerExclusiveDressingUpView>

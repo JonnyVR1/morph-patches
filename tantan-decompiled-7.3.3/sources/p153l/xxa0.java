@@ -1,0 +1,92 @@
+package p153l;
+
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import p151v.VLinear_Dividers;
+import p151v.VText;
+
+/* JADX INFO: loaded from: classes10.dex */
+public class xxa0 {
+    /* JADX INFO: renamed from: a */
+    public static void m213512a(wxa0 wxa0Var, View view) {
+        wxa0Var.f191418a = (VLinear_Dividers) view;
+        ViewGroup viewGroup = (ViewGroup) view;
+        wxa0Var.f191420b = (VText) viewGroup.getChildAt(0);
+        wxa0Var.f191422c = (LinearLayout) viewGroup.getChildAt(1);
+        wxa0Var.f191424d = (VText) ((ViewGroup) viewGroup.getChildAt(1)).getChildAt(0);
+        wxa0Var.f191426e = (VText) ((ViewGroup) viewGroup.getChildAt(1)).getChildAt(1);
+        wxa0Var.f191428f = (LinearLayout) viewGroup.getChildAt(2);
+        wxa0Var.f191430g = (VText) ((ViewGroup) viewGroup.getChildAt(2)).getChildAt(0);
+        wxa0Var.f191432h = (VText) ((ViewGroup) viewGroup.getChildAt(2)).getChildAt(1);
+        wxa0Var.f191434i = (LinearLayout) viewGroup.getChildAt(3);
+        wxa0Var.f191436j = (VText) ((ViewGroup) viewGroup.getChildAt(3)).getChildAt(0);
+        wxa0Var.f191438k = (VText) ((ViewGroup) viewGroup.getChildAt(3)).getChildAt(1);
+        wxa0Var.f191440l = (LinearLayout) viewGroup.getChildAt(4);
+        wxa0Var.f191442m = (VText) ((ViewGroup) viewGroup.getChildAt(4)).getChildAt(0);
+        wxa0Var.f191444n = (VText) ((ViewGroup) viewGroup.getChildAt(4)).getChildAt(1);
+        wxa0Var.f191446o = (LinearLayout) viewGroup.getChildAt(5);
+        wxa0Var.f191448p = (VText) ((ViewGroup) viewGroup.getChildAt(5)).getChildAt(0);
+        wxa0Var.f191450q = (VText) ((ViewGroup) viewGroup.getChildAt(5)).getChildAt(1);
+        wxa0Var.f191452r = (LinearLayout) viewGroup.getChildAt(6);
+        wxa0Var.f191454s = (VText) ((ViewGroup) viewGroup.getChildAt(6)).getChildAt(0);
+        wxa0Var.f191456t = (VText) ((ViewGroup) viewGroup.getChildAt(6)).getChildAt(1);
+        wxa0Var.f191458u = (LinearLayout) viewGroup.getChildAt(7);
+        wxa0Var.f191460v = (VText) ((ViewGroup) viewGroup.getChildAt(7)).getChildAt(0);
+        wxa0Var.f191462w = (VText) ((ViewGroup) viewGroup.getChildAt(7)).getChildAt(1);
+        wxa0Var.f191464x = (LinearLayout) viewGroup.getChildAt(8);
+        wxa0Var.f191466y = (VText) ((ViewGroup) viewGroup.getChildAt(8)).getChildAt(0);
+        wxa0Var.f191468z = (VText) ((ViewGroup) viewGroup.getChildAt(8)).getChildAt(1);
+        wxa0Var.f191392A = (LinearLayout) viewGroup.getChildAt(9);
+        wxa0Var.f191393B = (VText) ((ViewGroup) viewGroup.getChildAt(9)).getChildAt(0);
+        wxa0Var.f191394C = (VText) ((ViewGroup) viewGroup.getChildAt(9)).getChildAt(1);
+        wxa0Var.f191395D = (LinearLayout) viewGroup.getChildAt(10);
+        wxa0Var.f191396E = (VText) ((ViewGroup) viewGroup.getChildAt(10)).getChildAt(0);
+        wxa0Var.f191397F = (VText) ((ViewGroup) viewGroup.getChildAt(10)).getChildAt(1);
+        wxa0Var.f191398G = (LinearLayout) viewGroup.getChildAt(11);
+        wxa0Var.f191399H = (VText) ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(0);
+        wxa0Var.f191400I = (VText) ((ViewGroup) viewGroup.getChildAt(11)).getChildAt(1);
+        wxa0Var.f191401J = (LinearLayout) viewGroup.getChildAt(12);
+        wxa0Var.f191402K = (VText) ((ViewGroup) viewGroup.getChildAt(12)).getChildAt(0);
+        wxa0Var.f191403L = (VText) ((ViewGroup) viewGroup.getChildAt(12)).getChildAt(1);
+        wxa0Var.f191404M = (LinearLayout) viewGroup.getChildAt(13);
+        wxa0Var.f191405N = (VText) ((ViewGroup) viewGroup.getChildAt(13)).getChildAt(0);
+        wxa0Var.f191406O = (VText) ((ViewGroup) viewGroup.getChildAt(13)).getChildAt(1);
+        wxa0Var.f191407P = (LinearLayout) viewGroup.getChildAt(14);
+        wxa0Var.f191408Q = (VText) ((ViewGroup) viewGroup.getChildAt(14)).getChildAt(0);
+        wxa0Var.f191409R = (VText) ((ViewGroup) viewGroup.getChildAt(14)).getChildAt(1);
+        wxa0Var.f191410S = (LinearLayout) viewGroup.getChildAt(15);
+        wxa0Var.f191411T = (VText) ((ViewGroup) viewGroup.getChildAt(15)).getChildAt(0);
+        wxa0Var.f191412U = (VText) ((ViewGroup) viewGroup.getChildAt(15)).getChildAt(1);
+        wxa0Var.f191413V = (LinearLayout) viewGroup.getChildAt(16);
+        wxa0Var.f191414W = (VText) ((ViewGroup) viewGroup.getChildAt(16)).getChildAt(0);
+        wxa0Var.f191415X = (VText) ((ViewGroup) viewGroup.getChildAt(16)).getChildAt(1);
+        wxa0Var.f191416Y = (LinearLayout) viewGroup.getChildAt(17);
+        wxa0Var.f191417Z = (VText) ((ViewGroup) viewGroup.getChildAt(17)).getChildAt(0);
+        wxa0Var.f191419a0 = (VText) ((ViewGroup) viewGroup.getChildAt(17)).getChildAt(1);
+        wxa0Var.f191421b0 = (LinearLayout) viewGroup.getChildAt(18);
+        wxa0Var.f191423c0 = (VText) ((ViewGroup) viewGroup.getChildAt(18)).getChildAt(0);
+        wxa0Var.f191425d0 = (VText) ((ViewGroup) viewGroup.getChildAt(18)).getChildAt(1);
+        wxa0Var.f191427e0 = (LinearLayout) viewGroup.getChildAt(19);
+        wxa0Var.f191429f0 = (VText) ((ViewGroup) viewGroup.getChildAt(19)).getChildAt(0);
+        wxa0Var.f191431g0 = (VText) ((ViewGroup) viewGroup.getChildAt(19)).getChildAt(1);
+        wxa0Var.f191433h0 = (VText) viewGroup.getChildAt(20);
+        wxa0Var.f191435i0 = (LinearLayout) viewGroup.getChildAt(21);
+        wxa0Var.f191437j0 = (VText) ((ViewGroup) viewGroup.getChildAt(21)).getChildAt(0);
+        wxa0Var.f191439k0 = (VText) ((ViewGroup) viewGroup.getChildAt(21)).getChildAt(1);
+        wxa0Var.f191441l0 = (LinearLayout) viewGroup.getChildAt(22);
+        wxa0Var.f191443m0 = (VText) ((ViewGroup) viewGroup.getChildAt(22)).getChildAt(0);
+        wxa0Var.f191445n0 = (VText) ((ViewGroup) viewGroup.getChildAt(22)).getChildAt(1);
+        wxa0Var.f191447o0 = (LinearLayout) viewGroup.getChildAt(23);
+        wxa0Var.f191449p0 = (VText) ((ViewGroup) viewGroup.getChildAt(23)).getChildAt(0);
+        wxa0Var.f191451q0 = (VText) ((ViewGroup) viewGroup.getChildAt(23)).getChildAt(1);
+        wxa0Var.f191453r0 = (LinearLayout) viewGroup.getChildAt(24);
+        wxa0Var.f191455s0 = (VText) ((ViewGroup) viewGroup.getChildAt(24)).getChildAt(0);
+        wxa0Var.f191457t0 = (VText) ((ViewGroup) viewGroup.getChildAt(24)).getChildAt(1);
+        wxa0Var.f191459u0 = (LinearLayout) viewGroup.getChildAt(25);
+        wxa0Var.f191461v0 = (VText) ((ViewGroup) viewGroup.getChildAt(25)).getChildAt(0);
+        wxa0Var.f191463w0 = (VText) ((ViewGroup) viewGroup.getChildAt(25)).getChildAt(1);
+        wxa0Var.f191465x0 = (LinearLayout) viewGroup.getChildAt(26);
+        wxa0Var.f191467y0 = (VText) ((ViewGroup) viewGroup.getChildAt(26)).getChildAt(1);
+    }
+}

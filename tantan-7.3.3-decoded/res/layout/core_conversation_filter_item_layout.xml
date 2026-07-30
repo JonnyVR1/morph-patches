@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.messages.FilterRoundedCornerLayout android:id="@id/item_layout" android:background="@drawable/core_message_tab_item_select_bg" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginTop="8.0dp" android:layout_marginBottom="10.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/anim" android:background="@drawable/core_message_tab_item_anim_bg" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="match_parent" />
+    <com.p1.mobile.putong.core.newui.messages.ColorTrackTextView android:textSize="12.0sp" android:textColor="@color/core_color_66000000" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/item_view" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="附近" />
+    <com.tantan.library.svga.SVGAnimationView android:id="@id/shimmer_svga" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+</com.p1.mobile.putong.core.newui.messages.FilterRoundedCornerLayout>

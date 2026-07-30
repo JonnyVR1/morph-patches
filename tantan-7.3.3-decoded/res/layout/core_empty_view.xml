@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.newui.view.CoreEmptyView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="view.CoreEmptyView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center_horizontal" android:id="@id/img_empty" android:layout_width="140.0dp" android:layout_height="140.0dp" android:src="@null" android:scaleType="centerInside" />
+    <TextView android:textSize="14.0sp" android:textColor="#9aa5b1" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/txt_tip" android:paddingLeft="36.0dp" android:paddingRight="36.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:text="@string/THEME_NOBODY_DESCRIPTION" android:lineSpacingExtra="4.0dp" />
+    <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:id="@id/empty_tip_layout" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="36.0dp" android:layout_marginTop="30.0dp" android:layout_marginRight="36.0dp" flatten="true">
+        <TextView android:textSize="14.0sp" android:textColor="#d0d0d0" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="未找到“" android:maxLines="1" />
+        <TextView android:textSize="14.0sp" android:textColor="#d0d0d0" android:ellipsize="end" android:gravity="center" android:id="@id/group_input" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:layout_weight="1.0" />
+        <TextView android:textSize="14.0sp" android:textColor="#d0d0d0" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="”相关的群聊 " android:maxLines="1" />
+        <TextView android:textSize="14.0sp" android:textColor="#ff5c31" android:gravity="center" android:id="@id/create_group_text" android:padding="5.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/CHAT_GROUP_CREATE_GROUP" android:maxLines="1" />
+    </LinearLayout>
+    <TextView android:textSize="14.0sp" android:textStyle="normal" android:textColor="#c4c4c4" android:id="@id/interest_text" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="60.0dp" android:text="@string/CHAT_GROUP_SEARCH_RECOMMEND_GROUP" />
+</com.p1.mobile.putong.core.newui.view.CoreEmptyView>

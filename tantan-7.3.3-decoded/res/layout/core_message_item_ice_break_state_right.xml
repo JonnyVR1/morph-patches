@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.ItemIceBreakStateRight android:gravity="center_horizontal" android:id="@id/content" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.ItemIceBreakStateRight"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center" android:orientation="horizontal" android:background="@drawable/core_message_ice_break_state_right" android:layout_width="wrap_content" android:layout_height="34.0dp" android:paddingStart="10.0dp" android:paddingEnd="12.0dp">
+        <v.VDraweeView android:id="@id/image" android:layout_width="20.0dp" android:layout_height="20.0dp" />
+        <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="12.0sp" android:textColor="@color/core_color_80000000" android:ellipsize="end" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:lines="1" android:layout_marginStart="4.0dp" />
+    </v.VLinear>
+</com.p1.mobile.putong.core.ui.messages.ItemIceBreakStateRight>

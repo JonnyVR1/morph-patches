@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@drawable/live_bg_f7f7f7_r16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="40.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:textSize="14.0sp" android:textStyle="normal" android:textColor="#212121" android:gravity="center" android:layout_gravity="center" android:id="@id/text" android:background="@null" android:focusable="false" android:layout_width="wrap_content" android:layout_height="match_parent" android:maxLines="1" android:singleLine="true" android:paddingStart="12.0dp" android:paddingEnd="12.0dp" />
+    <com.p1.mobile.putong.live.base.view.CloseButton android:layout_gravity="end|top" android:id="@id/close" android:padding="3.0dp" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginTop="-3.0dp" android:layout_marginEnd="-7.0dp" app:bg_color="#33000000" app:close_color="@color/white" app:close_width="1.5dp" />
+</FrameLayout>

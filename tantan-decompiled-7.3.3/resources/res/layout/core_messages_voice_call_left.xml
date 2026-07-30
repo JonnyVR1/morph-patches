@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.messages.ItemVoiceCall xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:id="@+id/content"
+    android:paddingTop="?attr/message_voice_call_left_padding_top"
+    android:paddingBottom="?attr/message_voice_call_left_padding_bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="?attr/message_audio_height_left"
+    android:paddingStart="?attr/message_voice_call_left_padding_left"
+    android:paddingEnd="?attr/message_voice_call_left_padding_right"
+    style="@style/messages_item_left">
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:scaleType="fitXY"
+        app:srcCompat="?attr/message_voice_phone_hang_out_left"/>
+    <TextView
+        android:textSize="16sp"
+        android:textColor="?attr/message_voice_text_left"
+        android:id="@+id/tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="?attr/message_voice_icon_margin_left"/>
+</com.p051p1.mobile.putong.core.p058ui.messages.ItemVoiceCall>

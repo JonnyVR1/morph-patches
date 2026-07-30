@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.feed.newui.photoalbum.poi.view.FeedPoiDialogLocationItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/location_item_root"
+    android:background="@drawable/feed_poi_dlg_location_bg"
+    android:paddingLeft="14dp"
+    android:paddingRight="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    android:layout_marginRight="8dp"
+    flatten="true"
+    folder="newui"
+    holder="photoalbum.poi.view.FeedPoiDialogLocationItem">
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/location_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="0x7f081ec7"
+        android:scaleType="fitXY"/>
+    <p151v.VText
+        android:textSize="12sp"
+        android:textColor="@color/feed_cc000000"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:id="@+id/location_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:hint="@string/MOMENTS_CAPTION_ADD_LOCATION_CELL_TITLE"
+        android:maxLines="1"
+        android:singleLine="true"/>
+</com.p051p1.mobile.putong.feed.newui.photoalbum.poi.view.FeedPoiDialogLocationItem>

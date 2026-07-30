@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_edit_done"
+        android:minWidth="44dp"
+        android:minHeight="44dp"
+        android:title="@string/ACTION_DONE"
+        android:showAsAction="always"
+        app:actionLayout="@layout/core_group_edit_done"
+        app:showAsAction="always"/>
+</menu>

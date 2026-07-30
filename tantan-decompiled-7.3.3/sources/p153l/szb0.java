@@ -1,0 +1,188 @@
+package p153l;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.RectEvaluator;
+import android.animation.ValueAnimator;
+import android.graphics.Rect;
+import android.view.View;
+import com.clevertap.android.sdk.Constants;
+import com.p051p1.mobile.android.app.Act;
+import com.p051p1.mobile.putong.core.newui.messages.ConversationsList;
+import com.p051p1.mobile.putong.core.newui.messages.anim.view.QuickChatHeaderBaseView;
+import com.p051p1.mobile.putong.live.base.data.BLiveStormDanmakuGiftResourceType;
+import com.tantanapp.common.utils.CrashHelper;
+import com.tencent.open.SocialConstants;
+import kotlin.Metadata;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/* JADX INFO: loaded from: classes11.dex */
+@Metadata(m88120d1 = {"\u0000F\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u000b\n\u0002\u0010\b\n\u0002\b\u000b\n\u0002\u0018\u0002\n\u0002\b\u000b\u0018\u00002\u000e\u0012\u0004\u0012\u00020\u0002\u0012\u0004\u0012\u00020\u00030\u0001B\u0017\u0012\u0006\u0010\u0005\u001a\u00020\u0004\u0012\u0006\u0010\u0007\u001a\u00020\u0006¢\u0006\u0004\b\b\u0010\tJ\u0017\u0010\f\u001a\u00020\u000b2\u0006\u0010\n\u001a\u00020\u0003H\u0016¢\u0006\u0004\b\f\u0010\rJ\u0017\u0010\u0010\u001a\u00020\u000f2\u0006\u0010\u000e\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u0010\u0010\u0011J\u0017\u0010\u0012\u001a\u00020\u000f2\u0006\u0010\u000e\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u0012\u0010\u0011J\u001f\u0010\u0016\u001a\u00020\u00152\u0006\u0010\u0013\u001a\u00020\u00022\u0006\u0010\u0014\u001a\u00020\u0003H\u0016¢\u0006\u0004\b\u0016\u0010\u0017J\u001f\u0010\u0018\u001a\u00020\u00152\u0006\u0010\u0013\u001a\u00020\u00022\u0006\u0010\u0014\u001a\u00020\u0003H\u0016¢\u0006\u0004\b\u0018\u0010\u0017R\u0017\u0010\u0005\u001a\u00020\u00048\u0006¢\u0006\f\n\u0004\b\u0019\u0010\u001a\u001a\u0004\b\u001b\u0010\u001cR\u0017\u0010\u0007\u001a\u00020\u00068\u0006¢\u0006\f\n\u0004\b\u001d\u0010\u001e\u001a\u0004\b\u001f\u0010 R\"\u0010(\u001a\u00020!8\u0006@\u0006X\u0086\u000e¢\u0006\u0012\n\u0004\b\"\u0010#\u001a\u0004\b$\u0010%\"\u0004\b&\u0010'R\"\u0010,\u001a\u00020!8\u0006@\u0006X\u0086\u000e¢\u0006\u0012\n\u0004\b)\u0010#\u001a\u0004\b*\u0010%\"\u0004\b+\u0010'R$\u00104\u001a\u0004\u0018\u00010-8\u0006@\u0006X\u0086\u000e¢\u0006\u0012\n\u0004\b.\u0010/\u001a\u0004\b0\u00101\"\u0004\b2\u00103R$\u00107\u001a\u0004\u0018\u00010-8\u0006@\u0006X\u0086\u000e¢\u0006\u0012\n\u0004\b\u0010\u0010/\u001a\u0004\b5\u00101\"\u0004\b6\u00103¨\u00068"}, m88121d2 = {"Ll/szb0;", "Lcom/p1/mobile/android/app/Act$w;", "Lcom/p1/mobile/android/app/Act;", "Ll/w2c0;", "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;", "conversationsList", "Lcom/p1/mobile/putong/core/newui/messages/anim/view/QuickChatHeaderBaseView;", "quickChatAudioHeaderView", "<init>", "(Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;Lcom/p1/mobile/putong/core/newui/messages/anim/view/QuickChatHeaderBaseView;)V", "to", "Landroid/view/View;", "k", "(Ll/w2c0;)Landroid/view/View;", SocialConstants.PARAM_ACT, "", "f", "(Lcom/p1/mobile/android/app/Act;)V", "g", "from", "toActHelper", "Landroid/animation/Animator;", BLiveStormDanmakuGiftResourceType.f45292l, "(Lcom/p1/mobile/android/app/Act;Ll/w2c0;)Landroid/animation/Animator;", "m", "a", "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;", "n", "()Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;", "b", "Lcom/p1/mobile/putong/core/newui/messages/anim/view/QuickChatHeaderBaseView;", "o", "()Lcom/p1/mobile/putong/core/newui/messages/anim/view/QuickChatHeaderBaseView;", "", "c", "I", "getStartY", "()I", "setStartY", "(I)V", "startY", Constants.INAPP_DATA_TAG, "getStartBottom", "setStartBottom", "startBottom", "Landroid/graphics/Rect;", "e", "Landroid/graphics/Rect;", "getStart", "()Landroid/graphics/Rect;", "setStart", "(Landroid/graphics/Rect;)V", "start", "getEnd", "setEnd", "end", "b_core_intlGmsRelease"}, m88122k = 1, m88123mv = {2, 2, 0}, m88125xi = 48)
+public final class szb0 extends Act.AbstractC4455w<Act, w2c0> {
+
+    /* JADX INFO: renamed from: a, reason: from kotlin metadata */
+    @NotNull
+    public final ConversationsList conversationsList;
+
+    /* JADX INFO: renamed from: b, reason: from kotlin metadata */
+    @NotNull
+    public final QuickChatHeaderBaseView quickChatAudioHeaderView;
+
+    /* JADX INFO: renamed from: c, reason: from kotlin metadata */
+    public int startY;
+
+    /* JADX INFO: renamed from: d, reason: from kotlin metadata */
+    public int startBottom;
+
+    /* JADX INFO: renamed from: e, reason: from kotlin metadata */
+    @Nullable
+    public Rect start;
+
+    /* JADX INFO: renamed from: f, reason: from kotlin metadata */
+    @Nullable
+    public Rect end;
+
+    /* JADX INFO: renamed from: l.szb0$a */
+    @Metadata(m88120d1 = {"\u0000\u0017\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0003*\u0001\u0000\b\n\u0018\u00002\u00020\u0001J\u0017\u0010\u0005\u001a\u00020\u00042\u0006\u0010\u0003\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u0005\u0010\u0006¨\u0006\u0007"}, m88121d2 = {"l/szb0$a", "Landroid/animation/AnimatorListenerAdapter;", "Landroid/animation/Animator;", "animation", "", "onAnimationEnd", "(Landroid/animation/Animator;)V", "b_core_intlGmsRelease"}, m88122k = 1, m88123mv = {2, 2, 0}, m88125xi = 48)
+    public static final class C20195a extends AnimatorListenerAdapter {
+
+        /* JADX INFO: renamed from: b */
+        public final /* synthetic */ w2c0 f171378b;
+
+        public C20195a(w2c0 w2c0Var) {
+            this.f171378b = w2c0Var;
+        }
+
+        @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+        public void onAnimationEnd(Animator animation) {
+            animation.getClass();
+            szb0.this.getQuickChatAudioHeaderView().mo43000h();
+            szb0.this.getConversationsList().setTranslationY(0.0f);
+            this.f171378b.mo42796E().setClipBounds(null);
+        }
+    }
+
+    public szb0(@NotNull ConversationsList conversationsList, @NotNull QuickChatHeaderBaseView quickChatHeaderBaseView) {
+        conversationsList.getClass();
+        quickChatHeaderBaseView.getClass();
+        this.conversationsList = conversationsList;
+        this.quickChatAudioHeaderView = quickChatHeaderBaseView;
+    }
+
+    /* JADX INFO: renamed from: i */
+    public static void m188636i(szb0 szb0Var, ValueAnimator valueAnimator) {
+        valueAnimator.getClass();
+        Object animatedValue = valueAnimator.getAnimatedValue();
+        animatedValue.getClass();
+        szb0Var.conversationsList.setTranslationY(((Rect) animatedValue).bottom - szb0Var.startY);
+    }
+
+    /* JADX INFO: renamed from: j */
+    public static void m188637j(szb0 szb0Var, ValueAnimator valueAnimator) {
+        valueAnimator.getClass();
+        Object animatedValue = valueAnimator.getAnimatedValue();
+        animatedValue.getClass();
+        szb0Var.conversationsList.setTranslationY(((Rect) animatedValue).bottom - szb0Var.startBottom);
+    }
+
+    @Override // com.p051p1.mobile.android.app.Act.AbstractC4455w
+    /* JADX INFO: renamed from: f */
+    public void mo21411f(@NotNull Act act) {
+        act.getClass();
+        int i = x7c0.f192708w;
+        act.overridePendingTransition(i, i);
+    }
+
+    @Override // com.p051p1.mobile.android.app.Act.AbstractC4455w
+    /* JADX INFO: renamed from: g */
+    public void mo21412g(@NotNull Act act) {
+        act.getClass();
+        int i = x7c0.f192708w;
+        act.overridePendingTransition(i, i);
+    }
+
+    @Override // com.p051p1.mobile.android.app.Act.AbstractC4455w
+    @NotNull
+    /* JADX INFO: renamed from: k, reason: merged with bridge method [inline-methods] */
+    public View mo21421a(@NotNull w2c0 to) {
+        to.getClass();
+        return to.mo42797q();
+    }
+
+    @Override // com.p051p1.mobile.android.app.Act.AbstractC4455w
+    @NotNull
+    /* JADX INFO: renamed from: l, reason: merged with bridge method [inline-methods] */
+    public Animator mo21408c(@NotNull Act from, @NotNull w2c0 toActHelper) {
+        from.getClass();
+        toActHelper.getClass();
+        RectEvaluator rectEvaluator = new RectEvaluator(new Rect());
+        bnl0.C16067g c16067gM105560i0 = bnl0.m105560i0(this.quickChatAudioHeaderView);
+        int i = c16067gM105560i0.f77560b;
+        this.startY = i;
+        this.startBottom = c16067gM105560i0.f77562d + i;
+        this.start = new Rect(0, c16067gM105560i0.f77560b, c16067gM105560i0.f77561c + c16067gM105560i0.f77559a, this.startBottom);
+        this.end = new Rect(0, 0, toActHelper.mo42796E().getWidth(), toActHelper.mo42796E().getHeight());
+        ObjectAnimator objectAnimatorOfObject = ObjectAnimator.ofObject(toActHelper.mo42796E(), "clipBounds", rectEvaluator, this.start, this.end);
+        objectAnimatorOfObject.getClass();
+        toActHelper.mo42796E().setClipBounds(this.start);
+        objectAnimatorOfObject.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: l.qzb0
+            @Override // android.animation.ValueAnimator.AnimatorUpdateListener
+            public final void onAnimationUpdate(ValueAnimator valueAnimator) {
+                szb0.m188637j(this.f160238a, valueAnimator);
+            }
+        });
+        objectAnimatorOfObject.addListener(new C20195a(toActHelper));
+        if (gra.m131778z()) {
+            objectAnimatorOfObject.setDuration(300L);
+            return objectAnimatorOfObject;
+        }
+        objectAnimatorOfObject.setDuration(700L);
+        return objectAnimatorOfObject;
+    }
+
+    @Override // com.p051p1.mobile.android.app.Act.AbstractC4455w
+    @NotNull
+    /* JADX INFO: renamed from: m, reason: merged with bridge method [inline-methods] */
+    public Animator mo21409d(@NotNull Act from, @NotNull w2c0 toActHelper) {
+        from.getClass();
+        toActHelper.getClass();
+        bnl0.C16067g c16067gM105560i0 = bnl0.m105560i0(this.quickChatAudioHeaderView);
+        int i = this.startY;
+        this.start = new Rect(0, i, c16067gM105560i0.f77561c + c16067gM105560i0.f77559a, i);
+        RectEvaluator rectEvaluator = new RectEvaluator(new Rect());
+        if (this.end == null) {
+            CrashHelper.m82479c(new Throwable(" end nullpoint exception check " + this.end + " ==  " + this.start + " === " + this.startY + " ==  " + c16067gM105560i0));
+            this.end = new Rect(0, 0, toActHelper.mo42796E().getWidth(), toActHelper.mo42796E().getHeight());
+        }
+        ObjectAnimator objectAnimatorOfObject = ObjectAnimator.ofObject(toActHelper.mo42796E(), "clipBounds", rectEvaluator, this.end, this.start);
+        objectAnimatorOfObject.getClass();
+        toActHelper.mo42796E().setClipBounds(this.end);
+        objectAnimatorOfObject.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: l.rzb0
+            @Override // android.animation.ValueAnimator.AnimatorUpdateListener
+            public final void onAnimationUpdate(ValueAnimator valueAnimator) {
+                szb0.m188636i(this.f165510a, valueAnimator);
+            }
+        });
+        if (gra.m131778z()) {
+            objectAnimatorOfObject.setDuration(400L);
+        } else {
+            objectAnimatorOfObject.setDuration(700L);
+        }
+        toActHelper.stop();
+        return objectAnimatorOfObject;
+    }
+
+    @NotNull
+    /* JADX INFO: renamed from: n, reason: from getter */
+    public final ConversationsList getConversationsList() {
+        return this.conversationsList;
+    }
+
+    @NotNull
+    /* JADX INFO: renamed from: o, reason: from getter */
+    public final QuickChatHeaderBaseView getQuickChatAudioHeaderView() {
+        return this.quickChatAudioHeaderView;
+    }
+}

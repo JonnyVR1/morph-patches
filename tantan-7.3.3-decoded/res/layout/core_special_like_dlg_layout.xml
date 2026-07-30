@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/core_special_like_dlg_bg" android:paddingLeft="15.0dp" android:paddingRight="15.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="38.0dp">
+        <View android:id="@id/center_div" android:layout_width="1.0dp" android:layout_height="1.0dp" android:layout_centerInParent="true" />
+        <FrameLayout android:background="@null" android:layout_width="104.0dp" android:layout_height="104.0dp" android:layout_marginRight="-15.0dp" android:layout_toLeftOf="@id/center_div">
+            <v.VDraweeView android:layout_gravity="center" android:id="@id/profile_other" android:layout_width="90.0dp" android:layout_height="90.0dp" style="@style/core_special_like_avatar" />
+        </FrameLayout>
+        <FrameLayout android:background="@null" android:layout_width="104.0dp" android:layout_height="104.0dp" android:layout_marginLeft="-15.0dp" android:layout_toRightOf="@id/center_div">
+            <v.VDraweeView android:layout_gravity="center" android:id="@id/profile_me" android:layout_width="90.0dp" android:layout_height="90.0dp" style="@style/core_special_like_avatar" />
+        </FrameLayout>
+        <v.VImage android:layout_width="42.0dp" android:layout_height="42.0dp" android:src="@null" android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+    <TextView android:textSize="18.0dp" android:textColor="#212121" android:gravity="center" android:id="@id/like_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="25.0dp" android:layout_marginBottom="25.0dp" android:text="她喜欢了你\n右滑才能和她配对！" />
+</LinearLayout>

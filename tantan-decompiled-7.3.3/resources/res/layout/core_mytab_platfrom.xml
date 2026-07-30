@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    attachToRoot="true"
+    folder="newui"
+    holder="PlatformQualificationView">
+    <p151v.VButton
+        android:textSize="12sp"
+        android:textColor="#d6d6d6"
+        android:layout_gravity="center"
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看平台相关资质"
+        android:drawableLeft="0x7f081358"
+        android:drawableRight="0x7f081359"
+        android:drawablePadding="5dp"/>
+</merge>

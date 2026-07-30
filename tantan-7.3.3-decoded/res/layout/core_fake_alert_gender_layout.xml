@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VFrame android:layout_gravity="center_horizontal" android:id="@id/profile_frame" android:layout_width="126.0dp" android:layout_height="120.0dp" android:layout_marginTop="46.0dp" android:layout_alignParentTop="true" android:layout_centerHorizontal="true">
+            <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="86.0dp" android:layout_height="120.0dp" app:roundedCornerRadius="12.0dp" />
+            <v.VImage android:layout_gravity="end|bottom" android:id="@id/indicator" android:layout_width="40.0dp" android:layout_height="40.0dp" android:src="@null" android:scaleType="fitXY" />
+        </v.VFrame>
+        <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/common_black_01" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="32.0dp" android:maxLines="2" />
+        <v.VButton android:id="@id/change_gender_1" android:layout_marginLeft="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="32.0dp" style="@style/common_button_large_01" />
+        <v.VButton android:id="@id/change_gender_2" android:layout_marginLeft="32.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="24.0dp" style="@style/common_button_large_01" />
+    </v.VLinear>
+</v.VLinear>

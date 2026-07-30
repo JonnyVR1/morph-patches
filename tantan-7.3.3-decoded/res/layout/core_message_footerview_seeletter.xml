@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.messages.MessageSeeletterFooterView android:gravity="center_vertical" android:orientation="horizontal" android:paddingBottom="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.MessageSeeletterFooterView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/sticker_1" android:background="@drawable/core_see_letter_message_footer" android:layout_width="0.0dp" android:layout_height="34.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="6.0dp" android:layout_weight="1.0">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/meme_1" android:layout_width="23.0dp" android:layout_height="23.0dp" style="@style/core_im_fresco_base" />
+    </v.VFrame>
+    <v.VFrame android:id="@id/sticker_2" android:background="@drawable/core_see_letter_message_footer" android:layout_width="0.0dp" android:layout_height="34.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:layout_weight="1.0">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/meme_2" android:layout_width="23.0dp" android:layout_height="23.0dp" style="@style/core_im_fresco_base" />
+    </v.VFrame>
+    <v.VFrame android:id="@id/sticker_3" android:background="@drawable/core_see_letter_message_footer" android:layout_width="0.0dp" android:layout_height="34.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:layout_weight="1.0">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/meme_3" android:layout_width="23.0dp" android:layout_height="23.0dp" style="@style/core_im_fresco_base" />
+    </v.VFrame>
+    <v.VFrame android:id="@id/sticker_4" android:background="@drawable/core_see_letter_message_footer" android:layout_width="0.0dp" android:layout_height="34.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="12.0dp" android:layout_weight="1.0">
+        <v.VDraweeView android:layout_gravity="center" android:id="@id/meme_4" android:layout_width="23.0dp" android:layout_height="23.0dp" style="@style/core_im_fresco_base" />
+    </v.VFrame>
+</com.p1.mobile.putong.core.ui.messages.MessageSeeletterFooterView>

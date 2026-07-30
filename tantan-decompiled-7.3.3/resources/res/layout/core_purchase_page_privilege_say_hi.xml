@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.p058ui.purchase.page.PurchasePrivilegeSayHiView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    flatten="true"
+    holder="purchase.page.PurchasePrivilegeSayHiView">
+    <p151v.VImage
+        android:layout_gravity="center"
+        android:id="@+id/bg"
+        android:layout_width="56dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="6dp"
+        android:src="0x7f0813ab"
+        android:layout_marginEnd="20dp"/>
+    <p151v.AutoVDraweeView
+        android:layout_gravity="center"
+        android:id="@+id/avatar"
+        android:layout_width="50dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="6dp"
+        android:rotation="10"
+        android:layout_marginStart="22dp"
+        app:roundedCornerRadius="7dp"
+        app:roundingBorderColor="@color/white"
+        app:roundingBorderWidth="3dp"/>
+    <p151v.VImage
+        android:layout_gravity="center"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="14dp"
+        android:src="0x7f0813a6"/>
+</com.p051p1.mobile.putong.core.p058ui.purchase.page.PurchasePrivilegeSayHiView>

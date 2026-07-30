@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <p151v.VText
+        android:enabled="false"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/done"
+        android:background="@drawable/core_done_bg"
+        android:layout_width="55dp"
+        android:layout_height="41dp"
+        android:layout_marginRight="6dp"
+        android:text="@string/REPORT_CONTENT_CHAT_SECLECT_COMPLETE"
+        app:typeface="medium"/>
+</LinearLayout>

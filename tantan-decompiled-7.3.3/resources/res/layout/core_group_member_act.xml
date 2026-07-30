@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/group_member_list"
+    android:background="@color/white"
+    android:paddingLeft="5dp"
+    android:paddingTop="5dp"
+    android:paddingRight="5dp"
+    android:scrollbars="none"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false"
+    holder="messages.group.GroupMembersViewModel"
+    innerClass="true"/>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.feed.newui.camera.MusicMiddleBarView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="50.0dp" flatten="true" folder="newui" holder="camera.MusicMiddleBarView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="16.0dp" android:textStyle="bold" android:textColor="#7c7c7c" android:gravity="center" android:layout_gravity="center" android:id="@id/music_center_item_name" android:layout_width="wrap_content" android:layout_height="50.0dp" />
+</com.p1.mobile.putong.feed.newui.camera.MusicMiddleBarView>

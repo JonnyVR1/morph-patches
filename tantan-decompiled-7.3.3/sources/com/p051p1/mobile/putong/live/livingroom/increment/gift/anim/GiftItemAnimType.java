@@ -1,0 +1,49 @@
+package com.p051p1.mobile.putong.live.livingroom.increment.gift.anim;
+
+import p153l.qul;
+import p153l.tid0;
+
+/* JADX WARN: Failed to restore enum class, 'enum' modifier and super class removed */
+/* JADX WARN: Unknown enum class pattern. Please report as an issue! */
+/* JADX INFO: loaded from: classes4.dex */
+public abstract class GiftItemAnimType {
+    private static final /* synthetic */ GiftItemAnimType[] $VALUES = $values();
+    public static final GiftItemAnimType roomOneTime;
+    private String type;
+
+    /* JADX INFO: renamed from: com.p1.mobile.putong.live.livingroom.increment.gift.anim.GiftItemAnimType$1 */
+    public final enum C129561 extends GiftItemAnimType {
+        private C129561(String str, int i, String str2) {
+            super(str, i, str2);
+        }
+
+        @Override // com.p051p1.mobile.putong.live.livingroom.increment.gift.anim.GiftItemAnimType
+        public qul getController() {
+            return new tid0();
+        }
+    }
+
+    private static /* synthetic */ GiftItemAnimType[] $values() {
+        return new GiftItemAnimType[]{roomOneTime};
+    }
+
+    static {
+        String str = "roomOneTime";
+        roomOneTime = new C129561(str, 0, str);
+    }
+
+    private GiftItemAnimType(String str, int i, String str2) {
+        super(str, i);
+        this.type = str2;
+    }
+
+    public static GiftItemAnimType valueOf(String str) {
+        return (GiftItemAnimType) Enum.valueOf(GiftItemAnimType.class, str);
+    }
+
+    public static GiftItemAnimType[] values() {
+        return (GiftItemAnimType[]) $VALUES.clone();
+    }
+
+    public abstract qul getController();
+}

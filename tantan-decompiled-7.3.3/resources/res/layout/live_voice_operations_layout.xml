@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.intl.operations.VoiceOperationsView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visibility="gone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <androidx.recyclerview.widget.RecyclerView
+        android:orientation="horizontal"
+        android:id="@+id/recyclerView"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="20dp"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:requiresFadingEdge="horizontal"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.intl.operations.VoiceOperationsView>

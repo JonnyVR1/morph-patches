@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/root" android:background="@drawable/core_card_cert_dialog_bg" android:paddingBottom="34.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="ui" holder="dlg.CardCertificationDialog"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <v.VFrame android:id="@id/photo_card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="48.0dp">
+            <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/user_avatar" android:layout_width="130.0dp" android:layout_height="130.0dp" fresco:actualImageScaleType="centerCrop" fresco:roundedCornerRadius="70.0dp" />
+            <v.VImage android:layout_gravity="center_horizontal" android:id="@id/frame_overlay" android:layout_width="46.0dp" android:layout_height="46.0dp" android:src="@null" android:layout_marginStart="48.0dp" />
+        </v.VFrame>
+        <v.VText android:textSize="22.0sp" android:textColor="@color/common_000000_80" android:gravity="center" android:id="@id/cert_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" android:text="@string/INLT_TTC_CLONE_CERTIFICATION_CONTENT_ONE" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" fresco:typeface="medium" />
+        <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/cert_button" android:background="@drawable/core_card_cert_dialog_btn_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="32.0dp" android:text="@string/INLT_TTC_CLONE_CERTIFICATION_BUTTON_ONE" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+    </v.VLinear>
+    <v.VImage android:layout_gravity="end" android:id="@id/close" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginTop="16.0dp" android:src="@null" android:layout_marginEnd="16.0dp" />
+</v.VFrame>

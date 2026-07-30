@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VRelative android:orientation="horizontal" android:background="@drawable/core_growth_new_user_tip_bg" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="match_parent" android:layout_height="72.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:id="@id/dr_new_user_bg" android:background="@drawable/core_growth_live_icon_bg" android:visibility="gone" android:layout_width="46.0dp" android:layout_height="46.0dp" android:layout_centerVertical="true" android:layout_marginEnd="10.0dp" />
+    <v.VDraweeView android:id="@id/dr_new_user_icon" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_centerVertical="true" android:layout_marginEnd="10.0dp" app:actualImageScaleType="fitXY" app:roundAsCircle="true" />
+    <v.VText android:textSize="14.0sp" android:textColor="#cc000000" android:id="@id/tv_new_user_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" android:layout_centerVertical="true" android:layout_marginEnd="69.0dp" android:layout_toEndOf="@id/dr_new_user_icon" android:layout_alignParentEnd="true" />
+    <v.VButton android:textSize="14.0sp" android:textColor="@android:color/white" android:gravity="center" android:id="@id/bt_new_user_pop_submit" android:background="@drawable/common_button_btn_orange_medium" android:layout_width="53.0dp" android:layout_height="34.0dp" android:text="查看" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+</v.VRelative>

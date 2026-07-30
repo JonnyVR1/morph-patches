@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.core.newui.intlmeet.visitor.IntlMeetVisitorsDividingLineItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:id="@+id/root"
+    android:background="@color/white"
+    android:paddingTop="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="41dp"
+    flatten="true"
+    folder="newui"
+    holder="intlmeet.visitor.IntlMeetVisitorsDividingLineItemView">
+    <p151v.VLinear
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <p151v.VImage
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="0x7f080b46"/>
+        <p151v.VText
+            android:textColor="@color/common_000000_20"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:text="@string/INTL_MEET_VISITOR_UNLOCK_ULTRA"
+            android:layout_weight="1"/>
+        <p151v.VImage
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="0x7f080b46"/>
+    </p151v.VLinear>
+</com.p051p1.mobile.putong.core.newui.intlmeet.visitor.IntlMeetVisitorsDividingLineItemView>

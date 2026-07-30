@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VDraweeView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:id="@+id/item"
+    android:background="@drawable/tf_rect_rounded_light"
+    android:padding="@dimen/messages_keyboard_emoticon_padding"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    fresco:actualImageScaleType="fitCenter"
+    style="@style/core_im_fresco_base"/>

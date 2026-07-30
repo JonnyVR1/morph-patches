@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.increment.gift.operation.gears.GiftGearsFlyView android:layout_width="20.0dp" android:layout_height="20.0dp" folder="increment" holder="gift.operation.gears.GiftGearsFlyView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:layout_gravity="center" android:id="@id/gift" android:layout_width="20.0dp" android:layout_height="20.0dp" app:placeholderImage="@null" />
+</com.p1.mobile.putong.live.livingroom.increment.gift.operation.gears.GiftGearsFlyView>

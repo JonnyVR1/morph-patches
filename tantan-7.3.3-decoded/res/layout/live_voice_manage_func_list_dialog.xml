@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="voice" holder="manager.VoiceLiveManagerFuncListDialogView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:id="@id/empty" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/live_bg_19191e_tr24" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent">
+        <View android:background="@drawable/live_bg_white_r3_a03" android:layout_width="37.0dp" android:layout_height="5.0dp" android:layout_marginTop="12.0dp" />
+        <v.VLinear android:orientation="vertical" android:id="@id/funcList" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="33.0dp" />
+        <View android:id="@id/line" android:background="#07ffffff" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginTop="-8.0dp" />
+        <TextView android:textSize="16.0dp" android:textColor="@color/live_white_40_opacity" android:gravity="center" android:id="@id/cancel" android:paddingTop="24.0dp" android:paddingBottom="24.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/LIVE_CANCEL" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

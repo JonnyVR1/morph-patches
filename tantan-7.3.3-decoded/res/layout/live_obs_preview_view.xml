@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.other.obs.ObsPreviewView android:background="@null" android:layout_width="match_parent" android:layout_height="match_parent" android:weightSum="1.0" flatten="true" folder="other" holder="obs.ObsPreviewView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/obs_player_container" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <LinearLayout android:orientation="vertical" android:id="@id/obs_preivew_container" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <LinearLayout android:id="@id/obs_top_action_bar" android:layout_width="match_parent" android:layout_height="44.0dp" android:layout_marginTop="40.0dp">
+            <v.VImage android:id="@id/obs_back" android:layout_width="44.0dp" android:layout_height="44.0dp" android:src="@null" android:scaleType="center" />
+            <TextView android:textSize="17.0sp" android:textColor="@color/live_white" android:gravity="center" android:layout_gravity="center" android:layout_width="0.0dp" android:layout_height="44.0dp" android:text="@string/LIVE_ROOM_OBS_VIDEO_OPEN" android:layout_weight="1.0" />
+            <v.VImage android:id="@id/obs_faq" android:layout_width="44.0dp" android:layout_height="44.0dp" android:src="@null" android:scaleType="center" />
+        </LinearLayout>
+        <FrameLayout android:id="@id/obs_player_fake_view" android:background="#0cffffff" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="68.0dp" android:minHeight="211.0dp">
+            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <v.VImage android:layout_width="220.0dp" android:layout_height="150.0dp" android:src="@null" />
+                <v.VText android:textSize="14.0sp" android:textColor="#48ffffff" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="@string/LIVE_ROOM_OBS_NO_STREAM" />
+            </LinearLayout>
+        </FrameLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/obs_push_url_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="72.0dp">
+            <v.VText android:textSize="14.0sp" android:textColor="#88ffffff" android:ellipsize="end" android:gravity="center" android:id="@id/obs_push_url_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:text="" android:maxLines="3" />
+            <v.VText android:textColor="#bbffffff" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="10.0dp" android:text="@string/LIVE_ROOM_OBS_CLICK_COPY" />
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+        <v.VText android:textSize="17.0sp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/live_start_live" android:background="@drawable/live_selector_obs_start_live_button_bg" android:layout_width="match_parent" android:layout_height="50.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:text="@string/LIVE_ROOM_OBS_WAITE_START" />
+        <v.VText android:textSize="14.0sp" android:textColor="#88ffffff" android:gravity="center" android:id="@id/obs_start_live_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_marginBottom="44.0dp" android:text="@string/LIVE_ROOM_OBS_WAITE_DES" />
+    </LinearLayout>
+</com.p1.mobile.putong.live.livingroom.other.obs.ObsPreviewView>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="32.0dp" android:width="32.0dp" android:viewportWidth="32.0" android:viewportHeight="32.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <group>
+        <clip-path android:pathData="M16,16m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0" />
+        <path android:fillColor="@drawable/$core_ic_compliment_paid__0" android:pathData="M16,16m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0" />
+        <path android:fillColor="#ffd780" android:pathData="M16,16m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0" />
+        <path android:fillColor="#8d5c0e" android:pathData="M7.119,10.804C7.722,10.217 8.538,9.879 9.367,9.873L22.447,9.782C24.073,9.77 25.296,11.015 25.178,12.561C25.141,13.05 24.969,13.531 24.68,13.957L17.343,24.786C16.431,26.132 14.596,26.607 13.245,25.847C12.555,25.459 12.094,24.8 11.975,24.032L11.304,19.714L16.051,17.175C16.625,16.868 16.841,16.154 16.535,15.58C16.228,15.006 15.513,14.788 14.939,15.095L10.164,17.649L7.014,14.756C5.891,13.725 5.938,11.956 7.119,10.804Z" />
+    </group>
+</vector>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear_Dividers android:id="@id/user_basic_info_edit" android:background="@color/white" android:paddingTop="18.0dp" flatten="true" holder="profile.holders.ProfileBaseInfoEditHolder" needPublic="true" style="@style/profile_item_frame_no_padding_new"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VText android:id="@id/edit_title" android:paddingTop="0.0dp" android:text="@string/PROFILE_BASIC_INFO" style="@style/profile_item_title_black_edit" />
+    <RelativeLayout android:id="@id/nickname" android:paddingLeft="20.0dp" android:layout_marginTop="4.0dp" style="@style/profile_item_info">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_80" android:id="@id/nickname_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/SIGNUP_NICKNAKE_PLACEHOLDER" android:layout_centerVertical="true" />
+        <v.VImage android:id="@id/nickname_arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:layout_alignParentRight="true" android:layout_centerVertical="true" app:srcCompat="@drawable/core_profile_edit_right_arrow" />
+        <v.VText android:textSize="15.0sp" android:textColor="@color/core_color_66000000" android:ellipsize="end" android:gravity="left" android:id="@id/nickname_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="116.0dp" android:layout_marginRight="8.0dp" android:maxLines="1" android:layout_toLeftOf="@id/nickname_arrow" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <RelativeLayout android:paddingLeft="20.0dp" style="@style/profile_item_info">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_80" android:id="@id/birthday_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/SETTINGS_BIRTHDAY" android:layout_centerVertical="true" />
+        <v.VImage android:id="@id/birthday_arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:layout_alignParentRight="true" android:layout_centerVertical="true" app:srcCompat="@drawable/core_profile_edit_right_arrow" />
+        <v.VText android:textSize="15.0sp" android:textColor="@color/core_color_66000000" android:ellipsize="end" android:gravity="right" android:id="@id/birthdate" android:paddingTop="8.0dp" android:paddingBottom="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="116.0dp" android:layout_marginRight="8.0dp" android:maxLines="1" android:layout_toLeftOf="@id/birthday_arrow" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <RelativeLayout android:paddingLeft="20.0dp" style="@style/profile_item_info">
+        <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_80" android:id="@id/gender_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/SETTINGS_YOUR_GENDER" android:layout_centerVertical="true" />
+        <v.VText android:textSize="15.0sp" android:textColor="@color/core_color_66000000" android:id="@id/gender" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:layout_toLeftOf="@id/gender_image" android:layout_centerVertical="true" />
+        <v.VImage android:id="@id/gender_image" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="12.0dp" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/divider_layout" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="20.0dp">
+        <View android:background="@drawable/core_profile_newui_edit_item_normal" android:layout_width="match_parent" android:layout_height="3.0dp" />
+    </LinearLayout>
+</v.VLinear_Dividers>

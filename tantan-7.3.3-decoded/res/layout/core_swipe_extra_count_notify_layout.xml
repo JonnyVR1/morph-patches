@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="horizontal" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="52.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:layout_gravity="center_vertical" android:clipChildren="false" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginLeft="12.0dp">
+        <com.facebook.drawee.view.SimpleDraweeView android:id="@id/avatar_img" android:layout_width="28.0dp" android:layout_height="28.0dp" fresco:roundAsCircle="true" />
+        <v.VImage android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginLeft="14.0dp" android:layout_marginTop="12.0dp" android:src="@drawable/core_swipe_extra_count_ic" />
+    </v.VFrame>
+    <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginTop="7.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="7.0dp">
+        <com.p1.mobile.putong.core.ui.VText_Default_Bold android:textSize="14.0dp" android:textColor="@color/common_000000_80" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="20.0dp" android:text="认证权益生效中" />
+        <v.VText android:textSize="12.0dp" android:textColor="@color/common_000000_40" android:id="@id/extra_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:minHeight="17.0dp" android:text="今日已右滑100次，因为你完成认证，可继续发送喜欢" />
+    </v.VLinear>
+</v.VLinear>

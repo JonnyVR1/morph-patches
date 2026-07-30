@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.account.p055ui.mediapicker.impl.AccountMediaItemView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="@drawable/tf_rect_light"
+    holder="mediapicker.impl.AccountMediaItemView">
+    <p151v.VDraweeView
+        android:id="@+id/image"
+        android:background="@color/mediapicker_image_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:failureImage="0x7f081a6c"/>
+    <ImageView
+        android:layout_gravity="bottom|left"
+        android:id="@+id/video_indicator"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="12dp"
+        android:src="0x7f082a85"/>
+    <View
+        android:id="@+id/mask"
+        android:background="#88000000"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <p151v.VFrame
+        android:layout_gravity="top|right"
+        android:id="@+id/check_frame"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="6dp"
+        flatten="true">
+        <p151v.VCheckCircle
+            android:layout_gravity="center"
+            android:id="@+id/check"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="0x7f0802ee"/>
+    </p151v.VFrame>
+</com.p051p1.mobile.putong.account.p055ui.mediapicker.impl.AccountMediaItemView>

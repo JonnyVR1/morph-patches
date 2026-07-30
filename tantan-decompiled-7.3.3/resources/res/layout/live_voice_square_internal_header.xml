@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.external.internal.virtualVoice.square.header.LiveVoiceInternalHeaderView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="internal"
+    holder="virtualVoice.square.header.LiveVoiceInternalHeaderView">
+    <p151v.VRecyclerView
+        android:id="@+id/recycler_avatar"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-3dp"
+        android:overScrollMode="never"
+        useId="true"/>
+    <p151v.VRecyclerView
+        android:id="@+id/recycler_quick_entry"
+        android:paddingLeft="5dp"
+        android:paddingTop="7dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="8dp"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        useId="true"/>
+</com.p051p1.mobile.putong.live.external.internal.virtualVoice.square.header.LiveVoiceInternalHeaderView>

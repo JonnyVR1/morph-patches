@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="messages.addressbook.loveradar.LoveRadarFilterPairedUserViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <v.VFrame android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.viewpager2.widget.ViewPager2 android:id="@id/view_pager" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <v.VFrame android:layout_gravity="bottom" android:background="@drawable/core_love_radar_filter_pair_bottom_shadow" android:layout_width="match_parent" android:layout_height="150.0dp">
+            <v.VText android:textSize="14.0dp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="right|bottom" android:id="@id/next" android:background="@drawable/common_button_btn_orange_medium" android:layout_width="66.0dp" android:layout_height="44.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" />
+        </v.VFrame>
+        <v.VProgressBar android:layout_gravity="center" android:id="@id/progress_loading" android:visibility="gone" android:layout_width="64.0dp" android:layout_height="64.0dp" android:indeterminate="true" app:cpb_color="@color/tantan_orange" app:cpb_stroke_width="6.0dp" />
+    </v.VFrame>
+</v.VLinear>

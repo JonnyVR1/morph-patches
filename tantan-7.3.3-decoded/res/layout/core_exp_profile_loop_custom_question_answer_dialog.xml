@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VImage android:id="@id/back" android:background="@null" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginLeft="10.0dp" android:layout_marginTop="6.0dp" />
+    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="56.0dp" android:layout_marginRight="40.0dp">
+        <v.VText android:textSize="24.0dp" android:textColor="@color/common_exp_black_01" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="34.0dp" android:text="写下你的回答" />
+        <v.VLinear android:layout_gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/core_marry_edit_profile_multiple_item_bg" android:paddingLeft="16.0dp" android:paddingTop="17.0dp" android:paddingRight="12.0dp" android:paddingBottom="17.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" android:minHeight="56.0dp">
+            <TextView android:textSize="16.0sp" android:textColor="#cc000000" android:ellipsize="end" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dp" android:maxLines="2" android:layout_weight="1.0" android:paddingEnd="12.0dp" />
+        </v.VLinear>
+        <v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content">
+            <v.VEditText android:textSize="16.0dp" android:textColor="@color/common_exp_black_01" android:textColorHint="@color/common_exp_black_03" android:gravity="left|top" android:id="@id/edit_view" android:background="@drawable/exp_profile_loop_text_type_bg" android:paddingLeft="16.0dp" android:paddingTop="20.0dp" android:paddingRight="16.0dp" android:paddingBottom="20.0dp" android:layout_width="match_parent" android:layout_height="200.0dp" android:layout_marginTop="16.0dp" />
+            <v.VText android:textSize="16.0dp" android:textColor="@color/common_000000_20" android:layout_gravity="right|bottom" android:id="@id/count" android:layout_width="wrap_content" android:layout_height="22.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="20.0dp" />
+        </v.VFrame>
+    </v.VLinear>
+    <FrameLayout android:layout_gravity="bottom" android:id="@id/bottom_layout" android:layout_width="match_parent" android:layout_height="56.0dp">
+        <v.VButton android:textSize="14.0dp" android:textColor="@color/white" android:layout_gravity="right|center" android:id="@id/next_btn" android:background="@drawable/common_exp_button_btn_orange_small" android:paddingLeft="14.0dp" android:paddingTop="10.0dp" android:paddingRight="14.0dp" android:paddingBottom="10.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="20.0dp" android:text="@string/ACTION_NEXT" android:paddingHorizontal="14.0dp" android:paddingVertical="10.0dp" />
+    </FrameLayout>
+</FrameLayout>

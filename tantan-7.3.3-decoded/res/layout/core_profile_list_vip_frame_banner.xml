@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/vip_frame" android:background="@drawable/profile_vip_bg" android:paddingLeft="16.0dp" android:paddingTop="0.0dp" android:paddingBottom="0.0dp" android:visibility="visible" android:minHeight="64.0dp" holder="profile.profilelist.itemholders.ProfileVIPBannerItemHolder" style="@style/profile_item_frame_no_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VImage android:id="@id/image" android:layout_width="24.0dp" android:layout_height="24.0dp" android:scaleType="fitXY" />
+    <v.VText android:textSize="16.0sp" android:textColor="@color/text_dark" android:layout_gravity="left|center" android:id="@id/vip_status" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:maxLines="1" android:layout_weight="1.0" />
+    <v.VText android:textSize="14.0sp" android:textColor="@color/tantan_orange" android:gravity="center" android:layout_gravity="right|center" android:id="@id/view" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/VIP_VIEW_PRIVILEGE" app:typeface="medium" />
+</v.VLinear>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wdullaer.materialdatetimepicker.date.AccessibleDateAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:id="@+id/animator"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:layout_width="@dimen/mdtp_date_picker_component_width"
+    android:layout_height="@dimen/mdtp_date_picker_view_animator_height"/>

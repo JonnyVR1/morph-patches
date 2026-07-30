@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:id="@id/base_root" android:clipChildren="true" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="profile.profilelist.imp.ProfileListExpandedViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VFrame android:id="@id/root" android:background="@color/crop__button_bar" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
+        <v.VProgressBar android:id="@id/loading_block" style="@style/core_loading_block" />
+        <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <com.p1.mobile.putong.core.ui.profile.views.ProfileCustomBar android:id="@id/profile_custom_bar" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <View android:background="@drawable/core_expanded_profile_gradient" android:layout_width="match_parent" android:layout_height="27.0dp" />
+                <com.p1.mobile.putong.core.newui.home.card.expanded.UserProfileExpandedCard android:id="@id/profile_content" android:layout_width="match_parent" android:layout_height="match_parent" app:cardBackgroundColor="#00000000" app:cardElevation="0.0dp" />
+            </FrameLayout>
+        </v.VLinear>
+        <include android:layout_gravity="bottom" android:id="@id/superlike_combo_anim_view" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="50.0dp" layout="@layout/core_super_like_combo_anim_view" />
+        <FrameLayout android:layout_gravity="bottom" android:id="@id/button_container" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </v.VFrame>
+</v.VFrame>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Animation.Activity" parent="@style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_from_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_to_right</item>
+        <item name="android:taskOpenEnterAnimation">@anim/task_open_enter</item>
+        <item name="android:taskOpenExitAnimation">@anim/task_open_exit</item>
+        <item name="android:taskCloseEnterAnimation">@anim/task_close_enter</item>
+        <item name="android:taskCloseExitAnimation">@anim/task_close_exit</item>
+        <item name="android:taskToFrontEnterAnimation">@anim/null_anim</item>
+        <item name="android:taskToFrontExitAnimation">@anim/task_open_exit</item>
+        <item name="android:taskToBackEnterAnimation">@anim/task_close_enter</item>
+        <item name="android:taskToBackExitAnimation">@anim/task_close_exit</item>
+    </style>
+    <style name="MD_Dark" parent="@android:style/Theme.Material.Dialog.Alert">
+        <item name="android:backgroundDimAmount">@dimen/common_dialog_background_dim_amount</item>
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="md_accent_color">@color/common_orange</item>
+        <item name="md_btn_selector">@drawable/tf_rect_rounded_padding_dark</item>
+        <item name="md_divider">@color/md_divider_white</item>
+        <item name="md_selector">?android:selectableItemBackground</item>
+        <item name="md_subtitle_color">@color/common_grey_02</item>
+    </style>
+    <style name="MD_Light" parent="@android:style/Theme.Material.Light.Dialog.Alert">
+        <item name="android:backgroundDimAmount">@dimen/common_dialog_background_dim_amount</item>
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="md_accent_color">@color/common_orange</item>
+        <item name="md_btn_selector">@drawable/tf_rect_rounded_padding_light</item>
+        <item name="md_content_color">@color/common_normal_content_04</item>
+        <item name="md_divider">@color/md_divider_black</item>
+        <item name="md_item_color">@color/common_grey_01</item>
+        <item name="md_selector">?android:selectableItemBackground</item>
+        <item name="md_subtitle_color">@color/common_normal_content_04</item>
+        <item name="md_title_color">@color/common_normal_title</item>
+    </style>
+    <style name="Widget.AppCompat.TextView.NoFallbackLineSpacing" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:fallbackLineSpacing">false</item>
+    </style>
+</resources>

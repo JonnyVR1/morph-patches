@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.newui.mediaoperation.preview.item.PickerSelectedItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    folder="newui"
+    holder="mediaoperation.preview.item.PickerSelectedItem">
+    <p151v.VDraweeView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2dp"
+        android:layout_centerVertical="true"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:roundedCornerRadius="8dp"/>
+    <p151v.VImage
+        android:id="@+id/stroke"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/media_preview_select_photo_item"/>
+</com.p051p1.mobile.putong.newui.mediaoperation.preview.item.PickerSelectedItem>

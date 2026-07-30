@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VLinear android:orientation="vertical" android:id="@id/dlg_root" android:background="@drawable/live_bg_white_tr24" android:layout_width="match_parent" android:layout_height="match_parent">
+        <v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content">
+            <View android:layout_gravity="center_horizontal" android:id="@id/tips" android:background="#f2f2f2" android:visibility="invisible" android:layout_width="37.0dp" android:layout_height="5.0dp" android:layout_marginTop="12.0dp" />
+            <v.VImage android:layout_gravity="end" android:id="@id/live_iv_close" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:src="@null" android:layout_marginEnd="20.0dp" />
+        </v.VFrame>
+        <com.p1.mobile.putong.live.base.webview.SelfTouchWebView android:id="@id/web_view" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </v.VLinear>
+</v.VFrame>

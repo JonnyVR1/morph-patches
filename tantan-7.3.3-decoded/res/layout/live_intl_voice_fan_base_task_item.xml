@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.live.livingroom.voice.intl.fanbase.IntlVoiceFanBaseTaskItem android:layout_width="match_parent" android:layout_height="64.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/task_icon" android:background="@drawable/live_shape_intl_voice_fan_base_task_icon_bg" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginLeft="24.0dp" />
+    <v.VLinear android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="96.0dp" android:layout_marginRight="114.0dp">
+        <TextView android:textSize="14.0dp" android:textColor="@color/white" android:gravity="center_vertical" android:id="@id/task_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="兔子喵Hoti的粉丝团兔子喵Hoti的粉丝团兔子喵Hoti的粉丝团" android:maxLines="2" />
+        <TextView android:textSize="12.0dp" android:textColor="@color/live_white_50_opacity" android:gravity="center_vertical" android:id="@id/task_desc" android:layout_width="match_parent" android:layout_height="16.0dp" android:layout_marginTop="6.0dp" android:text="兔子喵Hoti的粉丝团" android:maxLines="1" />
+    </v.VLinear>
+    <TextView android:textColor="@color/live_selector_intl_voice_fan_base_task_button_color" android:gravity="center" android:layout_gravity="right|center" android:id="@id/task_button" android:background="@drawable/live_selector_intl_voice_fan_base_task_button_bg" android:padding="6.0dp" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginRight="24.0dp" android:minWidth="74.0dp" />
+</com.p1.mobile.putong.live.livingroom.voice.intl.fanbase.IntlVoiceFanBaseTaskItem>

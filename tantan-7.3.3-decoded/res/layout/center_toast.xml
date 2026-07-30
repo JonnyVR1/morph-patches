@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@drawable/center_toast_background" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageView android:layout_gravity="center_horizontal" android:id="@id/icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="centerInside" />
+        <v.VText android:textSize="16.0sp" android:textColor="@color/white" android:layout_gravity="center_horizontal" android:id="@android:id/message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:shadowColor="#bb000000" android:shadowRadius="2.75" app:typeface="condensed_regular" />
+    </LinearLayout>
+</FrameLayout>

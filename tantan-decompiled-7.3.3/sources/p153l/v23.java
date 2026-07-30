@@ -1,0 +1,9 @@
+package p153l;
+
+import android.graphics.Bitmap;
+import kotlin.Metadata;
+
+/* JADX INFO: loaded from: classes.dex */
+@Metadata(m88120d1 = {"\u0000\u000e\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\bf\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u0001¨\u0006\u0003"}, m88121d2 = {"Ll/v23;", "Ll/vi80;", "Landroid/graphics/Bitmap;", "imagepipeline_release"}, m88122k = 1, m88123mv = {2, 0, 0}, m88125xi = 48)
+public interface v23 extends vi80<Bitmap> {
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="6dp"
+    android:width="15dp"
+    android:viewportWidth="15"
+    android:viewportHeight="6">
+    <group>
+        <clip-path android:pathData="M0,0h15v6h-15z"/>
+        <path
+            android:fillColor="#ffffff"
+            android:pathData="M1.081,0L5.289,4.589C6.478,5.885 8.522,5.885 9.711,4.589L13.919,0H1.081Z"
+            android:fillType="evenOdd"/>
+    </group>
+</vector>

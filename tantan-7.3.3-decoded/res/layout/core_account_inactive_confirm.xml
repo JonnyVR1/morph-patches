@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="#fff" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="account.AccountInactiveConfirmActViewModel"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
+    <ScrollView style="@style/core_account_scroll">
+        <LinearLayout android:orientation="vertical" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:layout_width="match_parent" android:layout_height="match_parent">
+            <v.VText android:textSize="30.0sp" android:textColor="@color/common_orange" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:text="受到人身攻击" android:fontFamily="sans-serif-medium" />
+            <v.VText android:textSize="16.0sp" android:textColor="#4a4a4a" android:id="@id/subtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" android:text="若您在使用产品的过程中遇到诈骗、骚扰、盗用、人身攻击等，请点击用户资料页右上角或者点击按钮告知客服进行举报，举报成功后您可获得特权奖励。" android:lineSpacingExtra="2.0dp" />
+            <v.VText android:textSize="16.0sp" android:textStyle="bold" android:textColor="#4a4a4a" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="17.0dp" android:text="注销账户后，您的：" android:lineSpacingExtra="2.0dp" />
+            <v.VText android:textSize="16.0sp" android:textColor="#4a4a4a" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:text="1.聊天记录、配对、个人资料、动态等将被永久删除，无法恢复。 \n2.VIP特权、SVIP特权及服务有效期将作废。 \n3.探探币余额、直播收入等将被直接舍弃。" android:lineSpacingExtra="2.0dp" />
+        </LinearLayout>
+    </ScrollView>
+    <v.VText android:textColor="@android:color/white" android:gravity="center" android:id="@id/positive" android:background="@drawable/core_account_inactive_confirm_positive_btn" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:text="" />
+    <v.VText android:textColor="@color/common_grey_04" android:gravity="center" android:id="@id/negative" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" android:text="狠心删除账号" />
+</LinearLayout>

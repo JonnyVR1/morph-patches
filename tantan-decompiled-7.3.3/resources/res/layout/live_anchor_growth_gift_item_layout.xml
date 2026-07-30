@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:background="@drawable/live_shape_anchor_growth_item_bg"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_margin="4dp">
+        <p151v.VDraweeView
+            android:layout_gravity="center"
+            android:id="@+id/gift_img"
+            android:layout_width="56dp"
+            android:layout_height="57dp"/>
+    </FrameLayout>
+    <TextView
+        android:textSize="10sp"
+        android:textColor="@color/live_white"
+        android:layout_gravity="top|right"
+        android:id="@+id/days_text"
+        android:background="@drawable/live_bg_dd9f6f_r4"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:layout_marginEnd="2dp"/>
+</FrameLayout>

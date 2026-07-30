@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <v.VLinear android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="40.0dp">
+        <v.VDraweeView android:id="@id/work_cover" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginLeft="10.0dp" android:layout_marginRight="6.0dp" app:background="@color/common_red" app:placeholderImage="@drawable/core_slide_card_dlg_bg" app:roundedCornerRadius="4.0dp" />
+        <v.VText android:textSize="13.0sp" android:textColor="#cc000000" android:id="@id/prompt" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dp" android:singleLine="true" />
+    </v.VLinear>
+</v.VFrame>

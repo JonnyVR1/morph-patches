@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <v.VDraweeView android:gravity="center" android:id="@id/img" android:layout_width="200.0dp" android:layout_height="200.0dp" android:layout_marginLeft="40.0dp" android:layout_marginTop="40.0dp" android:layout_marginRight="40.0dp" android:layout_marginBottom="20.0dp" fresco:actualImageScaleType="fitCenter" />
+</LinearLayout>

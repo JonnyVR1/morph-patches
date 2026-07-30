@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp">
+        <p151v.VDraweeView
+            android:id="@+id/avatar"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:roundAsCircle="true"/>
+        <ImageView
+            android:layout_gravity="bottom|right"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="0x7f081871"/>
+    </FrameLayout>
+    <TextView
+        android:textSize="19dp"
+        android:textColor="#de000000"
+        android:gravity="center"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="53dp"/>
+    <TextView
+        android:textSize="14dp"
+        android:textColor="#747474"
+        android:gravity="center"
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="40dp"
+        android:text="完成认证可进一步提高曝光和配对成功率，快去试试吧！"/>
+</LinearLayout>

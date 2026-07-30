@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#4d000000"
+    android:clipChildren="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:bind_extends="com.p1.mobile.putong.live.livingroom.archi.dialogcenter.BaseDialogHolder"
+    app:bind_implements="null"
+    app:binding="true"
+    app:flatten="true">
+    <View
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:id="@+id/pager_content"
+        android:background="@drawable/live_bg_white_tr24"
+        android:layout_width="match_parent"
+        android:layout_height="575dp"/>
+</LinearLayout>

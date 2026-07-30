@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p1.mobile.putong.core.ui.purchase.CoinGuideView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.CoinGuideView"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="4.0dp">
+        <com.p1.mobile.putong.core.ui.GradientBgButton android:id="@id/gradient" android:layout_width="120.0dp" android:layout_height="120.0dp" app:shadowEnable="true" />
+        <ImageView android:layout_gravity="center" android:id="@id/icon" android:layout_width="60.0dp" android:layout_height="60.0dp" android:scaleType="fitXY" />
+    </FrameLayout>
+    <v.VText android:textSize="20.0sp" android:textColor="@color/common_grey_01" android:gravity="center_horizontal" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" />
+    <v.VText android:textSize="14.0sp" android:textColor="#4a4a4a" android:gravity="center_horizontal" android:id="@id/subtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="6.0dp" android:lineSpacingExtra="6.0sp" />
+    <v.VText android:textSize="13.0sp" android:textColor="#fe5246" android:gravity="center_horizontal" android:id="@id/additional" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="6.0dp" />
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_marginBottom="16.0dp">
+        <v.VCheckBox android:id="@id/check" android:background="@drawable/core_media_picker_check_selector" android:layout_width="16.0dp" android:layout_height="16.0dp" android:checked="true" android:button="@null" />
+        <v.VText android:textSize="13.0sp" android:textColor="@color/common_grey_02" android:layout_gravity="center_vertical" android:id="@id/reminder" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" />
+    </LinearLayout>
+</com.p1.mobile.putong.core.ui.purchase.CoinGuideView>

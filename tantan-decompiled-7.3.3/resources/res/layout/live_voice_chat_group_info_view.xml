@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.p051p1.mobile.putong.live.livingroom.voice.intl.chatgroup.VoiceChatGroupInfoView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    flatten="true"
+    folder="voice.intl"
+    holder="chatgroup.VoiceChatGroupInfoView">
+    <TextView
+        android:textSize="15sp"
+        android:textColor="#e6000000"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LIVE_VOICE_CHAT_GROUP_DEFAULT_NAME"
+        android:singleLine="true"/>
+    <TextView
+        android:textSize="13sp"
+        android:textColor="#80000000"
+        android:gravity="left"
+        android:id="@+id/num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="0/100"/>
+</com.p051p1.mobile.putong.live.livingroom.voice.intl.chatgroup.VoiceChatGroupInfoView>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/header"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    holder="moments.likes.LikesDetailViewModel">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="28dp"
+        android:paddingBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:src="0x7f081da1"/>
+        <p151v.VText
+            android:textSize="16sp"
+            android:textColor="#e20026"
+            android:id="@+id/like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="4dp"
+            app:typeface="medium"/>
+        <p151v.VText
+            android:textSize="16sp"
+            android:textColor="@color/text_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:typeface="regular"/>
+    </LinearLayout>
+    <View
+        android:background="@color/moment_divider_color"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+</LinearLayout>

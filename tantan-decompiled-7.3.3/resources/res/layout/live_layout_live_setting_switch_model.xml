@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p151v.VRelative xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp">
+    <p151v.VText
+        android:textSize="16sp"
+        android:textColor="#212121"
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/switcher"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_alignParentStart="true"/>
+    <p151v.VSwitch
+        android:id="@+id/switcher"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        style="@style/live_settings_item_switch"/>
+</p151v.VRelative>

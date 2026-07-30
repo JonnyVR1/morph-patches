@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="48.0dp" android:width="48.0dp" android:viewportWidth="48.0" android:viewportHeight="48.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <group>
+        <clip-path android:pathData="M24,24m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0" />
+        <path android:fillColor="@drawable/$live_vector_bg_undercover_vote__0" android:pathData="M0,26c0,5.344 1.747,10.28 4.7,14.269C9.072,46.173 16.09,50 24,50s14.928,-3.827 19.3,-9.731A23.893,23.893 0,0 0,48 26H0z" android:fillType="evenOdd" />
+    </group>
+</vector>
