@@ -466,14 +466,6 @@ private val joaI4Fingerprint = Fingerprint(
     filters = listOf(string("seeWhoLikedMe")),
 )
 
-private val joaG3Fingerprint = Fingerprint(
-    classFingerprint = joaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("oDiamond")),
-)
-
 private val joaE4Fingerprint = Fingerprint(
     classFingerprint = joaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
@@ -1452,7 +1444,6 @@ val premiumUnlockPatch = bytecodePatch(
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "b" &&
                         method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lp001l/p3m\$a;" &&
                         method.returnType == "Z"
                     ) {
                         method.addInstructions(0, LOG_SWIPE_M_B_FALSE)
@@ -1881,9 +1872,10 @@ val premiumUnlockPatch = bytecodePatch(
                 match.method.addInstructions(0, RETURN_TRUE)
             }
 
-            // m4 (loads "vip") → true (VIP override)
+            // m4/n4 (loads "vip") → false (VIP not expired)
+            // n4() returns T3("vip") which is TRUE when expired. We want FALSE (active).
             xmaM4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
+                match.method.addInstructions(0, RETURN_FALSE)
             }
 
             // J3 (instance, loads "intlReadMessage") → true
@@ -1913,13 +1905,23 @@ val premiumUnlockPatch = bytecodePatch(
             // !S3-style wrappers (static no-arg → Z, unique product key) → true
             // These methods return !S3(key) which is TRUE when privilege is ACTIVE.
             // For a premium user, we want them to return TRUE (privilege is active).
+            //
+            // However, some product keys (ultraPremium, platinum) appear in BOTH
+            // !S3-style and S3-style methods. We must use hasNegation() to distinguish.
+            // ultraPremium: D3() = !T3(ultraPremium), k4() = T3(ultraPremium)
+            // platinum: I3() = !T3(platinum), a4() = T3(platinum)
             listOf(
-                xmaWrapperJ4Fingerprint,
-                xmaWrapperZ3Fingerprint,
-            ).forEach { fingerprint ->
-                fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_TRUE)
-                }
+                "ultraPremium" to xmaWrapperJ4Fingerprint,
+                "platinum" to xmaWrapperZ3Fingerprint,
+            ).forEach { (productKey, fingerprint) ->
+                // Use direct iteration to avoid matchOrNull cache trap
+                mutableClassDefBy(xmaClassDef).methods
+                    .filter { it.isStaticNoArgReturnBool() }
+                    .filter { it.containsString(productKey) }
+                    .filter { it.hasNegation() }  // Only !S3-style
+                    .forEach { method ->
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
             }
 
             // Dev2 privilege wrappers (S3-style → false, privilege is active)
@@ -1939,19 +1941,18 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── oDiamond methods: F3(), X3(), Y3() all contain "oDiamond" string ──
-            // F3() = !S3("oDiamond") → TRUE when active → patch to TRUE
-            // X3() = S3("oDiamond") → TRUE when expired → patch to FALSE
-            // Y3() = b4("oDiamond") → TRUE when expiredTime > 0 → patch to TRUE
+            // ── oDiamond methods: G3(), Y3(), Z3() all contain "oDiamond" string ──
+            // G3() = !T3("oDiamond") → TRUE when active → patch to TRUE
+            // Y3() = T3("oDiamond") → TRUE when expired → patch to FALSE
+            // Z3() = c4("oDiamond") → TRUE when expiredTime > 0 → patch to TRUE
             //
             // The generic string("oDiamond") filter matches all three, and matchOrNull()
-            // caches the first match (typically F3 due to dex order). We must iterate
-            // directly and distinguish by bytecode shape:
-            // - F3() has a negation instruction (xor-int/lit8 or not-int)
-            // - Y3() calls b4 method
-            // - X3() is the remaining one (calls S3 without negation)
+            // caches the first match. We must iterate directly and distinguish by bytecode:
+            // - G3() has a negation instruction → TRUE
+            // - Z3() calls c4 method → TRUE
+            // - Y3() is the remaining one (calls T3 without negation) → FALSE
             //
-            // X3() must return FALSE to prevent infinite loading. When X3() returns TRUE,
+            // Y3() must return FALSE to prevent infinite loading. When Y3() returns TRUE,
             // it triggers purchase dialog checks in swipe logic (m.java line 52), blocking
             // the swipe action and causing infinite loading.
             mutableClassDefBy(xmaClassDef).methods
@@ -1959,15 +1960,15 @@ val premiumUnlockPatch = bytecodePatch(
                 .filter { it.containsString("oDiamond") }
                 .forEach { method ->
                     when {
-                        // F3(): !S3-style with negation → TRUE
+                        // G3(): !T3-style with negation → TRUE
                         method.hasNegation() -> {
                             method.addInstructions(0, LOG_XMA_F3_TRUE)
                         }
-                        // Y3(): b4-style (calls b4 method) → TRUE
-                        method.callsMethodNamed("b4") -> {
+                        // Z3(): c4-style (calls c4 method) → TRUE
+                        method.callsMethodNamed("c4") -> {
                             method.addInstructions(0, LOG_XMA_Y3_TRUE)
                         }
-                        // X3(): S3-style without negation → FALSE (prevent purchase dialog)
+                        // Y3(): T3-style without negation → FALSE (prevent purchase dialog)
                         else -> {
                             method.addInstructions(0, LOG_XMA_X3_FALSE)
                         }
@@ -2142,15 +2143,13 @@ val premiumUnlockPatch = bytecodePatch(
         // User.isVIP()/isUltraPremium() patches already handle premium status override.
 
         // joa: privilege expiry checker — hides teaser banners in conversations tab
-        // ("X girls Y miles away just liked you", etc.). joa is separate from xma and
-        // reads server privilege data directly via CoreModule.
-        // i4()=seeWhoLikedMe, G3()=oDiamond, e4()=roaming, f4()=svip, j4()=superLike
+        // ("X girls Y miles away just liked you", etc.). joa is the SAME class as xma in 7.3.3.
+        // The xma oDiamond block already handles G3() correctly via hasNegation().
+        // Here we patch the remaining S3-style methods that the xma block doesn't cover.
+        // i4()=seeWhoLikedMe, e4()=roaming, f4()=svip, j4()=superLike
         // All return T3(id) which is TRUE when expired → banner shows. Patch to FALSE.
         joaClassFingerprint.matchOrNull()?.classDef?.let { joaClassDef ->
             joaI4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-            joaG3Fingerprint.matchOrNull(joaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
             joaE4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
