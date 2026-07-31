@@ -1860,6 +1860,60 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
             
+            // C4891g (Core API): Multiple fake conversation creators
+            // Xb(String, double) - creates fake_conversation_profile_featured
+            // o7(double) - creates fake_conversation_surprise_gift_box
+            // Ti(int, String, int, double) - creates fake_conversation_city_centre_enter
+            if (classDef.type == "Lcom/p051p1/mobile/putong/core/api/g;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // Xb(String, double) - creates fake_conversation_profile_featured
+                    if (method.name == "Xb" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                    // o7(double) - creates fake_conversation_surprise_gift_box
+                    if (method.name == "o7" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                    // Ti(int, String, int, double) - creates fake_conversation_city_centre_enter
+                    if (method.name == "Ti" && method.parameterTypes.size == 4 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // C4893h: Profile like enter - creates fake_conversation_profile_like_enter
+            // n3() - creates the fake profile like enter conversation
+            if (classDef.type == "Lcom/p051p1/mobile/putong/core/api/h;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // n3() - creates fake_conversation_profile_like_enter
+                    if (method.name == "n3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // C4895j: Greeting - creates fake_conversation_greeting
+            // Q3() - creates the fake greeting conversation
+            if (classDef.type == "Lcom/p051p1/mobile/putong/core/api/j;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // Q3() - creates fake_conversation_greeting
+                    if (method.name == "Q3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
+            // C4894i: Feed state - creates conversation_feed_state (promotional)
+            // o3(CoreFeedStateCounter) - creates the feed state conversation
+            if (classDef.type == "Lcom/p051p1/mobile/putong/core/api/i;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // o3(CoreFeedStateCounter) - creates conversation_feed_state
+                    if (method.name == "o3" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+            
             // e9y: Meet entrance banner controller - w() evaluates all bzl strategies
             // Patch to prevent ALL meet entrance banners from being shown
             if (classDef.type == "Ll/e9y;") {
