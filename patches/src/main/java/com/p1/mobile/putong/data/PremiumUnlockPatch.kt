@@ -1837,56 +1837,94 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
             
-            // ConversationItemIntlReceiveLikeView: k(Conversation) → return-void
+            // ConversationItemIntlReceiveLikeView: k(Conversation) → setVisibility(GONE) + return-void
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
+                        method.addInstructions(0, """
+                            const/4 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
                     }
                 }
             }
             
-            // ConversationItemReceiveLikeView: k(pol, Conversation) → return-void
+            // ConversationItemReceiveLikeView: k(pol, Conversation) → setVisibility(GONE) + return-void
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "k" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
+                        method.addInstructions(0, """
+                            const/4 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
                     }
                 }
             }
             
-            // ConversationItemInstantChatGuideView: m(Act, Conversation) → return-void
+            // ConversationItemInstantChatGuideView: m(Act, Conversation) → setVisibility(GONE) + return-void
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "m" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
+                        method.addInstructions(0, """
+                            const/4 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
                     }
                 }
             }
             
-            // ConversationItemBlindBoxEntrance: e(Conversation) → return-void
+            // ConversationItemBlindBoxEntrance: e(Conversation) → setVisibility(GONE) + return-void
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
+                        method.addInstructions(0, """
+                            const/4 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
                     }
                 }
             }
             
-            // ConversationItemSurpriseBoxEntrance: f(Conversation) → return-void
+            // ConversationItemSurpriseBoxEntrance: f(Conversation) → setVisibility(GONE) + return-void
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "f" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
+                        method.addInstructions(0, """
+                            const/4 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
                     }
                 }
             }
             
-            // ConversationItemProfileLikeEntrance: i(Conversation, pol) → return-void
+            // ConversationItemProfileLikeEntrance: i(Conversation, pol) → setVisibility(GONE) + return-void
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "i" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
+                        method.addInstructions(0, """
+                            const/4 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
+                    }
+                }
+            }
+            
+            // ConversationItemPlatinumPinLike: q(adapter, int) → setVisibility(GONE) + return-void
+            // Promotional "X liked you, match to chat" content
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemPlatinumPinLike;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "q" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, """
+                            const/4 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
                     }
                 }
             }
