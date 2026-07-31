@@ -1973,7 +1973,7 @@ val premiumUnlockPatch = bytecodePatch(
             
             // ConversationsList adapter: getItemViewType() → return 0 for fake conversations
             // This makes fake promotional conversations render as empty normal items instead of banners
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$C8281e;") {
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$e;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "getItemViewType" && 
                         method.parameterTypes.size == 1 && 
@@ -1981,7 +1981,7 @@ val premiumUnlockPatch = bytecodePatch(
                         method.returnType == "I") {
                         // Check if conversation is fake receive like guide
                         val instructions = """
-                            invoke-virtual {p0, p1}, Lcom/p1/mobile/putong/core/newui/messages/ConversationsList${'$'}C8281e;->getItem(I)Ljava/lang/Object;
+                            invoke-virtual {p0, p1}, Lcom/p1/mobile/putong/core/newui/messages/ConversationsList${'$'}e;->getItem(I)Ljava/lang/Object;
                             move-result-object v0
                             instance-of v1, v0, Lcom/p1/mobile/putong/core/data/Conversation;
                             if-eqz v1, :not_conv
@@ -2018,6 +2018,22 @@ val premiumUnlockPatch = bytecodePatch(
                             invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
                             return-void
                         """)
+                    }
+                    // Defensive: patch text construction methods to return empty strings
+                    if (method.name == "getSubFrontText" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/String;") {
+                        method.addInstructions(0, """
+                            const-string v0, ""
+                            return-object v0
+                        """)
+                    }
+                    if (method.name == "getSubContentText" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/String;") {
+                        method.addInstructions(0, """
+                            const-string v0, ""
+                            return-object v0
+                        """)
+                    }
+                    if (method.name == "o" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
                     }
                 }
             }
