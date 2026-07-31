@@ -1864,7 +1864,7 @@ val premiumUnlockPatch = bytecodePatch(
             // Xb(String, double) - creates fake_conversation_profile_featured
             // o7(double) - creates fake_conversation_surprise_gift_box
             // Ti(int, String, int, double) - creates fake_conversation_city_centre_enter
-            if (classDef.type == "Lcom/p051p1/mobile/putong/core/api/g;") {
+            if (classDef.type == "Ll/g;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     // Xb(String, double) - creates fake_conversation_profile_featured
                     if (method.name == "Xb" && method.parameterTypes.size == 2 && method.returnType == "V") {
@@ -1883,7 +1883,7 @@ val premiumUnlockPatch = bytecodePatch(
             
             // C4893h: Profile like enter - creates fake_conversation_profile_like_enter
             // n3() - creates the fake profile like enter conversation
-            if (classDef.type == "Lcom/p051p1/mobile/putong/core/api/h;") {
+            if (classDef.type == "Ll/h;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     // n3() - creates fake_conversation_profile_like_enter
                     if (method.name == "n3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
@@ -1894,7 +1894,7 @@ val premiumUnlockPatch = bytecodePatch(
             
             // C4895j: Greeting - creates fake_conversation_greeting
             // Q3() - creates the fake greeting conversation
-            if (classDef.type == "Lcom/p051p1/mobile/putong/core/api/j;") {
+            if (classDef.type == "Ll/j;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     // Q3() - creates fake_conversation_greeting
                     if (method.name == "Q3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
@@ -1905,7 +1905,7 @@ val premiumUnlockPatch = bytecodePatch(
             
             // C4894i: Feed state - creates conversation_feed_state (promotional)
             // o3(CoreFeedStateCounter) - creates the feed state conversation
-            if (classDef.type == "Lcom/p051p1/mobile/putong/core/api/i;") {
+            if (classDef.type == "Ll/i;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     // o3(CoreFeedStateCounter) - creates conversation_feed_state
                     if (method.name == "o3" && method.parameterTypes.size == 1 && method.returnType == "V") {
