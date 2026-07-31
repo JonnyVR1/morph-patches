@@ -21,17 +21,26 @@ This repository contains patches and tools for the Tantan Android APK. Patches c
 
 ### Build Patches
 ```bash
-# Build the patch bundle with DEX bytecode (ESSENTIAL - do not skip)
-./gradlew :patches:buildAndroid
+# Build the patch bundle with DEX bytecode and metadata (RECOMMENDED)
+./gradlew :patches:repackMppWithPatchList
 
-# Generate patches-list.json metadata
-./gradlew :patches:generatePatchesList
-
-# Combined build (recommended)
-./gradlew :patches:generatePatchesList :patches:buildAndroid
+# This command chains:
+# 1. buildAndroid - compiles Kotlin to DEX bytecode
+# 2. generatePatchesList - generates patches-list.json metadata
+# 3. repacks both into the .mpp file
 ```
 
-**Important:** Always use `:patches:buildAndroid` instead of just `:patches:build`. The `buildAndroid` task compiles the Kotlin code to DEX and packages it into the .mpp file. Without it, the .mpp file will be missing the actual patch bytecode.
+**Important:** Always use `:patches:repackMppWithPatchList` to build the .mpp file. This ensures the .mpp contains both `classes.dex` (patch bytecode) and `patches-list.json` (patch metadata). Using individual tasks like `:patches:buildAndroid` or `:patches:build` alone will produce an incomplete .mpp file that Morph Manager cannot read correctly (shows "0 patches found").
+
+**Verification:** After building, verify the .mpp contains both files:
+```bash
+unzip -l patches/build/libs/patches-0.0.1-dev2.mpp | grep -E "classes.dex|patches-list.json"
+```
+Expected output:
+```
+   152108  01-01-1970 01:00   classes.dex
+     6595  07-31-2026 02:16   patches-list.json
+```
 
 ### Local Patch Test (End-to-End Pipeline)
 
