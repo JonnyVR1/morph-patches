@@ -1824,6 +1824,18 @@ val premiumUnlockPatch = bytecodePatch(
                     if (method.name == "w3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                         method.addInstructions(0, "return-void")
                     }
+                    // C3(String, long) - schedules D3 call on background thread
+                    if (method.name == "C3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                    // J3(String) - schedules E3 network fetch
+                    if (method.name == "J3" && method.parameterTypes == listOf("Ljava/lang/String;") && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                    // E3(String) - triggers "intl_receive_like_guide_" network fetch
+                    if (method.name == "E3" && method.parameterTypes == listOf("Ljava/lang/String;") && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
                 }
             }
             
