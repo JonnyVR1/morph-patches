@@ -1917,6 +1917,41 @@ val premiumUnlockPatch = bytecodePatch(
             // Instead of just setVisibility(GONE), also set height to 0 to prevent ListView from allocating space
             // This is more reliable than just GONE in ListView context
             
+            // ConversationsList adapter: getItemViewType() → return 0 for fake conversations
+            // This makes fake promotional conversations render as empty normal items instead of banners
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$e;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "getItemViewType" && 
+                        method.parameterTypes.size == 1 && 
+                        method.parameterTypes[0] == "I" &&
+                        method.returnType == "I") {
+                        // Check if conversation is fake receive like guide
+                        val instructions = """
+                            invoke-virtual {p0, p1}, Lcom/p1/mobile/putong/core/newui/messages/ConversationsList${'$'}e;->getItem(I)Ljava/lang/Object;
+                            move-result-object v0
+                            instance-of v1, v0, Lcom/p1/mobile/putong/core/data/Conversation;
+                            if-eqz v1, :not_conv
+                            check-cast v0, Lcom/p1/mobile/putong/core/data/Conversation;
+                            iget-object v2, v0, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
+                            const-string v3, "fakeReceiveLikeGuideSVip"
+                            invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                            move-result v4
+                            if-eqz v4, :return_zero
+                            const-string v3, "fakeIntlReceiveLikeGuideSVip"
+                            invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                            move-result v4
+                            if-eqz v4, :return_zero
+                            goto :not_conv
+                            :return_zero
+                            const/4 v0, 0x0
+                            return v0
+                            :not_conv
+                        """.trimIndent()
+                        method.addInstructions(0, instructions)
+                    }
+                }
+            }
+
             // ConversationItemIntlReceiveLikeView: Enhanced hiding
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
