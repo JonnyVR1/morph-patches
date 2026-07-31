@@ -1854,7 +1854,7 @@ val premiumUnlockPatch = bytecodePatch(
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, """
-                            const/4 v0, 0x8
+                            const/16 v0, 0x8
                             invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
                             return-void
                         """)
@@ -1867,7 +1867,7 @@ val premiumUnlockPatch = bytecodePatch(
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "k" && method.parameterTypes.size == 2 && method.returnType == "V") {
                         method.addInstructions(0, """
-                            const/4 v0, 0x8
+                            const/16 v0, 0x8
                             invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
                             return-void
                         """)
@@ -1880,7 +1880,7 @@ val premiumUnlockPatch = bytecodePatch(
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "m" && method.parameterTypes.size == 2 && method.returnType == "V") {
                         method.addInstructions(0, """
-                            const/4 v0, 0x8
+                            const/16 v0, 0x8
                             invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
                             return-void
                         """)
@@ -1893,7 +1893,7 @@ val premiumUnlockPatch = bytecodePatch(
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, """
-                            const/4 v0, 0x8
+                            const/16 v0, 0x8
                             invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
                             return-void
                         """)
@@ -1906,7 +1906,7 @@ val premiumUnlockPatch = bytecodePatch(
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "f" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, """
-                            const/4 v0, 0x8
+                            const/16 v0, 0x8
                             invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
                             return-void
                         """)
@@ -1919,7 +1919,7 @@ val premiumUnlockPatch = bytecodePatch(
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "i" && method.parameterTypes.size == 2 && method.returnType == "V") {
                         method.addInstructions(0, """
-                            const/4 v0, 0x8
+                            const/16 v0, 0x8
                             invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
                             return-void
                         """)
@@ -1933,7 +1933,7 @@ val premiumUnlockPatch = bytecodePatch(
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "q" && method.parameterTypes.size == 2 && method.returnType == "V") {
                         method.addInstructions(0, """
-                            const/4 v0, 0x8
+                            const/16 v0, 0x8
                             invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
                             return-void
                         """)
