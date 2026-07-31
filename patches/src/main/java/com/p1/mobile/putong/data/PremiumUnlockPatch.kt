@@ -326,6 +326,108 @@ private val coreDataClassFingerprint = Fingerprint(
     ),
 )
 
+// ── Fake conversation creator fingerprints ──
+// These classes create promotional fake conversations in the Messages tab.
+// We use behavioral fingerprints to find them regardless of obfuscation.
+
+// qa9: Intl receive like guide - creates fakeIntlReceiveLikeGuideSVip conversations
+private val qa9ClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("intl_receive_like_guide_get"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            name = "new_",
+            parameters = emptyList(),
+            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+        ),
+    ),
+)
+
+// hva: CN receive like guide - creates fakeReceiveLikeGuideSVip conversations
+private val hvaClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("receive_like_guide_get"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            name = "new_",
+            parameters = emptyList(),
+            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+        ),
+    ),
+)
+
+// g (Core API): Creates fake_conversation_profile_featured, fake_conversation_surprise_gift_box, fake_conversation_city_centre_enter
+private val coreApiFakeConvFingerprint = Fingerprint(
+    filters = listOf(
+        string("fake_conversation_surprise_gift_box"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            name = "new_",
+            parameters = emptyList(),
+            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+        ),
+    ),
+)
+
+// h: Profile like enter - creates fake_conversation_profile_like_enter
+private val profileLikeEnterFingerprint = Fingerprint(
+    filters = listOf(
+        string("fake_conversation_profile_like_enter"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            name = "new_",
+            parameters = emptyList(),
+            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+        ),
+    ),
+)
+
+// j: Greeting - creates fake_conversation_greeting
+private val greetingFakeConvFingerprint = Fingerprint(
+    filters = listOf(
+        string("fake_conversation_greeting"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            name = "new_",
+            parameters = emptyList(),
+            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+        ),
+    ),
+)
+
+// i: Feed state - creates conversation_feed_state
+private val feedStateFakeConvFingerprint = Fingerprint(
+    filters = listOf(
+        string("conversation_feed_state"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            name = "new_",
+            parameters = emptyList(),
+            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+        ),
+    ),
+)
+
+// e9y: Meet entrance banner controller - evaluates bzl strategies
+private val meetEntranceBannerFingerprint = Fingerprint(
+    filters = listOf(
+        string("meet_entrance"),
+        methodCall(
+            name = "w",
+            parameters = emptyList(),
+            returnType = "V",
+        ),
+    ),
+)
+
+// mm6: Conversation query manager - filters conversations with fake_conversation
+private val conversationQueryManagerFingerprint = Fingerprint(
+    filters = listOf(
+        string("fake_conversation"),
+        string("NOT_STARTS_WITH"),
+    ),
+)
+
 private val sb90CompanionClassFingerprint = Fingerprint(
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
@@ -1808,123 +1910,8 @@ val premiumUnlockPatch = bytecodePatch(
             }
 
             // ── Messages tab promotional content suppression ──
-            //
-            // The Messages tab shows fake promotional conversations ("x+ people like you!",
-            // "She'd like to chat with you") created by data source classes hva (CN) and qa9 (Intl).
-            // These are NOT gated by premium status, so we patch the data source methods to prevent
-            // fake conversation creation entirely.
-            
-            // qa9: Intl receive like guide - prevent fake conversation creation
-            if (classDef.type == "Ll/qa9;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // D3(String, long) - static method that creates fake Intl receive like conversation
-                    if (method.name == "D3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                    // w3() - triggers network fetch for intl_receive_like_guide_get
-                    if (method.name == "w3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                    // C3(String, long) - schedules D3 call on background thread
-                    if (method.name == "C3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                    // J3(String) - schedules E3 network fetch
-                    if (method.name == "J3" && method.parameterTypes == listOf("Ljava/lang/String;") && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                    // E3(String) - triggers "intl_receive_like_guide_" network fetch
-                    if (method.name == "E3" && method.parameterTypes == listOf("Ljava/lang/String;") && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                    // y3(qa9, Envelope) - server response handler that processes SeeExposedUser data
-                    // Patch to prevent processing response and creating fake conversations
-                    if (method.name == "y3" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-            
-            // hva: CN receive like guide - prevent fake conversation creation
-            if (classDef.type == "Ll/hva;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // u3() - triggers network fetch for receive_like_guide_get
-                    if (method.name == "u3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                    // E3(hva, Envelope) - server response handler that processes SeeExposedUser data
-                    // Patch to prevent processing response and creating fake conversations
-                    if (method.name == "E3" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-            
-            // C4891g (Core API): Multiple fake conversation creators
-            // Xb(String, double) - creates fake_conversation_profile_featured
-            // o7(double) - creates fake_conversation_surprise_gift_box
-            // Ti(int, String, int, double) - creates fake_conversation_city_centre_enter
-            if (classDef.type == "Ll/g;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // Xb(String, double) - creates fake_conversation_profile_featured
-                    if (method.name == "Xb" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                    // o7(double) - creates fake_conversation_surprise_gift_box
-                    if (method.name == "o7" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                    // Ti(int, String, int, double) - creates fake_conversation_city_centre_enter
-                    if (method.name == "Ti" && method.parameterTypes.size == 4 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-            
-            // C4893h: Profile like enter - creates fake_conversation_profile_like_enter
-            // n3() - creates the fake profile like enter conversation
-            if (classDef.type == "Ll/h;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // n3() - creates fake_conversation_profile_like_enter
-                    if (method.name == "n3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-            
-            // C4895j: Greeting - creates fake_conversation_greeting
-            // Q3() - creates the fake greeting conversation
-            if (classDef.type == "Ll/j;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // Q3() - creates fake_conversation_greeting
-                    if (method.name == "Q3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-            
-            // C4894i: Feed state - creates conversation_feed_state (promotional)
-            // o3(CoreFeedStateCounter) - creates the feed state conversation
-            if (classDef.type == "Ll/i;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // o3(CoreFeedStateCounter) - creates conversation_feed_state
-                    if (method.name == "o3" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-            
-            // e9y: Meet entrance banner controller - w() evaluates all bzl strategies
-            // Patch to prevent ALL meet entrance banners from being shown
-            if (classDef.type == "Ll/e9y;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "w" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-
-            // NewLikeView: E(Act, CoreLikers.a, x20) → return-void
+            // Moved to Pass 2 using fingerprint-based discovery (see below)
+            // The old hardcoded class descriptors (Ll/qa9;, Ll/hva;, etc.) don't exist in the APK.
             // Suppresses the "x girls just liked you" promotional dialog that appears on app launch
             if (classDef.type == "Lcom/p1/mobile/putong/core/p058ui/seepop/NewLikeView;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
@@ -2374,7 +2361,110 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         // ── Messages tab promotional content suppression ──
-        // (Implemented in Pass 1 classDefForEach block above)
+        // Use fingerprint-based discovery to find and patch fake conversation creators.
+        // The old hardcoded class descriptors (Ll/qa9;, Ll/hva;, etc.) don't exist in the APK.
+        
+        // qa9: Intl receive like guide - prevent fake conversation creation
+        qa9ClassFingerprint.matchOrNull()?.classDef?.let { qa9ClassDef ->
+            mutableClassDefBy(qa9ClassDef).methods.forEach { method ->
+                // D3(String, long) - static method that creates fake Intl receive like conversation
+                if (method.name == "D3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+                // w3() - triggers network fetch for intl_receive_like_guide_get
+                if (method.name == "w3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+                // C3(String, long) - schedules D3 call on background thread
+                if (method.name == "C3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+                // J3(String) - schedules E3 network fetch
+                if (method.name == "J3" && method.parameterTypes == listOf("Ljava/lang/String;") && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+                // E3(String) - triggers "intl_receive_like_guide_" network fetch
+                if (method.name == "E3" && method.parameterTypes == listOf("Ljava/lang/String;") && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+                // y3(qa9, Envelope) - server response handler that processes SeeExposedUser data
+                if (method.name == "y3" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // hva: CN receive like guide - prevent fake conversation creation
+        hvaClassFingerprint.matchOrNull()?.classDef?.let { hvaClassDef ->
+            mutableClassDefBy(hvaClassDef).methods.forEach { method ->
+                // u3() - triggers network fetch for receive_like_guide_get
+                if (method.name == "u3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+                // E3(hva, Envelope) - server response handler that processes SeeExposedUser data
+                if (method.name == "E3" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // Core API (g): Multiple fake conversation creators
+        coreApiFakeConvFingerprint.matchOrNull()?.classDef?.let { coreApiClassDef ->
+            mutableClassDefBy(coreApiClassDef).methods.forEach { method ->
+                // Xb(String, double) - creates fake_conversation_profile_featured
+                if (method.name == "Xb" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+                // o7(double) - creates fake_conversation_surprise_gift_box
+                if (method.name == "o7" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+                // Ti(int, String, int, double) - creates fake_conversation_city_centre_enter
+                if (method.name == "Ti" && method.parameterTypes.size == 4 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // Profile like enter (h): creates fake_conversation_profile_like_enter
+        profileLikeEnterFingerprint.matchOrNull()?.classDef?.let { profileLikeEnterClassDef ->
+            mutableClassDefBy(profileLikeEnterClassDef).methods.forEach { method ->
+                // n3() - creates fake_conversation_profile_like_enter
+                if (method.name == "n3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // Greeting (j): creates fake_conversation_greeting
+        greetingFakeConvFingerprint.matchOrNull()?.classDef?.let { greetingClassDef ->
+            mutableClassDefBy(greetingClassDef).methods.forEach { method ->
+                // Q3() - creates fake_conversation_greeting
+                if (method.name == "Q3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // Feed state (i): creates conversation_feed_state
+        feedStateFakeConvFingerprint.matchOrNull()?.classDef?.let { feedStateClassDef ->
+            mutableClassDefBy(feedStateClassDef).methods.forEach { method ->
+                // o3(CoreFeedStateCounter) - creates conversation_feed_state
+                if (method.name == "o3" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // Meet entrance banner controller (e9y): evaluates bzl strategies
+        meetEntranceBannerFingerprint.matchOrNull()?.classDef?.let { meetEntranceClassDef ->
+            mutableClassDefBy(meetEntranceClassDef).methods.forEach { method ->
+                // w() - evaluates all bzl strategies for meet entrance banners
+                if (method.name == "w" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
         
         // sja: picks remaining
         sjaClassFingerprint.matchOrNull()?.classDef?.let { sjaClassDef ->
