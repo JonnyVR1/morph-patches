@@ -1919,7 +1919,7 @@ val premiumUnlockPatch = bytecodePatch(
             
             // ConversationsList adapter: getItemViewType() → return 0 for fake conversations
             // This makes fake promotional conversations render as empty normal items instead of banners
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$e;") {
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$C8281e;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "getItemViewType" && 
                         method.parameterTypes.size == 1 && 
@@ -1927,7 +1927,7 @@ val premiumUnlockPatch = bytecodePatch(
                         method.returnType == "I") {
                         // Check if conversation is fake receive like guide
                         val instructions = """
-                            invoke-virtual {p0, p1}, Lcom/p1/mobile/putong/core/newui/messages/ConversationsList${'$'}e;->getItem(I)Ljava/lang/Object;
+                            invoke-virtual {p0, p1}, Lcom/p1/mobile/putong/core/newui/messages/ConversationsList${'$'}C8281e;->getItem(I)Ljava/lang/Object;
                             move-result-object v0
                             instance-of v1, v0, Lcom/p1/mobile/putong/core/data/Conversation;
                             if-eqz v1, :not_conv
