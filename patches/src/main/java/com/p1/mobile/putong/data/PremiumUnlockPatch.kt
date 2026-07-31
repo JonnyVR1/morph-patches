@@ -1837,6 +1837,11 @@ val premiumUnlockPatch = bytecodePatch(
                     if (method.name == "E3" && method.parameterTypes == listOf("Ljava/lang/String;") && method.returnType == "V") {
                         method.addInstructions(0, "return-void")
                     }
+                    // y3(qa9, Envelope) - server response handler that processes SeeExposedUser data
+                    // Patch to prevent processing response and creating fake conversations
+                    if (method.name == "y3" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
                 }
             }
             
@@ -1847,9 +1852,24 @@ val premiumUnlockPatch = bytecodePatch(
                     if (method.name == "u3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                         method.addInstructions(0, "return-void")
                     }
+                    // E3(hva, Envelope) - server response handler that processes SeeExposedUser data
+                    // Patch to prevent processing response and creating fake conversations
+                    if (method.name == "E3" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
                 }
             }
             
+            // e9y: Meet entrance banner controller - w() evaluates all bzl strategies
+            // Patch to prevent ALL meet entrance banners from being shown
+            if (classDef.type == "Ll/e9y;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "w" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+
             // ConversationItemIntlReceiveLikeView: k(Conversation) → setVisibility(GONE) + return-void
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
@@ -1933,6 +1953,55 @@ val premiumUnlockPatch = bytecodePatch(
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemPlatinumPinLike;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "q" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, """
+                            const/16 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
+                    }
+                }
+            }
+            
+            // ConversationItemFriendMoments: o/p/q(dq1, String) → setVisibility(GONE) + return-void
+            // Types 30, 31, 37 - "Friend Moments" promotional entries (fake_conversation_oof_pick,
+            // fake_conversation_oof_enter, fake_conversation_profile_featured)
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemFriendMoments;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name in setOf("o", "p", "q") && 
+                        method.parameterTypes.size == 2 && 
+                        method.returnType == "V") {
+                        method.addInstructions(0, """
+                            const/16 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
+                    }
+                }
+            }
+            
+            // ConversationItemTeamGroup: o(u46, Conversation) → setVisibility(GONE) + return-void
+            // Type 43 - fake_conversation_local_team_group_conversation
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemTeamGroup;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "o" && 
+                        method.parameterTypes.size == 2 && 
+                        method.returnType == "V") {
+                        method.addInstructions(0, """
+                            const/16 v0, 0x8
+                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                            return-void
+                        """)
+                    }
+                }
+            }
+            
+            // ConversationWeakenView: d0(Act, u46) → setVisibility(GONE) + return-void
+            // Type 46 - fake_conversation_weaken_conversation
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationWeakenView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "d0" && 
+                        method.parameterTypes.size == 2 && 
+                        method.returnType == "V") {
                         method.addInstructions(0, """
                             const/16 v0, 0x8
                             invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
