@@ -428,6 +428,45 @@ private val conversationQueryManagerFingerprint = Fingerprint(
     ),
 )
 
+// ConversationsList$e: Adapter that maps conversation IDs to view types
+private val conversationsListAdapterFingerprint = Fingerprint(
+    filters = listOf(
+        string("fake_conversation_blindbox_enter"),
+        string("fake_conversation_surprise_gift_box"),
+        methodCall(
+            name = "getItemViewType",
+            parameters = listOf("I"),
+            returnType = "I",
+        ),
+    ),
+)
+
+// sd8: Creates fake_conversation_local_instant_chat_conversation
+private val instantChatGuideFingerprint = Fingerprint(
+    filters = listOf(
+        string("fake_conversation_local_instant_chat_conversation"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            name = "new_",
+            parameters = emptyList(),
+            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+        ),
+    ),
+)
+
+// a (Main UI): Creates fake_conversation_greeting, fake_conversation_profile_featured, fake_conversation_anonymous_greeting
+private val mainUiFakeConvFingerprint = Fingerprint(
+    filters = listOf(
+        string("fake_conversation_anonymous_greeting"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            name = "new_",
+            parameters = emptyList(),
+            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+        ),
+    ),
+)
+
 private val sb90CompanionClassFingerprint = Fingerprint(
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
@@ -2462,6 +2501,161 @@ val premiumUnlockPatch = bytecodePatch(
                 // w() - evaluates all bzl strategies for meet entrance banners
                 if (method.name == "w" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // ── COMPREHENSIVE: Patch ALL fake conversation creation methods ──
+        // Instead of hardcoding method names, find ALL methods that call Conversation.new_()
+        // AND reference fake_conversation strings, then patch them to return-void
+        
+        // Core API (g): Patch ALL methods that create fake conversations
+        coreApiFakeConvFingerprint.matchOrNull()?.classDef?.let { coreApiClassDef ->
+            mutableClassDefBy(coreApiClassDef).methods.forEach { method ->
+                // Check if method calls Conversation.new_() and references fake_conversation
+                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction && 
+                    instruction.reference is MethodReference &&
+                    (instruction.reference as MethodReference).name == "new_" &&
+                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
+                } ?: false
+                
+                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction &&
+                    instruction.reference is StringReference &&
+                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
+                } ?: false
+                
+                // Patch method if it creates fake conversations (but not if it's already patched above)
+                if (callsConversationNew && referencesFakeConv && 
+                    method.name !in setOf("Xb", "o7", "Ti")) {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // Greeting (j): Patch ALL methods that create fake conversations
+        greetingFakeConvFingerprint.matchOrNull()?.classDef?.let { greetingClassDef ->
+            mutableClassDefBy(greetingClassDef).methods.forEach { method ->
+                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction && 
+                    instruction.reference is MethodReference &&
+                    (instruction.reference as MethodReference).name == "new_" &&
+                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
+                } ?: false
+                
+                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction &&
+                    instruction.reference is StringReference &&
+                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
+                } ?: false
+                
+                // Patch method if it creates fake conversations (but not if it's already patched above)
+                if (callsConversationNew && referencesFakeConv && method.name != "Q3") {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // Instant chat guide (sd8): creates fake_conversation_local_instant_chat_conversation
+        instantChatGuideFingerprint.matchOrNull()?.classDef?.let { instantChatClassDef ->
+            mutableClassDefBy(instantChatClassDef).methods.forEach { method ->
+                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction && 
+                    instruction.reference is MethodReference &&
+                    (instruction.reference as MethodReference).name == "new_" &&
+                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
+                } ?: false
+                
+                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction &&
+                    instruction.reference is StringReference &&
+                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
+                } ?: false
+                
+                // Patch all methods that create fake conversations
+                if (callsConversationNew && referencesFakeConv) {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // Main UI (a): creates fake_conversation_greeting, fake_conversation_profile_featured, fake_conversation_anonymous_greeting
+        mainUiFakeConvFingerprint.matchOrNull()?.classDef?.let { mainUiClassDef ->
+            mutableClassDefBy(mainUiClassDef).methods.forEach { method ->
+                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction && 
+                    instruction.reference is MethodReference &&
+                    (instruction.reference as MethodReference).name == "new_" &&
+                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
+                } ?: false
+                
+                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction &&
+                    instruction.reference is StringReference &&
+                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
+                } ?: false
+                
+                // Patch all methods that create fake conversations
+                if (callsConversationNew && referencesFakeConv) {
+                    method.addInstructions(0, "return-void")
+                }
+            }
+        }
+        
+        // ── SOLUTION 1: Query-level patch (MOST EFFECTIVE) ──
+        // Patch mm6 to exclude ALL fake conversations from queries
+        // This is a single point of intervention that covers all 18+ fake types
+        conversationQueryManagerFingerprint.matchOrNull()?.classDef?.let { mm6ClassDef ->
+            mutableClassDefBy(mm6ClassDef).methods.forEach { method ->
+                // Find the constructor that builds queries with fake_conversation filters
+                if (method.name == "<init>") {
+                    val hasFakeConvFilter = method.implementation?.instructions?.any { instruction ->
+                        instruction is ReferenceInstruction &&
+                        instruction.reference is StringReference &&
+                        (instruction.reference as StringReference).string == "fake_conversation"
+                    } ?: false
+                    
+                    // If this constructor handles fake_conversation queries, patch it
+                    if (hasFakeConvFilter) {
+                        // Patch the method that builds the fake-including query to return empty
+                        // We'll patch methods that reference STARTS_WITH with fake_conversation
+                        val hasStartsWithFilter = method.implementation?.instructions?.any { instruction ->
+                            instruction is ReferenceInstruction &&
+                            instruction.reference is StringReference &&
+                            (instruction.reference as StringReference).string == "STARTS_WITH"
+                        } ?: false
+                        
+                        if (hasStartsWithFilter) {
+                            // This is likely the method that includes fake conversations
+                            // Patch it to exclude them instead by returning early
+                            method.addInstructions(0, "return-void")
+                        }
+                    }
+                }
+            }
+        }
+        
+        // ── SOLUTION 3: Adapter-level patch (DEFENSE IN DEPTH) ──
+        // Patch ConversationsList$e adapter to filter out ALL fake conversation types
+        conversationsListAdapterFingerprint.matchOrNull()?.classDef?.let { adapterClassDef ->
+            mutableClassDefBy(adapterClassDef).methods.forEach { method ->
+                // Patch getItemViewType to return 0 (normal conversation) for all fake types
+                if (method.name == "getItemViewType" || method.name.contains("ViewType")) {
+                    val checksFakeConv = method.implementation?.instructions?.any { instruction ->
+                        instruction is ReferenceInstruction &&
+                        instruction.reference is StringReference &&
+                        (instruction.reference as StringReference).string.startsWith("fake_conversation")
+                    } ?: false
+                    
+                    if (checksFakeConv) {
+                        // This method maps fake conversation IDs to view types
+                        // Patch it to always return 0 (normal conversation view type)
+                        method.addInstructions(0, """
+                            const/4 v0, 0x0
+                            return v0
+                        """)
+                    }
                 }
             }
         }
