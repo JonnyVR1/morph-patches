@@ -2077,6 +2077,16 @@ val premiumUnlockPatch = bytecodePatch(
                             return-void
                         """)
                     }
+                    // Defensive: patch text construction methods to return empty strings
+                    if (method.name == "getSubContentText" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/String;") {
+                        method.addInstructions(0, """
+                            const-string v0, ""
+                            return-object v0
+                        """)
+                    }
+                    if (method.name == "o" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
                 }
             }
             
