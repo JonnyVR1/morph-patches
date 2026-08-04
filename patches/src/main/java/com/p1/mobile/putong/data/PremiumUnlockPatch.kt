@@ -2668,7 +2668,9 @@ val premiumUnlockPatch = bytecodePatch(
                     val checksFakeConv = method.implementation?.instructions?.any { instruction ->
                         instruction is ReferenceInstruction &&
                         instruction.reference is StringReference &&
-                        (instruction.reference as StringReference).string.startsWith("fake_conversation")
+                        ((instruction.reference as StringReference).string.startsWith("fake_conversation") ||
+                         (instruction.reference as StringReference).string == "fakeReceiveLikeGuideSVip" ||
+                         (instruction.reference as StringReference).string == "fakeIntlReceiveLikeGuideSVip")
                     } ?: false
                     
                     if (checksFakeConv) {
