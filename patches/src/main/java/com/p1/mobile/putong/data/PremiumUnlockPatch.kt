@@ -1517,9 +1517,6 @@ val premiumUnlockPatch = bytecodePatch(
             "Lcom/p1/mobile/putong/core/admob/NativeAdViewCard\$Companion;",
             "Lp153l/d9y;", "Lp153l/l8y;", "Lp153l/g9y;", "Lp153l/z8y;",
             "Lp153l/b8d0;",
-            "Lcom/p1/mobile/putong/core/newui/messages/business/BusinessConversationView;",
-            "Lcom/p1/mobile/putong/core/newui/messages/business/IntlVisitorConversationView;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemGoogleAdView;",
             "Lcom/p1/mobile/putong/core/newui/messages/C8291a;",
             "Lp153l/zt6;",
             "Lp153l/lke0;",
@@ -2048,57 +2045,6 @@ val premiumUnlockPatch = bytecodePatch(
                     // m102973l(boolean) → void (sets "today new likes changed" flag)
                     if (method.name == "l" && method.parameterTypes.size == 1 && method.returnType == "V" &&
                         !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── BusinessConversationView: The actual banner view ──
-            // This view displays the "x girls y miles away" banner in the Messages tab.
-            // Its init() method checks b8d0 state and sets up the banner.
-            // We patch init() AND i0() bind method to return-void to prevent any banner setup/display.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/business/BusinessConversationView;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "init" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    if (method.name == "i0" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── IntlVisitorConversationView: Visitor banner at top of conversation list ──
-            // View type 48. Displays "visitor door" promotional banner.
-            // Patch m0() and l0() bind methods to return-void.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/business/IntlVisitorConversationView;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "m0" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    if (method.name == "l0" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── ConversationItemGoogleAdView: Google ad view in conversation list ──
-            // View type 15. Displays ad content between conversations.
-            // Patch c() bind method to return-void.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemGoogleAdView;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "c" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── C8291a: Header adapter that adds visitor/business banner items ──
-            // r() adds IntlVisitorConversationView (type 48) and BusinessConversationView (type 1) header items.
-            // Patch r() to return-void to prevent any header items from being added.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/C8291a;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "r" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
                 }
