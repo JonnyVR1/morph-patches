@@ -507,7 +507,7 @@ private val headRecommendAdapterFingerprint = Fingerprint(
     ),
 )
 
-// C4891g (Core API): Creates intlSeeChatRequest conversations via Vi(List)
+// C4891g (Core API): Creates intlSeeChatRequest conversations via Vi(List) and Wi(List)
 private val intlSeeChatRequestCreatorFingerprint = Fingerprint(
     filters = listOf(
         string("intlSeeChatRequest"),
@@ -517,6 +517,14 @@ private val intlSeeChatRequestCreatorFingerprint = Fingerprint(
             parameters = emptyList(),
             returnType = "Lcom/p1/mobile/putong/data/Conversation;",
         ),
+    ),
+)
+
+// r8n: Singleton manager for intlSeeChatRequest lifecycle
+// Uniquely references "intl_chat_request_insert_users" protobuf key
+private val r8nClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("intl_chat_request_insert_users"),
     ),
 )
 
@@ -2752,10 +2760,28 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
         
-        // intlSeeChatRequest creator (C4891g): Patch Vi() method directly
+        // intlSeeChatRequest creator (C4891g): Patch Vi() and Wi() methods
+        // Vi(List) creates intlSeeChatRequest conversations directly
+        // Wi(List) schedules Vi() on a background thread - patching both prevents creation
         intlSeeChatRequestCreatorFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "Vi" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+                if (method.name == "Wi" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // r8n: Singleton manager for intlSeeChatRequest lifecycle
+        // g(List) is the entry point for the entire intlSeeChatRequest creation flow
+        // It checks user conditions and calls m() which triggers conversation insertion
+        // Patching g(List) to return-void prevents the entire flow from executing
+        r8nClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "g" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ljava/util/List;" && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
