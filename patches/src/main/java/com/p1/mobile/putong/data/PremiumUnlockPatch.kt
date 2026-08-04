@@ -718,6 +718,16 @@ private val joaJ4Fingerprint = Fingerprint(
     filters = listOf(string("superLikeMembership")),
 )
 
+// C8291a: Business entrance adapter - injects promotional items at top of conversation list
+// View types: 1 (See Who Liked Me "Match with them instantly"), 13, 14, 15, 47, 48
+// We patch the initialization method to prevent all business items from being added.
+private val businessEntranceAdapterFingerprint = Fingerprint(
+    filters = listOf(
+        string("open_fill_info_debug"),
+        methodCall(name = "clear"),
+    ),
+)
+
 // ── Stable-class fingerprints ──
 
 private val userIsUltraPremiumFingerprint = Fingerprint(
@@ -3027,6 +3037,17 @@ val premiumUnlockPatch = bytecodePatch(
             mutableClassDefBy(jh30ClassDef).methods
                 .first { it.name == populateMethod.name && it.parameterTypes == populateMethod.parameterTypes }
                 .addInstructions(0, bannerHideBody)
+        }
+
+        // C8291a: Business entrance adapter - suppresses promotional items at top of conversation list
+        // View type 1 shows "Match with them instantly" (See Who Liked Me entrance)
+        // We patch the initialization method to prevent all business items from being added
+        businessEntranceAdapterFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.returnType == "V" && method.parameterTypes.isEmpty()) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
         }
     }
 }
