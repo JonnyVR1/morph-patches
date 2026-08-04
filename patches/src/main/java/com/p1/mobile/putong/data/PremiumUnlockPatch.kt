@@ -1379,11 +1379,18 @@ private val pibW9Fingerprint = Fingerprint(
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
+private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
+
+private fun com.android.tools.smali.dexlib2.iface.Method.cachedInstructions(): List<Instruction> =
+    instructionCache.getOrPut(this) {
+        implementation?.instructions?.toList() ?: emptyList()
+    }
+
 private fun instructionsOf(method: com.android.tools.smali.dexlib2.iface.Method): Iterable<Instruction> =
-    method.implementation?.instructions ?: emptyList()
+    method.cachedInstructions()
 
 private fun com.android.tools.smali.dexlib2.iface.Method.callsGuessedCurrentServerTime(): Boolean {
-    return instructionsOf(this).any { instr ->
+    return cachedInstructions().any { instr ->
         instr is ReferenceInstruction &&
             instr.reference is MethodReference &&
             (instr.reference as MethodReference).name == "guessedCurrentServerTime"
@@ -1391,45 +1398,38 @@ private fun com.android.tools.smali.dexlib2.iface.Method.callsGuessedCurrentServ
 }
 
 private fun com.android.tools.smali.dexlib2.iface.Method.callsU4WithString(): Boolean {
-    // Check if this method calls u4(String) - the upgrade dialog gate pattern
-    // u4 is the only public final Z(String) method in CoreProduct
     return try {
-        this.implementation?.instructions?.any { instr ->
+        cachedInstructions().any { instr ->
             instr is ReferenceInstruction &&
                 instr.reference is MethodReference &&
                 (instr.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/core/api/CoreProduct;" &&
                 (instr.reference as MethodReference).parameterTypes.size == 1 &&
                 (instr.reference as MethodReference).parameterTypes[0] == "Ljava/lang/String;" &&
                 (instr.reference as MethodReference).returnType == "Z"
-        } ?: false
+        }
     } catch (e: Exception) {
         false
     }
 }
 
 private fun com.android.tools.smali.dexlib2.iface.Method.hasNegation(): Boolean {
-    // Check if this method has a negation instruction (xor-int/lit8 or not-int)
-    // Used to distinguish F3() which has !S3(...) from X3() which has S3(...)
     return try {
-        this.implementation?.instructions?.any { instr ->
+        cachedInstructions().any { instr ->
             val opcode = instr.opcode
-            // xor-int/lit8 is used for boolean negation (!value)
-            // not-int is another form of bitwise NOT
             opcode.name == "xor-int/lit8" || opcode.name == "not-int"
-        } ?: false
+        }
     } catch (e: Exception) {
         false
     }
 }
 
 private fun com.android.tools.smali.dexlib2.iface.Method.callsMethodNamed(methodName: String): Boolean {
-    // Check if this method calls another method with the given name
     return try {
-        this.implementation?.instructions?.any { instr ->
+        cachedInstructions().any { instr ->
             instr is ReferenceInstruction &&
                 instr.reference is MethodReference &&
                 (instr.reference as MethodReference).name == methodName
-        } ?: false
+        }
     } catch (e: Exception) {
         false
     }
@@ -1456,14 +1456,14 @@ private fun com.android.tools.smali.dexlib2.iface.Method.isStaticNoArgReturnBool
         parameterTypes.isEmpty()
 
 private fun com.android.tools.smali.dexlib2.iface.Method.containsString(str: String): Boolean =
-    instructionsOf(this).any { instr ->
+    cachedInstructions().any { instr ->
         instr is ReferenceInstruction &&
             instr.reference is StringReference &&
             (instr.reference as StringReference).string == str
     }
 
 private fun com.android.tools.smali.dexlib2.iface.Method.instructionCount(): Int =
-    this.implementation?.instructions?.count() ?: 0
+    cachedInstructions().size
 
 
 // ── Patch ────────────────────────────────────────────────────────────────────
@@ -1485,7 +1485,57 @@ val premiumUnlockPatch = bytecodePatch(
         // on the first call, so it MUST only be called once per obfuscated
         // class. Pass 2 resolves each obfuscated class exactly once.
         // ----------------------------------------------------------------------
+        val stableClassTypes = setOf(
+            TANTAN_USER_CLASS,
+            "Lcom/p1/mobile/putong/core/api/CoreProduct;",
+            "Lcom/p1/mobile/putong/data/CounterSuperlikeAndUndoLimit;",
+            "Lcom/p1/mobile/putong/core/ui/profile/profilelist/itemholders/ProfileImagesItemHolder;",
+            "Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;",
+            "Lcom/p1/mobile/putong/core/ui/match/a;",
+            "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m;",
+            "Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions;",
+            "Lcom/p1/mobile/putong/core/newui/profile/newme/ProfilePrivilegePayGuide;",
+            "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/h0;",
+            "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/l1;",
+            "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m1;",
+            "Lcom/p1/mobile/putong/core/newui/admob/NavigationBarAdmobHelper;",
+            "Lcom/p1/mobile/putong/core/admob/NavigationBarAdView;",
+            "Lcom/p1/mobile/putong/core/module/CoreProviderImpl;",
+            "Lcom/p1/mobile/putong/live/external/module/api/LiveAssertApi;",
+            "Lcom/p1/mobile/putong/data/Settings;",
+            "Lcom/p1/mobile/putong/core/newui/home/BoostRemainingCountView;",
+            "Lcom/p1/mobile/putong/core/newui/home/LikersBoostRemainingCountView;",
+            "Lcom/p1/mobile/putong/core/admob/NativeAdViewCard\$Companion;",
+            "Lp153l/d9y;", "Lp153l/l8y;", "Lp153l/g9y;", "Lp153l/z8y;",
+            "Lp153l/b8d0;",
+            "Lcom/p1/mobile/putong/core/newui/messages/business/BusinessConversationView;",
+            "Lcom/p1/mobile/putong/core/newui/messages/business/IntlVisitorConversationView;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemGoogleAdView;",
+            "Lcom/p1/mobile/putong/core/newui/messages/C8291a;",
+            "Lp153l/zt6;",
+            "Lp153l/lke0;",
+            "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;",
+            "Lp153l/tje0;",
+            "Lp153l/e230;",
+            "Lcom/p1/mobile/putong/core/ui/seepop/NewLikeView;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadLikerItemLayout;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadIntlSeeItem;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$e;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemPlatinumPinLike;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemFriendMoments;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemTeamGroup;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationWeakenView;",
+        )
+
         classDefForEach { classDef ->
+            if (classDef.type !in stableClassTypes) return@classDefForEach
+
             // ── User: stable, real method names (no obfuscation) ──────────────
             //
             // We patch methods directly here (no fingerprint) because the same
@@ -2471,79 +2521,50 @@ val premiumUnlockPatch = bytecodePatch(
             // for rx.Observable when calling code tries to use the returned value.
             // Let these methods run normally to avoid crashes.
 
-            // L3 → true
-            xmaL3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
+            // Batch all string-based static no-arg → Z methods into a single iteration
+            // Instead of 16+ separate matchOrNull calls, iterate once and classify
+            val s3StyleKeys = setOf(
+                "unlimitedSwipes", "roaming", "superLikeMembership", "undoMembership", "seeWhoLikedMe",
+                "message_read_state", "top_like", "top_chat", "premium_compliment",
+                "city_topping", "exclusive_dressing_up", "leave_message",
+                "live_entry_animation", "block_harassing_words"
+            )
+            val negatedKeys = setOf("ultraPremium", "platinum")
+            val singleMethodKeys = mapOf(
+                "svip" to false,
+                "vip" to false,
+                "intlReadMessage" to true,
+                "revokeUnPair" to false
+            )
 
-            // m4/n4 (loads "vip") → false (VIP not expired)
-            // n4() returns T3("vip") which is TRUE when expired. We want FALSE (active).
-            xmaM4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-
-            // J3 (instance, loads "intlReadMessage") → true
-            xmaJ3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
-            // K3 (instance, loads "revokeUnPair") → false
-            xmaK3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-
-            // S3-style wrappers (static no-arg → Z, unique product key) → false
-            // These methods return S3(key) which is TRUE when privilege is EXPIRED.
-            // For a premium user, we want them to return FALSE (privilege is active).
-            listOf(
-                xmaWrapperW3Fingerprint,
-                xmaWrapperD4Fingerprint,
-                xmaWrapperI4Fingerprint,
-                xmaWrapperL4Fingerprint,
-                xmaWrapperH4Fingerprint,
-            ).forEach { fingerprint ->
-                fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
-                }
-            }
-
-            // !S3-style wrappers (static no-arg → Z, unique product key) → true
-            // These methods return !S3(key) which is TRUE when privilege is ACTIVE.
-            // For a premium user, we want them to return TRUE (privilege is active).
-            //
-            // However, some product keys (ultraPremium, platinum) appear in BOTH
-            // !S3-style and S3-style methods. We must use hasNegation() to distinguish.
-            // ultraPremium: D3() = !T3(ultraPremium), k4() = T3(ultraPremium)
-            // platinum: I3() = !T3(platinum), a4() = T3(platinum)
-            listOf(
-                "ultraPremium" to xmaWrapperJ4Fingerprint,
-                "platinum" to xmaWrapperZ3Fingerprint,
-            ).forEach { (productKey, fingerprint) ->
-                // Use direct iteration to avoid matchOrNull cache trap
-                mutableClassDefBy(xmaClassDef).methods
-                    .filter { it.isStaticNoArgReturnBool() }
-                    .filter { it.containsString(productKey) }
-                    .filter { it.hasNegation() }  // Only !S3-style
-                    .forEach { method ->
-                        method.addInstructions(0, RETURN_TRUE)
+            mutableClassDefBy(xmaClassDef).methods
+                .filter { it.isStaticNoArgReturnBool() || (it.parameterTypes.isEmpty() && it.returnType == "Z") }
+                .forEach { method ->
+                    when {
+                        // L3: calls h5 method → true
+                        method.callsMethodNamed("h5") -> {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                        // B3: calls TEnum → false
+                        method.callsMethodNamed("TEnum") -> {
+                            method.addInstructions(0, RETURN_FALSE)
+                        }
+                        // !S3-style (has negation) → true
+                        negatedKeys.any { method.containsString(it) } && method.hasNegation() -> {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                        // S3-style (no negation) → false
+                        s3StyleKeys.any { method.containsString(it) } -> {
+                            method.addInstructions(0, RETURN_FALSE)
+                        }
+                        // Single-method keys (vip, intlReadMessage, revokeUnPair, svip)
+                        else -> {
+                            singleMethodKeys.entries.firstOrNull { (key, _) -> method.containsString(key) }?.let { (_, returnValue) ->
+                                method.addInstructions(0, if (returnValue) RETURN_TRUE else RETURN_FALSE)
+                            }
+                        }
                     }
-            }
-
-            // Dev2 privilege wrappers (S3-style → false, privilege is active)
-            listOf(
-                xmaWrapperMessageReadStateFingerprint,
-                xmaWrapperTopLikeFingerprint,
-                xmaWrapperTopChatFingerprint,
-                xmaWrapperPremiumComplimentFingerprint,
-                xmaWrapperCityToppingFingerprint,
-                xmaWrapperExclusiveDressingFingerprint,
-                xmaWrapperLeaveMessageFingerprint,
-                xmaWrapperLiveEntryAnimationFingerprint,
-                xmaWrapperBlockHarassingWordsFingerprint,
-            ).forEach { fingerprint ->
-                fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_FALSE)
                 }
-            }
 
             // ── oDiamond methods: G3(), Y3(), Z3() all contain "oDiamond" string ──
             // G3() = !T3("oDiamond") → TRUE when active → patch to TRUE
@@ -2578,16 +2599,6 @@ val premiumUnlockPatch = bytecodePatch(
                         }
                     }
                 }
-
-            // B3-style wrapper (TEnum call) → false
-            xmaWrapperB3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-
-            // e4 and f4 both load "svip" — patch both → false
-            xmaWrapperSvipFingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
 
             // Credit count methods (static no-arg → I) → 200000
             xmaCreditCountFingerprint.matchAll(xmaClassDef, 1..15).forEach { match ->
