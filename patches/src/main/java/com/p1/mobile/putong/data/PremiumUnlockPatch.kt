@@ -506,6 +506,19 @@ private val headRecommendAdapterFingerprint = Fingerprint(
     ),
 )
 
+// C4891g (Core API): Creates intlSeeChatRequest conversations via Vi(List)
+private val intlSeeChatRequestCreatorFingerprint = Fingerprint(
+    filters = listOf(
+        string("intlSeeChatRequest"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            name = "new_",
+            parameters = emptyList(),
+            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+        ),
+    ),
+)
+
 // ── b240: "See Anim Bubble" creator ──
 // b240 creates the floating "x girls y miles away" bubble on startup.
 // It subscribes to CoreLikers.S6() and calls u7() to create the bubble.
@@ -2085,10 +2098,49 @@ val premiumUnlockPatch = bytecodePatch(
             // ── BusinessConversationView: The actual banner view ──
             // This view displays the "x girls y miles away" banner in the Messages tab.
             // Its init() method checks b8d0 state and sets up the banner.
-            // We patch init() to return-void to prevent any banner setup.
+            // We patch init() AND i0() bind method to return-void to prevent any banner setup/display.
             if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/business/BusinessConversationView;") {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "init" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    if (method.name == "i0" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── IntlVisitorConversationView: Visitor banner at top of conversation list ──
+            // View type 48. Displays "visitor door" promotional banner.
+            // Patch m0() and l0() bind methods to return-void.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/business/IntlVisitorConversationView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "m0" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    if (method.name == "l0" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── ConversationItemGoogleAdView: Google ad view in conversation list ──
+            // View type 15. Displays ad content between conversations.
+            // Patch c() bind method to return-void.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemGoogleAdView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "c" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── C8291a: Header adapter that adds visitor/business banner items ──
+            // r() adds IntlVisitorConversationView (type 48) and BusinessConversationView (type 1) header items.
+            // Patch r() to return-void to prevent any header items from being added.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/C8291a;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "r" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
                 }
@@ -2245,7 +2297,11 @@ val premiumUnlockPatch = bytecodePatch(
                             "fake_conversation_weaken_conversation",
                             "feedstate",
                             "fakeReceiveLikeGuideSVip",
-                            "fakeIntlReceiveLikeGuideSVip"
+                            "fakeIntlReceiveLikeGuideSVip",
+                            "fake_conversation_greeting",
+                            "fake_conversation_anonymous_greeting",
+                            "fake_conversation_city_centre_enter",
+                            "intlSeeChatRequest"
                         )
                         
                         val checks = fakeConvTypes.joinToString("\n") { type ->
@@ -2913,6 +2969,28 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
         
+        // intlSeeChatRequest creator (C4891g): Vi(List) creates intlSeeChatRequest conversations
+        intlSeeChatRequestCreatorFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction &&
+                    instruction.reference is MethodReference &&
+                    (instruction.reference as MethodReference).name == "new_" &&
+                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
+                } ?: false
+
+                val referencesIntlSeeChat = method.implementation?.instructions?.any { instruction ->
+                    instruction is ReferenceInstruction &&
+                    instruction.reference is StringReference &&
+                    (instruction.reference as StringReference).string == "intlSeeChatRequest"
+                } ?: false
+
+                if (callsConversationNew && referencesIntlSeeChat) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
         // ── CRITICAL FIX: Patch head recommend carousel adapter (ipi0$a) ──
         // This adapter maps fake conversation IDs to view types in the head carousel
         headRecommendAdapterFingerprint.matchOrNull()?.classDef?.let { headAdapterClassDef ->
