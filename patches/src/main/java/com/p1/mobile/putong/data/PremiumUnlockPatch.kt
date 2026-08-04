@@ -2099,6 +2099,79 @@ val premiumUnlockPatch = bytecodePatch(
                         AccessFlags.STATIC.isSet(method.accessFlags)) {
                         method.addInstructions(0, RETURN_VOID)
                     }
+                    // ── b240.u7(): "See Anim Bubble" creator ──
+                    // This is the ROOT CAUSE of the startup banner.
+                    // b240.u7(CoreLikers.C4870a) creates the floating "x girls y miles away" bubble
+                    // that appears on the home screen right after app startup.
+                    // It's called when b240 subscribes to CoreLikers.S6() on startup.
+                    // We patch u7() to return-void to prevent the bubble from being created.
+                    if (method.name == "u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── kfe0.A(): "See Anim Bubble" lifecycle method ──
+            // kfe0 is the bubble class that extends fqe0 (base bubble class).
+            // kfe0.A() is the lifecycle method that displays the bubble.
+            // It calls ViewTreeObserverOnGlobalLayoutListenerC8017b.u6() to render the bubble.
+            // We patch A() to return 0 to prevent the bubble from being displayed.
+            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
+            if (classDef.type == "Lp153l/kfe0;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "A" && method.parameterTypes.isEmpty() && method.returnType == "I" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, """
+                            const/4 v0, 0x0
+                            return v0
+                        """)
+                    }
+                }
+            }
+
+            // ── ViewTreeObserverOnGlobalLayoutListenerC8017b.u6(): Bubble display method ──
+            // This method is called by b240.u7() and kfe0.A() to display the floating bubble.
+            // It calls NewMainAct.m7() to render the bubble with "x girls y miles away" text.
+            // We patch u6() to return-void to prevent the bubble from being displayed.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "u6" && method.parameterTypes.size == 8 && method.returnType == "V" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── tje0.c(): Distance/age text generation for dialogs ──
+            // tje0.c(User, Context, int[]) generates the "x girls y miles away" text for dialogs.
+            // It's used by LikersDialogView and other promotional dialogs.
+            // We patch c() to return empty CharSequence to prevent the text from being displayed.
+            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
+            if (classDef.type == "Lp153l/tje0;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "c" && method.parameterTypes.size == 3 && method.returnType == "Ljava/lang/CharSequence;" &&
+                        AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, """
+                            const-string v0, ""
+                            return-object v0
+                        """)
+                    }
+                }
+            }
+
+            // ── e230.b(): NewLikeView dialog strategy check ──
+            // e230.b(p8l.C19323a) checks if the NewLikeView dialog should be shown.
+            // It's registered in the home dialog queue by dal.m115127e().
+            // Even though NewLikeView.E() is patched to return-void, we also patch e230.b()
+            // to return false to prevent the dialog from even being considered.
+            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
+            if (classDef.type == "Lp153l/e230;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "b" && method.parameterTypes.size == 1 && method.returnType == "Z" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
                 }
             }
 
