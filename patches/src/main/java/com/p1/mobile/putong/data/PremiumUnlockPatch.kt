@@ -421,27 +421,6 @@ private val meetEntranceBannerFingerprint = Fingerprint(
     ),
 )
 
-// mm6: Conversation query manager - filters conversations with fake_conversation
-private val conversationQueryManagerFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation"),
-        string("NOT_STARTS_WITH"),
-    ),
-)
-
-// ConversationsList$e: Adapter that maps conversation IDs to view types
-private val conversationsListAdapterFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation_blindbox_enter"),
-        string("fake_conversation_surprise_gift_box"),
-        methodCall(
-            name = "getItemViewType",
-            parameters = listOf("I"),
-            returnType = "I",
-        ),
-    ),
-)
-
 // sd8: Creates fake_conversation_local_instant_chat_conversation
 private val instantChatGuideFingerprint = Fingerprint(
     filters = listOf(
@@ -543,23 +522,6 @@ private val seeAnimBubbleCreatorFingerprint = Fingerprint(
             returnType = "V",
         ),
         string("INTL_SEE_ANIM_BUBBLE"),
-    ),
-)
-
-// ── kfe0: "See Anim Bubble" lifecycle class ──
-// kfe0 is the bubble class that displays the "x girls y miles away" notification.
-// It extends fqe0 and has lifecycle method A() that renders the bubble.
-// Fingerprint anchors on bubble display pattern and CorePopLevel reference.
-private val seeAnimBubbleLifecycleFingerprint = Fingerprint(
-    filters = listOf(
-        string("INTL_SEE_ANIM_BUBBLE"),
-        methodCall(
-            name = "A",
-            returnType = "I",
-        ),
-        fieldAccess(
-            name = "viewModel",
-        ),
     ),
 )
 
@@ -1522,7 +1484,6 @@ val premiumUnlockPatch = bytecodePatch(
             "Lcom/p1/mobile/putong/core/newui/messages/C8291a;",
             "Lp153l/zt6;",
             "Lp153l/lke0;",
-            "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;",
             "Lp153l/tje0;",
             "Lp153l/e230;",
             "Lcom/p1/mobile/putong/core/ui/seepop/NewLikeView;",
@@ -2135,19 +2096,6 @@ val premiumUnlockPatch = bytecodePatch(
             // ── b240 and kfe0 patches moved to Pass 2 (fingerprint-based) ──
             // Hardcoded descriptors (Lp153l/b240;, Lp153l/kfe0;) don't match actual DEX.
             // Using fingerprint-based discovery instead.
-
-            // ── ViewTreeObserverOnGlobalLayoutListenerC8017b.u6(): Bubble display method ──
-            // This method is called by b240.u7() and kfe0.A() to display the floating bubble.
-            // It calls NewMainAct.m7() to render the bubble with "x girls y miles away" text.
-            // We patch u6() to return-void to prevent the bubble from being displayed.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "u6" && method.parameterTypes.size == 8 && method.returnType == "V" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
 
             // ── tje0.c(): Distance/age text generation for dialogs ──
             // tje0.c(User, Context, int[]) generates the "x girls y miles away" text for dialogs.
@@ -2816,22 +2764,6 @@ val premiumUnlockPatch = bytecodePatch(
                 if (method.name == "u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
                     !AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-        
-        // ── CRITICAL FIX: Patch "See Anim Bubble" lifecycle (kfe0) ──
-        // kfe0 is the bubble class that displays the "x girls y miles away" notification.
-        // It has lifecycle method A() that renders the bubble.
-        // We patch A() to return 0 to prevent the bubble from being displayed.
-        seeAnimBubbleLifecycleFingerprint.matchOrNull()?.classDef?.let { bubbleLifecycleClassDef ->
-            mutableClassDefBy(bubbleLifecycleClassDef).methods.forEach { method ->
-                if (method.name == "A" && method.parameterTypes.isEmpty() && method.returnType == "I" &&
-                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const/4 v0, 0x0
-                        return v0
-                    """)
                 }
             }
         }
