@@ -506,6 +506,41 @@ private val headRecommendAdapterFingerprint = Fingerprint(
     ),
 )
 
+// ── b240: "See Anim Bubble" creator ──
+// b240 creates the floating "x girls y miles away" bubble on startup.
+// It subscribes to CoreLikers.S6() and calls u7() to create the bubble.
+// Fingerprint anchors on CoreLikers API reference and bubble creation pattern.
+private val seeAnimBubbleCreatorFingerprint = Fingerprint(
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/core/api/CoreLikers;",
+            name = "S6",
+        ),
+        methodCall(
+            name = "u7",
+            returnType = "V",
+        ),
+        string("INTL_SEE_ANIM_BUBBLE"),
+    ),
+)
+
+// ── kfe0: "See Anim Bubble" lifecycle class ──
+// kfe0 is the bubble class that displays the "x girls y miles away" notification.
+// It extends fqe0 and has lifecycle method A() that renders the bubble.
+// Fingerprint anchors on bubble display pattern and CorePopLevel reference.
+private val seeAnimBubbleLifecycleFingerprint = Fingerprint(
+    filters = listOf(
+        string("INTL_SEE_ANIM_BUBBLE"),
+        methodCall(
+            name = "A",
+            returnType = "I",
+        ),
+        fieldAccess(
+            name = "viewModel",
+        ),
+    ),
+)
+
 private val sb90CompanionClassFingerprint = Fingerprint(
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
@@ -2087,48 +2122,9 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── b240.z2(): "Trialing" subscription state handler ──
-            // b240.z2(String) handles subscription state changes.
-            // On "trialing" state, it reads SeeExposedUser and triggers CN banner via f760.
-            // This bypasses our qa9/hva patches by using a different code path.
-            // We patch the entire z2() method to return-void to prevent all state handlers.
-            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            if (classDef.type == "Lp153l/b240;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "z2" && method.parameterTypes.size == 1 && method.returnType == "V" &&
-                        AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    // ── b240.u7(): "See Anim Bubble" creator ──
-                    // This is the ROOT CAUSE of the startup banner.
-                    // b240.u7(CoreLikers.C4870a) creates the floating "x girls y miles away" bubble
-                    // that appears on the home screen right after app startup.
-                    // It's called when b240 subscribes to CoreLikers.S6() on startup.
-                    // We patch u7() to return-void to prevent the bubble from being created.
-                    if (method.name == "u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── kfe0.A(): "See Anim Bubble" lifecycle method ──
-            // kfe0 is the bubble class that extends fqe0 (base bubble class).
-            // kfe0.A() is the lifecycle method that displays the bubble.
-            // It calls ViewTreeObserverOnGlobalLayoutListenerC8017b.u6() to render the bubble.
-            // We patch A() to return 0 to prevent the bubble from being displayed.
-            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            if (classDef.type == "Lp153l/kfe0;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "A" && method.parameterTypes.isEmpty() && method.returnType == "I" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, """
-                            const/4 v0, 0x0
-                            return v0
-                        """)
-                    }
-                }
-            }
+            // ── b240 and kfe0 patches moved to Pass 2 (fingerprint-based) ──
+            // Hardcoded descriptors (Lp153l/b240;, Lp153l/kfe0;) don't match actual DEX.
+            // Using fingerprint-based discovery instead.
 
             // ── ViewTreeObserverOnGlobalLayoutListenerC8017b.u6(): Bubble display method ──
             // This method is called by b240.u7() and kfe0.A() to display the floating bubble.
@@ -2937,6 +2933,41 @@ val premiumUnlockPatch = bytecodePatch(
                             return v0
                         """)
                     }
+                }
+            }
+        }
+        
+        // ── CRITICAL FIX: Patch "See Anim Bubble" creator (b240) ──
+        // b240 creates the floating "x girls y miles away" bubble on startup.
+        // It subscribes to CoreLikers.S6() and calls u7() to create the bubble.
+        // We patch z2() and u7() to return-void to prevent bubble creation.
+        seeAnimBubbleCreatorFingerprint.matchOrNull()?.classDef?.let { bubbleCreatorClassDef ->
+            mutableClassDefBy(bubbleCreatorClassDef).methods.forEach { method ->
+                // Patch z2() - subscription state handler
+                if (method.name == "z2" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+                // Patch u7() - bubble creator
+                if (method.name == "u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+        
+        // ── CRITICAL FIX: Patch "See Anim Bubble" lifecycle (kfe0) ──
+        // kfe0 is the bubble class that displays the "x girls y miles away" notification.
+        // It has lifecycle method A() that renders the bubble.
+        // We patch A() to return 0 to prevent the bubble from being displayed.
+        seeAnimBubbleLifecycleFingerprint.matchOrNull()?.classDef?.let { bubbleLifecycleClassDef ->
+            mutableClassDefBy(bubbleLifecycleClassDef).methods.forEach { method ->
+                if (method.name == "A" && method.parameterTypes.isEmpty() && method.returnType == "I" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        return v0
+                    """)
                 }
             }
         }
