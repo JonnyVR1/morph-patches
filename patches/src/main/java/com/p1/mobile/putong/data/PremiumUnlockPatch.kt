@@ -2160,7 +2160,34 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes.size == 1 && 
                         method.parameterTypes[0] == "I" &&
                         method.returnType == "I") {
-                        // Check if conversation is fake receive like guide
+                        val fakeConvTypes = listOf(
+                            "liveactivites",
+                            "fake_conversation_oof_pick",
+                            "fake_conversation_oof_enter",
+                            "fake_conversation_blindbox_enter",
+                            "fake_conversation_surprise_gift_box",
+                            "fake_conversation_profile_featured",
+                            "fake_conversation_profile_like_enter",
+                            "fake_conversation_fold_conversation",
+                            "fake_conversation_local_summary_marriage_conversation",
+                            "fake_conversation_local_team_group_conversation",
+                            "fake_conversation_local_limited_trial_see_fold",
+                            "local_instant_chat_guide",
+                            "fake_conversation_weaken_conversation",
+                            "feedstate",
+                            "fakeReceiveLikeGuideSVip",
+                            "fakeIntlReceiveLikeGuideSVip"
+                        )
+                        
+                        val checks = fakeConvTypes.joinToString("\n") { type ->
+                            """
+                            const-string v3, "$type"
+                            invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                            move-result v4
+                            if-eqz v4, :return_zero
+                            """.trimIndent()
+                        }
+                        
                         val instructions = """
                             invoke-virtual {p0, p1}, Lcom/p1/mobile/putong/core/newui/messages/ConversationsList${'$'}e;->getItem(I)Ljava/lang/Object;
                             move-result-object v0
@@ -2168,14 +2195,7 @@ val premiumUnlockPatch = bytecodePatch(
                             if-eqz v1, :not_conv
                             check-cast v0, Lcom/p1/mobile/putong/core/data/Conversation;
                             iget-object v2, v0, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
-                            const-string v3, "fakeReceiveLikeGuideSVip"
-                            invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-                            move-result v4
-                            if-eqz v4, :return_zero
-                            const-string v3, "fakeIntlReceiveLikeGuideSVip"
-                            invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-                            move-result v4
-                            if-eqz v4, :return_zero
+                            $checks
                             goto :not_conv
                             :return_zero
                             const/4 v0, 0x0
@@ -2773,31 +2793,7 @@ val premiumUnlockPatch = bytecodePatch(
         // leave the query manager uninitialized and cause NPE crashes. Adapter-level patches
         // are more reliable and don't depend on query internals.
         
-        // ── SOLUTION 3: Adapter-level patch (DEFENSE IN DEPTH) ──
-        // Patch ConversationsList$e adapter to filter out ALL fake conversation types
-        conversationsListAdapterFingerprint.matchOrNull()?.classDef?.let { adapterClassDef ->
-            mutableClassDefBy(adapterClassDef).methods.forEach { method ->
-                // Patch getItemViewType to return 0 (normal conversation) for all fake types
-                if (method.name == "getItemViewType" || method.name.contains("ViewType")) {
-                    val checksFakeConv = method.implementation?.instructions?.any { instruction ->
-                        instruction is ReferenceInstruction &&
-                        instruction.reference is StringReference &&
-                        ((instruction.reference as StringReference).string.startsWith("fake_conversation") ||
-                         (instruction.reference as StringReference).string == "fakeReceiveLikeGuideSVip" ||
-                         (instruction.reference as StringReference).string == "fakeIntlReceiveLikeGuideSVip")
-                    } ?: false
-                    
-                    if (checksFakeConv) {
-                        // This method maps fake conversation IDs to view types
-                        // Patch it to always return 0 (normal conversation view type)
-                        method.addInstructions(0, """
-                            const/4 v0, 0x0
-                            return v0
-                        """)
-                    }
-                }
-            }
-        }
+
         
         // ── CRITICAL FIX: Patch inner classes g$b and g$c ──
         // These inner classes create fake conversations that weren't being caught
