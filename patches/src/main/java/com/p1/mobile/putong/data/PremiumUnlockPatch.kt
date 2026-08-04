@@ -525,6 +525,35 @@ private val seeAnimBubbleCreatorFingerprint = Fingerprint(
     ),
 )
 
+// ── kfe0: "See Anim Bubble" lifecycle class ──
+// kfe0 extends fqe0 (base bubble class) and implements the bubble display logic.
+// kfe0.A() is the lifecycle method that calls ViewTreeObserverOnGlobalLayoutListenerC8017b.u6()
+// to actually render the bubble on screen. Patching A() to return 0 prevents display.
+// Fingerprint anchors on the u6() method call and SEE_ANIM string.
+private val seeAnimBubbleLifecycleFingerprint = Fingerprint(
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;",
+            name = "u6",
+        ),
+        string("SEE_ANIM"),
+    ),
+)
+
+// ── ViewTreeObserverOnGlobalLayoutListenerC8017b: Bubble display method ──
+// This class contains u6() which is the final method that calls act().m40827m7()
+// to display the floating bubble with "x girls y miles away" text.
+// Patching u6() to return-void prevents any bubble from being displayed.
+// Fingerprint anchors on the m40827m7 method call and SEE_ANIM string.
+private val bubbleDisplayMethodFingerprint = Fingerprint(
+    filters = listOf(
+        string("SEE_ANIM"),
+        methodCall(
+            name = "m40827m7",
+        ),
+    ),
+)
+
 private val sb90CompanionClassFingerprint = Fingerprint(
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
@@ -2762,6 +2791,33 @@ val premiumUnlockPatch = bytecodePatch(
                 }
                 // Patch u7() - bubble creator
                 if (method.name == "u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ── CRITICAL FIX: Patch "See Anim Bubble" lifecycle (kfe0) ──
+        // kfe0.A() is the lifecycle method that displays the bubble by calling u6().
+        // Patching to return 0 prevents the bubble from being displayed.
+        seeAnimBubbleLifecycleFingerprint.matchOrNull()?.classDef?.let { bubbleLifecycleClassDef ->
+            mutableClassDefBy(bubbleLifecycleClassDef).methods.forEach { method ->
+                if (method.name == "A" && method.parameterTypes.isEmpty() && method.returnType == "I" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        return v0
+                    """)
+                }
+            }
+        }
+
+        // ── CRITICAL FIX: Patch bubble display method (ViewTreeObserverOnGlobalLayoutListenerC8017b.u6) ──
+        // u6() is the final method that calls act().m40827m7() to show the bubble.
+        // Patching to return-void prevents any bubble from being displayed.
+        bubbleDisplayMethodFingerprint.matchOrNull()?.classDef?.let { bubbleDisplayClassDef ->
+            mutableClassDefBy(bubbleDisplayClassDef).methods.forEach { method ->
+                if (method.name == "u6" && method.parameterTypes.size == 8 && method.returnType == "V" &&
                     !AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
                 }
