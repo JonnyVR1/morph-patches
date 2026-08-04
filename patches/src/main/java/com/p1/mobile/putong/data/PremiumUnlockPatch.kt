@@ -11,6 +11,7 @@ import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
+import com.android.tools.smali.dexlib2.iface.Method
 
 /**
  * Unified premium unlock patch.
@@ -652,7 +653,7 @@ private val pibClassFingerprint = Fingerprint(
 // in its populate method which shows the dark upgrade card banner before "more services".
 // In 7.3.3 there are TWO Me tab variants: xp30 (original, getter p0()) and xnx (test2 revamp, getter U()).
 // Both call NewProfilePrivilegedPager.d() so a single class fingerprint matches both.
-// We handle them in Pass 1 (classDefForEach) to patch ALL matching classes with the correct getter.
+// We handle them in Pass 2 via jh30ClassFingerprint to avoid scanning every class in Pass 1.
 private val jh30ClassFingerprint = Fingerprint(
     filters = listOf(
         methodCall(
@@ -1373,7 +1374,7 @@ private val pibW9Fingerprint = Fingerprint(
 // The User.isVIP()/isUltraPremium() patches already override premium status via isMe() checks,
 // so this membership flip is no longer needed.
 
-// jh30U0Fingerprint removed — dark upgrade card suppression moved to Pass 1 (classDefForEach)
+// jh30U0Fingerprint removed — dark upgrade card suppression moved to Pass 2 (jh30ClassFingerprint)
 // to handle both Me tab variants (xp30 and xnx) with dynamic getter resolution.
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -1463,6 +1464,7 @@ private fun com.android.tools.smali.dexlib2.iface.Method.containsString(str: Str
 
 private fun com.android.tools.smali.dexlib2.iface.Method.instructionCount(): Int =
     this.implementation?.instructions?.count() ?: 0
+
 
 // ── Patch ────────────────────────────────────────────────────────────────────
 
@@ -1713,67 +1715,8 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── Me tab dark upgrade card suppression (xp30 + xnx) ──
-            //
-            // In 7.3.3 there are TWO Me tab view classes, both showing a dark upgrade
-            // card (NewProfilePrivilegedPager) before the "more services" section:
-            //   - xp30: original Me tab, getter p0() returns NewProfilePrivilegedPager
-            //   - xnx:  test2 revamp Me tab, getter U() returns NewProfilePrivilegedPager
-            // Both have a populate method (List<PurchaseType>, boolean) → void that calls
-            // NewProfilePrivilegedPager.d() to populate and show the upgrade cards.
-            //
-            // We detect any class that:
-            //   1. Has a method calling NewProfilePrivilegedPager.d()
-            //   2. Has a PUBLIC FINAL (List, Z)→V method (the populate method)
-            //   3. Has a no-arg method returning NewProfilePrivilegedPager (the getter)
-            // Then patch the populate method to call the getter and set visibility GONE.
-            //
-            // This replaces the old Pass 2 jh30 single-match approach which only patched
-            // one of the two variants and used a hardcoded p0() getter name.
-            run {
-                val newProfilePrivilegedPagerType = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;"
-                val methods = classDef.methods
-                // Check condition 1: any method calls NewProfilePrivilegedPager.d()
-                val callsPrivilegedPagerD = methods.any { method ->
-                    method.implementation?.instructions?.any { instr ->
-                        instr is ReferenceInstruction &&
-                            instr.reference is MethodReference &&
-                            (instr.reference as MethodReference).definingClass == newProfilePrivilegedPagerType &&
-                            (instr.reference as MethodReference).name == "d"
-                    } ?: false
-                }
-                if (!callsPrivilegedPagerD) return@run
-
-                // Check condition 2: find the populate method (List, Z) → V, PUBLIC FINAL
-                val populateMethod = methods.firstOrNull { method ->
-                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                        AccessFlags.FINAL.isSet(method.accessFlags) &&
-                        method.returnType == "V" &&
-                        method.parameterTypes.size == 2 &&
-                        method.parameterTypes[0] == "Ljava/util/List;" &&
-                        method.parameterTypes[1] == "Z"
-                } ?: return@run
-
-                // Check condition 3: find the getter (no-arg → NewProfilePrivilegedPager)
-                val getterMethod = methods.firstOrNull { method ->
-                    method.parameterTypes.isEmpty() &&
-                        method.returnType == newProfilePrivilegedPagerType
-                } ?: return@run
-
-                // Patch: call getter, set banner visibility to GONE (8), return void
-                val classType = classDef.type
-                val getterName = getterMethod.name
-                val bannerHideBody = """
-                    invoke-virtual {p0}, ${classType}->${getterName}()${newProfilePrivilegedPagerType}
-                    move-result-object v0
-                    const/16 v1, 0x8
-                    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
-                    return-void
-                """
-                mutableClassDefBy(classDef).methods
-                    .first { it.name == populateMethod.name && it.parameterTypes == populateMethod.parameterTypes }
-                    .addInstructions(0, bannerHideBody)
-            }
+            // ── Me tab dark upgrade card suppression moved to Pass 2 ──
+            // Uses jh30ClassFingerprint to avoid scanning every class in Pass 1
 
             // ── Daily like limit bypass: h0.b() ──
             //
@@ -1970,49 +1913,6 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
             }
-
-            // ── GroupCreationLimit.nullCheck(): DISABLED - type mismatch causes VerifyError ──
-            // The patch tried to access primitive int fields as Ljava/lang/Integer; objects,
-            // causing bytecode verification failures at runtime.
-            // if (classDef.type == "Lcom/p1/mobile/putong/core/data/GroupCreationLimit;") {
-            //     mutableClassDefBy(classDef).methods.forEach { method ->
-            //         if (method.name == "nullCheck" &&
-            //             method.parameterTypes.isEmpty() &&
-            //             method.returnType == "V"
-            //         ) {
-            //             method.addInstructions(0, GROUP_CREATION_LIMIT_NULL_CHECK_BODY)
-            //         }
-            //     }
-            // }
-
-            // ── AgeVerificationInfo.nullCheck(): DISABLED - type mismatch causes VerifyError ──
-            // The patch tried to store an int value into a StudentVerificationStatus enum field,
-            // causing bytecode verification failures at runtime.
-            // if (classDef.type == "Lcom/p1/mobile/putong/core/data/AgeVerificationInfo;") {
-            //     mutableClassDefBy(classDef).methods.forEach { method ->
-            //         if (method.name == "nullCheck" &&
-            //             method.parameterTypes.isEmpty() &&
-            //             method.returnType == "V"
-            //         ) {
-            //             method.addInstructions(0, AGE_VERIFICATION_NULL_CHECK_BODY)
-            //         }
-            //     }
-            // }
-
-            // ── ProfileCompletion.nullCheck(): DISABLED - causes startup hang ──
-            // The RETURN_VOID approach skips all initialization, causing NPEs when
-            // code accesses uninitialized fields. Needs proper field initialization
-            // or should be removed entirely.
-            // if (classDef.type == "Lcom/p1/mobile/putong/core/data/ProfileCompletion;") {
-            //     mutableClassDefBy(classDef).methods.forEach { method ->
-            //         if (method.name == "nullCheck" &&
-            //             method.parameterTypes.isEmpty() &&
-            //             method.returnType == "V"
-            //         ) {
-            //             method.addInstructions(0, RETURN_VOID)
-            //         }
-            //     }
-            // }
 
             // ── Meet entrance banner strategies: d9y, l8y, g9y ──
             //
@@ -2251,20 +2151,6 @@ val premiumUnlockPatch = bytecodePatch(
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "L" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-            
-            // mm6: Conversation query manager - exclude ALL fake conversations from queries
-            // The constructor creates filters that explicitly INCLUDE fake conversations.
-            // We patch the filter creation methods to exclude them instead.
-            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            if (classDef.type == "Lp153l/mm6;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // Patch constructor to modify filter creation
-                    if (method.name == "<init>" && method.parameterTypes.isEmpty()) {
-                        // Find string references to "fake_conversation" and modify the filter logic
-                        // This is complex - we'll use a simpler approach: patch the query methods
                     }
                 }
             }
@@ -2815,177 +2701,50 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
         
-        // ── COMPREHENSIVE: Patch ALL fake conversation creation methods ──
-        // Instead of hardcoding method names, find ALL methods that call Conversation.new_()
-        // AND reference fake_conversation strings, then patch them to return-void
-        
-        // Core API (g): Patch ALL methods that create fake conversations
-        coreApiFakeConvFingerprint.matchOrNull()?.classDef?.let { coreApiClassDef ->
-            mutableClassDefBy(coreApiClassDef).methods.forEach { method ->
-                // Check if method calls Conversation.new_() and references fake_conversation
-                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction && 
-                    instruction.reference is MethodReference &&
-                    (instruction.reference as MethodReference).name == "new_" &&
-                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
-                } ?: false
-                
-                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction &&
-                    instruction.reference is StringReference &&
-                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
-                } ?: false
-                
-                // Patch method if it creates fake conversations (but not if it's already patched above)
-                if (callsConversationNew && referencesFakeConv && 
-                    method.name !in setOf("Xb", "o7", "Ti")) {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // Greeting (j): Patch ALL methods that create fake conversations
-        greetingFakeConvFingerprint.matchOrNull()?.classDef?.let { greetingClassDef ->
-            mutableClassDefBy(greetingClassDef).methods.forEach { method ->
-                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction && 
-                    instruction.reference is MethodReference &&
-                    (instruction.reference as MethodReference).name == "new_" &&
-                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
-                } ?: false
-                
-                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction &&
-                    instruction.reference is StringReference &&
-                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
-                } ?: false
-                
-                // Patch method if it creates fake conversations (but not if it's already patched above)
-                if (callsConversationNew && referencesFakeConv && method.name != "Q3") {
-                    method.addInstructions(0, "return-void")
-                }
-            }
-        }
-        
-        // Instant chat guide (sd8): creates fake_conversation_local_instant_chat_conversation
+        // Instant chat guide (sd8): Patch n3() method directly
         instantChatGuideFingerprint.matchOrNull()?.classDef?.let { instantChatClassDef ->
             mutableClassDefBy(instantChatClassDef).methods.forEach { method ->
-                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction && 
-                    instruction.reference is MethodReference &&
-                    (instruction.reference as MethodReference).name == "new_" &&
-                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
-                } ?: false
-                
-                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction &&
-                    instruction.reference is StringReference &&
-                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
-                } ?: false
-                
-                // Patch all methods that create fake conversations
-                if (callsConversationNew && referencesFakeConv) {
-                    method.addInstructions(0, "return-void")
+                if (method.name == "n3" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
         
-        // Main UI (a): creates fake_conversation_greeting, fake_conversation_profile_featured, fake_conversation_anonymous_greeting
+        // Main UI (a): Patch specific methods that create fake conversations
         mainUiFakeConvFingerprint.matchOrNull()?.classDef?.let { mainUiClassDef ->
             mutableClassDefBy(mainUiClassDef).methods.forEach { method ->
-                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction && 
-                    instruction.reference is MethodReference &&
-                    (instruction.reference as MethodReference).name == "new_" &&
-                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
-                } ?: false
-                
-                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction &&
-                    instruction.reference is StringReference &&
-                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
-                } ?: false
-                
-                // Patch all methods that create fake conversations
-                if (callsConversationNew && referencesFakeConv) {
-                    method.addInstructions(0, "return-void")
+                // Patch methods that create fake_conversation_greeting, fake_conversation_profile_featured, fake_conversation_anonymous_greeting
+                if (method.name in setOf("Q3", "Xb", "o7") && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
-        
-        // ── REMOVED: Broken mm6 query patch ──
-        // The previous approach tried to return-void from the mm6 constructor, which would
-        // leave the query manager uninitialized and cause NPE crashes. Adapter-level patches
-        // are more reliable and don't depend on query internals.
-        
-
         
         // ── CRITICAL FIX: Patch inner classes g$b and g$c ──
         // These inner classes create fake conversations that weren't being caught
         
-        // g$b: Creates fake_conversation_local_team_group_conversation
+        // g$b: Creates fake_conversation_local_team_group_conversation - Patch n3() method
         coreApiTeamGroupFingerprint.matchOrNull()?.classDef?.let { teamGroupClassDef ->
             mutableClassDefBy(teamGroupClassDef).methods.forEach { method ->
-                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction && 
-                    instruction.reference is MethodReference &&
-                    (instruction.reference as MethodReference).name == "new_" &&
-                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
-                } ?: false
-                
-                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction &&
-                    instruction.reference is StringReference &&
-                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
-                } ?: false
-                
-                // Patch all methods that create fake conversations
-                if (callsConversationNew && referencesFakeConv) {
-                    method.addInstructions(0, "return-void")
+                if (method.name == "n3" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
         
-        // g$c: Creates fake_conversation_local_limited_trial_see_fold
+        // g$c: Creates fake_conversation_local_limited_trial_see_fold - Patch n3() method
         coreApiLimitedTrialFoldFingerprint.matchOrNull()?.classDef?.let { limitedTrialClassDef ->
             mutableClassDefBy(limitedTrialClassDef).methods.forEach { method ->
-                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction && 
-                    instruction.reference is MethodReference &&
-                    (instruction.reference as MethodReference).name == "new_" &&
-                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
-                } ?: false
-                
-                val referencesFakeConv = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction &&
-                    instruction.reference is StringReference &&
-                    (instruction.reference as StringReference).string.startsWith("fake_conversation")
-                } ?: false
-                
-                // Patch all methods that create fake conversations
-                if (callsConversationNew && referencesFakeConv) {
-                    method.addInstructions(0, "return-void")
+                if (method.name == "n3" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
         
-        // intlSeeChatRequest creator (C4891g): Vi(List) creates intlSeeChatRequest conversations
+        // intlSeeChatRequest creator (C4891g): Patch Vi() method directly
         intlSeeChatRequestCreatorFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                val callsConversationNew = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction &&
-                    instruction.reference is MethodReference &&
-                    (instruction.reference as MethodReference).name == "new_" &&
-                    (instruction.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/data/Conversation;"
-                } ?: false
-
-                val referencesIntlSeeChat = method.implementation?.instructions?.any { instruction ->
-                    instruction is ReferenceInstruction &&
-                    instruction.reference is StringReference &&
-                    (instruction.reference as StringReference).string == "intlSeeChatRequest"
-                } ?: false
-
-                if (callsConversationNew && referencesIntlSeeChat) {
+                if (method.name == "Vi" && method.parameterTypes.size == 1 && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
@@ -2993,24 +2752,14 @@ val premiumUnlockPatch = bytecodePatch(
 
         // ── CRITICAL FIX: Patch head recommend carousel adapter (ipi0$a) ──
         // This adapter maps fake conversation IDs to view types in the head carousel
+        // Patch getItemViewType to return 0 for all items (prevents promotional view types)
         headRecommendAdapterFingerprint.matchOrNull()?.classDef?.let { headAdapterClassDef ->
             mutableClassDefBy(headAdapterClassDef).methods.forEach { method ->
-                // Patch getItemViewType to return 0 for all fake conversation types
-                if (method.name == "getItemViewType" || method.name.contains("ViewType")) {
-                    val checksFakeConv = method.implementation?.instructions?.any { instruction ->
-                        instruction is ReferenceInstruction &&
-                        instruction.reference is StringReference &&
-                        (instruction.reference as StringReference).string.startsWith("fake_conversation")
-                    } ?: false
-                    
-                    if (checksFakeConv) {
-                        // This method maps fake conversation IDs to view types
-                        // Patch it to always return 0 (normal conversation view type)
-                        method.addInstructions(0, """
-                            const/4 v0, 0x0
-                            return v0
-                        """)
-                    }
+                if (method.name == "getItemViewType" && method.parameterTypes.size == 1 && method.returnType == "I") {
+                    method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        return v0
+                    """)
                 }
             }
         }
@@ -3222,7 +2971,37 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // jh30/xp30/xnx: dark upgrade card suppression — moved to Pass 1 (classDefForEach)
-        // to handle both Me tab variants (xp30 with p0() getter, xnx with U() getter).
+        // jh30/xp30/xnx: Me tab dark upgrade card suppression
+        jh30ClassFingerprint.matchOrNull()?.classDef?.let { jh30ClassDef ->
+            val newProfilePrivilegedPagerType = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;"
+            val methods = jh30ClassDef.methods
+
+            val populateMethod = methods.firstOrNull { method ->
+                AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                    AccessFlags.FINAL.isSet(method.accessFlags) &&
+                    method.returnType == "V" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Ljava/util/List;" &&
+                    method.parameterTypes[1] == "Z"
+            } ?: return@let
+
+            val getterMethod = methods.firstOrNull { method ->
+                method.parameterTypes.isEmpty() &&
+                    method.returnType == newProfilePrivilegedPagerType
+            } ?: return@let
+
+            val classType = jh30ClassDef.type
+            val getterName = getterMethod.name
+            val bannerHideBody = """
+                invoke-virtual {p0}, ${classType}->${getterName}()${newProfilePrivilegedPagerType}
+                move-result-object v0
+                const/16 v1, 0x8
+                invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+                return-void
+            """
+            mutableClassDefBy(jh30ClassDef).methods
+                .first { it.name == populateMethod.name && it.parameterTypes == populateMethod.parameterTypes }
+                .addInstructions(0, bannerHideBody)
+        }
     }
 }
