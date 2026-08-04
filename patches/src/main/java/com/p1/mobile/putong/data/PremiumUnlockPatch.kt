@@ -1988,6 +1988,120 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // ── b8d0: Business entrance state manager singleton ──
+            // This is the ROOT CAUSE of the persistent "x girls y miles away" banner.
+            // b8d0 manages banner visibility state independently via MMKV and Observable.
+            // Server responses set flags via zt6.S0() and lke0.G(), which update b8d0 state.
+            // BusinessConversationView.init() checks b8d0.m102970g() to decide visibility.
+            // CoreBusinessServiceIml calls b8d0.m102964d()/m102967j() to generate text.
+            // We patch ALL b8d0 methods to prevent any banner display.
+            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
+            if (classDef.type == "Lp153l/b8d0;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // Static text generation methods → return empty CharSequence
+                    // m102964d(User, User) → CharSequence (delegates to m102965e)
+                    if (method.name == "d" && method.parameterTypes.size == 2 && method.returnType == "Ljava/lang/CharSequence;" &&
+                        AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, """
+                            const-string v0, ""
+                            return-object v0
+                        """)
+                    }
+                    // m102965e(User, User) → CharSequence (actual implementation)
+                    if (method.name == "e" && method.parameterTypes.size == 2 && method.returnType == "Ljava/lang/CharSequence;" &&
+                        AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, """
+                            const-string v0, ""
+                            return-object v0
+                        """)
+                    }
+                    // m102967j(int) → CharSequence ("X people liked you")
+                    if (method.name == "j" && method.parameterTypes.size == 1 && method.returnType == "Ljava/lang/CharSequence;" &&
+                        AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, """
+                            const-string v0, ""
+                            return-object v0
+                        """)
+                    }
+                    // Instance state management methods
+                    // m102970g() → boolean (checks if banner should show based on last show time)
+                    if (method.name == "g" && method.parameterTypes.isEmpty() && method.returnType == "Z" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                    // m102971i() → void (sets last show time in MMKV)
+                    if (method.name == "i" && method.parameterTypes.isEmpty() && method.returnType == "V" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    // m102972k(int) → void (sets new likes count)
+                    if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    // m102973l(boolean) → void (sets "today new likes changed" flag)
+                    if (method.name == "l" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── BusinessConversationView: The actual banner view ──
+            // This view displays the "x girls y miles away" banner in the Messages tab.
+            // Its init() method checks b8d0 state and sets up the banner.
+            // We patch init() to return-void to prevent any banner setup.
+            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/business/BusinessConversationView;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "init" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── zt6.S0(): Server data flag setter ──
+            // zt6.S0(boolean) is called when server responses arrive.
+            // It sets b8d0.f75421b = true and emits on b8d0.f75420a observable.
+            // This allows server responses to trigger banner display even after our b8d0 patches.
+            // We patch S0() to return-void to prevent server data from activating the banner.
+            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
+            if (classDef.type == "Lp153l/zt6;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "S0" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── lke0.G(): "New likes changed" flag setter ──
+            // lke0.G(bkj0) is called when CoreLikers data updates.
+            // It calls b8d0.m102963b().m102973l(true) to mark "today new likes changed".
+            // This triggers banner display in BusinessConversationView.
+            // We patch G() to return-void to prevent the flag from being set.
+            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
+            if (classDef.type == "Lp153l/lke0;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "G" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── b240.z2(): "Trialing" subscription state handler ──
+            // b240.z2(String) handles subscription state changes.
+            // On "trialing" state, it reads SeeExposedUser and triggers CN banner via f760.
+            // This bypasses our qa9/hva patches by using a different code path.
+            // We patch the entire z2() method to return-void to prevent all state handlers.
+            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
+            if (classDef.type == "Lp153l/b240;") {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "z2" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                        AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
             // ── Messages tab promotional content suppression ──
             // Moved to Pass 2 using fingerprint-based discovery (see below)
             // The old hardcoded class descriptors (Ll/qa9;, Ll/hva;, etc.) don't exist in the APK.
