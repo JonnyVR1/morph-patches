@@ -7,6 +7,30 @@ import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.iface.ClassDef
+import com.android.tools.smali.dexlib2.iface.instruction.formats.Instruction21c
+import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.StringReference
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
+
+private fun ClassDef.analyticsContainsString(str: String): Boolean {
+    return methods.any { method ->
+        method.implementation?.instructions?.any { instruction ->
+            (instruction as? Instruction21c)?.reference is StringReference &&
+            ((instruction as Instruction21c).reference as StringReference).string == str
+        } ?: false
+    }
+}
+
+private fun ClassDef.analyticsCallsMethod(name: String): Boolean {
+    return methods.any { method ->
+        method.implementation?.instructions?.any { instruction ->
+            instruction.opcode.name.startsWith("INVOKE") &&
+            (instruction as? ReferenceInstruction)?.reference is MethodReference &&
+            ((instruction as ReferenceInstruction).reference as MethodReference).name == name
+        } ?: false
+    }
+}
 
 private const val RETURN_VOID = "return-void"
 
@@ -247,321 +271,293 @@ val analyticsDisablePatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        zvf0ClassFingerprint.matchOrNull()?.classDef?.let { zvf0ClassDef ->
-            mutableClassDefBy(zvf0ClassDef).methods.forEach { method ->
-                when {
-                    method.name == "k" &&
+        classDefForEach { classDef ->
+            val hasMethods = classDef.methods.any { it.implementation != null }
+            if (!hasMethods) return@classDefForEach
+
+            // FoxStatistics (zvf0) - contains "e_request_none_oaid"
+            if (classDef.analyticsContainsString("e_request_none_oaid")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    when {
                         method.parameterTypes.size == 2 &&
                         method.parameterTypes[0] == "Landroid/content/Context;" &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "i" &&
+                        method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
+                        
                         method.parameterTypes.size == 1 &&
                         method.parameterTypes[0] == "Landroid/content/Context;" &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
+                        method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
+                        
+                        method.name.length == 1 && method.returnType == "V" -> 
+                            method.addInstructions(0, RETURN_VOID)
                     }
-                    method.name in setOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z") &&
-                        method.returnType == "V" -> {
+                }
+                return@classDefForEach
+            }
+
+            // AppsFlyer - contains "dmfeSDkpVxP8m6Ys6yJCpn"
+            if (classDef.analyticsContainsString("dmfeSDkpVxP8m6Ys6yJCpn")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    val isPublicFinal = AccessFlags.PUBLIC.isSet(method.accessFlags) && 
+                                       AccessFlags.FINAL.isSet(method.accessFlags)
+                    when {
+                        isPublicFinal &&
+                        method.returnType == "Lcom/appsflyer/AppsFlyerLib;" &&
+                        method.parameterTypes == listOf("Ljava/lang/String;", "Lcom/appsflyer/AppsFlyerConversionListener;", "Landroid/content/Context;") -> 
+                            method.addInstructions(0, RETURN_NULL_OBJECT)
+                            
+                        isPublicFinal &&
+                        method.returnType == "V" &&
+                        method.parameterTypes == listOf("Landroid/content/Context;") -> 
+                            method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+                return@classDefForEach
+            }
+
+            // CleverTap - contains "CleverTap SDK initialized with accountId"
+            if (classDef.analyticsContainsString("CleverTap SDK initialized with accountId")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    val isPublicStatic = AccessFlags.PUBLIC.isSet(method.accessFlags) && 
+                                        AccessFlags.STATIC.isSet(method.accessFlags)
+                    when {
+                        isPublicStatic &&
+                        method.returnType == "Lcom/clevertap/android/sdk/CleverTapAPI;" &&
+                        method.parameterTypes == listOf("Landroid/content/Context;", "Lcom/clevertap/android/sdk/CleverTapInstanceConfig;") -> 
+                            method.addInstructions(0, RETURN_NULL_OBJECT)
+                            
+                        isPublicStatic &&
+                        method.returnType == "Lcom/clevertap/android/sdk/CleverTapAPI;" &&
+                        method.parameterTypes == listOf("Landroid/content/Context;", "Lcom/clevertap/android/sdk/CleverTapInstanceConfig;", "Ljava/lang/String;") -> 
+                            method.addInstructions(0, RETURN_NULL_OBJECT)
+                    }
+                }
+                return@classDefForEach
+            }
+
+            // Facebook AppEvents - contains "facebook-core_release"
+            if (classDef.analyticsContainsString("facebook-core_release")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    val isPublicStaticFinal = AccessFlags.PUBLIC.isSet(method.accessFlags) && 
+                                             AccessFlags.STATIC.isSet(method.accessFlags) &&
+                                             AccessFlags.FINAL.isSet(method.accessFlags)
+                    when {
+                        isPublicStaticFinal &&
+                        method.returnType == "V" &&
+                        method.parameterTypes == listOf("Landroid/app/Application;") -> 
+                            method.addInstructions(0, RETURN_VOID)
+                            
+                        isPublicStaticFinal &&
+                        method.returnType == "V" &&
+                        method.parameterTypes == listOf("Landroid/app/Application;", "Ljava/lang/String;") -> 
+                            method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+                return@classDefForEach
+            }
+
+            // Beatles Crash Monitor - contains "com.tantanapp.beatles"
+            if (classDef.analyticsContainsString("com.tantanapp.beatles")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name in setOf("init", "install", "start") && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
                 }
+                return@classDefForEach
             }
-        }
 
-        appsFlyerClassFingerprint.matchOrNull()?.classDef?.let { appsFlyerClassDef ->
-            appsFlyerInitFingerprint.matchOrNull(appsFlyerClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_NULL_OBJECT)
-            }
-            appsFlyerStartFingerprint.matchOrNull(appsFlyerClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_VOID)
-            }
-        }
-
-        cleverTapClassFingerprint.matchOrNull()?.classDef?.let { cleverTapClassDef ->
-            cleverTapInstanceFingerprint.matchOrNull(cleverTapClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_NULL_OBJECT)
-            }
-            cleverTapInstanceWithIdFingerprint.matchOrNull(cleverTapClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_NULL_OBJECT)
-            }
-        }
-
-        facebookAppEventsClassFingerprint.matchOrNull()?.classDef?.let { facebookClassDef ->
-            facebookAppEventsInitFingerprint.matchOrNull(facebookClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_VOID)
-            }
-            facebookAppEventsInitWithIdFingerprint.matchOrNull(facebookClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_VOID)
-            }
-        }
-
-        beatlesCrashMonitorClassFingerprint.matchOrNull()?.classDef?.let { beatlesClassDef ->
-            mutableClassDefBy(beatlesClassDef).methods.forEach { method ->
-                if (method.name in setOf("init", "install", "start") &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        oaidClassFingerprint.matchOrNull()?.classDef?.let { oaidClassDef ->
-            oaidGetterFingerprint.matchOrNull(oaidClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_EMPTY_STRING)
-            }
-        }
-
-        // ── dev2: Root detection bypass ──
-        rootDetectionClassFingerprint.matchOrNull()?.classDef?.let { rootClassDef ->
-            mutableClassDefBy(rootClassDef).methods.forEach { method ->
-                if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
-                    method.addInstructions(0, RETURN_FALSE)
-                }
-            }
-        }
-
-        // ── dev2: Emulator detection bypass ──
-        emulatorDetectionClassFingerprint.matchOrNull()?.classDef?.let { emulatorClassDef ->
-            mutableClassDefBy(emulatorClassDef).methods.forEach { method ->
-                if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
-                    method.addInstructions(0, RETURN_FALSE)
-                }
-            }
-        }
-
-        // ── dev2: ShuMei anti-fraud SDK disable ──
-        shuMeiClassFingerprint.matchOrNull()?.classDef?.let { shuMeiClassDef ->
-            mutableClassDefBy(shuMeiClassDef).methods.forEach { method ->
-                if (method.name == "createSmAntiFraudInit" || 
-                    (method.name.contains("init") && method.returnType == "V")) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // ── dev2: Firebase Crashlytics disable ──
-        crashlyticsClassFingerprint.matchOrNull()?.classDef?.let { crashlyticsClassDef ->
-            mutableClassDefBy(crashlyticsClassDef).methods.forEach { method ->
-                if (method.name == "getInstance" || method.name == "<init>") {
-                    if (method.returnType.startsWith("L")) {
-                        method.addInstructions(0, RETURN_NULL_OBJECT)
-                    } else if (method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
+            // OAID - contains "miit_oaid"
+            if (classDef.analyticsContainsString("miit_oaid")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                        AccessFlags.STATIC.isSet(method.accessFlags) &&
+                        method.returnType == "Ljava/lang/String;" &&
+                        method.parameterTypes.isEmpty()) {
+                        method.addInstructions(0, RETURN_EMPTY_STRING)
                     }
                 }
+                return@classDefForEach
             }
-        }
 
-        // ── dev2: Process enumeration bypass ──
-        processEnumClassFingerprint.matchOrNull()?.classDef?.let { processEnumClassDef ->
-            mutableClassDefBy(processEnumClassDef).methods.forEach { method ->
-                if (method.returnType == "Ljava/util/List;" || method.returnType == "Ljava/util/ArrayList;") {
-                    method.addInstructions(0, """
-                        new-instance v0, Ljava/util/ArrayList;
-                        invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
-                        return-object v0
-                    """)
-                }
-            }
-        }
-
-        // ── Firebase Analytics disable ──
-        firebaseAnalyticsClassFingerprint.matchOrNull()?.classDef?.let { firebaseClassDef ->
-            mutableClassDefBy(firebaseClassDef).methods.forEach { method ->
-                when {
-                    method.name == "logEvent" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setAnalyticsCollectionEnabled" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setUserId" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setUserProperty" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "resetAnalyticsData" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setCurrentScreen" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setDefaultEventParameters" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setSessionTimeoutDuration" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setConsent" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-        }
-
-        // ── MoTracing (GlobalTracer) disable ──
-        globalTracerClassFingerprint.matchOrNull()?.classDef?.let { tracerClassDef ->
-            mutableClassDefBy(tracerClassDef).methods.forEach { method ->
-                when {
-                    method.name == "m20323e" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "m20324f" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "m20321a" && method.returnType == "Z" -> {
+            // Root detection - contains "/system/usr/we-need-root/su"
+            if (classDef.analyticsContainsString("/system/usr/we-need-root/su")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
                         method.addInstructions(0, RETURN_FALSE)
                     }
                 }
+                return@classDefForEach
             }
-        }
 
-        // ── MEStatistics (XEngine) disable ──
-        meStatisticsClassFingerprint.matchOrNull()?.classDef?.let { meStatsClassDef ->
-            mutableClassDefBy(meStatsClassDef).methods.forEach { method ->
-                when {
-                    method.name == "init" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "flush" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "report" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "realTimeReport" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setMMCVVersion" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setMagicEffectVersion" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setRecorderSDKVersion" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setUID" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setXEngineVersion" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
+            // Emulator detection - contains "runningOnEmulator"
+            if (classDef.analyticsContainsString("runningOnEmulator")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
+                        method.addInstructions(0, RETURN_FALSE)
                     }
                 }
+                return@classDefForEach
             }
-        }
 
-        // ── Device ID: UniqueIMEI ──
-        uniqueImeiClassFingerprint.matchOrNull()?.classDef?.let { imeiClassDef ->
-            mutableClassDefBy(imeiClassDef).methods.forEach { method ->
-                if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
-                    method.addInstructions(0, RETURN_EMPTY_STRING)
+            // ShuMei anti-fraud - contains "createSmAntiFraudInit"
+            if (classDef.analyticsContainsString("createSmAntiFraudInit")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "createSmAntiFraudInit" || 
+                        (method.name.contains("init") && method.returnType == "V")) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
                 }
+                return@classDefForEach
             }
-        }
 
-        // ── Device ID: UniqueDeviceId ──
-        uniqueDeviceIdClassFingerprint.matchOrNull()?.classDef?.let { deviceIdClassDef ->
-            mutableClassDefBy(deviceIdClassDef).methods.forEach { method ->
-                if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
-                    method.addInstructions(0, RETURN_EMPTY_STRING)
+            // Firebase Crashlytics - contains "CRASHLYTICS_API_KEY"
+            if (classDef.analyticsContainsString("CRASHLYTICS_API_KEY")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "getInstance" || method.name == "<init>") {
+                        if (method.returnType.startsWith("L")) {
+                            method.addInstructions(0, RETURN_NULL_OBJECT)
+                        } else if (method.returnType == "V") {
+                            method.addInstructions(0, RETURN_VOID)
+                        }
+                    }
                 }
+                return@classDefForEach
             }
-        }
 
-        // ── Device ID: Google Advertising ID ──
-        advertisingIdClientClassFingerprint.matchOrNull()?.classDef?.let { adIdClassDef ->
-            mutableClassDefBy(adIdClassDef).methods.forEach { method ->
-                if (method.name == "getAdvertisingIdInfo" &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Landroid/content/Context;" &&
-                    method.returnType.startsWith("L")
-                ) {
-                    method.addInstructions(0, RETURN_NULL_OBJECT)
+            // Process enumeration - calls "getInstalledPackages"
+            if (classDef.analyticsCallsMethod("getInstalledPackages")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.returnType == "Ljava/util/List;" || method.returnType == "Ljava/util/ArrayList;") {
+                        method.addInstructions(0, """
+                            new-instance v0, Ljava/util/ArrayList;
+                            invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+                            return-object v0
+                        """)
+                    }
                 }
+                return@classDefForEach
             }
-        }
 
-        // ── Network Metrics disable ──
-        networkMetricsClassFingerprint.matchOrNull()?.classDef?.let { netMetricsClassDef ->
-            mutableClassDefBy(netMetricsClassDef).methods.forEach { method ->
-                if (method.name == "m19256g" && method.returnType == "V" &&
-                    method.parameterTypes.size == 2
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
+            // Firebase Analytics - contains "add_payment_info"
+            if (classDef.analyticsContainsString("add_payment_info")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name in setOf("logEvent", "setAnalyticsCollectionEnabled", "setUserId", 
+                                            "setUserProperty", "resetAnalyticsData", "setCurrentScreen",
+                                            "setDefaultEventParameters", "setSessionTimeoutDuration", "setConsent") &&
+                        method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
                 }
-                if (method.name == "m19259j" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
+                return@classDefForEach
             }
-        }
 
-        // ── Push Notification Statistics disable ──
-        pushEventStatisticClassFingerprint.matchOrNull()?.classDef?.let { pushClassDef ->
-            mutableClassDefBy(pushClassDef).methods.forEach { method ->
-                when {
-                    method.name == "init" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "logPushEventInfo" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "logRegCallback" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "forceUpload" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
+            // MoTracing (GlobalTracer) - calls "_getOrCreate" and "_compressRecordFile"
+            if (classDef.analyticsCallsMethod("_getOrCreate") && classDef.analyticsCallsMethod("_compressRecordFile")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    when {
+                        method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
+                        method.returnType == "Z" && method.parameterTypes.isEmpty() -> 
+                            method.addInstructions(0, RETURN_FALSE)
                     }
                 }
+                return@classDefForEach
             }
-        }
 
-        // ── MediaLog/Battery Metrics disable ──
-        batteryMetricsClassFingerprint.matchOrNull()?.classDef?.let { batteryClassDef ->
-            mutableClassDefBy(batteryClassDef).methods.forEach { method ->
-                if (method.name == "init" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
+            // MEStatistics (XEngine) - calls "setMmcvVersion" and "setMagicEffectVersion"
+            if (classDef.analyticsCallsMethod("setMmcvVersion") && classDef.analyticsCallsMethod("setMagicEffectVersion")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name in setOf("init", "flush", "report", "realTimeReport", 
+                                            "setMMCVVersion", "setMagicEffectVersion", 
+                                            "setRecorderSDKVersion", "setUID", "setXEngineVersion") &&
+                        method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
                 }
+                return@classDefForEach
             }
-        }
 
-        // ── MoLive APM disable ──
-        apmPluginClassFingerprint.matchOrNull()?.classDef?.let { apmClassDef ->
-            mutableClassDefBy(apmClassDef).methods.forEach { method ->
-                when {
-                    method.name == "m19461O" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "m19462P" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
+            // Device ID: UniqueIMEI - contains "UniqueIMEI"
+            if (classDef.analyticsContainsString("UniqueIMEI")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
+                        method.addInstructions(0, RETURN_EMPTY_STRING)
                     }
                 }
+                return@classDefForEach
             }
-        }
 
-        // ── DNS SLA Logging disable ──
-        dnsSlaLoggerClassFingerprint.matchOrNull()?.classDef?.let { dnsClassDef ->
-            mutableClassDefBy(dnsClassDef).methods.forEach { method ->
-                when {
-                    method.name == "init" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
+            // Device ID: UniqueDeviceId - contains "UniqueDeviceId"
+            if (classDef.analyticsContainsString("UniqueDeviceId")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
+                        method.addInstructions(0, RETURN_EMPTY_STRING)
                     }
-                    method.name == "flush" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
+                }
+                return@classDefForEach
+            }
+
+            // Device ID: Google Advertising ID - contains "com.google.android.gms.ads.identifier.service.START"
+            if (classDef.analyticsContainsString("com.google.android.gms.ads.identifier.service.START")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "getAdvertisingIdInfo" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Landroid/content/Context;" &&
+                        method.returnType.startsWith("L")) {
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
                     }
-                    method.name == "setEnable" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "log" && method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "setOnFlushListener" && method.returnType == "V" -> {
+                }
+                return@classDefForEach
+            }
+
+            // Network Metrics - calls "getSubmitAlternative"
+            if (classDef.analyticsCallsMethod("getSubmitAlternative")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
                 }
+                return@classDefForEach
+            }
+
+            // Push Notification Statistics - contains "mmfile_push_statistic"
+            if (classDef.analyticsContainsString("mmfile_push_statistic")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name in setOf("init", "logPushEventInfo", "logRegCallback", "forceUpload") &&
+                        method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+                return@classDefForEach
+            }
+
+            // MediaLog/Battery Metrics - contains "BatteryMetrics"
+            if (classDef.analyticsContainsString("BatteryMetrics")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "init" && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+                return@classDefForEach
+            }
+
+            // MoLive APM - contains "live-PerfTracer"
+            if (classDef.analyticsContainsString("live-PerfTracer")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+                return@classDefForEach
+            }
+
+            // DNS SLA Logging - contains "DNS_SLA"
+            if (classDef.analyticsContainsString("DNS_SLA")) {
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name in setOf("init", "flush", "setEnable", "log", "setOnFlushListener") &&
+                        method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+                return@classDefForEach
             }
         }
     }
