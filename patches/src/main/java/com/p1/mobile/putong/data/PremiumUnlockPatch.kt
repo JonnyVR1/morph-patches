@@ -1053,14 +1053,10 @@ val premiumUnlockPatch = bytecodePatch(
                              method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                              method.addInstructions(0, RETURN_TRUE)
                          }
-                         method.name == "isODiamond" &&
-                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                             method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
-                         }
-                         method.name == "nullCheck" &&
-                             method.parameterTypes.isEmpty() && method.returnType == "V" -> {
-                             method.addInstructions(0, USER_NULL_CHECK_BODY)
-                         }
+                          method.name == "isODiamond" &&
+                              method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                              method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                          }
                      }
                  }
              }
@@ -1316,65 +1312,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── Greeting Counter: unlimited greetings ──
-            classDefByOrNull("Lcom/p1/mobile/putong/core/data/GreetingCounter;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "nullCheck" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── Intl Ultra Premium Config: enable ultra premium on Android ──
-            classDefByOrNull("Lcom/p1/mobile/putong/core/data/IntlUltraPremiumConfig;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "nullCheck" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── CounterLikeLimit: unlimited daily swipes ──
-            classDefByOrNull("Lcom/p1/mobile/putong/data/CounterLikeLimit;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "nullCheck" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── BoostLimit: unlimited boost ──
-            classDefByOrNull("Lcom/p1/mobile/putong/data/BoostLimit;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "nullCheck" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── CounterSecretCrushLimit: unlimited secret crush ──
-            classDefByOrNull("Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "nullCheck" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
+            // NOTE: nullCheck() methods are empty no-ops in the original APK - no patching needed
 
             // ── Settings.userIsODiamond(): ultra premium flag ──
             classDefByOrNull("Lcom/p1/mobile/putong/data/Settings;")?.let { classDef ->
