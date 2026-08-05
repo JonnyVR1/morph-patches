@@ -1,6 +1,7 @@
 package com.p1.mobile.putong.data
 
 import app.morphe.patcher.patch.AppTarget
+import app.morphe.patcher.patch.ApkFileType
 import app.morphe.patcher.patch.Compatibility
 
 /**
@@ -30,6 +31,7 @@ internal val tantanCompatibility = Compatibility(
     name = "Tantan",
     packageName = TANTAN_PACKAGE_NAME,
     description = "Tantan - Global Dating App",
+    apkFileType = ApkFileType.APK,
     targets = listOf(
         AppTarget(
             version = "7.3.3",
