@@ -294,8 +294,8 @@ private val INTL_ULTRA_PREMIUM_CONFIG_NULL_CHECK_BODY: String = """
     :iupc_skip
 """
 
-// BLiveCoin patch REMOVED - caused VerifyError due to wide register allocation issues
-// The nullCheck() method has no local registers, so const-wide v0 fails
+// BLiveCoin: patch new_() factory method instead of nullCheck() to avoid register allocation issues
+// nullCheck() has .registers 1 (only p0), but new_() has v0 for the instance and likely v1-v2 for wide ops
 
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
@@ -1257,9 +1257,30 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── BLiveCoin: REMOVED - caused VerifyError due to wide register allocation ──
-            // The nullCheck() method has no local registers, so const-wide v0 fails
-            // Virtual currency patch disabled to prevent startup crash
+            // ── BLiveCoin: set virtual currency to high value via new_() factory ──
+            // Patch the static factory method new_() which creates BLiveCoin instances.
+            // Inject const-wide + iput-wide before return-object to set available field.
+            // This avoids the nullCheck() register allocation issue (nullCheck has .registers 1).
+            classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveCoin;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods
+                    .filter { method ->
+                        method.name == "new_" &&
+                            method.parameterTypes.isEmpty() &&
+                            AccessFlags.STATIC.isSet(method.accessFlags) &&
+                            method.returnType == "Lcom/p1/mobile/putong/live/base/data/BLiveCoin;"
+                    }
+                    .forEach { method ->
+                        val impl = method.implementation ?: return@forEach
+                        val instructions = impl.instructions.toList()
+                        val returnIndex = instructions.indexOfLast { it.opcode.name == "return-object" }
+                        if (returnIndex >= 0) {
+                            method.addInstructions(returnIndex, """
+                                const-wide v1, 0x7fffffffffffffffL
+                                iput-wide v1, v0, Lcom/p1/mobile/putong/live/base/data/BLiveCoin;->available:J
+                            """)
+                        }
+                    }
+            }
 
             // ── Boost remaining count: BoostRemainingCountView ──
             //
