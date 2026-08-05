@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemPrologueLeft android:orientation="vertical" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.core.ui.messages.ItemEmojiText android:textColorLink="@color/core_msg_cell_link_color" android:autoLink="web" android:id="@id/originText" android:paddingTop="?left_msg_top_padding" android:paddingBottom="?left_msg_bottom_padding" android:lineSpacingExtra="1.5dp" android:paddingStart="?left_msg_left_padding" android:paddingEnd="?left_msg_right_padding" app:enableApngEmojis="true" app:enableEmojis="true" app:largeEmojis="true" style="@style/messages_item_left" />
-    <v.VText android:textSize="10.0sp" android:textColor="#33000000" android:id="@id/prologue_tips" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" />
-</com.p1.mobile.putong.core.ui.messages.ItemPrologueLeft>

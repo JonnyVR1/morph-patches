@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.visitor.myvisitors.MyVisitorsEmptyView android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="visitor.myvisitors.MyVisitorsEmptyView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:id="@id/image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="162.0dp" android:src="@null" />
-    <TextView android:textSize="14.0sp" android:textColor="#323232" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="46.0dp" android:layout_marginBottom="162.0dp" android:text="你还没有访问过其他人" />
-</com.p1.mobile.putong.core.ui.visitor.myvisitors.MyVisitorsEmptyView>

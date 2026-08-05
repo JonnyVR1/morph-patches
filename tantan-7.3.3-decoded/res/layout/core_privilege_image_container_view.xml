@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.privilege.PrivilegeImageContainerView android:gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.privilege.PrivilegeImageContainerView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="center_vertical" android:id="@id/image" android:layout_width="match_parent" android:layout_height="wrap_content" android:src="@null" android:scaleType="centerInside" />
-</com.p1.mobile.putong.core.ui.purchase.privilege.PrivilegeImageContainerView>

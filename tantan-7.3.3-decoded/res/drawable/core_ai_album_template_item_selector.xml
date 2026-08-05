@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="true" android:drawable="@drawable/core_ai_album_template_item_sel_bg" />
-    <item android:drawable="@color/core_color_00000000" />
-</selector>

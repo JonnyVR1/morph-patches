@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.player.VoiceIncomeAreaStateView android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/live_bg_black_r16_a40" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="196.0dp" flatten="true" holder="voice.intl.player.VoiceIncomeAreaStateView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VLinear android:orientation="vertical" android:id="@id/container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp">
-        <ImageView android:layout_gravity="center_horizontal" android:layout_width="100.0dp" android:layout_height="100.0dp" android:src="@null" />
-        <TextView android:textSize="15.0sp" android:textStyle="normal" android:textColor="#80ffffff" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_VOICE_CHAT_END" />
-        <TextView android:textSize="11.0sp" android:textStyle="normal" android:textColor="#4dffffff" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:text="@string/LIVE_VOICE_GO_TO_OTHER_ROOM" />
-    </v.VLinear>
-</com.p1.mobile.putong.live.livingroom.voice.intl.player.VoiceIncomeAreaStateView>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.increment.gift.operation.countdown.LiveCountdownView android:layout_width="230.0dp" android:layout_height="230.0dp" folder="increment" holder="gift.operation.countdown.LiveCountdownView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VDraweeView android:id="@id/combo_light" android:layout_width="230.0dp" android:layout_height="230.0dp" />
-    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="center_horizontal" android:id="@id/powerStar" android:layout_width="200.0dp" android:layout_height="70.0dp" android:layout_marginTop="44.0dp" />
-    <com.p1.mobile.putong.live.livingroom.increment.gift.operation.LiveStrokeTextView android:textSize="24.0sp" android:textColor="@color/white" android:layout_gravity="center_horizontal" android:id="@id/combo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="46.0dp" />
-    <com.p1.mobile.putong.live.livingroom.increment.gift.operation.countdown.CommonGiftCountDownView android:layout_gravity="center" android:id="@id/countdownView" android:layout_width="96.0dp" android:layout_height="96.0dp" />
-    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="center" android:id="@id/long_press_anim" android:visibility="gone" android:layout_width="85.0dp" android:layout_height="85.0dp" />
-</com.p1.mobile.putong.live.livingroom.increment.gift.operation.countdown.LiveCountdownView>

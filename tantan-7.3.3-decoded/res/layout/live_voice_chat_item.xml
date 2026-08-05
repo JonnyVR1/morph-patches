@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.chat.view.VoiceChatItemView android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="voice.chat.view.VoiceChatItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.live.livingroom.common.avatar.CommonMaskAvatarView android:id="@id/avatar" android:layout_width="40.0dp" android:layout_height="40.0dp" />
-    <v.VLinear android:orientation="vertical" android:id="@id/ll_message" android:paddingLeft="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/avatar" flatten="true">
-        <include android:id="@id/item_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" layout="@layout/live_voice_chat_atom_item" />
-        <include android:id="@id/item_2" android:background="@drawable/live_bg_black_r10_a20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:layout_marginBottom="4.0dp" layout="@layout/live_voice_chat_atom_item" />
-    </v.VLinear>
-</com.p1.mobile.putong.live.livingroom.voice.chat.view.VoiceChatItemView>

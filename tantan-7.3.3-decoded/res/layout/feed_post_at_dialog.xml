@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VMenuBar android:id="@id/title_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:menubar_icon_left="@null" app:menubar_text_center="提醒谁看" />
-    <androidx.recyclerview.widget.RecyclerView android:id="@id/at_rv" android:layout_width="match_parent" android:layout_height="wrap_content" />
-</LinearLayout>

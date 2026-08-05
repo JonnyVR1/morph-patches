@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.newui.loveletter.LoveLetterSearchLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="37.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="15.0dp" android:textColor="@color/core_color_40percent_000000" android:gravity="center" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="21.0dp" android:layout_marginLeft="10.0dp" android:text="选择发送给谁" />
-    <View android:layout_gravity="right|center" android:id="@id/search_icon" android:background="@null" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="8.0dp" />
-</com.p1.mobile.putong.core.newui.loveletter.LoveLetterSearchLayout>

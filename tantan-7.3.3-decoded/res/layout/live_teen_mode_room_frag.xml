@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="archi" holder="frag.teenmode.TeenModeRoomFrag"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.live.base.view.LiveSquareMediaView android:id="@id/media_view" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <v.VRelative android:gravity="center" android:layout_gravity="end" android:layout_width="wrap_content" android:layout_height="@dimen/live_fans_height" android:layout_marginTop="@dimen/live_fans_margin_top">
-        <v.VImage android:id="@id/live_close" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginStart="4.0dp" android:layout_marginEnd="16.0dp" app:srcCompat="@null" />
-    </v.VRelative>
-</FrameLayout>

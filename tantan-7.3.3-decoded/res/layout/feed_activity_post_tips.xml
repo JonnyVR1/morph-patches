@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.view.FeedActivityPostTipsView android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="newui" holder="view.FeedActivityPostTipsView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/activity_image" android:layout_width="18.0dp" android:layout_height="18.0dp" android:layout_marginLeft="10.0dp" android:layout_centerVertical="true" app:roundAsCircle="false" app:roundedCornerRadius="4.0dp" style="@style/feed_fresco_profile_small" />
-    <v.VText android:textSize="13.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/activity_tips" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="12.0dp" android:maxWidth="170.0dp" android:text="去发布" android:maxLines="1" android:layout_toRightOf="@id/activity_image" android:layout_centerVertical="true" />
-</com.p1.mobile.putong.feed.newui.view.FeedActivityPostTipsView>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.status.display.view.FeedStateSquareEntranceView android:id="@id/root_view" android:background="@null" android:layout_width="match_parent" android:layout_height="80.0dp" android:layout_marginLeft="0.0dp" android:layout_marginTop="0.0dp" android:layout_marginRight="0.0dp" android:layout_marginBottom="2.0dp" folder="newui" holder="status.display.view.FeedStateSquareEntranceView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/first_image_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="32.0dp" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <include android:layout_gravity="center_vertical" android:id="@id/scroll_view" android:layout_width="match_parent" android:layout_height="53.0dp" android:layout_marginLeft="16.0dp" android:layout_weight="1.0" android:layout_centerVertical="true" layout="@layout/feed_auto_scroll_view" />
-</com.p1.mobile.putong.feed.newui.status.display.view.FeedStateSquareEntranceView>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:id="@id/moments_feed_perview_root" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="false" folder="newui" holder="preview.act.PhotoAlbumFeedPreviewViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VPager android:id="@id/images" android:background="@color/transparent" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <v.VPagerCircleIndicator android:layout_gravity="center|bottom" android:id="@id/cpi" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="20.0dp" style="@style/common_page_circle_indicator_dark" />
-</FrameLayout>

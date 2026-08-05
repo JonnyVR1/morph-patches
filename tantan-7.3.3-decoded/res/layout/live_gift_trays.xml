@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.increment.gift.tray.LiveGiftTrays android:orientation="vertical" android:id="@id/tray_linear" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="increment" holder="gift.tray.LiveGiftTrays"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:id="@id/first_tray" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:layout_marginRight="3.0dp" layout="@layout/live_gift_tray" />
-    <include android:id="@id/second_tray" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:layout_marginTop="-27.0dp" layout="@layout/live_gift_tray" />
-</com.p1.mobile.putong.live.livingroom.increment.gift.tray.LiveGiftTrays>

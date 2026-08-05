@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.recreation.multiplayerchat.view.CallResultView android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="recreation" holder="multiplayerchat.view.CallResultView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:id="@id/iv_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" />
-    <TextView android:textSize="18.0sp" android:textColor="#ff8817" android:gravity="center_horizontal" android:id="@id/tv_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" />
-    <TextView android:textSize="12.0sp" android:textColor="#999999" android:gravity="center_horizontal" android:id="@id/tv_name" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-</com.p1.mobile.putong.live.livingroom.recreation.multiplayerchat.view.CallResultView>

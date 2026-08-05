@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VText android:textSize="14.0sp" android:textColor="@color/feed_activity_text_color" android:ellipsize="end" android:gravity="center" android:layout_gravity="center" android:id="@id/text" android:background="@drawable/feed_photo_album_type_zero_back" android:paddingLeft="6.0dp" android:paddingTop="2.0dp" android:paddingRight="6.0dp" android:paddingBottom="2.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:maxLines="3" android:lineSpacingExtra="-1.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

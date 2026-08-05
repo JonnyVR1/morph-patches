@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="130.0dp" holder="vip.BotherOptDynamicAvatarRoundView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ViewStub android:layout_gravity="center_horizontal" android:id="@id/one_pic_round" android:layout="@layout/core_bother_opt_dynamic_round_avatar_1" android:layout_width="130.0dp" android:layout_height="130.0dp" />
-    <ViewStub android:layout_gravity="center_horizontal" android:id="@id/two_pic_round" android:layout="@layout/core_bother_opt_dynamic_round_avatar_2" android:layout_width="184.0dp" android:layout_height="130.0dp" />
-    <ViewStub android:layout_gravity="center_horizontal" android:id="@id/three_pic_round" android:layout="@layout/core_bother_opt_dynamic_round_avatar_3" android:layout_width="234.0dp" android:layout_height="130.0dp" />
-</FrameLayout>

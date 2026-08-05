@@ -1,8 +1,0 @@
-package p149l;
-
-/* JADX INFO: loaded from: classes7.dex */
-public interface ivl {
-    String getKey();
-
-    Object getValue();
-}

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.virtual.roomInfo.view.VirtualLevelRightItem android:id="@id/root" android:background="@drawable/live_bg_white_r12_a03" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="virtual.roomInfo.view.VirtualLevelRightItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/icon" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="20.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <TextView android:textSize="12.0dp" android:textColor="#ccffffff" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:layout_marginBottom="20.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/icon" />
-</com.p1.mobile.putong.live.livingroom.virtual.roomInfo.view.VirtualLevelRightItem>

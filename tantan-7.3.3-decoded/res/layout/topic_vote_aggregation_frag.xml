@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:background="#f7f7f7" android:layout_width="match_parent" android:layout_height="match_parent" flatten="false" folder="newui" holder="topic.vote.TopicVoteAggregationFeedFragViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VRecyclerView android:id="@id/comments" android:background="@color/white" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="0.0dp" android:divider="@null" android:layout_weight="1.0" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" useId="true" />
-    <include android:id="@id/input" android:visibility="gone" layout="@layout/photo_album_detail_comment_input_bar" />
-</v.VLinear>

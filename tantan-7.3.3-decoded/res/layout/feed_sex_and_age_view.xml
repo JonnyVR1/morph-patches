@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.view.FeedUserSexAndAgeView android:layout_width="wrap_content" android:layout_height="wrap_content" folder="newui" holder="view.FeedUserSexAndAgeView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/sex_age_content" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent">
-        <v.VImage android:id="@id/sex" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-        <v.VText android:textSize="11.0sp" android:textColor="@color/white" android:id="@id/age" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" />
-    </v.VLinear>
-    <com.p1.mobile.android.ui.label.CommonLabelView android:id="@id/sex_label_view" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" app:labelSize="small" />
-</com.p1.mobile.putong.feed.newui.view.FeedUserSexAndAgeView>

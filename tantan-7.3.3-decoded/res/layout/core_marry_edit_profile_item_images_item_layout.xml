@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:layout_width="90.0dp" android:layout_height="90.0dp" android:layout_marginEnd="8.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/image" android:layout_width="90.0dp" android:layout_height="90.0dp" fresco:actualImageScaleType="centerCrop" fresco:roundBottomLeft="true" fresco:roundBottomRight="true" fresco:roundTopLeft="true" fresco:roundTopRight="true" fresco:roundedCornerRadius="10.0dp" />
-</v.VFrame>

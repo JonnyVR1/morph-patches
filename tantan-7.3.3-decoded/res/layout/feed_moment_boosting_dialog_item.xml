@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:background="@drawable/feed_moment_viewer_operation_bg" android:layout_width="match_parent" android:layout_height="94.0dp" folder="newui" holder="dialog.FeedMomentBoostDialogItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VLinear android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
-        <TextView android:textSize="23.0sp" android:textStyle="bold" android:textColor="@color/common_black_02" android:layout_gravity="center_horizontal" android:id="@id/improve_value" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-        <TextView android:textSize="15.0sp" android:textColor="@color/common_grey_09" android:layout_gravity="center_horizontal" android:id="@id/improve_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" />
-    </v.VLinear>
-</v.VFrame>

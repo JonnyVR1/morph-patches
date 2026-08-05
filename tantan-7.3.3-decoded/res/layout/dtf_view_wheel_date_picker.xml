@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="horizontal" android:paddingTop="30.0dp" android:paddingBottom="30.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="3.0"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.idv.identity.platform.widget.wheelpiker.WheelYearPicker android:id="@id/wheel_date_picker_year" style="@style/DataWheelPickerStyle" />
-    <com.idv.identity.platform.widget.wheelpiker.WheelMonthPicker android:id="@id/wheel_date_picker_month" style="@style/DataWheelPickerStyle" />
-    <com.idv.identity.platform.widget.wheelpiker.WheelDayPicker android:id="@id/wheel_date_picker_day" style="@style/DataWheelPickerStyle" />
-</LinearLayout>

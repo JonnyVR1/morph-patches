@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.account.ui.camera.view.AccountMakeupPageView android:orientation="vertical" android:id="@id/account_camera_makeup_menu_root" android:background="#000000" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="ui" holder="camera.view.AccountMakeupPageView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.recyclerview.widget.RecyclerView android:id="@id/account_camera_makeup_main_menu" android:background="#000000" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" />
-</com.p1.mobile.putong.account.ui.camera.view.AccountMakeupPageView>

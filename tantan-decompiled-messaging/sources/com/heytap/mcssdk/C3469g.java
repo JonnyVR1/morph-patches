@@ -1,6 +1,0 @@
-package com.heytap.mcssdk;
-
-/* JADX INFO: renamed from: com.heytap.mcssdk.g */
-/* JADX INFO: loaded from: classes7.dex */
-public final class C3469g {
-}

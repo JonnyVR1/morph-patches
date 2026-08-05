@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemSystemRemind android:gravity="center" android:orientation="vertical" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:id="@id/date_header" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dp" layout="@layout/messages_item_date_header" />
-    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/core_msg_system_remind_bg" android:layout_width="wrap_content" android:layout_height="34.0dp" android:paddingStart="10.0dp" android:paddingEnd="12.0dp">
-        <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/icon" android:layout_width="20.0dp" android:layout_height="20.0dp" android:scaleType="fitXY" android:layout_marginEnd="2.0dp" />
-        <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="13.0sp" android:textColor="#4d000000" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="2.0dp" android:layout_marginEnd="2.0dp" />
-    </v.VLinear>
-</com.p1.mobile.putong.core.ui.messages.ItemSystemRemind>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:id="@id/root" android:layout_width="match_parent" android:layout_height="126.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/img" android:background="@drawable/core_intl_salvage_item_bg" android:padding="1.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="14.0dp" />
-    <ImageView android:layout_gravity="end|bottom" android:id="@id/ivHeart" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_margin="5.0dp" />
-</FrameLayout>

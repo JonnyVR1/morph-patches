@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemHazy android:orientation="vertical" android:id="@id/content" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:paddingBottom="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:layout_gravity="center" android:id="@id/iv_hazy" android:paddingLeft="10.0dp" android:paddingTop="4.0dp" android:paddingRight="10.0dp" android:paddingBottom="2.0dp" android:layout_width="226.0dp" android:layout_height="74.0dp" android:src="@null" />
-</com.p1.mobile.putong.core.ui.messages.ItemHazy>

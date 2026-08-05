@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vector android:height="7.0dp" android:width="43.0dp" android:viewportWidth="43.0" android:viewportHeight="7.0"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
-    <path android:fillColor="@drawable/$live_vector_super_god_tab_indicator_icon__0" android:pathData="M12.608,2.919C15.545,2.746 18.419,1.987 21.057,0.686C23.696,1.987 26.569,2.746 29.507,2.919L37.564,3.393L25.869,4.008C24.071,4.103 22.367,4.831 21.057,6.059C19.748,4.831 18.044,4.103 16.246,4.008L4.55,3.393L12.608,2.919Z" android:strokeColor="@drawable/$live_vector_super_god_tab_indicator_icon__1" android:strokeWidth="0.5" />
-</vector>

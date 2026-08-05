@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VListCell android:layout_width="match_parent" android:layout_height="wrap_content" app:listcell_title_color="@color/core_color_ff8817" app:listcell_title_typeface="medium"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

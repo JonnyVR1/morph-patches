@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:id="@id/middle_layer" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.p1.mobile.putong.live.livingroom.voice.intl.flymic.VoiceFlyMicContainer android:id="@id/fly_mic_layer" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <include android:id="@id/gift_layer" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/live_gift_layer" />
-    <include android:id="@id/top_effect_layer" layout="@layout/live_top_effect_layer" />
-</v.VFrame>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:id="@id/fl_deputy" android:paddingLeft="22.0dp" android:paddingTop="8.0dp" android:paddingRight="22.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="voice.call.view.VoiceThreeDeputyWidgetView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:layout_gravity="center_horizontal" android:id="@id/vc_deputy_1" android:layout_width="90.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" layout="@layout/live_voice_call_widget_item_view" />
-    <LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:id="@id/one" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
-        <include android:id="@id/vc_deputy_2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="9.0dp" layout="@layout/live_voice_call_widget_item_view" />
-        <include android:id="@id/vc_deputy_3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="9.0dp" layout="@layout/live_voice_call_widget_item_view" />
-    </LinearLayout>
-</LinearLayout>

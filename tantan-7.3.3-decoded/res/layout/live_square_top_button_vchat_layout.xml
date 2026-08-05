@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.internal.live.square.home.submodule.topButton.LiveSquareTopButtonVChatView android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="internal" holder="live.square.home.submodule.topButton.LiveSquareTopButtonVChatView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:layout_gravity="end|center" android:id="@id/img_video_chat_setting" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="6.0dp" android:scaleType="fitXY" fresco:placeholderImage="@drawable/live_selector_square_home_setting" />
-</com.p1.mobile.putong.live.external.internal.live.square.home.submodule.topButton.LiveSquareTopButtonVChatView>

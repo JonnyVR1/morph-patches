@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="13.0sp" android:textStyle="normal" android:textColor="#aea4eb" android:ellipsize="end" android:gravity="center" android:id="@id/label" android:background="@drawable/core_intl_constellation_label_bg" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="match_parent" android:layout_height="24.0dp" android:layout_marginRight="8.0dp" android:layout_marginBottom="8.0dp" android:singleLine="true" />
-</LinearLayout>

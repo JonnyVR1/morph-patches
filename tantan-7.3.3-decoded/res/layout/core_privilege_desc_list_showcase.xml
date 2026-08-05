@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListShowcaseItem android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.privilege.content.item.PrivilegeDescListShowcaseItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="horizontal" android:id="@id/promotion" android:background="@drawable/core_privilege_promotion_countdown_bg" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="12.0dp" flatten="true">
-        <v.VIcon android:layout_gravity="center_vertical" android:id="@id/promotion_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="4.0dp" android:src="@null" />
-        <v.VText_AutoFit android:textSize="14.0sp" android:textStyle="normal" android:textColor="@color/common_orange_02" android:gravity="center" android:layout_gravity="center" android:id="@id/promotion_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="0.5dp" android:lineSpacingExtra="0.0sp" app:typeface="medium" />
-    </LinearLayout>
-    <FrameLayout android:id="@id/showcase_root" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16.0dp" />
-</com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListShowcaseItem>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.view.LookUpView android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="34.0dp" folder="view" holder="LookUpView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/common_grey_03" android:gravity="center" android:layout_gravity="bottom" android:id="@id/look_over_btn" android:background="@drawable/core_see_change_look_bg" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="34.0dp" android:text="@string/SEE_ENTER_LOOK_UP" />
-    <v.VImage android:gravity="center" android:layout_gravity="end|top" android:id="@id/red_dot" android:background="@drawable/core_match_reminder_bg" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_marginTop="-6.0dp" android:layout_marginEnd="-1.0dp" />
-    <TextView android:textSize="11.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="end" android:id="@id/look_up_num" android:background="@drawable/core_see_change_text_num_bg" android:paddingLeft="6.0dp" android:paddingTop="2.0dp" android:paddingRight="6.0dp" android:paddingBottom="3.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginTop="-10.0dp" android:minWidth="25.0dp" />
-</com.p1.mobile.putong.core.view.LookUpView>

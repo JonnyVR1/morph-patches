@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.base.preview.PreviewView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="base" holder="preview.PreviewView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:id="@id/live_preview_top" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/live_margin_start" android:layout_marginTop="45.0dp" android:layout_marginRight="@dimen/live_margin_end" android:layout_marginStart="@dimen/live_margin_start" android:layout_marginEnd="@dimen/live_margin_end" layout="@layout/live_preview_top" />
-    <include android:id="@id/campaign" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_below="@id/live_preview_top" layout="@layout/live_preview_campaign" />
-    <View android:background="@drawable/live_shape_bg_000000_33000000" android:layout_width="match_parent" android:layout_height="166.0dp" android:layout_alignParentBottom="true" />
-    <include android:id="@id/live_preview_bottom" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="30.0dp" android:layout_alignParentBottom="true" layout="@layout/live_preview_bottom" />
-</com.p1.mobile.putong.live.livingroom.base.preview.PreviewView>

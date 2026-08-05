@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p051p1.mobile.putong.live.external.intl.livesquare.admob.IntlLiveSquareFeedBannerAdView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_marginBottom="8dp"
-    flatten="true"
-    folder="intl"
-    holder="livesquare.admob.IntlLiveSquareFeedBannerAdView"/>

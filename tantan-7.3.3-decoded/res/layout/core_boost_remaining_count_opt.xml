@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.newui.view.boost.view.BoostRemainingCountViewOpt android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="newui" holder="view.boost.view.BoostRemainingCountViewOpt"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView android:id="@id/remain_icon" android:background="@null" android:layout_width="32.0dp" android:layout_height="32.0dp" android:src="@null" android:scaleType="centerInside" />
-    <v.VText_AutoFit android:textSize="14.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/remain_text" android:background="@null" android:paddingLeft="6.0dp" android:paddingRight="6.0dp" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:rotationY="180.0" app:typeface="medium" />
-</com.p1.mobile.putong.core.newui.view.boost.view.BoostRemainingCountViewOpt>

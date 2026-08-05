@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.account.ui.moregender.IntlMoreGenderItemView android:theme="@style/Theme.MaterialComponents" android:layout_gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:checkable="true" app:cardBackgroundColor="@color/white" app:cardCornerRadius="12.0dp" app:cardElevation="0.0dp" app:cardForegroundColor="@color/transparent" app:checkedIcon="@null" app:contentPadding="4.0dp" app:strokeColor="#08000000" app:strokeWidth="3.0dp" flatten="true" holder="moregender.IntlMoreGenderItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:orientation="vertical" android:paddingLeft="20.0dp" android:paddingTop="16.0dp" android:paddingRight="20.0dp" android:paddingBottom="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="20.0dp" android:paddingVertical="16.0dp">
-        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/common_black_80" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" />
-        <TextView android:textSize="13.0sp" android:textColor="@color/common_000000_30" android:ellipsize="end" android:id="@id/desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" />
-    </LinearLayout>
-</com.p1.mobile.putong.account.ui.moregender.IntlMoreGenderItemView>

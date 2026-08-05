@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" attachToRoot="true" holder="accountai.new2021.view.MediaView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="12.0sp" android:textColor="@color/account_grey_b2b2b2" android:gravity="center" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginRight="24.0dp" android:layout_marginBottom="20.0dp" android:text="@string/SIGNUP_UPLOAD_REAL_REMIND" />
-    <v.VButton_FakeShadow android:id="@id/next" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="17.0dp" android:text="@string/SIGNUP_UPLOAD_CLEAR_PHOTO" style="@style/common_button_large_01" />
-</merge>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:background="@drawable/live_bg_f219191e_r18" android:layout_width="126.0dp" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView android:textSize="13.0dp" android:textColor="#99ffffff" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="14.0dp" android:layout_marginTop="12.0dp" android:layout_marginBottom="4.0dp" android:text="送礼物给" />
-    <androidx.recyclerview.widget.RecyclerView android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" />
-</LinearLayout>

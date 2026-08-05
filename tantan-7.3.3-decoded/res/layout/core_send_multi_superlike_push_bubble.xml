@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.superlikeopt.upgrade.SendMultiSuperLikePushBubble android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="16.0dp" android:paddingRight="20.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" holder="superlikeopt.upgrade.SendMultiSuperLikePushBubble"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/avatar" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="8.0dp" app:roundAsCircle="true" />
-    <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/common_black_02" android:gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="资料已在对方首页置顶" />
-</com.p1.mobile.putong.core.ui.superlikeopt.upgrade.SendMultiSuperLikePushBubble>

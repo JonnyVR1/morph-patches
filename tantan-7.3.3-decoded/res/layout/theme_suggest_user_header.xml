@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:paddingTop="18.0dp" android:paddingBottom="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0sp" android:textColor="@color/gray_999999" android:gravity="center" android:id="@id/suggest_header_text" android:layout_width="match_parent" android:layout_height="match_parent" />
-</v.VFrame>

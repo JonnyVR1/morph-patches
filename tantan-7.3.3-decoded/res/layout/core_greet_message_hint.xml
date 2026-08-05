@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/core_theme_recommendation_message_hint_bg" android:paddingLeft="12.0dp" android:paddingTop="18.0dp" android:paddingRight="16.0dp" android:paddingBottom="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginRight="8.0dp" android:src="@null" />
-    <v.VText android:textSize="14.0sp" android:textColor="#606060" android:id="@id/greet_hint_tv" android:layout_width="match_parent" android:layout_height="wrap_content" />
-</v.VLinear>

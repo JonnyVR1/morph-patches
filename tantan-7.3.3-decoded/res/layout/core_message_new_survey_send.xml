@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="bottom" android:orientation="horizontal" android:id="@id/bottom" android:background="#f7f7f7" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="match_parent" android:minHeight="56.0dp" flatten="true" generateHolderIfInclude="true" holder="messages.view.dialog.NewSurveySendView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VEditText android:textSize="16.0sp" android:textColor="#222222" android:layout_gravity="center" android:id="@id/edit" android:background="@drawable/bg_add_audio_signature_dlg" android:paddingLeft="10.0dp" android:paddingTop="9.0dp" android:paddingRight="10.0dp" android:paddingBottom="9.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="8.0dp" android:minHeight="40.0dp" android:layout_weight="1.0" />
-    <FrameLayout android:layout_width="52.0dp" android:layout_height="match_parent" android:layout_marginRight="10.0dp">
-        <v.VText android:textSize="14.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="bottom" android:id="@id/send" android:background="@drawable/core_new_survey_send_back_bg" android:layout_width="52.0dp" android:layout_height="36.0dp" android:layout_marginBottom="10.0dp" android:text="@string/CORE_PAYTIPS_MAKE_SURE" />
-    </FrameLayout>
-</v.VLinear>

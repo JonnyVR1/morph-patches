@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:orientation="vertical" android:visibility="visible" android:layout_width="match_parent" android:layout_height="415.0dp" attachToRoot="true" folder="ui" holder="lovebuzz.widget.LoveBuzzMatchView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.tantan.library.svga.SVGAnimationView android:layout_gravity="center_horizontal" android:id="@id/match_anim" android:layout_width="270.0dp" android:layout_height="160.0dp" android:layout_marginTop="33.0dp" app:layout_constraintTop_toTopOf="parent" />
-    <v.VText android:textSize="18.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/match_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/MATCH_SUCCESS_TITLE" android:maxLines="1" app:typeface="medium" />
-    <v.VText android:textSize="14.0sp" android:textColor="@color/core_color_b3ffffff" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/match_sub_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:text="@string/MATCH_SUBTITLE" android:maxLines="1" app:typeface="medium" />
-</merge>

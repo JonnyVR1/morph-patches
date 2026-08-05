@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" holder="messages.group.GroupSettingMemberManagerViewModel" innerClass="true"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0sp" android:textStyle="normal" android:textColor="#4c323232" android:gravity="center" android:layout_gravity="center" android:id="@id/empty_hint" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="28.0dp" android:text="@string/CHAT_GROUP_MEMBER_MANAGE_NULL_TOAST" android:drawableTop="@null" android:drawablePadding="2.0dp" android:lineSpacingExtra="6.0sp" />
-    <v.VRecyclerView android:id="@id/recyclerView" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" />
-</v.VFrame>

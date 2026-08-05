@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VLinear android:gravity="center" android:orientation="vertical" android:id="@id/ll_empty" android:layout_width="wrap_content" android:layout_height="wrap_content">
-        <com.facebook.drawee.view.SimpleDraweeView android:layout_gravity="center|bottom" android:id="@id/empty_image" android:layout_width="220.0dp" android:layout_height="150.0dp" />
-        <v.VText android:textSize="14.0sp" android:textColor="#26000000" android:id="@id/empty_text" android:paddingTop="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="sans-serif" app:enableEmojis="true" app:typeface="regular" />
-        <v.VText android:textSize="16.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center" android:id="@id/button" android:background="@drawable/common_button_btn_orange_medium" android:paddingLeft="20.0dp" android:paddingTop="13.0dp" android:paddingRight="20.0dp" android:paddingBottom="13.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="48.0dp" android:layout_marginTop="43.0dp" android:maxLines="1" android:fontFamily="PingFangSC-Medium" />
-    </v.VLinear>
-</v.VLinear>

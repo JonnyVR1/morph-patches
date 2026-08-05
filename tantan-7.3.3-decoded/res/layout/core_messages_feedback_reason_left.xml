@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemFeedbackReason android:id="@id/content" android:background="?message_bubble_bg_left" flatten="true" holder="messages.ItemFeedbackReason" style="@style/core_messages_questions" useRefId="true"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:layout_width="2000.0dp" android:layout_height="0.0dp" />
-    <include android:id="@id/text" layout="@layout/messages_text_left" />
-    <v.VLinear android:id="@id/answers" android:layout_width="match_parent" android:layout_margin="0.0dp" style="@style/messages_answers" />
-</com.p1.mobile.putong.core.ui.messages.ItemFeedbackReason>

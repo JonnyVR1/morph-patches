@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.privilege.dlg.PrivilegeContentDlg"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <View android:layout_gravity="center_horizontal" android:id="@id/collapse" android:background="@drawable/core_privilege_desc_dlg_collapse" android:layout_width="30.0dp" android:layout_height="5.0dp" android:layout_marginTop="12.0dp" android:layout_marginBottom="15.0dp" />
-    <v.VPager android:id="@id/pager" android:layout_width="match_parent" android:layout_height="330.0dp" />
-    <v.VPagerCircleIndicator android:id="@id/pager_indicator" android:background="@drawable/transparent" android:layout_width="wrap_content" android:layout_height="7.0dp" android:layout_marginLeft="40.0dp" app:fillColor="@color/common_orange" app:pageColor="@color/common_light_01" app:radius="3.0dp" />
-    <v.VButton android:textColor="@color/common_white" android:id="@id/buy" android:background="@drawable/core_vip_bg_purchase_dialog_payment_button_vip" android:layout_marginLeft="16.0dp" android:layout_marginTop="43.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="46.0dp" style="@style/common_button_large" />
-</v.VLinear>

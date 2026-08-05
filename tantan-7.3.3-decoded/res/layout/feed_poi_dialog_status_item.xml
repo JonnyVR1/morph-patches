@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.photoalbum.poi.view.FeedPoiDialogStateItem android:orientation="vertical" android:id="@id/status_item_root" android:background="@drawable/feed_poi_dialog_status_item_bg" android:layout_width="68.0dp" android:layout_height="84.0dp" android:layout_marginRight="8.0dp" flatten="true" folder="newui" holder="photoalbum.poi.view.FeedPoiDialogStateItem"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/status_item_image" android:layout_width="52.0dp" android:layout_height="52.0dp" android:layout_marginTop="5.0dp" />
-    <TextView android:textSize="12.0sp" android:textColor="@color/feed_99000000" android:ellipsize="end" android:layout_gravity="center_horizontal" android:id="@id/status_item_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:layout_marginRight="2.0dp" android:maxLines="1" />
-</com.p1.mobile.putong.feed.newui.photoalbum.poi.view.FeedPoiDialogStateItem>

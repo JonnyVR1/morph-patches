@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VText android:textSize="14.0sp" android:textColor="#d0d0d0" android:gravity="center" android:paddingTop="29.0dp" android:paddingBottom="29.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/CHAT_GROUP_NOTICE_NULL" app:typeface="regular"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

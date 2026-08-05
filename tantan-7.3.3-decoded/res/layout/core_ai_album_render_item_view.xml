@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.aialbum.view.AiAlbumRenderItemView android:id="@id/root_view" android:layout_width="172.0dp" android:layout_height="216.0dp" flatten="true" folder="ui" holder="aialbum.view.AiAlbumRenderItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/image" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="4.5dp" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="8.0dp" />
-    <com.tantan.library.svga.SVGAnimationView android:id="@id/loading_view" android:layout_width="42.0dp" android:layout_height="42.0dp" android:layout_centerInParent="true" />
-</com.p1.mobile.putong.core.ui.aialbum.view.AiAlbumRenderItemView>

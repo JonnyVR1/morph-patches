@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.increment.gift.packetgift.PacketGiftActionTipsView android:visibility="gone" android:layout_width="match_parent" android:layout_height="37.0dp" folder="increment" holder="gift.packetgift.PacketGiftActionTipsView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/tips" android:background="@drawable/live_bg_ff8817_r14" android:layout_width="wrap_content" android:layout_height="37.0dp" android:layout_marginTop="-37.0dp" android:paddingStart="20.0dp" android:paddingEnd="20.0dp" />
-</com.p1.mobile.putong.live.livingroom.increment.gift.packetgift.PacketGiftActionTipsView>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:paddingRight="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="center" android:background="@drawable/core_chat_card_send_btn_bg" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="34.0dp" android:text="@string/CHAT_GROUP_CREAT" android:paddingStart="12.0dp" />
-</FrameLayout>

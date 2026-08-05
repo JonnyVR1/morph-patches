@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.banner.view.PrivilegeEntranceSingleTextView android:background="@drawable/core_vip_mytab_banner_promotion_vip_bg_new" android:layout_width="match_parent" android:layout_height="47.0dp" holder="banner.view.PrivilegeEntranceSingleTextView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/texture" android:layout_width="339.0dp" android:layout_height="47.0dp" android:scaleType="fitStart" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <v.VText android:textSize="15.0dp" android:textStyle="bold" android:textColor="#fff" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="2.0dp" android:layout_centerVertical="true" android:layout_marginStart="17.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_goneMarginStart="19.0dp" />
-    <v.VImage android:id="@id/go" android:layout_width="42.0dp" android:layout_height="42.0dp" android:scaleType="center" android:layout_marginEnd="2.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
-</com.p1.mobile.putong.core.ui.banner.view.PrivilegeEntranceSingleTextView>

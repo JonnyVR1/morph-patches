@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.sweet.view.VoiceSweetLimitedTimeHouseView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="voice.intl.sweet.view.VoiceSweetLimitedTimeHouseView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VRecyclerView android:id="@id/house_recycle" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginTop="37.5dp" android:layout_centerHorizontal="true" />
-    <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/no_data_layout" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="117.0dp" android:layout_centerHorizontal="true" flatten="true">
-        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
-        <v.VText android:textSize="15.0dp" android:textColor="@color/white" android:id="@id/no_data_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" />
-    </v.VLinear>
-</com.p1.mobile.putong.live.livingroom.voice.intl.sweet.view.VoiceSweetLimitedTimeHouseView>

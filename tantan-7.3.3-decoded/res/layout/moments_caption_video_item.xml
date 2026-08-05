@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:layout_width="56.0dp" android:layout_height="56.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/image" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginLeft="2.0dp" android:layout_marginRight="2.0dp" fresco:actualImageScaleType="centerCrop" style="@style/feed_fresco_moment_small" />
-    <v.VImage android:layout_gravity="center" android:id="@id/play" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@drawable/feed_message_video_play_icon" />
-    <v.VProgressBar android:layout_gravity="center" android:id="@id/loading" android:visibility="invisible" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_margin="10.0dp" android:indeterminateOnly="true" fresco:cpb_color="#d34530" fresco:cpb_stroke_percentage="0.1" />
-</v.VFrame>

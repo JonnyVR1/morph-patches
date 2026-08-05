@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.base.arch.card.cardmodel.avatarline.LiveAvatarLineCardView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <TextView android:textSize="15.0sp" android:textStyle="normal" android:textColor="#66000000" android:id="@id/title" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="3.0dp" android:text="@string/LIVE_MY_FOLLOW" />
-    <v.VRecyclerView android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginBottom="4.0dp" />
-</com.p1.mobile.putong.live.base.arch.card.cardmodel.avatarline.LiveAvatarLineCardView>

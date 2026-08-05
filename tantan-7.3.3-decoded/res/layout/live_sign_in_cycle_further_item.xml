@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.signin.main.SignInCycleFurtherView android:background="@drawable/live_shape_sign_in_cycle_further_item_bg" android:layout_width="62.0dp" android:layout_height="94.0dp" flatten="true" folder="common.signin.main" holder="SignInCycleFurtherView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="9.0sp" android:textColor="@android:color/white" android:id="@id/day" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:layout_marginStart="6.0dp" />
-    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/gift_icon" android:layout_width="38.0dp" android:layout_height="38.0dp" android:layout_marginTop="30.0dp" />
-    <v.VText android:textSize="10.0sp" android:textColor="@android:color/white" android:layout_gravity="center|bottom" android:id="@id/gift_des" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="6.0dp" />
-</com.p1.mobile.putong.live.livingroom.common.signin.main.SignInCycleFurtherView>

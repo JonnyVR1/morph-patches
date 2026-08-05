@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:background="@drawable/tf_rect_light" android:layout_width="match_parent" android:layout_height="56.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/common_orange" android:gravity="center_vertical" android:paddingLeft="20.0dp" android:paddingRight="24.0dp" android:layout_width="match_parent" android:layout_height="53.0dp" android:text="@string/MOMENTS_CAPTION_LOCATION_HIDE_LOCATION" android:maxLines="1" />
-    <View android:background="@color/feed_post_bg_select_topic_stroke_color" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" />
-</LinearLayout>

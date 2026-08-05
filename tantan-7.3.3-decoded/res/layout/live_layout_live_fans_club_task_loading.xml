@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent" android:layout_height="62.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:id="@id/circle" android:background="@drawable/live_shape_bg_loading_image_circle" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_centerVertical="true" android:layout_marginStart="16.0dp" />
-    <View android:background="@drawable/live_shape_bg_loading_rect" android:layout_width="144.0dp" android:layout_height="14.0dp" android:layout_alignTop="@id/circle" android:layout_marginStart="16.0dp" android:layout_toEndOf="@id/circle" />
-    <View android:background="@drawable/live_shape_bg_loading_rect" android:layout_width="144.0dp" android:layout_height="14.0dp" android:layout_alignBottom="@id/circle" android:layout_marginStart="16.0dp" android:layout_toEndOf="@id/circle" />
-</RelativeLayout>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:id="@id/data_integrity_warn" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" app:cardBackgroundColor="#f4f4f4" app:cardCornerRadius="10.0dp" app:cardElevation="0.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="11.0sp" android:textStyle="bold" android:textColor="#cc000000" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="12.0dp" android:layout_marginRight="60.0dp" android:text="再上传一张照片，提升20%被他人喜欢概率" android:drawablePadding="7.0dp" android:drawableStart="@drawable/core_data_integrity_picture" app:typeface="medium" />
-    <v.VText android:textSize="11.0sp" android:textStyle="bold" android:textColor="#fe7e1d" android:gravity="center_vertical" android:layout_gravity="right" android:id="@id/btn" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginRight="12.0dp" android:text="去上传" android:drawablePadding="7.0dp" app:typeface="medium" />
-</androidx.cardview.widget.CardView>

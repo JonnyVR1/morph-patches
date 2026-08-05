@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame_Anim android:id="@id/root_layout" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="petphoto.PetPhotoTWDlg"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:id="@id/activity_layout" layout="@layout/core_intl_pet_photo_activity_layout" />
-    <include android:id="@id/rule_layout" android:visibility="gone" layout="@layout/core_intl_pet_photo_rule_layout" />
-</v.VFrame_Anim>

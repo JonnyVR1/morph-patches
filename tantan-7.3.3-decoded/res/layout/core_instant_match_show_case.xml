@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.intlInstantChat.InstantMatchShowCaseComponent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="16.0sp" android:textColor="@color/common_black_02" android:id="@id/top_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:text="@string/TANTANCOIN_RECARGE_TITLE" app:typeface="medium" />
-    <v.VRecyclerView android:id="@id/coins_recycler" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15.0dp" android:layout_marginRight="15.0dp" />
-</v.VLinear>

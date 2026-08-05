@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:id="@id/root" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout android:background="@drawable/live_shape_anchor_growth_item_bg" android:layout_width="76.0dp" android:layout_height="76.0dp" android:layout_margin="4.0dp">
-        <v.VDraweeView android:layout_gravity="center" android:id="@id/gift_img" android:layout_width="56.0dp" android:layout_height="57.0dp" />
-    </FrameLayout>
-    <TextView android:textSize="10.0sp" android:textColor="@color/live_white" android:layout_gravity="right|top" android:id="@id/days_text" android:background="@drawable/live_bg_dd9f6f_r4" android:paddingTop="1.0dp" android:paddingBottom="1.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:paddingStart="4.0dp" android:paddingEnd="4.0dp" android:layout_marginEnd="2.0dp" />
-</FrameLayout>

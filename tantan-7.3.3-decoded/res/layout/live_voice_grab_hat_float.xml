@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.grabhat.view.VoiceGrabHatFloatViewMode android:orientation="horizontal" android:background="@null" android:layout_width="118.0dp" android:layout_height="36.0dp" flatten="true" folder="voice" holder="grabhat.view.VoiceGrabHatFloatViewMode"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="center_vertical" android:layout_width="34.0dp" android:layout_height="34.0dp" android:layout_marginLeft="5.0dp" android:src="@null" />
-    <v.VMarqueeText android:textSize="10.0sp" android:textColor="#ffffff" android:ellipsize="marquee" android:gravity="center" android:layout_gravity="center_vertical" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dp" android:layout_marginRight="10.0dp" android:text="@string/LIVE_GRAB_HAT_CP_GAME" android:scrollHorizontally="true" android:singleLine="true" android:marqueeRepeatLimit="marquee_forever" />
-</com.p1.mobile.putong.live.livingroom.voice.grabhat.view.VoiceGrabHatFloatViewMode>

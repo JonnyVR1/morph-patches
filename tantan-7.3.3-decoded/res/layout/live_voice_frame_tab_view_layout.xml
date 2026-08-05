@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.voiceslipcard.chatroom.VoiceTabView android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="voiceslipcard" holder="chatroom.VoiceTabView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView android:textSize="13.0sp" android:gravity="center_vertical" android:id="@id/title" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="32.0dp" android:paddingStart="12.0dp" />
-    <v.VDraweeView android:id="@id/icon" android:visibility="gone" android:layout_width="76.0dp" android:layout_height="32.0dp" app:actualImageScaleType="centerCrop" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent" app:roundedCornerRadius="12.0dp" />
-</com.p1.mobile.putong.live.external.voiceslipcard.chatroom.VoiceTabView>

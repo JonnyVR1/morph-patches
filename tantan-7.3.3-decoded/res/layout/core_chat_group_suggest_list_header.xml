@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@id/search" android:background="@drawable/core_group_search_bg" android:layout_width="match_parent" android:layout_height="44.0dp" android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" useId="true"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="center_vertical" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="11.0dp" android:src="@null" />
-    <v.VText android:textSize="16.0sp" android:textColor="#cbcbcb" android:layout_gravity="center_vertical" android:id="@id/chat_group_search" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:text="@string/CHAT_GROUP_SHURU_QUNID" android:singleLine="true" useId="true" />
-</LinearLayout>

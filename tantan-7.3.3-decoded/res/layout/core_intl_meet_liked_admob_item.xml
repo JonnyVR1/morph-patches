@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.newui.intlmeet.likers.items.IntlMeetLikersAdmobItem android:layout_width="match_parent" android:layout_height="215.0dp" android:layout_margin="4.0dp" app:cardCornerRadius="10.0dp" app:cardElevation="0.0dp" folder="newui" holder="intlmeet.likers.items.IntlMeetLikersAdmobItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

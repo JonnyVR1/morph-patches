@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p051p1.mobile.putong.feed.p065ui.moments.CommentCheckMarkView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    flatten="true"
-    holder="moments.CommentCheckMarkView">
-    <include layout="@layout/moments_comment_input_bar"/>
-</com.p051p1.mobile.putong.feed.p065ui.moments.CommentCheckMarkView>

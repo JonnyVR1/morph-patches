@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.virtual.board.accompany.VirtualFansHeaderItemView android:id="@id/root" android:paddingTop="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="virtual" holder="board.accompany.VirtualFansHeaderItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:id="@id/second_user" android:layout_width="101.0dp" android:layout_height="173.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/first_user" layout="@layout/live_virtual_fans_leader_board_header_second_or_third" />
-    <include android:id="@id/third_user" android:layout_width="101.0dp" android:layout_height="173.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toEndOf="@id/first_user" layout="@layout/live_virtual_fans_leader_board_header_second_or_third" />
-    <include android:id="@id/first_user" android:layout_width="133.0dp" android:layout_height="205.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/notice" layout="@layout/live_virtual_fans_leader_board_header_first" />
-</com.p1.mobile.putong.live.livingroom.virtual.board.accompany.VirtualFansHeaderItemView>

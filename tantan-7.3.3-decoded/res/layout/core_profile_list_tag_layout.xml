@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear_Dividers android:id="@id/personality_frame" flatten="true" holder="profile.profilelist.itemholders.ProfileTagsItemHolder" style="@style/profile_item_frame_no_padding"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:id="@id/profile_item_title_txt" android:paddingBottom="21.0dp" android:text="@string/PROFILE_SECTION_HEADER_PERSONALITY" style="@style/profile_item_title" />
-    <v.VText_Tags android:id="@id/personality" android:hint="@string/PROFILE_TAGS_CATEGORY_PERSONALITY_PLACEHOLDER" app:vectorDrawableLeft="@drawable/profile_hashtag_ic" style="@style/profile_item_item_with_tag" />
-</v.VLinear_Dividers>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/tf_rect_light" android:layout_width="match_parent" android:layout_height="72.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="16.0sp" android:textColor="@color/text_dark" android:gravity="left" android:layout_gravity="center_vertical" android:id="@id/text" android:paddingLeft="16.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="100.0" />
-    <v.VImage android:id="@id/dot" android:paddingLeft="12.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/messages_bar_dot" />
-</v.VLinear>

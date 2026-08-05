@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:background="@drawable/feed_dialog_bottom_to_top_bg" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="15.0sp" android:textColor="#222222" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="15.0dp" android:text="圈子简介：" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" app:typeface="medium" />
-    <v.VText android:id="@id/dialog_close" android:background="@null" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="12.0dp" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <ScrollView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="13.0dp" android:layout_marginRight="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/dialog_close">
-        <v.VText android:textSize="15.0sp" android:textColor="#222222" android:id="@id/content" android:layout_width="match_parent" android:layout_height="match_parent" />
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>

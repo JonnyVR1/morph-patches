@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:background="@drawable/live_bg_white_tr24" android:paddingLeft="40.0dp" android:paddingRight="40.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="155.0dp" app:bind_extends="com.p1.mobile.putong.live.livingroom.archi.dialogcenter.BaseDialogHolder" app:bind_implements="null" app:binding="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView android:textSize="24.0sp" android:textStyle="normal" android:textColor="#e6000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="40.0dp" android:text="@string/LIVE_ROOM_ANNOUNCEMENT_TITLE" android:fontFamily="PingFangSC-Semibold" />
-    <com.p1.mobile.putong.live.base.view.MaximumScroll android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" app:maxHeight="180.0dp">
-        <TextView android:textSize="14.0sp" android:textStyle="normal" android:textColor="@color/live_black_40_opacity" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/LIVE_ROOM_ANNOUNCEMENT_TITLE" useId="true" />
-    </com.p1.mobile.putong.live.base.view.MaximumScroll>
-    <TextView android:textSize="16.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/complete" android:background="@drawable/live_bg_fe7e1d_r14" android:paddingLeft="24.0dp" android:paddingTop="13.0dp" android:paddingRight="24.0dp" android:paddingBottom="13.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="54.0dp" android:layout_marginBottom="24.0dp" android:text="@string/LIVE_MULTI_CALL_NEW_ENTRY" />
-</LinearLayout>

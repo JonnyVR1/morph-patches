@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:paddingLeft="16.0dp" android:layout_width="wrap_content" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <FrameLayout android:background="@drawable/live_selector_pk_punish_item" android:layout_width="64.0dp" android:layout_height="64.0dp">
-        <v.VDraweeView android:layout_gravity="center" android:id="@id/iv_punish_pic" android:layout_width="36.0dp" android:layout_height="36.0dp" fresco:actualImageScaleType="centerCrop" />
-    </FrameLayout>
-    <TextView android:textSize="12.0sp" android:textColor="#757575" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/tv_punish_name" android:layout_width="64.0dp" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" />
-</LinearLayout>

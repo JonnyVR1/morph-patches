@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape android:shape="rectangle"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient android:startColor="@color/core_intl_discount_entry_theme3_banner_bg_top" android:endColor="@color/core_intl_discount_entry_theme3_banner_bg_bottom" android:angle="0.0" android:type="linear" />
-    <corners android:radius="14.0dp" />
-</shape>

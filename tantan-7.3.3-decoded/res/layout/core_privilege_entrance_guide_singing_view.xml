@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.banner.view.PrivilegeEntranceGuideSigningView android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="52.0dp" holder="banner.view.PrivilegeEntranceGuideSigningView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="12.0dp" android:textStyle="bold" android:ellipsize="end" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="0.0dp" android:layout_height="wrap_content" android:maxLines="2" android:layout_weight="1.0" android:layout_centerVertical="true" android:layout_marginStart="17.0dp" />
-    <TextView android:textSize="12.0dp" android:textStyle="bold" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/restore" android:background="@drawable/core_mytab_banner_buy_bg_white_new" android:layout_width="57.0dp" android:layout_height="32.0dp" android:layout_marginRight="10.0dp" />
-</com.p1.mobile.putong.core.ui.banner.view.PrivilegeEntranceGuideSigningView>

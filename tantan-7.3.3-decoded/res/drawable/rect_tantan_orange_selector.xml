@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false">
-        <color android:color="#c7c7cd" />
-    </item>
-    <item android:drawable="@drawable/rect_tantan_orange" />
-</selector>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:background="@drawable/core_bg_20_08000000" android:padding="24.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.p1.mobile.putong.core.ui.VText_Medium android:textSize="18.0dp" android:textColor="@color/common_000000_80" android:gravity="center" android:id="@id/title" android:layout_width="match_parent" android:layout_height="25.0dp" android:text="敬请期待…" />
-    <v.VText android:textSize="14.0dp" android:textColor="@color/common_000000_40" android:gravity="center" android:id="@id/sub_title" android:layout_width="match_parent" android:layout_height="20.0dp" android:layout_marginTop="8.0dp" android:text="更多任务奖励即将上线!" />
-</v.VLinear>

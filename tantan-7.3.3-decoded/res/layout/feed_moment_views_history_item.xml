@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:paddingTop="8.0dp" android:paddingBottom="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="12.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/user_header" android:layout_width="56.0dp" android:layout_height="56.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent" app:roundAsCircle="true" />
-    <v.VLinear android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toRightOf="@id/user_header" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent">
-        <v.VText android:textSize="15.0sp" android:textColor="#cc000000" android:id="@id/views_recommend_des" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="1" android:singleLine="true" app:layout_constraintLeft_toRightOf="@id/user_header" app:layout_constraintTop_toTopOf="@id/user_header" app:typeface="regular" />
-        <v.VText android:textSize="13.0sp" android:textColor="#66000000" android:id="@id/views_params" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:maxLines="1" android:singleLine="true" />
-    </v.VLinear>
-</androidx.constraintlayout.widget.ConstraintLayout>

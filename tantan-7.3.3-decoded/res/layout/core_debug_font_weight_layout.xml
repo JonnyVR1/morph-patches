@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText_NoTopPadding android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:text="Font Weight: 400" app:fontWeight="400" />
-    <v.VText_NoTopPadding android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:text="Font Weight: 500" app:fontWeight="500" />
-    <v.VText_NoTopPadding android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:text="Font Weight: 600" app:fontWeight="600" />
-    <v.VText_NoTopPadding android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:text="Font Weight: 700" app:fontWeight="700" />
-    <v.VText_NoTopPadding android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:text="Font Weight: 800" app:fontWeight="800" />
-</v.VLinear>

@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VText android:textSize="13.0sp" android:textStyle="bold" android:textColor="#fe7e1d" android:gravity="center" android:background="@drawable/live_bg_fe7e1d_r12_a10" android:paddingLeft="12.0dp" android:paddingTop="7.0dp" android:paddingRight="12.0dp" android:paddingBottom="7.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:layout_marginBottom="8.0dp" android:text="@string/LIVE_FANS_CLUB_DEFAULT_TASK_SUMMARY" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" android:paddingHorizontal="12.0dp" android:paddingVertical="7.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

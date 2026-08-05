@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="newui" holder="kankan.view.FeedComicFaceCategoryView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:layout_gravity="center_vertical" android:id="@id/feed_comic_face_category_item_left" android:layout_width="12.0dp" android:layout_height="12.0dp" />
-    <ImageView android:id="@id/feed_comic_face_category_icon" android:background="@drawable/feed_comic_record_btn_oval" android:layout_width="64.0dp" android:layout_height="64.0dp" />
-    <View android:layout_gravity="center_vertical" android:id="@id/feed_comic_face_category_item_right" android:layout_width="12.0dp" android:layout_height="12.0dp" />
-</LinearLayout>

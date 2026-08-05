@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.signin.rule.SignInRuleFrame android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="common.signin.rule" holder="SignInRuleFrame"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.p1.mobile.putong.live.base.view.DialogTitleBar android:id="@id/dialog_title_bar" android:layout_width="match_parent" android:layout_height="64.0dp" />
-    <com.p1.mobile.putong.live.base.webview.LiveMkWebView android:id="@id/liveWebView" android:layout_width="match_parent" android:layout_height="match_parent" />
-</com.p1.mobile.putong.live.livingroom.common.signin.rule.SignInRuleFrame>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:background="@drawable/live_bg_19191e_tr24" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <View android:layout_gravity="center_horizontal" android:id="@id/tips" android:background="@drawable/live_bg_white_r3_a05" android:layout_width="37.0dp" android:layout_height="5.0dp" android:layout_marginTop="12.0dp" android:layout_marginBottom="15.0dp" />
-    <LinearLayout android:orientation="vertical" android:id="@id/item_container" android:layout_width="match_parent" android:layout_height="wrap_content" />
-    <View android:background="@color/live_white_03_opacity" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" />
-    <TextView android:textSize="15.0dp" android:textColor="@color/live_white_40_opacity" android:gravity="center" android:id="@id/cancel" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginBottom="8.0dp" android:text="取消" />
-</LinearLayout>

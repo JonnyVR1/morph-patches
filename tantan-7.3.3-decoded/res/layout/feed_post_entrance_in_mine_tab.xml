@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/feed_post_entrance_bg" android:paddingLeft="18.0dp" android:paddingRight="18.0dp" android:layout_width="wrap_content" android:layout_height="48.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="center_vertical" android:id="@id/photo_edit_image_view" android:background="@null" android:layout_width="20.0dp" android:layout_height="20.0dp" />
-    <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/white" android:layout_gravity="center_vertical" android:id="@id/photo_edit_back" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="@string/FEED_POST_MOMENT" />
-</LinearLayout>

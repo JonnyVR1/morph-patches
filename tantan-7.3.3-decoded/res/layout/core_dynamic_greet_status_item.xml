@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.newui.greet.NewTagStatusItem android:background="@drawable/core_im_newui_filter_zodiacs_item_bg" android:clipChildren="false" android:layout_width="160.0dp" android:layout_height="120.0dp" attachToRoot="true" flatten="true" folder="newui" holder="greet.NewTagStatusItem"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:layout_gravity="center|top" android:id="@id/img" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginTop="24.0dp" android:src="@drawable/core_greet_status_choose_not_disturb_seletor" android:scaleType="centerCrop" />
-    <v.VText_AutoFit android:textSize="14.0sp" android:textColor="@color/core_im_filter_check_text_color" android:ellipsize="end" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginBottom="28.0dp" android:singleLine="true" />
-    <v.VImage android:layout_gravity="right" android:id="@id/choose_ic" android:visibility="invisible" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginTop="-12.0dp" android:layout_marginRight="-12.0dp" android:src="@null" android:scaleType="centerCrop" />
-</com.p1.mobile.putong.core.newui.greet.NewTagStatusItem>

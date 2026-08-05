@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.chat.danmaku.input.normal.NormalDanmakuImgViewGroup android:background="@drawable/live_bg_19191e_tr24" android:layout_width="match_parent" android:layout_height="wrap_content" app:topLeftRadius="24.0dp" app:topRightRadius="24.0dp" flatten="true" folder="common.chat.danmaku.input.normal" holder="NormalDanmakuInputViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

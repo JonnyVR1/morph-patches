@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.giftRecord.VoiceGiftRecordUserView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="4.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:layout_gravity="center" android:id="@id/head" android:layout_width="36.0dp" android:layout_height="36.0dp" android:scaleType="centerCrop" app:roundAsCircle="true" />
-    <View android:layout_gravity="center_horizontal" android:id="@id/select" android:background="@drawable/live_selector_gift_receive_user_item_selector" android:layout_width="40.0dp" android:layout_height="40.0dp" />
-    <v.VText android:textSize="8.0sp" android:textColor="@color/live_white_40_opacity" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/name" android:background="@drawable/live_selector_gift_receive_user_item_bottom_name" android:layout_width="wrap_content" android:layout_height="12.0dp" android:paddingStart="5.0dp" android:paddingEnd="4.0dp" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.giftRecord.VoiceGiftRecordUserView>

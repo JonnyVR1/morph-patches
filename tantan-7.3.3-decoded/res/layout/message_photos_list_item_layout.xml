@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:layout_width="86.0dp" android:layout_height="108.0dp" android:layout_marginStart="8.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/photo" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="10.0dp" />
-    <v.VImage android:layout_gravity="center" android:id="@id/lock" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@drawable/core_message_photo_lock_icon" />
-</v.VFrame>

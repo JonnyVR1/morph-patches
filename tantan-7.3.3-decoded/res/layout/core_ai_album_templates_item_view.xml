@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.aialbum.view.AiAlbumTemplatesItemView android:id="@id/root_view" android:layout_width="172.0dp" android:layout_height="216.0dp" flatten="true" folder="ui" holder="aialbum.view.AiAlbumTemplatesItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/image" android:background="@drawable/core_ai_album_template_item_selector" android:padding="5.0dp" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="8.0dp" />
-</com.p1.mobile.putong.core.ui.aialbum.view.AiAlbumTemplatesItemView>

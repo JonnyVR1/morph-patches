@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/image_one" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" app:roundBottomLeft="false" app:roundBottomRight="false" app:roundTopLeft="true" app:roundTopRight="true" app:roundedCornerRadius="10.0dp" style="@style/core_card_bottom_live_pic_small" />
-    <v.VDraweeView android:id="@id/image_two" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" app:roundBottomLeft="true" app:roundBottomRight="true" app:roundTopLeft="false" app:roundTopRight="false" app:roundedCornerRadius="10.0dp" style="@style/core_card_bottom_live_pic_small" />
-</v.VLinear>

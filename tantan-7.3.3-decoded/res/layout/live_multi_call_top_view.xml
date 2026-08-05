@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.recreation.multiCall.view.MultiCallTopView android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="recreation" holder="multiCall.view.MultiCallTopView"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

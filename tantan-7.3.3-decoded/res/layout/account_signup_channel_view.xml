@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" attachToRoot="true" holder="accountai.new2021.view.ChannelRegisterView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="12.0sp" android:textColor="@color/account_grey_b2b2b2" android:gravity="center" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginRight="24.0dp" android:layout_marginBottom="20.0dp" android:text="我们要求用户提供真实照片来保证平台和用户安全" />
-    <v.VLinear android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginRight="24.0dp" android:layout_marginBottom="17.0dp">
-        <v.VButton android:textSize="16.0sp" android:textColor="#cf000000" android:gravity="center" android:id="@id/bt_register" android:background="@drawable/common_card_bg_medium_02" android:layout_width="0.0dp" android:layout_height="56.0dp" android:layout_marginRight="10.0dp" android:text="狠心拒绝" android:layout_weight="1.0" />
-        <v.VButton_FakeShadow android:id="@id/bt_upload_pic" android:layout_width="0.0dp" android:layout_height="56.0dp" android:layout_marginBottom="17.0dp" android:text="上传照片" android:layout_weight="1.0" style="@style/common_button_large_01" />
-    </v.VLinear>
-</merge>

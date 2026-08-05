@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemHideMeFromNearby android:layout_width="match_parent" android:layout_height="match_parent" android:paddingStart="16.0dp" android:paddingEnd="0.0dp" holder="vip.privilege.dlg.PrivilegeContentDlgItemHideMeFromNearby"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:layout_gravity="bottom" android:id="@id/model" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@null" />
-    <v.AutoVDraweeView android:layout_gravity="bottom" android:id="@id/avatar" android:background="@drawable/core_privilege_detail_dlg_hide_me_from_nearby_avatar_bg" android:drawingCacheQuality="high" android:layout_width="106.0dp" android:layout_height="144.0dp" android:layout_marginBottom="23.0dp" android:layout_marginStart="17.0dp" app:roundedCornerRadius="14.0dp" />
-    <View android:layout_gravity="bottom" android:id="@id/mask" android:background="@null" android:layout_width="106.0dp" android:layout_height="144.0dp" android:layout_marginBottom="23.0dp" android:layout_marginStart="17.0dp" />
-    <v.VImage android:layout_gravity="bottom" android:id="@id/hide_ic" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginBottom="75.0dp" android:src="@null" android:layout_marginStart="50.0dp" />
-</com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemHideMeFromNearby>

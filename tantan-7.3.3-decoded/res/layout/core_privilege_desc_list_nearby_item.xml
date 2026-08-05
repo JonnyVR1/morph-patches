@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListNearbyItem android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.privilege.content.item.PrivilegeDescListNearbyItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_privilege_desc_item_header" />
-    <FrameLayout android:id="@id/nearby_list_container" android:paddingBottom="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
-        <androidx.recyclerview.widget.RecyclerView android:id="@id/nearby_list" android:paddingLeft="16.0dp" android:paddingTop="8.0dp" android:paddingRight="8.0dp" android:paddingBottom="8.0dp" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="136.0dp" android:layout_marginBottom="20.0dp" />
-        <View android:layout_gravity="bottom" android:id="@id/line" android:background="#f9f9f9" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" />
-    </FrameLayout>
-</com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListNearbyItem>

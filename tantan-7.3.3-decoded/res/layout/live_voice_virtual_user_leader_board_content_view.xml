@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.virtual.call.userleaderboard.page.VoiceUserLeaderBoardPage android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="match_parent" app:bind_extends="ConstraintLayout" app:binding="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.recyclerview.widget.RecyclerView android:id="@id/recyclerView" android:layout_width="match_parent" android:layout_height="match_parent" android:minHeight="290.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <include android:id="@id/empty_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="210.0dp" android:layout_marginBottom="82.0dp" app:layout_constraintBottom_toBottomOf="@id/recyclerView" app:layout_constraintTop_toTopOf="@id/recyclerView" layout="@layout/live_hour_leader_board_dialog_content_mainland_empty_view" />
-</com.p1.mobile.putong.live.livingroom.virtual.call.userleaderboard.page.VoiceUserLeaderBoardPage>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.chatgroup.VoiceChatGroupEnterView android:gravity="center" android:orientation="horizontal" android:id="@id/root" android:background="@drawable/live_bg_black_r8_a15" android:layout_width="wrap_content" android:layout_height="20.0dp" android:paddingStart="6.0dp" android:paddingEnd="10.0dp" flatten="true" folder="voice.intl" holder="chatgroup.VoiceChatGroupEnterView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
-    <TextView android:textSize="10.0sp" android:textStyle="normal" android:textColor="@color/live_white_80_opacity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:text="@string/LIVE_VOICE_CHAT_GROUP_TEXT" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.chatgroup.VoiceChatGroupEnterView>

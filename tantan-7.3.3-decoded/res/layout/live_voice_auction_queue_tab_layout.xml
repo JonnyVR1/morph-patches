@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.call.auction.view.tab.VoiceAuctionTabView android:gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="18.0dp" app:bind_extends="LinearLayout" app:bind_implements="null" app:binding="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VRecyclerView android:id="@id/tabs" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-</com.p1.mobile.putong.live.livingroom.voice.call.auction.view.tab.VoiceAuctionTabView>

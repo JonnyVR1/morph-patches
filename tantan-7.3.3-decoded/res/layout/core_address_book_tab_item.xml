@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_gravity="center_vertical" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0sp" android:gravity="center_vertical" android:id="@id/text" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="32.0dp" android:paddingStart="12.0dp" android:paddingEnd="12.0dp" />
-    <View android:layout_gravity="right" android:id="@id/dot" android:background="@drawable/core_address_book_tab_dot" android:visibility="gone" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_marginTop="2.0dp" android:layout_marginRight="6.0dp" />
-    <v.VText android:textSize="10.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="right" android:id="@id/dot_all_pairs" android:background="@drawable/core_bg_new_all_pairs_unread" android:paddingLeft="6.0dp" android:paddingRight="6.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" android:layout_marginTop="-2.0dp" android:minWidth="20.0dp" android:text="9" />
-</FrameLayout>

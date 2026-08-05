@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.virtual.roomInfo.settleList.view.CheckInUserItemView android:id="@id/root" android:layout_width="40.0dp" android:layout_height="47.0dp" android:layout_marginStart="8.0dp" flatten="true" holder="virtual.roomInfo.settleList.view.CheckInUserItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/icon" android:layout_width="40.0dp" android:layout_height="40.0dp" app:roundAsCircle="true" />
-    <v.VText android:textSize="9.0sp" android:textColor="@color/live_white" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/tag" android:background="@drawable/live_bg_fe7e1d_r4" android:layout_width="26.0dp" android:layout_height="14.0dp" />
-</com.p1.mobile.putong.live.livingroom.virtual.roomInfo.settleList.view.CheckInUserItemView>

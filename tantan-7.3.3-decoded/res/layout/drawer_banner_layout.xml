@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.banner.DrawerBannersView android:layout_gravity="center" android:id="@id/banner" android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="wrap_content" app:cardBackgroundColor="@color/transparent" app:cardCornerRadius="5.0dp" app:cardElevation="0.0dp" holder="banner.DrawerBannersView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.AspectRatioViewPager android:layout_gravity="center_horizontal" android:id="@id/page" android:layout_width="match_parent" android:layout_height="match_parent" app:ratio="0.0" />
-    <v.VPagerCircleIndicator android:layout_gravity="bottom" android:id="@id/indicator" android:layout_width="match_parent" android:layout_height="6.0dp" android:layout_marginBottom="4.0dp" app:pageColor="@color/white" app:radius="3.0dp" />
-</com.p1.mobile.putong.core.ui.banner.DrawerBannersView>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.close.VoiceCloseView android:orientation="horizontal" android:id="@id/root" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="24.0dp" flatten="true" holder="voice.intl.close.VoiceCloseView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/voiceOpenMenu" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:scaleType="center" android:layout_marginEnd="12.0dp" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" app:srcCompat="@null" />
-    <v.VImage android:id="@id/collapse" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:layout_marginEnd="16.0dp" app:layout_constraintBottom_toBottomOf="@id/voiceOpenMenu" app:layout_constraintRight_toLeftOf="@id/voiceOpenMenu" app:layout_constraintTop_toTopOf="@id/voiceOpenMenu" />
-    <v.VImage android:id="@id/share" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:layout_marginEnd="16.0dp" app:layout_constraintBottom_toBottomOf="@id/collapse" app:layout_constraintRight_toLeftOf="@id/collapse" app:layout_constraintTop_toTopOf="@id/collapse" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.close.VoiceCloseView>

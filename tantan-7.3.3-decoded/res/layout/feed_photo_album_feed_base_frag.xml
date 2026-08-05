@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="photoalbum.basefrag.PhotoAlbumFeedBaseFragViewModel" useId="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VPullDownRefreshLayout android:id="@id/swipe_refresh" android:layout_width="match_parent" android:layout_height="match_parent" app:srlEnableLoadMore="false" flatten="true">
-        <com.p1.mobile.putong.feed.newui.photoalbum.momentdetail.feedlist.FeedMaxHeightRecyclerView android:id="@id/moments" android:background="@color/transparent" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" android:divider="@null" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" useId="true" />
-    </v.VPullDownRefreshLayout>
-</v.VFrame>

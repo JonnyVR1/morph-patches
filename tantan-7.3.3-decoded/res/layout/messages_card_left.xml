@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemMessageCard android:orientation="vertical" android:id="@id/content" android:layout_width="212.0dp" android:layout_height="wrap_content" style="@style/messages_item_left"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/profile_image" android:layout_width="match_parent" android:layout_height="216.0dp" fresco:roundBottomLeft="false" fresco:roundBottomRight="false" fresco:roundTopLeft="true" fresco:roundTopRight="true" fresco:roundedCornerRadius="5.0dp" />
-    <v.VText android:textSize="16.0sp" android:textColor="#141414" android:id="@id/personal_info" android:paddingLeft="19.0dp" android:paddingTop="10.0dp" android:paddingRight="12.0dp" android:paddingBottom="10.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-</com.p1.mobile.putong.core.ui.messages.ItemMessageCard>

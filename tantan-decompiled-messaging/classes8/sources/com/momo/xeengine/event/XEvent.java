@@ -1,8 +1,0 @@
-package com.momo.xeengine.event;
-
-import androidx.annotation.Keep;
-
-/* JADX INFO: loaded from: /tmp/tantan-dex/classes8.dex */
-@Keep
-public interface XEvent {
-}

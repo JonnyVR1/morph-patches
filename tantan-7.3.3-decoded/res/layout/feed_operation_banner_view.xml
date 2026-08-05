@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.ui.moments.operation.OperationBannerFeedView android:layout_gravity="center" android:background="#ffffff" android:paddingLeft="12.0dp" android:paddingTop="12.0dp" android:paddingRight="12.0dp" android:paddingBottom="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" holder="moments.operation.OperationBannerFeedView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.cardview.widget.CardView android:id="@id/banner" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp" app:cardCornerRadius="5.0dp" app:cardElevation="0.0dp">
-        <v.AspectRatioViewPager android:layout_gravity="center_horizontal" android:id="@id/page" android:layout_width="match_parent" android:layout_height="wrap_content" app:ratio="3.8" />
-    </androidx.cardview.widget.CardView>
-    <v.VPagerCircleIndicator android:layout_gravity="bottom" android:id="@id/indicator" android:layout_width="match_parent" android:layout_height="6.0dp" app:fillColor="#ff6f49" app:pageColor="#eaeaea" app:radius="3.0dp" />
-</com.p1.mobile.putong.feed.ui.moments.operation.OperationBannerFeedView>

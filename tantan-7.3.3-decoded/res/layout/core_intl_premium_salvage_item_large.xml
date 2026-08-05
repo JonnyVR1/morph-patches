@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:id="@id/root" android:layout_width="match_parent" android:layout_height="200.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/img" android:background="@drawable/core_intl_salvage_item_bg" android:padding="1.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" app:actualImageScaleType="centerCrop" app:roundedCornerRadius="14.0dp" />
-    <LinearLayout android:gravity="bottom" android:layout_gravity="bottom" android:background="@drawable/core_intl_salvage_item_bottom" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:paddingBottom="8.0dp" android:layout_width="match_parent" android:layout_height="80.0dp">
-        <TextView android:textSize="14.0sp" android:textColor="#e5ffffff" android:ellipsize="end" android:id="@id/tvMeta" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginBottom="2.0dp" android:text="8km · 27" android:maxLines="1" android:layout_weight="1.0" />
-        <ImageView android:id="@id/ivStar" android:layout_width="32.0dp" android:layout_height="32.0dp" />
-    </LinearLayout>
-</FrameLayout>

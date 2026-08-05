@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.newui.newmeet.header.MeetStateHeaderView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginBottom="22.0dp" folder="newui" holder="newmeet.header.MeetStateHeaderView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <androidx.recyclerview.widget.RecyclerView android:id="@id/recycler" android:paddingLeft="4.0dp" android:paddingRight="4.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_toEndOf="@id/feed_publish_entrance" />
-</com.p1.mobile.putong.core.newui.newmeet.header.MeetStateHeaderView>

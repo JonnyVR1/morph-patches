@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:background="@drawable/live_bg_white_r8" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:layout_gravity="right" android:id="@id/img_close" android:padding="5.0dp" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="12.0dp" android:tint="#c7d2db" app:srcCompat="@null" />
-    <v.VImage android:layout_width="match_parent" android:layout_height="94.0dp" android:layout_marginLeft="18.0dp" android:layout_marginRight="22.0dp" android:scaleType="fitXY" app:srcCompat="@null" />
-    <v.VText android:textSize="16.0sp" android:textColor="#999999" android:gravity="center" android:id="@id/text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="40.0dp" android:text="@string/LIVE_CLICK_FOLLOW" />
-    <v.VText android:textSize="17.0sp" android:textColor="@color/white" android:layout_gravity="center_horizontal" android:id="@id/unban_follow" android:background="@drawable/live_shape_ff3a00_gradient_r6" android:paddingLeft="37.0dp" android:paddingTop="12.0dp" android:paddingRight="37.0dp" android:paddingBottom="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="40.0dp" android:layout_marginBottom="24.0dp" android:text="@string/LIVE_CANCLE_FOLLOW_LIMIT" />
-</LinearLayout>

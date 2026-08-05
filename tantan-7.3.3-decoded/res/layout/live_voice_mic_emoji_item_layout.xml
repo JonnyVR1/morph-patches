@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.emoji.VoiceMicEmojiItemView android:layout_width="83.0dp" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="12.0dp" flatten="true" folder="voice.intl.emoji" holder="VoiceMicEmojiItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout android:id="@id/image_layout" android:background="@drawable/live_bg_white_r20_a04" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerHorizontal="true" flatten="true">
-        <v.VDraweeView android:id="@id/image" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginLeft="18.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="18.0dp" android:layout_marginBottom="6.0dp" app:actualImageScaleType="centerCrop" />
-    </FrameLayout>
-    <v.VText android:textSize="12.0sp" android:textColor="@color/live_white_40_opacity" android:ellipsize="end" android:gravity="center_horizontal" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:maxWidth="80.0dp" android:layout_below="@id/image_layout" android:layout_centerHorizontal="true" style="@style/live_setting_text_lines" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.emoji.VoiceMicEmojiItemView>

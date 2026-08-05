@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0dp" android:textColor="@color/core_color_cc000000" android:ellipsize="end" android:id="@id/text" android:background="@drawable/core_match_icebreak_item_bg" android:paddingLeft="16.0dp" android:paddingTop="12.0dp" android:paddingRight="16.0dp" android:paddingBottom="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="6.0dp" android:maxEms="30" />
-</FrameLayout>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" holder="likedusers.mytab.LikedUsersMyTabViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VPullUpRecyclerView android:id="@id/list" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="2.0dp" />
-    <include android:id="@id/empty" android:visibility="gone" flatten="true" layout="@layout/core_mytab_empty" />
-    <Button android:textSize="16.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/get_privilege" android:background="@drawable/core_newui_fakelikers_buy_btn_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="12.0dp" android:text="@string/SVIP_PRIVILEGE_BROWSE_LIKED_TITLE_LOCAL" android:shadowColor="#1e000000" android:shadowDx="0.0" android:shadowDy="2.0" android:shadowRadius="2.0" android:layout_alignParentBottom="true" android:layout_marginHorizontal="20.0dp" />
-</RelativeLayout>

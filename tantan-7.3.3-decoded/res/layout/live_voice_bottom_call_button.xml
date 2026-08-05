@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.bottom.VoiceBottomCallButton android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="voice.bottom.VoiceBottomCallButton"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VDraweeView android:id="@id/icon" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <View android:layout_gravity="end|top" android:id="@id/red_dot" android:background="@drawable/live_bg_ff3938_r3" android:visibility="gone" android:layout_width="6.0dp" android:layout_height="6.0dp" android:layout_marginTop="2.0dp" android:layout_marginRight="2.0dp" />
-    <TextView android:textSize="10.0sp" android:textColor="@color/white" android:gravity="center_horizontal" android:layout_gravity="right|top" android:id="@id/tv_num" android:background="@drawable/live_shape_pk_friend_num_bg" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="14.0dp" />
-</com.p1.mobile.putong.live.livingroom.voice.bottom.VoiceBottomCallButton>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:layout_width="match_parent" android:layout_height="52.0dp" android:paddingStart="20.0dp" android:paddingEnd="20.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/core_color_cc000000" android:layout_gravity="start|center" android:id="@id/region_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="290.0dp" android:maxLines="2" />
-    <v.VCheckBox android:layout_gravity="end|center" android:id="@id/region_check" android:layout_width="24.0dp" android:layout_height="24.0dp" android:checked="false" android:button="@null" style="@style/common_checkbox" />
-</v.VFrame>

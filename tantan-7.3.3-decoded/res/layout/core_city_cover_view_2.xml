@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.dlg.views.CityCoverView2 android:orientation="vertical" android:id="@id/city_cover_view_2" android:paddingTop="42.0dp" android:paddingBottom="34.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="ture" holder="dlg.views.CityCoverView2"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:id="@id/city_cover_small_card_view" layout="@layout/core_city_cover_small_card_view" />
-    <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_FFDB89" android:gravity="center" android:id="@id/title" android:layout_width="match_parent" android:layout_height="22.0dp" android:layout_marginTop="50.0dp" android:text="当前封面生效中" android:maxLines="1" android:layout_marginStart="40.0dp" android:layout_marginEnd="40.0dp" />
-    <v.VText android:textSize="14.0sp" android:textColor="@color/core_color_60percent_FFFFFF" android:gravity="center" android:id="@id/sub" android:layout_width="match_parent" android:layout_height="20.0dp" android:layout_marginTop="8.0dp" android:layout_marginBottom="61.0dp" android:maxLines="1" android:layout_marginStart="40.0dp" android:layout_marginEnd="40.0dp" />
-</com.p1.mobile.putong.core.ui.dlg.views.CityCoverView2>

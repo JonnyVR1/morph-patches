@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:paddingTop="?message_page_sticker_padding_top" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.core.ui.messages.ItemSticker android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" fresco:actualImageScaleType="fitCenter">
-        <v.VDraweeView android:id="@id/anim_view" android:layout_width="match_parent" android:layout_height="match_parent" fresco:actualImageScaleType="fitCenter" style="@style/core_im_fresco_base" />
-        <com.tantan.library.svga.SVGAnimationView android:id="@id/svga_view" android:layout_width="match_parent" android:layout_height="match_parent" />
-    </com.p1.mobile.putong.core.ui.messages.ItemSticker>
-</RelativeLayout>

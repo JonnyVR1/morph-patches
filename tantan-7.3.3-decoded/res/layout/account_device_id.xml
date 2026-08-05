@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditText android:textSize="16.0sp" android:textColor="@color/black" android:gravity="right|center" android:id="@id/device_id" android:background="@null" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_margin="10.0dp" android:lines="1" android:editable="false" android:layout_weight="2.0" android:textIsSelectable="true" android:textCursorDrawable="@null" />
-</LinearLayout>

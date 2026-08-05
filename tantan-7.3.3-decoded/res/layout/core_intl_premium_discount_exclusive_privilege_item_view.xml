@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPremiumDiscountExclusivePrivilegeItemView android:orientation="horizontal" android:paddingLeft="2.0dp" android:paddingRight="2.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="2.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VIcon android:id="@id/icon" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginTop="10.0dp" android:src="@drawable/core_intl_premium_discount_privilege_check" />
-    <v.VLinear android:orientation="vertical" android:id="@id/content_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" android:layout_marginStart="12.0dp" flatten="true">
-        <v.VText_NoTopPadding android:textSize="15.0sp" android:textColor="@color/core_intl_premium_discount_item_title" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/privilege" android:layout_width="match_parent" android:layout_height="wrap_content" android:lines="1" app:fontWeight="500" />
-        <v.VText_NoTopPadding android:textSize="12.0sp" android:textColor="@color/core_intl_premium_discount_item_desc" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/privilege_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:maxLines="2" app:fontWeight="400" />
-    </v.VLinear>
-</com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPremiumDiscountExclusivePrivilegeItemView>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:background="@color/common_grey_07" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="messages.model.MessageNicknameSettingViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout android:background="#ffffff" android:paddingLeft="16.0dp" android:layout_width="match_parent" android:layout_height="56.0dp">
-        <v.VMaterialEdit android:textSize="16.0sp" android:textStyle="bold" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/memo_name" android:layout_width="match_parent" android:layout_height="56.0dp" android:hint="@string/CHAT_SET_NICKNAME" android:maxLines="1" android:maxLength="20" android:inputType="text" app:met_bottomSpacing="0.0dp" app:met_clearButton="true" app:met_clearButtonOffset="2.0dp" app:met_floatingLabel="none" app:met_hideUnderline="true" app:met_isErrorBottomLineShown="false" />
-    </FrameLayout>
-    <v.VText android:textSize="14.0sp" android:textColor="#999999" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0sp" android:layout_marginTop="8.0dp" android:text="@string/SET_NICKNAME_CONTENT" />
-</LinearLayout>

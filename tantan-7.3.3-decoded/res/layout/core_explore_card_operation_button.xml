@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="explore.view.ExploreCardOperationButton"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:id="@id/normal_state_layer" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <View android:id="@id/pressed_state_layer" android:layout_width="match_parent" android:layout_height="match_parent" android:alpha="0.0" />
-    <v.VIcon android:layout_gravity="center" android:id="@id/icon" android:layout_width="32.0dp" android:layout_height="32.0dp" android:scaleType="fitCenter" />
-</v.VFrame>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.internal.vchat.window.VChatWindowView android:layout_width="70.0dp" android:layout_height="124.0dp" flatten="true" folder="internal.vchat" holder="window.VChatWindowView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/avatar" android:layout_width="match_parent" android:layout_height="match_parent" fresco:roundedCornerRadius="10.0dp" />
-    <v.VImage android:id="@id/icon" android:layout_width="14.0dp" android:layout_height="14.0dp" android:layout_marginLeft="5.0dp" android:layout_marginTop="5.0dp" android:src="@null" fresco:layout_constraintLeft_toLeftOf="parent" fresco:layout_constraintTop_toTopOf="parent" />
-    <v.VText android:textSize="9.0sp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="3.0dp" android:text="在线中" fresco:layout_constraintBottom_toBottomOf="@id/icon" fresco:layout_constraintLeft_toRightOf="@id/icon" fresco:layout_constraintTop_toTopOf="@id/icon" />
-</com.p1.mobile.putong.live.external.internal.vchat.window.VChatWindowView>

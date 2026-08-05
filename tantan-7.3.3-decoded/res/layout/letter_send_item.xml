@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.widget.LetterSendItem android:textSize="16.0sp" android:textColor="@drawable/letter_dlg_item_selected_text_bg" android:gravity="center" android:id="@id/letter_message" android:paddingLeft="24.0dp" android:paddingRight="24.0dp" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="8.0dp" android:singleLine="true" android:lineSpacingExtra="4.0sp"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

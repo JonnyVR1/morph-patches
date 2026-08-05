@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.virtual.room.functions.panel.other.VoicePanelSwitchView android:orientation="vertical" android:background="@drawable/live_bg_white_r6_a05" android:paddingLeft="6.0dp" android:paddingRight="6.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" app:bind_extends="FrameLayout" app:binding="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="10.0sp" android:textColor="@color/live_white_40_opacity" android:layout_gravity="center_vertical" android:id="@id/switchFunction" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="切换玩法" />
-</com.p1.mobile.putong.live.livingroom.virtual.room.functions.panel.other.VoicePanelSwitchView>

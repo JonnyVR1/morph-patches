@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center" android:orientation="vertical" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout android:paddingTop="40.0dp" android:paddingBottom="16.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <androidx.viewpager2.widget.ViewPager2 android:id="@id/sku_viewpager" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" />
-    </FrameLayout>
-    <com.p1.mobile.putong.core.ui.view.circleindicator.CircleIndicator3 android:id="@id/indicator" android:layout_width="wrap_content" android:layout_height="wrap_content" app:ci_animator="@anim/null_anim" app:ci_height="6.0dp" app:ci_margin="3.0dp" app:ci_width="6.0dp" />
-</LinearLayout>

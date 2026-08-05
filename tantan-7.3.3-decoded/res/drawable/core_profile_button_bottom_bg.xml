@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vector android:height="142.0dp" android:width="375.0dp" android:viewportWidth="375.0" android:viewportHeight="142.0"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
-    <path android:fillColor="@drawable/$core_profile_button_bottom_bg__0" android:pathData="M0,0h375v142H0z" android:fillType="evenOdd" />
-</vector>

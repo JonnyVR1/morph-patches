@@ -1,8 +1,0 @@
-package com.p000p1.mobile.putong.live.livingroom.common.chat.danmaku.input;
-
-/* JADX INFO: loaded from: /tmp/tantan-dex/classes4.dex */
-public class NoneDefaultDanmakuError extends IllegalArgumentException {
-    public NoneDefaultDanmakuError(String str) {
-        super(str);
-    }
-}

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:interpolator/decelerate_quint"
-    android:fillAfter="true">
-    <translate
-        android:duration="@integer/activity_anim_time"
-        android:fromXDelta="-10%"
-        android:toXDelta="0"/>
-</set>

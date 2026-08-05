@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="discovery.DiscoveryHomeFrag" useRefId="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VFrame android:id="@id/title_bar" android:background="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
-        <com.google.android.material.tabs.TabLayout android:layout_gravity="center" android:id="@id/tabs" android:layout_width="wrap_content" android:layout_height="56.0dp" android:layout_marginTop="1.0dp" app:tabGravity="center" app:tabIndicatorHeight="0.0dp" app:tabPaddingEnd="0.0dp" app:tabPaddingStart="0.0dp" app:tabTextAppearance="@style/coreTitleLayoutTextAppearance" />
-    </v.VFrame>
-    <v.VPager android:id="@id/pager" android:layout_width="match_parent" android:layout_height="match_parent" />
-</LinearLayout>

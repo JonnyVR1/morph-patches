@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginHorizontal="12.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:id="@id/icon" android:layout_width="36.0dp" android:layout_height="36.0dp" android:src="@drawable/core_certification_avatar_priviege_icon_1_new_ui" />
-    <v.VLinear android:gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dp">
-        <v.VText_NoTopPadding android:textSize="13.0sp" android:textColor="@color/black" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-        <v.VImage android:id="@id/arrow" android:layout_width="12.0dp" android:layout_height="12.0dp" android:src="@drawable/core_certification_avatar_v2_privilege_item_arrow_icon" android:layout_marginStart="2.0dp" />
-    </v.VLinear>
-</v.VLinear>

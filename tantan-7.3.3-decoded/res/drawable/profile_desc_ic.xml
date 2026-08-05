@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vector android:height="24.0dp" android:width="24.0dp" android:viewportWidth="32.0" android:viewportHeight="32.0"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="@color/profile_icon_color" android:pathData="M23.33,27.87h-18.53c-0.4,0 -0.67,-0.27 -0.67,-0.67v-20.53c0,-0.4 0.27,-0.67 0.67,-0.67h15.6c0.4,0 0.67,0.27 0.67,0.67s-0.27,0.67 -0.67,0.67h-14.93v19.2h17.2v-11.6c0,-0.4 0.27,-0.67 0.67,-0.67s0.67,0.4 0.67,0.8v12.27c0,0.27 -0.27,0.53 -0.67,0.53z" />
-    <path android:fillColor="@color/profile_icon_color" android:pathData="M14.8,17.87c-0.13,0 -0.4,-0.13 -0.53,-0.13 -0.27,-0.27 -0.27,-0.53 -0.13,-0.8l1.33,-2.8c0,0 0.13,-0.13 0.13,-0.13l9.33,-9.33c0.8,-0.8 2.27,-0.53 2.67,0.53 0.27,0.67 0.13,1.33 -0.4,1.73l-9.33,9.33c0,0 -0.13,0.13 -0.13,0.13l-2.8,1.33c0.13,0 0,0.13 -0.13,0.13zM16.8,14.8l-0.4,0.93 0.93,-0.4 9.2,-9.2c0.13,-0.13 0.13,-0.13 0.13,-0.27s-0.13,-0.27 -0.27,-0.27c0,0 -0.13,0 -0.27,0.13l-9.33,9.07z" />
-</vector>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.signin.medal.BigMedal android:layout_width="match_parent" android:layout_height="166.0dp" flatten="true" folder="common.signin.medal" holder="BigMedal"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:layout_gravity="center" android:id="@id/bg_light" android:layout_width="166.0dp" android:layout_height="166.0dp" />
-    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/medal" android:layout_width="128.0dp" android:layout_height="128.0dp" android:layout_marginTop="13.0dp" />
-</com.p1.mobile.putong.live.livingroom.common.signin.medal.BigMedal>

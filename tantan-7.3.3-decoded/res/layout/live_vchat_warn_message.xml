@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.internal.vchat.view.LiveVChatMessageView android:background="@drawable/live_bg_black_r10_a30" android:padding="10.0dp" android:visibility="gone" android:layout_width="230.0dp" android:layout_height="wrap_content" folder="internal.vchat" holder="view.LiveVChatMessageView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/icon" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:scaleType="fitXY" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <v.VText android:textSize="14.0sp" android:textColor="@color/live_ffa4a4" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:layout_marginStart="4.0dp" app:layout_constraintBottom_toBottomOf="@id/icon" app:layout_constraintStart_toEndOf="@id/icon" app:layout_constraintTop_toTopOf="@id/icon" app:typeface="medium" />
-    <v.VText android:textSize="12.0sp" android:textColor="@color/live_ffa4a4" android:id="@id/desc" android:layout_width="210.0dp" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:lineSpacingMultiplier="1.2" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/icon" />
-</com.p1.mobile.putong.live.external.internal.vchat.view.LiveVChatMessageView>

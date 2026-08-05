@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.intllikedusers.IntlLikedUserHeaderView android:layout_width="match_parent" android:layout_height="wrap_content" holder="intllikedusers.IntlLikedUserHeaderView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText_NoTopPadding android:textSize="16.0sp" android:textColor="#ffdea2" android:gravity="center" android:layout_gravity="center" android:id="@id/content" android:paddingTop="16.0dp" android:paddingBottom="16.0dp" android:layout_width="250.0dp" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginRight="8.0dp" android:layout_marginBottom="6.0dp" android:text="@string/INTL_TAB_ME_LIKE_SENT_SUBTITLE" android:lineSpacingExtra="4.0dp" android:layout_marginHorizontal="8.0dp" android:paddingVertical="16.0dp" app:fontWeight="500" />
-</com.p1.mobile.putong.core.ui.intllikedusers.IntlLikedUserHeaderView>

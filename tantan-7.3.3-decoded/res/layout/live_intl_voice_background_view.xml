@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.roombg.common.VoiceBackgroundView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="voice.intl.roombg.common.VoiceBackgroundView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/staticBgView" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" app:actualImageScaleType="centerCrop" app:failureImage="@color/live_2C2F36" app:failureImageScaleType="centerCrop" app:placeholderImage="@color/live_2C2F36" app:placeholderImageScaleType="centerCrop" />
-    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/bg_svga_player" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.roombg.common.VoiceBackgroundView>

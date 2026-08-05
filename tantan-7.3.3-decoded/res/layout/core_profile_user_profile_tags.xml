@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="right|center" android:layout_gravity="right" android:orientation="horizontal" android:id="@id/user_album_tag_wrap" android:layout_width="match_parent" android:layout_height="wrap_content" android:divider="@drawable/core_profile_tag_divider" android:showDividers="middle"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include layout="@layout/core_profile_user_profile_tag_passby" />
-    <include layout="@layout/core_profile_user_profile_tag_moments" />
-    <include layout="@layout/core_profile_user_profile_tag_profile_pic" />
-</LinearLayout>

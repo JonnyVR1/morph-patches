@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.chat.danmaku.input.DanmakuTag android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="40.0dp" flatten="true" folder="common.chat.danmaku.input" holder="DanmakuTag"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/icon" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_marginStart="12.0dp" />
-    <v.VText android:textSize="13.0sp" android:textColor="@color/white" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4.0dp" android:layout_marginEnd="12.0dp" />
-</com.p1.mobile.putong.live.livingroom.common.chat.danmaku.input.DanmakuTag>

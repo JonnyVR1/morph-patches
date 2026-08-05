@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VRelative android:id="@id/tab_content" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <TextView android:textSize="15.0sp" android:textColor="@color/feed_66000000" android:gravity="center" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-</v.VRelative>

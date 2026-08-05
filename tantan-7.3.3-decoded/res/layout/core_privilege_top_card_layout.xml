@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" attachToRoot="true" holder="vip.privilege.vipfrag.view.TopCardLayout"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.core.ui.vip.privilege.vipfrag.view.BounceBackViewPager android:id="@id/viewpager" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_scrollFlags="scroll|exitUntilCollapsed" />
-    <v.VPagerCircleIndicator android:layout_gravity="center_horizontal" android:id="@id/indicator" android:layout_width="match_parent" android:layout_height="7.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="12.0dp" app:fillColor="@color/common_orange" app:pageColor="@color/common_light_01" style="@style/common_page_circle_indicator_light" />
-</merge>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="horizontal" android:id="@id/empty_view" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="center_vertical" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="13.0dp" android:layout_marginBottom="13.0dp" android:src="@null" />
-    <TextView android:textSize="14.0sp" android:textColor="#999999" android:layout_gravity="center_vertical" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:text="暂无开播好友" />
-</LinearLayout>

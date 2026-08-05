@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="photoalbum.interaction.FeedInteractionAct"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.navigationbar.VNavigationBar android:id="@id/navigation" android:layout_width="match_parent" android:layout_height="@dimen/new_post_bottom_album_bar_height" />
-    <com.google.android.material.tabs.TabLayout android:id="@id/tabs" android:background="@color/white" android:layout_width="match_parent" android:layout_height="56.0dp" app:tabGravity="fill" app:tabIndicatorColor="#fe7e1d" app:tabIndicatorFullWidth="true" app:tabIndicatorHeight="3.0dp" app:tabMaxWidth="0.0dp" app:tabMinWidth="0.0dp" app:tabMode="fixed" app:tabPaddingEnd="12.0dp" app:tabRippleColor="@color/transparent" app:tabSelectedTextColor="#fe7e1d" app:tabTextColor="@color/feed_e6000000" />
-    <androidx.viewpager.widget.ViewPager android:id="@id/pager" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-</LinearLayout>

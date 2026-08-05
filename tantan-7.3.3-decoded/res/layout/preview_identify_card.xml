@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" holder="campus.StudentCardPreviewAct"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.core.ui.PhotoPreviewView android:orientation="vertical" android:id="@id/student_card" android:layout_width="match_parent" android:layout_height="match_parent" app:failureImage="@null" style="@style/core_fresco_base" />
-    <v.VText android:textSize="16.0dp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="right|bottom" android:id="@id/delete_pic" android:background="@drawable/core_student_delete_pic_select" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="32.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="20.0dp" android:minWidth="64.0dp" android:text="@string/ACTION_DELETE" />
-</FrameLayout>

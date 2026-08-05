@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.intlPrivilege.content.item.IntlPrivilegeDescListImageItem android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.intlPrivilege.content.item.IntlPrivilegeDescListImageItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/image" android:layout_width="match_parent" android:layout_height="126.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_centerHorizontal="true" app:actualImageScaleType="fitCenter" />
-</com.p1.mobile.putong.core.ui.vip.intlPrivilege.content.item.IntlPrivilegeDescListImageItem>

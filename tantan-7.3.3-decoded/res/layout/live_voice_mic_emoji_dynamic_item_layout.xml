@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.emoji.VoiceMicEmojiDynamicItemView android:layout_width="47.0dp" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="20.0dp" flatten="true" folder="voice.intl.emoji" holder="VoiceMicEmojiDynamicItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/image" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_centerHorizontal="true" app:actualImageScaleType="centerCrop" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.emoji.VoiceMicEmojiDynamicItemView>

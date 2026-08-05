@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemMarry android:gravity="right" android:orientation="vertical" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.ItemMarry"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.core.ui.messages.ItemText android:autoLink="web" android:id="@id/marry_prologue" android:text="右边的内容" android:lineSpacingExtra="1.5dp" app:enableApngEmojis="true" app:enableEmojis="true" app:largeEmojis="true" style="@style/messages_marry_item_right" />
-    <com.p1.mobile.putong.core.ui.messages.ItemText android:autoLink="web" android:id="@id/set_marry_prologue" android:layout_marginTop="12.0dp" android:text="设置开场白" android:drawableLeft="@null" android:drawablePadding="3.0dp" android:lineSpacingExtra="1.5dp" app:enableApngEmojis="true" app:enableEmojis="true" app:largeEmojis="true" style="@style/messages_marry_declaration_set_right" />
-</com.p1.mobile.putong.core.ui.messages.ItemMarry>

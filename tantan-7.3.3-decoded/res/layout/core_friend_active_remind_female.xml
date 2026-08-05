@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemFriendActiveRemindFemale android:orientation="vertical" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="messages.ItemFriendActiveRemindFemale"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:background="@drawable/core_messages_add_tag_artwork_bg" android:layout_width="wrap_content" android:layout_height="48.0dp" android:paddingStart="16.0dp" android:paddingEnd="16.0dp" android:layout_marginStart="32.0dp" android:layout_marginEnd="32.0dp">
-        <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="#fffe7e1d" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/warn" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="他在等你回复" android:drawableLeft="@drawable/core_warn_wait_call_back" android:drawablePadding="4.0dp" />
-        <v.VText android:textSize="14.0sp" android:textColor="#33000000" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="match_parent" android:lines="1" android:layout_marginStart="8.0dp" app:autoEmojis="true" app:enableApngEmojis="true" app:enableEmojis="true" app:largeEmojis="true" />
-    </LinearLayout>
-</com.p1.mobile.putong.core.ui.messages.ItemFriendActiveRemindFemale>

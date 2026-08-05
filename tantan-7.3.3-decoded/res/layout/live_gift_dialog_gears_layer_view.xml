@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.increment.gift.operation.gears.GiftGearsLayerView android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" folder="increment" holder="gift.operation.gears.GiftGearsLayerView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:id="@id/gearsProgressView" android:visibility="invisible" android:layout_width="88.0dp" android:layout_height="124.0dp" layout="@layout/live_gift_dialog_gears_progress_view" />
-</com.p1.mobile.putong.live.livingroom.increment.gift.operation.gears.GiftGearsLayerView>

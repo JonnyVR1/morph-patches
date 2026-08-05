@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.photoalbum.feedbottom.insert.FeedBottomAttitudeView android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="photoalbum.feedbottom.insert.FeedBottomAttitudeView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/root_ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="12.0dp" flatten="true">
-        <v.VText android:textSize="12.0sp" android:textColor="@color/feed_33000000" android:id="@id/title_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="我觉得" />
-        <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/attitude_ll" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="21.0dp" flatten="true" />
-    </v.VLinear>
-</com.p1.mobile.putong.feed.newui.photoalbum.feedbottom.insert.FeedBottomAttitudeView>

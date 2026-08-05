@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-        <v.VRecyclerView android:id="@id/gif_recycle" android:paddingTop="10.0dp" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:layout_marginRight="2.0dp" />
-    </FrameLayout>
-</FrameLayout>

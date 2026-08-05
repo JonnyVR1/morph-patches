@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.map.TouchProxyForMap android:orientation="vertical" android:id="@id/header_touch_delegate" android:layout_width="match_parent" android:layout_height="match_parent" holder="map.mapmvp.MapActViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="bottom" android:background="@null" android:layout_width="match_parent" android:layout_height="12.0dp" android:alpha="0.5" android:rotation="180.0" />
-</com.p1.mobile.putong.core.ui.map.TouchProxyForMap>

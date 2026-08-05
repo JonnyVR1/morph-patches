@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.newui.home.themeslide.view.HomeThemeSlideErrorNetView android:layout_gravity="center_horizontal" android:orientation="vertical" android:id="@id/error_net_cover" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="home.themeslide.view.HomeThemeSlideErrorNetView" useRefId="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/empty_card_net_error_image" android:layout_width="210.0dp" android:layout_height="150.0dp" android:layout_centerInParent="true" android:translationY="-55.0dp" app:srcCompat="@drawable/core_ic_network_not_available" />
-    <LinearLayout android:gravity="center" android:orientation="vertical" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/empty_card_net_error_image" android:translationY="-55.0dp">
-        <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_03" android:gravity="center_horizontal" android:id="@id/tip" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="28.0dp" android:layout_marginRight="28.0dp" android:text="@string/SUGGEST_USERS_NO_INTERNET_TIPS" app:typeface="medium" />
-        <v.VButton android:textSize="16.0sp" android:id="@id/reload" android:layout_width="247.0dp" android:layout_height="56.0dp" android:layout_marginTop="88.0dp" android:text="@string/SUGGEST_USERS_NO_INTERNET_RELOAD" style="@style/common_button_large_01" />
-    </LinearLayout>
-</com.p1.mobile.putong.core.newui.home.themeslide.view.HomeThemeSlideErrorNetView>

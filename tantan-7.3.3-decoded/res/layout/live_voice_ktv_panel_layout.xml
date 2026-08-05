@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.virtual.ktv.view.KtvPanelViewModel android:orientation="vertical" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="512.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:id="@id/ktv_stage" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="-12.0dp" layout="@layout/live_voice_ktv_new_stage" />
-    <include android:id="@id/member_layout" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/live_virtual_voice_member_view" />
-</com.p1.mobile.putong.live.livingroom.virtual.ktv.view.KtvPanelViewModel>

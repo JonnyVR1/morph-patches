@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <View android:layout_gravity="center" android:background="@drawable/common_handlebar_handler" android:layout_width="36.0dp" android:layout_height="5.0dp" android:layout_marginTop="12.0dp" />
-    <v.VText android:textSize="16.0sp" android:textColor="@color/black" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="17.0dp" android:text="@string/FEED_GREETING_LIMITED_TODAY" />
-    <v.VText android:textSize="12.0sp" android:textColor="@color/profile_badge_image_bg_for_old" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:text="@string/FEED_GREETING_LIMITED_TODAY_CHOICE" />
-    <com.p1.mobile.putong.core.newui.greet.tag.ImTagContainerLayout android:id="@id/status_choose" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="23.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="26.0dp" app:column="2" app:iscenter="true" />
-</v.VLinear>

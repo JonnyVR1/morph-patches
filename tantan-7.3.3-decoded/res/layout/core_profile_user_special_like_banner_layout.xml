@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/special_like_root" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.views.NewUserSpecialLikeBannerView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.cardview.widget.CardView android:id="@id/new_user_like_warp" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" app:cardBackgroundColor="@color/transparent" app:cardCornerRadius="@dimen/rect_corner_radius_oval" app:contentPadding="0.5dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
-        <include android:id="@id/new_user_special_like_new" flatten="true" layout="@layout/core_new_user_special_like_new_layout" />
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>

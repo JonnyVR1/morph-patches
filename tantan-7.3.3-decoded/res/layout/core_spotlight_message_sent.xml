@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/core_spotlight_pop_msg" android:paddingLeft="16.0dp" android:paddingRight="20.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="35.0dp">
-        <v.VDraweeView android:id="@id/iv_user" android:background="@drawable/core_default_head_bg" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="14.0dp" android:layout_marginBottom="14.0dp" app:fadeDuration="0" app:roundAsCircle="true" />
-        <v.VText android:textSize="15.0sp" android:textColor="#cc000000" android:gravity="center_vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:text="@string/MATCH_MESSAGE_SENT" android:includeFontPadding="false" android:layout_weight="1.0" />
-    </v.VLinear>
-    <View android:layout_width="match_parent" android:layout_height="15.0dp" />
-</v.VLinear>

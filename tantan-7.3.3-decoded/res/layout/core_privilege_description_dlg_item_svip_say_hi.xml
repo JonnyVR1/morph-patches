@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemSVipSayHiView android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="vip.privilege.dlg.PrivilegeContentDlgItemSVipSayHiView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/img_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="29.299988dp" android:src="@null" android:layout_alignParentBottom="true" android:layout_marginStart="32.0dp" />
-    <v.AutoVDraweeView android:id="@id/img_avatar" android:drawingCacheQuality="high" android:layout_width="108.0dp" android:layout_height="133.0dp" android:layout_marginBottom="14.0dp" android:layout_alignParentBottom="true" android:rotation="8.0" android:layout_marginStart="101.0dp" app:roundedCornerRadius="12.0dp" app:roundingBorderColor="@color/white" app:roundingBorderWidth="5.0dp" />
-    <v.VImage android:id="@id/greeting_ic" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="109.0dp" android:src="@null" android:layout_alignParentBottom="true" android:layout_marginStart="102.0dp" />
-</com.p1.mobile.putong.core.ui.vip.privilege.dlg.PrivilegeContentDlgItemSVipSayHiView>

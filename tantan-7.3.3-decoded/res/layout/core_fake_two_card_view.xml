@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/avatar_one" android:layout_width="90.0dp" android:layout_height="121.0dp" android:layout_marginStart="30.0dp" fresco:roundedCornerRadius="12.0dp" />
-    <v.VImage android:id="@id/avatar_two" android:layout_width="90.0dp" android:layout_height="121.0dp" fresco:roundedCornerRadius="12.0dp" />
-    <ImageView android:layout_gravity="right|bottom" android:id="@id/indicator" android:layout_width="40.0dp" android:layout_height="40.0dp" android:src="@null" android:scaleType="fitXY" android:layout_marginEnd="10.0dp" />
-</FrameLayout>

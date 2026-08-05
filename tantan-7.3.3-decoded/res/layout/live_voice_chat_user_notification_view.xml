@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.chat.notification.voice.VoiceUserNotificationView android:gravity="center_vertical" android:orientation="vertical" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" app:bind_extends="LinearLayout" app:binding="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:id="@id/notification_one" android:visibility="gone" android:layout_width="224.0dp" android:layout_height="48.0dp" android:layout_marginTop="3.0dp" layout="@layout/live_voice_chat_user_notification_item_view" />
-    <include android:id="@id/notification_two" android:visibility="gone" android:layout_width="224.0dp" android:layout_height="48.0dp" android:layout_marginTop="3.0dp" layout="@layout/live_voice_chat_user_notification_item_view" />
-</com.p1.mobile.putong.live.livingroom.common.chat.notification.voice.VoiceUserNotificationView>

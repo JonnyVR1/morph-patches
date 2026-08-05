@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListTopChatItem android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.privilege.content.item.PrivilegeDescListTopChatItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/core_privilege_desc_item_header" />
-    <v.VLinear android:orientation="vertical" android:id="@id/container" android:layout_width="match_parent" android:layout_height="wrap_content" />
-    <View android:layout_gravity="bottom" android:id="@id/line" android:background="#f9f9f9" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="12.0dp" />
-</com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListTopChatItem>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:id="@id/tv_content" android:background="@drawable/feed_wealth_label_center_down" android:paddingTop="14.0dp" android:paddingBottom="23.0dp" android:layout_width="172.0dp" android:layout_height="wrap_content" android:paddingStart="14.0dp" android:paddingEnd="14.0dp" app:layout_constraintStart_toStartOf="parent" />
-</v.VFrame>

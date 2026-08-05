@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView android:textSize="16.0sp" android:textStyle="normal" android:textColor="#d9d9d9" android:gravity="center" android:orientation="vertical" android:id="@id/negative" android:layout_width="match_parent" android:layout_height="54.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="4.0dp" holder="purchase.mediator.payment.PurchasePaymentNegativeComponent"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

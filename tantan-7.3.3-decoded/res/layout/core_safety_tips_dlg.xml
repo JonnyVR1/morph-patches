@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/common_black_01" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="32.0dp" android:layout_marginRight="32.0dp" android:text="安全提示" android:lines="1" />
-    <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_02" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="16.0dp" android:text="你的好友中有疑似境外诈骗团伙，TA已被探探封禁并从你的好友列表中移除！请尽快搜索了解“杀猪盘”欺诈信息，不要参与任何赌博，竞猜，彩票，虚拟货币等项目，如有任何异常，请及时在“设置页”“帮助与反馈”中举报" android:lineSpacingMultiplier="1.2" />
-    <v.VButton android:id="@id/positive_button" android:layout_marginLeft="32.0dp" android:layout_marginRight="32.0dp" android:text="了解更多防骗技巧" style="@style/common_button_large_01" />
-    <v.VButton android:textSize="14.0sp" android:textColor="@color/common_black_01" android:id="@id/time_button" android:background="@null" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="24.0dp" style="@style/common_button_large_01" />
-</LinearLayout>

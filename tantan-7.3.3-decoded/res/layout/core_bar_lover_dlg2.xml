@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="barlover.BarLoverType2Dlg"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:layout_width="match_parent" android:layout_height="match_parent" />
-    <v.VText android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/ok_btn_2" android:layout_width="match_parent" android:layout_height="68.0dp" android:layout_marginLeft="35.0dp" android:layout_marginRight="35.0dp" android:layout_marginBottom="62.0dp" android:layout_marginHorizontal="35.0dp" />
-    <v.VText android:textSize="14.0sp" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/cancel_2" android:layout_width="200.0dp" android:layout_height="34.0dp" android:layout_marginLeft="35.0dp" android:layout_marginRight="35.0dp" android:layout_marginBottom="26.0dp" android:layout_marginHorizontal="35.0dp" />
-</FrameLayout>

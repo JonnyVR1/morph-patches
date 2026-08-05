@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.roomsuggest.view.LiveRoomSuggestView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="40.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="21.0sp" android:textStyle="normal" android:textColor="@color/live_white" android:ellipsize="end" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="1" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" />
-    <v.VText android:textSize="14.0sp" android:textStyle="normal" android:textColor="#80ffffff" android:ellipsize="end" android:id="@id/desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:maxLines="1" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" />
-    <v.VRecyclerView android:id="@id/container" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="16.0dp" android:layout_below="@id/desc" android:layout_marginStart="8.0dp" />
-</com.p1.mobile.putong.live.livingroom.common.roomsuggest.view.LiveRoomSuggestView>

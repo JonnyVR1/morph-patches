@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.increment.supergod.view.SuperGodEffectContainer android:clipChildren="false" android:layout_width="match_parent" android:layout_height="150.0dp" flatten="true" folder="increment.supergod.view" holder="SuperGodEffectContainer"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga_img" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <com.p1.mobile.putong.live.base.mmsdk.effect.video.VideoEffectPlayer android:layout_gravity="center" android:id="@id/video_player" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <com.p1.mobile.putong.live.base.view.XEGiftView android:layout_gravity="center" android:id="@id/gift_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
-</com.p1.mobile.putong.live.livingroom.increment.supergod.view.SuperGodEffectContainer>

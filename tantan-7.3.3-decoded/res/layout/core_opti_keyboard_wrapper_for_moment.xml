@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.emoji.CoreMomentEmojiNewView android:id="@id/root_fl" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="emoji.CoreMomentEmojiNewView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:orientation="vertical" android:id="@id/emoji_content" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
-        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/opti_hlist_wrapper" android:paddingLeft="13.0dp" android:paddingRight="13.0dp" android:layout_width="match_parent" android:layout_height="52.0dp" flatten="true" />
-        <v.VPager android:id="@id/opti_pager" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" android:overScrollMode="never" />
-    </LinearLayout>
-    <v.VRecyclerView android:id="@id/gif_recycle" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" android:layout_marginTop="2.0dp" android:layout_marginRight="2.0dp" />
-</com.p1.mobile.putong.core.ui.emoji.CoreMomentEmojiNewView>

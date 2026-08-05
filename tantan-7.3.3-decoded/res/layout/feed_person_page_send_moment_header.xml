@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="horizontal" android:id="@id/post_group_view" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="photoalbum.view.FeedSendMomentEnterView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="18.0sp" android:textColor="@color/scenario_entrance_title_light" android:gravity="center" android:id="@id/post_today_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="11.0dp" android:text="@string/FEED_TODAY" />
-    <v.VImage android:id="@id/post_feed_image" android:layout_width="60.0dp" android:layout_height="60.0dp" android:layout_marginLeft="15.0dp" android:src="@null" android:scaleType="centerInside" />
-    <v.VText android:textSize="12.0sp" android:textColor="#ffffff" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/tips" android:background="@drawable/feed_album_share_tips" android:paddingLeft="22.0dp" android:paddingRight="16.0dp" android:paddingBottom="3.0dp" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="@string/MOMENT_POST_TIP" android:singleLine="true" />
-</v.VLinear>

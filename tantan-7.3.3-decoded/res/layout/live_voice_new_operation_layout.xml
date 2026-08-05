@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.newoperation.VoiceNewOperationView android:visibility="gone" android:layout_width="64.0dp" android:layout_height="64.0dp" flatten="true" holder="voice.intl.newoperation.VoiceNewOperationView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VPager android:id="@id/viewPager" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" />
-    <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/indicator" android:background="@drawable/live_shape_voice_new_opteration_indicator_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="13.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.newoperation.VoiceNewOperationView>

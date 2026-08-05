@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.FeedbackAnswerView android:orientation="vertical" android:id="@id/content" android:background="@drawable/core_messages_feedback_reason_bg" android:paddingLeft="12.0dp" android:paddingTop="12.0dp" android:paddingRight="12.0dp" android:paddingBottom="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" android:layout_marginBottom="3.0dp" android:layout_marginVertical="3.0dp" android:paddingHorizontal="12.0dp" android:paddingVertical="12.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:layout_gravity="center" android:id="@id/text" style="@style/core_feedback_reason" />
-</com.p1.mobile.putong.core.ui.messages.FeedbackAnswerView>

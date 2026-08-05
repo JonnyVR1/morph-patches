@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vector android:height="110.0dp" android:width="244.0dp" android:viewportWidth="244.0" android:viewportHeight="110.0"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
-    <group>
-        <clip-path android:pathData="M7.692,0h228.616c2.675,0 3.645,0.278 4.623,0.801 0.977,0.523 1.745,1.29 2.268,2.268 0.523,0.978 0.801,1.948 0.801,4.623V110H0V7.692c0,-2.675 0.278,-3.645 0.801,-4.623 0.523,-0.977 1.29,-1.745 2.268,-2.268C4.047,0.278 5.017,0 7.692,0z" />
-        <path android:fillColor="@drawable/$core_female_chat_guide_blur__0" android:pathData="M0,0L244,0 244,110 0,110z" android:fillType="evenOdd" />
-    </group>
-</vector>

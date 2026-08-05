@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.quickaudio.recyclerview.item.CRBubbleItemView android:paddingLeft="18.0dp" android:paddingTop="3.0dp" android:paddingRight="18.0dp" android:paddingBottom="3.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="18.0dp" android:paddingVertical="3.0dp" holder="quickaudio.recyclerview.item.CRBubbleItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include layout="@layout/core_square_item_base_bubble" />
-</com.p1.mobile.putong.core.ui.quickaudio.recyclerview.item.CRBubbleItemView>

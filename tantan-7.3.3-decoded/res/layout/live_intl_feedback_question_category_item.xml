@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.intl.feedback.item.IntlFeedbackQuestionCategoryItemView android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="21.0dp" android:layout_marginTop="16.0dp" android:layout_marginBottom="4.0dp" android:layout_marginStart="20.0dp" flatten="true" holder="intl.feedback.item.IntlFeedbackQuestionCategoryItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="15.0dp" android:textColor="@color/live_black_40_opacity" android:layout_gravity="center_vertical" android:id="@id/question_category" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="问题分类" app:typeface="medium" />
-</com.p1.mobile.putong.live.external.intl.feedback.item.IntlFeedbackQuestionCategoryItemView>

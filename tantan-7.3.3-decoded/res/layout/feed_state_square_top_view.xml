@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/msg_root" android:paddingRight="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:id="@id/msg_icon" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" android:scaleType="centerCrop" />
-    <v.VText android:textSize="14.0sp" android:textColor="@color/feed_4c000000" android:gravity="center" android:id="@id/msg_num" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="换一批" android:layout_marginStart="2.0dp" />
-</v.VLinear>

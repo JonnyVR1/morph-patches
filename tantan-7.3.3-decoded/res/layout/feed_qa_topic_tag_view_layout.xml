@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.topic.qatopic.QATopicPhotoAlbumTagView android:background="@drawable/feed_qa_topic_tag_view_bg" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="topic.qatopic.QATopicPhotoAlbumTagView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/topic_head_image" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="10.0dp" android:scaleType="centerCrop" app:actualImageScaleType="centerCrop" app:failureImage="@null" app:failureImageScaleType="centerCrop" app:placeholderImage="@null" app:placeholderImageScaleType="centerCrop" app:roundedCornerRadius="6.0dp" style="@style/feed_fresco_base" />
-    <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="9.0dp">
-        <TextView android:textSize="13.0dp" android:textStyle="bold" android:textColor="#212121" android:ellipsize="end" android:id="@id/topic_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" />
-        <TextView android:textSize="11.0dp" android:textColor="#bfbfbf" android:ellipsize="end" android:id="@id/topic_vote_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" />
-    </LinearLayout>
-</com.p1.mobile.putong.feed.newui.topic.qatopic.QATopicPhotoAlbumTagView>

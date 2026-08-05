@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.page.rights.list.view.RightEquipTextItemView android:textSize="14.0sp" android:textColor="@color/gray_999999" android:id="@id/root" android:paddingTop="16.0dp" android:paddingBottom="4.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="page" holder="rights.list.view.RightEquipTextItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

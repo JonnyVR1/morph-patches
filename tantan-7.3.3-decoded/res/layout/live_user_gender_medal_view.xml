@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.LiveGenderMedalView android:orientation="horizontal" android:id="@id/root" android:background="@drawable/live_bg_f83899_r5" android:layout_width="wrap_content" android:layout_height="14.0dp" android:paddingStart="1.0dp" android:paddingEnd="4.0dp" folder="increment" holder="leaderboard.hourleaderboard.mainland.LiveGenderMedalView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:layout_gravity="center" android:id="@id/gender" android:layout_width="12.0dp" android:layout_height="12.0dp" />
-    <v.VText android:textSize="9.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@id/age" android:layout_width="wrap_content" android:layout_height="match_parent" />
-</com.p1.mobile.putong.live.livingroom.increment.leaderboard.hourleaderboard.mainland.LiveGenderMedalView>

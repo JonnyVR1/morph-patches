@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge attachToRoot="true" flatten="true" folder="newui" holder="newmeet.feed.likers.MeetItemLikerHeadDefaultView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/title_layout_default" android:paddingTop="6.0dp" android:layout_width="match_parent" android:layout_height="70.0dp" flatten="true">
-        <v.VText android:textSize="15.0sp" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" app:typeface="medium" style="@style/core_vip_normal_title_style" />
-        <v.VText android:textSize="13.0sp" android:textStyle="normal" android:textColor="@color/core_vip_normal_subtitle_text_color" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dp" />
-    </LinearLayout>
-</merge>

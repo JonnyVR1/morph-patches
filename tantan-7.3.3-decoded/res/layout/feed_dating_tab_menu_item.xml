@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:gravity="center_horizontal" android:background="@android:color/transparent" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:id="@id/empty" android:background="@color/common_grey_03" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/root" android:background="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <v.VText android:textSize="16.0sp" android:textColor="@color/feed_tab_like_menu_tv_color" android:gravity="center" android:id="@id/dating_tv" android:layout_width="match_parent" android:layout_height="64.0dp" android:text="交友" />
-        <v.VText android:textSize="16.0sp" android:textColor="@color/feed_tab_like_menu_tv_color" android:gravity="center" android:id="@id/follow_tv" android:layout_width="match_parent" android:layout_height="64.0dp" android:text="关注" />
-    </v.VLinear>
-</FrameLayout>

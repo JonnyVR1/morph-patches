@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.jumproom.JumpToRoomView android:background="@drawable/live_bg_black_r6_a15" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="common.jumproom" holder="JumpToRoomView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:layout_gravity="center_vertical" android:layout_width="12.0dp" android:layout_height="12.0dp" android:src="@null" android:layout_marginStart="5.0dp" />
-    <v.VText android:textSize="11.0sp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/text" android:paddingLeft="20.0dp" android:paddingTop="2.0dp" android:paddingBottom="2.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" />
-</com.p1.mobile.putong.live.livingroom.common.jumproom.JumpToRoomView>

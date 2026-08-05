@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VFrame android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <com.p1.mobile.putong.core.ui.profile.MediaReorderCards android:id="@id/reorders" android:paddingLeft="0.0dp" android:paddingTop="0.0dp" android:paddingRight="0.0dp" android:paddingBottom="0.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/pic_text" app:cardNums="6" />
-        <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/avatar_tag" android:background="@drawable/core_crop_profile_tag_bg" android:paddingLeft="8.0dp" android:paddingTop="6.0dp" android:paddingRight="8.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginTop="8.0dp" android:text="@string/EDIT_PROFILE_USER_COVER_TEXT" android:layout_alignLeft="@id/reorders" android:layout_alignTop="@id/reorders" />
-    </v.VFrame>
-</v.VLinear>

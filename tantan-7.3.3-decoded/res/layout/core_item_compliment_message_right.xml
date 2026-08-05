@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.compliment.ItemComplimentMessageRight android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.AutoVDraweeView android:id="@id/compliment_photo" android:layout_width="200.0dp" android:layout_height="266.0dp" android:layout_marginTop="4.0dp" android:layout_marginStart="8.0dp" app:layout_constraintStart_toStartOf="@id/compliment_type_icon" app:layout_constraintTop_toTopOf="@id/compliment_type_icon" app:roundedCornerRadius="14.0dp" />
-    <v.VImage android:id="@id/compliment_type_icon" android:layout_width="32.0dp" android:layout_height="32.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <v.VText_NoTopPadding android:textSize="16.0sp" android:textColor="#cc000000" android:id="@id/compliment_text" android:background="@drawable/core_compliment_msg_bubble_bg" android:paddingLeft="14.0dp" android:paddingTop="10.0dp" android:paddingRight="14.0dp" android:paddingBottom="10.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="246.0dp" android:maxWidth="180.0dp" android:paddingHorizontal="14.0dp" android:paddingVertical="10.0dp" app:fontWeight="400" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
-</com.p1.mobile.putong.core.ui.messages.compliment.ItemComplimentMessageRight>

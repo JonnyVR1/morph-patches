@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:paddingLeft="32.0dp" android:paddingRight="32.0dp" android:paddingBottom="24.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="32.0dp">
-        <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="18.0sp" android:textColor="#cc000000" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" android:text="@string/FROM_RISK_USER_ALERT_TITLE" />
-        <com.p1.mobile.putong.core.ui.VText_Bold android:textSize="14.0sp" android:textColor="#999999" android:gravity="center" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" />
-        <com.p1.mobile.putong.core.ui.VText_Bold android:textColor="#4d000000" android:gravity="center" android:id="@id/button" android:background="@drawable/common_button_btn_gray_small" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="24.0dp" android:text="@string/FROM_RISK_NOTICE_POPUP_BTN" />
-    </v.VLinear>
-</v.VLinear>

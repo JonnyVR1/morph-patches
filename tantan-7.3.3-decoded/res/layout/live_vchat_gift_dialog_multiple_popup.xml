@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.internal.vchat.module.giftDialog.view.multiple.LiveVChatMultipleGiftView android:id="@id/popup" android:layout_width="292.0dp" android:layout_height="124.0dp" flatten="true" folder="internal.vchat" holder="module.giftDialog.view.multiple.LiveVChatMultipleGiftView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:id="@id/small" android:layout_width="88.0dp" android:layout_height="44.0dp" android:layout_marginTop="20.0dp" android:layout_marginStart="10.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" layout="@layout/live_vchat_gift_multiple_item_view" />
-    <include android:id="@id/middle" android:layout_width="88.0dp" android:layout_height="44.0dp" android:layout_marginTop="20.0dp" android:layout_marginStart="4.0dp" app:layout_constraintStart_toEndOf="@id/small" app:layout_constraintTop_toTopOf="parent" layout="@layout/live_vchat_gift_multiple_item_view" />
-    <include android:id="@id/large" android:layout_width="88.0dp" android:layout_height="44.0dp" android:layout_marginTop="20.0dp" android:layout_marginStart="4.0dp" app:layout_constraintStart_toEndOf="@id/middle" app:layout_constraintTop_toTopOf="parent" layout="@layout/live_vchat_gift_multiple_item_view" />
-</com.p1.mobile.putong.live.external.internal.vchat.module.giftDialog.view.multiple.LiveVChatMultipleGiftView>

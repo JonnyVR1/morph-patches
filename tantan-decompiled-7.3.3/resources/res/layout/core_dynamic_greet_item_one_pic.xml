@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<p151v.VDraweeView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/image_one"
-    android:layout_width="60dp"
-    android:layout_height="60dp"
-    app:roundedCornerRadius="12dp"
-    style="@style/core_im_greet_pic_small"/>

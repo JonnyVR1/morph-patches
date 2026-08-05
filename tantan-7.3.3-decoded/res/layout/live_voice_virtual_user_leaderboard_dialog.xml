@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="wrap_content" app:bind_extends="com.p1.mobile.putong.live.livingroom.archi.dialogcenter.BaseDialogHolder" app:bind_implements="null" app:binding="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:id="@id/animView" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent" layout="@layout/live_voice_leader_board_top_anim_view" />
-    <com.p1.mobile.putong.live.base.view.DialogTitleBar android:id="@id/title_bar" android:layout_width="match_parent" android:layout_height="64.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <include android:id="@id/leader_board_content_view" android:layout_width="match_parent" android:layout_height="503.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@id/title_bar" layout="@layout/live_voice_virtual_user_leader_board_content_view" />
-</androidx.constraintlayout.widget.ConstraintLayout>

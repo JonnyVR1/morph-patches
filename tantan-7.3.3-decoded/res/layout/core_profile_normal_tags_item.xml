@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="horizontal" android:id="@id/item_layout" android:background="@drawable/core_profile_new_tag_item_bg" android:layout_width="wrap_content" android:layout_height="44.0dp" flatten="true"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0sp" android:textColor="@color/common_black_02" android:ellipsize="end" android:layout_gravity="center_vertical" android:id="@id/title" android:layout_width="0.0dp" android:layout_height="wrap_content" android:maxLines="1" android:layout_weight="1.0" />
-</v.VLinear>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.heartbeat.VoiceTopHeartBeatView android:gravity="center" android:orientation="horizontal" android:id="@id/heart_beat" android:background="@drawable/live_bg_black_r10_a30" android:layout_width="wrap_content" android:layout_height="20.0dp" android:paddingStart="6.0dp" android:paddingEnd="6.0dp" flatten="true" folder="voice.intl" holder="heartbeat.VoiceTopHeartBeatView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:id="@id/icon" android:background="@null" android:layout_width="14.619995dp" android:layout_height="14.619995dp" />
-    <TextView android:textSize="10.0sp" android:textStyle="normal" android:textColor="@color/live_white_80_opacity" android:id="@id/heart_beat_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="2.0dp" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.heartbeat.VoiceTopHeartBeatView>

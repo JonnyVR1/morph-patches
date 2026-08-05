@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.internal.vchat.module.giftDialog.view.LiveVChatGiftInnerContentView android:id="@id/recyclerView" android:background="@color/transparent" android:paddingLeft="15.0dp" android:paddingRight="15.0dp" android:scrollbars="none" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:divider="@null" android:overScrollMode="never" folder="internal.vchat" holder="module.giftDialog.view.LiveVChatGiftInnerContentView"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

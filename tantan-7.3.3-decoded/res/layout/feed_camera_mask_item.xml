@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.camera.widget.CameraMaskItemView android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" flatten="true" folder="newui" holder="camera.widget.CameraMaskItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:layout_gravity="center" android:id="@id/camera_mask_image" android:layout_width="48.0dp" android:layout_height="48.0dp" android:layout_margin="8.0dp" android:scaleType="center" fresco:roundedCornerRadius="8.0dp" />
-    <com.p1.mobile.putong.feed.newui.photoalbum.redpointview.FeedRedDotView android:layout_gravity="right|top" android:id="@id/camera_mask_red_point" android:visibility="gone" android:layout_width="10.0dp" android:layout_height="10.0dp" fresco:feedDotDrawableOvalColor="#ff3228" fresco:feedDotDrawableWidth="10.0dp" fresco:feedRedDotType="FEED_STICKER_POINT" />
-    <View android:layout_gravity="center" android:id="@id/camera_mask_rectangle" android:background="@drawable/camera_mask_item_selected" android:layout_width="54.0dp" android:layout_height="54.0dp" />
-    <ImageView android:layout_gravity="right|bottom" android:id="@id/camera_mask_state" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_margin="10.0dp" />
-</com.p1.mobile.putong.feed.newui.camera.widget.CameraMaskItemView>

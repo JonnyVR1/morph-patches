@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/icon" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginRight="12.0dp" app:roundedCornerRadius="20.0dp" />
-    <v.VText android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/common_black_01" android:gravity="center_vertical" android:id="@id/text" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="附近又有1个离你800m的妹子喜欢了你" android:layout_weight="1.0" />
-    <v.VButton android:id="@id/btn" android:layout_marginLeft="14.0dp" android:text="看看" style="@style/common_button_small_01" />
-</v.VLinear>

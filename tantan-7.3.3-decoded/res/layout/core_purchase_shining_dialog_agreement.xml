@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="horizontal" android:id="@id/agreement_root" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="20.0dp" flatten="true" holder="purchase.mediator.agreement.PurchaseAgreementComponent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:layout_gravity="center_vertical" android:id="@id/check" android:background="@drawable/core_purchase_shining_agreement_checkbox_bg" android:layout_width="20.0dp" android:layout_height="20.0dp" style="@style/core_svip_checkbox" />
-    <TextView android:textSize="10.0sp" android:textColor="#ccffffff" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/agreement" android:layout_width="match_parent" android:layout_height="34.0dp" android:maxHeight="32.0dp" android:text="@string/VIP_ALERT_AGREEMENT_TIP" android:maxLines="2" android:lineSpacingExtra="2.0dp" android:layout_marginStart="10.0dp" android:fallbackLineSpacing="false" />
-</LinearLayout>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.base.player.LiveRtcPlayErrorView android:gravity="center" android:orientation="vertical" android:paddingBottom="100.0dp" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="base" holder="player.LiveRtcPlayErrorView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VLinear android:gravity="center" android:orientation="vertical" android:id="@id/live_net_error_linear" android:background="@drawable/live_bg_black_r10_a50" android:layout_width="268.0dp" android:layout_height="wrap_content" android:minHeight="104.0dp" flatten="true">
-        <v.VText android:textSize="15.0sp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/error_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_marginBottom="19.0dp" android:text="@string/LIVE_FOLLOW_ANCHOR" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
-        <View android:id="@id/bt_line" android:background="#32ffffff" android:layout_width="match_parent" android:layout_height="0.5dp" />
-        <v.VText android:textSize="16.0sp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/error_bt" android:layout_width="88.0dp" android:layout_height="40.0dp" android:text="@string/LIVE_RETRY" />
-    </v.VLinear>
-</com.p1.mobile.putong.live.livingroom.base.player.LiveRtcPlayErrorView>

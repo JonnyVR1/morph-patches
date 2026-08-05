@@ -1,8 +1,0 @@
-package org.spongycastle.asn1;
-
-import java.io.IOException;
-
-/* JADX INFO: loaded from: /tmp/tantan-dex/classes3.dex */
-public interface ASN1ApplicationSpecificParser extends ASN1Encodable, InMemoryRepresentable {
-    ASN1Encodable readObject() throws IOException;
-}

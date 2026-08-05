@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.model.moment.MessageMomentExpandItemPictureView android:id="@id/content" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="messages.model.moment.MessageMomentExpandItemPictureView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/iamge" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" app:placeholderImage="@color/white" />
-</com.p1.mobile.putong.core.ui.messages.model.moment.MessageMomentExpandItemPictureView>

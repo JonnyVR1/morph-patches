@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:layout_width="match_parent" android:layout_height="wrap_content" holder="profile.profilelist.itemholders.EditProfileAvatarCardsItemHolder"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.core.ui.profile.photo.AvatarCards android:id="@id/reorders" android:paddingLeft="20.0dp" android:paddingTop="0.0dp" android:paddingRight="10.0dp" android:paddingBottom="0.0dp" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/pic_text" app:cardNums="6" />
-</v.VFrame>

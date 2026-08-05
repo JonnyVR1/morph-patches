@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.virtual.roomInfo.view.VoiceVirtualRoomInfoSwitchItem android:id="@id/root" android:layout_width="match_parent" android:layout_height="56.0dp" android:paddingStart="20.0dp" android:paddingEnd="20.0dp" flatten="true" holder="virtual.roomInfo.view.VoiceVirtualRoomInfoSwitchItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="15.0sp" android:textColor="@color/live_white_80_opacity" android:gravity="center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/VOICE_VIRTUAL_ROOM_INFO_TYPE_PUBLIC" android:maxLines="1" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_chainStyle="packed" />
-    <v.VFrame android:id="@id/fl_switcher" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
-        <com.p1.mobile.putong.live.livingroom.virtual.roomInfo.view.VirtualSwitchButton android:id="@id/switcher" android:layout_width="46.0dp" android:layout_height="30.0dp" />
-    </v.VFrame>
-</com.p1.mobile.putong.live.livingroom.virtual.roomInfo.view.VoiceVirtualRoomInfoSwitchItem>

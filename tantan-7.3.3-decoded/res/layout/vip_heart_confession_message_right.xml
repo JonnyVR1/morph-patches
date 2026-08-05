@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemHeartConfession android:gravity="center_vertical" android:layout_gravity="left" android:orientation="vertical" android:id="@id/content" android:background="@drawable/core_svip_letter_message_opti_right" android:paddingLeft="12.0dp" android:paddingTop="12.0dp" android:paddingRight="18.0dp" android:paddingBottom="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/heart_confession_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="我的告白" android:drawableLeft="@null" android:drawablePadding="4.0dp" />
-    <v.VText android:textSize="16.0sp" android:textColor="@color/white" android:id="@id/heart_confession_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" />
-</com.p1.mobile.putong.core.ui.messages.ItemHeartConfession>

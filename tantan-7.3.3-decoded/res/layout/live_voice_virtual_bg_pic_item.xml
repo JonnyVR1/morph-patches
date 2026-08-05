@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_gravity="center" android:layout_width="match_parent" android:layout_height="140.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/pic_view" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="centerCrop" />
-    <View android:id="@id/top_bg" android:background="#66000000" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <ImageView android:layout_gravity="end" android:id="@id/selected_image" android:background="@null" android:visibility="visible" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginTop="6.0dp" android:layout_marginEnd="6.0dp" />
-</FrameLayout>

@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.increment.bullet.VoiceLiveBulletView android:id="@id/container" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="voice.intl.increment" holder="bullet.VoiceLiveBulletView"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

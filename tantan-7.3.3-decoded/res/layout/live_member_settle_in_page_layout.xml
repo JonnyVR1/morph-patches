@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.membermanager.settlein.MemberSettleInPageView android:id="@id/rootView" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="voice.membermanager.settlein" holder="MemberSettleInPageView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VRecyclerView android:id="@id/recyclerView" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/empty" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" flatten="true">
-        <v.VImage android:id="@id/empty_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="89.0dp" app:srcCompat="@null" />
-        <v.VText android:textSize="14.0sp" android:textColor="@color/live_white_40_opacity" android:gravity="center_horizontal" android:id="@id/empty_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="5.0dp" android:layout_marginRight="24.0dp" android:text="暂无数据" />
-    </v.VLinear>
-</com.p1.mobile.putong.live.livingroom.voice.membermanager.settlein.MemberSettleInPageView>

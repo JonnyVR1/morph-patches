@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_gravity="bottom" android:background="@drawable/core_profile_buttons_bg_expand" android:layout_width="match_parent" android:layout_height="138.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#e6ffffff" android:gravity="center" android:layout_gravity="bottom" android:id="@id/recover_match" android:background="@drawable/common_button_btn_orange_large" android:visibility="visible" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="20.0dp" android:text="@string/CORE_SVIP_RECOVER_UNMATCH_BUTTON_REMATCH" android:singleLine="true" />
-</FrameLayout>

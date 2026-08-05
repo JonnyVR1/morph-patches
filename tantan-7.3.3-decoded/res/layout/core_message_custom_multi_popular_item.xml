@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:gravity="center" android:id="@id/wrapper" android:padding="10.0dp" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:layout_gravity="center" android:id="@id/item" android:layout_width="match_parent" android:layout_height="match_parent" android:maxWidth="72.0dp" android:maxHeight="72.0dp" fresco:actualImageScaleType="fitCenter" style="@style/core_im_fresco_base" />
-</FrameLayout>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VRelative android:background="@drawable/live_shape_voice_sweet_dialog_bg" android:layout_width="match_parent" android:layout_height="209.0dp" flatten="true" holder="voice.intl.sweet.view.VoiceSweetRefuseDialog"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/close_iv" android:padding="10.0dp" android:layout_width="44.0dp" android:layout_height="44.0dp" android:layout_marginTop="5.0dp" android:layout_marginRight="5.0dp" android:src="@null" android:layout_alignParentRight="true" />
-    <v.VText android:textSize="16.0sp" android:textColor="#f8591c" android:gravity="center" android:id="@id/title_tv" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="30.0dp" android:layout_marginTop="56.0dp" android:layout_marginRight="30.0dp" android:text="@string/LIVE_VOICE_CP_SORRY" android:layout_below="@id/instuction_ll" android:fontFamily="PingFangSC-Regular" />
-    <v.VText android:textSize="14.0sp" android:textColor="#ffffff" android:gravity="center" android:id="@id/ok_btn" android:background="@drawable/live_shape_voice_sweet_btn_bg" android:layout_width="200.0dp" android:layout_height="50.0dp" android:layout_marginBottom="35.0dp" android:text="@string/LIVE_VOICE_CP_RETRY" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:fontFamily="PingFangSc-Medium" />
-</v.VRelative>

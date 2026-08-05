@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.photoalbum.feedbottom.insert.FeedBottomAttitudeUsersView android:layout_width="wrap_content" android:layout_height="wrap_content" folder="newui" holder="photoalbum.feedbottom.insert.FeedBottomAttitudeUsersView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/attitude_ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="12.0dp" flatten="true">
-        <v.VDraweeView android:id="@id/attitude_iv" android:layout_width="63.0dp" android:layout_height="24.0dp" app:actualImageScaleType="centerCrop" app:failureImage="@color/white" app:placeholderImage="@color/white" />
-        <v.VText android:textSize="12.0sp" android:textColor="@color/feed_33000000" android:id="@id/count_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" android:text="5.6人发表了态度" />
-    </v.VLinear>
-</com.p1.mobile.putong.feed.newui.photoalbum.feedbottom.insert.FeedBottomAttitudeUsersView>

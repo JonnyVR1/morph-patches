@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:id="@id/toyger_face_eye_loading_page" android:background="#ffffff" android:paddingTop="194.0dp" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.idv.identity.platform.iOSLoadingView android:layout_gravity="center_horizontal" android:layout_width="30.0dp" android:layout_height="30.0dp" />
-    <TextView android:textSize="14.0dp" android:textColor="#000000" android:gravity="center_horizontal" android:id="@id/simple_process_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" android:text="@string/identity_idv_zface_processing" />
-</LinearLayout>

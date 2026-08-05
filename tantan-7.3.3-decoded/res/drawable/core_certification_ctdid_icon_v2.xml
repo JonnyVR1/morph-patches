@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vector android:height="41.0dp" android:width="40.0dp" android:viewportWidth="40.0" android:viewportHeight="41.0"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
-    <path android:fillColor="@drawable/$core_certification_ctdid_icon_v2__0" android:pathData="M20,20.5m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0" />
-    <path android:fillColor="@drawable/$core_certification_ctdid_icon_v2__1" android:pathData="M29.237,17.56V16.649C29.237,15.463 28.493,14.404 27.377,14.003L21.592,11.921C20.659,11.585 19.637,11.589 18.706,11.932L13.1,13.995C11.994,14.402 11.259,15.455 11.259,16.634L11.259,17.56C11.259,19.196 11.015,28.019 19.262,30.834C19.837,31.006 20.453,31.002 21.024,30.822C29.735,28.019 29.237,18.639 29.237,17.56Z" />
-    <path android:fillColor="#33579b" android:pathData="M15.739,20.443L16.591,19.612C16.854,19.356 17.273,19.355 17.537,19.61L19.284,21.296L22.93,17.502C23.195,17.227 23.634,17.224 23.902,17.495L24.782,18.385C25.042,18.648 25.044,19.07 24.787,19.335L19.766,24.503C19.501,24.776 19.064,24.778 18.797,24.507L15.731,21.406C15.466,21.138 15.47,20.706 15.739,20.443Z" />
-</vector>

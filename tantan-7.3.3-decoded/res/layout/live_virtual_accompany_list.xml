@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/root" android:background="@drawable/live_bg_19191e_tr24" android:layout_width="match_parent" android:layout_height="487.0dp" flatten="true" folder="virtual" holder="board.accompany.AccompanyDialog"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout android:layout_width="match_parent" android:layout_height="64.0dp" android:layout_marginStart="10.0dp" android:layout_marginEnd="20.0dp">
-        <com.google.android.material.tabs.TabLayout android:layout_gravity="center_vertical" android:id="@id/tabLayout" android:layout_width="wrap_content" android:layout_height="64.0dp" app:tabBackground="@color/transparent" app:tabGravity="fill" app:tabIndicator="@drawable/live_list_members_indicator" app:tabIndicatorColor="@color/white" app:tabIndicatorFullWidth="false" app:tabIndicatorHeight="3.0dp" app:tabMinWidth="10.0dp" app:tabMode="scrollable" app:tabRippleColor="@color/transparent" app:tabSelectedTextColor="@color/white" app:tabSelectedTextSize="16.0dp" app:tabTextAppearance="@style/live_voice_flower_board_tab_theme" app:tabTextColor="@color/live_white_40_opacity" app:tabTextSize="14.0sp" flatten="true" />
-        <View android:layout_gravity="bottom" android:background="#05f9f9f9" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_marginStart="10.0dp" android:layout_marginEnd="10.0dp" />
-    </FrameLayout>
-    <v.VPager android:id="@id/viewpager" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="64.0dp" android:layout_weight="1.0" flatten="true" />
-</v.VFrame>

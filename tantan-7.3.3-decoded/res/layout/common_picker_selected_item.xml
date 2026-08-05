@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.newui.mediaoperation.preview.item.PickerSelectedItem android:orientation="horizontal" android:layout_width="60.0dp" android:layout_height="60.0dp" android:layout_marginLeft="4.0dp" android:layout_marginRight="4.0dp" folder="newui" holder="mediaoperation.preview.item.PickerSelectedItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/cover" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="2.0dp" android:layout_centerVertical="true" fresco:actualImageScaleType="centerCrop" fresco:roundedCornerRadius="8.0dp" />
-    <v.VImage android:id="@id/stroke" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/media_preview_select_photo_item" />
-</com.p1.mobile.putong.newui.mediaoperation.preview.item.PickerSelectedItem>

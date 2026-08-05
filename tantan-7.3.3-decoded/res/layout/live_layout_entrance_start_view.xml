@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.view.widgets.LiveEntranceStartLiveView android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/live_shape_bg_start_live" android:layout_width="104.0dp" android:layout_height="43.0dp" android:minHeight="43.0dp" flatten="true" folder="view" holder="widgets.LiveEntranceStartLiveView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VDraweeView android:id="@id/icon" android:layout_width="30.0dp" android:layout_height="35.0dp" android:layout_marginStart="7.0dp" />
-    <v.VText android:textSize="12.0sp" android:textColor="@android:color/white" android:ellipsize="end" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_marginStart="5.0dp" android:layout_marginEnd="7.0dp" />
-</com.p1.mobile.putong.live.external.view.widgets.LiveEntranceStartLiveView>

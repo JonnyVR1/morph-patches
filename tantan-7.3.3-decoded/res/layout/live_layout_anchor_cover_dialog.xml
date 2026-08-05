@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:paddingTop="36.0dp" android:paddingBottom="28.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="other.cover.AnchorCoverDialog"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
-    <v.VText android:textSize="14.0sp" android:textColor="#9aa5b1" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="32.0dp" android:layout_marginTop="24.0dp" android:layout_marginRight="32.0dp" android:text="@string/LIVE_NO_LIVE_COVER_PLEASE_UPLOAD_COVER" android:lineSpacingExtra="3.0dp" />
-    <v.VText android:textSize="16.0sp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/update" android:background="@drawable/live_shape_ff3a00_gradient_r6" android:paddingTop="16.0dp" android:paddingBottom="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="28.0dp" android:layout_marginRight="12.0dp" android:text="@string/LIVE_COVER_UPLOAD" />
-    <v.VText android:textSize="16.0sp" android:textColor="#9aa5b1" android:layout_gravity="center_horizontal" android:id="@id/see_rule" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="28.0dp" android:text="@string/LIVE_CHECK_EXAMPLE_COVER" />
-</LinearLayout>

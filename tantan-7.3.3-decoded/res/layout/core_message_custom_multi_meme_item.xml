@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:gravity="center" android:id="@id/wrapper" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:layout_gravity="center" android:id="@id/item" android:layout_width="match_parent" android:layout_height="match_parent" android:maxWidth="72.0dp" android:maxHeight="72.0dp" />
-    <v.VText android:textSize="11.0sp" android:textColor="#e6ffffff" android:gravity="center" android:id="@id/status_text" android:background="#99000000" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="13.0dp" />
-    <v.VCheckBox android:textSize="11.0sp" android:textColor="#ffffff" android:layout_gravity="right|top" android:id="@id/right_top_btn" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="6.0dp" android:button="@drawable/core_my_custom_meme_manage_icon" />
-    <v.VText android:textSize="24.0sp" android:textColor="#ffffff" android:gravity="center" android:layout_gravity="left|top" android:id="@id/left_top_text" android:background="@null" android:visibility="gone" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginLeft="6.0dp" android:layout_marginTop="3.0dp" />
-</FrameLayout>

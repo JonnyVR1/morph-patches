@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:gravity="center_horizontal" android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <ImageView android:layout_width="60.0dp" android:layout_height="60.0dp" android:src="@null" android:scaleType="fitXY" />
-        <v.VText android:textSize="16.0sp" android:textColor="@color/text_medium" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0dp" android:text="@string/ERROR_NETWORK" />
-    </LinearLayout>
-</FrameLayout>

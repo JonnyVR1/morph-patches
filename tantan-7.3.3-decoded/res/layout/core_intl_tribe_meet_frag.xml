@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="intlmeet.tribe.IntlTribeMeetFragViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="fitStart" android:adjustViewBounds="true" />
-    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
-        <com.p1.mobile.putong.core.newui.intlmeet.tribe.IntlTribeMeetFragTabBar android:id="@id/tab_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
-        <androidx.viewpager2.widget.ViewPager2 android:id="@id/viewpager" android:layout_width="match_parent" android:layout_height="match_parent" />
-    </v.VLinear>
-</v.VFrame>

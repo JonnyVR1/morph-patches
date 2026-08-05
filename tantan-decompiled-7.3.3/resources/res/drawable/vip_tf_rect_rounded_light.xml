@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/vip_tf_ripple_light">
-    <item
-        android:id="@android:id/mask"
-        android:drawable="@drawable/tf_rect_rounded_mask"/>
-</ripple>

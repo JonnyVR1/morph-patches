@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:id="@id/operation_layout" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.core.newui.home.views.CardOperationButton android:id="@id/dislike_us" android:layout_width="90.0dp" android:layout_height="50.0dp" android:layout_marginRight="15.0dp" app:cob_iconStyle="xSmall" app:iconPressStateColor="@color/white" app:iconStateListAnimator="@animator/core_card_bottom_button_state_animator" app:maxIconZoomRate="0.8" app:normalStateIcon="@null" app:normalStateLayerBackground="@drawable/core_bg_25_33ffffff" app:pressedStateLayerBackground="@drawable/core_bg_25_33ffffff" />
-    <com.p1.mobile.putong.core.newui.home.views.CardOperationButton android:id="@id/like_us" android:layout_width="90.0dp" android:layout_height="50.0dp" app:cob_iconStyle="xSmall" app:iconPressStateColor="@color/white" app:iconStateListAnimator="@animator/core_card_bottom_button_state_animator" app:maxIconZoomRate="0.8" app:normalStateIcon="@null" app:normalStateLayerBackground="@drawable/core_bg_25_33ffffff" app:pressedStateLayerBackground="@drawable/core_bg_25_33ffffff" />
-</LinearLayout>

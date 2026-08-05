@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.call.auction.dialog.leaderboard.LiveVoiceAuctionLeaderboardListTimelineItem android:gravity="center" android:orientation="vertical" android:paddingTop="21.0dp" android:paddingBottom="11.0dp" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="wrap_content" app:bind_extends="LinearLayout" app:bind_implements="null" app:binding="true" app:flatten="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="13.0sp" android:textColor="@color/live_white_30_opacity" android:gravity="center" android:id="@id/rank" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-</com.p1.mobile.putong.live.livingroom.voice.call.auction.dialog.leaderboard.LiveVoiceAuctionLeaderboardListTimelineItem>

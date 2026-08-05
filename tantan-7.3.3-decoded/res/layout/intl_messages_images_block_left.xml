@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemImagesBlock android:orientation="vertical" android:id="@id/content" android:background="@null" android:layout_width="wrap_content" style="@style/messages_item_left"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

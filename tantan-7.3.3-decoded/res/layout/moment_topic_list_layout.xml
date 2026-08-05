@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="topic.topiclist.TopicFeedListViewModel" useId="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@id/swipe_refresh" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true">
-        <v.VRecyclerView android:id="@id/topic_list" android:background="@color/transparent" android:scrollbars="none" android:clipChildren="true" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:divider="@null" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" useId="true" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    <include android:layout_gravity="center" android:id="@id/empty_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" layout="@layout/common_empty_view" />
-</FrameLayout>

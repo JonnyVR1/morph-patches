@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.photoalbum.commend.FeedItemCommendBotEmojiView android:layout_gravity="center_vertical" android:orientation="horizontal" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" folder="newui" holder="photoalbum.commend.FeedItemCommendBotEmojiView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:layout_gravity="center_vertical" android:id="@id/bot_emoji_img" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/feed_commend_bot_emoji_selector" android:scaleType="centerCrop" />
-    <v.VImage android:layout_gravity="center_vertical" android:id="@id/bot_gif_img" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/feed_commend_bot_gif_selector" android:scaleType="centerCrop" android:layout_marginStart="18.0dp" />
-    <v.VImage android:layout_gravity="center_vertical" android:id="@id/bot_media_img" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/feed_commend_media_icon_day_light" android:scaleType="centerCrop" android:layout_marginStart="18.0dp" />
-</com.p1.mobile.putong.feed.newui.photoalbum.commend.FeedItemCommendBotEmojiView>

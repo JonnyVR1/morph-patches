@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:id="@id/root_container" android:background="#f7f7f7" android:layout_width="match_parent" android:layout_height="240.0dp" flatten="true" folder="page" holder="rights.list.view.RightEmptyView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:layout_gravity="center_horizontal" android:id="@id/arrow" android:layout_width="220.0dp" android:layout_height="150.0dp" android:layout_marginTop="25.0dp" android:src="@null" />
-    <v.VText android:textSize="12.0sp" android:textColor="#bfbfbf" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="66.0dp" android:text="@string/LIVE_USER_RIGHT_EMPTY_DESC" />
-</FrameLayout>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.newui.meet.likers.items.MeetLikersNewLikersItem android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="match_parent" folder="newui" holder="meet.likers.items.MeetLikersNewLikersItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VFrame android:layout_width="55.0dp" android:layout_height="55.0dp" android:layout_marginTop="12.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp">
-        <v.VDraweeView android:id="@id/avatar" android:layout_width="match_parent" android:layout_height="match_parent" app:roundAsCircle="true" />
-        <v.VIcon android:layout_gravity="right|bottom" android:id="@id/icon" android:layout_width="12.0dp" android:layout_height="12.0dp" android:layout_marginBottom="2.0dp" android:scaleType="centerInside" android:layout_marginEnd="2.0dp" />
-    </v.VFrame>
-    <v.VText android:textSize="13.0sp" android:textColor="#66000000" android:ellipsize="end" android:gravity="center" android:id="@id/info" android:layout_width="match_parent" android:layout_height="18.0dp" android:layout_marginLeft="5.0dp" android:layout_marginTop="6.0dp" android:layout_marginRight="5.0dp" android:lines="1" />
-</com.p1.mobile.putong.core.newui.meet.likers.items.MeetLikersNewLikersItem>

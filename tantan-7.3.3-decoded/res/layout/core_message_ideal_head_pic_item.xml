@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout android:id="@id/pic_item_root" android:layout_width="86.0dp" android:layout_height="86.0dp">
-        <v.AutoVDraweeView android:id="@id/pic_item_image" android:layout_width="86.0dp" android:layout_height="86.0dp" app:actualImageScaleType="centerCrop" app:placeholderImage="@drawable/core_message_ideal_pic_item_default_bg" app:roundedCornerRadius="9.0dp" />
-        <v.VText android:textSize="9.0dp" android:textColor="#ffffff" android:ellipsize="end" android:id="@id/pic_item_label_text" android:background="@drawable/core_message_ideal_pic_label_bg" android:paddingLeft="4.0dp" android:paddingTop="2.0dp" android:paddingRight="4.0dp" android:paddingBottom="2.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dp" android:layout_marginTop="5.0dp" android:layout_marginRight="5.0dp" android:singleLine="true" />
-    </FrameLayout>
-</FrameLayout>

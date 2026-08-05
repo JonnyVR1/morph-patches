@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.VipItemDetailPage android:orientation="vertical" android:paddingTop="24.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.VipItemDetailPage"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include layout="@layout/vip_item_detail_content" />
-    <androidx.legacy.widget.Space android:id="@id/button_top_space" android:layout_width="wrap_content" android:layout_height="40.0dp" />
-    <v.VButton android:textColor="@color/white" android:gravity="center" android:id="@id/get" android:background="@drawable/rect_rounded_tantan_gradient" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="12.0dp" android:text="@string/VIP_BOOST_PURCHASE_IMMEDIATELY" app:typeface="regular" style="@style/v_button" />
-    <v.VText android:textSize="16.0sp" android:textColor="@color/text_medium" android:gravity="center" android:id="@id/dismiss" android:background="@drawable/tf_rect_rounded_light" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="12.0dp" android:text="@string/ACTION_GOT_IT" />
-</com.p1.mobile.putong.core.ui.vip.VipItemDetailPage>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:orientation="vertical" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" attachToRoot="true" folder="ui" holder="lovebuzz.widget.BuzzRegionChooseView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="12.0sp" android:textColor="@color/core_color_4d000000" android:ellipsize="end" android:gravity="start" android:layout_gravity="center_horizontal" android:id="@id/desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:maxLines="2" app:typeface="medium" />
-    <v.VRecyclerView android:orientation="vertical" android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="8.0dp" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    <v.VText android:textSize="16.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="bottom" android:id="@id/set_up" android:background="@drawable/core_intl_buzz_btn_fe7e1d_selector" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_margin="16.0dp" android:text="@string/INTL_BUZZ_REGION_SETUP" app:typeface="medium" />
-</merge>

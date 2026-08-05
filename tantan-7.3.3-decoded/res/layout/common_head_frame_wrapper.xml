@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:clipChildren="false" android:layout_width="match_parent" android:layout_height="match_parent" attachToRoot="true" holder="headframe.HeaderFrameWrapper"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/header_pic" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHeight_default="percent" app:layout_constraintHeight_percent="0.8" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintWidth_default="percent" app:layout_constraintWidth_percent="0.8" style="@style/fresco_profile_small" />
-    <v.VDraweeView android:id="@id/header_frame" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="fitCenter" />
-</merge>

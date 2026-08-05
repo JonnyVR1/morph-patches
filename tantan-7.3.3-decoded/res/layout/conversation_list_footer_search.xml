@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="56.0dp" android:layout_marginBottom="56.0dp">
-        <v.VImage android:id="@id/image" android:layout_width="40.0dp" android:layout_height="40.0dp" android:src="@null" />
-        <v.VText android:textSize="16.0sp" android:textColor="#999999" android:layout_gravity="center_vertical" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:text="@string/SEARCH_CONVERSATION_RESULT_NONE" />
-    </LinearLayout>
-</FrameLayout>

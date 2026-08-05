@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:id="@id/post_group_view" android:paddingBottom="18.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="photoalbum.view.FeedMineTabSendMomentEnterView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="18.0sp" android:textColor="@color/scenario_entrance_title_light" android:gravity="center" android:id="@id/post_today_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:text="@string/FEED_TODAY" />
-    <v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/send_moment_container" android:background="@drawable/common_card_bg_small_02" android:paddingLeft="30.0dp" android:paddingRight="40.0dp" android:layout_width="wrap_content" android:layout_height="60.0dp" android:layout_marginLeft="64.0dp" android:layout_marginRight="35.0dp" flatten="true">
-        <v.VImage android:layout_width="30.0dp" android:layout_height="30.0dp" android:src="@null" />
-        <TextView android:textSize="14.0sp" android:textColor="@color/common_grey_09" android:ellipsize="end" android:gravity="center_horizontal" android:id="@id/tv_send_moment" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="1.0dp" android:maxLines="1" />
-    </v.VLinear>
-</v.VFrame>

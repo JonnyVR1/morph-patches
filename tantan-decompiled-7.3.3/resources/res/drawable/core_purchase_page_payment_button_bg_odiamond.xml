@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <gradient
-        android:startColor="#a37a50"
-        android:endColor="#a37a50"
-        android:angle="0"
-        android:centerColor="#f9e3bb"/>
-    <corners android:radius="@dimen/core_vip_normal_card_corner"/>
-</shape>

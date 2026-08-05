@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VText android:textSize="18.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/text" android:background="@drawable/core_im_dynamic_greet_audio_bg" android:padding="5.0dp" android:layout_width="60.0dp" android:layout_height="60.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

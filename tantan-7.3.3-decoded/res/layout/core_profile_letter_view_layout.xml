@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="newui" holder="home.views.CoreLetterView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/letter_tip" android:background="@drawable/core_profile_letter_bg" android:paddingLeft="6.0dp" android:paddingTop="6.0dp" android:paddingRight="10.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:drawableLeft="@null" android:drawablePadding="4.0dp" app:drawableTint="#2ebdff" useId="true" />
-    <v.VText android:textSize="14.0sp" android:textColor="@color/white" android:ellipsize="end" android:id="@id/letter_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:singleLine="true" useId="true" />
-</LinearLayout>

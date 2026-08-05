@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.svip.guide.SvipIntlHeaderView android:orientation="vertical" android:paddingLeft="37.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" holder="svip.guide.SvipIntlHeaderView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="28.0sp" android:textColor="#323232" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="5.0dp" android:text="@string/CORE_SVIP_GUIDE_PRIVILEGE_UPGRADE_TITLE" app:typeface="medium" />
-    <v.VText android:textSize="15.0sp" android:textColor="#737373" android:id="@id/subtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/INTL_SVIP_WELCOME_PAGE_SUBTITLE" />
-</com.p1.mobile.putong.core.ui.svip.guide.SvipIntlHeaderView>

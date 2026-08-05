@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="marry.profile.loop.address.MarryAddressSelectFrag" innerClass="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" app:leftIcon="@null" />
-    <v.VList android:id="@id/select_view" android:paddingTop="16.0dp" android:paddingBottom="84.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:listSelector="#00000000" android:divider="@null" android:layout_below="@id/navigation_bar" />
-</RelativeLayout>

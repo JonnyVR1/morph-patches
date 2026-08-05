@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView android:id="@id/scroll" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="wrap_content" android:fillViewport="true" android:overScrollMode="never" flatten="true" holder="purchase.mediator.showcase.PurchaseShowcaseHorizontalComponent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:orientation="horizontal" android:id="@id/content" android:paddingLeft="7.0dp" android:paddingRight="7.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="7.0dp" />
-</HorizontalScrollView>

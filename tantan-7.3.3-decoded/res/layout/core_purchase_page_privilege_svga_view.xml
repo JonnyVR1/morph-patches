@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeSVGAContainerView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.page.PurchasePrivilegeSVGAContainerView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.tantan.library.svga.SVGAnimationView android:layout_gravity="bottom" android:id="@id/svga" android:layout_width="match_parent" android:layout_height="90.0dp" />
-</com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeSVGAContainerView>

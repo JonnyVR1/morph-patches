@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center" android:id="@id/frame" android:layout_width="40.0dp" android:layout_height="60.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:gravity="center" android:id="@id/item_emoji" android:layout_width="40.0dp" android:layout_height="40.0dp" android:scaleType="fitXY" />
-</LinearLayout>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="profile.loop.input.ProfileLoopQuestionViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="24.0sp" android:textStyle="bold" android:textColor="@color/black" android:gravity="center" android:id="@id/first_title" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="3.0dp" android:layout_marginRight="20.0dp" />
-    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-        <v.VList android:id="@id/multi_list" android:paddingTop="40.0dp" android:paddingBottom="16.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:listSelector="@color/core_color_00000000" android:divider="#00000000" android:dividerHeight="12.0dp" />
-        <TextView android:textSize="16.0dp" android:textColor="@color/core_color_212121" android:layout_gravity="center" android:id="@id/empty_text" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/PROFILE_NO_MORE_QUESTIONS" />
-    </FrameLayout>
-</LinearLayout>

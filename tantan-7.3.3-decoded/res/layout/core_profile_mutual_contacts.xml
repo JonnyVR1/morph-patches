@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:id="@id/common_contacts_wrap" android:paddingTop="0.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" style="@style/profile_item_frame_no_padding_new"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textColor="@color/common_black_02" android:id="@id/mutual_contacts_title" android:background="@color/transparent" android:text="@string/MUTUAL_CONTACTS_FRIEND_TITLE" style="@style/profile_item_title_black" />
-    <v.VText_Tags android:textSize="15.0sp" android:textColor="#66000000" android:ellipsize="end" android:id="@id/mutual_contacts" android:paddingLeft="20.0dp" android:paddingRight="20.0dp" android:maxLines="1" style="@style/profile_item_item_with_tag" />
-</v.VLinear>

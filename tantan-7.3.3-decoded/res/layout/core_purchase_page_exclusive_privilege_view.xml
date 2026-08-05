@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.page.PurchaseExclusivePrivilegeView android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent" holder="purchase.page.PurchaseExclusivePrivilegeView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout android:id="@id/root_view" android:background="@drawable/core_purchase_page_exclusive_privilege_content_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="16.0dp" android:layout_marginTop="33.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="18.0dp" android:nestedScrollingEnabled="false" android:layout_marginHorizontal="16.0dp">
-        <LinearLayout android:orientation="vertical" android:id="@id/container" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="30.0dp" android:layout_marginBottom="20.0dp" />
-    </FrameLayout>
-    <v.VText android:textSize="12.0sp" android:textColor="@color/common_grey_02" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/privilege_title" android:background="@drawable/core_purchase_page_exclusive_privilege_title_bg" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="28.0dp" android:layout_marginTop="20.0dp" android:lines="1" android:drawablePadding="4.0dp" android:paddingHorizontal="10.0dp" app:typeface="medium" />
-</com.p1.mobile.putong.core.ui.purchase.page.PurchaseExclusivePrivilegeView>

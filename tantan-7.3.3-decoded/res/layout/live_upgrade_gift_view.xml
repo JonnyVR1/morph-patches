@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.increment.gift.upgradegift.view.UpgradeGiftView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="increment.gift.upgradegift.view" holder="UpgradeGiftView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:id="@id/equipView" android:layout_width="match_parent" android:layout_height="310.0dp" layout="@layout/live_upgrade_gift_equip_container_view" />
-    <include android:id="@id/pagerView" android:layout_width="match_parent" android:layout_height="345.0dp" layout="@layout/live_upgrade_gift_pager_view" />
-</com.p1.mobile.putong.live.livingroom.increment.gift.upgradegift.view.UpgradeGiftView>

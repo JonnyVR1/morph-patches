@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.view.SayHiBubbleView android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/root" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="10.0dp" android:paddingEnd="10.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/live_greeting_avatar" android:layout_width="20.0dp" android:layout_height="20.0dp" app:failureImage="@drawable/live_vector_default_avatar_bg" app:placeholderImage="@drawable/live_vector_default_avatar_bg" app:roundAsCircle="true" />
-    <v.VText android:textSize="12.0sp" android:textColor="@color/live_5fbaff" android:gravity="start|center" android:id="@id/live_greeting_user" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6.0dp" />
-    <v.VText android:textSize="12.0sp" android:textColor="@color/live_black_80_opacity" android:gravity="start|center" android:id="@id/live_greeting_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4.0dp" />
-    <v.VButton android:textSize="11.0sp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/live_greeting_btn" android:background="@drawable/live_bg_fe7e1d_r6" android:paddingTop="4.0dp" android:paddingBottom="3.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="8.0dp" android:paddingEnd="8.0dp" android:layout_marginStart="7.0dp" />
-</com.p1.mobile.putong.live.livingroom.view.SayHiBubbleView>

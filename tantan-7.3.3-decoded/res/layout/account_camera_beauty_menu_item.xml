@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.account.ui.camera.view.AccountBeautyMenuItemView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="ui" holder="camera.view.AccountBeautyMenuItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textColor="@color/black" android:gravity="center" android:id="@id/menu_item_text" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <View android:layout_gravity="center|bottom" android:id="@id/menu_item_indicator_view" android:background="@color/common_orange" android:visibility="gone" android:layout_width="52.0dp" android:layout_height="1.0dp" android:layout_marginLeft="20.0dp" android:layout_marginRight="20.0dp" />
-</com.p1.mobile.putong.account.ui.camera.view.AccountBeautyMenuItemView>

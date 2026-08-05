@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:background="@color/common_white_01" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="end" android:id="@id/feedback_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="24.0dp" android:src="@null" android:scaleType="fitXY" />
-    <TextView android:textSize="24.0sp" android:textStyle="bold" android:textColor="@color/common_black_01" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginRight="40.0dp" android:layout_marginBottom="24.0dp" android:text="@string/RATE_GUIDE_FEEDBACK_AND_SUGGESTION" />
-    <v.VEditText android:textSize="16.0sp" android:textColor="@color/common_light_01" android:gravity="start" android:id="@id/feedback_edit" android:background="@null" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="40.0dp" android:layout_marginRight="40.0dp" android:layout_marginBottom="20.0dp" android:minHeight="160.0dp" android:hint="@string/RATE_GUIDE_LEAVE_YOUR_ADVICE" android:maxLength="150" android:textCursorDrawable="@drawable/common_view_input_editor_cursor" />
-    <v.VButton android:gravity="center" android:id="@id/send_rank_feedback" android:layout_width="72.0dp" android:layout_height="48.0dp" android:layout_marginLeft="40.0dp" android:layout_marginBottom="24.0dp" android:text="@string/ACTION_SEND" style="@style/common_button_small_01" />
-</LinearLayout>

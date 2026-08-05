@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.photoalbum.attitude.participant.AttitudeParticipantListtem android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="photoalbum.attitude.participant.AttitudeParticipantListtem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/pic" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginLeft="20.0dp" android:layout_centerVertical="true" style="@style/feed_fresco_profile_small_newui" />
-    <LinearLayout android:orientation="horizontal" android:id="@id/name_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toLeftOf="@id/followbtn" android:layout_toRightOf="@id/pic" android:layout_centerVertical="true" flatten="true">
-        <v.VText android:textSize="15.0sp" android:textColor="@color/feed_cc000000" android:ellipsize="end" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:maxLines="1" />
-    </LinearLayout>
-    <v.VText android:textSize="14.0sp" android:textColor="@color/feed_33000000" android:id="@id/followbtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
-</com.p1.mobile.putong.feed.newui.photoalbum.attitude.participant.AttitudeParticipantListtem>

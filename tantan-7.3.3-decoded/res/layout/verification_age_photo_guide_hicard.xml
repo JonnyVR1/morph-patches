@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
-    <v.VText android:textSize="14.0sp" android:textColor="#212121" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="24.0dp" android:layout_marginRight="16.0dp" android:text="@string/AGE_CHECK_INSURANCECARD_PRIVACY_TIPS1" app:typeface="medium" />
-    <v.VText android:textSize="12.0sp" android:textStyle="normal" android:textColor="#959595" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="16.0dp" android:text="@string/AGE_CHECK_INSURANCECARD_PRIVACY_TIPS2" />
-    <v.VText android:textSize="12.0sp" android:textStyle="normal" android:textColor="#959595" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="16.0dp" android:text="@string/AGE_CHECK_INSURANCECARD_PRIVACY_TIPS3" />
-</v.VLinear>

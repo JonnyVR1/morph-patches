@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VDraweeView android:id="@id/avatar" android:background="@drawable/core_intl_see_circle_ffff" android:padding="2.0dp" android:visibility="gone" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_centerVertical="true" app:failureImage="@null" app:placeholderImage="@null" app:roundAsCircle="true" style="@style/core_special_like_avatar"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

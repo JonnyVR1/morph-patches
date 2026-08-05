@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.Guideline android:orientation="horizontal" android:id="@id/vertical_guide_line" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.5" />
-    <v.VImage android:id="@id/blank_image" android:layout_width="160.0dp" android:layout_height="136.0dp" android:scaleType="fitCenter" app:layout_constraintBottom_toTopOf="@id/vertical_guide_line" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
-    <v.VText android:textSize="14.0sp" android:textColor="@color/common_light_01" android:ellipsize="end" android:gravity="center|top" android:id="@id/blank_info" android:layout_width="240.0dp" android:layout_height="wrap_content" android:maxLines="2" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/vertical_guide_line" />
-</merge>

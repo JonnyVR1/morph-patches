@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeHideMeFromNearbyView android:layout_width="match_parent" android:layout_height="match_parent" holder="purchase.page.PurchasePrivilegeHideMeFromNearbyView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:layout_gravity="center" android:id="@id/model" android:layout_width="match_parent" android:layout_height="90.0dp" android:src="@null" />
-    <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar" android:background="@drawable/core_purchase_page_privilege_hide_me_from_nearby_avatar_bg" android:drawingCacheQuality="high" android:layout_width="52.0dp" android:layout_height="70.0dp" app:roundedCornerRadius="7.0dp" />
-    <View android:layout_gravity="center" android:id="@id/mask" android:background="@null" android:layout_width="52.0dp" android:layout_height="70.0dp" />
-    <v.VImage android:layout_gravity="center" android:id="@id/hide_ic" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" />
-</com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeHideMeFromNearbyView>

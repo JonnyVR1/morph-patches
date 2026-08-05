@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeSuperLikeView android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.page.PurchasePrivilegeSuperLikeView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar_left" android:background="@null" android:padding="8.0dp" android:layout_width="86.0dp" android:layout_height="86.0dp" android:layout_marginStart="-30.0dp" style="@style/core_fresco_profile_white_border" />
-    <v.AutoVDraweeView android:layout_gravity="center" android:id="@id/avatar_right" android:background="@null" android:padding="8.0dp" android:layout_width="86.0dp" android:layout_height="86.0dp" android:layout_marginEnd="-30.0dp" style="@style/core_fresco_profile_white_border" />
-    <ImageView android:layout_gravity="center" android:id="@id/icon" android:layout_width="31.0dp" android:layout_height="31.0dp" android:layout_marginTop="-28.0dp" android:src="@null" />
-</com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeSuperLikeView>

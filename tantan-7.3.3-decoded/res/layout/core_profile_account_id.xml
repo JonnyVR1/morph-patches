@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear_Dividers android:id="@id/publicId" android:paddingTop="0.0dp" style="@style/profile_item_frame_no_padding_new"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textColor="@color/common_black_02" android:id="@id/tantan_id_tip" android:background="@color/transparent" android:text="@string/PROFILE_SECTION_HEADER_ACCOUNT" style="@style/profile_item_title_black" />
-    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48.0dp">
-        <v.VText android:textSize="16.0sp" android:textColor="#66000000" android:gravity="center_vertical" android:id="@id/tantan_id_text" android:paddingLeft="20.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/PROFILE_ACCOUNT_TANTANID" android:layout_weight="1.0" app:typeface="regular" />
-        <v.VText android:textSize="16.0sp" android:textColor="#66000000" android:gravity="left|center" android:id="@id/tantan_id_number" android:paddingLeft="16.0dp" android:paddingRight="20.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="2.0" app:typeface="regular" />
-    </LinearLayout>
-</v.VLinear_Dividers>

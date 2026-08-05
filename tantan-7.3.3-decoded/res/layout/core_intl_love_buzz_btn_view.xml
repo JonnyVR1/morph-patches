@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VText android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/core_color_702323" android:gravity="center" android:id="@id/buzz_icon" android:background="@drawable/core_intl_buzz_btn_ffc700_selector" android:layout_width="match_parent" android:layout_height="48.0dp" android:text="@string/INTL_BUZZ_HOME_CARD_TEXT"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.wallet.TanTanCoinHeadItem android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="wallet.TanTanCoinHeadItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView android:id="@id/icon" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_centerVertical="true" />
-    <v.VText android:textSize="15.0sp" android:textColor="#cc000000" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_ANCHOR_RANK" android:layout_centerVertical="true" android:layout_marginStart="12.0dp" android:layout_toEndOf="@id/icon" />
-    <ImageView android:id="@id/arrow" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
-    <v.VText android:textSize="12.0sp" android:textColor="#4d000000" android:id="@id/right_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_toStartOf="@id/arrow" android:layout_alignParentEnd="true" />
-    <v.VOnlineIndicator android:id="@id/indicator" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="-4.0dp" android:layout_alignTop="@id/icon" android:layout_alignRight="@id/icon" app:indicatorStyle="style01" />
-</com.p1.mobile.putong.core.ui.wallet.TanTanCoinHeadItem>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<p151v.VRelative xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/undercover_wait"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    flatten="true"
-    holder="voice.intl.game.undercover.viewmodule.UndercoverWaitView">
-    <include layout="@layout/live_undercover_pre"/>
-</p151v.VRelative>

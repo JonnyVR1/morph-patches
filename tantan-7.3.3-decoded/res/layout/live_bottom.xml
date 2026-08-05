@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.bottom.view.BottomView android:gravity="bottom" android:orientation="horizontal" android:paddingLeft="3.0dp" android:paddingRight="3.0dp" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:layout_width="match_parent" android:layout_height="wrap_content" attachToRoot="true" flatten="true" holder="vip.greet.ProfileSendContainerView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ViewStub android:id="@id/msg_view" android:layout_width="match_parent" android:layout_height="56.0dp" />
-    <ViewStub android:id="@id/onematch_view" android:visibility="gone" android:layout="@layout/core_vip_onebtn_entry_exp1_layout" android:layout_width="match_parent" android:layout_height="56.0dp" />
-</merge>

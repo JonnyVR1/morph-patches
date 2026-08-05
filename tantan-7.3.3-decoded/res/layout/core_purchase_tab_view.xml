@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.PurchaseTabView android:layout_width="match_parent" android:layout_height="match_parent" holder="purchase.PurchaseTabView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <View android:id="@id/view" android:layout_width="1.0dp" android:layout_height="1.0dp" android:layout_centerInParent="true" />
-    <v.VText android:textSize="16.0sp" android:textColor="@color/common_black_02" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="-2.0dp" android:lines="1" android:drawablePadding="6.0dp" android:layout_above="@id/view" android:layout_centerHorizontal="true" android:layout_marginStart="6.0dp" />
-    <v.VText android:textSize="12.0dp" android:textColor="@color/common_grey_04" android:ellipsize="end" android:id="@id/tab_subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:lines="1" android:layout_below="@id/view" android:layout_centerHorizontal="true" />
-    <v.VIcon android:id="@id/discount" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="16.0dp" android:layout_marginLeft="2.0dp" android:layout_toRightOf="@id/title" android:layout_above="@id/view" android:layout_alignTop="@id/title" />
-</com.p1.mobile.putong.core.ui.purchase.PurchaseTabView>

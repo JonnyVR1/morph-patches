@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.model.view.ConvNextView android:gravity="center" android:background="@drawable/core_chat_next_conv_layout_bg" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="11.0dp" holder="messages.model.view.ConvNextView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0sp" android:textColor="@color/core_color_fe7e1d" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="下一条未读" android:layout_marginEnd="2.0dp" />
-    <v.VFrame android:id="@id/icon" android:layout_width="25.0dp" android:layout_height="wrap_content">
-        <View android:layout_gravity="center_vertical" android:background="@color/core_color_f7f7f7" android:layout_width="match_parent" android:layout_height="20.0dp" />
-        <v.VImage android:layout_width="16.0dp" android:layout_height="16.0dp" android:layout_marginTop="10.0dp" android:layout_marginBottom="10.0dp" android:src="@null" android:layout_marginEnd="9.0dp" android:layout_marginVertical="10.0dp" />
-    </v.VFrame>
-</com.p1.mobile.putong.core.ui.messages.model.view.ConvNextView>

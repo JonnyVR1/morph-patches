@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/bubble_container" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView android:textSize="13.0dp" android:textColor="@color/common_white" android:ellipsize="end" android:id="@id/bubble_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginBottom="10.0dp" android:maxWidth="208.0dp" android:text="你的新配对被折叠在这里啦\n跟她打个招呼吧！" android:maxLines="3" android:layout_marginStart="10.0dp" android:layout_marginEnd="10.0dp" />
-    <v.VText android:textSize="13.0sp" android:textColor="@color/common_orange" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/right_icon" android:background="@drawable/core_bg_intl_boost_price_tag" android:paddingLeft="10.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginRight="10.0dp" app:enableApngEmojis="true" app:enableEmojis="true" app:largeEmojis="true" />
-</v.VLinear>

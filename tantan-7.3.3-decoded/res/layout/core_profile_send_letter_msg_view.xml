@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.greet.ProfileSendLetterView android:gravity="center" android:background="@drawable/common_new_button_btn_white_medium" android:layout_width="match_parent" android:layout_height="56.0dp" flatten="true" holder="vip.greet.ProfileSendLetterView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView android:textSize="14.0sp" android:textColor="@color/common_grey_04" android:layout_gravity="center_vertical" android:id="@id/envelop_say_hai" android:layout_width="0.0dp" android:layout_height="wrap_content" android:singleLine="true" android:layout_weight="1.0" android:layout_marginStart="20.0dp" />
-    <TextView android:textSize="14.0sp" android:textColor="#2bccff" android:gravity="center_vertical" android:id="@id/send_btn" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="32.0dp" android:drawablePadding="3.0dp" android:layout_marginEnd="14.0dp" />
-    <com.p1.mobile.putong.core.ui.vip.widget.LetterRemainingSwitcherView android:textSize="14.0sp" android:gravity="center_vertical" android:id="@id/letter_remaining_switcher" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="32.0dp" android:layout_marginEnd="14.0dp" app:contentTextColor="#2bccff" app:contentTextSize="14.0sp" />
-</com.p1.mobile.putong.core.ui.vip.greet.ProfileSendLetterView>

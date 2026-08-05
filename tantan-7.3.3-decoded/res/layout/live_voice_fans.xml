@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.fans.VoiceFansView android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" holder="voice.fans.VoiceFansView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.p1.mobile.putong.live.base.view.LiveFadeRecyclerView android:id="@id/_list" android:fadingEdgeLength="10.0dp" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="@dimen/live_fans_height" android:requiresFadingEdge="horizontal" android:layout_toStartOf="@id/fans_count" />
-    <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/live_white" android:gravity="center" android:id="@id/fans_count" android:background="@drawable/live_bg_black_r12_a15" android:layout_width="wrap_content" android:layout_height="34.0dp" android:layout_marginTop="3.0dp" android:minWidth="34.0dp" android:text="0" android:maxLines="1" android:paddingStart="9.0dp" android:paddingEnd="9.0dp" android:layout_marginStart="7.0dp" android:layout_marginEnd="8.0dp" android:layout_alignParentEnd="true" />
-</com.p1.mobile.putong.live.livingroom.voice.fans.VoiceFansView>

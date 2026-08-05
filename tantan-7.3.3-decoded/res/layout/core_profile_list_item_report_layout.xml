@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear_Dividers android:id="@id/reports" flatten="true" holder="profile.profilelist.itemholders.ProfileReportItemHolder" style="@style/profile_item_frame_no_padding_ab"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:gravity="center_vertical" android:layout_gravity="center" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content">
-        <ImageView android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginRight="12.0dp" android:src="@null" />
-        <v.VText android:textSize="12.0sp" android:textColor="#dcdcdc" android:gravity="center" android:id="@id/report" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="举报" android:singleLine="true" android:layout_weight="1.0" app:typeface="regular" />
-        <ImageView android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginRight="20.0dp" android:src="@null" />
-    </LinearLayout>
-</v.VLinear_Dividers>

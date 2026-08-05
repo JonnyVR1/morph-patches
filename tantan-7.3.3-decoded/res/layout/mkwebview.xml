@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:id="@id/linear_root" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="webview.mk.MkWebViewViewModel" useId="true"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
-    <FrameLayout android:id="@id/root" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
-</v.VLinear>

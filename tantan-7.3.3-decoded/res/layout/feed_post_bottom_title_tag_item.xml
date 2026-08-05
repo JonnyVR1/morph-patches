@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.mediapicker.post.view.PostBottomTitleTagsItemView android:orientation="horizontal" android:id="@id/root" android:background="@drawable/feed_post_bg_topic_rect_rounded" android:paddingLeft="14.0dp" android:paddingRight="14.0dp" android:layout_width="wrap_content" android:layout_height="32.0dp" folder="newui" holder="mediapicker.post.view.PostBottomTitleTagsItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="center_vertical" android:id="@id/title_tags_ic" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@null" />
-    <TextView android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/feed_post_tv_topic_item_color" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/title_tags_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-</com.p1.mobile.putong.feed.newui.mediapicker.post.view.PostBottomTitleTagsItemView>

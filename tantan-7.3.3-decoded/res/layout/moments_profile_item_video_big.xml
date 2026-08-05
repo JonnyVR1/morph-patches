@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VDraweeView android:id="@id/image_one" android:layout_width="match_parent" android:layout_height="match_parent" style="@style/feed_fresco_moment_small" />
-    <v.VImage android:layout_gravity="center" android:id="@id/play" android:layout_width="40.0dp" android:layout_height="40.0dp" android:src="@drawable/feed_message_video_play_icon" />
-</v.VFrame>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.sweet.view.VoiceSweetCpSimpleHeadView android:background="@null" android:layout_width="168.0dp" android:layout_height="60.0dp" flatten="true" holder="voice.intl.sweet.view.VoiceSweetCpSimpleHeadView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/heart_iv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:src="@null" android:layout_centerHorizontal="true" />
-    <v.VDraweeView android:id="@id/avatar_left" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginRight="6.0dp" android:layout_toLeftOf="@id/heart_iv" android:layout_centerVertical="true" app:roundAsCircle="true" app:roundingBorderColor="#ffffff" app:roundingBorderWidth="1.0dp" />
-    <v.VImage android:id="@id/left_default" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginRight="6.0dp" android:src="@null" android:layout_toLeftOf="@id/heart_iv" android:layout_centerVertical="true" />
-    <v.VDraweeView android:id="@id/avatar_right" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="6.0dp" android:layout_toRightOf="@id/heart_iv" android:layout_centerVertical="true" app:roundAsCircle="true" app:roundingBorderColor="#ffffff" app:roundingBorderWidth="1.0dp" />
-    <v.VImage android:id="@id/right_default" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="6.0dp" android:src="@null" android:layout_toRightOf="@id/heart_iv" android:layout_centerVertical="true" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.sweet.view.VoiceSweetCpSimpleHeadView>

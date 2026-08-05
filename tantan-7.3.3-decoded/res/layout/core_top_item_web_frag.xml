@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="home.topitemweb.TopItemWebViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout android:orientation="horizontal" android:id="@id/head" android:background="@color/white" android:layout_width="match_parent" android:layout_height="44.0dp">
-        <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_66000000" android:gravity="center" android:id="@id/right_item_1" android:paddingLeft="10.0dp" android:paddingRight="16.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_alignParentRight="true" />
-    </RelativeLayout>
-    <com.hellogroup.mk.business.base.ui.MKWebView android:id="@id/webview_container" android:layout_width="match_parent" android:layout_height="match_parent" />
-</v.VLinear>

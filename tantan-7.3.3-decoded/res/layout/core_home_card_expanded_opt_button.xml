@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_gravity="center" android:clipChildren="false" android:layout_width="100.0dp" android:layout_height="100.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="center" android:id="@id/bg_view" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <com.p1.mobile.putong.core.newui.home.card.operation.view.HomeCardButtonSvgaView android:layout_gravity="center" android:id="@id/action_view" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <com.p1.mobile.putong.core.newui.home.card.operation.view.HomeCardButtonSvgaView android:layout_gravity="center" android:id="@id/click_view" android:layout_width="match_parent" android:layout_height="match_parent" android:alpha="0.0" />
-    <View android:layout_gravity="center" android:id="@id/cover_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
-</FrameLayout>

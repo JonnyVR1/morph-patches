@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.internal.live.square.home.submodule.topButton.LiveSquareTopButtonVoiceView android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="internal.live.square.home.submodule.topButton" holder="LiveSquareTopButtonVoiceView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VLinear android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/remoteBtnGroup" android:layout_width="wrap_content" android:layout_height="32.0dp" />
-    <v.VDraweeView android:layout_gravity="end|center" android:id="@id/voice_board" android:visibility="gone" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_margin="6.0dp" android:scaleType="fitXY" fresco:placeholderImage="@null" />
-    <v.VText android:textSize="12.0sp" android:textColor="@android:color/white" android:gravity="center" android:id="@id/start_voice" android:background="@drawable/live_bg_fe7e1d_r10" android:visibility="gone" android:layout_width="53.0dp" android:layout_height="34.0dp" android:text="创建" android:layout_marginEnd="6.0dp" />
-    <View android:gravity="center" android:id="@id/voice_stub" android:visibility="gone" android:layout_width="200.0dp" android:layout_height="34.0dp" android:layout_marginEnd="6.0dp" />
-</com.p1.mobile.putong.live.external.internal.live.square.home.submodule.topButton.LiveSquareTopButtonVoiceView>

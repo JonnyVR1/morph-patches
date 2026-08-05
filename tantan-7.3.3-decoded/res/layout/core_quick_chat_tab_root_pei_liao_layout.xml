@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" attachToRoot="true" folder="newui"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.p1.mobile.putong.core.newui.messages.anim.view.QuickChatAudioNewUiHeaderUserPeiLiaoView android:id="@id/getuser_layout_new_ui" android:background="@null" android:layout_width="match_parent" android:layout_height="219.0dp" android:layout_marginLeft="8.0dp" android:layout_marginRight="8.0dp" />
-</FrameLayout>

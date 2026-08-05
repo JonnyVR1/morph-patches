@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="true" android:drawable="@drawable/live_bg_fe7e1d_r12" />
-    <item android:state_enabled="false" android:drawable="@drawable/live_bg_fe7e1d_r12_a15" />
-    <item android:drawable="@drawable/live_bg_fe7e1d_r12" />
-</selector>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.PurchaseAutoRenewConfirmView android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.PurchaseAutoRenewConfirmView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:id="@id/close" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginTop="16.0dp" android:src="@null" android:layout_marginEnd="16.0dp" android:layout_alignParentEnd="true" />
-    <v.VText android:textSize="18.0sp" android:textStyle="bold" android:textColor="#cc000000" android:gravity="center" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="25.0dp" android:layout_marginTop="32.0dp" android:text="确认开通" android:includeFontPadding="false" android:layout_centerHorizontal="true" />
-    <v.VText android:textSize="14.0sp" android:textColor="#66000000" android:gravity="center" android:id="@id/sub_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="我已阅读并同意《会员及自动续费协议》，\n 确认开通该服务" android:includeFontPadding="false" android:layout_below="@id/title" android:layout_centerHorizontal="true" android:layout_marginStart="23.0dp" android:layout_marginEnd="22.0dp" />
-    <v.VButton android:ellipsize="end" android:id="@id/confirm_button" android:layout_marginLeft="32.0dp" android:layout_marginTop="16.0dp" android:layout_marginRight="32.0dp" android:layout_marginBottom="32.0dp" android:text="继续开通" android:lines="1" android:layout_below="@id/sub_title" android:layout_marginHorizontal="32.0dp" style="@style/common_button_large_01" />
-</com.p1.mobile.putong.core.ui.purchase.PurchaseAutoRenewConfirmView>

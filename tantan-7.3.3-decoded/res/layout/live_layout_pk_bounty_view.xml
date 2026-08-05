@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.recreation.pk.view.bounty.PkBountyView android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="recreation" holder="pk.view.bounty.PkBountyView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <FrameLayout android:layout_gravity="center" android:layout_width="match_parent" android:layout_height="200.0dp">
-        <com.immomo.svgaplayer.view.MomoLayUpSVGAImageView android:layout_gravity="center" android:id="@id/svg_middle" android:layout_width="match_parent" android:layout_height="match_parent" />
-    </FrameLayout>
-    <include android:layout_gravity="center|bottom" android:id="@id/indicator_view" android:layout_width="wrap_content" android:layout_height="30.0dp" android:layout_marginBottom="11.0dp" layout="@layout/live_layout_pk_bounty_indicator_view" />
-</com.p1.mobile.putong.live.livingroom.recreation.pk.view.bounty.PkBountyView>

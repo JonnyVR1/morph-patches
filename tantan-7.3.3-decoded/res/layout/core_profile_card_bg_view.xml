@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-        <v.VImage android:layout_gravity="center_horizontal" android:id="@id/tips_img" android:layout_width="35.0dp" android:layout_height="35.0dp" />
-    </FrameLayout>
-    <v.VText android:textSize="13.0sp" android:textColor="@color/core_color_33000000" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/tips_txt" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="最有趣的旅行照" android:paddingHorizontal="10.0dp" />
-    <v.VText android:textSize="13.0sp" android:textColor="@color/core_color_33000000" android:gravity="center" android:id="@id/tips_picture_integrity" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:text="" />
-</v.VLinear>

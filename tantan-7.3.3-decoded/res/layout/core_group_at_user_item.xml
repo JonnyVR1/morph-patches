@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.group.at.GroupAtItemViewContent android:layout_width="match_parent" android:layout_height="wrap_content" holder="messages.group.at.GroupAtItemViewContent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/content_layout" android:background="@drawable/tf_rect_light" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true">
-        <v.VDraweeView android:id="@id/avatar_image" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="16.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="10.0dp" android:layout_marginBottom="8.0dp" style="@style/core_fresco_profile_small_without_foreground" />
-        <TextView android:textColor="#212121" android:ellipsize="end" android:id="@id/member_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="15.0dp" android:singleLine="true" />
-    </LinearLayout>
-    <TextView android:textSize="13.0dp" android:textColor="#999999" android:gravity="center_vertical" android:id="@id/title_text" android:background="#f7f7f7" android:paddingLeft="16.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="24.0dp" />
-</com.p1.mobile.putong.core.ui.messages.group.at.GroupAtItemViewContent>

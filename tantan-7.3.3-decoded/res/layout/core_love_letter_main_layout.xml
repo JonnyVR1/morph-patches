@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.newui.loveletter.LoveLetterMainLayout android:layout_width="match_parent" android:layout_height="406.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.AutoVDraweeView android:id="@id/bg_image" android:layout_width="match_parent" android:layout_height="160.0dp" android:layout_marginTop="118.0dp" />
-    <View android:layout_gravity="center_horizontal" android:background="@null" android:layout_width="30.0dp" android:layout_height="30.0dp" android:layout_marginTop="10.0dp" />
-    <v.AutoVDraweeView android:layout_gravity="center_horizontal" android:id="@id/title_icon_1" android:layout_width="126.0dp" android:layout_height="24.0dp" android:layout_marginTop="52.0dp" app:actualImageScaleType="fitXY" />
-    <v.AutoVDraweeView android:layout_gravity="center_horizontal" android:id="@id/title_icon_2" android:layout_width="216.0dp" android:layout_height="88.0dp" android:layout_marginTop="96.0dp" app:actualImageScaleType="fitXY" />
-    <include android:id="@id/center_text_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="282.0dp" layout="@layout/core_love_letter_center_text_layout" />
-</com.p1.mobile.putong.core.newui.loveletter.LoveLetterMainLayout>

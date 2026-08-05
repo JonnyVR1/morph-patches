@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.virtual.room.close.VirtualVoiceCloseView android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="44.0dp" app:bind_extends="ConstraintLayout" app:binding="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/voiceClose" android:layout_width="24.0dp" android:layout_height="24.0dp" android:scaleType="center" android:layout_marginEnd="12.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" app:srcCompat="@null" />
-    <v.VImage android:id="@id/group_info" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginEnd="16.0dp" app:layout_constraintBottom_toBottomOf="@id/voiceClose" app:layout_constraintRight_toLeftOf="@id/voiceClose" app:layout_constraintTop_toTopOf="@id/voiceClose" app:srcCompat="@null" />
-    <v.VImage android:id="@id/share" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@null" android:layout_marginEnd="16.0dp" app:layout_constraintBottom_toBottomOf="@id/voiceClose" app:layout_constraintRight_toLeftOf="@id/voiceClose" app:layout_constraintTop_toTopOf="@id/voiceClose" />
-</com.p1.mobile.putong.live.livingroom.virtual.room.close.VirtualVoiceCloseView>

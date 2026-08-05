@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/menu_see"
-        android:orderInCategory="1"
-        android:title="@string/VIP_SEE_WHO_LIKES_ME_QUESTIONS"
-        app:actionLayout="@layout/see_help_right"
-        app:showAsAction="always"/>
-</menu>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:id="@id/tab_indicator" android:background="@color/common_orange" android:layout_width="match_parent" android:layout_height="3.0dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
-    <v.VImage android:id="@id/icon" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:src="@drawable/core_dynamic_greet_clean_unread" android:layout_toRightOf="@id/tab_content" android:layout_centerVertical="true" />
-    <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_03" android:id="@id/tab_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" android:layout_marginBottom="15.0dp" android:layout_centerInParent="true" />
-</RelativeLayout>

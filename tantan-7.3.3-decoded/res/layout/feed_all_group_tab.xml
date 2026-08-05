@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="14.0sp" android:textColor="@color/common_grey_03" android:ellipsize="end" android:gravity="center" android:id="@id/tv_tab_title" android:background="@drawable/feed_all_group_tab_unselected_bg" android:paddingLeft="12.0dp" android:paddingTop="7.5dp" android:paddingRight="12.0dp" android:paddingBottom="7.5dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>

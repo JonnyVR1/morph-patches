@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content" flatten="true" folder="increment.gift.upgradegift.view" holder="UpgradeEmptyView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:layout_gravity="center_horizontal" android:id="@id/emptyImage" android:layout_width="66.0dp" android:layout_height="66.0dp" android:src="@null" />
-    <TextView android:textSize="14.0sp" android:textColor="#bfbfbf" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="78.0dp" android:text="@string/LIVE_FANS_CLUB_NO_DATA" />
-</FrameLayout>

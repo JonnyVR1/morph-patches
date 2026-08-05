@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:layout_width="60.0dp" android:layout_height="wrap_content" attachToRoot="true" flatten="true" folder="newui" holder="view.boost.holder.ButtonBoostViewHolder"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.core.ui.home.BounceButton android:layout_gravity="center" android:id="@id/boost_button" android:tag="boost" android:layout_width="60.0dp" android:layout_height="60.0dp" android:scaleType="centerInside" app:centerIcon="@null" app:centerIconWidth="22.0dp" app:originWidth="60.0dp" />
-    <FrameLayout android:id="@id/boost_circle" android:visibility="gone" android:layout_width="60.0dp" android:layout_height="60.0dp" android:layout_alignTop="@id/boost_button" android:layout_alignBottom="@id/boost_button" android:layout_centerInParent="true" android:layout_alignStart="@id/boost_button" android:layout_alignEnd="@id/boost_button" flatten="true">
-        <com.p1.mobile.putong.core.ui.boost.view.OverlapCircleView android:layout_gravity="center" android:id="@id/boost_progress" android:layout_width="match_parent" android:layout_height="match_parent" app:borderWidth="0.0dp" app:clockwise="true" app:customProgressWidth="5.0dp" app:hasProgress="true" app:innerBorderWidth="0.0dp" app:progressColor="#fe7fb1" app:progressEndColor="#ef58e0" />
-        <v.VText android:textSize="14.0sp" android:textColor="#f53087" android:gravity="center" android:layout_gravity="center" android:id="@id/boost_label" android:layout_width="match_parent" android:layout_height="match_parent" android:text="6.5x" />
-    </FrameLayout>
-</merge>

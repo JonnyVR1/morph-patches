@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear_Dividers android:id="@id/my_information" flatten="true" holder="profile.holders.ProfileNewPersonalInfoEditHolder" needPublic="true" style="@style/profile_item_frame_no_padding_new"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include layout="@layout/core_edit_new_profile_my_information" />
-    <FrameLayout android:id="@id/live_habit_layout" android:layout_width="match_parent" android:layout_height="wrap_content" />
-    <include layout="@layout/core_edit_new_profile_my_information_more" />
-</v.VLinear_Dividers>

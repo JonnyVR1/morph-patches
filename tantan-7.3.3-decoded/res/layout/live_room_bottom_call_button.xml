@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.bottom.InputCallButton android:visibility="gone" android:layout_width="26.0dp" android:layout_height="26.0dp" flatten="true" folder="common" holder="bottom.InputCallButton"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VDraweeView android:id="@id/iv_apply_call" android:visibility="visible" android:layout_width="26.0dp" android:layout_height="26.0dp" android:layout_centerInParent="true" />
-    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svg_call" android:visibility="visible" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_centerInParent="true" />
-    <View android:id="@id/red_dot" android:background="@drawable/live_bg_ff3938_r3" android:visibility="visible" android:layout_width="6.0dp" android:layout_height="6.0dp" android:layout_marginTop="2.0dp" android:layout_marginRight="2.0dp" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
-</com.p1.mobile.putong.live.livingroom.common.bottom.InputCallButton>

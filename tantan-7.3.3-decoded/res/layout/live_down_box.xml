@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/root" android:layout_width="105.0dp" android:layout_height="105.0dp" flatten="true" folder="common.dynamic.downbox.item" holder="DownBoxViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/center_image" android:layout_width="40.0dp" android:layout_height="40.0dp" app:layout_constraintBottom_toBottomOf="@id/over_image" app:layout_constraintLeft_toLeftOf="@id/over_image" app:layout_constraintRight_toRightOf="@id/over_image" app:layout_constraintTop_toTopOf="@id/over_image" />
-    <v.VDraweeView android:id="@id/over_image" android:layout_width="80.0dp" android:layout_height="80.0dp" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <v.VDraweeView android:id="@id/guide_image" android:visibility="gone" android:layout_width="50.0dp" android:layout_height="50.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>

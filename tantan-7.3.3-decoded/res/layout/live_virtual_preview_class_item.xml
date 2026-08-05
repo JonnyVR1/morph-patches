@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:background="@drawable/live_selector_virtual_preview_template_bg" android:layout_width="76.0dp" android:layout_height="86.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:id="@id/content_bg" android:background="@drawable/live_bg_1aff831e_r7" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="5.0dp" />
-    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/icon" android:layout_width="32.0dp" android:layout_height="32.0dp" android:layout_marginTop="17.0dp" />
-    <v.VText android:textSize="12.0sp" android:textColor="#ccffffff" android:layout_gravity="center_horizontal" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="57.0dp" />
-</v.VFrame>

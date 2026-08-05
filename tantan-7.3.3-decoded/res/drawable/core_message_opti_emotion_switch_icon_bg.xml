@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/core_message_opti_emotion_switch_icon_bg_acitivated" android:state_activated="true" />
-    <item android:drawable="@drawable/core_message_opti_emotion_switch_icon_bg_unacitivate" android:state_activated="false" />
-</selector>

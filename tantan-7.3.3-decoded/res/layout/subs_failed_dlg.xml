@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="20.0dp" android:textStyle="bold" android:textColor="@color/core_gray_212121" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" android:text="@string/GP_SUBS_FAILED_TITLE" />
-    <v.VImage android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="23.0dp" android:src="@null" />
-    <v.VText android:textSize="16.0sp" android:textColor="@color/gray_999999" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="25.0dp" android:layout_marginTop="23.0dp" android:layout_marginRight="25.0dp" android:layout_marginBottom="40.0dp" android:text="@string/GP_SUBS_FAILED_CONTENT" />
-</v.VLinear>

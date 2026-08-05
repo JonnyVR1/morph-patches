@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.base.arch.card.cardmodel.modeCard.LiveRoomModeCardView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="-13.0dp" android:layout_marginBottom="8.0dp" android:layout_marginStart="5.0dp" android:layout_marginEnd="5.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VRecyclerView android:id="@id/recycler_view" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="4.0dp" />
-</com.p1.mobile.putong.live.base.arch.card.cardmodel.modeCard.LiveRoomModeCardView>

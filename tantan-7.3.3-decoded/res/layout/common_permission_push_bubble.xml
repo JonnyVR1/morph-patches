@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:padding="16.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VIcon android:id="@id/icon" android:layout_width="wrap_content" android:layout_height="wrap_content" app:iconStyle="medium" />
-    <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_weight="1.0">
-        <v.VText android:textSize="16.0sp" android:textStyle="bold" android:textColor="#323232" android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" />
-        <v.VText android:textSize="12.0sp" android:textColor="@color/common_black_01" android:id="@id/desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" />
-    </LinearLayout>
-</LinearLayout>

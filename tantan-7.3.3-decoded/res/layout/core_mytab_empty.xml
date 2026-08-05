@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" flatten="true">
-        <v.VImage android:layout_gravity="center_horizontal" android:layout_width="220.0dp" android:layout_height="150.0dp" android:src="@null" />
-        <TextView android:textSize="14.0sp" android:textColor="#323232" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/empty_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="还没有人看过我" />
-        <com.p1.mobile.putong.core.newui.PlatformQualificationView android:id="@id/platform_qualification" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="150.0dp" />
-    </v.VLinear>
-</androidx.core.widget.NestedScrollView>

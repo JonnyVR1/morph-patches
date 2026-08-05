@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/error_layout" android:background="@drawable/live_shape_pull_up_bg" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0sp" android:textColor="@color/live_white" android:id="@id/error_text" android:background="@drawable/live_bg_black_r4_a60" android:paddingLeft="24.0dp" android:paddingTop="8.0dp" android:paddingRight="24.0dp" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/LIVE_FOLLOW_ANCHOR" />
-    <v.VButton android:textSize="14.0sp" android:textColor="@color/live_white" android:gravity="center" android:id="@id/error_bt" android:background="@drawable/live_bg_black_r4_a60" android:layout_width="76.0dp" android:layout_height="36.0dp" android:layout_marginTop="16.0dp" android:text="@string/LIVE_RETRY" />
-</LinearLayout>

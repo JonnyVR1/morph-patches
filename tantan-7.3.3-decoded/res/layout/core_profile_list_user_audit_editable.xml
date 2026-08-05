@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:id="@id/user_audit_editable" android:layout_width="match_parent" android:layout_height="36.0dp" android:layout_marginTop="12.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" app:cardBackgroundColor="#f4f4f4" app:cardCornerRadius="10.0dp" app:cardElevation="0.0dp" flatten="true"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="11.0sp" android:textColor="@color/common_black_80" android:gravity="center" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="36.0dp" android:text="资料审核中，再次修改提交会重新排队审核" android:drawablePadding="8.0dp" android:drawableStart="@null" />
-</androidx.cardview.widget.CardView>

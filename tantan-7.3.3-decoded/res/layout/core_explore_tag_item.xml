@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:background="@drawable/bg_explore_tags" android:layout_width="wrap_content" android:layout_height="24.0dp" android:paddingStart="6.0dp" android:paddingEnd="8.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:layout_gravity="center_vertical" android:id="@id/explore_tags_icon" android:layout_width="16.0dp" android:layout_height="16.0dp" fresco:actualImageScaleType="centerInside" fresco:failureImage="@drawable/common_card_image_holder_full_round" fresco:failureImageScaleType="centerInside" fresco:placeholderImageScaleType="centerInside" style="@style/core_fresco_base" useId="true" />
-    <v.VText android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/white" android:ellipsize="end" android:gravity="center" android:id="@id/explore_tag_name" android:layout_width="wrap_content" android:layout_height="24.0dp" android:lines="1" android:layout_marginStart="2.0dp" />
-</v.VLinear>

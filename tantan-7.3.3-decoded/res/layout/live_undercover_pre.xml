@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:layout_width="match_parent" android:layout_height="match_parent" attachToRoot="true" flatten="true"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VImage android:id="@id/logo" android:layout_width="160.0dp" android:layout_height="80.0dp" android:layout_marginTop="13.0dp" android:src="@null" android:layout_centerHorizontal="true" useId="true" />
-    <v.VRecyclerView android:id="@id/join_user_rv" android:layout_width="wrap_content" android:layout_height="44.0dp" android:layout_marginTop="5.0dp" android:layout_below="@id/logo" android:layout_centerHorizontal="true" useId="true" />
-    <v.VText android:textSize="16.0sp" android:textColor="#daf4ff" android:id="@id/wait_tips_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="@string/LIVE_ROOM_UNDERCOVER_WAIT_USER" android:layout_below="@id/join_user_rv" android:layout_centerHorizontal="true" useId="true" />
-    <v.VText android:textSize="14.0sp" android:textColor="#99daf4ff" android:id="@id/wait_tips_2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_below="@id/wait_tips_1" android:layout_centerHorizontal="true" useId="true" />
-    <v.VText android:textSize="16.0sp" android:textStyle="bold" android:textColor="#1b4173" android:gravity="center" android:id="@id/join_btn" android:background="@drawable/live_selector_bg_undercover_btn" android:layout_width="178.0dp" android:layout_height="48.0dp" android:layout_marginBottom="22.0dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" useId="true" />
-</merge>

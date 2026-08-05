@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.camera.MusicAggregateItemView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="camera.MusicAggregateItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/music_aggregate_item_cover" android:background="#eeeff1" android:layout_width="match_parent" android:layout_height="160.0dp" android:layout_margin="0.25dp" fresco:roundedCornerRadius="1.0dp" />
-    <TextView android:textSize="10.0sp" android:textStyle="bold" android:textColor="#ffffff" android:layout_gravity="right" android:id="@id/music_aggregate_item_tag" android:background="@drawable/music_aggregate_tag_background" android:paddingLeft="7.0dp" android:paddingTop="3.0dp" android:paddingRight="7.0dp" android:paddingBottom="3.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginRight="6.0dp" />
-</com.p1.mobile.putong.feed.newui.camera.MusicAggregateItemView>

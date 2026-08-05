@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListTitle android:layout_width="match_parent" android:layout_height="wrap_content" holder="vip.privilege.content.item.PrivilegeDescListTitle"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="15.0sp" android:textStyle="normal" android:textColor="#66000000" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="14.0dp" android:layout_marginBottom="14.0dp" />
-    <v.VImage android:id="@id/icon" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_centerVertical="true" android:layout_marginStart="4.0dp" android:layout_toEndOf="@id/title" />
-    <TextView android:textSize="13.0sp" android:textStyle="normal" android:textColor="#33000000" android:id="@id/right_text" android:padding="5.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="15.0dp" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
-</com.p1.mobile.putong.core.ui.vip.privilege.content.item.PrivilegeDescListTitle>

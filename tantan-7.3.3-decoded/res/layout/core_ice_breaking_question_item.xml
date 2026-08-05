@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.question.QuestionItemView android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="16.0dp" android:paddingEnd="16.0dp" flatten="true" folder="ui.messages.question" holder="QuestionItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="14.0sp" android:textStyle="normal" android:textColor="#de000000" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/content" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginBottom="12.0dp" android:layout_weight="1.0" android:layout_marginEnd="6.0dp" />
-    <v.VImage android:layout_gravity="center_vertical" android:id="@id/delete" android:layout_width="44.0dp" android:layout_height="44.0dp" android:scaleType="center" android:layout_marginStart="-16.0dp" android:layout_marginEnd="-16.0dp" app:srcCompat="@drawable/core_ice_breaking_question_delete_icon" />
-</com.p1.mobile.putong.core.ui.messages.question.QuestionItemView>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear_Dividers android:orientation="horizontal" android:id="@id/publicId" android:paddingTop="30.0dp" android:paddingBottom="4.0dp" holder="profile.profilelist.itemholders.ProfilePicPostItemHolder" style="@style/profile_item_frame_no_padding"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="15.0sp" android:textColor="@color/common_black_80" android:layout_gravity="center_vertical" android:id="@id/pic_post_text" android:paddingLeft="20.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/FEED_PIC_SHARE" android:layout_weight="1.0" app:typeface="regular" />
-    <v.VSwitchButton android:layout_gravity="center_vertical" android:id="@id/pic_post_switch" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="20.0dp" android:checked="false" />
-</v.VLinear_Dividers>

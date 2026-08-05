@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.svip.guide.SvipPrivilegeItem android:gravity="center_vertical" android:orientation="horizontal" android:paddingTop="5.0dp" android:paddingBottom="5.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" holder="svip.guide.SvipPrivilegeItem"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/icon" android:layout_width="30.0dp" android:layout_height="30.0dp" android:layout_marginLeft="38.0dp" />
-    <v.VText android:textSize="16.0sp" android:textColor="#686868" android:id="@id/name" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginLeft="10.0dp" android:layout_weight="1.0" />
-    <v.VImage android:padding="8.0dp" android:layout_width="30.0dp" android:layout_height="30.0dp" android:layout_marginRight="38.0dp" android:src="@null" />
-</com.p1.mobile.putong.core.ui.svip.guide.SvipPrivilegeItem>

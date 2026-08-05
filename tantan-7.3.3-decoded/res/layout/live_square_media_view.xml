@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <TextureView android:layout_gravity="center" android:id="@id/texture_view" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <v.VDraweeView android:layout_gravity="center" android:id="@id/drawee_view" android:layout_width="match_parent" android:layout_height="match_parent" fresco:actualImageScaleType="centerCrop" fresco:placeholderImage="@drawable/live_bg_white_a15" fresco:placeholderImageScaleType="fitXY" fresco:roundBottomLeft="true" fresco:roundBottomRight="true" fresco:roundTopLeft="true" fresco:roundTopRight="true" />
-</FrameLayout>

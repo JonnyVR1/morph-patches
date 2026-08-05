@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:orientation="vertical" android:background="@drawable/core_intl_love_buzz_white_btn_bg" android:padding="32.0dp" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" attachToRoot="true" folder="ui" holder="lovebuzz.widget.BuzzNoFaceTipView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VText android:textSize="18.0sp" android:textColor="@color/core_color_151515" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/no_face_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="110.0dp" android:text="@string/INTL_MEMOJI_SHOW_FACE_GUIDE_TITLE" android:maxLines="1" app:typeface="medium" />
-    <v.VText android:textSize="14.0sp" android:textColor="@color/core_color_80000000" android:gravity="center" android:layout_gravity="center" android:id="@id/no_face_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:text="@string/INTL_MEMOJI_SHOW_FACE_GUIDE_SUBTITLE" />
-</merge>

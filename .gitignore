@@ -1,37 +1,48 @@
 # Build outputs
-build/
-bin/
-.gradle/
-.kotlin/
-
-# IDE
-.idea/
-*.iml
-.vscode/
-
-# Local config
-local.properties
 *.apk
 *.xapk
-
-# Decompiler
-jadx-1.5.6/
-tantan/
-tantan-tribe-decompiled/
-tantan-tribe-dex/
-tantan-tribe-extracted/
-tantan-tribe-resources/
-androguard.log
-
-# Archives
-*.tar.gz
-*.zip
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Serena/Serena cache
-.serena/
-patches/morphe-temporary-files/
+*.idsig
+*.keystore
+*.bak
 *.mpp
+build/
+.gradle/
+apk-build/
+
+# Decompiled sources
+tantan-decompiled-*/
+tantan-tribe-*/
+tantan-*-decoded/
+tantan-*-extracted/
+tantan-*-config.*/
+tantan-*-resources/
+jadx-*/
+
+# Log files
+*.log
+crash*.txt
+logcat*.txt
+maps-logs.txt
+patch-logs.txt
+
+# IDE and tool directories
+.kilo/
+.kilocode/
+.octto/
+.serena/
+.kotlin/
+.idea/
+*.iml
+.DS_Store
+
+# Local configuration
+local.properties
+
+# Temporary investigation documents
+*-performance-report.md
+*-performance-analysis.md
+INFINITE_LOADING_INVESTIGATION.md
+dev2-plan.md
+
+# Test artifacts
+test-output/

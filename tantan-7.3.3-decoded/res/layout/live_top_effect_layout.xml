@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.increment.gift.topeffect.view.TopSVGAEffectView android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" holder="increment.gift.topeffect.view.TopSVGAEffectView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="center" android:id="@id/top_svga" android:visibility="gone" android:layout_width="200.0dp" android:layout_height="200.0dp" />
-    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:layout_gravity="center_horizontal" android:id="@id/five_star_top_svga" android:visibility="gone" android:layout_width="match_parent" android:layout_height="490.0dp" android:scaleType="fitXY" />
-</com.p1.mobile.putong.live.livingroom.increment.gift.topeffect.view.TopSVGAEffectView>

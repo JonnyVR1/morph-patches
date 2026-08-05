@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.recreation.multiPk.dialog.view.MultiCallPkBoardFootView android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="recreation.multiPk.dialog.view" holder="MultiCallPkBoardFootView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp">
-        <v.VImage android:layout_gravity="center_vertical" android:layout_width="7.0dp" android:layout_height="7.0dp" android:src="@null" />
-        <v.VText android:textSize="13.0sp" android:textColor="@color/live_white_20_opacity" android:id="@id/tv_foot_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="最多展示前50名" android:layout_marginStart="5.0dp" android:layout_marginEnd="5.0dp" />
-        <v.VImage android:layout_gravity="center_vertical" android:layout_width="7.0dp" android:layout_height="7.0dp" android:src="@null" />
-    </LinearLayout>
-</com.p1.mobile.putong.live.livingroom.recreation.multiPk.dialog.view.MultiCallPkBoardFootView>

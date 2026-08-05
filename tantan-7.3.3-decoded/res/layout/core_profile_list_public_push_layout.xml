@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear_Dividers android:orientation="vertical" android:id="@id/core_profile_push" android:layout_width="match_parent" android:layout_height="wrap_content" holder="profile.profilelist.itemholders.ProfilePushLikeItemHolder"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VRelative android:background="@drawable/core_profile_push_like_banner_bg" android:layout_width="match_parent" android:layout_height="80.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="20.0dp">
-        <v.VImage android:id="@id/iv_push_like_icon" android:layout_width="48.0dp" android:layout_height="48.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="12.0dp" android:src="@null" android:layout_centerVertical="true" />
-        <v.VText android:textSize="15.0sp" android:textColor="#cc000000" android:id="@id/tv_push_like_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="19.0dp" android:text="超有缘" android:layout_toRightOf="@id/iv_push_like_icon" />
-        <v.VText android:textSize="13.0sp" android:textColor="#4c000000" android:id="@id/tv_push_like_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="43.0dp" android:text="" android:layout_toRightOf="@id/iv_push_like_icon" />
-    </v.VRelative>
-</v.VLinear_Dividers>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.newui.messages.expirence.view.ItemChallengeTipsMsg android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" folder="newui" holder="messages.expirence.view.ItemChallengeTipsMsg"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="13.0dp" android:textColor="@color/core_color_4c000000" android:gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="想要了解你更多,邀你测一测～" android:layout_centerInParent="true" />
-</com.p1.mobile.putong.core.newui.messages.expirence.view.ItemChallengeTipsMsg>

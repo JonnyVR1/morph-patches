@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.hellogroup.mk.business.widget.MKResizeListenerLayout android:id="@id/mk_rootlayout" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <FrameLayout android:id="@id/toolbar_container" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <include layout="@layout/layout_mk_toolbar_for_webview" />
-    </FrameLayout>
-    <com.hellogroup.mk.business.widget.MKSwipeRefreshLayout android:id="@id/mk_webview_swiperefreshlayout" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/toolbar_container" />
-    <ViewStub android:id="@id/mk_loading_or_overtime_layout" android:layout="@layout/mk_loading_or_overtime" android:layout_width="match_parent" android:layout_height="match_parent" />
-</com.hellogroup.mk.business.widget.MKResizeListenerLayout>

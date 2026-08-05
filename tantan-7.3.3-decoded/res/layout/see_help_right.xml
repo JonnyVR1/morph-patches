@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@id/see_help" android:background="?actionBarItemBackground" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:layout_width="wrap_content" android:layout_height="match_parent" holder="vip.likers.LikersViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout android:layout_gravity="center_vertical" android:id="@id/content" android:padding="0.0dp" android:focusable="false" android:clickable="false" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="30.0dp" android:layout_centerVertical="true">
-        <v.VText_AutoFit android:textSize="14.0sp" android:gravity="center_vertical" android:id="@id/text" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:focusable="false" android:visibility="gone" android:clickable="false" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="30.0dp" android:text="@string/VIP_SEE_WHO_LIKES_ME_QUESTIONS" app:typeface="medium" />
-        <v.VImage android:gravity="center_vertical" android:id="@id/new_ic" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:focusable="false" android:clickable="false" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:scaleType="centerCrop" />
-        <ImageView android:id="@id/dot" android:focusable="false" android:visibility="visible" android:clickable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="-14.0dp" android:src="@drawable/main_ab_unread_conversations_circle" android:layout_toRightOf="@id/text" android:layout_marginStart="-14.0dp" android:layout_toEndOf="@id/text" />
-    </RelativeLayout>
-</RelativeLayout>

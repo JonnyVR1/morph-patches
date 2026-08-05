@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.messages.ItemVoiceCall android:orientation="vertical" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VLinear android:gravity="center" android:orientation="horizontal" android:id="@id/tip_layout" android:paddingTop="?message_voice_call_right_padding_top" android:paddingBottom="?message_voice_call_right_padding_bottom" android:layout_width="wrap_content" android:layout_height="?message_audio_height_right" android:paddingStart="?message_voice_call_right_padding_left" android:paddingEnd="?message_voice_call_right_padding_right" style="@style/messages_item_right">
-        <TextView android:textSize="16.0sp" android:textColor="?message_text_content_color_right" android:id="@id/tips" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-        <ImageView android:id="@id/image" android:layout_width="23.0dp" android:layout_height="23.0dp" android:scaleType="fitXY" android:layout_marginStart="?message_voice_icon_margin_left" app:srcCompat="?message_voice_phone_hang_out_right" />
-    </v.VLinear>
-</com.p1.mobile.putong.core.ui.messages.ItemVoiceCall>

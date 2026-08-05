@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:orientation="vertical" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout android:id="@id/icon" android:layout_width="144.0dp" android:layout_height="132.0dp">
-        <com.p1.mobile.putong.core.ui.GradientBgButton android:id="@id/out" android:layout_width="132.0dp" android:layout_height="132.0dp" android:cropToPadding="false" app:buttonColorEnd="@color/superlike_bg" app:buttonColorStart="@color/superlike_bg_light" app:icon="@null" app:iconWidth="54.0dp" app:shadowEnable="true" />
-        <com.p1.mobile.putong.core.ui.GradientBgButton android:id="@id/count" android:layout_width="72.0dp" android:layout_height="72.0dp" android:layout_marginRight="-12.0dp" android:layout_marginBottom="4.0dp" android:scaleType="centerInside" android:layout_alignRight="@id/out" android:layout_alignBottom="@id/out" android:layout_alignEnd="@id/out" app:buttonColorEnd="#ec553e" app:buttonColorStart="#ec553e" app:centerText="x0" app:centerTextColor="@color/white" app:centerTextSize="24.0sp" app:shadowEnable="true" />
-    </RelativeLayout>
-    <v.VText android:textSize="20.0sp" android:textColor="#4d000000" android:id="@id/timer" android:paddingBottom="20.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_below="@id/icon" android:layout_centerHorizontal="true" />
-</RelativeLayout>

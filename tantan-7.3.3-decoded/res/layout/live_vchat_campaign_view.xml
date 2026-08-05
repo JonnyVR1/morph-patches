@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.internal.vchat.module.campaign.LiveVChatCampaignView android:orientation="vertical" android:id="@id/live_campaigns" android:layout_width="110.0dp" android:layout_height="34.0dp" flatten="true" folder="internal.vchat.module.campaign" holder="LiveVChatCampaignView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VPager android:layout_gravity="center_horizontal" android:id="@id/viewPager" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" />
-    <v.VLinear android:gravity="center" android:layout_gravity="center|bottom" android:orientation="horizontal" android:id="@id/indicator" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="6.0dp" android:layout_marginBottom="6.0dp" />
-</com.p1.mobile.putong.live.external.internal.vchat.module.campaign.LiveVChatCampaignView>

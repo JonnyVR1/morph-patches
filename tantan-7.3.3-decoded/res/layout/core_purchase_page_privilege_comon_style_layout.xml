@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeCommonStyleView android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="90.0dp" flatten="true" holder="purchase.page.PurchasePrivilegeCommonStyleView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:layout_gravity="center|bottom" android:id="@id/avatar_right" android:background="@null" android:padding="4.0dp" android:layout_width="71.0dp" android:layout_height="71.0dp" android:layout_marginBottom="7.0dp" android:layout_marginEnd="-27.0dp" app:actualImageScaleType="centerCrop" app:roundAsCircle="true" />
-    <v.AutoVDraweeView android:layout_gravity="center|bottom" android:id="@id/avatar_left" android:background="@null" android:padding="4.0dp" android:layout_width="71.0dp" android:layout_height="71.0dp" android:layout_marginBottom="7.0dp" android:layout_marginStart="-27.0dp" app:actualImageScaleType="centerCrop" app:roundAsCircle="true" />
-    <v.VImage android:layout_gravity="center|top" android:id="@id/icon" android:layout_width="38.0dp" android:layout_height="38.0dp" android:layout_marginTop="2.0dp" android:src="@null" />
-</com.p1.mobile.putong.core.ui.purchase.page.PurchasePrivilegeCommonStyleView>

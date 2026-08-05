@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.game.undercover.viewmodule.UndercoverMainView android:layout_width="match_parent" android:layout_height="290.0dp" flatten="true" holder="voice.intl.game.undercover.viewmodule.UndercoverMainView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VDraweeView android:id="@id/bg_view" android:layout_width="match_parent" android:layout_height="match_parent" app:actualImageScaleType="fitXY" />
-    <v.VText android:textSize="14.0sp" android:textColor="#daf4ff" android:layout_gravity="start" android:id="@id/help_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13.0dp" android:drawableLeft="@null" android:drawablePadding="4.0dp" android:layout_marginStart="13.0dp" />
-    <v.VImage android:layout_gravity="end" android:id="@id/close_btn" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13.0dp" android:src="@null" android:layout_marginEnd="13.0dp" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.game.undercover.viewmodule.UndercoverMainView>

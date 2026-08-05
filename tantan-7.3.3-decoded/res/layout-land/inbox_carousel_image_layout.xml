@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.clevertap.android.sdk.customviews.RectangleImageView android:layout_gravity="center" android:id="@id/imageView" android:visibility="gone" android:layout_width="510.0dp" android:layout_height="300.0dp" android:src="@null" android:scaleType="centerCrop" android:adjustViewBounds="true" />
-    <com.clevertap.android.sdk.customviews.SquareImageView android:layout_gravity="center" android:id="@id/squareImageView" android:visibility="gone" android:layout_width="300.0dp" android:layout_height="300.0dp" android:src="@null" android:scaleType="centerCrop" />
-    <ImageView android:layout_gravity="center" android:id="@id/defaultImageView" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="fitCenter" android:adjustViewBounds="true" />
-</LinearLayout>

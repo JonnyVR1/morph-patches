@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<p151v.fresco.photodraweeview.PhotoDraweeView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:failureImage="0x7f081a6c"
-    style="@style/core_fresco_base"/>

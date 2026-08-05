@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.vip.privilege.dlg.PurchaseCoinConsumeSayHiView android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/root" android:paddingTop="5.0dp" android:clipChildren="false" android:layout_width="match_parent" android:layout_height="143.0dp" flatten="true" holder="vip.privilege.dlg.PurchaseCoinConsumeSayHiView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/bg" android:layout_width="99.0dp" android:layout_height="117.0dp" android:src="@null" android:layout_alignParentTop="true" />
-    <v.VDraweeView android:layout_gravity="center" android:id="@id/avatar" android:layout_width="80.0dp" android:layout_height="103.0dp" android:layout_marginBottom="-14.0dp" android:layout_alignBottom="@id/bg" android:rotation="10.0" android:layout_marginStart="-26.0dp" android:layout_toEndOf="@id/bg" app:roundedCornerRadius="14.0dp" app:roundingBorderColor="@color/white" app:roundingBorderWidth="4.0dp" />
-    <v.VImage android:id="@id/say_hi_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="9.599976dp" android:src="@null" android:layout_alignBottom="@id/bg" android:layout_marginEnd="-2.0dp" android:layout_alignEnd="@id/bg" />
-</com.p1.mobile.putong.core.ui.vip.privilege.dlg.PurchaseCoinConsumeSayHiView>

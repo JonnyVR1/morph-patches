@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.intloperation.regularsticker.RegularStickerItemView android:theme="@style/Theme.MaterialComponents" android:layout_gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:checkable="true" android:alpha="0.8" app:cardBackgroundColor="@color/white" app:cardCornerRadius="16.0dp" app:cardElevation="0.0dp" app:cardForegroundColor="@color/core_intl_similar_interests_foreground" app:checkedIcon="@null" app:contentPadding="4.0dp" app:strokeColor="#f7f7f7" app:strokeWidth="4.0dp" flatten="true" holder="intloperation.regularsticker.RegularStickerItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <v.VDraweeView android:id="@id/setting_img" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" app:actualImageScaleType="centerCrop" app:viewAspectRatio="1.0" />
-        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#333333" android:ellipsize="end" android:gravity="center" android:id="@id/setting_content_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginBottom="12.0dp" android:lines="2" android:layout_marginStart="8.0dp" android:layout_marginEnd="8.0dp" />
-    </LinearLayout>
-</com.p1.mobile.putong.core.ui.intloperation.regularsticker.RegularStickerItemView>

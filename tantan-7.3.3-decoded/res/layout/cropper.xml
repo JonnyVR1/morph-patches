@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:orientation="vertical" android:background="@null" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.android.ui.cropiwa.CropIwaView android:id="@id/crop_view" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <v.VProgressBar android:layout_gravity="center" android:id="@id/loading" android:layout_width="34.0dp" android:layout_height="34.0dp" android:indeterminateOnly="true" app:cpb_color="@color/tantan_orange" app:cpb_stroke_percentage="0.1" />
-</FrameLayout>

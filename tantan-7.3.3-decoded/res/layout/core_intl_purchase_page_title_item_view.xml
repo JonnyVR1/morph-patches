@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPurchasePageTabsItemView android:orientation="vertical" android:id="@id/root" android:paddingTop="7.0dp" android:paddingBottom="7.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingVertical="7.0dp" holder="purchase.intlpage.IntlPurchasePageTabsItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="16.0sp" android:textColor="@color/core_color_80ffffff" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:lines="1" android:drawablePadding="4.0dp" />
-    <v.VText android:textSize="13.0sp" android:textColor="#a99469" android:ellipsize="end" android:gravity="center_vertical" android:layout_gravity="center_horizontal" android:id="@id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:lines="1" />
-</com.p1.mobile.putong.core.ui.purchase.intlpage.IntlPurchasePageTabsItemView>

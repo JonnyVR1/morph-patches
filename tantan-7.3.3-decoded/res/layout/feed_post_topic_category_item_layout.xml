@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.group.dialog.insert.twolevellinkage.FeedPostTopicCategoryItemView android:gravity="center" android:background="@drawable/feed_add_topiccagegory_bg_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" folder="newui" holder="group.dialog.insert.twolevellinkage.FeedPostTopicCategoryItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="14.0sp" android:textColor="@color/common_grey_03" android:id="@id/topic_category_name" android:paddingLeft="12.0dp" android:paddingTop="7.5dp" android:paddingRight="12.0dp" android:paddingBottom="7.5dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="3.0dp" android:layout_marginRight="3.0dp" android:text="热门" />
-</com.p1.mobile.putong.feed.newui.group.dialog.insert.twolevellinkage.FeedPostTopicCategoryItemView>

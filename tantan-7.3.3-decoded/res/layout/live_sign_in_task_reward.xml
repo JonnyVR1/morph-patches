@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.common.signin.main.TaskRewardView android:orientation="vertical" android:layout_width="60.0dp" android:layout_height="60.0dp" flatten="true" folder="common.signin.main" holder="TaskRewardView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VDraweeView android:layout_gravity="center_horizontal" android:id="@id/icon" android:layout_width="38.0dp" android:layout_height="38.0dp" android:layout_marginTop="4.0dp" />
-    <v.VText android:textSize="10.0sp" android:textColor="@android:color/white" android:layout_gravity="center_horizontal" android:id="@id/des" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:maxLines="1" android:alpha="0.8" />
-</com.p1.mobile.putong.live.livingroom.common.signin.main.TaskRewardView>

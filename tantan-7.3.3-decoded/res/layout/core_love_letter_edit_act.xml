@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:background="#fbfbf1" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="44.0dp" app:leftIcon="@null" />
-    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-        <include android:id="@id/edit_layout" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/core_love_letter_edit_layout" />
-    </FrameLayout>
-</LinearLayout>

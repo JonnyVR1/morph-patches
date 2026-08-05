@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="suggest.SuggestersViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
-    <v.VPullUpRecyclerView android:id="@id/list" android:paddingLeft="7.0dp" android:paddingTop="5.0dp" android:paddingRight="7.0dp" android:paddingBottom="80.0dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" />
-</v.VLinear>

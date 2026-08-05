@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:layout_width="match_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:layout_gravity="center" android:background="@drawable/common_handlebar_handler" android:layout_width="37.0dp" android:layout_height="5.0dp" />
-</merge>

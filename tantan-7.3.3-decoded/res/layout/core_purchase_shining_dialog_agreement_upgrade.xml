@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/agreement_root" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="purchase.mediator.agreement.PurchaseAgreementUpgradeComponent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:layout_gravity="center_vertical" android:id="@id/check" android:layout_width="16.0dp" android:layout_height="16.0dp" style="@style/core_svip_checkbox" />
-    <TextView android:textSize="10.0sp" android:textColor="#ccffffff" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/agreement" android:layout_width="wrap_content" android:layout_height="34.0dp" android:maxHeight="32.0dp" android:text="@string/CORE_VIP_UPGRADE_SVIP_AGREEMENT" android:maxLines="2" android:lineSpacingExtra="2.0dp" android:layout_marginStart="4.0dp" android:fallbackLineSpacing="false" />
-</LinearLayout>

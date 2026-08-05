@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.core.ui.purchase.showcase.NewUIPurchaseSectionViewAutoPay android:layout_width="match_parent" android:layout_height="wrap_content" holder="purchase.showcase.NewUIPurchaseSectionViewAutoPay"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/border" android:layout_width="match_parent" android:layout_height="121.0dp" android:layout_marginTop="12.0dp">
-        <v.VText android:textSize="28.0dp" android:textColor="@color/core_auto_pay_count_color" android:id="@id/count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:singleLine="true" />
-        <v.VText_AutoFit android:textSize="16.0dp" android:textColor="@color/core_auto_pay_center_price_color" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/top_price" android:paddingLeft="5.0dp" android:paddingRight="5.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:singleLine="true" app:typeface="medium" />
-        <v.VText_AutoFit android:textSize="14.0dp" android:textColor="@color/common_orange_02" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/center_price" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:singleLine="true" android:fontFamily="sans-serif" />
-    </LinearLayout>
-</com.p1.mobile.putong.core.ui.purchase.showcase.NewUIPurchaseSectionViewAutoPay>

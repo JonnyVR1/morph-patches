@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.external.intl.view.widgets.IntlLiveActivitiesEntryOrigin android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/live_shape_bg_activities_entry_origin" android:layout_width="wrap_content" android:layout_height="43.0dp" flatten="true" folder="intl" holder="view.widgets.IntlLiveActivitiesEntryOrigin"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.p1.mobile.putong.live.base.mmsdk.AnimEffectPlayer android:id="@id/svga" android:layout_width="28.0dp" android:layout_height="35.0dp" android:layout_marginStart="6.0dp" />
-    <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginRight="10.0dp" android:text="@string/LIVE_ACTIVITY" android:fontFamily="PingFangSC-Semibold" />
-</com.p1.mobile.putong.live.external.intl.view.widgets.IntlLiveActivitiesEntryOrigin>

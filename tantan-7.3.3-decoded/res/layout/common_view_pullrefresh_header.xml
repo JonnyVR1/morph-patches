@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:paddingTop="24.0dp" android:paddingBottom="32.0dp" android:layout_width="match_parent" android:layout_height="88.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.immomo.svgaplayer.view.MomoLayUpSVGAImageView android:layout_gravity="center_horizontal" android:id="@id/heart" android:layout_width="32.0dp" android:layout_height="32.0dp" app:clearsAfterStop="false" app:fillMode="Backward" />
-</FrameLayout>

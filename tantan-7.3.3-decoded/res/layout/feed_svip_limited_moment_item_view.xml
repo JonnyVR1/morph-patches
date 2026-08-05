@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.photoalbum.view.FeedSvipLimitedMomentItemView android:id="@id/root" android:layout_width="match_parent" android:layout_height="wrap_content" folder="newui" holder="photoalbum.view.FeedSvipLimitedMomentItemView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VLinear android:orientation="vertical" android:id="@id/moment_content" android:layout_width="match_parent" android:layout_height="wrap_content" />
-    <View android:id="@id/cover" android:background="@drawable/feed_liked_moment_no_privilege_bg" android:clickable="true" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <Button android:textStyle="bold" android:layout_gravity="center" android:id="@id/unlock" android:background="@drawable/feed_privilege_desc_unlock_button" android:text="开通SVIP，解锁更多喜欢的人" android:stateListAnimator="@null" style="@style/common_button_medium_01" />
-</com.p1.mobile.putong.feed.newui.photoalbum.view.FeedSvipLimitedMomentItemView>

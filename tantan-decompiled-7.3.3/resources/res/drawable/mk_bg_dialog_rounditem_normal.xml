@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="@color/mk_dialog_item_normal"/>
-    <stroke
-        android:width="1px"
-        android:color="@color/mk_dialog_divider"/>
-    <corners android:radius="@dimen/mk_dialog_round_radius"/>
-</shape>

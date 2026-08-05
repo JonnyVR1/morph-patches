@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VLinear android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="intlmeet.tribe.IntlMeetFrag2ViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.google.android.material.tabs.TabLayout android:id="@id/tablayout" android:background="@drawable/core_fun_tab_bg" android:visibility="gone" android:fadingEdgeLength="0.0dp" android:layout_width="match_parent" android:layout_height="58.0dp" android:requiresFadingEdge="horizontal" app:tabBackground="@android:color/transparent" app:tabGravity="fill" app:tabIndicatorColor="#fe7e1d" app:tabIndicatorGravity="bottom" app:tabIndicatorHeight="3.0dp" app:tabMaxWidth="0.0dp" app:tabMinWidth="0.0dp" app:tabMode="fixed" app:tabPaddingEnd="0.0dp" app:tabPaddingStart="0.0dp" app:tabRippleColor="@android:color/transparent" />
-    <androidx.viewpager2.widget.ViewPager2 android:id="@id/viewpager" android:layout_width="match_parent" android:layout_height="match_parent" />
-</v.VLinear>

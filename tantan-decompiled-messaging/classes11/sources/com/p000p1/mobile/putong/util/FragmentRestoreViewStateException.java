@@ -1,8 +1,0 @@
-package com.p000p1.mobile.putong.util;
-
-/* JADX INFO: loaded from: /tmp/tantan-dex/classes11.dex */
-public class FragmentRestoreViewStateException extends Throwable {
-    public FragmentRestoreViewStateException(String str, Throwable th) {
-        super(str, th);
-    }
-}

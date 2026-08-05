@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.recreation.pk.view.wintimes.PkWinTimesResultView android:layout_width="wrap_content" android:layout_height="match_parent" flatten="true" folder="recreation" holder="pk.view.wintimes.PkWinTimesResultView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/win_times_result_success" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginStart="4.0dp" flatten="true">
-        <com.p1.mobile.putong.live.livingroom.recreation.pk.view.wintimes.PkWinTimesNumView android:layout_gravity="center_vertical" android:id="@id/win_times_num" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-        <v.VImage android:layout_gravity="center_vertical" android:id="@id/win_times_image" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-    </LinearLayout>
-    <v.VImage android:layout_gravity="center_vertical" android:id="@id/win_times_result_failed" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-</com.p1.mobile.putong.live.livingroom.recreation.pk.view.wintimes.PkWinTimesResultView>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.photoalbum.MomentDetailExpandBottomView android:id="@id/layout_expand_bottom" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="90.0dp" flatten="true" folder="newui" holder="photoalbum.MomentDetailExpandBottomView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0sp" android:textColor="@color/common_orange" android:gravity="center" android:id="@id/show_expand" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" android:text="展开更多回复" />
-    <v.VText android:textSize="15.0sp" android:textColor="@color/common_orange" android:gravity="center" android:id="@id/show_narrow" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="20.0dp" android:text="收起" />
-</com.p1.mobile.putong.feed.newui.photoalbum.MomentDetailExpandBottomView>

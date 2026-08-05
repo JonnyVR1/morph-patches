@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:orientation="vertical" android:background="#000000" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="match_parent" folder="newui" holder="mediapicker.NewAlbumPreviewNoEditAct"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <v.VPager android:id="@id/pager" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <v.navigationbar.VNavigationBar android:id="@id/navigation_bar" android:layout_width="match_parent" android:layout_height="wrap_content" />
-</FrameLayout>

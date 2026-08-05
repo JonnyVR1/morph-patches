@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.feed.newui.status.aquare.FeedPostMomentStatusSquareHeader android:gravity="center" android:orientation="vertical" android:id="@id/root" android:background="#f9f9f9" android:layout_width="match_parent" android:layout_height="120.0dp" flatten="true" folder="newui" holder="status.aquare.FeedPostMomentStatusSquareHeader"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <v.VImage android:id="@id/image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" />
-    <v.VText android:textSize="12.0sp" android:textColor="#26000000" android:gravity="center_horizontal" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:lineSpacingExtra="1.0dp" />
-</com.p1.mobile.putong.feed.newui.status.aquare.FeedPostMomentStatusSquareHeader>

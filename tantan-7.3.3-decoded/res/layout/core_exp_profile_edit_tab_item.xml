@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="wrap_content" android:layout_height="48.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="14.0dp" android:textStyle="bold" android:textColor="@color/core_exp_profile_edit_tab_text" android:gravity="center" android:id="@id/tab_content" android:background="@drawable/core_exp_profile_edit_tab_bg" android:paddingLeft="12.0dp" android:paddingRight="12.0dp" android:layout_width="wrap_content" android:layout_height="32.0dp" android:maxLines="1" android:singleLine="true" android:layout_centerInParent="true" />
-</RelativeLayout>

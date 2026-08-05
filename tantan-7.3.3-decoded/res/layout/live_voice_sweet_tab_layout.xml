@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.voice.intl.sweet.view.VoiceSweetTabView android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" flatten="true" holder="voice.intl.sweet.view.VoiceSweetTabView"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VText android:textSize="14.0dp" android:textStyle="bold" android:gravity="center" android:id="@id/tab_text1" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:singleLine="true" android:shadowColor="#d9802b" android:shadowDx="0.0" android:shadowDy="4.0" android:shadowRadius="3.0" android:layout_weight="1.0" />
-    <v.VText android:textSize="14.0dp" android:textStyle="bold" android:gravity="center" android:id="@id/tab_text2" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" android:singleLine="true" android:shadowColor="#d9802b" android:shadowDx="0.0" android:shadowDy="4.0" android:shadowRadius="3.0" android:layout_weight="1.0" />
-</com.p1.mobile.putong.live.livingroom.voice.intl.sweet.view.VoiceSweetTabView>

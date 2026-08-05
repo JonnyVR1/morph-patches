@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:orientation="vertical" android:id="@id/background" android:background="@android:color/transparent" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" holder="mediapreview.MediaPreviewAct"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VPager android:id="@id/pager" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" />
-    <v.VImage android:id="@id/back_btn" android:paddingLeft="8.0dp" android:paddingRight="8.0dp" android:visibility="gone" android:layout_width="48.0dp" android:layout_height="60.0dp" android:src="@null" android:scaleType="centerInside" />
-</FrameLayout>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.p1.mobile.putong.live.livingroom.increment.gift.receivegift.ReceiveGiftAudienceView android:id="@id/root" android:layout_width="match_parent" android:layout_height="40.0dp" flatten="true" folder="increment" holder="gift.receivegift.ReceiveGiftAudienceView"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.p1.mobile.putong.live.livingroom.common.avatar.CommonAnimMaskAvatarView android:layout_gravity="center_vertical" android:id="@id/head" android:layout_width="30.0dp" android:layout_height="30.0dp" android:scaleType="centerCrop" android:layout_marginStart="15.0dp" app:roundAsCircle="true" />
-    <v.VText android:textSize="12.0sp" android:textColor="@color/white" android:ellipsize="end" android:layout_gravity="center_vertical" android:id="@id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="200.0dp" android:maxLines="1" android:layout_marginStart="55.0dp" />
-</com.p1.mobile.putong.live.livingroom.increment.gift.receivegift.ReceiveGiftAudienceView>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VFrame android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" flatten="true" folder="newui" holder="messages.newMatch.NewMatchConversationListViewModel"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <v.VRecyclerView android:orientation="horizontal" android:id="@id/tab_list" android:layout_width="match_parent" android:layout_height="44.0dp" />
-    <v.VPullUpRecyclerView android:id="@id/conv_list" android:paddingLeft="4.0dp" android:paddingRight="4.0dp" android:paddingBottom="8.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="44.0dp" />
-    <include layout="@layout/core_conversation_new_match_empty_layout" />
-</v.VFrame>

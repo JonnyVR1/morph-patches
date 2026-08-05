@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.wdullaer.materialdatetimepicker.VerticalTextView android:textSize="@dimen/mdtp_date_picker_header_text_size" android:textColor="@color/mdtp_white" android:gravity="center|bottom" android:id="@id/date_picker_header" android:paddingTop="@dimen/mdtp_date_picker_title_padding" android:layout_width="@dimen/mdtp_date_picker_title_height" android:layout_height="match_parent" android:maxLines="1" android:includeFontPadding="false" android:importantForAccessibility="no"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

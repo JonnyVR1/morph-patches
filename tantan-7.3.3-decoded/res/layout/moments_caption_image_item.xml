@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<v.VDraweeView android:id="@id/image" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginLeft="2.0dp" android:layout_marginRight="2.0dp" fresco:actualImageScaleType="centerCrop" style="@style/feed_fresco_moment_small"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fresco="http://schemas.android.com/apk/res-auto" />
