@@ -26,7 +26,7 @@ private const val RETURN_FALSE = """
 private const val RETURN_VOID = "return-void"
 
 private const val RETURN_INTEGER_9 = """
-    const/4 v0, 0x9
+    const/16 v0, 0x9
     invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
     move-result-object v0
     return-object v0
