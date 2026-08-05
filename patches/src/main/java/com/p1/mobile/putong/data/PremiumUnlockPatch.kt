@@ -9,6 +9,7 @@ import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
 import com.android.tools.smali.dexlib2.iface.Method
@@ -1510,6 +1511,7 @@ private fun com.android.tools.smali.dexlib2.iface.ClassDef.accessesField(
 }
 
 
+
 // ── Patch ────────────────────────────────────────────────────────────────────
 
 @Suppress("unused")
@@ -1522,60 +1524,8 @@ val premiumUnlockPatch = bytecodePatch(
     compatibleWith(tantanCompatibility)
     execute {
         // ----------------------------------------------------------------------
-        // Pass 1: Stable classes — match by exact class descriptor
-        //
-        // Obfuscated class blocks are intentionally NOT resolved here. The
-        // global `matchOrNull()` accessor on `Fingerprint` caches its result
-        // on the first call, so it MUST only be called once per obfuscated
-        // class. Pass 2 resolves each obfuscated class exactly once.
+        // Pass 1: Stable classes — O(1) direct lookups via classDefByOrNull
         // ----------------------------------------------------------------------
-        val stableClassTypes = setOf(
-            TANTAN_USER_CLASS,
-            "Lcom/p1/mobile/putong/core/api/CoreProduct;",
-            "Lcom/p1/mobile/putong/data/CounterSuperlikeAndUndoLimit;",
-            "Lcom/p1/mobile/putong/core/ui/profile/profilelist/itemholders/ProfileImagesItemHolder;",
-            "Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;",
-            "Lcom/p1/mobile/putong/core/ui/match/a;",
-            "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m;",
-            "Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions;",
-            "Lcom/p1/mobile/putong/core/newui/profile/newme/ProfilePrivilegePayGuide;",
-            "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/h0;",
-            "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/l1;",
-            "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m1;",
-            "Lcom/p1/mobile/putong/core/newui/admob/NavigationBarAdmobHelper;",
-            "Lcom/p1/mobile/putong/core/admob/NavigationBarAdView;",
-            "Lcom/p1/mobile/putong/core/module/CoreProviderImpl;",
-            "Lcom/p1/mobile/putong/live/external/module/api/LiveAssertApi;",
-            "Lcom/p1/mobile/putong/data/Settings;",
-            "Lcom/p1/mobile/putong/core/newui/home/BoostRemainingCountView;",
-            "Lcom/p1/mobile/putong/core/newui/home/LikersBoostRemainingCountView;",
-            "Lcom/p1/mobile/putong/core/admob/NativeAdViewCard\$Companion;",
-            "Lp153l/d9y;", "Lp153l/l8y;", "Lp153l/g9y;", "Lp153l/z8y;",
-            "Lp153l/b8d0;",
-            "Lcom/p1/mobile/putong/core/newui/messages/C8291a;",
-            "Lp153l/zt6;",
-            "Lp153l/lke0;",
-            "Lp153l/tje0;",
-            "Lp153l/e230;",
-            "Lcom/p1/mobile/putong/core/ui/seepop/NewLikeView;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadLikerItemLayout;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadIntlSeeItem;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$e;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemPlatinumPinLike;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemFriendMoments;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemTeamGroup;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationWeakenView;",
-        )
-
-        classDefForEach { classDef ->
-            if (classDef.type !in stableClassTypes) return@classDefForEach
-
             // ── User: stable, real method names (no obfuscation) ──────────────
             //
             // We patch methods directly here (no fingerprint) because the same
@@ -1584,7 +1534,7 @@ val premiumUnlockPatch = bytecodePatch(
             // set (e.g. isUltraPremium) for every subsequent call (e.g.
             // isSupremePartner), so only the first method in each `setOf(...)`
             // would actually get patched.
-            if (classDef.type == TANTAN_USER_CLASS) {
+            classDefByOrNull(TANTAN_USER_CLASS)?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     when {
                         method.name in setOf("isUltraPremium", "isSupremePartner") &&
@@ -1652,7 +1602,7 @@ val premiumUnlockPatch = bytecodePatch(
             // Since we've already narrowed to a single stable class, we can filter and
             // patch directly via `mutableClassDefBy(classDef).methods` (which returns
             // MutableMethod instances — the only type with `addInstructions(String)`).
-            if (classDef.type == "Lcom/p1/mobile/putong/core/api/CoreProduct;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreProduct;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     when {
                         // u4(String) — the only public final Z(String) method
@@ -1679,7 +1629,7 @@ val premiumUnlockPatch = bytecodePatch(
 
             // ── CounterSuperlikeAndUndoLimit: stable class, stable methods ────
             // (Direct patch — see CoreProduct note about the matchOrNull cache trap.)
-            if (classDef.type == "Lcom/p1/mobile/putong/data/CounterSuperlikeAndUndoLimit;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/data/CounterSuperlikeAndUndoLimit;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name in setOf("remainToday", "remainAll") &&
                         method.parameterTypes.isEmpty() && method.returnType == "I"
@@ -1695,9 +1645,7 @@ val premiumUnlockPatch = bytecodePatch(
             // Filter by signature (name == "t", no params, V return) — single
             // method match. Uses direct `mutableClassDefBy().methods.forEach`
             // to avoid the matchOrNull(method) cache trap (AGENTS.md §1b).
-            if (classDef.type ==
-                "Lcom/p1/mobile/putong/core/ui/profile/profilelist/itemholders/ProfileImagesItemHolder;"
-            ) {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/ui/profile/profilelist/itemholders/ProfileImagesItemHolder;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "t" &&
                         method.parameterTypes.isEmpty() &&
@@ -1709,7 +1657,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
 
             // ── CoreBusinessServiceIml: stable class, obfuscated param types ──
-            if (classDef.type == "Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;")?.let { classDef ->
                 coreBusinessLfFingerprint.matchOrNull(classDef)?.let { match ->
                     match.method.addInstructions(0, RETURN_VOID)
                 }
@@ -1738,7 +1686,7 @@ val premiumUnlockPatch = bytecodePatch(
             // both Vd() (u59.U(), patched TRUE) and aq() (a.n(), NOT patched) to return TRUE.
             // a.n() returns !IntlCountryCodeController.k() — when user is in restricted region,
             // this returns FALSE, blocking Instant Match even though Vd() is patched.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/ui/match/a;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/ui/match/a;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "n" &&
                         method.parameterTypes.isEmpty() &&
@@ -1760,7 +1708,7 @@ val premiumUnlockPatch = bytecodePatch(
             // because the normal match swipe interface (non-commercial cards) works correctly.
             // The LikeFrom redirect that previously fixed commercial cards was removed because it
             // broke normal card swipes by routing them through the instant match path.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "b" &&
                         method.parameterTypes.size == 1 &&
@@ -1777,7 +1725,7 @@ val premiumUnlockPatch = bytecodePatch(
             // data, NOT user tier. M3() checks if there's a cached IapAffiliatePromotion
             // for the given tab. Patching to FALSE hides ALL discount entry banners
             // (ME_TAB, MESSAGE_TAB, WHISPER_TAB, etc.) — desired for premium unlock.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "M3" &&
                         method.parameterTypes.size == 1 &&
@@ -1794,7 +1742,7 @@ val premiumUnlockPatch = bytecodePatch(
             // The Me tab shows a profile privilege pay guide banner driven by server-side
             // IntlTabMePayGuide data. l0() checks if the guide was clicked within a time
             // window. Patching to FALSE makes the banner think it was already dismissed.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/profile/newme/ProfilePrivilegePayGuide;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/profile/newme/ProfilePrivilegePayGuide;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "l0" &&
                         method.parameterTypes.isEmpty() &&
@@ -1821,7 +1769,7 @@ val premiumUnlockPatch = bytecodePatch(
             // Secondary targets (l1.b(), m1.b()) show "daily limit reached" notification
             // bubbles but don't block swipes. Patching them to FALSE suppresses the
             // notification bubbles for cleaner UX.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/h0;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/h0;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "b" &&
                         method.parameterTypes.size == 1 &&
@@ -1832,7 +1780,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/l1;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/l1;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "b" &&
                         method.parameterTypes.size == 1 &&
@@ -1843,7 +1791,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m1;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/m1;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "b" &&
                         method.parameterTypes.size == 1 &&
@@ -1860,7 +1808,7 @@ val premiumUnlockPatch = bytecodePatch(
             // It returns TRUE when all conditions are met (AB test, remote config, gender,
             // registration age, etc.). Patching to FALSE disables the bottom banner ad
             // decision entirely.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/admob/NavigationBarAdmobHelper;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/admob/NavigationBarAdmobHelper;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "g" &&
                         method.parameterTypes.size == 1 &&
@@ -1876,7 +1824,7 @@ val premiumUnlockPatch = bytecodePatch(
             //
             // NavigationBarAdView.L(Act) triggers the ad loading process for the bottom
             // banner. Patching to RETURN_VOID prevents the ad load from being initiated.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/admob/NavigationBarAdView;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/admob/NavigationBarAdView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "L" &&
                         method.parameterTypes.size == 1 &&
@@ -1893,7 +1841,7 @@ val premiumUnlockPatch = bytecodePatch(
             // to skip processing user data, leading to infinite loading.
             // Patching to return true allows pib.q9() to pass the guard condition
             // and call pa() to process user data.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/module/CoreProviderImpl;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/module/CoreProviderImpl;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "Er" &&
                         method.parameterTypes.isEmpty() &&
@@ -1911,7 +1859,7 @@ val premiumUnlockPatch = bytecodePatch(
             //   - getCanUseMaskMode(): anonymous/mask mode in live streams
             //   - isUserStartVoiceLiveEnable(): voice live streaming capability
             // All three are static no-arg → Z. Patching to TRUE unlocks all live features.
-            if (classDef.type == "Lcom/p1/mobile/putong/live/external/module/api/LiveAssertApi;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/live/external/module/api/LiveAssertApi;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name in setOf("isCanStartLive", "getCanUseMaskMode", "isUserStartVoiceLiveEnable") &&
                         method.parameterTypes.isEmpty() &&
@@ -1931,7 +1879,7 @@ val premiumUnlockPatch = bytecodePatch(
             // any radius/age filter value the UI slider supports.
             // Note: the server may still reject out-of-range values, but the
             // client-side UI limits are fully expanded.
-            if (classDef.type == "Lcom/p1/mobile/putong/data/Settings;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/data/Settings;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     when {
                         method.name == "getRadiusAllowedMaximum" &&
@@ -1962,7 +1910,7 @@ val premiumUnlockPatch = bytecodePatch(
             //
             // getBoostLimitCount() sums BoostLimit.remaining across all boost types.
             // Patching to return 200000 makes the UI show unlimited boost availability.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/BoostRemainingCountView;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/BoostRemainingCountView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.parameterTypes.isEmpty() &&
                         method.returnType == "I" &&
@@ -1977,7 +1925,7 @@ val premiumUnlockPatch = bytecodePatch(
             //
             // Same pattern as BoostRemainingCountView — getBoostLimitCount() sums
             // BoostLimit.remaining. Patch to 200000 for unlimited display.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/home/LikersBoostRemainingCountView;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/LikersBoostRemainingCountView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.parameterTypes.isEmpty() &&
                         method.returnType == "I" &&
@@ -1993,7 +1941,7 @@ val premiumUnlockPatch = bytecodePatch(
             // NativeAdViewCard.Companion.l(Act) loads the native ad card that appears
             // in the swipe feed as a virtual card. Patching to RETURN_VOID prevents
             // the native ad from loading into the feed.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/admob/NativeAdViewCard\$Companion;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/admob/NativeAdViewCard\$Companion;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "l" &&
                         method.parameterTypes.size == 1 &&
@@ -2015,13 +1963,15 @@ val premiumUnlockPatch = bytecodePatch(
             // g9y: "Who viewed me" banner (gates on joa.G3() && visitorData != null)
             // z8y: "Nearby girls" banner (gates on !joa.M3() && nearbyUser != null)
             // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            if (classDef.type in setOf("Lp153l/d9y;", "Lp153l/l8y;", "Lp153l/g9y;", "Lp153l/z8y;")) {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "c" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z"
-                    ) {
-                        method.addInstructions(0, RETURN_FALSE)
+            listOf("Lp153l/d9y;", "Lp153l/l8y;", "Lp153l/g9y;", "Lp153l/z8y;").forEach { descriptor ->
+                classDefByOrNull(descriptor)?.let { classDef ->
+                    mutableClassDefBy(classDef).methods.forEach { method ->
+                        if (method.name == "c" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Z"
+                        ) {
+                            method.addInstructions(0, RETURN_FALSE)
+                        }
                     }
                 }
             }
@@ -2034,7 +1984,7 @@ val premiumUnlockPatch = bytecodePatch(
             // CoreBusinessServiceIml calls b8d0.m102964d()/m102967j() to generate text.
             // We patch ALL b8d0 methods to prevent any banner display.
             // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            if (classDef.type == "Lp153l/b8d0;") {
+            classDefByOrNull("Lp153l/b8d0;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     // Static text generation methods → return empty CharSequence
                     // m102964d(User, User) → CharSequence (delegates to m102965e)
@@ -2091,7 +2041,7 @@ val premiumUnlockPatch = bytecodePatch(
             // This allows server responses to trigger banner display even after our b8d0 patches.
             // We patch S0() to return-void to prevent server data from activating the banner.
             // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            if (classDef.type == "Lp153l/zt6;") {
+            classDefByOrNull("Lp153l/zt6;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "S0" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
@@ -2105,7 +2055,7 @@ val premiumUnlockPatch = bytecodePatch(
             // This triggers banner display in BusinessConversationView.
             // We patch G() to return-void to prevent the flag from being set.
             // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            if (classDef.type == "Lp153l/lke0;") {
+            classDefByOrNull("Lp153l/lke0;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "G" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
@@ -2122,7 +2072,7 @@ val premiumUnlockPatch = bytecodePatch(
             // It's used by LikersDialogView and other promotional dialogs.
             // We patch c() to return empty CharSequence to prevent the text from being displayed.
             // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            if (classDef.type == "Lp153l/tje0;") {
+            classDefByOrNull("Lp153l/tje0;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "c" && method.parameterTypes.size == 3 && method.returnType == "Ljava/lang/CharSequence;" &&
                         AccessFlags.STATIC.isSet(method.accessFlags)) {
@@ -2140,7 +2090,7 @@ val premiumUnlockPatch = bytecodePatch(
             // Even though NewLikeView.E() is patched to return-void, we also patch e230.b()
             // to return false to prevent the dialog from even being considered.
             // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            if (classDef.type == "Lp153l/e230;") {
+            classDefByOrNull("Lp153l/e230;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "b" && method.parameterTypes.size == 1 && method.returnType == "Z" &&
                         !AccessFlags.STATIC.isSet(method.accessFlags)) {
@@ -2153,7 +2103,7 @@ val premiumUnlockPatch = bytecodePatch(
             // Moved to Pass 2 using fingerprint-based discovery (see below)
             // The old hardcoded class descriptors (Ll/qa9;, Ll/hva;, etc.) don't exist in the APK.
             // Suppresses the "x girls just liked you" promotional dialog that appears on app launch
-            if (classDef.type == "Lcom/p1/mobile/putong/core/p058ui/seepop/NewLikeView;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/p058ui/seepop/NewLikeView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "E" && method.parameterTypes.size == 3 && method.returnType == "V") {
                         method.addInstructions(0, "return-void")
@@ -2163,7 +2113,7 @@ val premiumUnlockPatch = bytecodePatch(
 
             // ConversationHeadLikerItemLayout: u(Act, C8266c) → return-void
             // Suppresses the "X+ people liked you" banner in the head recommend carousel
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadLikerItemLayout;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadLikerItemLayout;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "u" && method.parameterTypes.size == 2 && method.returnType == "V") {
                         method.addInstructions(0, "return-void")
@@ -2173,7 +2123,7 @@ val premiumUnlockPatch = bytecodePatch(
 
             // ConversationHeadIntlSeeItem: L(C8265b) → return-void
             // Suppresses the "See who liked you" banner in the head recommend carousel
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadIntlSeeItem;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadIntlSeeItem;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "L" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, "return-void")
@@ -2187,7 +2137,7 @@ val premiumUnlockPatch = bytecodePatch(
             
             // ConversationsList adapter: getItemViewType() → return 0 for fake conversations
             // This makes fake promotional conversations render as empty normal items instead of banners
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$e;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$e;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "getItemViewType" && 
                         method.parameterTypes.size == 1 && 
@@ -2245,7 +2195,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
 
             // ConversationItemIntlReceiveLikeView: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, """
@@ -2277,7 +2227,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             // ConversationItemReceiveLikeView: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "k" && method.parameterTypes.size == 2 && method.returnType == "V") {
                         method.addInstructions(0, """
@@ -2303,7 +2253,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             // ConversationItemInstantChatGuideView: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "m" && method.parameterTypes.size == 2 && method.returnType == "V") {
                         method.addInstructions(0, """
@@ -2319,7 +2269,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             // ConversationItemBlindBoxEntrance: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, """
@@ -2335,7 +2285,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             // ConversationItemSurpriseBoxEntrance: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "f" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, """
@@ -2351,7 +2301,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             // ConversationItemProfileLikeEntrance: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "i" && method.parameterTypes.size == 2 && method.returnType == "V") {
                         method.addInstructions(0, """
@@ -2367,7 +2317,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             // ConversationItemPlatinumPinLike: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemPlatinumPinLike;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemPlatinumPinLike;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "q" && method.parameterTypes.size == 2 && method.returnType == "V") {
                         method.addInstructions(0, """
@@ -2383,7 +2333,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             // ConversationItemFriendMoments: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemFriendMoments;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemFriendMoments;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name in setOf("o", "p", "q") && 
                         method.parameterTypes.size == 2 && 
@@ -2401,7 +2351,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             // ConversationItemTeamGroup: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemTeamGroup;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemTeamGroup;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "o" && 
                         method.parameterTypes.size == 2 && 
@@ -2419,7 +2369,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             // ConversationWeakenView: Enhanced hiding
-            if (classDef.type == "Lcom/p1/mobile/putong/core/newui/messages/ConversationWeakenView;") {
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationWeakenView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "d0" && 
                         method.parameterTypes.size == 2 && 
@@ -2436,69 +2386,120 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+        // ----------------------------------------------------------------------
+        // Pass 2: Batch resolution of obfuscated class fingerprints
+        // ----------------------------------------------------------------------
+
+        val resolved = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
+
+        classDefForEach { classDef ->
+            val strings = mutableSetOf<String>()
+            val methodCallFull = mutableSetOf<String>()
+            val methodCallNames = mutableSetOf<String>()
+            val fieldAccessFull = mutableSetOf<String>()
+            val methodCallSigs = mutableSetOf<String>()
+            val methodCallFullSigs = mutableSetOf<String>()
+            val methodNameRet = mutableSetOf<String>()
+            var hasZUserMethod = false
+
+            classDef.methods.forEach { method ->
+                if (method.returnType == "Z" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;") {
+                    hasZUserMethod = true
+                }
+                instructionsOf(method).forEach { instr ->
+                    if (instr is ReferenceInstruction) {
+                        when (val ref = instr.reference) {
+                            is StringReference -> strings.add(ref.string)
+                            is MethodReference -> {
+                                methodCallNames.add(ref.name)
+                                methodCallFull.add("${ref.definingClass}.${ref.name}")
+                                val sig = "${ref.name}.${ref.parameterTypes.size}.${ref.returnType}"
+                                methodCallSigs.add(sig)
+                                methodCallFullSigs.add("${ref.definingClass}.$sig")
+                                methodNameRet.add("${ref.name}\u0001${ref.returnType}")
+                            }
+                            is FieldReference -> {
+                                fieldAccessFull.add("${ref.definingClass}.${ref.name}")
+                            }
+                        }
+                    }
+                }
+            }
+
+            val hasConvNew_ = "Lcom/p1/mobile/putong/data/Conversation;.new_.0.Lcom/p1/mobile/putong/data/Conversation;" in methodCallFullSigs
+
+            if ("xma" !in resolved && "/summarized-privileges?with=diamond" in strings) resolved["xma"] = classDef
+            if ("qa9" !in resolved && "intl_receive_like_guide_get" in strings && hasConvNew_) resolved["qa9"] = classDef
+            if ("hva" !in resolved && "receive_like_guide_get" in strings && hasConvNew_) resolved["hva"] = classDef
+            if ("coreApiFakeConv" !in resolved && "fake_conversation_surprise_gift_box" in strings && hasConvNew_) resolved["coreApiFakeConv"] = classDef
+            if ("profileLikeEnter" !in resolved && "fake_conversation_profile_like_enter" in strings && hasConvNew_) resolved["profileLikeEnter"] = classDef
+            if ("greetingFakeConv" !in resolved && "fake_conversation_greeting" in strings && hasConvNew_) resolved["greetingFakeConv"] = classDef
+            if ("feedStateFakeConv" !in resolved && "conversation_feed_state" in strings && hasConvNew_) resolved["feedStateFakeConv"] = classDef
+            if ("meetEntranceBanner" !in resolved && "meet_entrance" in strings && "w.0.V" in methodCallSigs) resolved["meetEntranceBanner"] = classDef
+            if ("instantChatGuide" !in resolved && "fake_conversation_local_instant_chat_conversation" in strings && hasConvNew_) resolved["instantChatGuide"] = classDef
+            if ("mainUiFakeConv" !in resolved && "fake_conversation_anonymous_greeting" in strings && hasConvNew_) resolved["mainUiFakeConv"] = classDef
+            if ("coreApiTeamGroup" !in resolved && "fake_conversation_local_team_group_conversation" in strings && hasConvNew_) resolved["coreApiTeamGroup"] = classDef
+            if ("coreApiLimitedTrialFold" !in resolved && "fake_conversation_local_limited_trial_see_fold" in strings && hasConvNew_) resolved["coreApiLimitedTrialFold"] = classDef
+            if ("intlSeeChatRequestCreator" !in resolved && "intlSeeChatRequest" in strings && hasConvNew_) resolved["intlSeeChatRequestCreator"] = classDef
+            if ("r8n" !in resolved && "intl_chat_request_insert_users" in strings) resolved["r8n"] = classDef
+            if ("headRecommendAdapter" !in resolved && "fake_conversation_profile_like_enter" in strings && "fake_conversation_oof_pick" in strings && "getItemViewType.1.I" in methodCallSigs) resolved["headRecommendAdapter"] = classDef
+            if ("seeAnimBubbleCreator" !in resolved && "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6" in methodCallFull && "u7\u0001V" in methodNameRet && "INTL_SEE_ANIM_BUBBLE" in strings) resolved["seeAnimBubbleCreator"] = classDef
+            if ("seeAnimBubbleLifecycle" !in resolved && "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;.u6" in methodCallFull && "SEE_ANIM" in strings) resolved["seeAnimBubbleLifecycle"] = classDef
+            if ("bubbleDisplayMethod" !in resolved && "SEE_ANIM" in strings && "m40827m7" in methodCallNames) resolved["bubbleDisplayMethod"] = classDef
+            if ("sb90Companion" !in resolved && "Lcom/p1/mobile/putong/data/User;.localRelationship" in fieldAccessFull && "matched" in strings && "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery" in methodCallFull && "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe" in methodCallFull && hasZUserMethod) resolved["sb90Companion"] = classDef
+            if ("u59" !in resolved && "intl_sl_guide_config" in strings) resolved["u59"] = classDef
+            if ("tm90" !in resolved && "intl_good_c_bage_config" in strings) resolved["tm90"] = classDef
+            if ("gqf0" !in resolved && "e_intl_spotlight_activity_card" in strings) resolved["gqf0"] = classDef
+            if ("h6a" !in resolved && "ttt_membership_price_diff" in strings) resolved["h6a"] = classDef
+            if ("ugc0" !in resolved && "seeUpgradeToPremium" in strings) resolved["ugc0"] = classDef
+            if ("zva0" !in resolved && "e_vip_banner" in strings) resolved["zva0"] = classDef
+            if ("th5" !in resolved && "vas_commercial_card_right_slide_strategy" in strings) resolved["th5"] = classDef
+            if ("qgl0" !in resolved && "暂未激活黑金会员" in strings) resolved["qgl0"] = classDef
+            if ("src0" !in resolved && "recall_dlg_show" in strings && "reauto_duration" in strings && "reauto_product" in strings && "if_auto_order" in strings) resolved["src0"] = classDef
+            if ("sja" !in resolved && "picksUser id is not found in users : " in strings) resolved["sja"] = classDef
+            if ("n3b0" !in resolved && "Lcom/p1/mobile/putong/data/Counter;.likersLimit" in fieldAccessFull) resolved["n3b0"] = classDef
+            if ("secretCrush" !in resolved && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
+            if ("coreData" !in resolved && "Lcom/p1/mobile/putong/core/data/CoreData;.surpriseGiftExpirationTime" in fieldAccessFull) resolved["coreData"] = classDef
+            if ("mb90" !in resolved && "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull && "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in fieldAccessFull) resolved["mb90"] = classDef
+            if ("joa" !in resolved && "seeWhoLikedMe" in strings && "oDiamond" in strings && "guessedCurrentServerTime" in methodCallNames) resolved["joa"] = classDef
+            if ("jh30" !in resolved && "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d" in methodCallFull) resolved["jh30"] = classDef
+            if ("businessEntranceAdapter" !in resolved && "open_fill_info_debug" in strings && "clear" in methodCallNames) resolved["businessEntranceAdapter"] = classDef
         }
 
-        // ----------------------------------------------------------------------
-        // Pass 2: Obfuscated classes — each resolved ONCE via global fingerprint
-        //
-        // `matchOrNull()` (no-arg) performs the actual class resolution and
-        // caches the result. Every subsequent match call MUST use the explicit
-        // `matchOrNull(classDef)` / `matchAll(classDef, range)` form against
-        // the resolved `classDef` from `.classDef`.
-        // ----------------------------------------------------------------------
-
-        // xma: privilege gates + display timestamp + server refresh
-        xmaClassFingerprint.matchOrNull()?.classDef?.let { xmaClassDef ->
-            // Group A: S3 (calls guessedCurrentServerTime) → false
-            // Group B: b4 (does NOT call guessedCurrentServerTime) → true
-            // Both share the same static SummarizedPrivilegesId → Z signature.
-            // After xmaS3Fingerprint matches S3, iterate the remaining
-            // signature-matching methods and patch the ones that don't
-            // call guessedCurrentServerTime.
+        resolved["xma"]?.let { xmaClassDef ->
             xmaS3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
-            xmaClassDef.methods
-                .filter { it.isStaticSummarizedPrivilegesIdReturnBool() }
-                .filterNot { it.callsGuessedCurrentServerTime() }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            mutableClassDefBy(xmaClassDef).methods.forEach { method ->
+                if (method.isStaticSummarizedPrivilegesIdReturnBool() && !method.callsGuessedCurrentServerTime()) {
+                    method.addInstructions(0, RETURN_TRUE)
+                }
+            }
 
-            // Group C: v3 / w3 (SummarizedPrivilegesId → J) → MAX
             xmaV3W3Fingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
                 match.method.addInstructions(0, RETURN_LONG_MAX)
             }
 
-            // q3 (femaleVip) → MAX
             xmaQ3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_LONG_MAX)
             }
-            // s3 (limitedTrialSee) → MAX
             xmaS3LongWrapperFingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_LONG_MAX)
             }
 
-            // Group D: T3 (UserPrivilege → Z, calls currentServerTime) → false
-            // Group E: c4 (UserPrivilege → Z, no currentServerTime) → true
             xmaT3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
-            xmaClassDef.methods
-                .filter { it.isStaticUserPrivilegeReturnBool() }
-                .filterNot { it.callsGuessedCurrentServerTime() }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            mutableClassDefBy(xmaClassDef).methods.forEach { method ->
+                if (method.isStaticUserPrivilegeReturnBool() && !method.callsGuessedCurrentServerTime()) {
+                    method.addInstructions(0, RETURN_TRUE)
+                }
+            }
 
-            // a4 (PurchaseType → Z, loads "unknown_") → false
             xmaA4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
 
-            // Server refresh u4/x4 (instance no-arg → Lrx/c;) patch REMOVED
-            // These methods return RxJava Observable. Patching to null causes NoClassDefFoundError
-            // for rx.Observable when calling code tries to use the returned value.
-            // Let these methods run normally to avoid crashes.
-
-            // Batch all string-based static no-arg → Z methods into a single iteration
-            // Instead of 16+ separate matchOrNull calls, iterate once and classify
             val s3StyleKeys = setOf(
                 "unlimitedSwipes", "roaming", "superLikeMembership", "undoMembership", "seeWhoLikedMe",
                 "message_read_state", "top_like", "top_chat", "premium_compliment",
@@ -2517,23 +2518,18 @@ val premiumUnlockPatch = bytecodePatch(
                 .filter { it.isStaticNoArgReturnBool() || (it.parameterTypes.isEmpty() && it.returnType == "Z") }
                 .forEach { method ->
                     when {
-                        // L3: calls h5 method → true
                         method.callsMethodNamed("h5") -> {
                             method.addInstructions(0, RETURN_TRUE)
                         }
-                        // B3: calls TEnum → false
                         method.callsMethodNamed("TEnum") -> {
                             method.addInstructions(0, RETURN_FALSE)
                         }
-                        // !S3-style (has negation) → true
                         negatedKeys.any { method.containsString(it) } && method.hasNegation() -> {
                             method.addInstructions(0, RETURN_TRUE)
                         }
-                        // S3-style (no negation) → false
                         s3StyleKeys.any { method.containsString(it) } -> {
                             method.addInstructions(0, RETURN_FALSE)
                         }
-                        // Single-method keys (vip, intlReadMessage, revokeUnPair, svip)
                         else -> {
                             singleMethodKeys.entries.firstOrNull { (key, _) -> method.containsString(key) }?.let { (_, returnValue) ->
                                 method.addInstructions(0, if (returnValue) RETURN_TRUE else RETURN_FALSE)
@@ -2542,196 +2538,141 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
 
-            // ── oDiamond methods: G3(), Y3(), Z3() all contain "oDiamond" string ──
-            // G3() = !T3("oDiamond") → TRUE when active → patch to TRUE
-            // Y3() = T3("oDiamond") → TRUE when expired → patch to FALSE
-            // Z3() = c4("oDiamond") → TRUE when expiredTime > 0 → patch to TRUE
-            //
-            // The generic string("oDiamond") filter matches all three, and matchOrNull()
-            // caches the first match. We must iterate directly and distinguish by bytecode:
-            // - G3() has a negation instruction → TRUE
-            // - Z3() calls c4 method → TRUE
-            // - Y3() is the remaining one (calls T3 without negation) → FALSE
-            //
-            // Y3() must return FALSE to prevent infinite loading. When Y3() returns TRUE,
-            // it triggers purchase dialog checks in swipe logic (m.java line 52), blocking
-            // the swipe action and causing infinite loading.
             mutableClassDefBy(xmaClassDef).methods
                 .filter { it.isStaticNoArgReturnBool() }
                 .filter { it.containsString("oDiamond") }
                 .forEach { method ->
                     when {
-                        // G3(): !T3-style with negation → TRUE
                         method.hasNegation() -> {
                             method.addInstructions(0, LOG_XMA_F3_TRUE)
                         }
-                        // Z3(): c4-style (calls c4 method) → TRUE
                         method.callsMethodNamed("c4") -> {
                             method.addInstructions(0, LOG_XMA_Y3_TRUE)
                         }
-                        // Y3(): T3-style without negation → FALSE (prevent purchase dialog)
                         else -> {
                             method.addInstructions(0, LOG_XMA_X3_FALSE)
                         }
                     }
                 }
 
-            // Credit count methods (static no-arg → I) → 200000
             xmaCreditCountFingerprint.matchAll(xmaClassDef, 1..15).forEach { match ->
                 match.method.addInstructions(0, RETURN_INT_200000)
             }
         }
 
-        // ── Messages tab promotional content suppression ──
-        // Use fingerprint-based discovery to find and patch fake conversation creators.
-        // The old hardcoded class descriptors (Ll/qa9;, Ll/hva;, etc.) don't exist in the APK.
-        
-        // qa9: Intl receive like guide - prevent fake conversation creation
-        qa9ClassFingerprint.matchOrNull()?.classDef?.let { qa9ClassDef ->
+        resolved["qa9"]?.let { qa9ClassDef ->
             mutableClassDefBy(qa9ClassDef).methods.forEach { method ->
-                // D3(String, long) - static method that creates fake Intl receive like conversation
                 if (method.name == "D3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
-                // w3() - triggers network fetch for intl_receive_like_guide_get
                 if (method.name == "w3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
-                // C3(String, long) - schedules D3 call on background thread
                 if (method.name == "C3" && method.parameterTypes == listOf("Ljava/lang/String;", "J") && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
-                // J3(String) - schedules E3 network fetch
                 if (method.name == "J3" && method.parameterTypes == listOf("Ljava/lang/String;") && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
-                // E3(String) - triggers "intl_receive_like_guide_" network fetch
                 if (method.name == "E3" && method.parameterTypes == listOf("Ljava/lang/String;") && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
-                // y3(qa9, Envelope) - server response handler that processes SeeExposedUser data
                 if (method.name == "y3" && method.parameterTypes.size == 2 && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
             }
         }
-        
-        // hva: CN receive like guide - prevent fake conversation creation
-        hvaClassFingerprint.matchOrNull()?.classDef?.let { hvaClassDef ->
+
+        resolved["hva"]?.let { hvaClassDef ->
             mutableClassDefBy(hvaClassDef).methods.forEach { method ->
-                // u3() - triggers network fetch for receive_like_guide_get
                 if (method.name == "u3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
-                // E3(hva, Envelope) - server response handler that processes SeeExposedUser data
                 if (method.name == "E3" && method.parameterTypes.size == 2 && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
             }
         }
-        
-        // Core API (g): Multiple fake conversation creators
-        coreApiFakeConvFingerprint.matchOrNull()?.classDef?.let { coreApiClassDef ->
+
+        resolved["coreApiFakeConv"]?.let { coreApiClassDef ->
             mutableClassDefBy(coreApiClassDef).methods.forEach { method ->
-                // Xb(String, double) - creates fake_conversation_profile_featured
                 if (method.name == "Xb" && method.parameterTypes.size == 2 && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
-                // o7(double) - creates fake_conversation_surprise_gift_box
                 if (method.name == "o7" && method.parameterTypes.size == 1 && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
-                // Ti(int, String, int, double) - creates fake_conversation_city_centre_enter
                 if (method.name == "Ti" && method.parameterTypes.size == 4 && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
             }
         }
-        
-        // Profile like enter (h): creates fake_conversation_profile_like_enter
-        profileLikeEnterFingerprint.matchOrNull()?.classDef?.let { profileLikeEnterClassDef ->
+
+        resolved["profileLikeEnter"]?.let { profileLikeEnterClassDef ->
             mutableClassDefBy(profileLikeEnterClassDef).methods.forEach { method ->
-                // n3() - creates fake_conversation_profile_like_enter
                 if (method.name == "n3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
             }
         }
-        
-        // Greeting (j): creates fake_conversation_greeting
-        greetingFakeConvFingerprint.matchOrNull()?.classDef?.let { greetingClassDef ->
+
+        resolved["greetingFakeConv"]?.let { greetingClassDef ->
             mutableClassDefBy(greetingClassDef).methods.forEach { method ->
-                // Q3() - creates fake_conversation_greeting
                 if (method.name == "Q3" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
             }
         }
-        
-        // Feed state (i): creates conversation_feed_state
-        feedStateFakeConvFingerprint.matchOrNull()?.classDef?.let { feedStateClassDef ->
+
+        resolved["feedStateFakeConv"]?.let { feedStateClassDef ->
             mutableClassDefBy(feedStateClassDef).methods.forEach { method ->
-                // o3(CoreFeedStateCounter) - creates conversation_feed_state
                 if (method.name == "o3" && method.parameterTypes.size == 1 && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
             }
         }
-        
-        // Meet entrance banner controller (e9y): evaluates bzl strategies
-        meetEntranceBannerFingerprint.matchOrNull()?.classDef?.let { meetEntranceClassDef ->
+
+        resolved["meetEntranceBanner"]?.let { meetEntranceClassDef ->
             mutableClassDefBy(meetEntranceClassDef).methods.forEach { method ->
-                // w() - evaluates all bzl strategies for meet entrance banners
                 if (method.name == "w" && method.parameterTypes.isEmpty() && method.returnType == "V") {
                     method.addInstructions(0, "return-void")
                 }
             }
         }
-        
-        // Instant chat guide (sd8): Patch n3() method directly
-        instantChatGuideFingerprint.matchOrNull()?.classDef?.let { instantChatClassDef ->
+
+        resolved["instantChatGuide"]?.let { instantChatClassDef ->
             mutableClassDefBy(instantChatClassDef).methods.forEach { method ->
                 if (method.name == "n3" && method.parameterTypes.size == 1 && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
-        
-        // Main UI (a): Patch specific methods that create fake conversations
-        mainUiFakeConvFingerprint.matchOrNull()?.classDef?.let { mainUiClassDef ->
+
+        resolved["mainUiFakeConv"]?.let { mainUiClassDef ->
             mutableClassDefBy(mainUiClassDef).methods.forEach { method ->
-                // Patch methods that create fake_conversation_greeting, fake_conversation_profile_featured, fake_conversation_anonymous_greeting
                 if (method.name in setOf("Q3", "Xb", "o7") && method.parameterTypes.isEmpty() && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
-        
-        // ── CRITICAL FIX: Patch inner classes g$b and g$c ──
-        // These inner classes create fake conversations that weren't being caught
-        
-        // g$b: Creates fake_conversation_local_team_group_conversation - Patch n3() method
-        coreApiTeamGroupFingerprint.matchOrNull()?.classDef?.let { teamGroupClassDef ->
+
+        resolved["coreApiTeamGroup"]?.let { teamGroupClassDef ->
             mutableClassDefBy(teamGroupClassDef).methods.forEach { method ->
                 if (method.name == "n3" && method.parameterTypes.size == 1 && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
-        
-        // g$c: Creates fake_conversation_local_limited_trial_see_fold - Patch n3() method
-        coreApiLimitedTrialFoldFingerprint.matchOrNull()?.classDef?.let { limitedTrialClassDef ->
+
+        resolved["coreApiLimitedTrialFold"]?.let { limitedTrialClassDef ->
             mutableClassDefBy(limitedTrialClassDef).methods.forEach { method ->
                 if (method.name == "n3" && method.parameterTypes.size == 1 && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
-        
-        // intlSeeChatRequest creator (C4891g): Patch Vi() and Wi() methods
-        // Vi(List) creates intlSeeChatRequest conversations directly
-        // Wi(List) schedules Vi() on a background thread - patching both prevents creation
-        intlSeeChatRequestCreatorFingerprint.matchOrNull()?.classDef?.let { classDef ->
+
+        resolved["intlSeeChatRequestCreator"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "Vi" && method.parameterTypes.size == 1 && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
@@ -2742,11 +2683,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // r8n: Singleton manager for intlSeeChatRequest lifecycle
-        // g(List) is the entry point for the entire intlSeeChatRequest creation flow
-        // It checks user conditions and calls m() which triggers conversation insertion
-        // Patching g(List) to return-void prevents the entire flow from executing
-        r8nClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["r8n"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "g" && method.parameterTypes.size == 1 &&
                     method.parameterTypes[0] == "Ljava/util/List;" && method.returnType == "V") {
@@ -2755,10 +2692,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // ── CRITICAL FIX: Patch head recommend carousel adapter (ipi0$a) ──
-        // This adapter maps fake conversation IDs to view types in the head carousel
-        // Patch getItemViewType to return 0 for all items (prevents promotional view types)
-        headRecommendAdapterFingerprint.matchOrNull()?.classDef?.let { headAdapterClassDef ->
+        resolved["headRecommendAdapter"]?.let { headAdapterClassDef ->
             mutableClassDefBy(headAdapterClassDef).methods.forEach { method ->
                 if (method.name == "getItemViewType" && method.parameterTypes.size == 1 && method.returnType == "I") {
                     method.addInstructions(0, """
@@ -2768,19 +2702,13 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
         }
-        
-        // ── CRITICAL FIX: Patch "See Anim Bubble" creator (b240) ──
-        // b240 creates the floating "x girls y miles away" bubble on startup.
-        // It subscribes to CoreLikers.S6() and calls u7() to create the bubble.
-        // We patch z2() and u7() to return-void to prevent bubble creation.
-        seeAnimBubbleCreatorFingerprint.matchOrNull()?.classDef?.let { bubbleCreatorClassDef ->
+
+        resolved["seeAnimBubbleCreator"]?.let { bubbleCreatorClassDef ->
             mutableClassDefBy(bubbleCreatorClassDef).methods.forEach { method ->
-                // Patch z2() - subscription state handler
                 if (method.name == "z2" && method.parameterTypes.size == 1 && method.returnType == "V" &&
                     AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
                 }
-                // Patch u7() - bubble creator
                 if (method.name == "u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
                     !AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
@@ -2788,10 +2716,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // ── CRITICAL FIX: Patch "See Anim Bubble" lifecycle (kfe0) ──
-        // kfe0.A() is the lifecycle method that displays the bubble by calling u6().
-        // Patching to return 0 prevents the bubble from being displayed.
-        seeAnimBubbleLifecycleFingerprint.matchOrNull()?.classDef?.let { bubbleLifecycleClassDef ->
+        resolved["seeAnimBubbleLifecycle"]?.let { bubbleLifecycleClassDef ->
             mutableClassDefBy(bubbleLifecycleClassDef).methods.forEach { method ->
                 if (method.name == "A" && method.parameterTypes.isEmpty() && method.returnType == "I" &&
                     !AccessFlags.STATIC.isSet(method.accessFlags)) {
@@ -2803,10 +2728,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // ── CRITICAL FIX: Patch bubble display method (ViewTreeObserverOnGlobalLayoutListenerC8017b.u6) ──
-        // u6() is the final method that calls act().m40827m7() to show the bubble.
-        // Patching to return-void prevents any bubble from being displayed.
-        bubbleDisplayMethodFingerprint.matchOrNull()?.classDef?.let { bubbleDisplayClassDef ->
+        resolved["bubbleDisplayMethod"]?.let { bubbleDisplayClassDef ->
             mutableClassDefBy(bubbleDisplayClassDef).methods.forEach { method ->
                 if (method.name == "u6" && method.parameterTypes.size == 8 && method.returnType == "V" &&
                     !AccessFlags.STATIC.isSet(method.accessFlags)) {
@@ -2814,16 +2736,14 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
         }
-        
-        // sja: picks remaining
-        sjaClassFingerprint.matchOrNull()?.classDef?.let { sjaClassDef ->
+
+        resolved["sja"]?.let { sjaClassDef ->
             sjaPicksRemainingFingerprint.matchAll(sjaClassDef, 1..5).forEach { match ->
                 match.method.addInstructions(0, RETURN_INT_200000)
             }
         }
 
-        // src0: subscription expiry display
-        src0ClassFingerprint.matchOrNull()?.classDef?.let { src0ClassDef ->
+        resolved["src0"]?.let { src0ClassDef ->
             src0WDaysRemainingFingerprint.matchOrNull(src0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_LONG_365)
             }
@@ -2832,46 +2752,37 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // gqf0: spotlight pass-through (single static no-arg Z)
-        gqf0ClassFingerprint.matchOrNull()?.classDef?.let { gqf0ClassDef ->
+        resolved["gqf0"]?.let { gqf0ClassDef ->
             gqf0FFingerprint.matchOrNull(gqf0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
         }
 
-        // h6a: pricing restriction
-        h6aClassFingerprint.matchOrNull()?.classDef?.let { h6aClassDef ->
+        resolved["h6a"]?.let { h6aClassDef ->
             h6aCFingerprint.matchOrNull(h6aClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
         }
 
-        // u59: tier availability regional gates
-        u59ClassFingerprint.matchOrNull()?.classDef?.let { u59ClassDef ->
-            // Regional-gate set: D/F/O/S/U/Z/a0 (and other IntlCountryCodeController.k() callers).
-            // Currently resolves to ~15 static no-arg Z methods in u59.
+        resolved["u59"]?.let { u59ClassDef ->
             u59RegionalGateFingerprint.matchAll(u59ClassDef, 1..20).forEach { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
-            // R() — instant-match open-user gate (unique).
             u59RFingerprint.matchOrNull(u59ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
-            // V(User) — per-user tier check (already correct).
             u59VFingerprint.matchOrNull(u59ClassDef)?.let { match ->
                 match.method.addInstructions(0, U59_V_BODY)
             }
         }
 
-        // ugc0: subscription upgraded check
-        ugc0ClassFingerprint.matchOrNull()?.classDef?.let { ugc0ClassDef ->
+        resolved["ugc0"]?.let { ugc0ClassDef ->
             ugc0KFingerprint.matchOrNull(ugc0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
         }
 
-        // zva0: tier rank + banner
-        zva0ClassFingerprint.matchOrNull()?.classDef?.let { zva0ClassDef ->
+        resolved["zva0"]?.let { zva0ClassDef ->
             zva0B0Fingerprint.matchOrNull(zva0ClassDef)?.let { match ->
                 match.method.addInstructions(0, ZVA0_B0_BODY)
             }
@@ -2880,56 +2791,43 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // LikeFrom redirect REMOVED — was routing all swipes through instant match path,
-        // breaking normal card swipes with infinite loading and server errors.
-
-        // th5: swipe action gates (d/f/h) → false
-        // These methods check if the swipe strategy is "showPurchaseDialog".
-        // Return FALSE to prevent purchase dialog from showing, allowing swipe actions to proceed.
-        th5ClassFingerprint.matchOrNull()?.classDef?.let { th5ClassDef ->
+        resolved["th5"]?.let { th5ClassDef ->
             th5PurchaseDialogFingerprint.matchAll(th5ClassDef, 1..10).forEach { match ->
                 match.method.addInstructions(0, LOG_TH5_FALSE)
             }
         }
 
-        // qgl0: privilege display string
-        qgl0ClassFingerprint.matchOrNull()?.classDef?.let { qgl0ClassDef ->
+        resolved["qgl0"]?.let { qgl0ClassDef ->
             qgl0DFingerprint.matchOrNull(qgl0ClassDef)?.let { match ->
                 match.method.addInstructions(0, QGL0_D_BODY)
             }
         }
 
-        // n3b0: likers limit + boost enhancement
-        n3b0ClassFingerprint.matchOrNull()?.classDef?.let { n3b0ClassDef ->
+        resolved["n3b0"]?.let { n3b0ClassDef ->
             n3b0QFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
             n3b0GFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
                 match.method.addInstructions(0, FAR_FUTURE_MS_BODY)
             }
-            // boost: d(Counter) → sum of BoostLimit.remaining → 200000
             n3b0BoostRemainingFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_INT_200000)
             }
-            // boost: p() → boostLimits.size() > 0 → true
             n3b0BoostHasFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
-            // boost: o() → boost remaining <= 0 → false (boost available)
             n3b0BoostAvailableFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
         }
 
-        // sb90 Companion: blur check (c(User)) → false
-        sb90CompanionClassFingerprint.matchOrNull()?.classDef?.let { sb90CompanionClassDef ->
+        resolved["sb90Companion"]?.let { sb90CompanionClassDef ->
             sb90CFingerprint.matchOrNull(sb90CompanionClassDef)?.let { match ->
                 match.method.addInstructions(0, LOG_SB90_FALSE)
             }
         }
 
-        // secretCrush: remaining + expiration
-        secretCrushClassFingerprint.matchOrNull()?.classDef?.let { secretCrushClassDef ->
+        resolved["secretCrush"]?.let { secretCrushClassDef ->
             secretCrushRemainingFingerprint.matchOrNull(secretCrushClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
@@ -2938,22 +2836,19 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // coreData: surpriseGiftExpirationTime → far future
-        coreDataClassFingerprint.matchOrNull()?.classDef?.let { coreDataClassDef ->
+        resolved["coreData"]?.let { coreDataClassDef ->
             coreDataSurpriseGiftFingerprint.matchOrNull(coreDataClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_LONG_MAX)
             }
         }
 
-        // tm90: VIP badge override
-        tm90ClassFingerprint.matchOrNull()?.classDef?.let { tm90ClassDef ->
+        resolved["tm90"]?.let { tm90ClassDef ->
             tm90GFingerprint.matchOrNull(tm90ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
         }
 
-        // mb90: purchase type checks
-        mb90ClassFingerprint.matchOrNull()?.classDef?.let { mb90ClassDef ->
+        resolved["mb90"]?.let { mb90ClassDef ->
             mb90BFingerprint.matchOrNull(mb90ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
@@ -2962,17 +2857,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // pib: membership flip REMOVED for 7.3.3
-        // The g9 method no longer has Membership.active field access.
-        // User.isVIP()/isUltraPremium() patches already handle premium status override.
-
-        // joa: privilege expiry checker — hides teaser banners in conversations tab
-        // ("X girls Y miles away just liked you", etc.). joa is the SAME class as xma in 7.3.3.
-        // The xma oDiamond block already handles G3() correctly via hasNegation().
-        // Here we patch the remaining S3-style methods that the xma block doesn't cover.
-        // i4()=seeWhoLikedMe, e4()=roaming, f4()=svip, j4()=superLike
-        // All return T3(id) which is TRUE when expired → banner shows. Patch to FALSE.
-        joaClassFingerprint.matchOrNull()?.classDef?.let { joaClassDef ->
+        resolved["joa"]?.let { joaClassDef ->
             joaI4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
@@ -2987,8 +2872,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // jh30/xp30/xnx: Me tab dark upgrade card suppression
-        jh30ClassFingerprint.matchOrNull()?.classDef?.let { jh30ClassDef ->
+        resolved["jh30"]?.let { jh30ClassDef ->
             val newProfilePrivilegedPagerType = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;"
             val methods = jh30ClassDef.methods
 
@@ -3020,15 +2904,13 @@ val premiumUnlockPatch = bytecodePatch(
                 .addInstructions(0, bannerHideBody)
         }
 
-        // C8291a: Business entrance adapter - suppresses promotional items at top of conversation list
-        // View type 1 shows "Match with them instantly" (See Who Liked Me entrance)
-        // We patch the initialization method to prevent all business items from being added
-        businessEntranceAdapterFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["businessEntranceAdapter"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.returnType == "V" && method.parameterTypes.isEmpty()) {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
+
     }
 }
