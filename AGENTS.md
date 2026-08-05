@@ -1,7 +1,9 @@
 # Morph - Tantan Android Patch Project
 
 ## Overview
-This repository contains patches and tools for the Tantan Android APK. Patches cover premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, and Google Maps compatibility.
+This repository contains patches and tools for the Tantan Android APK (international version, v7.3.3). The project includes 10 patchsets covering premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, ad removal, root/emulator detection bypass, live streaming features, UI cleanup, and Google Maps compatibility.
+
+**Target:** International version only. China-specific features (WeChat Pay, Alipay, QQ login, Huawei services) are dead code in the international APK and should NOT be patched.
 
 ## Workspace Configuration
 ```json
@@ -16,6 +18,7 @@ This repository contains patches and tools for the Tantan Android APK. Patches c
 - `patches-list.json` - Auto-generated patch metadata
 - `patches-bundle.json` - Bundle configuration
 - `tantan-tribe-decompiled/` - Decompiled Tantan APK source for reverse engineering
+- `tantan-decompiled-7.3.3/` - Decompiled Tantan 7.3.3 APK source (50,635 Java files)
 
 ## Build and Release Commands
 
@@ -38,8 +41,8 @@ unzip -l patches/build/libs/patches-0.0.1-dev2.mpp | grep -E "classes.dex|patche
 ```
 Expected output:
 ```
-   152108  01-01-1970 01:00   classes.dex
-     6595  07-31-2026 02:16   patches-list.json
+   209000  01-01-1970 01:00   classes.dex
+     8633  08-05-2026 19:30   patches-list.json
 ```
 
 ### Local Patch Test (End-to-End Pipeline)
@@ -100,11 +103,11 @@ curl -s -H "Authorization: token $GITHUB_TOKEN" \
   python3 -c "import json, sys; assets = json.load(sys.stdin); [print(f'{a[\"name\"]}: {a[\"size\"]} bytes') for a in assets]"
 ```
 
-Expected file size for `patches-0.0.1-dev2.mpp`: ~740 KB (includes DEX bytecode for all 6 patches). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
+Expected file size for `patches-0.0.1-dev2.mpp`: ~880 KB (includes DEX bytecode for all 10 patches). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
 
 ## Patch Architecture
 
-The project uses 6 patches registered in `PatchRegistry.kt`. All patch files are in `patches/src/main/java/com/p1/mobile/putong/data/`:
+The project uses 10 patches registered in `PatchRegistry.kt`. All patch files are in `patches/src/main/java/com/p1/mobile/putong/data/`:
 
 ### Premium Unlock (`PremiumUnlockPatch.kt`)
 The largest and most complex patch. Handles:
@@ -121,6 +124,12 @@ The largest and most complex patch. Handles:
 - Server refresh prevention (pib.W9 → Observable.just)
 - VIP badge override (zva0, tm90)
 - Spotlight/boost activation (gqf0, CoreBusinessServiceIml)
+- Counter limits (likeLimit, superLikeLimit, undoLimit, boostLimits)
+- Privacy features (hide_me_from_nearby, visitor_hide_footprint, nearby_people)
+- Read receipts (intl_message_read, message_read_state)
+- Ultra premium O-Diamond (isODiamond field, d79.W method)
+- Purchase gate bypass (CoreProduct.S4)
+- Swipe rate limit bypass (gra class)
 
 ### Privacy Controls (`PrivacyControlsPatch.kt`)
 Unlocks privacy features:
@@ -135,6 +144,12 @@ Enhances messaging features:
 - Pin chat unlimited (PlatinumPinChat expiration)
 - Voice/video calls (LoveBuzzData remaining counts)
 - Quick chat features (quickchat privileges)
+- Visitor message limits (ODiamondVisitorMessageGuideConfig)
+- Conversation entry limits (PrologueConfig)
+- Buzz call toggles (voiceBuzz, videoBuzz, textBuzz, memojiBuzz)
+- Secret crush limits (CounterSecretCrushLimit)
+- Boost limits (BoostLimit remaining/duration)
+- Live chat limits (LiveChatLimit)
 
 ### Analytics Disable (`AnalyticsDisablePatch.kt`)
 Disables all tracking and telemetry:
@@ -144,6 +159,9 @@ Disables all tracking and telemetry:
 - Facebook AppEvents
 - Beatles APM (crash reporting)
 - OAID device fingerprinting
+- Central device fingerprint collector (dk50 - IMEI, MAC, IP, LBS, UA)
+- Device info collector (vrq0 - ANDROIDID, IMEI, MAC, IP)
+- Device fingerprint hash generator (nuq0)
 
 ### Dialog Cleanup (`DialogCleanupPatch.kt`)
 Removes annoying promotional dialogs:
@@ -152,6 +170,10 @@ Removes annoying promotional dialogs:
 - Version upgrade prompt (`p_alert_version_upgrade_popup`)
 - Offline popup (`p_offline_popup`)
 - Notification permission prompt (`p_prompt_notification_auth_popup_view`)
+- Phone auth popups (`p_second_prompt_phone_auth_popup_view`, `p_sys_phone_auth_popup_view`, `p_prompt_phone_auth_popup_view`)
+- VIP upgrade popup (`p_vip_upgrade_popup`)
+- Purchase pages (`p_purchase_guide_page`, `p_purchase_expire_page`, `p_purchase_page`)
+- Welcome back popup (`p_welcomeback_popup`)
 
 ### GMS Compatibility (`GmsCompatibilityPatch.kt`)
 Consolidated patch that makes Google Maps and GMS-dependent features work in re-signed APKs. Includes:
@@ -160,10 +182,58 @@ Consolidated patch that makes Google Maps and GMS-dependent features work in re-
 - MicroG support (rewrites `com.google.android.gms` → `app.revanced.android.gms`, adds manifest metadata)
 - GMS availability bypass (forces `isGooglePlayServicesAvailable` to return SUCCESS)
 
+### Ad Removal (`AdRemovalPatch.kt`)
+Removes all ad displays:
+- Navigation bar bottom banner ads (NavigationBarAdView, NavigationBarAdmobHelper)
+- Native feed ad cards disguised as user profiles (NativeAdViewCard)
+- Live streaming banner ads (LiveVideoBannerAdCardView)
+- Live square native ads (IntlLiveSquareFeedNativeAdView)
+- Live square banner ads (IntlLiveSquareFeedBannerAdView)
+
+### Privacy Enhancement (`PrivacyEnhancementPatch.kt`)
+Advanced privacy protections:
+- Root detection bypass (jmd0, mmd0 classes)
+- Emulator detection bypass (ert0, DeviceUtil classes)
+- ShuMeng SDK blocking (r8f0 - Chinese data collection SDK)
+- Package enumeration prevention (o0e - installed app list collection)
+
 ### Shared Constants (`Constants.kt`)
 Shared constants: `TANTAN_PACKAGE_NAME`, `TANTAN_USER_CLASS`, `tantanCompatibility`.
 
 All tier overrides MUST use `isMe()` guards to ensure they only affect the current user, not other users' profiles.
+
+### Region Detection & China vs International Features
+
+The international APK has a critical region detection mechanism that determines which features are active:
+
+**Master Switch:** `IntlCountryCodeController.m29114k()` (HMS check)
+- Returns `TextUtils.equals("hms", "gms")` which is **ALWAYS FALSE** in the international APK
+- This means ALL China-only code paths are dead code and never execute
+- All features gated behind `!m29114k()` (i.e., "not China") are always enabled
+
+**China-Only Features (DO NOT PATCH - Dead Code):**
+- WeChat Pay, Alipay, Huabei, JD Pay payment flows
+- WeChat Login, QQ Login flows
+- Weibo sharing integration
+- Huawei push/services (HWPushEngine, Huawei AppGallery)
+- `nightclub_config` (international uses `intl_nightclub_config`)
+- `LiveRegionTag.mainland` specific features
+- Chinese locale-specific features (`zh`+`CN` checks)
+
+**International-Only Features (SAFE TO PATCH):**
+- All features with `intl_` prefix
+- Google Play Billing (`IntlPayMethod.nativeMethod`)
+- Facebook/Google social login
+- Firebase push notifications
+- All premium features (VIP, SVIP, Ultra Premium)
+- All feature flags in `d79` class (gated by `!m29114k()`)
+- All region-specific UI for non-China regions
+
+**Risk Assessment:**
+- Patching China-only code is harmless but pointless (never executed)
+- The real risk is patching a method used by international users but misidentified as China-only
+- Always verify the gating condition before patching
+- Our existing patches all target international features and are safe
 
 ### Version-Agnostic Fingerprints
 
@@ -200,6 +270,23 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | Facebook AppEvents | `string("facebook-core_release")` |
 | Beatles APM | `string("com.tantanapp.beatles")` |
 | OAID (`k200`) | `string("miit_oaid")` |
+| Device fingerprint collector (`dk50`) | `string("[IMEI]")` + `string("[OAID]")` + `string("[MAC]")` |
+| Device fingerprint hash (`nuq0`) | `string("device_fingerprint")` + device ID collection |
+| Device info collector (`vrq0`) | `string("ANDROIDID")` + `string("IMEI")` + `string("MAC")` |
+| Root detection (`jmd0`) | `string("/system/app/Superuser.apk")` + `string("/system/xbin/daemonsu")` |
+| Root detection (`mmd0`) | `string("/system/bin/cufsdosck")` + `string("/system/bin/conbb")` |
+| Emulator detection (`ert0`) | `string("ranchu")` + `string("generic")` + `string("emulator")` |
+| Emulator detection (`DeviceUtil`) | `string("goldfish")` + `string("Genymotion")` + `string("vbox86p")` |
+| ShuMeng SDK (`r8f0`) | `string("shumeng_init")` + `string("shuzilm")` |
+| Package enumeration (`o0e`) | `string("getInstalledPackages")` + `string("firstInstallTime")` |
+| Live streaming banner ad | CamelCase stable (`LiveVideoBannerAdCardView`) |
+| Live square native ad | CamelCase stable (`IntlLiveSquareFeedNativeAdView`) |
+| Live square banner ad | CamelCase stable (`IntlLiveSquareFeedBannerAdView`) |
+| CounterSecretCrushLimit | `fieldAccess(remaining)` + `fieldAccess(total)` |
+| BoostLimit | `fieldAccess(remaining)` + `fieldAccess(duration)` |
+| LiveChatLimit | `fieldAccess(remaining)` + `fieldAccess(total)` |
+| ODiamondVisitorMessageGuideConfig | `fieldAccess(total_limit_daily)` + `fieldAccess(user_limit_daily)` |
+| PrologueConfig | `fieldAccess(enter_conv_limit)` + `fieldAccess(untalked_daily_show_count)` |
 
 For groups of byte-identical overloaded methods (e.g. u59's U/S/O/F/Z/a0/D all return `!IntlCountryCodeController.k()`), fingerprint them as one cluster — they cannot be reliably separated.
 
