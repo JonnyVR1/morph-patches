@@ -385,21 +385,105 @@ val gmsCompatibilityPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        // REMOVED: Two broad classDefForEach loops that scanned ALL classes
-        // These were causing session/auth issues by corrupting Firebase/GMS initialization:
-        //
-        // 1. Loop that rewrote "com.google.android.gms" → VENDOR_GMS_PACKAGE across every class
-        //    - Could break Firebase initialization (used for auth tokens and push notifications)
-        //    - Could corrupt GMS-dependent startup code
-        //    - Only had 1 exclusion (zzf), far too narrow
-        //
-        // 2. Loop that injected X-Android-Cert/X-Android-Package values across every class
-        //    - Used heuristic register detection that could match wrong registers
-        //    - If it injected into wrong register, corrupted auth requests
-        //    - Only had 3 exclusions, far too narrow
-        //
-        // The targeted patches for specific Firebase classes (FirebaseInstallations,
-        // FirebaseInstanceId, FirebaseMessaging) that come before these loops are
-        // sufficient for GMS compatibility without the risk of corrupting startup flows.
+        classDefForEach { classDef ->
+            val hasMethods = classDef.methods.any { it.implementation != null }
+            if (!hasMethods) return@classDefForEach
+
+            val containsTarget = classDef.methods.any { method ->
+                method.implementation?.instructions?.any { instruction ->
+                    (instruction as? Instruction21c)?.reference is StringReference &&
+                            ((instruction as Instruction21c).reference as StringReference).string == "com.google.android.gms"
+                } == true
+            }
+
+            if (!containsTarget) return@classDefForEach
+
+            val type = classDef.type
+            if (type == "Lcom/google/android/gms/common/internal/zzf;") return@classDefForEach
+
+            val mutableClass = mutableClassDefBy(classDef)
+            val methodMap = classDef.methods.zip(mutableClass.methods).toMap()
+
+            classDef.methods.forEach { method ->
+                val implementation = method.implementation ?: return@forEach
+                val mutableMethod = methodMap[method] ?: return@forEach
+
+                implementation.instructions.forEachIndexed { index, instruction ->
+                    val str = (instruction as? Instruction21c)?.reference as? StringReference
+                        ?: return@forEachIndexed
+
+                    if (str.string == "com.google.android.gms") {
+                        mutableMethod.replaceInstruction(
+                            index,
+                            BuilderInstruction21c(
+                                Opcode.CONST_STRING,
+                                instruction.registerA,
+                                ImmutableStringReference(VENDOR_GMS_PACKAGE),
+                            ),
+                        )
+                    }
+                }
+            }
+        }
+
+        classDefForEach { classDef ->
+            val hasMethods = classDef.methods.any { it.implementation != null }
+            if (!hasMethods) return@classDefForEach
+
+            val containsTargetStrings = classDef.methods.any { method ->
+                method.implementation?.instructions?.any { instruction ->
+                    val ref = (instruction as? Instruction21c)?.reference as? StringReference
+                        ?: return@any false
+                    ref.string == "X-Android-Cert" || ref.string == "X-Android-Package"
+                } == true
+            }
+
+            if (!containsTargetStrings) return@classDefForEach
+
+            val type = classDef.type
+            if (type in listOf(
+                "Lcom/google/firebase/installations/FirebaseInstallations;",
+                "Lcom/google/firebase/iid/FirebaseInstanceId;",
+                "Lcom/google/firebase/messaging/FirebaseMessaging;"
+            )) return@classDefForEach
+
+            val mutableClass = mutableClassDefBy(classDef)
+            val methodMap = classDef.methods.zip(mutableClass.methods).toMap()
+
+            classDef.methods.forEach { method ->
+                val implementation = method.implementation ?: return@forEach
+                val mutableMethod = methodMap[method] ?: return@forEach
+
+                data class Injection(val index: Int, val registerName: String, val value: String)
+                val injections = mutableListOf<Injection>()
+
+                val instructions = implementation.instructions.toList()
+
+                instructions.forEachIndexed { index, instruction ->
+                    val strRef = (instruction as? Instruction21c)?.reference as? StringReference
+                        ?: return@forEachIndexed
+                    val replacementValue = when (strRef.string) {
+                        "X-Android-Cert" -> ORIGINAL_SHA1
+                        "X-Android-Package" -> ORIGINAL_PACKAGE
+                        else -> return@forEachIndexed
+                    }
+                    val headerReg = instruction.registerA
+
+                    for (j in index + 1 until minOf(index + 30, instructions.size)) {
+                        val candidate = instructions[j]
+                        val valueRegNum = extractValueRegister(candidate, headerReg) ?: continue
+                        injections.add(Injection(j, "v$valueRegNum", replacementValue))
+                        break
+                    }
+                }
+
+                injections.sortedByDescending { it.index }.forEach { injection ->
+                    mutableMethod.addInstructions(
+                        injection.index,
+                        "const-string ${injection.registerName}, \"${injection.value}\"",
+                    )
+                }
+            }
+        }
     }
 }

@@ -255,10 +255,35 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // REMOVED: Device identifier patches (UniqueIMEI, UniqueDeviceId, GoogleAdId)
-        // These patches returned empty strings/null for device identifiers that the
-        // Tantan server uses for session authentication. This caused the app to be
-        // treated as unauthenticated, forcing users back to the login screen.
+        uniqueImeiClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
+                    method.addInstructions(0, RETURN_EMPTY_STRING)
+                }
+            }
+        }
+
+        uniqueDeviceIdClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
+                    method.addInstructions(0, RETURN_EMPTY_STRING)
+                }
+            }
+        }
+
+        googleAdIdClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (method.name == "getAdvertisingIdInfo" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Landroid/content/Context;" &&
+                    method.returnType.startsWith("L")) {
+                    method.addInstructions(0, RETURN_NULL_OBJECT)
+                }
+            }
+        }
 
         pushStatsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
@@ -364,10 +389,51 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // REMOVED: Device identifier patches (Sina DeviceId, Cosmos Photon Push UniqueIDs, TelephonyDeviceId)
-        // These patches returned empty strings for device identifiers that the
-        // Tantan server uses for session authentication. This caused the app to be
-        // treated as unauthenticated, forcing users back to the login screen.
+        // Sina DeviceId JNI SDK - disable device fingerprinting
+        classDefByOrNull("Lcom/sina/deviceidjnisdk/DeviceId;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                    else -> if (method.returnType.startsWith("L")) {
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+                    }
+                }
+            }
+        }
+
+        // Cosmos Photon Push UniqueIDs - disable hardware ID collection
+        listOf(
+            "Lcom/cosmos/photon/push/uniqueid/UniqueAndroidId;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueIMEI;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueDeviceId;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueSerialNumber;"
+        ).forEach { descriptor ->
+            classDefByOrNull(descriptor)?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
+                    if (isConstructor(method)) return@forEach
+                    when (method.returnType) {
+                        "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                        "V" -> method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        // Obfuscated Device Collectors - disable TelephonyManager-based collection
+        telephonyDeviceIdFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
 
         // Tencent LiteAV Telemetry - disable performance tracking
         classDefByOrNull("Lcom/tencent/liteav/basic/datareport/TXCDRApi;")?.let { classDef ->
@@ -419,18 +485,68 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // REMOVED: Device fingerprint collector patches (dk50, nuq0, vrq0)
-        // These patches were too aggressive and broke session validation.
-        // The server uses device fingerprints for session authentication, so returning
-        // null/empty strings caused the app to be treated as unauthenticated, forcing
-        // users back to the login screen on every launch.
-        // 
-        // If device fingerprint blocking is needed in the future, it should target
-        // only specific analytics-related methods, not all methods by return type.
+        // Central device fingerprint collector (dk50) - block URL template substitution and all identifier collection
+        deviceFingerprintCollectorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.returnType == "Ljava/lang/String;" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ljava/lang/String;" -> method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        return-object v0
+                    """)
 
-        // REMOVED: OAID collection patch (hb00)
-        // This patch returned empty strings for OAID (Open Anonymous Device Identifier)
-        // which the Tantan server may use for session authentication. This caused the
-        // app to be treated as unauthenticated, forcing users back to the login screen.
+                    method.returnType == "Ljava/lang/String;" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags) -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                }
+            }
+        }
+
+        // Device fingerprint hash collector (nuq0) - block device fingerprint generation
+        deviceFingerprintHashClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Device info collector (vrq0) - block ANDROIDID, IMEI, MAC collection at source
+        deviceInfoCollectorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Enhanced OAID collection (hb00) - block OAID init and collection
+        oaidClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.returnType == "Ljava/lang/String;" &&
+                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                    AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_EMPTY_STRING)
+
+                    method.returnType == "V" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Landroid/content/Context;" -> method.addInstructions(0, RETURN_VOID)
+
+                    method.returnType == "Z" &&
+                    method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
     }
 }
