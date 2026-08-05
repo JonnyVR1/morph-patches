@@ -14,11 +14,6 @@ private const val RETURN_FALSE = """
     return v0
 """
 
-private const val RETURN_HANDLE_STATE_REFUSE = """
-    sget-object v0, Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/SwipeDialogOmsLimitStrategy${'$'}HandleState;->refuse:Lcom/p1/mobile/putong/core/newui/home/base/impl/swipe/SwipeDialogOmsLimitStrategy${'$'}HandleState;
-    return-object v0
-"""
-
 @Suppress("unused")
 @JvmField
 val dialogCleanupPatch = bytecodePatch(
@@ -28,16 +23,8 @@ val dialogCleanupPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/gp/a;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter {
-                    it.name == "o" &&
-                    it.parameterTypes.size == 1 &&
-                    it.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                    it.returnType == "V"
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
+        // Removed: hardcoded obfuscated class Lcom/p1/mobile/putong/core/ui/gp/a; 
+        // Too risky - could be startup-critical, use fingerprint-based approach instead
 
         mx0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
@@ -81,35 +68,14 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        u750ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { 
-                    (it.name == "b" || it.name == "d") && 
-                    it.parameterTypes.size == 1 &&
-                    AccessFlags.PUBLIC.isSet(it.accessFlags)
-                }
-                .forEach { it.addInstructions(0, RETURN_FALSE) }
-        }
+        // Removed: u750 fingerprint too broad - methodCall(name = "h0") matches many unrelated classes
+        // and patching all public b/d methods could break startup-critical boolean checks
 
-        ygh0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { 
-                    it.name == "N" && 
-                    it.returnType == "V" &&
-                    it.parameterTypes.isEmpty() &&
-                    AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags)
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
+        // Removed: ygh0ClassFingerprint - notification permission prompt
+        // Too aggressive, could break startup flow
 
-        autoSubDialogClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { 
-                    (it.name == "show" || it.name == "display" || it.name == "present") &&
-                    it.returnType == "V"
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
+        // Removed: autoSubDialogClassFingerprint - auto-subscription dialog
+        // Risky, could interfere with payment flow
 
         classDefByOrNull("Lcom/p1/mobile/putong/core/ui/pricerecall/PriceRecall2Dialog;")?.let { classDef ->
             mutableClassDefBy(classDef).methods
@@ -140,16 +106,8 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_FALSE) }
         }
 
-        dislikeWhoLikedMeClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { 
-                    it.name == "s" &&
-                    it.parameterTypes.size == 1 &&
-                    it.returnType.contains("HandleState") &&
-                    AccessFlags.PUBLIC.isSet(it.accessFlags)
-                }
-                .forEach { it.addInstructions(0, RETURN_HANDLE_STATE_REFUSE) }
-        }
+        // Removed: dislikeWhoLikedMe fingerprint too risky - injects cross-class sget-object reference
+        // which could cause VerifyError at class load time if DEX boundaries don't align
     }
 }
 
@@ -174,36 +132,8 @@ private val ok3ClassFingerprint = Fingerprint(
     ),
 )
 
-private val u750ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_offline_popup"),
-        methodCall(name = "h0"),
-    ),
-)
-
-private val ygh0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_prompt_notification_auth_popup_view"),
-        string("no_permission_notice"),
-    ),
-)
-
-private val autoSubDialogClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_reauto"),
-        string("e_reauto"),
-        string("reauto_showfrom"),
-    ),
-)
-
 private val vipUpgradePopupClassFingerprint = Fingerprint(
     filters = listOf(
         string("vip_upgrade_popup"),
-    ),
-)
-
-private val dislikeWhoLikedMeClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("special_like_dlg_"),
     ),
 )

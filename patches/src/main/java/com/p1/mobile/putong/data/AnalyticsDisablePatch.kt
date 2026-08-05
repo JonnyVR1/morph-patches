@@ -174,16 +174,8 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Emulator detection
-            if ("runningOnEmulator" in strings) {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.implementation == null) return@forEach
-                    if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-                return@classDefForEach
-            }
+            // Emulator detection - EXCLUDED: "runningOnEmulator" matches WebRTC audio infrastructure
+            // classes (Agora, ByteRTC, MoMo RTC) which are critical for voice/video calls, not analytics
 
             // ShuMei anti-fraud
             if ("createSmAntiFraudInit" in strings) {
