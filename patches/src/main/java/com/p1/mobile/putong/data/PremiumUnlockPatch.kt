@@ -2344,6 +2344,25 @@ val premiumUnlockPatch = bytecodePatch(
             if ("jh30" !in resolved && "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d" in methodCallFull) resolved["jh30"] = classDef
             if ("businessEntranceAdapter" !in resolved && "open_fill_info_debug" in strings && "clear" in methodCallNames) resolved["businessEntranceAdapter"] = classDef
 
+            // pm6: fromWhoLikedMe gate check for international version
+            // pm6.f(Conversation) checks if conversation is a "fromWhoLikedMe" type
+            // Used by ConversationItemHeadView to show "liked me" icon
+            // Anchored on stable string "fromWhoLikedMe"
+            if ("pm6" !in resolved && "fromWhoLikedMe" in strings &&
+                "Lcom/p1/mobile/putong/core/data/Conversation;.property" in fieldAccessFull &&
+                methodCallFull.any { it.contains("isFemale") }) {
+                resolved["pm6"] = classDef
+            }
+
+            // bhe0: Business entrance navigation and analytics
+            // bhe0.d() navigates to LikersAct/IntlMeetAct
+            // bhe0.e()/f() fire analytics events for red dot
+            // Anchored on stable string "e_red_dot_message_see"
+            if ("bhe0" !in resolved && "e_red_dot_message_see" in strings &&
+                "Lcom/p1/mobile/putong/core/newui/messages/business/BusinessEntranceStyle;" in methodCallFullSigs) {
+                resolved["bhe0"] = classDef
+            }
+
             // vqo, re90, i0p: Banner text generators for "x people liked you"
             // These classes generate promotional text independently of b8d0
             val hasCharSeqM = classDef.methods.any { it.name == "m" && it.parameterTypes.isEmpty() && it.returnType == "Ljava/lang/CharSequence;" }
@@ -2369,7 +2388,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            if (resolved.size == 36) return@classDefForEach
+            if (resolved.size == 38) return@classDefForEach
         }
 
         resolved["xma"]?.let { xmaClassDef ->
@@ -2802,6 +2821,58 @@ val premiumUnlockPatch = bytecodePatch(
         resolved["businessEntranceAdapter"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.returnType == "V" && method.parameterTypes.isEmpty()) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // pm6: fromWhoLikedMe gate check
+        // pm6.f(Conversation) returns true if conversation is a "fromWhoLikedMe" type
+        // This is the international-specific gate that controls whether the "liked me" icon appears
+        // Patching to return false prevents the icon from showing on conversation items
+        resolved["pm6"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "f" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/Conversation;" &&
+                    method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
+        // bhe0: Business entrance navigation and analytics
+        // bhe0.d() navigates to LikersAct/IntlMeetAct when user clicks the banner
+        // bhe0.e()/f() fire analytics events for red dot display
+        // Patching all to return-void prevents navigation and analytics tracking
+        resolved["bhe0"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                // d(Context, boolean, BusinessEntranceStyle) → void (navigation)
+                if (method.name == "d" && method.parameterTypes.size == 3 && method.returnType == "V" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+                // e(boolean) → void (analytics event)
+                if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+                // f() → void (analytics event)
+                if (method.name == "f" && method.parameterTypes.isEmpty() && method.returnType == "V" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ConversationsList.X1(): Privilege change handler
+        // Subscribes to seeWhoLikedMe privilege changes and triggers list refresh
+        // Server responses can change privilege state, causing re-display of promotional content
+        // Patching to return-void prevents server-triggered list refreshes
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "X1" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/UserPrivilege;" &&
+                    method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
