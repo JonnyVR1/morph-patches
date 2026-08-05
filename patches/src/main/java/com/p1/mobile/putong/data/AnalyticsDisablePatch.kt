@@ -58,6 +58,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("e_request_none_oaid" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     when {
                         method.parameterTypes.size == 2 &&
                         method.parameterTypes[0] == "Landroid/content/Context;" &&
@@ -78,6 +79,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("dmfeSDkpVxP8m6Ys6yJCpn" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     val isPublicFinal = AccessFlags.PUBLIC.isSet(method.accessFlags) && 
                                        AccessFlags.FINAL.isSet(method.accessFlags)
                     when {
@@ -239,6 +241,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("_getOrCreate" in methodNames && "_compressRecordFile" in methodNames) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     when {
                         method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
                         method.returnType == "Z" && method.parameterTypes.isEmpty() -> 
@@ -303,6 +306,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("getSubmitAlternative" in methodNames) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     if (method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
