@@ -12,7 +12,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [
@@ -38,7 +38,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [
@@ -64,7 +64,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [
@@ -92,7 +92,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [
@@ -118,7 +118,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [
@@ -144,7 +144,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [
@@ -170,7 +170,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [
@@ -196,7 +196,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [
@@ -222,7 +222,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [
@@ -248,7 +248,7 @@
           "packageName": "com.tantantribe.tribe",
           "name": "Tantan",
           "description": "Tantan - Global Dating App",
-          "apkFileType": "APK",
+          "apkFileType": "APK_REQUIRED",
           "appIconColor": null,
           "signatures": null,
           "targets": [

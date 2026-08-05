@@ -1024,8 +1024,146 @@ val premiumUnlockPatch = bytecodePatch(
                           method.name == "isODiamond" &&
                               method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                               method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
-                          }
-                     }
+        // ── Messages tab promotional content suppression ──────────────────────
+
+        // ConversationHeadRecommendLayout.f0(): data source for head carousel
+        // Fetches friend suggestions from server via CoreModule.f18264c.f20384f0.m34147ug()
+        // Patching to return Observable.just(null) prevents carousel from receiving promotional data
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadRecommendLayout;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "f0" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ljava/lang/String;" &&
+                    method.returnType == "Lp137rx/C22421c;") {
+                    method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        invoke-static {v0}, Lp137rx/C22421c;->just(Ljava/lang/Object;)Lp137rx/C22421c;
+                        move-result-object v0
+                        return-object v0
+                    """)
+                }
+            }
+        }
+
+        // ConversationRecommendItemView.X(): bind method for carousel item
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationRecommendItemView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "X" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // RecommendNormalUserView.a0(): bind method for normal user carousel item
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/RecommendNormalUserView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "a0" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ConversationAllPairItemView.Z(): bind method for pair carousel item
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationAllPairItemView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "Z" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ConversationMatchItemLayout.P(): bind method for match carousel item
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationMatchItemLayout;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "P" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ConversationSuperBoostItemView.D0(): bind method for super boost carousel item
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationSuperBoostItemView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "D0" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ConversationHeadBackUserTipLayout.z(): bind method for back user tip carousel item
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadBackUserTipLayout;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "z" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ConversationCityCentreCardLayout.l(): bind method for city centre card carousel item
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationCityCentreCardLayout;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "l" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // NewMatchItemLayout.o(): bind method for new match carousel item
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/recommend/view/NewMatchItemLayout;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "o" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ConversationItemGoogleAdView.c(): bind method for Google ad conversation item (type 15)
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemGoogleAdView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "c" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ConversationItemUserStatesView.i(): bind method for user states conversation item (type 16)
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemUserStatesView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "i" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ConversationFoldView.T(): bind method for fold conversation item (type 39)
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationFoldView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "T" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // IntlVisitorConversationView.m0(): bind method for visitor conversation item (type 48)
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/business/IntlVisitorConversationView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "m0" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // PrivilegePromotionHeaderView.d(): loads promotional image, prevents display
+        // PrivilegePromotionHeaderView.e(): updates promotion text, prevents display
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/promotion/PrivilegePromotionHeaderView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name in setOf("d", "e") && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+    }
+}
                  }
              }
 
