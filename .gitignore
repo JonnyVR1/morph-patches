@@ -8,6 +8,8 @@
 build/
 .gradle/
 apk-build/
+patches/bin/
+patches/morphe-temporary-files/
 
 # Decompiled sources
 tantan-decompiled-*/
@@ -16,6 +18,7 @@ tantan-*-decoded/
 tantan-*-extracted/
 tantan-*-config.*/
 tantan-*-resources/
+tantan-full-decompiled/
 jadx-*/
 
 # Log files
