@@ -8,6 +8,7 @@ import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
@@ -178,13 +179,20 @@ private val jailedGroupChatClassFingerprint = Fingerprint(
     ),
 )
 
+private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
+
+private fun com.android.tools.smali.dexlib2.iface.Method.cachedInstructions(): List<Instruction> =
+    instructionCache.getOrPut(this) {
+        implementation?.instructions?.toList() ?: emptyList()
+    }
+
 private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingClass: String, fieldName: String): Boolean =
-    this.implementation?.instructions?.any { instr ->
+    cachedInstructions().any { instr ->
         instr is ReferenceInstruction &&
             instr.reference is FieldReference &&
             (instr.reference as FieldReference).definingClass == definingClass &&
             (instr.reference as FieldReference).name == fieldName
-    } ?: false
+    }
 
 @Suppress("unused")
 @JvmField
@@ -280,15 +288,28 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
+        val stableClassTargets = setOf(FREE_GIFT_INFO_CLASS, MESSAGE_CLASS)
         classDefForEach { classDef ->
-            if (classDef.type == FREE_GIFT_INFO_CLASS) {
-                mutableClassDefBy(classDef).methods
-                    .filter { method ->
-                        (method.name == "hasRemaining" || method.name == "inDuration") &&
-                            method.parameterTypes.isEmpty() &&
-                            method.returnType == "Z"
-                    }
-                    .forEach { it.addInstructions(0, RETURN_TRUE) }
+            if (classDef.type !in stableClassTargets) return@classDefForEach
+            when (classDef.type) {
+                FREE_GIFT_INFO_CLASS -> {
+                    mutableClassDefBy(classDef).methods
+                        .filter { method ->
+                            (method.name == "hasRemaining" || method.name == "inDuration") &&
+                                method.parameterTypes.isEmpty() &&
+                                method.returnType == "Z"
+                        }
+                        .forEach { it.addInstructions(0, RETURN_TRUE) }
+                }
+                MESSAGE_CLASS -> {
+                    mutableClassDefBy(classDef).methods
+                        .filter { method ->
+                            method.accessesField(MESSAGE_SETTING_CLASS, "anonymous") &&
+                                (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
+                                method.parameterTypes.isEmpty()
+                        }
+                        .forEach { it.addInstructions(0, RETURN_TRUE) }
+                }
             }
         }
 
@@ -318,18 +339,6 @@ val messagingPatch = bytecodePatch(
                         method.returnType == "Ljava/lang/Integer;"
                 }
                 .forEach { it.addInstructions(0, RETURN_INTEGER_9) }
-        }
-
-        classDefForEach { classDef ->
-            if (classDef.type == MESSAGE_CLASS) {
-                mutableClassDefBy(classDef).methods
-                    .filter { method ->
-                        method.accessesField(MESSAGE_SETTING_CLASS, "anonymous") &&
-                            (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
-                            method.parameterTypes.isEmpty()
-                    }
-                    .forEach { it.addInstructions(0, RETURN_TRUE) }
-            }
         }
 
         chatGameInfoClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
