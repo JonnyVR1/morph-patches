@@ -337,10 +337,10 @@ private val qa9ClassFingerprint = Fingerprint(
     filters = listOf(
         string("intl_receive_like_guide_get"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -350,10 +350,10 @@ private val hvaClassFingerprint = Fingerprint(
     filters = listOf(
         string("receive_like_guide_get"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -363,10 +363,10 @@ private val coreApiFakeConvFingerprint = Fingerprint(
     filters = listOf(
         string("fake_conversation_surprise_gift_box"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -376,10 +376,10 @@ private val profileLikeEnterFingerprint = Fingerprint(
     filters = listOf(
         string("fake_conversation_profile_like_enter"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -389,10 +389,10 @@ private val greetingFakeConvFingerprint = Fingerprint(
     filters = listOf(
         string("fake_conversation_greeting"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -402,10 +402,10 @@ private val feedStateFakeConvFingerprint = Fingerprint(
     filters = listOf(
         string("conversation_feed_state"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -427,10 +427,10 @@ private val instantChatGuideFingerprint = Fingerprint(
     filters = listOf(
         string("fake_conversation_local_instant_chat_conversation"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -440,10 +440,10 @@ private val mainUiFakeConvFingerprint = Fingerprint(
     filters = listOf(
         string("fake_conversation_anonymous_greeting"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -453,10 +453,10 @@ private val coreApiTeamGroupFingerprint = Fingerprint(
     filters = listOf(
         string("fake_conversation_local_team_group_conversation"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -466,10 +466,10 @@ private val coreApiLimitedTrialFoldFingerprint = Fingerprint(
     filters = listOf(
         string("fake_conversation_local_limited_trial_see_fold"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -492,10 +492,10 @@ private val intlSeeChatRequestCreatorFingerprint = Fingerprint(
     filters = listOf(
         string("intlSeeChatRequest"),
         methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/Conversation;",
+            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "new_",
             parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/data/Conversation;",
+            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
         ),
     ),
 )
@@ -1371,7 +1371,7 @@ private fun com.android.tools.smali.dexlib2.iface.Method.cachedInstructions(): L
         implementation?.instructions?.toList() ?: emptyList()
     }
 
-private fun instructionsOf(method: com.android.tools.smali.dexlib2.iface.Method): Iterable<Instruction> =
+internal fun instructionsOf(method: com.android.tools.smali.dexlib2.iface.Method): Iterable<Instruction> =
     method.cachedInstructions()
 
 private fun com.android.tools.smali.dexlib2.iface.Method.callsGuessedCurrentServerTime(): Boolean {
@@ -2116,64 +2116,15 @@ val premiumUnlockPatch = bytecodePatch(
             // Instead of just setVisibility(GONE), also set height to 0 to prevent ListView from allocating space
             // This is more reliable than just GONE in ListView context
             
-            // ConversationsList adapter: getItemViewType() → return 0 for fake conversations
-            // This makes fake promotional conversations render as empty normal items instead of banners
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationsList\$e;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "getItemViewType" && 
-                        method.parameterTypes.size == 1 && 
-                        method.parameterTypes[0] == "I" &&
-                        method.returnType == "I") {
-                        val fakeConvTypes = listOf(
-                            "liveactivites",
-                            "fake_conversation_oof_pick",
-                            "fake_conversation_oof_enter",
-                            "fake_conversation_blindbox_enter",
-                            "fake_conversation_surprise_gift_box",
-                            "fake_conversation_profile_featured",
-                            "fake_conversation_profile_like_enter",
-                            "fake_conversation_fold_conversation",
-                            "fake_conversation_local_summary_marriage_conversation",
-                            "fake_conversation_local_team_group_conversation",
-                            "fake_conversation_local_limited_trial_see_fold",
-                            "local_instant_chat_guide",
-                            "fake_conversation_weaken_conversation",
-                            "feedstate",
-                            "fakeReceiveLikeGuideSVip",
-                            "fakeIntlReceiveLikeGuideSVip",
-                            "fake_conversation_greeting",
-                            "fake_conversation_anonymous_greeting",
-                            "fake_conversation_city_centre_enter",
-                            "intlSeeChatRequest"
-                        )
-                        
-                        val checks = fakeConvTypes.joinToString("\n") { type ->
-                            """
-                            const-string v3, "$type"
-                            invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-                            move-result v4
-                            if-eqz v4, :return_zero
-                            """.trimIndent()
-                        }
-                        
-                        val instructions = """
-                            invoke-virtual {p0, p1}, Lcom/p1/mobile/putong/core/newui/messages/ConversationsList${'$'}e;->getItem(I)Ljava/lang/Object;
-                            move-result-object v0
-                            instance-of v1, v0, Lcom/p1/mobile/putong/core/data/Conversation;
-                            if-eqz v1, :not_conv
-                            check-cast v0, Lcom/p1/mobile/putong/core/data/Conversation;
-                            iget-object v2, v0, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
-                            $checks
-                            goto :not_conv
-                            :return_zero
-                            const/4 v0, 0x0
-                            return v0
-                            :not_conv
-                        """.trimIndent()
-                        method.addInstructions(0, instructions)
-                    }
-                }
-            }
+            // ConversationsList$e.getItemViewType() patch removed:
+            // The previous smali patch had critical bugs:
+            // 1. Used Conversation.convType instead of DbObject.id (wrong field)
+            // 2. NPE when convType was null
+            // 3. Returning view type 0 for fake conversations caused ClassCastException
+            //    when the adapter tried to bind fake conversations as normal conversation views
+            // Promotional items are now hidden by view-level patches (set GONE + zero height)
+            // on each ConversationItem*View class, which is safe and doesn't interfere with
+            // the adapter's view type mapping.
 
             // ConversationItemIntlReceiveLikeView: Enhanced hiding
             classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;")?.let { classDef ->
@@ -2410,7 +2361,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            val hasConvNew_ = "Lcom/p1/mobile/putong/data/Conversation;.new_.0.Lcom/p1/mobile/putong/data/Conversation;" in methodCallFullSigs
+            val hasConvNew_ = "Lcom/p1/mobile/putong/core/data/Conversation;.new_.0.Lcom/p1/mobile/putong/core/data/Conversation;" in methodCallFullSigs
 
             if ("xma" !in resolved && !isSettingsUi && "/summarized-privileges?with=diamond" in strings) resolved["xma"] = classDef
             if ("qa9" !in resolved && "intl_receive_like_guide_get" in strings && hasConvNew_) resolved["qa9"] = classDef
@@ -2704,16 +2655,11 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        resolved["headRecommendAdapter"]?.let { headAdapterClassDef ->
-            mutableClassDefBy(headAdapterClassDef).methods.forEach { method ->
-                if (method.name == "getItemViewType" && method.parameterTypes.size == 1 && method.returnType == "I") {
-                    method.addInstructions(0, """
-                        const/4 v0, 0x0
-                        return v0
-                    """)
-                }
-            }
-        }
+        // headRecommendAdapter patch removed: returning 0 for all view types causes ClassCastException
+        // when the carousel adapter tries to bind fake conversations to normal conversation view holders.
+        // Promotional content in the head recommend carousel is already suppressed by:
+        // - ConversationHeadLikerItemLayout.u() → return-void
+        // - ConversationHeadIntlSeeItem.L()/K()/M() → return-void
 
         resolved["seeAnimBubbleCreator"]?.let { bubbleCreatorClassDef ->
             mutableClassDefBy(bubbleCreatorClassDef).methods.forEach { method ->
