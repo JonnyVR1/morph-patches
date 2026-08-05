@@ -49,6 +49,84 @@ private const val RETURN_INT_9999 = """
     return v0
 """
 
+private const val CHAT_PARTNER_CONFIG_NULL_CHECK_BODY = """
+    if-eqz p0, :cpc_skip
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;->messageLimit:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;->perday:I
+    const/4 v0, 0x0
+    iput-boolean v0, p0, Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;->enable:Z
+    :cpc_skip
+"""
+
+private const val ODIAMOND_VISITOR_CONFIG_NULL_CHECK_BODY = """
+    if-eqz p0, :odvmgc_skip
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/ODiamondVisitorMessageGuideConfig;->total_limit_daily:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/ODiamondVisitorMessageGuideConfig;->user_limit_daily:I
+    :odvmgc_skip
+"""
+
+private const val PROLOGUE_CONFIG_NULL_CHECK_BODY = """
+    if-eqz p0, :pc_skip
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/PrologueConfig;->enter_conv_limit:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/PrologueConfig;->untalked_daily_show_count:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/PrologueConfig;->unreply_daily_show_count:I
+    :pc_skip
+"""
+
+private const val LIVE_CHAT_LIMIT_NULL_CHECK_BODY = """
+    if-eqz p0, :lcl_skip
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/data/LiveChatLimit;->total:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/data/LiveChatLimit;->remaining:I
+    :lcl_skip
+"""
+
+private const val LOVE_BUZZ_DATA_NULL_CHECK_BODY = """
+    if-eqz p0, :lbd_skip
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/LoveBuzzData;->remainingVoiceBuzz:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/LoveBuzzData;->remainingVideoBuzz:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/LoveBuzzData;->remainingTextBuzz:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/LoveBuzzData;->remainingMemojiBuzz:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/LoveBuzzData;->remainingProlongCount:I
+    const/4 v0, 0x1
+    iput-boolean v0, p0, Lcom/p1/mobile/putong/core/data/LoveBuzzData;->voiceBuzzToggle:Z
+    iput-boolean v0, p0, Lcom/p1/mobile/putong/core/data/LoveBuzzData;->videoBuzzToggle:Z
+    iput-boolean v0, p0, Lcom/p1/mobile/putong/core/data/LoveBuzzData;->memojiBuzzToggle:Z
+    iput-boolean v0, p0, Lcom/p1/mobile/putong/core/data/LoveBuzzData;->textBuzzToggle:Z
+    :lbd_skip
+"""
+
+private const val COUNTER_SECRET_CRUSH_LIMIT_NULL_CHECK_BODY = """
+    if-eqz p0, :cscl_skip
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;->remaining:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;->total:I
+    :cscl_skip
+"""
+
+private const val BOOST_LIMIT_NULL_CHECK_BODY = """
+    if-eqz p0, :bl_skip
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/data/BoostLimit;->remaining:I
+    const v0, 0xf423f
+    iput v0, p0, Lcom/p1/mobile/putong/data/BoostLimit;->total:I
+    :bl_skip
+"""
+
 private const val FREE_GIFT_INFO_CLASS = "Lcom/p1/mobile/putong/core/data/FreeGiftInfo;"
 private const val MESSAGE_CLASS = "Lcom/p1/mobile/putong/core/data/Message;"
 private const val MESSAGE_SETTING_CLASS = "Lcom/p1/mobile/putong/core/data/MessageSetting;"
@@ -79,7 +157,7 @@ private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingC
 @JvmField
 val messagingPatch = bytecodePatch(
     name = "Messaging Enhancement",
-    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter",
+    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -462,6 +540,83 @@ val messagingPatch = bytecodePatch(
                         method.parameterTypes.isEmpty()
                 }
                 .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "nullCheck" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, CHAT_PARTNER_CONFIG_NULL_CHECK_BODY)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/ODiamondVisitorMessageGuideConfig;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "nullCheck" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, ODIAMOND_VISITOR_CONFIG_NULL_CHECK_BODY)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/PrologueConfig;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "nullCheck" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, PROLOGUE_CONFIG_NULL_CHECK_BODY)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/LoveBuzzData;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "nullCheck" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, LOVE_BUZZ_DATA_NULL_CHECK_BODY)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "nullCheck" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, COUNTER_SECRET_CRUSH_LIMIT_NULL_CHECK_BODY)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/data/BoostLimit;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "nullCheck" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, BOOST_LIMIT_NULL_CHECK_BODY)
+                }
+            }
+        }
+
+        classDefByOrNull(LIVE_CHAT_LIMIT_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "nullCheck" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, LIVE_CHAT_LIMIT_NULL_CHECK_BODY)
+                }
+            }
         }
     }
 }

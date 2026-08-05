@@ -18,7 +18,7 @@ private const val RETURN_FALSE = """
 @JvmField
 val dialogCleanupPatch = bytecodePatch(
     name = "Dialog Cleanup",
-    description = "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission",
+    description = "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission, phone auth prompts, purchase pages",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -191,9 +191,83 @@ val dialogCleanupPatch = bytecodePatch(
                         const/4 v0, 0x0
                         return v0
                         :not_blocked10
+                        const-string v0, "p_intl_5star_dialog_view"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked11
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked11
+                        const-string v0, "p_appstore_rating_filter_popup"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked12
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked12
+                        const-string v0, "p_appstore_rating_filter_popup_store"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked13
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked13
+                        const-string v0, "p_prompt_notification_auth_popup_view"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked14
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked14
+                        const-string v0, "p_purchase_expire_page"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked15
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked15
+                        const-string v0, "p_purchase_page"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked16
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked16
+                        const-string v0, "p_vip_upgrade_popup"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked17
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked17
                     """.trimIndent()
                     method.addInstructions(0, blocklistCheck)
                 }
+        }
+
+        splashProxyActFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "V" &&
+                    method.parameterTypes.isEmpty() &&
+                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.name != "<init>" &&
+                    method.name != "finish"
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        gpRateGuideFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.returnType == "V" &&
+                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
         classDefByOrNull("Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEnhancedPromotionBannerView;")?.let { classDef ->
@@ -282,5 +356,20 @@ private val omsDialogControllerFingerprint = Fingerprint(
             definingClass = "Lcom/p1/mobile/putong/data/OMSDialogInfo;",
             name = "identifier",
         ),
+    ),
+)
+
+private val splashProxyActFingerprint = Fingerprint(
+    filters = listOf(
+        string("p_second_prompt_phone_auth_popup_view"),
+        string("p_sys_phone_auth_popup_view"),
+        string("p_prompt_phone_auth_popup_view"),
+    ),
+)
+
+private val gpRateGuideFingerprint = Fingerprint(
+    filters = listOf(
+        string("p_intl_5star_dialog_view"),
+        string("rate_popup_last_shown_new"),
     ),
 )

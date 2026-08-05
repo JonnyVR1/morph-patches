@@ -294,6 +294,32 @@ private val INTL_ULTRA_PREMIUM_CONFIG_NULL_CHECK_BODY: String = """
     :iupc_skip
 """
 
+private val COUNTER_LIKE_LIMIT_NULL_CHECK_BODY: String = """
+    if-eqz p0, :cll_skip
+    const v0, 0x30d40
+    iput v0, p0, Lcom/p1/mobile/putong/data/CounterLikeLimit;->remaining:I
+    iput v0, p0, Lcom/p1/mobile/putong/data/CounterLikeLimit;->total:I
+    iput v0, p0, Lcom/p1/mobile/putong/data/CounterLikeLimit;->tribeRemaining:I
+    :cll_skip
+"""
+
+private val BOOST_LIMIT_NULL_CHECK_BODY: String = """
+    if-eqz p0, :bl_skip
+    const v0, 0x30d40
+    iput v0, p0, Lcom/p1/mobile/putong/data/BoostLimit;->remaining:I
+    const-wide v0, 0x66700F60000L
+    iput-wide v0, p0, Lcom/p1/mobile/putong/data/BoostLimit;->duration:J
+    :bl_skip
+"""
+
+private val COUNTER_SECRET_CRUSH_LIMIT_NULL_CHECK_BODY: String = """
+    if-eqz p0, :cscl_skip
+    const v0, 0x30d40
+    iput v0, p0, Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;->remaining:I
+    iput v0, p0, Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;->total:I
+    :cscl_skip
+"""
+
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
 
@@ -422,6 +448,38 @@ private val qgl0ClassFingerprint = Fingerprint(
 private val sjaClassFingerprint = Fingerprint(
     filters = listOf(
         string("picksUser id is not found in users : "),
+    ),
+)
+
+private val d79ClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("暂未激活黑金会员"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/User;",
+            name = "isUltraPremium",
+            parameters = emptyList(),
+            returnType = "Z",
+        ),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;",
+            name = "k",
+        ),
+    ),
+)
+
+private val graClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("swipeRateLimit"),
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/data/User;",
+            name = "isVIP",
+            parameters = emptyList(),
+            returnType = "Z",
+        ),
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;",
+            name = "enable",
+        ),
     ),
 )
 
@@ -991,10 +1049,14 @@ val premiumUnlockPatch = bytecodePatch(
                          method.name == "isMembershipUsed" -> {
                              method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
                          }
-                          method.name in setOf("isPicVerificationVerified", "isIdCardVerified", "isStudentVerified", "isIdAndPicBothVerified") &&
-                              method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                              method.addInstructions(0, RETURN_TRUE)
-                          }
+                         method.name in setOf("isPicVerificationVerified", "isIdCardVerified", "isStudentVerified", "isIdAndPicBothVerified") &&
+                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                             method.addInstructions(0, RETURN_TRUE)
+                         }
+                         method.name == "isODiamond" &&
+                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                             method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                         }
                          method.name == "nullCheck" &&
                              method.parameterTypes.isEmpty() && method.returnType == "V" -> {
                              method.addInstructions(0, USER_NULL_CHECK_BODY)
@@ -1274,6 +1336,67 @@ val premiumUnlockPatch = bytecodePatch(
                         method.returnType == "V"
                     ) {
                         method.addInstructions(0, INTL_ULTRA_PREMIUM_CONFIG_NULL_CHECK_BODY)
+                    }
+                }
+            }
+
+            // ── CounterLikeLimit: unlimited daily swipes ──
+            classDefByOrNull("Lcom/p1/mobile/putong/data/CounterLikeLimit;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "nullCheck" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V"
+                    ) {
+                        method.addInstructions(0, COUNTER_LIKE_LIMIT_NULL_CHECK_BODY)
+                    }
+                }
+            }
+
+            // ── BoostLimit: unlimited boost ──
+            classDefByOrNull("Lcom/p1/mobile/putong/data/BoostLimit;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "nullCheck" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V"
+                    ) {
+                        method.addInstructions(0, BOOST_LIMIT_NULL_CHECK_BODY)
+                    }
+                }
+            }
+
+            // ── CounterSecretCrushLimit: unlimited secret crush ──
+            classDefByOrNull("Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "nullCheck" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V"
+                    ) {
+                        method.addInstructions(0, COUNTER_SECRET_CRUSH_LIMIT_NULL_CHECK_BODY)
+                    }
+                }
+            }
+
+            // ── Settings.userIsODiamond(): ultra premium flag ──
+            classDefByOrNull("Lcom/p1/mobile/putong/data/Settings;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "userIsODiamond" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                }
+            }
+
+            // ── CoreProduct.S4(PurchaseType): no purchase needed ──
+            classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreProduct;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "S4" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
                     }
                 }
             }
@@ -1810,6 +1933,7 @@ val premiumUnlockPatch = bytecodePatch(
             "e_vip_banner", "vas_commercial_card_right_slide_strategy", "暂未激活黑金会员",
             "picksUser id is not found in users : ", "open_fill_info_debug",
             "fromWhoLikedMe", "e_red_dot_message_see",
+            "swipeRateLimit",
         )
         val anchorFieldNames = setOf(
             "likersLimit", "secretCrushLimit", "surpriseGiftExpirationTime",
@@ -1818,7 +1942,7 @@ val premiumUnlockPatch = bytecodePatch(
         )
         val anchorMethodNames = setOf(
             "S6", "u6", "isSupremePartnerOpenMystery", "isHideIconFromSVipWithMe",
-            "isVIP", "d", "clear",
+            "isVIP", "d", "clear", "isUltraPremium",
         )
 
         classDefForEach { classDef ->
@@ -1973,6 +2097,30 @@ val premiumUnlockPatch = bytecodePatch(
             if ("jh30" !in resolved && "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d" in methodCallFull) resolved["jh30"] = classDef
             if ("businessEntranceAdapter" !in resolved && "open_fill_info_debug" in strings && "clear" in methodCallNames) resolved["businessEntranceAdapter"] = classDef
 
+            // d79: Ultra premium intl check
+            // d79.W(User) checks (V() || user.isMe()) && user.isUltraPremium() && !IntlCountryCodeController.k()
+            // Anchored on "暂未激活黑金会员" string + isUltraPremium + IntlCountryCodeController.k
+            if ("d79" !in resolved && !isSettingsUi && "暂未激活黑金会员" in strings &&
+                "Lcom/p1/mobile/putong/data/User;.isUltraPremium" in methodCallFull &&
+                "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k" in methodCallFull) {
+                val hasZUserMethod = classDef.methods.any {
+                    it.returnType == "Z" &&
+                    AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.parameterTypes.size == 1 &&
+                    it.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;"
+                }
+                if (hasZUserMethod) resolved["d79"] = classDef
+            }
+
+            // gra: Swipe rate limit config
+            // gra.g1() returns SwipeRateLimitConfig with enable flag
+            // Anchored on "swipeRateLimit" string + isVIP() + SwipeRateLimitConfig.enable
+            if ("gra" !in resolved && !isSettingsUi && "swipeRateLimit" in strings &&
+                "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull &&
+                "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;.enable" in fieldAccessFull) {
+                resolved["gra"] = classDef
+            }
+
             // pm6: fromWhoLikedMe gate check for international version
             // pm6.f(Conversation) checks if conversation is a "fromWhoLikedMe" type
             // Used by ConversationItemHeadView to show "liked me" icon
@@ -2017,7 +2165,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            if (resolved.size == 44) return@classDefForEach
+            if (resolved.size == 46) return@classDefForEach
         }
 
         resolved["xma"]?.let { xmaClassDef ->
@@ -2059,7 +2207,8 @@ val premiumUnlockPatch = bytecodePatch(
                 "unlimitedSwipes", "roaming", "superLikeMembership", "undoMembership", "seeWhoLikedMe",
                 "message_read_state", "top_like", "top_chat", "premium_compliment",
                 "city_topping", "exclusive_dressing_up", "leave_message",
-                "live_entry_animation", "block_harassing_words"
+                "live_entry_animation", "block_harassing_words",
+                "hide_me_from_nearby", "visitor_hide_footprint", "nearby_people",
             )
             val negatedKeys = setOf("ultraPremium", "platinum")
             val singleMethodKeys = mapOf(
@@ -2729,6 +2878,45 @@ val premiumUnlockPatch = bytecodePatch(
                 if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
                     method.addInstructions(0, """
                         const-string v0, ""
+                        return-object v0
+                    """)
+                }
+            }
+        }
+
+        // d79: Ultra premium intl check
+        // d79.W(User) returns true when user is ultra premium for international
+        // Patch to return true so all intl ultra premium checks pass
+        resolved["d79"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "W" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                    method.returnType == "Z" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)
+                ) {
+                    method.addInstructions(0, RETURN_TRUE)
+                }
+            }
+        }
+
+        // gra: Swipe rate limit bypass
+        // gra.g1() returns SwipeRateLimitConfig. When enable=true, it rate-limits swipes.
+        // Since User.isVIP() is already patched to return true, the VIP branch
+        // (swipeRateLimitConfig.vip && user.isVIP()) should already disable rate limiting.
+        // But we also patch g1() to force enable=false as a belt-and-suspenders approach.
+        resolved["gra"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "g1" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.returnType == "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)
+                ) {
+                    method.addInstructions(0, """
+                        invoke-static {}, Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;->new_()Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;
+                        move-result-object v0
+                        const/4 v1, 0x0
+                        iput-boolean v1, v0, Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;->enable:Z
                         return-object v0
                     """)
                 }

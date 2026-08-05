@@ -16,6 +16,8 @@ import com.p1.mobile.putong.data.*
  *  6. Dialog Cleanup             - Remove annoying promotional dialogs
  *  7. UI Cleanup                 - Remove guides, banners, stickers, decorations, AI prompts
  *  8. Live Streaming             - Live entry animation, push limit bypass, swipe card unlimited
+ *  9. Privacy Enhancement        - Root/emulator detection bypass, ShuMeng SDK blocking, package enumeration prevention
+ * 10. Ad Removal                 - Navigation bar ads, native feed ads, live streaming ads, live square ads
  */
 object PatchRegistry {
     val allPatches: Set<Patch<*>> = setOf(
@@ -27,5 +29,7 @@ object PatchRegistry {
         messagingPatch,
         uiCleanupPatch,
         liveStreamingPatch,
+        privacyEnhancementPatch,
+        adRemovalPatch,
     )
 }

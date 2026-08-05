@@ -105,6 +105,18 @@ private val telephonyDeviceIdFingerprint = Fingerprint(
     filters = listOf(string("android.permission.READ_PHONE_STATE"), string("phone")),
 )
 
+private val deviceFingerprintCollectorClassFingerprint = Fingerprint(
+    filters = listOf(string("ANDROIDID"), string("OAID"), string("LBS")),
+)
+
+private val deviceFingerprintHashClassFingerprint = Fingerprint(
+    filters = listOf(string("androidid"), string("cid"), string("screen")),
+)
+
+private val deviceInfoCollectorClassFingerprint = Fingerprint(
+    filters = listOf(string("android_id"), string("wlan0/address")),
+)
+
 @Suppress("unused")
 @JvmField
 val analyticsDisablePatch = bytecodePatch(
@@ -207,18 +219,6 @@ val analyticsDisablePatch = bytecodePatch(
                 if (isConstructor(method)) return@forEach
                 if (method.name in setOf("init", "install", "start") && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        oaidClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                    AccessFlags.STATIC.isSet(method.accessFlags) &&
-                    method.returnType == "Ljava/lang/String;" &&
-                    method.parameterTypes.isEmpty()) {
-                    method.addInstructions(0, RETURN_EMPTY_STRING)
                 }
             }
         }
@@ -481,6 +481,70 @@ val analyticsDisablePatch = bytecodePatch(
                     method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
                     method.returnType == "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
                     method.returnType.startsWith("L") -> method.addInstructions(0, RETURN_NULL_OBJECT)
+                }
+            }
+        }
+
+        // Central device fingerprint collector (dk50) - block URL template substitution and all identifier collection
+        deviceFingerprintCollectorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.returnType == "Ljava/lang/String;" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ljava/lang/String;" -> method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        return-object v0
+                    """)
+
+                    method.returnType == "Ljava/lang/String;" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags) -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                }
+            }
+        }
+
+        // Device fingerprint hash collector (nuq0) - block device fingerprint generation
+        deviceFingerprintHashClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Device info collector (vrq0) - block ANDROIDID, IMEI, MAC collection at source
+        deviceInfoCollectorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Enhanced OAID collection (hb00) - block OAID init and collection
+        oaidClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.returnType == "Ljava/lang/String;" &&
+                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                    AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_EMPTY_STRING)
+
+                    method.returnType == "V" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Landroid/content/Context;" -> method.addInstructions(0, RETURN_VOID)
+
+                    method.returnType == "Z" &&
+                    method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_FALSE)
                 }
             }
         }
