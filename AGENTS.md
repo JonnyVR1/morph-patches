@@ -348,6 +348,36 @@ When reverse-engineering decompiled Java:
 
 A `classFingerprint = parentFingerprint { ... }` chain must live as a top-level `val` (or `companion object val`), not inside a function. Inside `execute { }`, the same `matchOrNull()` call MUST NOT be called per-classDef (see #1).
 
+### 5. Performance: avoid `classDefForEach` for stable CamelCase classes
+
+`classDefForEach` iterates ALL ~50,000 classes in the APK. For each class it checks conditions, which is O(n) over the entire class pool. If you're looking for classes with stable CamelCase names (e.g., `NavigationBarAdView`, `ChatPartnerConfig`), use `classDefByOrNull("Lcom/p1/mobile/putong/...;")` instead — it's O(1) via the class index.
+
+**When to use `classDefForEach`:** Only when you need to find multiple obfuscated classes that share common anchor strings/fields/methods, and there's no stable name to look up directly. Even then, merge the anchor pre-filter and data collection into a single pass to avoid scanning matching classes twice.
+
+**When to use `classDefByOrNull`:** Always, when the class has a stable CamelCase name. This was the #1 performance bottleneck — 5 patchsets had `classDefForEach` loops scanning all classes for stable-named targets.
+
+### 6. Performance: cache instruction iteration with WeakHashMap
+
+Methods' `implementation?.instructions` iterates the bytecode each time. If you call `accessesField()` or similar instruction-scanning helpers multiple times on the same method, cache the materialized instruction list:
+
+```kotlin
+private val instructionCache = java.util.WeakHashMap<Method, List<Instruction>>()
+private fun Method.cachedInstructions(): List<Instruction> =
+    instructionCache.getOrPut(this) { implementation?.instructions?.toList() ?: emptyList() }
+```
+
+This prevents redundant iteration when the same method is analyzed multiple times across different patch blocks.
+
+### 7. Performance: avoid cross-patch redundancy
+
+Before adding a patch, check if another patchset already covers the same class/method. Common overlaps:
+- Ad removal: `AdRemovalPatch` vs `PremiumUnlockPatch` (both had NavigationBarAdView, NativeAdViewCard)
+- Root detection: `AnalyticsDisablePatch` vs `PrivacyEnhancementPatch` (both had root detection classes)
+- Package enumeration: `AnalyticsDisablePatch` vs `PrivacyEnhancementPatch` (identical bytecode)
+- Dialog suppression: Individual fingerprint patches vs centralized OMS blocklist in `DialogCleanupPatch`
+
+Duplicate patches waste time (redundant class lookups + method iteration) and can cause double-injection issues.
+
 ## Fable Method
 Before any non-trivial backend task, apply the fable-method loop; for tasks that will run unattended or fan out subagents, use fable-loop. After completing substantive work, or whenever any agent/tool claims work is done, run a fable-judge pass before presenting it as finished.
 
