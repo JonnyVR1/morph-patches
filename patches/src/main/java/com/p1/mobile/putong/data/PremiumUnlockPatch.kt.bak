@@ -628,7 +628,14 @@ private val qgl0ClassFingerprint = Fingerprint(
     ),
 )
 
-// src0ClassFingerprint removed - class matching issues in 7.3.3
+private val src0ClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("recall_dlg_show"),
+        string("reauto_duration"),
+        string("reauto_product"),
+        string("if_auto_order"),
+    ),
+)
 
 private val sjaClassFingerprint = Fingerprint(
     filters = listOf(
@@ -1085,9 +1092,30 @@ private val sjaPicksRemainingFingerprint = Fingerprint(
     parameters = emptyList(),
 )
 
-// src0WDaysRemainingFingerprint removed
+private val src0WDaysRemainingFingerprint = Fingerprint(
+    classFingerprint = src0ClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "J",
+    parameters = emptyList(),
+    filters = listOf(
+        string("svip"),
+        methodCall(name = "guessedCurrentServerTime"),
+        methodCall(name = "getVipExpireTime"),
+    ),
+)
 
-// src0XDaysRemainingFingerprint removed
+private val src0XDaysRemainingFingerprint = Fingerprint(
+    classFingerprint = src0ClassFingerprint,
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "J",
+    parameters = listOf("Lcom/p1/mobile/putong/core/data/SummarizedPrivilegesId;"),
+    filters = listOf(
+        string("svip"),
+        string("oDiamond"),
+        methodCall(name = "guessedCurrentServerTime"),
+        methodCall(name = "getVipExpireTime"),
+    ),
+)
 
 // gqf0: spotlight pass-through. The single static no-arg Z method (f()) → true.
 private val gqf0FFingerprint = Fingerprint(
@@ -2102,58 +2130,6 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
             }
-
-            // n1b0: Profile page "See who liked me" banner
-            // Suppresses the banner that appears on the profile page
-            classDefByOrNull("Lp153l/n1b0;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // mo53912l() - visibility check → FALSE
-                    if (method.name == "l" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                    // mo53914t() - text display → void
-                    if (method.name == "t" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ela0: Suggested users banner
-            // Suppresses the "See who liked me" suggested users banner
-            classDefByOrNull("Lp153l/ela0;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // mo39153B() - text display → void
-                    if (method.name == "B" && method.parameterTypes.size == 4 && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ip40: Me tab banner
-            // Suppresses the banner click handler that navigates to LikersAct
-            classDefByOrNull("Lp153l/ip40;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // m141441g1() - banner click handler → void
-                    if (method.name == "g1" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // jcp: Business conversation controller
-            // Suppresses the business conversation banner display
-            classDefByOrNull("Lp153l/jcp;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // mo144365L() - display method → void
-                    if (method.name == "L" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    // mo144366M() - hide method → void
-                    if (method.name == "M" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
             
             // ConversationsList adapter: Enhanced view hiding for promotional types
             // Instead of just setVisibility(GONE), also set height to 0 to prevent ListView from allocating space
@@ -2479,7 +2455,7 @@ val premiumUnlockPatch = bytecodePatch(
             if ("zva0" !in resolved && "e_vip_banner" in strings) resolved["zva0"] = classDef
             if ("th5" !in resolved && "vas_commercial_card_right_slide_strategy" in strings) resolved["th5"] = classDef
             if ("qgl0" !in resolved && "暂未激活黑金会员" in strings) resolved["qgl0"] = classDef
-            // src0 resolution removed
+            if ("src0" !in resolved && "recall_dlg_show" in strings && "reauto_duration" in strings && "reauto_product" in strings && "if_auto_order" in strings) resolved["src0"] = classDef
             if ("sja" !in resolved && "picksUser id is not found in users : " in strings) resolved["sja"] = classDef
             if ("n3b0" !in resolved && "Lcom/p1/mobile/putong/data/Counter;.likersLimit" in fieldAccessFull) resolved["n3b0"] = classDef
             if ("secretCrush" !in resolved && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
@@ -2792,7 +2768,14 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // src0 patch removed
+        resolved["src0"]?.let { src0ClassDef ->
+            src0WDaysRemainingFingerprint.matchOrNull(src0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_LONG_365)
+            }
+            src0XDaysRemainingFingerprint.matchOrNull(src0ClassDef)?.let { match ->
+                match.method.addInstructions(0, RETURN_LONG_365)
+            }
+        }
 
         resolved["gqf0"]?.let { gqf0ClassDef ->
             gqf0FFingerprint.matchOrNull(gqf0ClassDef)?.let { match ->

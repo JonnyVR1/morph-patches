@@ -11,7 +11,7 @@ import kotlin.test.assertNull
 
 class PatchVerificationTest {
 
-    private val apkFile = File("../tantan-tribe-extracted/com.tantantribe.tribe.apk")
+    private val apkFile = File("../tantan-7.3.3-original-signed.apk")
 
     private val allPatches = PatchRegistry.allPatches
 
@@ -26,7 +26,13 @@ class PatchVerificationTest {
 
             runBlocking {
                 patcher().collect { result ->
-                    results[result.patch.name ?: "unknown"] = result.exception
+                    val patchName = result.patch.name ?: "unknown"
+                    results[patchName] = result.exception
+                    if (result.exception != null) {
+                        System.err.println("=== PATCH FAILED: $patchName ===")
+                        System.err.println("Exception: ${result.exception?.message}")
+                        result.exception?.printStackTrace(System.err)
+                    }
                 }
             }
         }
