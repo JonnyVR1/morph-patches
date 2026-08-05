@@ -2060,18 +2060,6 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── BusinessConversationView.init(): Business entrance state initializer ──
-            // init() checks b8d0.m102970g() to decide if the business entrance banner should show.
-            // Even though b8d0.g() is patched to return false, we also patch init() to return-void
-            // as a defensive measure to prevent any banner state from being initialized.
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/business/BusinessConversationView;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "init" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
             // n1b0: Profile page "See who liked me" banner
             // Suppresses the banner that appears on the profile page
             classDefByOrNull("Lp153l/n1b0;")?.let { classDef ->
