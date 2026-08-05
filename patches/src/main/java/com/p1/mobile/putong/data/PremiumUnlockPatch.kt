@@ -510,21 +510,25 @@ private val r8nClassFingerprint = Fingerprint(
 
 // ── b240: "See Anim Bubble" creator ──
 // b240 creates the floating "x girls y miles away" bubble on startup.
-// It subscribes to CoreLikers.m31415S6() and calls m102077u7() to create the bubble.
-// Fingerprint anchors on CoreLikers API reference and bubble creation pattern.
+// It subscribes to CoreLikers.S6() and calls u7()/k8()/w7() to create bubbles.
+// Fingerprint anchors on CoreLikers API reference and CorePopLevel enum field.
 // NOTE: JADX renames methods for readability (S6 → m31415S6, u7 → m102077u7)
-// but DEX descriptors use the obfuscated names.
+// but DEX descriptors use the ORIGINAL obfuscated names (S6, u7, z2, k8, w7).
+// "INTL_SEE_ANIM_BUBBLE" is an enum constant (field access), NOT a string literal.
 private val seeAnimBubbleCreatorFingerprint = Fingerprint(
     filters = listOf(
         methodCall(
             definingClass = "Lcom/p1/mobile/putong/core/api/CoreLikers;",
-            name = "m31415S6",
+            name = "S6",
         ),
         methodCall(
-            name = "m102077u7",
+            name = "u7",
             returnType = "V",
         ),
-        string("INTL_SEE_ANIM_BUBBLE"),
+        fieldAccess(
+            definingClass = "Lcom/p051p1/mobile/putong/core/p058ui/poplevel/CorePopLevel;",
+            name = "INTL_SEE_ANIM_BUBBLE",
+        ),
     ),
 )
 
@@ -532,30 +536,27 @@ private val seeAnimBubbleCreatorFingerprint = Fingerprint(
 // kfe0 extends fqe0 (base bubble class) and implements the bubble display logic.
 // kfe0.A() is the lifecycle method that calls ViewTreeObserverOnGlobalLayoutListenerC8017b.u6()
 // to actually render the bubble on screen. Patching A() to return 0 prevents display.
-// Fingerprint anchors on the u6() method call and SEE_ANIM string.
+// Fingerprint anchors on the u6() method call and MagicBubble.SEE_ANIM enum field access.
+// NOTE: "SEE_ANIM" is an enum constant (field access to MagicBubble.SEE_ANIM), NOT a string literal.
 private val seeAnimBubbleLifecycleFingerprint = Fingerprint(
     filters = listOf(
         methodCall(
             definingClass = "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;",
             name = "u6",
         ),
-        string("SEE_ANIM"),
+        fieldAccess(
+            definingClass = "Lcom/p051p1/mobile/putong/core/newui/home/bubble/MagicBubble;",
+            name = "SEE_ANIM",
+        ),
     ),
 )
 
 // ── ViewTreeObserverOnGlobalLayoutListenerC8017b: Bubble display method ──
-// This class contains u6() which is the final method that calls act().m40827m7()
+// This class contains u6() which is the final method that calls act().m7()
 // to display the floating bubble with "x girls y miles away" text.
 // Patching u6() to return-void prevents any bubble from being displayed.
-// Fingerprint anchors on the m40827m7 method call and SEE_ANIM string.
-private val bubbleDisplayMethodFingerprint = Fingerprint(
-    filters = listOf(
-        string("SEE_ANIM"),
-        methodCall(
-            name = "m40827m7",
-        ),
-    ),
-)
+// NOTE: This is a stable CamelCase class - can use classDefByOrNull directly.
+// The m7 method is the DEX name; JADX renames it to m40827m7 for readability.
 
 private val sb90CompanionClassFingerprint = Fingerprint(
     returnType = "Z",
@@ -2025,12 +2026,48 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ConversationHeadIntlSeeItem: L(C8265b) → return-void
-            // Suppresses the "See who liked you" banner in the head recommend carousel
+            // ConversationHeadIntlSeeItem: L(C8265b) + K(C4870a) + M(int) → return-void
+            // Suppresses the "See who liked you" / "Tap to respond" banner in the head recommend carousel
+            // L() sets up click listener and subscribes to CoreLikers.S6() observable
+            // K() is the callback that sets text on the views (title, subtitle, count)
+            // M() sets the count text on the auto-fit text view (called from K when count <= 0)
             classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadIntlSeeItem;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "L" && method.parameterTypes.size == 1 && method.returnType == "V") {
                         method.addInstructions(0, "return-void")
+                    }
+                    if (method.name == "K" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                    if (method.name == "M" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, "return-void")
+                    }
+                }
+            }
+
+            // ── ViewTreeObserverOnGlobalLayoutListenerC8017b.u6(): Bubble display method ──
+            // This is the FINAL method that renders the floating "x girls y miles away" bubble.
+            // It calls act().m7() to display the bubble on screen.
+            // Patching u6() to return-void prevents ANY bubble from being displayed, regardless
+            // of which code path (u7, k8, w7) created it.
+            // This is a stable CamelCase class - direct lookup, no fingerprint needed.
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "u6" && method.parameterTypes.size == 8 && method.returnType == "V" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // ── BusinessConversationView.init(): Business entrance state initializer ──
+            // init() checks b8d0.m102970g() to decide if the business entrance banner should show.
+            // Even though b8d0.g() is patched to return false, we also patch init() to return-void
+            // as a defensive measure to prevent any banner state from being initialized.
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/business/BusinessConversationView;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "init" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
                     }
                 }
             }
@@ -2402,9 +2439,9 @@ val premiumUnlockPatch = bytecodePatch(
             if ("intlSeeChatRequestCreator" !in resolved && "intlSeeChatRequest" in strings && hasConvNew_) resolved["intlSeeChatRequestCreator"] = classDef
             if ("r8n" !in resolved && "intl_chat_request_insert_users" in strings) resolved["r8n"] = classDef
             if ("headRecommendAdapter" !in resolved && "fake_conversation_profile_like_enter" in strings && "fake_conversation_oof_pick" in strings && "getItemViewType.1.I" in methodCallSigs) resolved["headRecommendAdapter"] = classDef
-            if ("seeAnimBubbleCreator" !in resolved && "Lcom/p1/mobile/putong/core/api/CoreLikers;.m31415S6" in methodCallFull && "m102077u7\u0001V" in methodNameRet && "INTL_SEE_ANIM_BUBBLE" in strings) resolved["seeAnimBubbleCreator"] = classDef
-            if ("seeAnimBubbleLifecycle" !in resolved && "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;.u6" in methodCallFull && "SEE_ANIM" in strings) resolved["seeAnimBubbleLifecycle"] = classDef
-            if ("bubbleDisplayMethod" !in resolved && "SEE_ANIM" in strings && "m40827m7" in methodCallNames) resolved["bubbleDisplayMethod"] = classDef
+            if ("seeAnimBubbleCreator" !in resolved && "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6" in methodCallFull && "u7\u0001V" in methodNameRet && "Lcom/p051p1/mobile/putong/core/p058ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE" in fieldAccessFull) resolved["seeAnimBubbleCreator"] = classDef
+            if ("seeAnimBubbleLifecycle" !in resolved && "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;.u6" in methodCallFull && "Lcom/p051p1/mobile/putong/core/newui/home/bubble/MagicBubble;.SEE_ANIM" in fieldAccessFull) resolved["seeAnimBubbleLifecycle"] = classDef
+            // bubbleDisplayMethod: ViewTreeObserverOnGlobalLayoutListenerC8017b is stable CamelCase - use classDefByOrNull directly (see Pass 1)
             if ("sb90Companion" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.localRelationship" in fieldAccessFull && "matched" in strings && "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery" in methodCallFull && "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe" in methodCallFull && hasZUserMethod) resolved["sb90Companion"] = classDef
             if ("u59" !in resolved && !isSettingsUi && "intl_sl_guide_config" in strings) resolved["u59"] = classDef
             if ("tm90" !in resolved && !isSettingsUi && "intl_good_c_bage_config" in strings) resolved["tm90"] = classDef
@@ -2693,14 +2730,26 @@ val premiumUnlockPatch = bytecodePatch(
         resolved["seeAnimBubbleCreator"]?.let { bubbleCreatorClassDef ->
             mutableClassDefBy(bubbleCreatorClassDef).methods.forEach { method ->
                 // Patch z2() - subscription state handler (static method)
-                // JADX renames m101873z2 to z2 for readability
-                if (method.name == "m101873z2" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                // DEX name is "z2" (JADX renames to m101873z2)
+                if (method.name == "z2" && method.parameterTypes.size == 1 && method.returnType == "V" &&
                     AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
                 }
-                // Patch u7() - bubble creator (instance method)
-                // JADX renames m102077u7 to u7 for readability
-                if (method.name == "m102077u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                // Patch u7() - "new likers" bubble creator (instance method)
+                // DEX name is "u7" (JADX renames to m102077u7)
+                if (method.name == "u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+                // Patch k8() - "total likers" bubble creator (instance method, returns boolean)
+                // DEX name is "k8" (JADX renames to m102036k8)
+                if (method.name == "k8" && method.parameterTypes.size == 1 && method.returnType == "Z" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+                // Patch w7() - "suggested users" bubble path (instance method)
+                // DEX name is "w7" (JADX renames to m102085w7)
+                if (method.name == "w7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
                     !AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
                 }
@@ -2719,14 +2768,8 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        resolved["bubbleDisplayMethod"]?.let { bubbleDisplayClassDef ->
-            mutableClassDefBy(bubbleDisplayClassDef).methods.forEach { method ->
-                if (method.name == "u6" && method.parameterTypes.size == 8 && method.returnType == "V" &&
-                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
+        // bubbleDisplayMethod: ViewTreeObserverOnGlobalLayoutListenerC8017b is stable CamelCase
+        // Patched directly in Pass 1 via classDefByOrNull (see below)
 
         sjaClassFingerprint.matchOrNull()?.classDef?.let { sjaClassDef ->
             sjaPicksRemainingFingerprint.matchAll(1..5).forEach { match ->
