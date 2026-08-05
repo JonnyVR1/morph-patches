@@ -721,8 +721,23 @@ private val secretCrushRemainingFingerprint = Fingerprint(
 // hl3: Likers dialog creator
 // hl3.J(Act, int, CoreLikers$a) creates the full modal dialog with LikersDialogView
 // hl3.H(Act, int, List) creates the dialog with photo URLs (no-match variant)
+// hl3.L(Act, int) creates the SVIP recover dialog
 // Anchored on "p_offline_popup" OMS dialog ID + LikersDialogView method calls
 // Resolution in classDefForEach below
+
+// gg50: Dialog strategy for p_offline_popup
+// gg50.b() checks if popup should show
+// gg50.d() executes the popup display
+// Anchored on "p_offline_popup" + j7d0 method calls
+
+// qtk: Return-to-app guide dialog
+// qtk.B0() generates "你离开后，仍有 %s 个人喜欢着你" text and shows reBackAppGuideDialog
+// Anchored on "reBackAppGuideDialog" string
+
+// CoreSuggested: Likers data source
+// CoreSuggested.n8() initiates the likers poll with home_new_liker_float/home_total_liker_float triggers
+// This is the ROOT SOURCE of data that feeds all popup chains
+// Anchored on "home_new_liker_float" + "home_total_liker_float" strings
 
 // secretCrush: expiration time (static no-arg → J, reads CounterSecretCrushLimit) → far future
 private val secretCrushExpirationFingerprint = Fingerprint(
@@ -1922,6 +1937,32 @@ val premiumUnlockPatch = bytecodePatch(
                 methodCallFull.any { it.contains("hl3") }) {
                 resolved["j7d0"] = classDef
             }
+            
+            // gg50: Dialog strategy for p_offline_popup
+            // gg50.b() checks if popup should show, gg50.d() executes display
+            // Anchored on "p_offline_popup" + j7d0.h0() method call
+            if ("gg50" !in resolved && "p_offline_popup" in strings &&
+                methodCallFull.any { it.contains("j7d0") && it.contains(".h0") }) {
+                resolved["gg50"] = classDef
+            }
+            
+            // qtk: Return-to-app guide dialog
+            // qtk.B0() generates "你离开后，仍有 %s 个人喜欢着你" text
+            // Anchored on "reBackAppGuideDialog" string
+            if ("qtk" !in resolved && "reBackAppGuideDialog" in strings &&
+                methodCallFull.any { it.contains("hlh0") }) {
+                resolved["qtk"] = classDef
+            }
+            
+            // CoreSuggested: Likers data source
+            // CoreSuggested.n8() initiates the likers poll
+            // Anchored on "home_new_liker_float" + "home_total_liker_float" strings
+            if ("coreSuggested" !in resolved && "home_new_liker_float" in strings &&
+                "home_total_liker_float" in strings &&
+                classDef.type.contains("CoreSuggested")) {
+                resolved["coreSuggested"] = classDef
+            }
+            
             if ("secretCrush" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
             if ("coreData" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/CoreData;.surpriseGiftExpirationTime" in fieldAccessFull) resolved["coreData"] = classDef
             if ("mb90" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull && "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in fieldAccessFull && !classDef.type.contains("/ui/settings/")) {
@@ -1976,7 +2017,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            if (resolved.size == 41) return@classDefForEach
+            if (resolved.size == 44) return@classDefForEach
         }
 
         resolved["xma"]?.let { xmaClassDef ->
@@ -2360,13 +2401,32 @@ val premiumUnlockPatch = bytecodePatch(
                     method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_TRUE)
                 }
+                // g() - static no-arg → J, returns likersLimit.expiresTime
+                // Patch to return 0L to make all callers think likers limit never expires
+                if (method.name == "g" && method.parameterTypes.isEmpty() &&
+                    method.returnType == "J" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, """
+                        const-wide v0, 0x0
+                        return-wide v0
+                    """)
+                }
+                // i() - static no-arg → J, returns remaining time on likers limit
+                // Patch to return 0L
+                if (method.name == "i" && method.parameterTypes.isEmpty() &&
+                    method.returnType == "J" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, """
+                        const-wide v0, 0x0
+                        return-wide v0
+                    """)
+                }
             }
         }
 
         // hl3: Likers dialog creator
         // hl3.J(Act, int, CoreLikers$a) creates the full modal dialog with LikersDialogView
         // hl3.H(Act, int, List) creates the dialog with photo URLs (no-match variant)
-        // Both are static methods that return void. Patching to return-void prevents the dialog.
+        // hl3.L(Act, int) creates the SVIP recover dialog
+        // All are static methods that return void. Patching to return-void prevents the dialog.
         resolved["hl3"]?.let { hl3ClassDef ->
             mutableClassDefBy(hl3ClassDef).methods.forEach { method ->
                 // J(Act, int, CoreLikers$a) → void
@@ -2385,6 +2445,13 @@ val premiumUnlockPatch = bytecodePatch(
                     method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
                 }
+                // L(Act, int) → void - SVIP recover dialog
+                if (method.name == "L" && method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1] == "I" &&
+                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
             }
         }
 
@@ -2398,6 +2465,56 @@ val premiumUnlockPatch = bytecodePatch(
                     method.parameterTypes[0].contains("b240") &&
                     method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // gg50: Dialog strategy for p_offline_popup
+        // gg50.b() checks if popup should show → patch to return false
+        // gg50.d() executes the popup display → patch to return false
+        resolved["gg50"]?.let { gg50ClassDef ->
+            mutableClassDefBy(gg50ClassDef).methods.forEach { method ->
+                // b() → boolean (check if should show)
+                if (method.name == "b" && method.parameterTypes.isEmpty() &&
+                    method.returnType == "Z") {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+                // d() → boolean (execute display)
+                if (method.name == "d" && method.parameterTypes.isEmpty() &&
+                    method.returnType == "Z") {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
+        // qtk: Return-to-app guide dialog
+        // qtk.B0() generates "你离开后，仍有 %s 个人喜欢着你" text and shows dialog
+        // Static method that returns void
+        resolved["qtk"]?.let { qtkClassDef ->
+            mutableClassDefBy(qtkClassDef).methods.forEach { method ->
+                // B0() → void
+                if (method.name == "B0" && method.parameterTypes.isEmpty() &&
+                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // CoreSuggested: Likers data source
+        // CoreSuggested.n8() initiates the likers poll with home_new_liker_float/home_total_liker_float
+        // This is the ROOT SOURCE of data that feeds all popup chains
+        // Instance method that returns Observable. Patch to return empty Observable.
+        resolved["coreSuggested"]?.let { coreSuggestedClassDef ->
+            mutableClassDefBy(coreSuggestedClassDef).methods.forEach { method ->
+                // n8() → Observable (initiates likers poll)
+                if (method.name == "n8" && method.parameterTypes.isEmpty() &&
+                    method.returnType.startsWith("Lrx/") || method.returnType.startsWith("Lio/reactivex/")) {
+                    // Return empty Observable to cut off data at source
+                    method.addInstructions(0, """
+                        invoke-static {}, Lrx/c;->a()Lrx/c;
+                        move-result-object v0
+                        return-object v0
+                    """)
                 }
             }
         }
