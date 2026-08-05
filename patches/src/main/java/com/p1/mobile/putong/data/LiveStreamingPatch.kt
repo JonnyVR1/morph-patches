@@ -39,62 +39,58 @@ val liveStreamingPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        classDefForEach { classDef ->
-            when (classDef.type) {
-                "Lcom/p1/mobile/putong/live/base/data/BLivePushLimit;" -> {
-                    mutableClassDefBy(classDef).methods
-                        .filter { method ->
-                            method.returnType == "I" &&
-                                method.parameterTypes.isEmpty() &&
-                                method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLivePushLimit;", "remaining")
-                        }
-                        .forEach { it.addInstructions(0, """
-                            const v0, 0x7fffffff
-                            return v0
-                        """) }
+        classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLivePushLimit;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "I" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLivePushLimit;", "remaining")
                 }
+                .forEach { it.addInstructions(0, """
+                    const v0, 0x7fffffff
+                    return v0
+                """) }
+        }
 
-                "Lcom/p1/mobile/putong/live/base/data/BLiveSwipeCardUnlimit;" -> {
-                    mutableClassDefBy(classDef).methods
-                        .filter { method ->
-                            method.returnType == "Ljava/lang/Integer;" &&
-                                method.parameterTypes.isEmpty() &&
-                                method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveSwipeCardUnlimit;", "minGrade")
-                        }
-                        .forEach { it.addInstructions(0, RETURN_INTEGER_0) }
+        classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveSwipeCardUnlimit;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "Ljava/lang/Integer;" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveSwipeCardUnlimit;", "minGrade")
                 }
+                .forEach { it.addInstructions(0, RETURN_INTEGER_0) }
+        }
 
-                "Lcom/p1/mobile/putong/live/base/data/BLiveChatLimitation;" -> {
-                    mutableClassDefBy(classDef).methods
-                        .filter { method ->
-                            method.returnType == "J" &&
-                                method.parameterTypes.isEmpty() &&
-                                (method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveChatLimitation;", "minSendIntervalMillSeconds") ||
-                                    method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveChatLimitation;", "floodsMinSendIntervalSeconds"))
-                        }
-                        .forEach { it.addInstructions(0, RETURN_LONG_0) }
+        classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveChatLimitation;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "J" &&
+                        method.parameterTypes.isEmpty() &&
+                        (method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveChatLimitation;", "minSendIntervalMillSeconds") ||
+                            method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveChatLimitation;", "floodsMinSendIntervalSeconds"))
                 }
+                .forEach { it.addInstructions(0, RETURN_LONG_0) }
+        }
 
-                "Lcom/p1/mobile/putong/live/base/data/BLiveVoiceCanJoinGame;" -> {
-                    mutableClassDefBy(classDef).methods
-                        .filter { method ->
-                            method.returnType == "Z" &&
-                                method.parameterTypes.isEmpty() &&
-                                method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveVoiceCanJoinGame;", "can")
-                        }
-                        .forEach { it.addInstructions(0, RETURN_BOOLEAN_TRUE) }
+        classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveVoiceCanJoinGame;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveVoiceCanJoinGame;", "can")
                 }
+                .forEach { it.addInstructions(0, RETURN_BOOLEAN_TRUE) }
+        }
 
-                "Lcom/p1/mobile/putong/live/base/data/BLivePkEntranceShowLimit;" -> {
-                    mutableClassDefBy(classDef).methods
-                        .filter { method ->
-                            method.returnType == "Z" &&
-                                method.parameterTypes.isEmpty() &&
-                                method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLivePkEntranceShowLimit;", "allDay")
-                        }
-                        .forEach { it.addInstructions(0, RETURN_BOOLEAN_TRUE) }
+        classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLivePkEntranceShowLimit;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLivePkEntranceShowLimit;", "allDay")
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_BOOLEAN_TRUE) }
         }
     }
 }

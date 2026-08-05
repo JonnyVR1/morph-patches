@@ -28,18 +28,15 @@ val dialogCleanupPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        classDefForEach { classDef ->
-            if (classDef.type != "Lcom/p1/mobile/putong/core/ui/gp/a;") return@classDefForEach
-            
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "o" &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/gp/a;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter {
+                    it.name == "o" &&
+                    it.parameterTypes.size == 1 &&
+                    it.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    it.returnType == "V"
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
         mx0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
@@ -114,18 +111,18 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        priceRecall2DialogClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/pricerecall/PriceRecall2Dialog;")?.let { classDef ->
             mutableClassDefBy(classDef).methods
-                .filter { 
+                .filter {
                     (it.name == "show" || it.name == "display" || it.name == "present") &&
                     it.returnType == "V"
                 }
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        priceRecallGetSurprise2DialogClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/pricerecall/PriceRecallGetSurprise2Dialog;")?.let { classDef ->
             mutableClassDefBy(classDef).methods
-                .filter { 
+                .filter {
                     (it.name == "show" || it.name == "display" || it.name == "present") &&
                     it.returnType == "V"
                 }
@@ -196,18 +193,6 @@ private val autoSubDialogClassFingerprint = Fingerprint(
         string("p_reauto"),
         string("e_reauto"),
         string("reauto_showfrom"),
-    ),
-)
-
-private val priceRecall2DialogClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_discount_retain"),
-    ),
-)
-
-private val priceRecallGetSurprise2DialogClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_got_discount"),
     ),
 )
 

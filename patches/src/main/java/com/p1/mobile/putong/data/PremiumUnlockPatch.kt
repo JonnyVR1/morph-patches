@@ -639,12 +639,6 @@ private val sjaClassFingerprint = Fingerprint(
     ),
 )
 
-private val pibClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("/antispam/guide-change-avatar"),
-    ),
-)
-
 // jh30/xp30/xnx: Me tab presenter(s). Uniquely references NewProfilePrivilegedPager (stable class)
 // in its populate method which shows the dark upgrade card banner before "more services".
 // In 7.3.3 there are TWO Me tab variants: xp30 (original, getter p0()) and xnx (test2 revamp, getter U()).
@@ -669,50 +663,6 @@ private val mb90ClassFingerprint = Fingerprint(
             name = "TYPE_ROAMING_PKG",
         ),
     ),
-)
-
-// joa: privilege expiry checker (separate from xma, reads server data directly via CoreModule).
-// Controls teaser banners in the conversations tab (e.g. "X girls Y miles away just liked you").
-// Methods like i4() return T3("seeWhoLikedMe") which is TRUE when expired → banner shows as teaser.
-// Patching these to the "active" value hides the teasers.
-private val joaClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("seeWhoLikedMe"),
-        string("oDiamond"),
-        methodCall(name = "guessedCurrentServerTime"),
-    ),
-)
-
-private val joaI4Fingerprint = Fingerprint(
-    classFingerprint = joaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("seeWhoLikedMe")),
-)
-
-private val joaE4Fingerprint = Fingerprint(
-    classFingerprint = joaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("roaming")),
-)
-
-private val joaF4Fingerprint = Fingerprint(
-    classFingerprint = joaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("svip")),
-)
-
-private val joaJ4Fingerprint = Fingerprint(
-    classFingerprint = joaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("superLikeMembership")),
 )
 
 // C8291a: Business entrance adapter - injects promotional items at top of conversation list
@@ -1343,15 +1293,6 @@ private val mb90CFingerprint = Fingerprint(
         "Lcom/p1/mobile/putong/data/User;",
         "Lcom/p1/mobile/putong/core/data/PurchaseType;",
     ),
-)
-
-// pib.W9(String) fingerprint - NO LONGER USED (kept for reference)
-// W9() patch was removed to let server call run normally.
-private val pibW9Fingerprint = Fingerprint(
-    classFingerprint = pibClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "Lrx/c;",
-    parameters = listOf("Ljava/lang/String;"),
 )
 
 // pib.g9(String, User) fingerprint REMOVED for 7.3.3
@@ -2427,10 +2368,12 @@ val premiumUnlockPatch = bytecodePatch(
                     resolved["i0p"] = classDef
                 }
             }
+
+            if (resolved.size == 36) return@classDefForEach
         }
 
-        xmaClassFingerprint.matchOrNull()?.classDef?.let { xmaClassDef ->
-            xmaS3Fingerprint.matchOrNull()?.let { match ->
+        resolved["xma"]?.let { xmaClassDef ->
+            xmaS3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
             mutableClassDefBy(xmaClassDef).methods.forEach { method ->
@@ -2439,18 +2382,18 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            xmaV3W3Fingerprint.matchAll(1..2).forEach { match ->
+            xmaV3W3Fingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
                 match.method.addInstructions(0, RETURN_LONG_MAX)
             }
 
-            xmaQ3Fingerprint.matchOrNull()?.let { match ->
+            xmaQ3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_LONG_MAX)
             }
-            xmaS3LongWrapperFingerprint.matchOrNull()?.let { match ->
+            xmaS3LongWrapperFingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_LONG_MAX)
             }
 
-            xmaT3Fingerprint.matchOrNull()?.let { match ->
+            xmaT3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
             mutableClassDefBy(xmaClassDef).methods.forEach { method ->
@@ -2459,7 +2402,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            xmaA4Fingerprint.matchOrNull()?.let { match ->
+            xmaA4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
 
@@ -2518,7 +2461,7 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
 
-            xmaCreditCountFingerprint.matchAll(1..15).forEach { match ->
+            xmaCreditCountFingerprint.matchAll(xmaClassDef, 1..15).forEach { match ->
                 match.method.addInstructions(0, RETURN_INT_200000)
             }
         }
@@ -2705,27 +2648,27 @@ val premiumUnlockPatch = bytecodePatch(
         // bubbleDisplayMethod: ViewTreeObserverOnGlobalLayoutListenerC8017b is stable CamelCase
         // Patched directly in Pass 1 via classDefByOrNull (see below)
 
-        sjaClassFingerprint.matchOrNull()?.classDef?.let { sjaClassDef ->
-            sjaPicksRemainingFingerprint.matchAll(1..5).forEach { match ->
+        resolved["sja"]?.let { sjaClassDef ->
+            sjaPicksRemainingFingerprint.matchAll(sjaClassDef, 1..5).forEach { match ->
                 match.method.addInstructions(0, RETURN_INT_200000)
             }
         }
 
         // src0 patch removed
 
-        gqf0ClassFingerprint.matchOrNull()?.classDef?.let { gqf0ClassDef ->
+        resolved["gqf0"]?.let { gqf0ClassDef ->
             gqf0FFingerprint.matchOrNull(gqf0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
         }
 
-        h6aClassFingerprint.matchOrNull()?.classDef?.let { h6aClassDef ->
+        resolved["h6a"]?.let { h6aClassDef ->
             h6aCFingerprint.matchOrNull(h6aClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
         }
 
-        u59ClassFingerprint.matchOrNull()?.classDef?.let { u59ClassDef ->
+        resolved["u59"]?.let { u59ClassDef ->
             u59RegionalGateFingerprint.matchAll(u59ClassDef, 1..20).forEach { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
@@ -2737,13 +2680,13 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        ugc0ClassFingerprint.matchOrNull()?.classDef?.let { ugc0ClassDef ->
+        resolved["ugc0"]?.let { ugc0ClassDef ->
             ugc0KFingerprint.matchOrNull(ugc0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_TRUE)
             }
         }
 
-        zva0ClassFingerprint.matchOrNull()?.classDef?.let { zva0ClassDef ->
+        resolved["zva0"]?.let { zva0ClassDef ->
             zva0B0Fingerprint.matchOrNull(zva0ClassDef)?.let { match ->
                 match.method.addInstructions(0, ZVA0_B0_BODY)
             }
@@ -2752,19 +2695,19 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        th5ClassFingerprint.matchOrNull()?.classDef?.let { th5ClassDef ->
+        resolved["th5"]?.let { th5ClassDef ->
             th5PurchaseDialogFingerprint.matchAll(th5ClassDef, 1..10).forEach { match ->
                 match.method.addInstructions(0, LOG_TH5_FALSE)
             }
         }
 
-        qgl0ClassFingerprint.matchOrNull()?.classDef?.let { qgl0ClassDef ->
+        resolved["qgl0"]?.let { qgl0ClassDef ->
             qgl0DFingerprint.matchOrNull(qgl0ClassDef)?.let { match ->
                 match.method.addInstructions(0, QGL0_D_BODY)
             }
         }
 
-        n3b0ClassFingerprint.matchOrNull()?.classDef?.let { n3b0ClassDef ->
+        resolved["n3b0"]?.let { n3b0ClassDef ->
             n3b0QFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
@@ -2782,13 +2725,13 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        sb90CompanionClassFingerprint.matchOrNull()?.classDef?.let { sb90CompanionClassDef ->
+        resolved["sb90Companion"]?.let { sb90CompanionClassDef ->
             sb90CFingerprint.matchOrNull(sb90CompanionClassDef)?.let { match ->
                 match.method.addInstructions(0, LOG_SB90_FALSE)
             }
         }
 
-        secretCrushClassFingerprint.matchOrNull()?.classDef?.let { secretCrushClassDef ->
+        resolved["secretCrush"]?.let { secretCrushClassDef ->
             secretCrushRemainingFingerprint.matchOrNull(secretCrushClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
@@ -2797,13 +2740,13 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        coreDataClassFingerprint.matchOrNull()?.classDef?.let { coreDataClassDef ->
+        resolved["coreData"]?.let { coreDataClassDef ->
             coreDataSurpriseGiftFingerprint.matchOrNull(coreDataClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_LONG_MAX)
             }
         }
 
-        tm90ClassFingerprint.matchOrNull()?.classDef?.let { tm90ClassDef ->
+        resolved["tm90"]?.let { tm90ClassDef ->
             tm90GFingerprint.matchOrNull(tm90ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }

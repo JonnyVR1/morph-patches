@@ -203,8 +203,130 @@ val messagingPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        j15ClassFingerprint.matchOrNull()?.classDef?.let { j15ClassDef ->
-            mutableClassDefBy(j15ClassDef).methods
+        classDefByOrNull(FREE_GIFT_INFO_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    (method.name == "hasRemaining" || method.name == "inDuration") &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z"
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        classDefByOrNull(MESSAGE_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.accessesField(MESSAGE_SETTING_CLASS, "anonymous") &&
+                        (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        val resolved = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
+
+        classDefForEach { classDef ->
+            val strings = mutableSetOf<String>()
+            val fieldAccessFull = mutableSetOf<String>()
+            val methodCallFull = mutableSetOf<String>()
+            val methodCallNames = mutableSetOf<String>()
+
+            classDef.methods.forEach { method ->
+                method.cachedInstructions().forEach { instr ->
+                    if (instr is ReferenceInstruction) {
+                        when (val ref = instr.reference) {
+                            is StringReference -> strings.add(ref.string)
+                            is MethodReference -> {
+                                methodCallNames.add(ref.name)
+                                methodCallFull.add("${ref.definingClass}.${ref.name}")
+                            }
+                            is FieldReference -> {
+                                fieldAccessFull.add("${ref.definingClass}.${ref.name}")
+                            }
+                        }
+                    }
+                }
+            }
+
+            if ("j15" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;.messageLimit" in fieldAccessFull &&
+                "Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;.perday" in fieldAccessFull) {
+                resolved["j15"] = classDef
+            }
+
+            if ("rd6" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/PlatinumPinChat;.expireTime" in fieldAccessFull &&
+                "Lcom/p1/mobile/putong/core/data/PlatinumPinChat;.pin" in fieldAccessFull &&
+                "Lcom/p1/mobile/putong/core/data/Conversation;.getLevel" in methodCallFull) {
+                resolved["rd6"] = classDef
+            }
+
+            if ("h6w" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/LoveBuzzData;.remainingVoiceBuzz" in fieldAccessFull &&
+                "voiceBuzz" in strings &&
+                "videoBuzz" in strings &&
+                "memojiBuzz" in strings) {
+                resolved["h6w"] = classDef
+            }
+
+            if ("jlm0" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/LoveBuzzData;.remainingVoiceBuzz" in fieldAccessFull &&
+                "getNOT_LIMIT_VALUE" in methodCallNames) {
+                resolved["jlm0"] = classDef
+            }
+
+            if ("eii0" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/LoveBuzzData;.remainingTextBuzz" in fieldAccessFull &&
+                "getNOT_LIMIT_VALUE" in methodCallNames) {
+                resolved["eii0"] = classDef
+            }
+
+            if ("q1l0" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/LoveBuzzData;.remainingVideoBuzz" in fieldAccessFull &&
+                "getNOT_LIMIT_VALUE" in methodCallNames) {
+                resolved["q1l0"] = classDef
+            }
+
+            if ("dgy" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/LoveBuzzData;.remainingMemojiBuzz" in fieldAccessFull &&
+                "getNOT_LIMIT_VALUE" in methodCallNames) {
+                resolved["dgy"] = classDef
+            }
+
+            if ("fcz" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/KeepConnection;.chatTypingOpen" in fieldAccessFull &&
+                "Lcom/p1/mobile/putong/core/data/KeepConnection;.chatTypingInterval" in fieldAccessFull) {
+                resolved["fcz"] = classDef
+            }
+
+            if ("swh0" !in resolved &&
+                "tantan_coin_intl_letter_confirm_dialog_shown_" in strings &&
+                "Lcom/p1/mobile/putong/core/data/Privilege;.letter" in fieldAccessFull) {
+                resolved["swh0"] = classDef
+            }
+
+            if ("oxe" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/MsgIcebreakConfigV2;.iceBreakLastMessageShowCountLimit" in fieldAccessFull &&
+                "Lcom/p1/mobile/putong/core/newui/messages/util/ConversationCounterTypeSp;.iceBreakLastMessageShowCountLimit" in fieldAccessFull) {
+                resolved["oxe"] = classDef
+            }
+
+            if ("chatGameInfo" !in resolved &&
+                "Lcom/p1/mobile/putong/core/data/ChatGameInfo;.enable" in fieldAccessFull &&
+                "chatgameinfo" in strings) {
+                resolved["chatGameInfo"] = classDef
+            }
+
+            if ("jailedGroupChat" !in resolved &&
+                "Lcom/p1/mobile/putong/data/JailedGroupChat;.active" in fieldAccessFull &&
+                "Lcom/p1/mobile/putong/data/JailedGroupChat;.expireTime" in fieldAccessFull &&
+                "m174454o" in methodCallNames) {
+                resolved["jailedGroupChat"] = classDef
+            }
+        }
+
+        resolved["j15"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "g" &&
                         method.parameterTypes.size == 1 &&
@@ -216,8 +338,8 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_FALSE) }
         }
 
-        rd6ClassFingerprint.matchOrNull()?.classDef?.let { rd6ClassDef ->
-            mutableClassDefBy(rd6ClassDef).methods
+        resolved["rd6"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "X" &&
                         method.parameterTypes.size == 1 &&
@@ -227,8 +349,8 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        h6wClassFingerprint.matchOrNull()?.classDef?.let { h6wClassDef ->
-            mutableClassDefBy(h6wClassDef).methods
+        resolved["h6w"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "a" &&
                         method.parameterTypes.size == 1 &&
@@ -238,7 +360,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_FALSE) }
         }
 
-        jlm0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["jlm0"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "j0" &&
@@ -248,7 +370,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        eii0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["eii0"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "j0" &&
@@ -258,7 +380,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        q1l0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["q1l0"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "j0" &&
@@ -268,7 +390,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        dgyClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["dgy"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "j0" &&
@@ -278,7 +400,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        fczClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["fcz"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "X2" &&
@@ -288,32 +410,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        val stableClassTargets = setOf(FREE_GIFT_INFO_CLASS, MESSAGE_CLASS)
-        classDefForEach { classDef ->
-            if (classDef.type !in stableClassTargets) return@classDefForEach
-            when (classDef.type) {
-                FREE_GIFT_INFO_CLASS -> {
-                    mutableClassDefBy(classDef).methods
-                        .filter { method ->
-                            (method.name == "hasRemaining" || method.name == "inDuration") &&
-                                method.parameterTypes.isEmpty() &&
-                                method.returnType == "Z"
-                        }
-                        .forEach { it.addInstructions(0, RETURN_TRUE) }
-                }
-                MESSAGE_CLASS -> {
-                    mutableClassDefBy(classDef).methods
-                        .filter { method ->
-                            method.accessesField(MESSAGE_SETTING_CLASS, "anonymous") &&
-                                (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
-                                method.parameterTypes.isEmpty()
-                        }
-                        .forEach { it.addInstructions(0, RETURN_TRUE) }
-                }
-            }
-        }
-
-        swh0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["swh0"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "G" &&
@@ -331,7 +428,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        oxeClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["oxe"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "g" &&
@@ -341,7 +438,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_INTEGER_9) }
         }
 
-        chatGameInfoClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["chatGameInfo"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.accessesField("Lcom/p1/mobile/putong/core/data/ChatGameInfo;", "enable") &&
@@ -351,7 +448,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        jailedGroupChatClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolved["jailedGroupChat"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.accessesField("Lcom/p1/mobile/putong/data/JailedGroupChat;", "active") &&

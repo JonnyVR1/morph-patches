@@ -1,36 +1,12 @@
 package com.p1.mobile.putong.data
 
-import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patcher.fieldAccess
-import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
-import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.instruction.formats.Instruction21c
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
-
-private fun ClassDef.analyticsContainsString(str: String): Boolean {
-    return methods.any { method ->
-        method.implementation?.instructions?.any { instruction ->
-            (instruction as? Instruction21c)?.reference is StringReference &&
-            ((instruction as Instruction21c).reference as StringReference).string == str
-        } ?: false
-    }
-}
-
-private fun ClassDef.analyticsCallsMethod(name: String): Boolean {
-    return methods.any { method ->
-        method.implementation?.instructions?.any { instruction ->
-            instruction.opcode.name.startsWith("INVOKE") &&
-            (instruction as? ReferenceInstruction)?.reference is MethodReference &&
-            ((instruction as ReferenceInstruction).reference as MethodReference).name == name
-        } ?: false
-    }
-}
 
 private const val RETURN_VOID = "return-void"
 
@@ -49,219 +25,6 @@ private const val RETURN_FALSE = """
     return v0
 """
 
-private val zvf0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("e_request_none_oaid"),
-    ),
-)
-
-private val appsFlyerClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("dmfeSDkpVxP8m6Ys6yJCpn"),
-    ),
-)
-
-private val appsFlyerInitFingerprint = Fingerprint(
-    classFingerprint = appsFlyerClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
-    returnType = "Lcom/appsflyer/AppsFlyerLib;",
-    parameters = listOf(
-        "Ljava/lang/String;",
-        "Lcom/appsflyer/AppsFlyerConversionListener;",
-        "Landroid/content/Context;",
-    ),
-)
-
-private val appsFlyerStartFingerprint = Fingerprint(
-    classFingerprint = appsFlyerClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
-    returnType = "V",
-    parameters = listOf("Landroid/content/Context;"),
-)
-
-private val cleverTapClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("CleverTap SDK initialized with accountId"),
-    ),
-)
-
-private val cleverTapInstanceFingerprint = Fingerprint(
-    classFingerprint = cleverTapClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Lcom/clevertap/android/sdk/CleverTapAPI;",
-    parameters = listOf(
-        "Landroid/content/Context;",
-        "Lcom/clevertap/android/sdk/CleverTapInstanceConfig;",
-    ),
-)
-
-private val cleverTapInstanceWithIdFingerprint = Fingerprint(
-    classFingerprint = cleverTapClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Lcom/clevertap/android/sdk/CleverTapAPI;",
-    parameters = listOf(
-        "Landroid/content/Context;",
-        "Lcom/clevertap/android/sdk/CleverTapInstanceConfig;",
-        "Ljava/lang/String;",
-    ),
-)
-
-private val facebookAppEventsClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("facebook-core_release"),
-    ),
-)
-
-private val facebookAppEventsInitFingerprint = Fingerprint(
-    classFingerprint = facebookAppEventsClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC, AccessFlags.FINAL),
-    returnType = "V",
-    parameters = listOf("Landroid/app/Application;"),
-)
-
-private val facebookAppEventsInitWithIdFingerprint = Fingerprint(
-    classFingerprint = facebookAppEventsClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC, AccessFlags.FINAL),
-    returnType = "V",
-    parameters = listOf(
-        "Landroid/app/Application;",
-        "Ljava/lang/String;",
-    ),
-)
-
-private val beatlesCrashMonitorClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("com.tantanapp.beatles"),
-    ),
-)
-
-private val oaidClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("miit_oaid"),
-    ),
-)
-
-private val oaidGetterFingerprint = Fingerprint(
-    classFingerprint = oaidClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Ljava/lang/String;",
-    parameters = emptyList(),
-)
-
-// ── dev2: Root detection bypass ──
-private val rootDetectionClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("/system/usr/we-need-root/su"),
-    ),
-)
-
-// ── dev2: Emulator detection bypass ──
-private val emulatorDetectionClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("runningOnEmulator"),
-    ),
-)
-
-// ── dev2: ShuMei anti-fraud SDK disable ──
-private val shuMeiClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("createSmAntiFraudInit"),
-    ),
-)
-
-// ── dev2: Firebase Crashlytics disable ──
-private val crashlyticsClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("CRASHLYTICS_API_KEY"),
-    ),
-)
-
-// ── dev2: Process enumeration bypass ──
-private val processEnumClassFingerprint = Fingerprint(
-    filters = listOf(
-        methodCall(name = "getInstalledPackages"),
-    ),
-)
-
-// ── Firebase Analytics disable ──
-private val firebaseAnalyticsClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("add_payment_info"),
-    ),
-)
-
-// ── MoTracing (GlobalTracer) disable ──
-private val globalTracerClassFingerprint = Fingerprint(
-    filters = listOf(
-        methodCall(name = "_getOrCreate"),
-        methodCall(name = "_compressRecordFile"),
-    ),
-)
-
-// ── MEStatistics (XEngine) disable ──
-private val meStatisticsClassFingerprint = Fingerprint(
-    filters = listOf(
-        methodCall(name = "setMmcvVersion"),
-        methodCall(name = "setMagicEffectVersion"),
-    ),
-)
-
-// ── Device ID: UniqueIMEI ──
-private val uniqueImeiClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("UniqueIMEI"),
-    ),
-)
-
-// ── Device ID: UniqueDeviceId ──
-private val uniqueDeviceIdClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("UniqueDeviceId"),
-    ),
-)
-
-// ── Device ID: Google Advertising ID ──
-private val advertisingIdClientClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("com.google.android.gms.ads.identifier.service.START"),
-    ),
-)
-
-// ── Network Metrics disable ──
-private val networkMetricsClassFingerprint = Fingerprint(
-    filters = listOf(
-        methodCall(name = "getSubmitAlternative"),
-    ),
-)
-
-// ── Push Notification Statistics disable ──
-private val pushEventStatisticClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("mmfile_push_statistic"),
-    ),
-)
-
-// ── MediaLog/Battery Metrics disable ──
-private val batteryMetricsClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("BatteryMetrics"),
-    ),
-)
-
-// ── MoLive APM disable ──
-private val apmPluginClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("live-PerfTracer"),
-    ),
-)
-
-// ── DNS SLA Logging disable ──
-private val dnsSlaLoggerClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("DNS_SLA"),
-    ),
-)
-
 @Suppress("unused")
 @JvmField
 val analyticsDisablePatch = bytecodePatch(
@@ -275,9 +38,26 @@ val analyticsDisablePatch = bytecodePatch(
             val hasMethods = classDef.methods.any { it.implementation != null }
             if (!hasMethods) return@classDefForEach
 
-            // FoxStatistics (zvf0) - contains "e_request_none_oaid"
-            if (classDef.analyticsContainsString("e_request_none_oaid")) {
+            val strings = mutableSetOf<String>()
+            val methodNames = mutableSetOf<String>()
+
+            classDef.methods.forEach { method ->
+                method.implementation?.instructions?.forEach { instruction ->
+                    if (instruction is Instruction21c && instruction.reference is StringReference) {
+                        strings.add((instruction.reference as StringReference).string)
+                    }
+                    if (instruction is ReferenceInstruction && instruction.reference is MethodReference) {
+                        methodNames.add((instruction.reference as MethodReference).name)
+                    }
+                }
+            }
+
+            if (strings.isEmpty() && methodNames.isEmpty()) return@classDefForEach
+
+            // FoxStatistics (zvf0)
+            if ("e_request_none_oaid" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     when {
                         method.parameterTypes.size == 2 &&
                         method.parameterTypes[0] == "Landroid/content/Context;" &&
@@ -294,9 +74,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // AppsFlyer - contains "dmfeSDkpVxP8m6Ys6yJCpn"
-            if (classDef.analyticsContainsString("dmfeSDkpVxP8m6Ys6yJCpn")) {
+            // AppsFlyer
+            if ("dmfeSDkpVxP8m6Ys6yJCpn" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     val isPublicFinal = AccessFlags.PUBLIC.isSet(method.accessFlags) && 
                                        AccessFlags.FINAL.isSet(method.accessFlags)
                     when {
@@ -314,9 +95,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // CleverTap - contains "CleverTap SDK initialized with accountId"
-            if (classDef.analyticsContainsString("CleverTap SDK initialized with accountId")) {
+            // CleverTap
+            if ("CleverTap SDK initialized with accountId" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     val isPublicStatic = AccessFlags.PUBLIC.isSet(method.accessFlags) && 
                                         AccessFlags.STATIC.isSet(method.accessFlags)
                     when {
@@ -334,9 +116,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Facebook AppEvents - contains "facebook-core_release"
-            if (classDef.analyticsContainsString("facebook-core_release")) {
+            // Facebook AppEvents
+            if ("facebook-core_release" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     val isPublicStaticFinal = AccessFlags.PUBLIC.isSet(method.accessFlags) && 
                                              AccessFlags.STATIC.isSet(method.accessFlags) &&
                                              AccessFlags.FINAL.isSet(method.accessFlags)
@@ -355,9 +138,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Beatles Crash Monitor - contains "com.tantanapp.beatles"
-            if (classDef.analyticsContainsString("com.tantanapp.beatles")) {
+            // Beatles Crash Monitor
+            if ("com.tantanapp.beatles" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name in setOf("init", "install", "start") && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
@@ -365,9 +149,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // OAID - contains "miit_oaid"
-            if (classDef.analyticsContainsString("miit_oaid")) {
+            // OAID
+            if ("miit_oaid" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (AccessFlags.PUBLIC.isSet(method.accessFlags) &&
                         AccessFlags.STATIC.isSet(method.accessFlags) &&
                         method.returnType == "Ljava/lang/String;" &&
@@ -378,9 +163,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Root detection - contains "/system/usr/we-need-root/su"
-            if (classDef.analyticsContainsString("/system/usr/we-need-root/su")) {
+            // Root detection
+            if ("/system/usr/we-need-root/su" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
                         method.addInstructions(0, RETURN_FALSE)
                     }
@@ -388,9 +174,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Emulator detection - contains "runningOnEmulator"
-            if (classDef.analyticsContainsString("runningOnEmulator")) {
+            // Emulator detection
+            if ("runningOnEmulator" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
                         method.addInstructions(0, RETURN_FALSE)
                     }
@@ -398,9 +185,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // ShuMei anti-fraud - contains "createSmAntiFraudInit"
-            if (classDef.analyticsContainsString("createSmAntiFraudInit")) {
+            // ShuMei anti-fraud
+            if ("createSmAntiFraudInit" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name == "createSmAntiFraudInit" || 
                         (method.name.contains("init") && method.returnType == "V")) {
                         method.addInstructions(0, RETURN_VOID)
@@ -409,9 +197,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Firebase Crashlytics - contains "CRASHLYTICS_API_KEY"
-            if (classDef.analyticsContainsString("CRASHLYTICS_API_KEY")) {
+            // Firebase Crashlytics
+            if ("CRASHLYTICS_API_KEY" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name == "getInstance" || method.name == "<init>") {
                         if (method.returnType.startsWith("L")) {
                             method.addInstructions(0, RETURN_NULL_OBJECT)
@@ -423,9 +212,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Process enumeration - calls "getInstalledPackages"
-            if (classDef.analyticsCallsMethod("getInstalledPackages")) {
+            // Process enumeration
+            if ("getInstalledPackages" in methodNames) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.returnType == "Ljava/util/List;" || method.returnType == "Ljava/util/ArrayList;") {
                         method.addInstructions(0, """
                             new-instance v0, Ljava/util/ArrayList;
@@ -437,9 +227,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Firebase Analytics - contains "add_payment_info"
-            if (classDef.analyticsContainsString("add_payment_info")) {
+            // Firebase Analytics
+            if ("add_payment_info" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name in setOf("logEvent", "setAnalyticsCollectionEnabled", "setUserId", 
                                             "setUserProperty", "resetAnalyticsData", "setCurrentScreen",
                                             "setDefaultEventParameters", "setSessionTimeoutDuration", "setConsent") &&
@@ -450,9 +241,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // MoTracing (GlobalTracer) - calls "_getOrCreate" and "_compressRecordFile"
-            if (classDef.analyticsCallsMethod("_getOrCreate") && classDef.analyticsCallsMethod("_compressRecordFile")) {
+            // MoTracing (GlobalTracer)
+            if ("_getOrCreate" in methodNames && "_compressRecordFile" in methodNames) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     when {
                         method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
                         method.returnType == "Z" && method.parameterTypes.isEmpty() -> 
@@ -462,9 +254,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // MEStatistics (XEngine) - calls "setMmcvVersion" and "setMagicEffectVersion"
-            if (classDef.analyticsCallsMethod("setMmcvVersion") && classDef.analyticsCallsMethod("setMagicEffectVersion")) {
+            // MEStatistics (XEngine)
+            if ("setMmcvVersion" in methodNames && "setMagicEffectVersion" in methodNames) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name in setOf("init", "flush", "report", "realTimeReport", 
                                             "setMMCVVersion", "setMagicEffectVersion", 
                                             "setRecorderSDKVersion", "setUID", "setXEngineVersion") &&
@@ -475,9 +268,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Device ID: UniqueIMEI - contains "UniqueIMEI"
-            if (classDef.analyticsContainsString("UniqueIMEI")) {
+            // Device ID: UniqueIMEI
+            if ("UniqueIMEI" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
                         method.addInstructions(0, RETURN_EMPTY_STRING)
                     }
@@ -485,9 +279,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Device ID: UniqueDeviceId - contains "UniqueDeviceId"
-            if (classDef.analyticsContainsString("UniqueDeviceId")) {
+            // Device ID: UniqueDeviceId
+            if ("UniqueDeviceId" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
                         method.addInstructions(0, RETURN_EMPTY_STRING)
                     }
@@ -495,9 +290,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Device ID: Google Advertising ID - contains "com.google.android.gms.ads.identifier.service.START"
-            if (classDef.analyticsContainsString("com.google.android.gms.ads.identifier.service.START")) {
+            // Device ID: Google Advertising ID
+            if ("com.google.android.gms.ads.identifier.service.START" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name == "getAdvertisingIdInfo" &&
                         method.parameterTypes.size == 1 &&
                         method.parameterTypes[0] == "Landroid/content/Context;" &&
@@ -508,9 +304,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Network Metrics - calls "getSubmitAlternative"
-            if (classDef.analyticsCallsMethod("getSubmitAlternative")) {
+            // Network Metrics
+            if ("getSubmitAlternative" in methodNames) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
@@ -518,9 +315,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // Push Notification Statistics - contains "mmfile_push_statistic"
-            if (classDef.analyticsContainsString("mmfile_push_statistic")) {
+            // Push Notification Statistics
+            if ("mmfile_push_statistic" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name in setOf("init", "logPushEventInfo", "logRegCallback", "forceUpload") &&
                         method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
@@ -529,9 +327,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // MediaLog/Battery Metrics - contains "BatteryMetrics"
-            if (classDef.analyticsContainsString("BatteryMetrics")) {
+            // MediaLog/Battery Metrics
+            if ("BatteryMetrics" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name == "init" && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
@@ -539,9 +338,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // MoLive APM - contains "live-PerfTracer"
-            if (classDef.analyticsContainsString("live-PerfTracer")) {
+            // MoLive APM
+            if ("live-PerfTracer" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
@@ -549,9 +349,10 @@ val analyticsDisablePatch = bytecodePatch(
                 return@classDefForEach
             }
 
-            // DNS SLA Logging - contains "DNS_SLA"
-            if (classDef.analyticsContainsString("DNS_SLA")) {
+            // DNS SLA Logging
+            if ("DNS_SLA" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
                     if (method.name in setOf("init", "flush", "setEnable", "log", "setOnFlushListener") &&
                         method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
