@@ -214,7 +214,7 @@
     },
     {
       "name": "Privacy Enhancement",
-      "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, package enumeration prevention",
+      "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [

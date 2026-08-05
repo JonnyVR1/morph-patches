@@ -42,15 +42,11 @@ private val shuMengSdkFingerprint = Fingerprint(
     filters = listOf(string("shumeng_init"), string("shuzilm")),
 )
 
-private val packageEnumerationFingerprint = Fingerprint(
-    filters = listOf(string("getInstalledPackages"), string("firstInstallTime")),
-)
-
 @Suppress("unused")
 @JvmField
 val privacyEnhancementPatch = bytecodePatch(
     name = "Privacy Enhancement",
-    description = "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, package enumeration prevention",
+    description = "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -106,20 +102,6 @@ val privacyEnhancementPatch = bytecodePatch(
                 if (isConstructor(method)) return@forEach
                 if (method.returnType == "V" && method.parameterTypes.isNotEmpty() && method.parameterTypes[0] == "Landroid/content/Context;") {
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        packageEnumerationFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                if (method.returnType == "Ljava/util/List;" || method.returnType == "Ljava/util/ArrayList;") {
-                    method.addInstructions(0, """
-                        new-instance v0, Ljava/util/ArrayList;
-                        invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
-                        return-object v0
-                    """)
                 }
             }
         }

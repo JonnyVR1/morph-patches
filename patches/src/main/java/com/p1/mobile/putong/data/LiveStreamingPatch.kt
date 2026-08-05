@@ -22,13 +22,28 @@ private const val RETURN_BOOLEAN_TRUE = """
     return v0
 """
 
+private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<com.android.tools.smali.dexlib2.iface.instruction.Instruction>>()
+
+private fun com.android.tools.smali.dexlib2.iface.Method.cachedInstructions(): List<com.android.tools.smali.dexlib2.iface.instruction.Instruction> =
+    instructionCache.getOrPut(this) {
+        implementation?.instructions?.toList() ?: emptyList()
+    }
+
 private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingClass: String, fieldName: String): Boolean =
-    this.implementation?.instructions?.any { instr ->
+    cachedInstructions().any { instr ->
         instr is ReferenceInstruction &&
             instr.reference is FieldReference &&
             (instr.reference as FieldReference).definingClass == definingClass &&
             (instr.reference as FieldReference).name == fieldName
-    } ?: false
+    }
+
+private fun com.android.tools.smali.dexlib2.iface.Method.accessesAnyField(definingClass: String, vararg fieldNames: String): Boolean =
+    cachedInstructions().any { instr ->
+        instr is ReferenceInstruction &&
+            instr.reference is FieldReference &&
+            (instr.reference as FieldReference).definingClass == definingClass &&
+            (instr.reference as FieldReference).name in fieldNames
+    }
 
 @Suppress("unused")
 @JvmField
@@ -67,8 +82,7 @@ val liveStreamingPatch = bytecodePatch(
                 .filter { method ->
                     method.returnType == "J" &&
                         method.parameterTypes.isEmpty() &&
-                        (method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveChatLimitation;", "minSendIntervalMillSeconds") ||
-                            method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveChatLimitation;", "floodsMinSendIntervalSeconds"))
+                        method.accessesAnyField("Lcom/p1/mobile/putong/live/base/data/BLiveChatLimitation;", "minSendIntervalMillSeconds", "floodsMinSendIntervalSeconds")
                 }
                 .forEach { it.addInstructions(0, RETURN_LONG_0) }
         }
@@ -127,8 +141,7 @@ val liveStreamingPatch = bytecodePatch(
                         method.parameterTypes.isEmpty() &&
                         method.name != "<init>" &&
                         method.name != "<clinit>" &&
-                        (method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveEntranceLimitation;", "maxShow") ||
-                            method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveEntranceLimitation;", "maxShowPerDay"))
+                        method.accessesAnyField("Lcom/p1/mobile/putong/live/base/data/BLiveEntranceLimitation;", "maxShow", "maxShowPerDay")
                 }
                 .forEach { it.addInstructions(0, """
                     const v0, 0x270f

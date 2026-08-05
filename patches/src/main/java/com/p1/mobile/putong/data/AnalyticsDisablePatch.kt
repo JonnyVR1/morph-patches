@@ -41,24 +41,8 @@ private val oaidClassFingerprint = Fingerprint(
     filters = listOf(string("miit_oaid")),
 )
 
-private val rootDetectionClassFingerprint = Fingerprint(
-    filters = listOf(string("/system/usr/we-need-root/su")),
-)
-
-private val shuMeiClassFingerprint = Fingerprint(
-    filters = listOf(string("createSmAntiFraudInit")),
-)
-
 private val firebaseAnalyticsClassFingerprint = Fingerprint(
     filters = listOf(string("add_payment_info")),
-)
-
-private val uniqueImeiClassFingerprint = Fingerprint(
-    filters = listOf(string("UniqueIMEI")),
-)
-
-private val uniqueDeviceIdClassFingerprint = Fingerprint(
-    filters = listOf(string("UniqueDeviceId")),
 )
 
 private val googleAdIdClassFingerprint = Fingerprint(
@@ -81,10 +65,6 @@ private val dnsSlaClassFingerprint = Fingerprint(
     filters = listOf(string("DNS_SLA")),
 )
 
-private val packageEnumerationClassFingerprint = Fingerprint(
-    filters = listOf(string("getInstalledPackages")),
-)
-
 private val moTracingClassFingerprint = Fingerprint(
     filters = listOf(string("_getOrCreate"), string("_compressRecordFile")),
 )
@@ -95,14 +75,6 @@ private val networkMetricsClassFingerprint = Fingerprint(
 
 private val moLiveApmClassFingerprint2 = Fingerprint(
     filters = listOf(string("getSubmitAlternative")),
-)
-
-private val tencentMtaClassFingerprint = Fingerprint(
-    filters = listOf(string("com.tencent.stat.StatService")),
-)
-
-private val telephonyDeviceIdFingerprint = Fingerprint(
-    filters = listOf(string("android.permission.READ_PHONE_STATE"), string("phone")),
 )
 
 private val deviceFingerprintCollectorClassFingerprint = Fingerprint(
@@ -223,26 +195,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        rootDetectionClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
-                    method.addInstructions(0, RETURN_FALSE)
-                }
-            }
-        }
-
-        shuMeiClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                if (method.name == "createSmAntiFraudInit" ||
-                    (method.name.contains("init") && method.returnType == "V")) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
         firebaseAnalyticsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -251,24 +203,6 @@ val analyticsDisablePatch = bytecodePatch(
                                         "setDefaultEventParameters", "setSessionTimeoutDuration", "setConsent") &&
                     method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        uniqueImeiClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
-                    method.addInstructions(0, RETURN_EMPTY_STRING)
-                }
-            }
-        }
-
-        uniqueDeviceIdClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (method.name == "getUniqueId" && method.returnType == "Ljava/lang/String;") {
-                    method.addInstructions(0, RETURN_EMPTY_STRING)
                 }
             }
         }
@@ -324,20 +258,6 @@ val analyticsDisablePatch = bytecodePatch(
                 if (method.name in setOf("init", "flush", "setEnable", "log", "setOnFlushListener") &&
                     method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // Package enumeration - return empty list
-        packageEnumerationClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (method.returnType == "Ljava/util/List;" || method.returnType == "Ljava/util/ArrayList;") {
-                    method.addInstructions(0, """
-                        new-instance v0, Ljava/util/ArrayList;
-                        invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
-                        return-object v0
-                    """)
                 }
             }
         }
@@ -423,31 +343,8 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // Obfuscated Device Collectors - disable TelephonyManager-based collection
-        telephonyDeviceIdFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                when (method.returnType) {
-                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
-                    "V" -> method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
         // Tencent LiteAV Telemetry - disable performance tracking
         classDefByOrNull("Lcom/tencent/liteav/basic/datareport/TXCDRApi;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                if (method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // Tencent MTA StatService - disable user behavior analytics
-        tencentMtaClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach

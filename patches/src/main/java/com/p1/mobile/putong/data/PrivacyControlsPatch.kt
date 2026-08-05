@@ -119,7 +119,11 @@ private data class MethodAnalysis(
     val fieldAccesses: Set<Pair<String, String>>,
 )
 
+private val methodAnalysisCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, MethodAnalysis>()
+
 private fun com.android.tools.smali.dexlib2.iface.Method.analyze(): MethodAnalysis {
+    methodAnalysisCache[this]?.let { return it }
+
     val strings = mutableSetOf<String>()
     val methodNames = mutableSetOf<String>()
     val fieldAccesses = mutableSetOf<Pair<String, String>>()
@@ -134,7 +138,9 @@ private fun com.android.tools.smali.dexlib2.iface.Method.analyze(): MethodAnalys
         }
     }
 
-    return MethodAnalysis(strings, methodNames, fieldAccesses)
+    val result = MethodAnalysis(strings, methodNames, fieldAccesses)
+    methodAnalysisCache[this] = result
+    return result
 }
 
 private fun MethodAnalysis.containsString(str: String): Boolean = str in strings
@@ -151,168 +157,126 @@ val privacyControlsPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val stableClassTargets = setOf(
-            "Lcom/p1/mobile/putong/core/ui/settings/filter/newui/HiddenNearByView;",
-            "Lcom/p1/mobile/putong/core/ui/visitor/myvisitors/MyVisitorsItemView;",
-            "Lcom/p1/mobile/putong/core/ui/vip/privilege/dlg/PrivilegeContentDlgItemView;",
-            "Lcom/p046p1/mobile/putong/core/p053ui/messages/view/IntlMessageReadReceiptsView;",
-            BLIVE_COMMON_CONFIG_CLASS,
-            PERMISSION_HELPER_CLASS,
-            "Lcom/p1/mobile/putong/data/Location;",
-            "Lcom/p1/mobile/putong/core/api/CoreServiceImpl;",
-            "Lcom/p1/mobile/putong/data/User;",
-            "Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;",
-            "Lcom/p1/mobile/putong/core/data/ShowOnlineForWhoIMeet;",
-        )
-        var stableFound = 0
-
-        classDefForEach { classDef ->
-            if (classDef.type !in stableClassTargets) return@classDefForEach
-            val mutableClass = mutableClassDefBy(classDef)
-
-            when (classDef.type) {
-                "Lcom/p1/mobile/putong/core/ui/settings/filter/newui/HiddenNearByView;" -> {
-                    mutableClass.methods.forEach { method ->
-                        if (method.name == "s" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
-                    stableFound++
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/settings/filter/newui/HiddenNearByView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "s" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
+            }
+        }
 
-                "Lcom/p1/mobile/putong/core/ui/visitor/myvisitors/MyVisitorsItemView;" -> {
-                    mutableClass.methods.forEach { method ->
-                        val analysis = method.analyze()
-                        if (analysis.containsString("p_navigation_visit,isee") &&
-                            analysis.containsString("visitor_hide_footprint") &&
-                            method.returnType == "V"
-                        ) {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
-                    stableFound++
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/visitor/myvisitors/MyVisitorsItemView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                val analysis = method.analyze()
+                if (analysis.containsString("p_navigation_visit,isee") &&
+                    analysis.containsString("visitor_hide_footprint") &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
                 }
+            }
+        }
 
-                "Lcom/p1/mobile/putong/core/ui/vip/privilege/dlg/PrivilegeContentDlgItemView;" -> {
-                    mutableClass.methods.forEach { method ->
-                        val analysis = method.analyze()
-                        val targetsPrivacyPrivilege = analysis.containsString("mysterious_mode") ||
-                            analysis.containsString("visitor_hide_footprint") ||
-                            analysis.containsString("nearby_people") ||
-                            analysis.containsString("hide_me_from_nearby")
-                        if (targetsPrivacyPrivilege && analysis.callsMethodNamed("Hm") && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
-                    stableFound++
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/vip/privilege/dlg/PrivilegeContentDlgItemView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                val analysis = method.analyze()
+                val targetsPrivacyPrivilege = analysis.containsString("mysterious_mode") ||
+                    analysis.containsString("visitor_hide_footprint") ||
+                    analysis.containsString("nearby_people") ||
+                    analysis.containsString("hide_me_from_nearby")
+                if (targetsPrivacyPrivilege && analysis.callsMethodNamed("Hm") && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
+            }
+        }
 
-                "Lcom/p046p1/mobile/putong/core/p053ui/messages/view/IntlMessageReadReceiptsView;" -> {
-                    mutableClass.methods.forEach { method ->
-                        val analysis = method.analyze()
-                        if (analysis.containsString("bubble_key_intl_read_receipts") && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
-                    stableFound++
+        classDefByOrNull("Lcom/p046p1/mobile/putong/core/p053ui/messages/view/IntlMessageReadReceiptsView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                val analysis = method.analyze()
+                if (analysis.containsString("bubble_key_intl_read_receipts") && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
+            }
+        }
 
-                BLIVE_COMMON_CONFIG_CLASS -> {
-                    mutableClass.methods.forEach { method ->
-                        if (method.name == "nullCheck" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                            method.addInstructions(0, """
-                                const/4 v0, 0x1
-                                iput-boolean v0, p0, Lcom/p1/mobile/putong/live/base/data/BLiveCommonConfig;->on:Z
-                            """)
-                        }
-                    }
-                    stableFound++
+        // NOTE: nullCheck() methods are empty no-ops in the original APK - no patching needed
+
+        classDefByOrNull(PERMISSION_HELPER_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "b" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "[Ljava/lang/String;" &&
+                    method.returnType == "Z" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)
+                ) {
+                    method.addInstructions(0, """
+                        array-length v0, p0
+                        if-eqz v0, :cont
+                        const/4 v1, 0x0
+                        aget-object v1, p0, v1
+                        const-string v2, "android.permission.READ_CONTACTS"
+                        invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v1
+                        if-eqz v1, :cont
+                        const/4 v0, 0x0
+                        return v0
+                        :cont
+                    """)
                 }
+            }
+        }
 
-                PERMISSION_HELPER_CLASS -> {
-                    mutableClass.methods.forEach { method ->
-                        if (method.name == "b" &&
-                            method.parameterTypes.size == 1 &&
-                            method.parameterTypes[0] == "[Ljava/lang/String;" &&
-                            method.returnType == "Z" &&
-                            AccessFlags.STATIC.isSet(method.accessFlags)
-                        ) {
-                            method.addInstructions(0, """
-                                array-length v0, p0
-                                if-eqz v0, :cont
-                                const/4 v1, 0x0
-                                aget-object v1, p0, v1
-                                const-string v2, "android.permission.READ_CONTACTS"
-                                invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-                                move-result v1
-                                if-eqz v1, :cont
-                                const/4 v0, 0x0
-                                return v0
-                                :cont
-                            """)
-                        }
-                    }
-                    stableFound++
+        classDefByOrNull("Lcom/p1/mobile/putong/data/Location;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if ((method.name == "isHideDistance" || method.name == "isHideUpdateTime") &&
+                    method.parameterTypes.isEmpty() && method.returnType == "Z"
+                ) {
+                    method.addInstructions(0, RETURN_TRUE)
                 }
+            }
+        }
 
-                "Lcom/p1/mobile/putong/data/Location;" -> {
-                    mutableClass.methods.forEach { method ->
-                        if ((method.name == "isHideDistance" || method.name == "isHideUpdateTime") &&
-                            method.parameterTypes.isEmpty() && method.returnType == "Z"
-                        ) {
-                            method.addInstructions(0, RETURN_TRUE)
-                        }
-                    }
-                    stableFound++
+        classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreServiceImpl;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name in setOf("hideActiveTime", "hideAge", "hideLocation") &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                    method.returnType == "Z"
+                ) {
+                    method.addInstructions(0, RETURN_TRUE)
                 }
+            }
+        }
 
-                "Lcom/p1/mobile/putong/core/api/CoreServiceImpl;" -> {
-                    mutableClass.methods.forEach { method ->
-                        if (method.name in setOf("hideActiveTime", "hideAge", "hideLocation") &&
-                            method.parameterTypes.size == 1 &&
-                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
-                            method.returnType == "Z"
-                        ) {
-                            method.addInstructions(0, RETURN_TRUE)
-                        }
-                    }
-                    stableFound++
+        classDefByOrNull("Lcom/p1/mobile/putong/data/User;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "isHideActiveFromSVip" &&
+                    method.parameterTypes.isEmpty() && method.returnType == "Z"
+                ) {
+                    method.addInstructions(0, RETURN_TRUE)
                 }
+            }
+        }
 
-                "Lcom/p1/mobile/putong/data/User;" -> {
-                    mutableClass.methods.forEach { method ->
-                        if (method.name == "isHideActiveFromSVip" &&
-                            method.parameterTypes.isEmpty() && method.returnType == "Z"
-                        ) {
-                            method.addInstructions(0, RETURN_TRUE)
-                        }
-                    }
-                    stableFound++
+        classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                val analysis = method.analyze()
+                val targetsLiveField = analysis.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;", "hideConsumeRecord") ||
+                    analysis.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;", "hideLiveAvatar")
+                if (targetsLiveField && method.returnType == "Z" && method.parameterTypes.isEmpty()) {
+                    method.addInstructions(0, RETURN_TRUE)
                 }
+            }
+        }
 
-                "Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;" -> {
-                    mutableClass.methods.forEach { method ->
-                        val analysis = method.analyze()
-                        val targetsLiveField = analysis.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;", "hideConsumeRecord") ||
-                            analysis.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;", "hideLiveAvatar")
-                        if (targetsLiveField && method.returnType == "Z" && method.parameterTypes.isEmpty()) {
-                            method.addInstructions(0, RETURN_TRUE)
-                        }
-                    }
-                    stableFound++
-                }
-
-                "Lcom/p1/mobile/putong/core/data/ShowOnlineForWhoIMeet;" -> {
-                    mutableClass.methods.forEach { method ->
-                        val analysis = method.analyze()
-                        if (analysis.accessesField("Lcom/p1/mobile/putong/core/data/ShowOnlineForWhoIMeet;", "show") &&
-                            method.returnType == "Z" &&
-                            method.parameterTypes.isEmpty()
-                        ) {
-                            method.addInstructions(0, RETURN_FALSE)
-                        }
-                    }
-                    stableFound++
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/ShowOnlineForWhoIMeet;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                val analysis = method.analyze()
+                if (analysis.accessesField("Lcom/p1/mobile/putong/core/data/ShowOnlineForWhoIMeet;", "show") &&
+                    method.returnType == "Z" &&
+                    method.parameterTypes.isEmpty()
+                ) {
+                    method.addInstructions(0, RETURN_FALSE)
                 }
             }
         }

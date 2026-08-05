@@ -451,38 +451,6 @@ private val sjaClassFingerprint = Fingerprint(
     ),
 )
 
-private val d79ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("暂未激活黑金会员"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/User;",
-            name = "isUltraPremium",
-            parameters = emptyList(),
-            returnType = "Z",
-        ),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;",
-            name = "k",
-        ),
-    ),
-)
-
-private val graClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("swipeRateLimit"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/data/User;",
-            name = "isVIP",
-            parameters = emptyList(),
-            returnType = "Z",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;",
-            name = "enable",
-        ),
-    ),
-)
-
 // ── CoreBusinessServiceIml: only the first 3 parameter types are stable ──
 
 private val coreBusinessLfFingerprint = Fingerprint(
@@ -1097,6 +1065,13 @@ val premiumUnlockPatch = bytecodePatch(
                             method.callsU4WithString() -> {
                             method.addInstructions(0, LOG_COREPRODUCT_GATE_FALSE)
                         }
+                        // S4(PurchaseType) → false (no purchase needed)
+                        method.name == "S4" &&
+                            method.parameterTypes.size == 1 &&
+                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
+                            method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_FALSE)
+                        }
                         // Feature/data gates (L4, O4, P4, R4, T4) — these have different behavior
                         // and should NOT be patched. Leave them unpatched to preserve original behavior.
                     }
@@ -1208,39 +1183,6 @@ val premiumUnlockPatch = bytecodePatch(
             // the actual classes in the APK. These patches would need fingerprint-based
             // discovery to work correctly. Removed to fix test failures.
 
-            // ── Ad removal: NavigationBarAdmobHelper.g() ──
-            //
-            // NavigationBarAdmobHelper.g() is the central gate for the bottom banner ad.
-            // It returns TRUE when all conditions are met (AB test, remote config, gender,
-            // registration age, etc.). Patching to FALSE disables the bottom banner ad
-            // decision entirely.
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/admob/NavigationBarAdmobHelper;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "g" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lkotlin/jvm/functions/Function0;" &&
-                        method.returnType == "Z"
-                    ) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-            }
-
-            // ── Ad removal: NavigationBarAdView.L() ──
-            //
-            // NavigationBarAdView.L(Act) triggers the ad loading process for the bottom
-            // banner. Patching to RETURN_VOID prevents the ad load from being initiated.
-            classDefByOrNull("Lcom/p1/mobile/putong/core/admob/NavigationBarAdView;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "L" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
             // ── CoreProviderImpl.Er(): infinite loading fix ──
             //
             // CoreProviderImpl.Er() is hardcoded to return false, causing pib.q9()
@@ -1277,14 +1219,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── Search filter expansion: Settings ──
-            //
-            // Settings is a stable class with stable method names. The UI clamps
-            // search radius and age filter sliders to the "allowed" range returned
-            // by these getters. By widening the allowed range, the user can set
-            // any radius/age filter value the UI slider supports.
-            // Note: the server may still reject out-of-range values, but the
-            // client-side UI limits are fully expanded.
+            // ── Search filter expansion + ultra premium flag: Settings ──
             classDefByOrNull("Lcom/p1/mobile/putong/data/Settings;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     when {
@@ -1308,36 +1243,17 @@ val premiumUnlockPatch = bytecodePatch(
                             method.returnType == "Ljava/lang/Integer;" -> {
                             method.addInstructions(0, RETURN_INTEGER_18)
                         }
-                    }
-                }
-            }
-
-            // NOTE: nullCheck() methods are empty no-ops in the original APK - no patching needed
-
-            // ── Settings.userIsODiamond(): ultra premium flag ──
-            classDefByOrNull("Lcom/p1/mobile/putong/data/Settings;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "userIsODiamond" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z"
-                    ) {
-                        method.addInstructions(0, RETURN_TRUE)
+                        method.name == "userIsODiamond" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
                     }
                 }
             }
 
             // ── CoreProduct.S4(PurchaseType): no purchase needed ──
-            classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreProduct;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "S4" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
-                        method.returnType == "Z"
-                    ) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-            }
+            // Merged with CoreProduct u4/gate patch above (single classDefByOrNull lookup)
 
             // ── BLiveCoin: REMOVED ──
             // Previously attempted to patch new_() factory to set available field to Long.MAX_VALUE.
@@ -1371,22 +1287,6 @@ val premiumUnlockPatch = bytecodePatch(
                         AccessFlags.PRIVATE.isSet(method.accessFlags)
                     ) {
                         method.addInstructions(0, RETURN_INT_200000)
-                    }
-                }
-            }
-
-            // ── Ad removal: NativeAdViewCard.Companion.l() ──
-            //
-            // NativeAdViewCard.Companion.l(Act) loads the native ad card that appears
-            // in the swipe feed as a virtual card. Patching to RETURN_VOID prevents
-            // the native ad from loading into the feed.
-            classDefByOrNull("Lcom/p1/mobile/putong/core/admob/NativeAdViewCard\$Companion;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "l" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
                     }
                 }
             }
@@ -1660,194 +1560,43 @@ val premiumUnlockPatch = bytecodePatch(
             // on each ConversationItem*View class, which is safe and doesn't interfere with
             // the adapter's view type mapping.
 
-            // ConversationItemIntlReceiveLikeView: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
-                    }
-                    // Defensive: patch text construction methods to return empty strings
-                    if (method.name == "getSubFrontText" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/String;") {
-                        method.addInstructions(0, """
-                            const-string v0, ""
-                            return-object v0
-                        """)
-                    }
-                    if (method.name == "getSubContentText" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/String;") {
-                        method.addInstructions(0, """
-                            const-string v0, ""
-                            return-object v0
-                        """)
-                    }
-                    if (method.name == "o" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-            
-            // ConversationItemReceiveLikeView: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "k" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
-                    }
-                    // Defensive: patch text construction methods to return empty strings
-                    if (method.name == "getSubContentText" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/String;") {
-                        method.addInstructions(0, """
-                            const-string v0, ""
-                            return-object v0
-                        """)
-                    }
-                    if (method.name == "o" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, "return-void")
-                    }
-                }
-            }
-            
-            // ConversationItemInstantChatGuideView: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "m" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
-                    }
-                }
-            }
-            
-            // ConversationItemBlindBoxEntrance: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
-                    }
-                }
-            }
-            
-            // ConversationItemSurpriseBoxEntrance: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "f" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
-                    }
-                }
-            }
-            
-            // ConversationItemProfileLikeEntrance: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "i" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
-                    }
-                }
-            }
-            
-            // ConversationItemPlatinumPinLike: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemPlatinumPinLike;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "q" && method.parameterTypes.size == 2 && method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
-                    }
-                }
-            }
-            
-            // ConversationItemFriendMoments: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemFriendMoments;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name in setOf("o", "p", "q") && 
-                        method.parameterTypes.size == 2 && 
-                        method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
-                    }
-                }
-            }
-            
-            // ConversationItemTeamGroup: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemTeamGroup;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "o" && 
-                        method.parameterTypes.size == 2 && 
-                        method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
-                    }
-                }
-            }
-            
-            // ConversationWeakenView: Enhanced hiding
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationWeakenView;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "d0" && 
-                        method.parameterTypes.size == 2 && 
-                        method.returnType == "V") {
-                        method.addInstructions(0, """
-                            const/16 v0, 0x8
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                            const/4 v0, 0x0
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
-                            invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
-                            return-void
-                        """)
+            // ConversationItem views: data-driven hiding
+            val convItemHideBody = """
+                const/16 v0, 0x8
+                invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
+                const/4 v0, 0x0
+                invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumHeight(I)V
+                invoke-virtual {p0, v0}, Landroid/view/View;->setMinimumWidth(I)V
+                return-void
+            """
+            val convItemHideTargets = listOf(
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemIntlReceiveLikeView;" to setOf("k"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemReceiveLikeView;" to setOf("k"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;" to setOf("m"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;" to setOf("e"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;" to setOf("f"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;" to setOf("i"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemPlatinumPinLike;" to setOf("q"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemFriendMoments;" to setOf("o", "p", "q"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemTeamGroup;" to setOf("o"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationWeakenView;" to setOf("d0"),
+            )
+            convItemHideTargets.forEach { (descriptor, methodNames) ->
+                classDefByOrNull(descriptor)?.let { classDef ->
+                    mutableClassDefBy(classDef).methods.forEach { method ->
+                        if (method.name in methodNames && method.returnType == "V") {
+                            method.addInstructions(0, convItemHideBody)
+                        }
+                        if (method.name in setOf("getSubFrontText", "getSubContentText") &&
+                            method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/String;") {
+                            method.addInstructions(0, """
+                                const-string v0, ""
+                                return-object v0
+                            """)
+                        }
+                        if (method.name == "o" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                            method.addInstructions(0, "return-void")
+                        }
                     }
                 }
             }
@@ -1871,7 +1620,6 @@ val premiumUnlockPatch = bytecodePatch(
             "e_vip_banner", "vas_commercial_card_right_slide_strategy", "暂未激活黑金会员",
             "picksUser id is not found in users : ", "open_fill_info_debug",
             "fromWhoLikedMe", "e_red_dot_message_see",
-            "swipeRateLimit",
         )
         val anchorFieldNames = setOf(
             "likersLimit", "secretCrushLimit", "surpriseGiftExpirationTime",
@@ -1884,27 +1632,10 @@ val premiumUnlockPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
+            if (resolved.size == 44) return@classDefForEach
+
             val classType = classDef.type
             val isSettingsUi = classType.startsWith("Lcom/p1/mobile/putong/core/ui/settings/")
-
-            var hasAnchorString = false
-            var hasAnchorField = false
-            var hasAnchorMethod = false
-
-            classDef.methods.forEach { method ->
-                if (hasAnchorString && hasAnchorField && hasAnchorMethod) return@forEach
-                instructionsOf(method).forEach { instr ->
-                    if (instr is ReferenceInstruction) {
-                        when (val ref = instr.reference) {
-                            is StringReference -> if (!hasAnchorString && ref.string in anchorStrings) hasAnchorString = true
-                            is FieldReference -> if (!hasAnchorField && ref.name in anchorFieldNames) hasAnchorField = true
-                            is MethodReference -> if (!hasAnchorMethod && ref.name in anchorMethodNames) hasAnchorMethod = true
-                        }
-                    }
-                }
-            }
-
-            if (!hasAnchorString && !hasAnchorField && !hasAnchorMethod) return@classDefForEach
 
             val strings = mutableSetOf<String>()
             val methodCallFull = mutableSetOf<String>()
@@ -1914,6 +1645,9 @@ val premiumUnlockPatch = bytecodePatch(
             val methodCallFullSigs = mutableSetOf<String>()
             val methodNameRet = mutableSetOf<String>()
             var hasZUserMethod = false
+            var hasAnchorString = false
+            var hasAnchorField = false
+            var hasAnchorMethod = false
 
             classDef.methods.forEach { method ->
                 if (method.returnType == "Z" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;") {
@@ -1922,7 +1656,11 @@ val premiumUnlockPatch = bytecodePatch(
                 instructionsOf(method).forEach { instr ->
                     if (instr is ReferenceInstruction) {
                         when (val ref = instr.reference) {
-                            is StringReference -> strings.add(ref.string)
+                            is StringReference -> {
+                                val s = ref.string
+                                strings.add(s)
+                                if (!hasAnchorString && s in anchorStrings) hasAnchorString = true
+                            }
                             is MethodReference -> {
                                 methodCallNames.add(ref.name)
                                 methodCallFull.add("${ref.definingClass}.${ref.name}")
@@ -1930,14 +1668,18 @@ val premiumUnlockPatch = bytecodePatch(
                                 methodCallSigs.add(sig)
                                 methodCallFullSigs.add("${ref.definingClass}.$sig")
                                 methodNameRet.add("${ref.name}\u0001${ref.returnType}")
+                                if (!hasAnchorMethod && ref.name in anchorMethodNames) hasAnchorMethod = true
                             }
                             is FieldReference -> {
                                 fieldAccessFull.add("${ref.definingClass}.${ref.name}")
+                                if (!hasAnchorField && ref.name in anchorFieldNames) hasAnchorField = true
                             }
                         }
                     }
                 }
             }
+
+            if (!hasAnchorString && !hasAnchorField && !hasAnchorMethod) return@classDefForEach
 
             val hasConvNew_ = "Lcom/p1/mobile/putong/core/data/Conversation;.new_.0.Lcom/p1/mobile/putong/core/data/Conversation;" in methodCallFullSigs
 
@@ -2035,30 +1777,6 @@ val premiumUnlockPatch = bytecodePatch(
             if ("jh30" !in resolved && "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d" in methodCallFull) resolved["jh30"] = classDef
             if ("businessEntranceAdapter" !in resolved && "open_fill_info_debug" in strings && "clear" in methodCallNames) resolved["businessEntranceAdapter"] = classDef
 
-            // d79: Ultra premium intl check
-            // d79.W(User) checks (V() || user.isMe()) && user.isUltraPremium() && !IntlCountryCodeController.k()
-            // Anchored on "暂未激活黑金会员" string + isUltraPremium + IntlCountryCodeController.k
-            if ("d79" !in resolved && !isSettingsUi && "暂未激活黑金会员" in strings &&
-                "Lcom/p1/mobile/putong/data/User;.isUltraPremium" in methodCallFull &&
-                "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k" in methodCallFull) {
-                val hasZUserMethod = classDef.methods.any {
-                    it.returnType == "Z" &&
-                    AccessFlags.STATIC.isSet(it.accessFlags) &&
-                    it.parameterTypes.size == 1 &&
-                    it.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;"
-                }
-                if (hasZUserMethod) resolved["d79"] = classDef
-            }
-
-            // gra: Swipe rate limit config
-            // gra.g1() returns SwipeRateLimitConfig with enable flag
-            // Anchored on "swipeRateLimit" string + isVIP() + SwipeRateLimitConfig.enable
-            if ("gra" !in resolved && !isSettingsUi && "swipeRateLimit" in strings &&
-                "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull &&
-                "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;.enable" in fieldAccessFull) {
-                resolved["gra"] = classDef
-            }
-
             // pm6: fromWhoLikedMe gate check for international version
             // pm6.f(Conversation) checks if conversation is a "fromWhoLikedMe" type
             // Used by ConversationItemHeadView to show "liked me" icon
@@ -2102,8 +1820,6 @@ val premiumUnlockPatch = bytecodePatch(
                     resolved["i0p"] = classDef
                 }
             }
-
-            if (resolved.size == 46) return@classDefForEach
         }
 
         resolved["xma"]?.let { xmaClassDef ->
@@ -2816,45 +2532,6 @@ val premiumUnlockPatch = bytecodePatch(
                 if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
                     method.addInstructions(0, """
                         const-string v0, ""
-                        return-object v0
-                    """)
-                }
-            }
-        }
-
-        // d79: Ultra premium intl check
-        // d79.W(User) returns true when user is ultra premium for international
-        // Patch to return true so all intl ultra premium checks pass
-        resolved["d79"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "W" &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
-                    method.returnType == "Z" &&
-                    AccessFlags.STATIC.isSet(method.accessFlags)
-                ) {
-                    method.addInstructions(0, RETURN_TRUE)
-                }
-            }
-        }
-
-        // gra: Swipe rate limit bypass
-        // gra.g1() returns SwipeRateLimitConfig. When enable=true, it rate-limits swipes.
-        // Since User.isVIP() is already patched to return true, the VIP branch
-        // (swipeRateLimitConfig.vip && user.isVIP()) should already disable rate limiting.
-        // But we also patch g1() to force enable=false as a belt-and-suspenders approach.
-        resolved["gra"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "g1" &&
-                    method.parameterTypes.isEmpty() &&
-                    method.returnType == "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;" &&
-                    AccessFlags.STATIC.isSet(method.accessFlags)
-                ) {
-                    method.addInstructions(0, """
-                        invoke-static {}, Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;->new_()Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;
-                        move-result-object v0
-                        const/4 v1, 0x0
-                        iput-boolean v1, v0, Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;->enable:Z
                         return-object v0
                     """)
                 }

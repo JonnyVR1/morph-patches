@@ -149,84 +149,90 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
-        classDefForEach { classDef ->
-            when (classDef.type) {
-                "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEnhancedPromotionBannerView;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "onFinishInflate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEnhancedPromotionBannerView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/ui/popup/ProfileThinPopup;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "initDataOnCreate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/popup/ProfileThinPopup;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "initDataOnCreate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/newui/home/views/SuperLikeBannerView;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "onFinishInflate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/SuperLikeBannerView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/newui/home/views/innerpush/ComplimentReceivedBannerLayout;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "onFinishInflate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/innerpush/ComplimentReceivedBannerLayout;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/ui/operation/OperationBannerView;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "onFinishInflate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/operation/OperationBannerView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/newui/home/views/NewUserSpecialLikeBannerView;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "onFinishInflate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/NewUserSpecialLikeBannerView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/ui/popup/ProfileFakeView;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "onFinishInflate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/popup/ProfileFakeView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/ui/home/virtualcard/SuperLikeOrUndoGuideCardView;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "onFinishInflate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/home/virtualcard/SuperLikeOrUndoGuideCardView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/newui/boost/BoostGuideCardView;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "onFinishInflate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/boost/BoostGuideCardView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/ui/profile/CityTopGreetDialog;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "show" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/profile/CityTopGreetDialog;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "show" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
-                "Lcom/p1/mobile/putong/core/ui/superlikeopt/upgrade/SendMultiSuperLikePushBubble;" -> {
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "onFinishInflate" && method.returnType == "V") {
-                            method.addInstructions(0, RETURN_VOID)
-                        }
-                    }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/superlikeopt/upgrade/SendMultiSuperLikePushBubble;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "onFinishInflate" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }

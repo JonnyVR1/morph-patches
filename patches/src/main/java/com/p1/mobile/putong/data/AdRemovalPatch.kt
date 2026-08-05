@@ -1,9 +1,7 @@
 package com.p1.mobile.putong.data
 
-import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
 
 private const val RETURN_VOID = "return-void"
@@ -181,28 +179,5 @@ val adRemovalPatch = bytecodePatch(
             }
         }
 
-        navBarBannerAdFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { it.name == "L" && it.parameterTypes.size == 1 && it.returnType == "V" }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
-
-        nativeAdCardFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { it.name == "l" && it.parameterTypes.size == 1 && it.returnType == "V" }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
     }
 }
-
-private val navBarBannerAdFingerprint = Fingerprint(
-    filters = listOf(
-        string("ca-app-pub-6567608331519569/1242795139"),
-    ),
-)
-
-private val nativeAdCardFingerprint = Fingerprint(
-    filters = listOf(
-        string("ca-app-pub-6567608331519569/7831936718"),
-    ),
-)
