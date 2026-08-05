@@ -245,18 +245,9 @@ val dialogCleanupPatch = bytecodePatch(
                 }
         }
 
-        splashProxyActFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    method.returnType == "V" &&
-                    method.parameterTypes.isEmpty() &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                    !AccessFlags.STATIC.isSet(method.accessFlags) &&
-                    method.name != "<init>" &&
-                    method.name != "finish"
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
+        // Removed: splashProxyActFingerprint patch - too aggressive
+        // Patching all public void no-arg methods breaks lifecycle methods (onCreate, onResume, etc.)
+        // Phone auth dialogs are already handled by OMS dialog blocklist above
 
         gpRateGuideFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
@@ -356,14 +347,6 @@ private val omsDialogControllerFingerprint = Fingerprint(
             definingClass = "Lcom/p1/mobile/putong/data/OMSDialogInfo;",
             name = "identifier",
         ),
-    ),
-)
-
-private val splashProxyActFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_second_prompt_phone_auth_popup_view"),
-        string("p_sys_phone_auth_popup_view"),
-        string("p_prompt_phone_auth_popup_view"),
     ),
 )
 
