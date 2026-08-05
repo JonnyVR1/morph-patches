@@ -131,12 +131,16 @@ The largest and most complex patch. Handles:
 - Purchase gate bypass (CoreProduct.S4)
 - Swipe rate limit bypass (gra class)
 
+**Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
+
 ### Privacy Controls (`PrivacyControlsPatch.kt`)
 Unlocks privacy features:
 - Hide from nearby (`hide_me_from_nearby` privilege)
 - Visitor hide footprint (`visitor_hide_footprint` privilege)
 - Mysterious mode (`mysterious_mode` privilege)
 - Nearby people access (`nearby_people` privilege)
+
+**Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
 
 ### Messaging Enhancement (`MessagingPatch.kt`)
 Enhances messaging features:
@@ -150,6 +154,8 @@ Enhances messaging features:
 - Secret crush limits (CounterSecretCrushLimit)
 - Boost limits (BoostLimit remaining/duration)
 - Live chat limits (LiveChatLimit)
+
+**Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
 
 ### Analytics Disable (`AnalyticsDisablePatch.kt`)
 Disables all tracking and telemetry:
@@ -377,6 +383,25 @@ Before adding a patch, check if another patchset already covers the same class/m
 - Dialog suppression: Individual fingerprint patches vs centralized OMS blocklist in `DialogCleanupPatch`
 
 Duplicate patches waste time (redundant class lookups + method iteration) and can cause double-injection issues.
+
+### 8. Never patch nullCheck() methods
+
+The `nullCheck()` methods in data classes (CounterSecretCrushLimit, BoostLimit, CounterLikeLimit, ChatPartnerConfig, LoveBuzzData, PrologueConfig, ODiamondVisitorMessageGuideConfig, LiveChatLimit, BLiveCommonConfig, GreetingCounter, IntlUltraPremiumConfig, User) are either empty no-ops or simple validation methods. Attempting to patch them with `addInstructions(0, ...)` causes bytecode verification errors:
+
+```
+java.lang.VerifyError: Verifier rejected class com.p1.mobile.putong.data.CounterSecretCrushLimit: 
+void com.p1.mobile.putong.data.CounterSecretCrushLimit.nullCheck() failed to verify: 
+[0x5] instance field access on object that has non-reference type IntegerConstant
+```
+
+**Why it fails:**
+- The methods don't have the expected register allocation for injected instructions
+- Prepending instructions breaks jump target offsets in existing bytecode
+- The bytecode verifier rejects modifications to these validation methods
+
+**Solution:** Remove all nullCheck() patches entirely. These methods don't need patching — they're either empty or perform validation that doesn't interfere with patch goals. If a nullCheck() method needs to be bypassed, find the calling code and patch it there instead.
+
+**Real-world impact:** This caused the app to crash on startup with VerifyError, forcing users back to the login screen. All nullCheck() patches have been removed from PremiumUnlockPatch.kt, MessagingPatch.kt, and PrivacyControlsPatch.kt.
 
 ## Fable Method
 Before any non-trivial backend task, apply the fable-method loop; for tasks that will run unattended or fan out subagents, use fable-loop. After completing substantive work, or whenever any agent/tool claims work is done, run a fable-judge pass before presenting it as finished.
