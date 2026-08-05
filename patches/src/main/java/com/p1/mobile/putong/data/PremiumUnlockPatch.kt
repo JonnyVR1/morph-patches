@@ -328,236 +328,6 @@ private val coreDataClassFingerprint = Fingerprint(
     ),
 )
 
-// ── Fake conversation creator fingerprints ──
-// These classes create promotional fake conversations in the Messages tab.
-// We use behavioral fingerprints to find them regardless of obfuscation.
-
-// qa9: Intl receive like guide - creates fakeIntlReceiveLikeGuideSVip conversations
-private val qa9ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("intl_receive_like_guide_get"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// hva: CN receive like guide - creates fakeReceiveLikeGuideSVip conversations
-private val hvaClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("receive_like_guide_get"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// g (Core API): Creates fake_conversation_profile_featured, fake_conversation_surprise_gift_box, fake_conversation_city_centre_enter
-private val coreApiFakeConvFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation_surprise_gift_box"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// h: Profile like enter - creates fake_conversation_profile_like_enter
-private val profileLikeEnterFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation_profile_like_enter"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// j: Greeting - creates fake_conversation_greeting
-private val greetingFakeConvFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation_greeting"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// i: Feed state - creates conversation_feed_state
-private val feedStateFakeConvFingerprint = Fingerprint(
-    filters = listOf(
-        string("conversation_feed_state"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// e9y: Meet entrance banner controller - evaluates bzl strategies
-private val meetEntranceBannerFingerprint = Fingerprint(
-    filters = listOf(
-        string("meet_entrance"),
-        methodCall(
-            name = "w",
-            parameters = emptyList(),
-            returnType = "V",
-        ),
-    ),
-)
-
-// sd8: Creates fake_conversation_local_instant_chat_conversation
-private val instantChatGuideFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation_local_instant_chat_conversation"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// a (Main UI): Creates fake_conversation_greeting, fake_conversation_profile_featured, fake_conversation_anonymous_greeting
-private val mainUiFakeConvFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation_anonymous_greeting"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// g$b (inner class): Creates fake_conversation_local_team_group_conversation
-private val coreApiTeamGroupFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation_local_team_group_conversation"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// g$c (inner class): Creates fake_conversation_local_limited_trial_see_fold
-private val coreApiLimitedTrialFoldFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation_local_limited_trial_see_fold"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// ipi0$a: Head recommend carousel adapter - maps fake conversation IDs to view types
-private val headRecommendAdapterFingerprint = Fingerprint(
-    filters = listOf(
-        string("fake_conversation_profile_like_enter"),
-        string("fake_conversation_oof_pick"),
-        methodCall(
-            name = "getItemViewType",
-            parameters = listOf("I"),
-            returnType = "I",
-        ),
-    ),
-)
-
-// C4891g (Core API): Creates intlSeeChatRequest conversations via Vi(List) and Wi(List)
-private val intlSeeChatRequestCreatorFingerprint = Fingerprint(
-    filters = listOf(
-        string("intlSeeChatRequest"),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "new_",
-            parameters = emptyList(),
-            returnType = "Lcom/p1/mobile/putong/core/data/Conversation;",
-        ),
-    ),
-)
-
-// r8n: Singleton manager for intlSeeChatRequest lifecycle
-// Uniquely references "intl_chat_request_insert_users" protobuf key
-private val r8nClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("intl_chat_request_insert_users"),
-    ),
-)
-
-// ── b240: "See Anim Bubble" creator ──
-// b240 creates the floating "x girls y miles away" bubble on startup.
-// It subscribes to CoreLikers.S6() and calls u7()/k8()/w7() to create bubbles.
-// Fingerprint anchors on CoreLikers API reference and CorePopLevel enum field.
-// NOTE: JADX renames methods for readability (S6 → m31415S6, u7 → m102077u7)
-// but DEX descriptors use the ORIGINAL obfuscated names (S6, u7, z2, k8, w7).
-// "INTL_SEE_ANIM_BUBBLE" is an enum constant (field access), NOT a string literal.
-private val seeAnimBubbleCreatorFingerprint = Fingerprint(
-    filters = listOf(
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/api/CoreLikers;",
-            name = "S6",
-        ),
-        methodCall(
-            name = "u7",
-            returnType = "V",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p051p1/mobile/putong/core/p058ui/poplevel/CorePopLevel;",
-            name = "INTL_SEE_ANIM_BUBBLE",
-        ),
-    ),
-)
-
-// ── kfe0: "See Anim Bubble" lifecycle class ──
-// kfe0 extends fqe0 (base bubble class) and implements the bubble display logic.
-// kfe0.A() is the lifecycle method that calls ViewTreeObserverOnGlobalLayoutListenerC8017b.u6()
-// to actually render the bubble on screen. Patching A() to return 0 prevents display.
-// Fingerprint anchors on the u6() method call and MagicBubble.SEE_ANIM enum field access.
-// NOTE: "SEE_ANIM" is an enum constant (field access to MagicBubble.SEE_ANIM), NOT a string literal.
-private val seeAnimBubbleLifecycleFingerprint = Fingerprint(
-    filters = listOf(
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;",
-            name = "u6",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p051p1/mobile/putong/core/newui/home/bubble/MagicBubble;",
-            name = "SEE_ANIM",
-        ),
-    ),
-)
-
-// ── ViewTreeObserverOnGlobalLayoutListenerC8017b: Bubble display method ──
-// This class contains u6() which is the final method that calls act().m7()
-// to display the floating bubble with "x girls y miles away" text.
-// Patching u6() to return-void prevents any bubble from being displayed.
-// NOTE: This is a stable CamelCase class - can use classDefByOrNull directly.
-// The m7 method is the DEX name; JADX renames it to m40827m7 for readability.
-
 private val sb90CompanionClassFingerprint = Fingerprint(
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
@@ -637,86 +407,6 @@ private val sjaClassFingerprint = Fingerprint(
     filters = listOf(
         string("picksUser id is not found in users : "),
     ),
-)
-
-// jh30/xp30/xnx: Me tab presenter(s). Uniquely references NewProfilePrivilegedPager (stable class)
-// in its populate method which shows the dark upgrade card banner before "more services".
-// In 7.3.3 there are TWO Me tab variants: xp30 (original, getter p0()) and xnx (test2 revamp, getter U()).
-// Both call NewProfilePrivilegedPager.d() so a single class fingerprint matches both.
-// We handle them in Pass 2 via jh30ClassFingerprint to avoid scanning every class in Pass 1.
-private val jh30ClassFingerprint = Fingerprint(
-    filters = listOf(
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;",
-            name = "d",
-        ),
-    ),
-)
-
-// mb90.c() is the only method that BOTH calls User.isVIP and reads
-// PurchaseType.TYPE_ROAMING_PKG; that combination is unique to mb90.
-private val mb90ClassFingerprint = Fingerprint(
-    filters = listOf(
-        methodCall(definingClass = "Lcom/p1/mobile/putong/data/User;", name = "isVIP"),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/PurchaseType;",
-            name = "TYPE_ROAMING_PKG",
-        ),
-    ),
-)
-
-// C8291a: Business entrance adapter - injects promotional items at top of conversation list
-// View types: 1 (See Who Liked Me "Match with them instantly"), 13, 14, 15, 47, 48
-// We patch the initialization method to prevent all business items from being added.
-private val businessEntranceAdapterFingerprint = Fingerprint(
-    filters = listOf(
-        string("open_fill_info_debug"),
-        methodCall(name = "clear"),
-    ),
-)
-
-// ── Stable-class fingerprints ──
-
-private val userIsUltraPremiumFingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "Z",
-    parameters = emptyList(),
-)
-
-private val userIsMembershipFingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "Z",
-    parameters = listOf("Lcom/p1/mobile/putong/data/MembershipType;"),
-)
-
-private val userNullCheckFingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "V",
-    parameters = emptyList(),
-)
-
-private val userGetVipExpireFingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "J",
-    parameters = emptyList(),
-)
-
-private val coreProductU4Fingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
-    returnType = "Z",
-    parameters = listOf("Ljava/lang/String;"),
-)
-
-private val coreProductZ4Fingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "Z",
-    parameters = emptyList(),
-)
-
-private val counterSuperlikeFingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "I",
-    parameters = emptyList(),
 )
 
 // ── CoreBusinessServiceIml: only the first 3 parameter types are stable ──
@@ -811,221 +501,12 @@ private val xmaA4Fingerprint = Fingerprint(
     filters = listOf(string("unknown_")),
 )
 
-// Server refresh (instance no-arg → Lrx/c;): patch → null. Matches u4 and x4.
-private val xmaServerRefreshFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "Lrx/c;",
-    parameters = emptyList(),
-    filters = listOf(string("/summarized-privileges")),
-)
-
-// L3 (static no-arg → Z, calls ura.e().d().h5()): patch → true
-private val xmaL3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(methodCall(name = "h5")),
-)
-
-// m4 (static no-arg → Z, loads "vip"): patch → true (VIP override)
-private val xmaM4Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("vip")),
-)
-
-// J3 (instance no-arg → Z, loads "intlReadMessage"): patch → true
-private val xmaJ3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("intlReadMessage")),
-)
-
-// K3 (instance no-arg → Z, loads "revokeUnPair"): patch → false
-private val xmaK3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("revokeUnPair")),
-)
-
-// S3-style wrappers (static no-arg → Z, unique product key): patch → false
-private val xmaWrapperW3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("unlimitedSwipes")),
-)
-
-// oDiamond methods (F3, X3, Y3) are handled by direct iteration below
-// because they all contain the "oDiamond" string and need to be distinguished
-// by bytecode shape (see the oDiamond methods section in the xma patch block).
-
-private val xmaWrapperD4Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("roaming")),
-)
-
-private val xmaWrapperI4Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("superLikeMembership")),
-)
-
-private val xmaWrapperL4Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("undoMembership")),
-)
-
-private val xmaWrapperH4Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("seeWhoLikedMe")),
-)
-
-private val xmaWrapperJ4Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("ultraPremium")),
-)
-
-private val xmaWrapperZ3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("platinum")),
-)
-
-private val xmaWrapperB3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(methodCall(name = "TEnum")),
-)
-
-// e4 and f4 both load "svip"; patches both → false
-private val xmaWrapperSvipFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("svip")),
-)
-
 // Credit-count methods (static no-arg → I): patch → 200000
 private val xmaCreditCountFingerprint = Fingerprint(
     classFingerprint = xmaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "I",
     parameters = emptyList(),
-)
-
-// Dev2 privilege wrappers (static no-arg → Z, unique product key)
-// These follow the same pattern as existing xma wrappers (e.g., unlimitedSwipes, roaming).
-// S3-style wrappers return TRUE when EXPIRED → patch to FALSE (privilege is active).
-// !S3-style wrappers return TRUE when ACTIVE → patch to TRUE.
-
-// message_read_state: S3-style (returns TRUE when expired) → false
-private val xmaWrapperMessageReadStateFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("message_read_state")),
-)
-
-// top_like: S3-style → false
-private val xmaWrapperTopLikeFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("top_like")),
-)
-
-// top_chat: S3-style → false
-private val xmaWrapperTopChatFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("top_chat")),
-)
-
-// premium_compliment: S3-style → false
-private val xmaWrapperPremiumComplimentFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("premium_compliment")),
-)
-
-// city_topping: S3-style → false
-private val xmaWrapperCityToppingFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("city_topping")),
-)
-
-// exclusive_dressing_up: S3-style → false
-private val xmaWrapperExclusiveDressingFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("exclusive_dressing_up")),
-)
-
-// leave_message: S3-style → false
-private val xmaWrapperLeaveMessageFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("leave_message")),
-)
-
-// live_entry_animation: S3-style → false
-private val xmaWrapperLiveEntryAnimationFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("live_entry_animation")),
-)
-
-// block_harassing_words: S3-style → false
-private val xmaWrapperBlockHarassingWordsFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("block_harassing_words")),
 )
 
 // ── Other class fingerprints ──
@@ -1274,25 +755,6 @@ private val tm90GFingerprint = Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC),
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
-)
-
-// mb90.b(PurchaseType) → true (purchase active)
-private val mb90BFingerprint = Fingerprint(
-    classFingerprint = mb90ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = listOf("Lcom/p1/mobile/putong/core/data/PurchaseType;"),
-)
-
-// mb90.c(User, PurchaseType) → true
-private val mb90CFingerprint = Fingerprint(
-    classFingerprint = mb90ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = listOf(
-        "Lcom/p1/mobile/putong/data/User;",
-        "Lcom/p1/mobile/putong/core/data/PurchaseType;",
-    ),
 )
 
 // pib.g9(String, User) fingerprint REMOVED for 7.3.3
@@ -2265,9 +1727,52 @@ val premiumUnlockPatch = bytecodePatch(
 
         val resolved = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
 
+        val anchorStrings = setOf(
+            "/summarized-privileges?with=diamond",
+            "intl_receive_like_guide_get", "receive_like_guide_get",
+            "fake_conversation_surprise_gift_box", "fake_conversation_profile_like_enter",
+            "fake_conversation_greeting", "conversation_feed_state", "meet_entrance",
+            "fake_conversation_local_instant_chat_conversation", "fake_conversation_anonymous_greeting",
+            "fake_conversation_local_team_group_conversation", "fake_conversation_local_limited_trial_see_fold",
+            "intlSeeChatRequest", "intl_chat_request_insert_users", "fake_conversation_oof_pick",
+            "matched", "intl_sl_guide_config", "intl_good_c_bage_config",
+            "e_intl_spotlight_activity_card", "ttt_membership_price_diff", "seeUpgradeToPremium",
+            "e_vip_banner", "vas_commercial_card_right_slide_strategy", "暂未激活黑金会员",
+            "picksUser id is not found in users : ", "open_fill_info_debug",
+            "fromWhoLikedMe", "e_red_dot_message_see",
+        )
+        val anchorFieldNames = setOf(
+            "likersLimit", "secretCrushLimit", "surpriseGiftExpirationTime",
+            "TYPE_ROAMING_PKG", "INTL_SEE_ANIM_BUBBLE", "SEE_ANIM",
+            "localRelationship",
+        )
+        val anchorMethodNames = setOf(
+            "S6", "u6", "isSupremePartnerOpenMystery", "isHideIconFromSVipWithMe",
+            "isVIP", "d", "clear",
+        )
+
         classDefForEach { classDef ->
             val classType = classDef.type
             val isSettingsUi = classType.startsWith("Lcom/p1/mobile/putong/core/ui/settings/")
+
+            var hasAnchorString = false
+            var hasAnchorField = false
+            var hasAnchorMethod = false
+
+            classDef.methods.forEach { method ->
+                if (hasAnchorString && hasAnchorField && hasAnchorMethod) return@forEach
+                instructionsOf(method).forEach { instr ->
+                    if (instr is ReferenceInstruction) {
+                        when (val ref = instr.reference) {
+                            is StringReference -> if (!hasAnchorString && ref.string in anchorStrings) hasAnchorString = true
+                            is FieldReference -> if (!hasAnchorField && ref.name in anchorFieldNames) hasAnchorField = true
+                            is MethodReference -> if (!hasAnchorMethod && ref.name in anchorMethodNames) hasAnchorMethod = true
+                        }
+                    }
+                }
+            }
+
+            if (!hasAnchorString && !hasAnchorField && !hasAnchorMethod) return@classDefForEach
 
             val strings = mutableSetOf<String>()
             val methodCallFull = mutableSetOf<String>()
@@ -2392,10 +1897,11 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         resolved["xma"]?.let { xmaClassDef ->
+            val mutableXma = mutableClassDefBy(xmaClassDef)
             xmaS3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
-            mutableClassDefBy(xmaClassDef).methods.forEach { method ->
+            mutableXma.methods.forEach { method ->
                 if (method.isStaticSummarizedPrivilegesIdReturnBool() && !method.callsGuessedCurrentServerTime()) {
                     method.addInstructions(0, RETURN_TRUE)
                 }
@@ -2415,7 +1921,7 @@ val premiumUnlockPatch = bytecodePatch(
             xmaT3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
             }
-            mutableClassDefBy(xmaClassDef).methods.forEach { method ->
+            mutableXma.methods.forEach { method ->
                 if (method.isStaticUserPrivilegeReturnBool() && !method.callsGuessedCurrentServerTime()) {
                     method.addInstructions(0, RETURN_TRUE)
                 }
@@ -2439,7 +1945,7 @@ val premiumUnlockPatch = bytecodePatch(
                 "revokeUnPair" to false
             )
 
-            mutableClassDefBy(xmaClassDef).methods
+            mutableXma.methods
                 .filter { it.isStaticNoArgReturnBool() || (it.parameterTypes.isEmpty() && it.returnType == "Z") }
                 .forEach { method ->
                     when {
@@ -2463,7 +1969,7 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
 
-            mutableClassDefBy(xmaClassDef).methods
+            mutableXma.methods
                 .filter { it.isStaticNoArgReturnBool() }
                 .filter { it.containsString("oDiamond") }
                 .forEach { method ->

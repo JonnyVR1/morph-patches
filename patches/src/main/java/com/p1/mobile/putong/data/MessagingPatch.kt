@@ -1,17 +1,14 @@
 package com.p1.mobile.putong.data
 
-import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patcher.fieldAccess
-import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
+import java.util.concurrent.atomic.AtomicInteger
 
 private const val RETURN_TRUE = """
     const/4 v0, 0x1
@@ -32,152 +29,9 @@ private const val RETURN_INTEGER_9 = """
     return-object v0
 """
 
-private val j15ClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;",
-            name = "messageLimit",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;",
-            name = "perday",
-        ),
-    ),
-)
-
-private val rd6ClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/PlatinumPinChat;",
-            name = "expireTime",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/PlatinumPinChat;",
-            name = "pin",
-        ),
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
-            name = "getLevel",
-        ),
-    ),
-)
-
-private val h6wClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingVoiceBuzz",
-        ),
-        string("voiceBuzz"),
-        string("videoBuzz"),
-        string("memojiBuzz"),
-    ),
-)
-
-private val jlm0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingVoiceBuzz",
-        ),
-        methodCall(name = "getNOT_LIMIT_VALUE"),
-    ),
-)
-
-private val eii0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingTextBuzz",
-        ),
-        methodCall(name = "getNOT_LIMIT_VALUE"),
-    ),
-)
-
-private val q1l0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingVideoBuzz",
-        ),
-        methodCall(name = "getNOT_LIMIT_VALUE"),
-    ),
-)
-
-private val dgyClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingMemojiBuzz",
-        ),
-        methodCall(name = "getNOT_LIMIT_VALUE"),
-    ),
-)
-
-private val fczClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/KeepConnection;",
-            name = "chatTypingOpen",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/KeepConnection;",
-            name = "chatTypingInterval",
-        ),
-    ),
-)
-
-private val swh0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("tantan_coin_intl_letter_confirm_dialog_shown_"),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Privilege;",
-            name = "letter",
-        ),
-    ),
-)
-
-private val oxeClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/MsgIcebreakConfigV2;",
-            name = "iceBreakLastMessageShowCountLimit",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/newui/messages/util/ConversationCounterTypeSp;",
-            name = "iceBreakLastMessageShowCountLimit",
-        ),
-    ),
-)
-
 private const val FREE_GIFT_INFO_CLASS = "Lcom/p1/mobile/putong/core/data/FreeGiftInfo;"
-
 private const val MESSAGE_CLASS = "Lcom/p1/mobile/putong/core/data/Message;"
 private const val MESSAGE_SETTING_CLASS = "Lcom/p1/mobile/putong/core/data/MessageSetting;"
-
-private val chatGameInfoClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/ChatGameInfo;",
-            name = "enable",
-        ),
-        string("chatgameinfo"),
-    ),
-)
-
-private val jailedGroupChatClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/JailedGroupChat;",
-            name = "active",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/JailedGroupChat;",
-            name = "expireTime",
-        ),
-        methodCall(name = "m174454o"),
-    ),
-)
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
 
@@ -224,8 +78,14 @@ val messagingPatch = bytecodePatch(
         }
 
         val resolved = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
+        val resolvedCount = AtomicInteger(0)
+        val totalTargets = 12
 
         classDefForEach { classDef ->
+            if (resolvedCount.get() >= totalTargets) {
+                return@classDefForEach
+            }
+
             val strings = mutableSetOf<String>()
             val fieldAccessFull = mutableSetOf<String>()
             val methodCallFull = mutableSetOf<String>()
@@ -248,10 +108,13 @@ val messagingPatch = bytecodePatch(
                 }
             }
 
+            var newlyResolved = 0
+
             if ("j15" !in resolved &&
                 "Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;.messageLimit" in fieldAccessFull &&
                 "Lcom/p1/mobile/putong/core/data/ChatPartnerConfig;.perday" in fieldAccessFull) {
                 resolved["j15"] = classDef
+                newlyResolved++
             }
 
             if ("rd6" !in resolved &&
@@ -259,6 +122,7 @@ val messagingPatch = bytecodePatch(
                 "Lcom/p1/mobile/putong/core/data/PlatinumPinChat;.pin" in fieldAccessFull &&
                 "Lcom/p1/mobile/putong/core/data/Conversation;.getLevel" in methodCallFull) {
                 resolved["rd6"] = classDef
+                newlyResolved++
             }
 
             if ("h6w" !in resolved &&
@@ -267,54 +131,63 @@ val messagingPatch = bytecodePatch(
                 "videoBuzz" in strings &&
                 "memojiBuzz" in strings) {
                 resolved["h6w"] = classDef
+                newlyResolved++
             }
 
             if ("jlm0" !in resolved &&
                 "Lcom/p1/mobile/putong/core/data/LoveBuzzData;.remainingVoiceBuzz" in fieldAccessFull &&
                 "getNOT_LIMIT_VALUE" in methodCallNames) {
                 resolved["jlm0"] = classDef
+                newlyResolved++
             }
 
             if ("eii0" !in resolved &&
                 "Lcom/p1/mobile/putong/core/data/LoveBuzzData;.remainingTextBuzz" in fieldAccessFull &&
                 "getNOT_LIMIT_VALUE" in methodCallNames) {
                 resolved["eii0"] = classDef
+                newlyResolved++
             }
 
             if ("q1l0" !in resolved &&
                 "Lcom/p1/mobile/putong/core/data/LoveBuzzData;.remainingVideoBuzz" in fieldAccessFull &&
                 "getNOT_LIMIT_VALUE" in methodCallNames) {
                 resolved["q1l0"] = classDef
+                newlyResolved++
             }
 
             if ("dgy" !in resolved &&
                 "Lcom/p1/mobile/putong/core/data/LoveBuzzData;.remainingMemojiBuzz" in fieldAccessFull &&
                 "getNOT_LIMIT_VALUE" in methodCallNames) {
                 resolved["dgy"] = classDef
+                newlyResolved++
             }
 
             if ("fcz" !in resolved &&
                 "Lcom/p1/mobile/putong/core/data/KeepConnection;.chatTypingOpen" in fieldAccessFull &&
                 "Lcom/p1/mobile/putong/core/data/KeepConnection;.chatTypingInterval" in fieldAccessFull) {
                 resolved["fcz"] = classDef
+                newlyResolved++
             }
 
             if ("swh0" !in resolved &&
                 "tantan_coin_intl_letter_confirm_dialog_shown_" in strings &&
                 "Lcom/p1/mobile/putong/core/data/Privilege;.letter" in fieldAccessFull) {
                 resolved["swh0"] = classDef
+                newlyResolved++
             }
 
             if ("oxe" !in resolved &&
                 "Lcom/p1/mobile/putong/core/data/MsgIcebreakConfigV2;.iceBreakLastMessageShowCountLimit" in fieldAccessFull &&
                 "Lcom/p1/mobile/putong/core/newui/messages/util/ConversationCounterTypeSp;.iceBreakLastMessageShowCountLimit" in fieldAccessFull) {
                 resolved["oxe"] = classDef
+                newlyResolved++
             }
 
             if ("chatGameInfo" !in resolved &&
                 "Lcom/p1/mobile/putong/core/data/ChatGameInfo;.enable" in fieldAccessFull &&
                 "chatgameinfo" in strings) {
                 resolved["chatGameInfo"] = classDef
+                newlyResolved++
             }
 
             if ("jailedGroupChat" !in resolved &&
@@ -322,6 +195,11 @@ val messagingPatch = bytecodePatch(
                 "Lcom/p1/mobile/putong/data/JailedGroupChat;.expireTime" in fieldAccessFull &&
                 "m174454o" in methodCallNames) {
                 resolved["jailedGroupChat"] = classDef
+                newlyResolved++
+            }
+
+            if (newlyResolved > 0) {
+                resolvedCount.addAndGet(newlyResolved)
             }
         }
 
@@ -411,21 +289,17 @@ val messagingPatch = bytecodePatch(
         }
 
         resolved["swh0"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods.forEach { method ->
+                when {
                     method.name == "G" &&
                         method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z"
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
+                        method.returnType == "Z" -> method.addInstructions(0, RETURN_TRUE)
                     method.name == "x" &&
                         method.parameterTypes.size == 1 &&
-                        method.returnType == "Z"
+                        method.returnType == "Z" -> method.addInstructions(0, RETURN_TRUE)
                 }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            }
         }
 
         resolved["oxe"]?.let { classDef ->

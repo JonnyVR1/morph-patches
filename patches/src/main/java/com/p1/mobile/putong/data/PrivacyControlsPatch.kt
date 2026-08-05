@@ -3,7 +3,6 @@ package com.p1.mobile.putong.data
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.fieldAccess
-import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
@@ -89,33 +88,13 @@ private val svipPrivacyHideLocationClassFingerprint = Fingerprint(
     ),
 )
 
-private val userPrivacyHideContactsClassFingerprint = Fingerprint(
+private val userPrivacySettingsClassFingerprint = Fingerprint(
     filters = listOf(
         fieldAccess(
             definingClass = "Lcom/p1/mobile/putong/data/UserPrivacySettings;",
             name = "hideContacts",
         ),
         string("hideContacts"),
-    ),
-)
-
-private val userPrivacyHideMutualContactsClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/UserPrivacySettings;",
-            name = "hideMutualContacts",
-        ),
-        string("hideMutualContacts"),
-    ),
-)
-
-private val userPrivacyHideSchoolClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/UserPrivacySettings;",
-            name = "hideSchool",
-        ),
-        string("hideSchool"),
     ),
 )
 
@@ -129,29 +108,34 @@ private val settingsMomentClassFingerprint = Fingerprint(
     ),
 )
 
-private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingClass: String, fieldName: String): Boolean =
-    this.implementation?.instructions?.any { instr ->
-        instr is ReferenceInstruction &&
-            instr.reference is FieldReference &&
-            (instr.reference as FieldReference).definingClass == definingClass &&
-            (instr.reference as FieldReference).name == fieldName
-    } ?: false
+private data class MethodAnalysis(
+    val strings: Set<String>,
+    val methodNames: Set<String>,
+    val fieldAccesses: Set<Pair<String, String>>,
+)
 
-// ── Helpers ──
+private fun com.android.tools.smali.dexlib2.iface.Method.analyze(): MethodAnalysis {
+    val strings = mutableSetOf<String>()
+    val methodNames = mutableSetOf<String>()
+    val fieldAccesses = mutableSetOf<Pair<String, String>>()
 
-private fun com.android.tools.smali.dexlib2.iface.Method.callsMethodNamed(name: String): Boolean =
-    this.implementation?.instructions?.any { instr ->
-        instr is ReferenceInstruction &&
-            instr.reference is MethodReference &&
-            (instr.reference as MethodReference).name == name
-    } ?: false
+    this.implementation?.instructions?.forEach { instr ->
+        if (instr is ReferenceInstruction) {
+            when (val ref = instr.reference) {
+                is StringReference -> strings.add(ref.string)
+                is MethodReference -> methodNames.add(ref.name)
+                is FieldReference -> fieldAccesses.add(ref.definingClass to ref.name)
+            }
+        }
+    }
 
-private fun com.android.tools.smali.dexlib2.iface.Method.containsString(str: String): Boolean =
-    this.implementation?.instructions?.any { instr ->
-        instr is ReferenceInstruction &&
-            instr.reference is StringReference &&
-            (instr.reference as StringReference).string == str
-    } ?: false
+    return MethodAnalysis(strings, methodNames, fieldAccesses)
+}
+
+private fun MethodAnalysis.containsString(str: String): Boolean = str in strings
+private fun MethodAnalysis.callsMethodNamed(name: String): Boolean = name in methodNames
+private fun MethodAnalysis.accessesField(definingClass: String, fieldName: String): Boolean =
+    (definingClass to fieldName) in fieldAccesses
 
 @Suppress("unused")
 @JvmField
@@ -162,68 +146,115 @@ val privacyControlsPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        // ── Pass 1: Stable classes ──
+        val stableClassTargets = setOf(
+            "Lcom/p1/mobile/putong/core/ui/settings/filter/newui/HiddenNearByView;",
+            "Lcom/p1/mobile/putong/core/ui/visitor/myvisitors/MyVisitorsItemView;",
+            "Lcom/p1/mobile/putong/core/ui/vip/privilege/dlg/PrivilegeContentDlgItemView;",
+            "Lcom/p046p1/mobile/putong/core/p053ui/messages/view/IntlMessageReadReceiptsView;",
+            BLIVE_COMMON_CONFIG_CLASS,
+            PERMISSION_HELPER_CLASS,
+        )
+        var stableFound = 0
+
         classDefForEach { classDef ->
-            // HiddenNearByView: stable CamelCase class
-            // The m(View) click handler checks xj()/L3()/f3() before toggling.
-            // xma.L3() is already patched TRUE in PremiumUnlockPatch, so the toggle
-            // always happens. As a safeguard, patch s() (the purchase dialog path)
-            // to RETURN_VOID so even if the gate logic changes, no dialog appears.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/ui/settings/filter/newui/HiddenNearByView;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "s" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
+            if (classDef.type !in stableClassTargets) return@classDefForEach
+            val mutableClass = mutableClassDefBy(classDef)
 
-            // MyVisitorsItemView: stable class for visitor footprint
-            // Patches the click handler that calls wh() with visitor_hide_footprint
-            // to RETURN_VOID, preventing the purchase dialog from appearing.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/ui/visitor/myvisitors/MyVisitorsItemView;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.containsString("p_navigation_visit,isee") &&
-                        method.containsString("visitor_hide_footprint") &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
+            when (classDef.type) {
+                "Lcom/p1/mobile/putong/core/ui/settings/filter/newui/HiddenNearByView;" -> {
+                    mutableClass.methods.forEach { method ->
+                        if (method.name == "s" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                            method.addInstructions(0, RETURN_VOID)
+                        }
                     }
+                    stableFound++
                 }
-            }
 
-            // PrivilegeContentDlgItemView: displays privilege details
-            // Patch the Hm() calls for our target privileges to prevent
-            // purchase dialog redirects from the privilege detail UI.
-            if (classDef.type == "Lcom/p1/mobile/putong/core/ui/vip/privilege/dlg/PrivilegeContentDlgItemView;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    val targetsPrivacyPrivilege = method.containsString("mysterious_mode") ||
-                        method.containsString("visitor_hide_footprint") ||
-                        method.containsString("nearby_people") ||
-                        method.containsString("hide_me_from_nearby")
-                    if (targetsPrivacyPrivilege &&
-                        method.callsMethodNamed("Hm") &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
+                "Lcom/p1/mobile/putong/core/ui/visitor/myvisitors/MyVisitorsItemView;" -> {
+                    mutableClass.methods.forEach { method ->
+                        val analysis = method.analyze()
+                        if (analysis.containsString("p_navigation_visit,isee") &&
+                            analysis.containsString("visitor_hide_footprint") &&
+                            method.returnType == "V"
+                        ) {
+                            method.addInstructions(0, RETURN_VOID)
+                        }
                     }
+                    stableFound++
+                }
+
+                "Lcom/p1/mobile/putong/core/ui/vip/privilege/dlg/PrivilegeContentDlgItemView;" -> {
+                    mutableClass.methods.forEach { method ->
+                        val analysis = method.analyze()
+                        val targetsPrivacyPrivilege = analysis.containsString("mysterious_mode") ||
+                            analysis.containsString("visitor_hide_footprint") ||
+                            analysis.containsString("nearby_people") ||
+                            analysis.containsString("hide_me_from_nearby")
+                        if (targetsPrivacyPrivilege && analysis.callsMethodNamed("Hm") && method.returnType == "V") {
+                            method.addInstructions(0, RETURN_VOID)
+                        }
+                    }
+                    stableFound++
+                }
+
+                "Lcom/p046p1/mobile/putong/core/p053ui/messages/view/IntlMessageReadReceiptsView;" -> {
+                    mutableClass.methods.forEach { method ->
+                        val analysis = method.analyze()
+                        if (analysis.containsString("bubble_key_intl_read_receipts") && method.returnType == "V") {
+                            method.addInstructions(0, RETURN_VOID)
+                        }
+                    }
+                    stableFound++
+                }
+
+                BLIVE_COMMON_CONFIG_CLASS -> {
+                    mutableClass.methods.forEach { method ->
+                        if (method.name == "nullCheck" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                            method.addInstructions(0, """
+                                const/4 v0, 0x1
+                                iput-boolean v0, p0, Lcom/p1/mobile/putong/live/base/data/BLiveCommonConfig;->on:Z
+                            """)
+                        }
+                    }
+                    stableFound++
+                }
+
+                PERMISSION_HELPER_CLASS -> {
+                    mutableClass.methods.forEach { method ->
+                        if (method.name == "b" &&
+                            method.parameterTypes.size == 1 &&
+                            method.parameterTypes[0] == "[Ljava/lang/String;" &&
+                            method.returnType == "Z" &&
+                            AccessFlags.STATIC.isSet(method.accessFlags)
+                        ) {
+                            method.addInstructions(0, """
+                                array-length v0, p0
+                                if-eqz v0, :cont
+                                const/4 v1, 0x0
+                                aget-object v1, p0, v1
+                                const-string v2, "android.permission.READ_CONTACTS"
+                                invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                                move-result v1
+                                if-eqz v1, :cont
+                                const/4 v0, 0x0
+                                return v0
+                                :cont
+                            """)
+                        }
+                    }
+                    stableFound++
                 }
             }
         }
 
-        // ── Pass 2: Obfuscated classes resolved via fingerprints ──
+        // ── Obfuscated classes resolved via fingerprints ──
 
-        // vo50: OnlineZone view — nearby_people gate
-        // The f() method checks D9()/bg() before showing purchase dialog.
-        // D9()=FALSE and bg()=FALSE already cause fallthrough to direct access.
-        // Patch as safeguard: neutralize the gate method so it always loads directly.
         nearbyPeopleOnlineClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.containsString("p_home_nearby,online") &&
-                    method.containsString("nearby_people") &&
-                    (method.callsMethodNamed("D9") || method.callsMethodNamed("bg")) &&
+                val analysis = method.analyze()
+                if (analysis.containsString("p_home_nearby,online") &&
+                    analysis.containsString("nearby_people") &&
+                    (analysis.callsMethodNamed("D9") || analysis.callsMethodNamed("bg")) &&
                     method.returnType == "V"
                 ) {
                     method.addInstructions(0, RETURN_VOID)
@@ -231,15 +262,12 @@ val privacyControlsPatch = bytecodePatch(
             }
         }
 
-        // k7y: NearbyPresenter — nearby_people gate via Fs()
-        // The method checks !Fs() before showing purchase dialog.
-        // Fs()=TRUE (via zb90.h()→xma.L3()→TRUE) already prevents the dialog.
-        // Patch as safeguard: neutralize the gate method.
         nearbyPeopleMeetClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.containsString("p_meet_nearby,default") &&
-                    method.containsString("nearby_people") &&
-                    method.callsMethodNamed("Fs") &&
+                val analysis = method.analyze()
+                if (analysis.containsString("p_meet_nearby,default") &&
+                    analysis.containsString("nearby_people") &&
+                    analysis.callsMethodNamed("Fs") &&
                     method.returnType == "V"
                 ) {
                     method.addInstructions(0, RETURN_VOID)
@@ -247,13 +275,12 @@ val privacyControlsPatch = bytecodePatch(
             }
         }
 
-        // l920: NearbyPresenter view — nearby_people gate via D9()/bg()
-        // Same pattern as vo50. The a() method checks D9()/bg() before purchase dialog.
         nearbyPeoplePresenterClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.containsString("p_suggest_nearby") &&
-                    method.containsString("nearby_people") &&
-                    (method.callsMethodNamed("D9") || method.callsMethodNamed("bg")) &&
+                val analysis = method.analyze()
+                if (analysis.containsString("p_suggest_nearby") &&
+                    analysis.containsString("nearby_people") &&
+                    (analysis.callsMethodNamed("D9") || analysis.callsMethodNamed("bg")) &&
                     method.returnType == "V"
                 ) {
                     method.addInstructions(0, RETURN_VOID)
@@ -261,14 +288,12 @@ val privacyControlsPatch = bytecodePatch(
             }
         }
 
-        // Visitor footprint gate classes (c220/h120)
-        // These call wh() with visitor_hide_footprint to show purchase dialogs.
-        // Patch to RETURN_VOID to suppress the dialogs.
         visitorFootprintGateClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.containsString("visitor_hide_footprint") &&
-                    method.containsString("p_navigation_visit,isee") &&
-                    method.callsMethodNamed("wh") &&
+                val analysis = method.analyze()
+                if (analysis.containsString("visitor_hide_footprint") &&
+                    analysis.containsString("p_navigation_visit,isee") &&
+                    analysis.callsMethodNamed("wh") &&
                     method.returnType == "V"
                 ) {
                     method.addInstructions(0, RETURN_VOID)
@@ -276,96 +301,31 @@ val privacyControlsPatch = bytecodePatch(
             }
         }
 
-        // Read receipt purchase dialog (swh0)
-        // The D1() method shows p_purchase_read_receipt_confirm_popup dialog.
-        // Patch to RETURN_VOID to suppress the purchase dialog.
         readReceiptPurchaseDialogClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.containsString("p_purchase_read_receipt_confirm_popup") &&
-                    method.returnType == "V"
-                ) {
+                val analysis = method.analyze()
+                if (analysis.containsString("p_purchase_read_receipt_confirm_popup") && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
 
-        // ── Pass 3: Read receipt UI enhancements (stable CamelCase classes) ──
-        classDefForEach { classDef ->
-            // IntlMessageReadReceiptsView: stable class for read receipt display
-            // V() method shows the bubble guide promoting read receipts.
-            // Patch to RETURN_VOID to suppress the guide bubble.
-            if (classDef.type == "Lcom/p046p1/mobile/putong/core/p053ui/messages/view/IntlMessageReadReceiptsView;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.containsString("bubble_key_intl_read_receipts") &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // BLiveCommonConfig: stable class for live stealth privilege
-            // nullCheck() method initializes default values.
-            // Patch to set on = true, enabling all stealth features.
-            if (classDef.type == BLIVE_COMMON_CONFIG_CLASS) {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "nullCheck" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, """
-                            const/4 v0, 0x1
-                            iput-boolean v0, p0, Lcom/p1/mobile/putong/live/base/data/BLiveCommonConfig;->on:Z
-                        """)
-                    }
-                }
-            }
-        }
-
-        // ── Pass 4: Moment privacy and block harassing words ──
         settingsMomentClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.accessesField("Lcom/p1/mobile/putong/data/SettingsMoment;", "hidePublicMoments") &&
+                    val analysis = method.analyze()
+                    analysis.accessesField("Lcom/p1/mobile/putong/data/SettingsMoment;", "hidePublicMoments") &&
                         (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
                         method.parameterTypes.isEmpty()
                 }
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        // ── Pass 5: Contact Access Block ──
-        classDefForEach { classDef ->
-            if (classDef.type == PERMISSION_HELPER_CLASS) {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "b" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "[Ljava/lang/String;" &&
-                        method.returnType == "Z" &&
-                        AccessFlags.STATIC.isSet(method.accessFlags)
-                    ) {
-                        method.addInstructions(0, """
-                            array-length v0, p0
-                            if-eqz v0, :cont
-                            const/4 v1, 0x0
-                            aget-object v1, p0, v1
-                            const-string v2, "android.permission.READ_CONTACTS"
-                            invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-                            move-result v1
-                            if-eqz v1, :cont
-                            const/4 v0, 0x0
-                            return v0
-                            :cont
-                        """)
-                    }
-                }
-            }
-        }
-
-        // ── Pass 6: Location Privacy (Profile) ──
         privacyMembershipHideLocationClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.accessesField("Lcom/p1/mobile/putong/core/data/PrivacyMembershipSetting;", "hideLocation") &&
+                    val analysis = method.analyze()
+                    analysis.accessesField("Lcom/p1/mobile/putong/core/data/PrivacyMembershipSetting;", "hideLocation") &&
                         (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
                         method.parameterTypes.isEmpty()
                 }
@@ -375,40 +335,25 @@ val privacyControlsPatch = bytecodePatch(
         svipPrivacyHideLocationClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.accessesField("Lcom/p1/mobile/putong/data/SvipPrivacySettings;", "hideLocation") &&
+                    val analysis = method.analyze()
+                    analysis.accessesField("Lcom/p1/mobile/putong/data/SvipPrivacySettings;", "hideLocation") &&
                         (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
                         method.parameterTypes.isEmpty()
                 }
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        // ── Pass 7: Privacy Settings Force Enable ──
-        userPrivacyHideContactsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        // ── Privacy Settings Force Enable (single fingerprint, 3 fields) ──
+        val userPrivacyTargetFields = setOf("hideContacts", "hideMutualContacts", "hideSchool")
+        userPrivacySettingsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.accessesField("Lcom/p1/mobile/putong/data/UserPrivacySettings;", "hideContacts") &&
-                        (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-        }
-
-        userPrivacyHideMutualContactsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    method.accessesField("Lcom/p1/mobile/putong/data/UserPrivacySettings;", "hideMutualContacts") &&
-                        (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-        }
-
-        userPrivacyHideSchoolClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    method.accessesField("Lcom/p1/mobile/putong/data/UserPrivacySettings;", "hideSchool") &&
-                        (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
-                        method.parameterTypes.isEmpty()
+                    val returnType = method.returnType
+                    if ((returnType != "Ljava/lang/Boolean;" && returnType != "Z") || method.parameterTypes.isNotEmpty()) return@filter false
+                    val analysis = method.analyze()
+                    userPrivacyTargetFields.any { field ->
+                        analysis.accessesField("Lcom/p1/mobile/putong/data/UserPrivacySettings;", field)
+                    }
                 }
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
