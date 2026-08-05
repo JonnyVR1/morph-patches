@@ -2,6 +2,7 @@ package com.p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
@@ -87,6 +88,12 @@ private val deviceFingerprintHashClassFingerprint = Fingerprint(
 
 private val deviceInfoCollectorClassFingerprint = Fingerprint(
     filters = listOf(string("android_id"), string("wlan0/address")),
+)
+
+private val coreEventLoggerClassFingerprint = Fingerprint(
+    filters = listOf(
+        methodCall(definingClass = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"),
+    ),
 )
 
 @Suppress("unused")
@@ -442,6 +449,109 @@ val analyticsDisablePatch = bytecodePatch(
 
                     method.returnType == "Z" &&
                     method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
+        // Core Event Logger (i4g0) - central analytics hub, ALL app analytics flow through this class
+        coreEventLoggerClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // MEStatistics - live streaming performance analytics
+        classDefByOrNull("Lcom/momo/xengine/mestatistics/MEStatisticsImpl;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.name in setOf("init", "flush", "report", "realTimeReport",
+                                        "setMMCVVersion", "setMagicEffectVersion",
+                                        "setRecorderSDKVersion", "setUID", "setXEngineVersion") &&
+                    method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // AppOpenWayStats - app launch tracking
+        classDefByOrNull("Lcom/p1/mobile/putong/app/statistics/AppOpenWayStats;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // FPS Monitor (Beatles SDK) - UI frame rate monitoring
+        classDefByOrNull("Lcom/tantanapp/beatles/fpsmonitor/FpsMonitor;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ANR Monitor (Beatles SDK) - Application Not Responding detection
+        classDefByOrNull("Lcom/tantanapp/beatles/anrmonitor/C13704a;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.name == "run" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // SVGA Cache Tracker - animation cache metrics
+        classDefByOrNull("Lcom/tantan/library/svga/tracker/CacheTrackerManager;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ByteDance Performance Monitor - device performance metrics
+        classDefByOrNull("Lcom/bytedance/realx/base/RXPerformanceMonitorAndroid;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.name == "getCurrentPidMemorySize" && method.returnType == "I" ->
+                        method.addInstructions(0, """
+                            const/4 v0, 0x0
+                            return v0
+                        """)
+
+                    method.name == "getJavaAppMemoryUsage" && method.returnType == "I" ->
+                        method.addInstructions(0, """
+                            const/4 v0, 0x0
+                            return v0
+                        """)
+
+                    method.name == "getIfRoomsDevice" && method.returnType == "Z" ->
+                        method.addInstructions(0, RETURN_FALSE)
+
+                    method.name in setOf("getMemoryState", "getThermalState", "getThreadCount") &&
+                    method.returnType == "I" ->
+                        method.addInstructions(0, """
+                            const/4 v0, 0x0
+                            return v0
+                        """)
+
+                    method.name == "setThermalState" && method.returnType == "V" ->
+                        method.addInstructions(0, RETURN_VOID)
                 }
             }
         }

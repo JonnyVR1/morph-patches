@@ -4,7 +4,7 @@
   "patches": [
     {
       "name": "Ad Removal",
-      "description": "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live square ads",
+      "description": "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -110,7 +110,7 @@
     },
     {
       "name": "Live Streaming Enhancement",
-      "description": "Live entry animation, push limit bypass, swipe card unlimited, chat rate limit removal, voice game access, all-day PK battles, gift leaderboard, knight privileges, entrance limits",
+      "description": "Live streaming enhancement: push limit bypass, swipe card unlimited, chat rate limit removal, voice game access, all-day PK battles, gift leaderboard, knight privileges, entrance limits, permission control, daily payment, noble config, stealth privacy, video chat, voice features, monetization, game operations, star toggle",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -188,7 +188,7 @@
     },
     {
       "name": "Privacy Controls",
-      "description": "Unlocks privacy features: hide from nearby, visitor footprint hiding, mysterious mode, nearby people access, read receipt unlock, read receipt dialog suppression, contact access block, location privacy, privacy settings force enable, hide activity time, hide age, hide icon, frozen activity, frozen time, hide distance, core service privacy gate, hide active from SVip, disable ad suggestions, live stealth privacy, online status visibility",
+      "description": "Unlocks privacy features: hide from nearby, visitor footprint hiding, mysterious mode, nearby people access, read receipt unlock, read receipt dialog suppression, contact access block, location privacy, privacy settings force enable, hide activity time, hide age, hide icon, frozen activity, frozen time, hide distance, core service privacy gate, hide active from SVip, disable ad suggestions, live stealth privacy, online status visibility, hide VIP badge, heartbeat disable, verified user messages, online reminder, unreplied reminder, greeting do not disturb, only show about me inside",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -214,7 +214,7 @@
     },
     {
       "name": "Privacy Enhancement",
-      "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking",
+      "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, Facebook SDK emulator detection bypass, APK signature verification bypass, package enumeration prevention",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [

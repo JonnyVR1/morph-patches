@@ -1021,9 +1021,13 @@ val premiumUnlockPatch = bytecodePatch(
                              method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
                              method.addInstructions(0, RETURN_TRUE)
                          }
-                          method.name == "isODiamond" &&
-                              method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                              method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                        method.name == "isODiamond" &&
+                            method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                        }
+                        method.name == "isBlackDiamondVIP" &&
+                            method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
         // ── Messages tab promotional content suppression ──────────────────────
 
         // ConversationHeadRecommendLayout.f0(): data source for head carousel
@@ -1382,6 +1386,41 @@ val premiumUnlockPatch = bytecodePatch(
                             method.addInstructions(0, RETURN_INTEGER_18)
                         }
                         method.name == "userIsODiamond" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                        method.name == "getSearchRadius" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, RETURN_INTEGER_200000)
+                        }
+                        method.name == "getSearchMaxAge" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, RETURN_INTEGER_100)
+                        }
+                        method.name == "getSearchMinAge" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Ljava/lang/Integer;" -> {
+                            method.addInstructions(0, RETURN_INTEGER_18)
+                        }
+                        method.name == "isCityTop" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                        method.name == "isPlatinum" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                        method.name == "isSupremePartner" &&
+                            method.parameterTypes.isEmpty() &&
+                            method.returnType == "Z" -> {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                        method.name == "isSupremePartnerOpenMystery" &&
                             method.parameterTypes.isEmpty() &&
                             method.returnType == "Z" -> {
                             method.addInstructions(0, RETURN_TRUE)

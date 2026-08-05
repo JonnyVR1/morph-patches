@@ -236,6 +236,48 @@ val uiCleanupPatch = bytecodePatch(
                 }
             }
         }
+
+        val guideViewDescriptors = listOf(
+            "Lcom/p1/mobile/putong/core/newui/home/intlslguide/IntlSlGuideDialog;",
+            "Lcom/p1/mobile/putong/core/newui/profile/newme/ProfilePrivilegePayGuide;",
+            "Lcom/p1/mobile/putong/core/newui/boost/BoostGuidePushLayout;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;",
+            "Lcom/p1/mobile/putong/core/newui/messages/ConversationRealEcrGuideLayout;",
+            "Lcom/p1/mobile/putong/core/newui/femalevip/FemaleVipGuideCardView;",
+            "Lcom/p1/mobile/putong/core/newui/femalevip/FemaleVerificationGuideCardView;",
+            "Lcom/p1/mobile/putong/core/newui/home/card/expanded/view/ExpandedGuideLayout;",
+            "Lcom/p1/mobile/putong/core/newui/home/card/expanded/view/SuperLikeExpGuideView;",
+            "Lcom/p1/mobile/putong/core/newui/home/card/expanded/view/SuperLikeGuideView;",
+            "Lcom/p1/mobile/putong/core/newui/home/card/expanded/view/ExpandedIdealGuideLayout;",
+            "Lcom/p1/mobile/putong/core/newui/home/views/CardAuthenticationGuideView;",
+            "Lcom/p1/mobile/putong/core/ui/messages/ItemIntlReadReceiptsGuide;",
+            "Lcom/p1/mobile/putong/core/ui/messages/ItemPlatinumPinGuideMessage;",
+            "Lcom/p1/mobile/putong/core/ui/messages/ItemBlindBoxGuideView;",
+            "Lcom/p1/mobile/putong/core/ui/messages/question/MaleChatGuideView;",
+            "Lcom/p1/mobile/putong/core/ui/messages/ItemMomentGuide;",
+            "Lcom/p1/mobile/putong/core/ui/messages/ItemMomentPostGuide;",
+            "Lcom/p1/mobile/putong/core/ui/messages/ItemMomentGuidePhaseTwo;",
+            "Lcom/p1/mobile/putong/core/ui/messages/MessagePicLikeGuideLayout;",
+            "Lcom/p1/mobile/putong/core/ui/messages/view/MessageLoveLetterGuideView;",
+            "Lcom/p1/mobile/putong/core/ui/vip/letter/IntlVipLetterGuideViewForProfile;",
+            "Lcom/p1/mobile/putong/core/ui/vip/picks/view/PicksGuideView;",
+            "Lcom/p1/mobile/putong/core/ui/vip/picks/view/PicksGuideCarouselView;",
+            "Lcom/p1/mobile/putong/core/ui/purchase/CoinGuideView;",
+            "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEntranceGuideSigningView;",
+            "Lcom/p1/mobile/putong/core/ui/banner/DrawerBannersView;",
+            "Lcom/p1/mobile/putong/core/newui/intlmeet/tribe/IntlTribeGroupBanner;",
+            "Lcom/p1/mobile/putong/feed/newui/status/improve/FeedStatusPostGuidePopView;",
+            "Lcom/p1/mobile/putong/core/newui/profile/newmine/newprofile/view/UploadGuideImageView;",
+        )
+        guideViewDescriptors.forEach { descriptor ->
+            classDefByOrNull(descriptor)?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "onFinishInflate" && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
     }
 }
 

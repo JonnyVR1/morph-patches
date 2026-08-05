@@ -152,7 +152,7 @@ private fun MethodAnalysis.accessesField(definingClass: String, fieldName: Strin
 @JvmField
 val privacyControlsPatch = bytecodePatch(
     name = "Privacy Controls",
-    description = "Unlocks privacy features: hide from nearby, visitor footprint hiding, mysterious mode, nearby people access, read receipt unlock, read receipt dialog suppression, contact access block, location privacy, privacy settings force enable, hide activity time, hide age, hide icon, frozen activity, frozen time, hide distance, core service privacy gate, hide active from SVip, disable ad suggestions, live stealth privacy, online status visibility",
+    description = "Unlocks privacy features: hide from nearby, visitor footprint hiding, mysterious mode, nearby people access, read receipt unlock, read receipt dialog suppression, contact access block, location privacy, privacy settings force enable, hide activity time, hide age, hide icon, frozen activity, frozen time, hide distance, core service privacy gate, hide active from SVip, disable ad suggestions, live stealth privacy, online status visibility, hide VIP badge, heartbeat disable, verified user messages, online reminder, unreplied reminder, greeting do not disturb, only show about me inside",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -392,7 +392,7 @@ val privacyControlsPatch = bytecodePatch(
         }
 
         // ── Privacy Settings Force Enable (single fingerprint, 3 fields) ──
-        val userPrivacyTargetFields = setOf("hideContacts", "hideMutualContacts", "hideSchool", "hideActivityTime", "personalizeSuggest", "adsSuggest")
+        val userPrivacyTargetFields = setOf("hideContacts", "hideMutualContacts", "hideSchool", "hideActivityTime", "personalizeSuggest", "adsSuggest", "hideVIP", "heartbeatDisable", "verifiedUserMsg", "onlineReminder", "unrepliedReminder")
         userPrivacySettingsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
@@ -402,6 +402,28 @@ val privacyControlsPatch = bytecodePatch(
                     userPrivacyTargetFields.any { field ->
                         analysis.accessesField("Lcom/p1/mobile/putong/data/UserPrivacySettings;", field)
                     }
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/GreetingSetting;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    val returnType = method.returnType
+                    if ((returnType != "Ljava/lang/Boolean;" && returnType != "Z") || method.parameterTypes.isNotEmpty()) return@filter false
+                    val analysis = method.analyze()
+                    analysis.accessesField("Lcom/p1/mobile/putong/core/data/GreetingSetting;", "doNotDisturb")
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/data/Profile;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    val returnType = method.returnType
+                    if ((returnType != "Ljava/lang/Boolean;" && returnType != "Z") || method.parameterTypes.isNotEmpty()) return@filter false
+                    val analysis = method.analyze()
+                    analysis.accessesField("Lcom/p1/mobile/putong/data/Profile;", "onlyShowAboutMeInside")
                 }
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }

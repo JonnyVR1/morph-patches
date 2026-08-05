@@ -15,7 +15,7 @@ private const val RETURN_FALSE = """
 @JvmField
 val adRemovalPatch = bytecodePatch(
     name = "Ad Removal",
-    description = "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live square ads",
+    description = "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -164,6 +164,113 @@ val adRemovalPatch = bytecodePatch(
                         method.returnType == "V" -> {
                         method.addInstructions(0, RETURN_VOID)
                     }
+                    method.name == "b" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Landroid/view/View;" &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    method.name == "onFinishInflate" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemGoogleAdView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "<init>") return@forEach
+                when {
+                    method.name == "c" &&
+                        method.parameterTypes.size == 2 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/app/PutongAct;" &&
+                        method.parameterTypes[1] == "Z" &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    method.name == "onFinishInflate" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/admob/GoogleAdAct;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "<init>") return@forEach
+                when {
+                    method.name == "initSubscription" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/home/view/MarryAdCardView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "<init>") return@forEach
+                when {
+                    method.name == "h" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    method.name == "onFinishInflate" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/home/view/FourSelectOneAdCard;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "<init>") return@forEach
+                when {
+                    method.name == "f" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "I" &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    method.name == "onFinishInflate" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/home/view/DailySelectionAdCardView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "<init>") return@forEach
+                when {
+                    method.name == "h" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    method.name == "onFinishInflate" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/intl/visitor/IntlVisitorAdmobItemView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "<init>") return@forEach
+                when {
                     method.name == "b" &&
                         method.parameterTypes.size == 1 &&
                         method.parameterTypes[0] == "Landroid/view/View;" &&

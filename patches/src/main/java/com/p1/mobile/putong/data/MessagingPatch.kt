@@ -51,6 +51,11 @@ private const val RETURN_INT_9999 = """
     return v0
 """
 
+private const val RETURN_LONG_MAX = """
+    const-wide v0, 0x7fffffffffffffffL
+    return-wide v0
+"""
+
 private const val CHAT_PARTNER_CONFIG_NULL_CHECK_BODY = """
     if-eqz p0, :cpc_skip
     const v0, 0xf423f
@@ -139,6 +144,13 @@ private const val RECALL_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/RecallC
 private const val GROUP_CREATION_LIMIT_CLASS = "Lcom/p1/mobile/putong/core/data/GroupCreationLimit;"
 private const val LIVE_CHAT_LIMIT_CLASS = "Lcom/p1/mobile/putong/data/LiveChatLimit;"
 private const val MESSAGE_FILTER_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/MessageFilterConfig;"
+private const val MSG_ICEBREAK_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/MsgIcebreakConfig;"
+private const val MSG_ICEBREAK_CONFIG_V2_CLASS = "Lcom/p1/mobile/putong/core/data/MsgIcebreakConfigV2;"
+private const val GREETING_PERMISSION_CLASS = "Lcom/p1/mobile/putong/core/data/GreetingPermission;"
+private const val GREETING_PERMISSION_FEED_CLASS = "Lcom/p1/mobile/putong/feed/data/GreetingPermission;"
+private const val CHAT_ROUNDS_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/ChatRoundsDisplayedExternallyConfig;"
+private const val QUICK_CHAT_LOFT_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/QuickChatLoftConfig;"
+private const val CONTINUOUS_CHAT_CLASS = "Lcom/p1/mobile/putong/core/data/ContinuousChat;"
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
 
@@ -416,6 +428,100 @@ val messagingPatch = bytecodePatch(
                         method.parameterTypes.isEmpty()
                 }
                 .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
+
+        classDefByOrNull(MSG_ICEBREAK_CONFIG_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.accessesField(MSG_ICEBREAK_CONFIG_CLASS, "enable") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        classDefByOrNull(MSG_ICEBREAK_CONFIG_V2_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.accessesField(MSG_ICEBREAK_CONFIG_V2_CLASS, "enable") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        classDefByOrNull(GREETING_PERMISSION_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.accessesField(GREETING_PERMISSION_CLASS, "enable") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        classDefByOrNull(GREETING_PERMISSION_FEED_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.accessesField(GREETING_PERMISSION_FEED_CLASS, "enable") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        classDefByOrNull(CHAT_ROUNDS_CONFIG_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.accessesField(CHAT_ROUNDS_CONFIG_CLASS, "enabled") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        classDefByOrNull(QUICK_CHAT_LOFT_CONFIG_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.accessesField(QUICK_CHAT_LOFT_CONFIG_CLASS, "online_count_max") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
+
+        classDefByOrNull(CONTINUOUS_CHAT_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.accessesField(CONTINUOUS_CHAT_CLASS, "days") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.accessesField(CONTINUOUS_CHAT_CLASS, "lastTime") &&
+                        method.returnType == "J" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_LONG_MAX) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.accessesField(CONTINUOUS_CHAT_CLASS, "todayMM") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_999) }
         }
 
         // NOTE: nullCheck() methods are empty no-ops in the original APK - no patching needed
