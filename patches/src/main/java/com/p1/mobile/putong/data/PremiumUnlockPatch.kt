@@ -1323,7 +1323,7 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes.isEmpty() &&
                         method.returnType == "V"
                     ) {
-                        method.addInstructions(0, GREETING_COUNTER_NULL_CHECK_BODY)
+                        method.addInstructions(0, RETURN_VOID)
                     }
                 }
             }
@@ -1335,7 +1335,7 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes.isEmpty() &&
                         method.returnType == "V"
                     ) {
-                        method.addInstructions(0, INTL_ULTRA_PREMIUM_CONFIG_NULL_CHECK_BODY)
+                        method.addInstructions(0, RETURN_VOID)
                     }
                 }
             }
@@ -1347,7 +1347,7 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes.isEmpty() &&
                         method.returnType == "V"
                     ) {
-                        method.addInstructions(0, COUNTER_LIKE_LIMIT_NULL_CHECK_BODY)
+                        method.addInstructions(0, RETURN_VOID)
                     }
                 }
             }
@@ -1359,7 +1359,7 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes.isEmpty() &&
                         method.returnType == "V"
                     ) {
-                        method.addInstructions(0, BOOST_LIMIT_NULL_CHECK_BODY)
+                        method.addInstructions(0, RETURN_VOID)
                     }
                 }
             }
@@ -1371,7 +1371,7 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes.isEmpty() &&
                         method.returnType == "V"
                     ) {
-                        method.addInstructions(0, COUNTER_SECRET_CRUSH_LIMIT_NULL_CHECK_BODY)
+                        method.addInstructions(0, RETURN_VOID)
                     }
                 }
             }
