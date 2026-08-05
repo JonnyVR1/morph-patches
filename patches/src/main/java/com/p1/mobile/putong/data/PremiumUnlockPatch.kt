@@ -715,6 +715,9 @@ private val secretCrushRemainingFingerprint = Fingerprint(
     ),
 )
 
+// rbb0: Likers limit gate checks - matched directly without class fingerprint
+// to avoid ambiguity with other classes that access LikersLimit.remaining
+
 // secretCrush: expiration time (static no-arg → J, reads CounterSecretCrushLimit) → far future
 private val secretCrushExpirationFingerprint = Fingerprint(
     classFingerprint = secretCrushClassFingerprint,
@@ -1885,6 +1888,17 @@ val premiumUnlockPatch = bytecodePatch(
             // src0 resolution removed
             if ("sja" !in resolved && !isSettingsUi && "picksUser id is not found in users : " in strings) resolved["sja"] = classDef
             if ("n3b0" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.likersLimit" in fieldAccessFull) resolved["n3b0"] = classDef
+            // rbb0: Likers limit gate checks (q/r/s methods)
+            // Anchored on LikersLimit.remaining field access + has static Z methods
+            if ("rbb0" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/LikersLimit;.remaining" in fieldAccessFull) {
+                val hasStaticZWithCounter = classDef.methods.any { 
+                    it.returnType == "Z" && 
+                    AccessFlags.STATIC.isSet(it.accessFlags) && 
+                    it.parameterTypes.size == 1 && 
+                    it.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;"
+                }
+                if (hasStaticZWithCounter) resolved["rbb0"] = classDef
+            }
             if ("secretCrush" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
             if ("coreData" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/CoreData;.surpriseGiftExpirationTime" in fieldAccessFull) resolved["coreData"] = classDef
             if ("mb90" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull && "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in fieldAccessFull && !classDef.type.contains("/ui/settings/")) {
@@ -1939,7 +1953,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            if (resolved.size == 38) return@classDefForEach
+            if (resolved.size == 39) return@classDefForEach
         }
 
         resolved["xma"]?.let { xmaClassDef ->
@@ -2293,6 +2307,36 @@ val premiumUnlockPatch = bytecodePatch(
             }
             n3b0BoostAvailableFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
                 match.method.addInstructions(0, RETURN_FALSE)
+            }
+        }
+
+        // rbb0: Likers limit gate checks
+        // q() - no-arg static → Z, delegates to s()
+        // r(Counter) - static Counter → Z, returns counter == null || counter.likersLimit.remaining <= 0
+        // s(Counter, int, Object) - synthetic bridge → Z
+        // Patching all to return TRUE makes all callers think there are 0 likers remaining,
+        // preventing "x people liked you" popups from appearing on the swipe tab.
+        resolved["rbb0"]?.let { rbb0ClassDef ->
+            mutableClassDefBy(rbb0ClassDef).methods.forEach { method ->
+                // q() - no-arg static → Z
+                if (method.name == "q" && method.parameterTypes.isEmpty() && 
+                    method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_TRUE)
+                }
+                // r(Counter) - static Counter → Z
+                if (method.name == "r" && method.parameterTypes.size == 1 && 
+                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;" &&
+                    method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_TRUE)
+                }
+                // s(Counter, int, Object) - synthetic bridge → Z
+                if (method.name == "s" && method.parameterTypes.size == 3 && 
+                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;" &&
+                    method.parameterTypes[1] == "I" &&
+                    method.parameterTypes[2] == "Ljava/lang/Object;" &&
+                    method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_TRUE)
+                }
             }
         }
 
