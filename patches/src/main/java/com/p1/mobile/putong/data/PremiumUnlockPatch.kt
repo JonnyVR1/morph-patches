@@ -294,12 +294,8 @@ private val INTL_ULTRA_PREMIUM_CONFIG_NULL_CHECK_BODY: String = """
     :iupc_skip
 """
 
-private val BLIVE_COIN_NULL_CHECK_BODY: String = """
-    if-eqz p0, :blc_skip
-    const-wide v0, 0x7fffffffffffffffL
-    iput-wide v0, p0, Lcom/p1/mobile/putong/live/base/data/BLiveCoin;->available:J
-    :blc_skip
-"""
+// BLiveCoin patch REMOVED - caused VerifyError due to wide register allocation issues
+// The nullCheck() method has no local registers, so const-wide v0 fails
 
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
@@ -1261,17 +1257,9 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── BLiveCoin: unlimited virtual currency ──
-            classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveCoin;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "nullCheck" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, BLIVE_COIN_NULL_CHECK_BODY)
-                    }
-                }
-            }
+            // ── BLiveCoin: REMOVED - caused VerifyError due to wide register allocation ──
+            // The nullCheck() method has no local registers, so const-wide v0 fails
+            // Virtual currency patch disabled to prevent startup crash
 
             // ── Boost remaining count: BoostRemainingCountView ──
             //
