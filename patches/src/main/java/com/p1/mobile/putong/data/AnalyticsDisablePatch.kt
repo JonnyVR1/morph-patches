@@ -142,6 +142,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("com.tantanapp.beatles" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     if (method.name in setOf("init", "install", "start") && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
@@ -181,6 +182,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("createSmAntiFraudInit" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     if (method.name == "createSmAntiFraudInit" || 
                         (method.name.contains("init") && method.returnType == "V")) {
                         method.addInstructions(0, RETURN_VOID)
@@ -250,6 +252,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("setMmcvVersion" in methodNames && "setMagicEffectVersion" in methodNames) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     if (method.name in setOf("init", "flush", "report", "realTimeReport", 
                                             "setMMCVVersion", "setMagicEffectVersion", 
                                             "setRecorderSDKVersion", "setUID", "setXEngineVersion") &&
@@ -311,6 +314,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("mmfile_push_statistic" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     if (method.name in setOf("init", "logPushEventInfo", "logRegCallback", "forceUpload") &&
                         method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
@@ -323,6 +327,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("BatteryMetrics" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     if (method.name == "init" && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
@@ -334,6 +339,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("live-PerfTracer" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     if (method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
@@ -345,6 +351,7 @@ val analyticsDisablePatch = bytecodePatch(
             if ("DNS_SLA" in strings) {
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.implementation == null) return@forEach
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                     if (method.name in setOf("init", "flush", "setEnable", "log", "setOnFlushListener") &&
                         method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
