@@ -718,6 +718,12 @@ private val secretCrushRemainingFingerprint = Fingerprint(
 // rbb0: Likers limit gate checks - matched directly without class fingerprint
 // to avoid ambiguity with other classes that access LikersLimit.remaining
 
+// hl3: Likers dialog creator
+// hl3.J(Act, int, CoreLikers$a) creates the full modal dialog with LikersDialogView
+// hl3.H(Act, int, List) creates the dialog with photo URLs (no-match variant)
+// Anchored on "p_offline_popup" OMS dialog ID + LikersDialogView method calls
+// Resolution in classDefForEach below
+
 // secretCrush: expiration time (static no-arg → J, reads CounterSecretCrushLimit) → far future
 private val secretCrushExpirationFingerprint = Fingerprint(
     classFingerprint = secretCrushClassFingerprint,
@@ -1899,6 +1905,23 @@ val premiumUnlockPatch = bytecodePatch(
                 }
                 if (hasStaticZWithCounter) resolved["rbb0"] = classDef
             }
+            
+            // hl3: Likers dialog creator
+            // hl3.J(Act, int, CoreLikers$a) creates the full modal dialog with LikersDialogView
+            // Anchored on "p_offline_popup" OMS dialog ID + LikersDialogView method calls
+            if ("hl3" !in resolved && "p_offline_popup" in strings &&
+                methodCallFull.any { it.contains("LikersDialogView") }) {
+                resolved["hl3"] = classDef
+            }
+            
+            // j7d0: Dialog orchestrator
+            // j7d0.h0(b240) orchestrates the likers dialog display
+            // Anchored on "last_likers_req_time" + "offline_dialog_show_time" strings
+            if ("j7d0" !in resolved && "last_likers_req_time" in strings &&
+                "offline_dialog_show_time" in strings &&
+                methodCallFull.any { it.contains("hl3") }) {
+                resolved["j7d0"] = classDef
+            }
             if ("secretCrush" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
             if ("coreData" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/CoreData;.surpriseGiftExpirationTime" in fieldAccessFull) resolved["coreData"] = classDef
             if ("mb90" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull && "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in fieldAccessFull && !classDef.type.contains("/ui/settings/")) {
@@ -1953,7 +1976,7 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            if (resolved.size == 39) return@classDefForEach
+            if (resolved.size == 41) return@classDefForEach
         }
 
         resolved["xma"]?.let { xmaClassDef ->
@@ -2336,6 +2359,67 @@ val premiumUnlockPatch = bytecodePatch(
                     method.parameterTypes[2] == "Ljava/lang/Object;" &&
                     method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_TRUE)
+                }
+            }
+        }
+
+        // hl3: Likers dialog creator
+        // hl3.J(Act, int, CoreLikers$a) creates the full modal dialog with LikersDialogView
+        // hl3.H(Act, int, List) creates the dialog with photo URLs (no-match variant)
+        // Both are static methods that return void. Patching to return-void prevents the dialog.
+        resolved["hl3"]?.let { hl3ClassDef ->
+            mutableClassDefBy(hl3ClassDef).methods.forEach { method ->
+                // J(Act, int, CoreLikers$a) → void
+                if (method.name == "J" && method.parameterTypes.size == 3 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1] == "I" &&
+                    method.parameterTypes[2].contains("CoreLikers") &&
+                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+                // H(Act, int, List) → void
+                if (method.name == "H" && method.parameterTypes.size == 3 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1] == "I" &&
+                    method.parameterTypes[2] == "Ljava/util/List;" &&
+                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // j7d0: Dialog orchestrator
+        // j7d0.h0(b240) orchestrates the likers dialog display
+        // Static method that takes b240 parameter and returns void
+        resolved["j7d0"]?.let { j7d0ClassDef ->
+            mutableClassDefBy(j7d0ClassDef).methods.forEach { method ->
+                // h0(b240) → void
+                if (method.name == "h0" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0].contains("b240") &&
+                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // LikersDialogView: Dialog content populator
+        // LikersDialogView.b(int, CoreLikers$a) populates dialog with likers data
+        // LikersDialogView.c(List) populates dialog with photo URLs
+        // Both are instance methods that return void. Patching to return-void prevents content.
+        classDefByOrNull("Lcom/p1/mobile/putong/core/p058ui/vip/likers/LikersDialogView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                // b(int, CoreLikers$a) → void
+                if (method.name == "b" && method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "I" &&
+                    method.parameterTypes[1].contains("CoreLikers") &&
+                    method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+                // c(List) → void
+                if (method.name == "c" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ljava/util/List;" &&
+                    method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
