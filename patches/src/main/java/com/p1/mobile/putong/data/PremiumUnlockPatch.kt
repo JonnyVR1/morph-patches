@@ -2464,6 +2464,31 @@ val premiumUnlockPatch = bytecodePatch(
             if ("joa" !in resolved && "seeWhoLikedMe" in strings && "oDiamond" in strings && "guessedCurrentServerTime" in methodCallNames) resolved["joa"] = classDef
             if ("jh30" !in resolved && "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d" in methodCallFull) resolved["jh30"] = classDef
             if ("businessEntranceAdapter" !in resolved && "open_fill_info_debug" in strings && "clear" in methodCallNames) resolved["businessEntranceAdapter"] = classDef
+
+            // vqo, re90, i0p: Banner text generators for "x people liked you"
+            // These classes generate promotional text independently of b8d0
+            val hasCharSeqM = classDef.methods.any { it.name == "m" && it.parameterTypes.isEmpty() && it.returnType == "Ljava/lang/CharSequence;" }
+            val hasCharSeqN = classDef.methods.any { it.name == "n" && it.parameterTypes.isEmpty() && it.returnType == "Ljava/lang/CharSequence;" }
+            
+            if (hasCharSeqM && hasCharSeqN) {
+                val hasPairReturn = classDef.methods.any { it.returnType == "Landroid/util/Pair;" }
+                val hasVPairMethod = classDef.methods.any { it.name == "v" && it.returnType == "Landroid/util/Pair;" }
+                val hasCoreLikersCall = methodCallFull.any { it.startsWith("Lcom/p1/mobile/putong/core/api/CoreLikers;.") }
+                val hasGStringReturn = methodCallFullSigs.any { it.contains(".G.") && it.endsWith(".Ljava/lang/String;") }
+                
+                // vqo: has method v() returning Pair + calls G() for number formatting
+                if ("vqo" !in resolved && hasVPairMethod && hasGStringReturn) {
+                    resolved["vqo"] = classDef
+                }
+                // re90: accesses CoreLikers + no Pair return (base class)
+                else if ("re90" !in resolved && hasCoreLikersCall && !hasPairReturn) {
+                    resolved["re90"] = classDef
+                }
+                // i0p: extends re90 (check superclass)
+                else if ("i0p" !in resolved && hasCoreLikersCall && classDef.superclass?.contains("re90") == true) {
+                    resolved["i0p"] = classDef
+                }
+            }
         }
 
         resolved["xma"]?.let { xmaClassDef ->
@@ -2908,6 +2933,66 @@ val premiumUnlockPatch = bytecodePatch(
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.returnType == "V" && method.parameterTypes.isEmpty()) {
                     method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        resolved["vqo"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "m" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+                if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+                if (method.name == "v" && method.returnType == "Landroid/util/Pair;") {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        const-string v1, ""
+                        invoke-static {v0, v1}, Landroid/util/Pair;->create(Ljava/lang/Object;Ljava/lang/Object;)Landroid/util/Pair;
+                        move-result-object v0
+                        return-object v0
+                    """)
+                }
+            }
+        }
+
+        resolved["re90"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "m" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+                if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+            }
+        }
+
+        resolved["i0p"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "m" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+                if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
                 }
             }
         }
