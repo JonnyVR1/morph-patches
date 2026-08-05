@@ -510,16 +510,18 @@ private val r8nClassFingerprint = Fingerprint(
 
 // ── b240: "See Anim Bubble" creator ──
 // b240 creates the floating "x girls y miles away" bubble on startup.
-// It subscribes to CoreLikers.S6() and calls u7() to create the bubble.
+// It subscribes to CoreLikers.m31415S6() and calls m102077u7() to create the bubble.
 // Fingerprint anchors on CoreLikers API reference and bubble creation pattern.
+// NOTE: JADX renames methods for readability (S6 → m31415S6, u7 → m102077u7)
+// but DEX descriptors use the obfuscated names.
 private val seeAnimBubbleCreatorFingerprint = Fingerprint(
     filters = listOf(
         methodCall(
             definingClass = "Lcom/p1/mobile/putong/core/api/CoreLikers;",
-            name = "S6",
+            name = "m31415S6",
         ),
         methodCall(
-            name = "u7",
+            name = "m102077u7",
             returnType = "V",
         ),
         string("INTL_SEE_ANIM_BUBBLE"),
@@ -2400,7 +2402,7 @@ val premiumUnlockPatch = bytecodePatch(
             if ("intlSeeChatRequestCreator" !in resolved && "intlSeeChatRequest" in strings && hasConvNew_) resolved["intlSeeChatRequestCreator"] = classDef
             if ("r8n" !in resolved && "intl_chat_request_insert_users" in strings) resolved["r8n"] = classDef
             if ("headRecommendAdapter" !in resolved && "fake_conversation_profile_like_enter" in strings && "fake_conversation_oof_pick" in strings && "getItemViewType.1.I" in methodCallSigs) resolved["headRecommendAdapter"] = classDef
-            if ("seeAnimBubbleCreator" !in resolved && "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6" in methodCallFull && "u7\u0001V" in methodNameRet && "INTL_SEE_ANIM_BUBBLE" in strings) resolved["seeAnimBubbleCreator"] = classDef
+            if ("seeAnimBubbleCreator" !in resolved && "Lcom/p1/mobile/putong/core/api/CoreLikers;.m31415S6" in methodCallFull && "m102077u7\u0001V" in methodNameRet && "INTL_SEE_ANIM_BUBBLE" in strings) resolved["seeAnimBubbleCreator"] = classDef
             if ("seeAnimBubbleLifecycle" !in resolved && "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;.u6" in methodCallFull && "SEE_ANIM" in strings) resolved["seeAnimBubbleLifecycle"] = classDef
             if ("bubbleDisplayMethod" !in resolved && "SEE_ANIM" in strings && "m40827m7" in methodCallNames) resolved["bubbleDisplayMethod"] = classDef
             if ("sb90Companion" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.localRelationship" in fieldAccessFull && "matched" in strings && "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery" in methodCallFull && "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe" in methodCallFull && hasZUserMethod) resolved["sb90Companion"] = classDef
@@ -2690,11 +2692,15 @@ val premiumUnlockPatch = bytecodePatch(
 
         resolved["seeAnimBubbleCreator"]?.let { bubbleCreatorClassDef ->
             mutableClassDefBy(bubbleCreatorClassDef).methods.forEach { method ->
-                if (method.name == "z2" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                // Patch z2() - subscription state handler (static method)
+                // JADX renames m101873z2 to z2 for readability
+                if (method.name == "m101873z2" && method.parameterTypes.size == 1 && method.returnType == "V" &&
                     AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
                 }
-                if (method.name == "u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                // Patch u7() - bubble creator (instance method)
+                // JADX renames m102077u7 to u7 for readability
+                if (method.name == "m102077u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
                     !AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
                 }
