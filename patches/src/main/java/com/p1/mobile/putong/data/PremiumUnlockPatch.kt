@@ -2417,6 +2417,9 @@ val premiumUnlockPatch = bytecodePatch(
         val resolved = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
 
         classDefForEach { classDef ->
+            val classType = classDef.type
+            val isSettingsUi = classType.startsWith("Lcom/p1/mobile/putong/core/ui/settings/")
+
             val strings = mutableSetOf<String>()
             val methodCallFull = mutableSetOf<String>()
             val methodCallNames = mutableSetOf<String>()
@@ -2452,7 +2455,7 @@ val premiumUnlockPatch = bytecodePatch(
 
             val hasConvNew_ = "Lcom/p1/mobile/putong/data/Conversation;.new_.0.Lcom/p1/mobile/putong/data/Conversation;" in methodCallFullSigs
 
-            if ("xma" !in resolved && "/summarized-privileges?with=diamond" in strings) resolved["xma"] = classDef
+            if ("xma" !in resolved && !isSettingsUi && "/summarized-privileges?with=diamond" in strings) resolved["xma"] = classDef
             if ("qa9" !in resolved && "intl_receive_like_guide_get" in strings && hasConvNew_) resolved["qa9"] = classDef
             if ("hva" !in resolved && "receive_like_guide_get" in strings && hasConvNew_) resolved["hva"] = classDef
             if ("coreApiFakeConv" !in resolved && "fake_conversation_surprise_gift_box" in strings && hasConvNew_) resolved["coreApiFakeConv"] = classDef
@@ -2470,22 +2473,25 @@ val premiumUnlockPatch = bytecodePatch(
             if ("seeAnimBubbleCreator" !in resolved && "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6" in methodCallFull && "u7\u0001V" in methodNameRet && "INTL_SEE_ANIM_BUBBLE" in strings) resolved["seeAnimBubbleCreator"] = classDef
             if ("seeAnimBubbleLifecycle" !in resolved && "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;.u6" in methodCallFull && "SEE_ANIM" in strings) resolved["seeAnimBubbleLifecycle"] = classDef
             if ("bubbleDisplayMethod" !in resolved && "SEE_ANIM" in strings && "m40827m7" in methodCallNames) resolved["bubbleDisplayMethod"] = classDef
-            if ("sb90Companion" !in resolved && "Lcom/p1/mobile/putong/data/User;.localRelationship" in fieldAccessFull && "matched" in strings && "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery" in methodCallFull && "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe" in methodCallFull && hasZUserMethod) resolved["sb90Companion"] = classDef
-            if ("u59" !in resolved && "intl_sl_guide_config" in strings) resolved["u59"] = classDef
-            if ("tm90" !in resolved && "intl_good_c_bage_config" in strings) resolved["tm90"] = classDef
-            if ("gqf0" !in resolved && "e_intl_spotlight_activity_card" in strings) resolved["gqf0"] = classDef
-            if ("h6a" !in resolved && "ttt_membership_price_diff" in strings) resolved["h6a"] = classDef
-            if ("ugc0" !in resolved && "seeUpgradeToPremium" in strings) resolved["ugc0"] = classDef
-            if ("zva0" !in resolved && "e_vip_banner" in strings) resolved["zva0"] = classDef
-            if ("th5" !in resolved && "vas_commercial_card_right_slide_strategy" in strings) resolved["th5"] = classDef
-            if ("qgl0" !in resolved && "暂未激活黑金会员" in strings) resolved["qgl0"] = classDef
+            if ("sb90Companion" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.localRelationship" in fieldAccessFull && "matched" in strings && "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery" in methodCallFull && "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe" in methodCallFull && hasZUserMethod) resolved["sb90Companion"] = classDef
+            if ("u59" !in resolved && !isSettingsUi && "intl_sl_guide_config" in strings) resolved["u59"] = classDef
+            if ("tm90" !in resolved && !isSettingsUi && "intl_good_c_bage_config" in strings) resolved["tm90"] = classDef
+            if ("gqf0" !in resolved && !isSettingsUi && "e_intl_spotlight_activity_card" in strings) resolved["gqf0"] = classDef
+            if ("h6a" !in resolved && !isSettingsUi && "ttt_membership_price_diff" in strings) resolved["h6a"] = classDef
+            if ("ugc0" !in resolved && !isSettingsUi && "seeUpgradeToPremium" in strings) resolved["ugc0"] = classDef
+            if ("zva0" !in resolved && !isSettingsUi && "e_vip_banner" in strings) resolved["zva0"] = classDef
+            if ("th5" !in resolved && !isSettingsUi && "vas_commercial_card_right_slide_strategy" in strings) resolved["th5"] = classDef
+            if ("qgl0" !in resolved && !isSettingsUi && "暂未激活黑金会员" in strings) resolved["qgl0"] = classDef
             // src0 resolution removed
-            if ("sja" !in resolved && "picksUser id is not found in users : " in strings) resolved["sja"] = classDef
-            if ("n3b0" !in resolved && "Lcom/p1/mobile/putong/data/Counter;.likersLimit" in fieldAccessFull) resolved["n3b0"] = classDef
-            if ("secretCrush" !in resolved && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
-            if ("coreData" !in resolved && "Lcom/p1/mobile/putong/core/data/CoreData;.surpriseGiftExpirationTime" in fieldAccessFull) resolved["coreData"] = classDef
-            if ("mb90" !in resolved && "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull && "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in fieldAccessFull) resolved["mb90"] = classDef
-            if ("joa" !in resolved && "seeWhoLikedMe" in strings && "oDiamond" in strings && "guessedCurrentServerTime" in methodCallNames) resolved["joa"] = classDef
+            if ("sja" !in resolved && !isSettingsUi && "picksUser id is not found in users : " in strings) resolved["sja"] = classDef
+            if ("n3b0" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.likersLimit" in fieldAccessFull) resolved["n3b0"] = classDef
+            if ("secretCrush" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
+            if ("coreData" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/CoreData;.surpriseGiftExpirationTime" in fieldAccessFull) resolved["coreData"] = classDef
+            if ("mb90" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull && "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in fieldAccessFull && !classDef.type.contains("/ui/settings/")) {
+                val hasPurchaseTypeZ = classDef.methods.any { it.parameterTypes.size == 1 && it.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" && it.returnType == "Z" }
+                if (hasPurchaseTypeZ) resolved["mb90"] = classDef
+            }
+            // joa removed: in 7.3.3 xma and joa are the same class, xma patch handles these methods
             if ("jh30" !in resolved && "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d" in methodCallFull) resolved["jh30"] = classDef
             if ("businessEntranceAdapter" !in resolved && "open_fill_info_debug" in strings && "clear" in methodCallNames) resolved["businessEntranceAdapter"] = classDef
 
@@ -2891,28 +2897,19 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         resolved["mb90"]?.let { mb90ClassDef ->
-            mb90BFingerprint.matchOrNull(mb90ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
-            mb90CFingerprint.matchOrNull(mb90ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
+            mutableClassDefBy(mb90ClassDef).methods.forEach { method ->
+                if (method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    if (method.parameterTypes.size == 1 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;") {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                    if (method.parameterTypes.size == 2 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" && method.parameterTypes[1] == "Lcom/p1/mobile/putong/core/data/PurchaseType;") {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                }
             }
         }
 
-        resolved["joa"]?.let { joaClassDef ->
-            joaI4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-            joaE4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-            joaF4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-            joaJ4Fingerprint.matchOrNull(joaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-        }
+        // joa patch removed: in 7.3.3 xma and joa are the same class, xma patch handles these methods
 
         resolved["jh30"]?.let { jh30ClassDef ->
             val newProfilePrivilegedPagerType = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;"
