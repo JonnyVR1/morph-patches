@@ -485,48 +485,14 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // Central device fingerprint collector (dk50) - block URL template substitution and all identifier collection
-        deviceFingerprintCollectorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                when {
-                    method.returnType == "Ljava/lang/String;" &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Ljava/lang/String;" -> method.addInstructions(0, """
-                        const/4 v0, 0x0
-                        return-object v0
-                    """)
-
-                    method.returnType == "Ljava/lang/String;" &&
-                    AccessFlags.STATIC.isSet(method.accessFlags) -> method.addInstructions(0, RETURN_EMPTY_STRING)
-                }
-            }
-        }
-
-        // Device fingerprint hash collector (nuq0) - block device fingerprint generation
-        deviceFingerprintHashClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                when (method.returnType) {
-                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
-                    "V" -> method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // Device info collector (vrq0) - block ANDROIDID, IMEI, MAC collection at source
-        deviceInfoCollectorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                when (method.returnType) {
-                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
-                    "V" -> method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
+        // REMOVED: Device fingerprint collector patches (dk50, nuq0, vrq0)
+        // These patches were too aggressive and broke session validation.
+        // The server uses device fingerprints for session authentication, so returning
+        // null/empty strings caused the app to be treated as unauthenticated, forcing
+        // users back to the login screen on every launch.
+        // 
+        // If device fingerprint blocking is needed in the future, it should target
+        // only specific analytics-related methods, not all methods by return type.
 
         // Enhanced OAID collection (hb00) - block OAID init and collection
         oaidClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
