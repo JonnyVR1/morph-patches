@@ -97,6 +97,14 @@ private val moLiveApmClassFingerprint2 = Fingerprint(
     filters = listOf(string("getSubmitAlternative")),
 )
 
+private val tencentMtaClassFingerprint = Fingerprint(
+    filters = listOf(string("com.tencent.stat.StatService")),
+)
+
+private val telephonyDeviceIdFingerprint = Fingerprint(
+    filters = listOf(string("android.permission.READ_PHONE_STATE"), string("phone")),
+)
+
 @Suppress("unused")
 @JvmField
 val analyticsDisablePatch = bytecodePatch(
@@ -377,6 +385,102 @@ val analyticsDisablePatch = bytecodePatch(
                                         "getSubmitAlternative") &&
                     method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Sina DeviceId JNI SDK - disable device fingerprinting
+        classDefByOrNull("Lcom/sina/deviceidjnisdk/DeviceId;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                    else -> if (method.returnType.startsWith("L")) {
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+                    }
+                }
+            }
+        }
+
+        // Cosmos Photon Push UniqueIDs - disable hardware ID collection
+        listOf(
+            "Lcom/cosmos/photon/push/uniqueid/UniqueAndroidId;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueIMEI;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueDeviceId;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueSerialNumber;"
+        ).forEach { descriptor ->
+            classDefByOrNull(descriptor)?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
+                    if (isConstructor(method)) return@forEach
+                    when (method.returnType) {
+                        "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                        "V" -> method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        // Obfuscated Device Collectors - disable TelephonyManager-based collection
+        telephonyDeviceIdFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Tencent LiteAV Telemetry - disable performance tracking
+        classDefByOrNull("Lcom/tencent/liteav/basic/datareport/TXCDRApi;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Tencent MTA StatService - disable user behavior analytics
+        tencentMtaClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Cosmos MDLog - disable core logging infrastructure
+        classDefByOrNull("Lcom/cosmos/mdlog/MDLog;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    else -> if (method.returnType.startsWith("L")) {
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+                    }
+                }
+            }
+        }
+
+        // Install Referrer API - disable install attribution tracking
+        classDefByOrNull("Lcom/android/installreferrer/api/InstallReferrerClient;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
+                    method.returnType == "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    method.returnType.startsWith("L") -> method.addInstructions(0, RETURN_NULL_OBJECT)
                 }
             }
         }

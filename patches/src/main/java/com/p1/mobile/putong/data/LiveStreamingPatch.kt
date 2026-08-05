@@ -34,7 +34,7 @@ private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingC
 @JvmField
 val liveStreamingPatch = bytecodePatch(
     name = "Live Streaming Enhancement",
-    description = "Live entry animation, push limit bypass, swipe card unlimited, chat rate limit removal, voice game access, all-day PK battles",
+    description = "Live entry animation, push limit bypass, swipe card unlimited, chat rate limit removal, voice game access, all-day PK battles, gift leaderboard, knight privileges, entrance limits",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -91,6 +91,49 @@ val liveStreamingPatch = bytecodePatch(
                         method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLivePkEntranceShowLimit;", "allDay")
                 }
                 .forEach { it.addInstructions(0, RETURN_BOOLEAN_TRUE) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveIntlGiftLeaderboard;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.name != "<init>" &&
+                        method.name != "<clinit>" &&
+                        method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveIntlGiftLeaderboard;", "open")
+                }
+                .forEach { it.addInstructions(0, RETURN_BOOLEAN_TRUE) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveKnightsPrivilegeItem;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "I" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.name != "<init>" &&
+                        method.name != "<clinit>" &&
+                        method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveKnightsPrivilegeItem;", "remain")
+                }
+                .forEach { it.addInstructions(0, """
+                    const v0, 0x270f
+                    return v0
+                """) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveEntranceLimitation;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "I" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.name != "<init>" &&
+                        method.name != "<clinit>" &&
+                        (method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveEntranceLimitation;", "maxShow") ||
+                            method.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveEntranceLimitation;", "maxShowPerDay"))
+                }
+                .forEach { it.addInstructions(0, """
+                    const v0, 0x270f
+                    return v0
+                """) }
         }
     }
 }

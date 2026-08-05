@@ -23,6 +23,11 @@ private const val RETURN_FALSE = """
 
 private const val RETURN_VOID = "return-void"
 
+private const val RETURN_LONG_0 = """
+    const-wide/16 v0, 0x0
+    return-wide v0
+"""
+
 // ── Class fingerprints anchored on stable privilege-name strings ──
 
 // vo50: OnlineZone view — references nearby_people + "p_home_nearby,online"
@@ -141,7 +146,7 @@ private fun MethodAnalysis.accessesField(definingClass: String, fieldName: Strin
 @JvmField
 val privacyControlsPatch = bytecodePatch(
     name = "Privacy Controls",
-    description = "Unlocks privacy features: hide from nearby, visitor footprint hiding, mysterious mode, nearby people access, read receipt unlock, read receipt dialog suppression, contact access block, location privacy, privacy settings force enable",
+    description = "Unlocks privacy features: hide from nearby, visitor footprint hiding, mysterious mode, nearby people access, read receipt unlock, read receipt dialog suppression, contact access block, location privacy, privacy settings force enable, hide activity time, hide age, hide icon, frozen activity, frozen time, hide distance, core service privacy gate, hide active from SVip, disable ad suggestions, live stealth privacy, online status visibility",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -153,6 +158,11 @@ val privacyControlsPatch = bytecodePatch(
             "Lcom/p046p1/mobile/putong/core/p053ui/messages/view/IntlMessageReadReceiptsView;",
             BLIVE_COMMON_CONFIG_CLASS,
             PERMISSION_HELPER_CLASS,
+            "Lcom/p1/mobile/putong/data/Location;",
+            "Lcom/p1/mobile/putong/core/api/CoreServiceImpl;",
+            "Lcom/p1/mobile/putong/data/User;",
+            "Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;",
+            "Lcom/p1/mobile/putong/core/data/ShowOnlineForWhoIMeet;",
         )
         var stableFound = 0
 
@@ -244,6 +254,66 @@ val privacyControlsPatch = bytecodePatch(
                     }
                     stableFound++
                 }
+
+                "Lcom/p1/mobile/putong/data/Location;" -> {
+                    mutableClass.methods.forEach { method ->
+                        if ((method.name == "isHideDistance" || method.name == "isHideUpdateTime") &&
+                            method.parameterTypes.isEmpty() && method.returnType == "Z"
+                        ) {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                    }
+                    stableFound++
+                }
+
+                "Lcom/p1/mobile/putong/core/api/CoreServiceImpl;" -> {
+                    mutableClass.methods.forEach { method ->
+                        if (method.name in setOf("hideActiveTime", "hideAge", "hideLocation") &&
+                            method.parameterTypes.size == 1 &&
+                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                            method.returnType == "Z"
+                        ) {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                    }
+                    stableFound++
+                }
+
+                "Lcom/p1/mobile/putong/data/User;" -> {
+                    mutableClass.methods.forEach { method ->
+                        if (method.name == "isHideActiveFromSVip" &&
+                            method.parameterTypes.isEmpty() && method.returnType == "Z"
+                        ) {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                    }
+                    stableFound++
+                }
+
+                "Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;" -> {
+                    mutableClass.methods.forEach { method ->
+                        val analysis = method.analyze()
+                        val targetsLiveField = analysis.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;", "hideConsumeRecord") ||
+                            analysis.accessesField("Lcom/p1/mobile/putong/live/base/data/BLiveStealthPrivilege;", "hideLiveAvatar")
+                        if (targetsLiveField && method.returnType == "Z" && method.parameterTypes.isEmpty()) {
+                            method.addInstructions(0, RETURN_TRUE)
+                        }
+                    }
+                    stableFound++
+                }
+
+                "Lcom/p1/mobile/putong/core/data/ShowOnlineForWhoIMeet;" -> {
+                    mutableClass.methods.forEach { method ->
+                        val analysis = method.analyze()
+                        if (analysis.accessesField("Lcom/p1/mobile/putong/core/data/ShowOnlineForWhoIMeet;", "show") &&
+                            method.returnType == "Z" &&
+                            method.parameterTypes.isEmpty()
+                        ) {
+                            method.addInstructions(0, RETURN_FALSE)
+                        }
+                    }
+                    stableFound++
+                }
             }
         }
 
@@ -322,29 +392,43 @@ val privacyControlsPatch = bytecodePatch(
         }
 
         privacyMembershipHideLocationClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            val privacyMembershipBoolFields = setOf("hideLocation", "hideAge", "hideIcon", "frozenActivity")
             mutableClassDefBy(classDef).methods
                 .filter { method ->
+                    val returnType = method.returnType
+                    if ((returnType != "Ljava/lang/Boolean;" && returnType != "Z") || method.parameterTypes.isNotEmpty()) return@filter false
                     val analysis = method.analyze()
-                    analysis.accessesField("Lcom/p1/mobile/putong/core/data/PrivacyMembershipSetting;", "hideLocation") &&
-                        (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
-                        method.parameterTypes.isEmpty()
+                    privacyMembershipBoolFields.any { field ->
+                        analysis.accessesField("Lcom/p1/mobile/putong/core/data/PrivacyMembershipSetting;", field)
+                    }
                 }
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
         svipPrivacyHideLocationClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
+            val mutableClass = mutableClassDefBy(classDef)
+            val svipBoolFields = setOf("hideLocation", "hideAge", "hideIcon")
+            mutableClass.methods
                 .filter { method ->
+                    val returnType = method.returnType
+                    if ((returnType != "Ljava/lang/Boolean;" && returnType != "Z") || method.parameterTypes.isNotEmpty()) return@filter false
                     val analysis = method.analyze()
-                    analysis.accessesField("Lcom/p1/mobile/putong/data/SvipPrivacySettings;", "hideLocation") &&
-                        (method.returnType == "Ljava/lang/Boolean;" || method.returnType == "Z") &&
-                        method.parameterTypes.isEmpty()
+                    svipBoolFields.any { field ->
+                        analysis.accessesField("Lcom/p1/mobile/putong/data/SvipPrivacySettings;", field)
+                    }
                 }
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
+            mutableClass.methods
+                .filter { method ->
+                    if (method.returnType != "J" || method.parameterTypes.isNotEmpty()) return@filter false
+                    val analysis = method.analyze()
+                    analysis.accessesField("Lcom/p1/mobile/putong/data/SvipPrivacySettings;", "frozenTime")
+                }
+                .forEach { it.addInstructions(0, RETURN_LONG_0) }
         }
 
         // ── Privacy Settings Force Enable (single fingerprint, 3 fields) ──
-        val userPrivacyTargetFields = setOf("hideContacts", "hideMutualContacts", "hideSchool")
+        val userPrivacyTargetFields = setOf("hideContacts", "hideMutualContacts", "hideSchool", "hideActivityTime", "personalizeSuggest", "adsSuggest")
         userPrivacySettingsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->

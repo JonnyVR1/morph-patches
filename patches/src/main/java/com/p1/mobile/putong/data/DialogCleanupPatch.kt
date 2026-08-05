@@ -2,7 +2,7 @@ package com.p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patcher.methodCall
+import app.morphe.patcher.fieldAccess
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
@@ -108,6 +108,143 @@ val dialogCleanupPatch = bytecodePatch(
 
         // Removed: dislikeWhoLikedMe fingerprint too risky - injects cross-class sget-object reference
         // which could cause VerifyError at class load time if DEX boundaries don't align
+
+        omsDialogControllerFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name == "M" &&
+                    method.returnType == "Z" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Ljava/lang/String;" &&
+                    method.parameterTypes[1] == "Z" &&
+                    AccessFlags.PUBLIC.isSet(method.accessFlags)
+                }
+                .forEach { method ->
+                    val blocklistCheck = """
+                        const-string v0, "p_welcomeback_popup"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked
+                        const-string v0, "p_fake_alert_popup_view"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked2
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked2
+                        const-string v0, "p_alert_dislike_who_liked_me_popup"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked3
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked3
+                        const-string v0, "p_no_match_svip"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked4
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked4
+                        const-string v0, "p_profile_picture_popup"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked5
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked5
+                        const-string v0, "p_avatarVerification_guide"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked6
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked6
+                        const-string v0, "p_alert_cheat_prevention__tips_popup"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked7
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked7
+                        const-string v0, "p_alert_cheat_prevention__risk_alarm_popup"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked8
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked8
+                        const-string v0, "p_verification_merge_popup"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked9
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked9
+                        const-string v0, "p_purchase_guide_page"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked10
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked10
+                    """.trimIndent()
+                    method.addInstructions(0, blocklistCheck)
+                }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEnhancedPromotionBannerView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter {
+                    it.name == "J" &&
+                    it.returnType == "V" &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags)
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/operation/OperationBannerView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter {
+                    it.name == "C" &&
+                    it.returnType == "V" &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags)
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/NewUserSpecialLikeBannerView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter {
+                    it.name == "r" &&
+                    it.returnType == "V" &&
+                    AccessFlags.PRIVATE.isSet(it.accessFlags)
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/SuperLikeBannerView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter {
+                    it.name == "r" &&
+                    it.returnType == "V" &&
+                    AccessFlags.PRIVATE.isSet(it.accessFlags)
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/purchase/intlpage/discountentry/IntlDiscountEntryBannerView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter {
+                    it.name == "g" &&
+                    it.returnType == "V" &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags)
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
     }
 }
 
@@ -135,5 +272,15 @@ private val ok3ClassFingerprint = Fingerprint(
 private val vipUpgradePopupClassFingerprint = Fingerprint(
     filters = listOf(
         string("vip_upgrade_popup"),
+    ),
+)
+
+private val omsDialogControllerFingerprint = Fingerprint(
+    filters = listOf(
+        string("limitDialogLastShowTime"),
+        fieldAccess(
+            definingClass = "Lcom/p1/mobile/putong/data/OMSDialogInfo;",
+            name = "identifier",
+        ),
     ),
 )

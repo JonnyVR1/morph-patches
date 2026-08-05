@@ -278,6 +278,29 @@ private val AGE_VERIFICATION_NULL_CHECK_BODY: String = """
     :avi_skip
 """
 
+private val GREETING_COUNTER_NULL_CHECK_BODY: String = """
+    if-eqz p0, :gc_skip
+    const v0, 0x270f
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/GreetingCounter;->remaining:I
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/GreetingCounter;->max:I
+    iput v0, p0, Lcom/p1/mobile/putong/core/data/GreetingCounter;->replyThanksRemain:I
+    :gc_skip
+"""
+
+private val INTL_ULTRA_PREMIUM_CONFIG_NULL_CHECK_BODY: String = """
+    if-eqz p0, :iupc_skip
+    const/4 v0, 0x1
+    iput-boolean v0, p0, Lcom/p1/mobile/putong/core/data/IntlUltraPremiumConfig;->androidEnable:Z
+    :iupc_skip
+"""
+
+private val BLIVE_COIN_NULL_CHECK_BODY: String = """
+    if-eqz p0, :blc_skip
+    const-wide v0, 0x7fffffffffffffffL
+    iput-wide v0, p0, Lcom/p1/mobile/putong/live/base/data/BLiveCoin;->available:J
+    :blc_skip
+"""
+
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
 
@@ -1210,6 +1233,42 @@ val premiumUnlockPatch = bytecodePatch(
                             method.returnType == "Ljava/lang/Integer;" -> {
                             method.addInstructions(0, RETURN_INTEGER_18)
                         }
+                    }
+                }
+            }
+
+            // ── Greeting Counter: unlimited greetings ──
+            classDefByOrNull("Lcom/p1/mobile/putong/core/data/GreetingCounter;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "nullCheck" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V"
+                    ) {
+                        method.addInstructions(0, GREETING_COUNTER_NULL_CHECK_BODY)
+                    }
+                }
+            }
+
+            // ── Intl Ultra Premium Config: enable ultra premium on Android ──
+            classDefByOrNull("Lcom/p1/mobile/putong/core/data/IntlUltraPremiumConfig;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "nullCheck" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V"
+                    ) {
+                        method.addInstructions(0, INTL_ULTRA_PREMIUM_CONFIG_NULL_CHECK_BODY)
+                    }
+                }
+            }
+
+            // ── BLiveCoin: unlimited virtual currency ──
+            classDefByOrNull("Lcom/p1/mobile/putong/live/base/data/BLiveCoin;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "nullCheck" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "V"
+                    ) {
+                        method.addInstructions(0, BLIVE_COIN_NULL_CHECK_BODY)
                     }
                 }
             }

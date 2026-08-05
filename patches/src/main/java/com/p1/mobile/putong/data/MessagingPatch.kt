@@ -29,9 +29,36 @@ private const val RETURN_INTEGER_9 = """
     return-object v0
 """
 
+private const val RETURN_INT_1440 = """
+    const/16 v0, 0x5a0
+    return v0
+"""
+
+private const val RETURN_INT_999 = """
+    const/16 v0, 0x3e7
+    return v0
+"""
+
+private const val RETURN_INT_500 = """
+    const/16 v0, 0x1f4
+    return v0
+"""
+
+private const val RETURN_INT_9999 = """
+    const/16 v0, 0x270f
+    return v0
+"""
+
 private const val FREE_GIFT_INFO_CLASS = "Lcom/p1/mobile/putong/core/data/FreeGiftInfo;"
 private const val MESSAGE_CLASS = "Lcom/p1/mobile/putong/core/data/Message;"
 private const val MESSAGE_SETTING_CLASS = "Lcom/p1/mobile/putong/core/data/MessageSetting;"
+
+private const val READ_RECEIPTS_CLASS = "Lcom/p1/mobile/putong/core/ui/messages/view/IntlMessageReadReceiptsView;"
+private const val AI_TRANSLATE_CLASS = "Lcom/p1/mobile/putong/core/api/CoreAITranslate;"
+private const val RECALL_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/RecallConfig;"
+private const val GROUP_CREATION_LIMIT_CLASS = "Lcom/p1/mobile/putong/core/data/GroupCreationLimit;"
+private const val LIVE_CHAT_LIMIT_CLASS = "Lcom/p1/mobile/putong/data/LiveChatLimit;"
+private const val MESSAGE_FILTER_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/MessageFilterConfig;"
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
 
@@ -52,7 +79,7 @@ private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingC
 @JvmField
 val messagingPatch = bytecodePatch(
     name = "Messaging Enhancement",
-    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker",
+    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -330,6 +357,111 @@ val messagingPatch = bytecodePatch(
                         method.returnType == "V"
                 }
                 .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        classDefByOrNull(READ_RECEIPTS_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name == "X" &&
+                        method.parameterTypes.size == 1 &&
+                        method.returnType == "V" &&
+                        AccessFlags.PRIVATE.isSet(method.accessFlags)
+                }
+                .forEach {
+                    it.addInstructions(0, """
+                        invoke-virtual {p0}, Lcom/p1/mobile/putong/core/ui/messages/view/IntlMessageReadReceiptsView;->Y()V
+                        return-void
+                    """)
+                }
+        }
+
+        classDefByOrNull(AI_TRANSLATE_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name == "p3" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z"
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        classDefByOrNull(RECALL_CONFIG_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(RECALL_CONFIG_CLASS, "enable") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(RECALL_CONFIG_CLASS, "minutes") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_1440) }
+        }
+
+        classDefByOrNull(GROUP_CREATION_LIMIT_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(GROUP_CREATION_LIMIT_CLASS, "groupRemaining") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(GROUP_CREATION_LIMIT_CLASS, "memberLimit") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_500) }
+        }
+
+        classDefByOrNull(LIVE_CHAT_LIMIT_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(LIVE_CHAT_LIMIT_CLASS, "remaining") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
+
+        classDefByOrNull(MESSAGE_FILTER_CONFIG_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(MESSAGE_FILTER_CONFIG_CLASS, "convUnreadLimit") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(MESSAGE_FILTER_CONFIG_CLASS, "redDotLimit") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(MESSAGE_FILTER_CONFIG_CLASS, "shownDayLimit") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
         }
     }
 }
