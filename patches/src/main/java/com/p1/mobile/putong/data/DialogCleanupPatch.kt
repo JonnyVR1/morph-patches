@@ -29,155 +29,129 @@ val dialogCleanupPatch = bytecodePatch(
     compatibleWith(tantanCompatibility)
     execute {
         classDefForEach { classDef ->
-            if (classDef.type == "Lcom/p1/mobile/putong/core/ui/gp/a;") {
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "o" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
+            if (classDef.type != "Lcom/p1/mobile/putong/core/ui/gp/a;") return@classDefForEach
+            
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "o" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
 
         mx0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "H" &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                    method.returnType == "V" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                    AccessFlags.FINAL.isSet(method.accessFlags)
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
+            mutableClassDefBy(classDef).methods
+                .filter { 
+                    it.name == "H" && 
+                    it.returnType == "V" &&
+                    it.parameterTypes.size == 1 && it.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.FINAL.isSet(it.accessFlags)
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
         zrj0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "c" &&
-                    method.parameterTypes.size == 3 &&
-                    method.parameterTypes[0] == "Z" &&
-                    method.parameterTypes[1] == "Lcom/p1/mobile/android/app/Act;" &&
-                    method.parameterTypes[2] == "Lcom/p1/mobile/putong/data/UpdateApiResult;" &&
-                    method.returnType == "V" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                    AccessFlags.STATIC.isSet(method.accessFlags)
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
+            mutableClassDefBy(classDef).methods
+                .filter { 
+                    it.name == "c" && 
+                    it.returnType == "V" &&
+                    it.parameterTypes.size == 3 && it.parameterTypes[0] == "Z" && it.parameterTypes[1] == "Lcom/p1/mobile/android/app/Act;" && it.parameterTypes[2] == "Lcom/p1/mobile/putong/data/UpdateApiResult;" &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags)
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
         ok3ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if ((method.name == "J" &&
-                    method.parameterTypes.size == 3 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                    method.returnType == "V" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                    AccessFlags.STATIC.isSet(method.accessFlags)) ||
-                    (method.name == "L" &&
-                        method.parameterTypes.size == 2 &&
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    (method.name == "J" &&
+                        method.parameterTypes.size == 3 &&
                         method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                        method.parameterTypes[1] == "I" &&
                         method.returnType == "V" &&
                         AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                        AccessFlags.STATIC.isSet(method.accessFlags))
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
+                        AccessFlags.STATIC.isSet(method.accessFlags)) ||
+                        (method.name == "L" &&
+                            method.parameterTypes.size == 2 &&
+                            method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                            method.parameterTypes[1] == "I" &&
+                            method.returnType == "V" &&
+                            AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                            AccessFlags.STATIC.isSet(method.accessFlags))
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
         u750ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if ((method.name == "b" &&
-                    method.parameterTypes.size == 1 &&
-                    method.returnType == "Z" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags)) ||
-                    (method.name == "d" &&
-                        method.parameterTypes.size == 1 &&
-                        method.returnType == "Z" &&
-                        AccessFlags.PUBLIC.isSet(method.accessFlags))
-                ) {
-                    method.addInstructions(0, RETURN_FALSE)
+            mutableClassDefBy(classDef).methods
+                .filter { 
+                    (it.name == "b" || it.name == "d") && 
+                    it.parameterTypes.size == 1 &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags)
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_FALSE) }
         }
 
         ygh0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "N" &&
-                    method.parameterTypes.isEmpty() &&
-                    method.returnType == "V" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                    AccessFlags.STATIC.isSet(method.accessFlags)
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
+            mutableClassDefBy(classDef).methods
+                .filter { 
+                    it.name == "N" && 
+                    it.returnType == "V" &&
+                    it.parameterTypes.isEmpty() &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags)
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        // ── dev2: Auto-subscription dialog suppression ──
         autoSubDialogClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if ((method.name == "show" || method.name == "display" || method.name == "present") &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
+            mutableClassDefBy(classDef).methods
+                .filter { 
+                    (it.name == "show" || it.name == "display" || it.name == "present") &&
+                    it.returnType == "V"
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        // ── dev2: Price recall dialog suppression ──
         priceRecall2DialogClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if ((method.name == "show" || method.name == "display" || method.name == "present") &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
+            mutableClassDefBy(classDef).methods
+                .filter { 
+                    (it.name == "show" || it.name == "display" || it.name == "present") &&
+                    it.returnType == "V"
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
         priceRecallGetSurprise2DialogClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if ((method.name == "show" || method.name == "display" || method.name == "present") &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
+            mutableClassDefBy(classDef).methods
+                .filter { 
+                    (it.name == "show" || it.name == "display" || it.name == "present") &&
+                    it.returnType == "V"
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        // ── dev2: VIP upgrade popup suppression ──
         vipUpgradePopupClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "d" &&
-                    method.parameterTypes.size == 1 &&
-                    method.returnType == "Z" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags)
-                ) {
-                    method.addInstructions(0, RETURN_FALSE)
+            mutableClassDefBy(classDef).methods
+                .filter { 
+                    it.name == "d" && 
+                    it.returnType == "Z" &&
+                    it.parameterTypes.size == 1 &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags)
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_FALSE) }
         }
 
-        // ── dev2: Dislike who liked me popup suppression ──
         dislikeWhoLikedMeClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "s" &&
-                    method.parameterTypes.size == 1 &&
-                    method.returnType.contains("HandleState") &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags)
-                ) {
-                    method.addInstructions(0, RETURN_HANDLE_STATE_REFUSE)
+            mutableClassDefBy(classDef).methods
+                .filter { 
+                    it.name == "s" &&
+                    it.parameterTypes.size == 1 &&
+                    it.returnType.contains("HandleState") &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags)
                 }
-            }
+                .forEach { it.addInstructions(0, RETURN_HANDLE_STATE_REFUSE) }
         }
     }
 }
@@ -217,7 +191,6 @@ private val ygh0ClassFingerprint = Fingerprint(
     ),
 )
 
-// ── dev2: Auto-subscription dialog suppression ──
 private val autoSubDialogClassFingerprint = Fingerprint(
     filters = listOf(
         string("p_reauto"),
@@ -226,7 +199,6 @@ private val autoSubDialogClassFingerprint = Fingerprint(
     ),
 )
 
-// ── dev2: Price recall dialog suppression ──
 private val priceRecall2DialogClassFingerprint = Fingerprint(
     filters = listOf(
         string("p_discount_retain"),
@@ -239,14 +211,12 @@ private val priceRecallGetSurprise2DialogClassFingerprint = Fingerprint(
     ),
 )
 
-// ── dev2: VIP upgrade popup suppression ──
 private val vipUpgradePopupClassFingerprint = Fingerprint(
     filters = listOf(
         string("vip_upgrade_popup"),
     ),
 )
 
-// ── dev2: Dislike who liked me popup suppression ──
 private val dislikeWhoLikedMeClassFingerprint = Fingerprint(
     filters = listOf(
         string("special_like_dlg_"),

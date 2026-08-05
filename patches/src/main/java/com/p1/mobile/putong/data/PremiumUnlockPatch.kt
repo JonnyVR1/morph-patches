@@ -1474,6 +1474,41 @@ private fun com.android.tools.smali.dexlib2.iface.Method.containsString(str: Str
 private fun com.android.tools.smali.dexlib2.iface.Method.instructionCount(): Int =
     cachedInstructions().size
 
+private fun com.android.tools.smali.dexlib2.iface.ClassDef.containsString(str: String): Boolean =
+    methods.any { method ->
+        instructionsOf(method).any { instr ->
+            instr is ReferenceInstruction &&
+                instr.reference is StringReference &&
+                (instr.reference as StringReference).string == str
+        }
+    }
+
+private fun com.android.tools.smali.dexlib2.iface.ClassDef.callsMethod(
+    definingClass: String? = null,
+    name: String? = null,
+    returnType: String? = null,
+): Boolean = methods.any { method ->
+    instructionsOf(method).any { instr ->
+        instr is ReferenceInstruction &&
+            instr.reference is MethodReference &&
+            (definingClass == null || (instr.reference as MethodReference).definingClass == definingClass) &&
+            (name == null || (instr.reference as MethodReference).name == name) &&
+            (returnType == null || (instr.reference as MethodReference).returnType == returnType)
+    }
+}
+
+private fun com.android.tools.smali.dexlib2.iface.ClassDef.accessesField(
+    definingClass: String? = null,
+    name: String? = null,
+): Boolean = methods.any { method ->
+    instructionsOf(method).any { instr ->
+        instr is ReferenceInstruction &&
+            instr.reference is com.android.tools.smali.dexlib2.iface.reference.FieldReference &&
+            (definingClass == null || (instr.reference as com.android.tools.smali.dexlib2.iface.reference.FieldReference).definingClass == definingClass) &&
+            (name == null || (instr.reference as com.android.tools.smali.dexlib2.iface.reference.FieldReference).name == name)
+    }
+}
+
 
 // ── Patch ────────────────────────────────────────────────────────────────────
 
