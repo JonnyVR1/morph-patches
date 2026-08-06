@@ -448,5 +448,41 @@ val uiCleanupPatch = bytecodePatch(
                 }
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
+
+        // Patch "See Who Liked You" entrance card in messages tab
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadIntlSeeItem;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if ((method.name == "L" || method.name == "onFinishInflate") && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Patch SVIP/VIP discount promotion header in messages tab
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/promotion/PrivilegePromotionHeaderView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if ((method.name == "d" || method.name == "e") && method.returnType == "V" && method.parameterTypes.isEmpty()) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Patch "see" promotional banner in messages tab
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/business/meet/MeetEntranceModel;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if ((method.name == "a" || method.name == "n") && method.returnType == "V" && method.parameterTypes.isEmpty()) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Patch "receive profile like" entrance in conversation list
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name in setOf("show", "display") && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
     }
 }
