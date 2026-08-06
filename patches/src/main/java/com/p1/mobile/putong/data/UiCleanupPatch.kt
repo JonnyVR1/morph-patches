@@ -109,6 +109,13 @@ private val proximityBubbleClassFingerprint = Fingerprint(
     ),
 )
 
+private val friendsOnlinePopupClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("e_friends_online_popup"),
+        string("[See_Toast]"),
+    ),
+)
+
 @Suppress("unused")
 @JvmField
 val uiCleanupPatch = bytecodePatch(
@@ -425,6 +432,21 @@ val uiCleanupPatch = bytecodePatch(
                 .forEach { method ->
                     method.addInstructions(0, "const/4 v0, 0x0\nreturn-object v0")
                 }
+        }
+
+        // Patch "friends online popup" (See Toast) - server-driven popup showing
+        // "x people like you" with subtext "y people online" and online icon
+        friendsOnlinePopupClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    // Patch k() and l() methods that display the toast
+                    // k() takes (home.b, ActionData) - main toast with title + message + online icon
+                    // l() takes (home.b, ActionToast) - simpler toast variant
+                    method.returnType == "V" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes.any { it.contains("ActionData") || it.contains("ActionToast") }
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
     }
 }
