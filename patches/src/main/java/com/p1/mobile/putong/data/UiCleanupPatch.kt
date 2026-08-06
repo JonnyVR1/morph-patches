@@ -265,7 +265,6 @@ val uiCleanupPatch = bytecodePatch(
             "Lcom/p1/mobile/putong/core/ui/purchase/CoinGuideView;",
             "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEntranceGuideSigningView;",
             "Lcom/p1/mobile/putong/core/ui/banner/DrawerBannersView;",
-            "Lcom/p1/mobile/putong/core/newui/intlmeet/tribe/IntlTribeGroupBanner;",
             "Lcom/p1/mobile/putong/feed/newui/status/improve/FeedStatusPostGuidePopView;",
             "Lcom/p1/mobile/putong/core/newui/profile/newmine/newprofile/view/UploadGuideImageView;",
         )
