@@ -1758,6 +1758,98 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
             }
+
+            // IntlMeetLikersNewLikersItem: Suppress individual new liker item binding in intlmeet
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/intlmeet/likers/items/IntlMeetLikersNewLikersItem;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "S" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // MeetLikersNewLikersItem: Suppress individual new liker item binding in meet
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/meet/likers/items/MeetLikersNewLikersItem;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "T" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // FakeLikersAct: Suppress fake likers activity launch
+            classDefByOrNull("Lcom/p1/mobile/putong/core/ui/seepage/likers/FakeLikersAct;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "Y1" && AccessFlags.STATIC.isSet(method.accessFlags) && method.parameterTypes.size == 2 && method.returnType == "Landroid/content/Intent;") {
+                        method.addInstructions(0, """
+                            const/4 v0, 0x0
+                            return-object v0
+                        """)
+                    }
+                    if (method.name == "a2" && AccessFlags.STATIC.isSet(method.accessFlags) && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // FakeLikersItem: Suppress fake liker item binding
+            classDefByOrNull("Lcom/p1/mobile/putong/core/ui/seepage/likers/FakeLikersItem;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "k" && method.parameterTypes.size == 2 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    if (method.name == "l" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // IntlFakeLikersItem: Suppress international fake liker item binding
+            classDefByOrNull("Lcom/p1/mobile/putong/core/ui/seepage/likers/IntlFakeLikersItem;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "i" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // IntlMeetFakeLikersItem: Suppress international meet fake liker item binding
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/intlmeet/likers/items/IntlMeetFakeLikersItem;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "n" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // MeetPromotionItemView: Suppress promotion item display
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/newmeet/feed/likers/MeetPromotionItemView;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "m" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    if (method.name == "o" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "I" && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // DATA LAYER PATCHES - String formatter
+            // Patch the string formatter that creates "people liked you" text
+            // Anchored on the string "people liked you"
+            val wid0StringFormatterFingerprint = Fingerprint(
+                filters = listOf(string("people liked you")),
+            )
+            wid0StringFormatterFingerprint.matchOrNull()?.classDef?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "j" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "I" && method.returnType == "Ljava/lang/CharSequence;") {
+                        method.addInstructions(0, """
+                            const-string v0, ""
+                            return-object v0
+                        """)
+                    }
+                }
+            }
             
             // ConversationsList adapter: Enhanced view hiding for promotional types
             // Instead of just setVisibility(GONE), also set height to 0 to prevent ListView from allocating space
@@ -1833,6 +1925,7 @@ val premiumUnlockPatch = bytecodePatch(
             "e_vip_banner", "vas_commercial_card_right_slide_strategy", "暂未激活黑金会员",
             "picksUser id is not found in users : ", "open_fill_info_debug",
             "fromWhoLikedMe", "e_red_dot_message_see",
+            "%s people liked you", "MeetLikersNewLikersData", "IntlMeetLikersNewLikersData",
         )
         val anchorFieldNames = setOf(
             "likersLimit", "secretCrushLimit", "surpriseGiftExpirationTime",
@@ -1845,7 +1938,7 @@ val premiumUnlockPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
-            if (resolved.size == 44) return@classDefForEach
+            if (resolved.size == 49) return@classDefForEach
 
             val classType = classDef.type
             val isSettingsUi = classType.startsWith("Lcom/p1/mobile/putong/core/ui/settings/")
@@ -2033,6 +2126,42 @@ val premiumUnlockPatch = bytecodePatch(
                 else if ("i0p" !in resolved && hasCoreLikersCall && classDef.superclass?.contains("re90") == true) {
                     resolved["i0p"] = classDef
                 }
+            }
+
+            // wid0: String formatter for "%s people liked you" text
+            // wid0.j(int) formats the promotional "X people liked you" string
+            // Anchored on stable string "%s people liked you"
+            if ("wid0" !in resolved && "%s people liked you" in strings &&
+                classDef.methods.any { it.name == "j" && it.parameterTypes.size == 1 && it.parameterTypes[0] == "I" && it.returnType == "Ljava/lang/CharSequence;" }) {
+                resolved["wid0"] = classDef
+            }
+
+            // ajy: MeetLikersNewLikersData - has getNewLikersCount() returning int
+            // Anchored on stable string "MeetLikersNewLikersData" in toString()
+            if ("meetNewLikersData" !in resolved && "MeetLikersNewLikersData" in strings &&
+                classDef.methods.any { it.parameterTypes.isEmpty() && it.returnType == "I" && it.name != "hashCode" }) {
+                resolved["meetNewLikersData"] = classDef
+            }
+
+            // ano: IntlMeetLikersNewLikersData - has newLikersCount field
+            // Anchored on stable string "IntlMeetLikersNewLikersData" in toString()
+            if ("intlMeetNewLikersData" !in resolved && "IntlMeetLikersNewLikersData" in strings &&
+                classDef.methods.any { it.parameterTypes.isEmpty() && it.returnType == "I" && it.name != "hashCode" }) {
+                resolved["intlMeetNewLikersData"] = classDef
+            }
+
+            // zmo: IntlMeetLikersNewLikersAdapter - calls IntlMeetLikersNewLikersItem.S()
+            // Anchored on method call to stable CamelCase class
+            if ("intlMeetNewLikersAdapter" !in resolved &&
+                methodCallFull.any { it.contains("Lcom/p1/mobile/putong/core/newui/intlmeet/likers/items/IntlMeetLikersNewLikersItem;") }) {
+                resolved["intlMeetNewLikersAdapter"] = classDef
+            }
+
+            // ziy: MeetLikersNewLikersAdapter - calls MeetLikersNewLikersItem.T()
+            // Anchored on method call to stable CamelCase class
+            if ("meetNewLikersAdapter" !in resolved &&
+                methodCallFull.any { it.contains("Lcom/p1/mobile/putong/core/newui/meet/likers/items/MeetLikersNewLikersItem;") }) {
+                resolved["meetNewLikersAdapter"] = classDef
             }
         }
 
@@ -2748,6 +2877,66 @@ val premiumUnlockPatch = bytecodePatch(
                         const-string v0, ""
                         return-object v0
                     """)
+                }
+            }
+        }
+
+        // wid0: String formatter for "%s people liked you" text
+        // wid0.j(int) returns CharSequence with promotional text
+        // Patch to return empty string
+        resolved["wid0"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "j" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "I" && method.returnType == "Ljava/lang/CharSequence;") {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+            }
+        }
+
+        // ajy: MeetLikersNewLikersData - patch getNewLikersCount() to return 0
+        // The method returns int and accesses this.newLikersCount field
+        resolved["meetNewLikersData"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.parameterTypes.isEmpty() && method.returnType == "I" && method.name != "hashCode") {
+                    method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        return v0
+                    """)
+                }
+            }
+        }
+
+        // ano: IntlMeetLikersNewLikersData - patch getNewLikersCount() to return 0
+        // The method returns int and accesses this.newLikersCount field
+        resolved["intlMeetNewLikersData"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.parameterTypes.isEmpty() && method.returnType == "I" && method.name != "hashCode") {
+                    method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        return v0
+                    """)
+                }
+            }
+        }
+
+        // zmo: IntlMeetLikersNewLikersAdapter - patch G(List) to return void
+        // Prevents adapter from populating the new likers list
+        resolved["intlMeetNewLikersAdapter"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "G" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Ljava/util/List;" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ziy: MeetLikersNewLikersAdapter - patch J(DbLinks, List) to return void
+        // Prevents adapter from populating the new likers list
+        resolved["meetNewLikersAdapter"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "J" && method.parameterTypes.size == 2 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/DbLinks;" && method.parameterTypes[1] == "Ljava/util/List;" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
