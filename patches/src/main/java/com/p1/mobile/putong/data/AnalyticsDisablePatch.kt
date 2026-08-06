@@ -501,7 +501,7 @@ val analyticsDisablePatch = bytecodePatch(
         }
 
         // ANR Monitor (Beatles SDK) - Application Not Responding detection
-        classDefByOrNull("Lcom/tantanapp/beatles/anrmonitor/C13704a;")?.let { classDef ->
+        classDefByOrNull("Lcom/tantanapp/beatles/anrmonitor/a;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
