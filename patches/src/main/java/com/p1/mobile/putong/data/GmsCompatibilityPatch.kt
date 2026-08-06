@@ -187,11 +187,15 @@ val gmsCompatibilityPatch = bytecodePatch(
         ).forEach { classDescriptor ->
             classDefByOrNull(classDescriptor)?.let { classDef ->
                 val mutableClass = mutableClassDefBy(classDef)
-                val methodMap = mutableClass.methods.associateBy { it.name }
+                // Key by full signature to handle overloaded methods/constructors
+                val methodMap = mutableClass.methods.associateBy { 
+                    "${it.name}(${it.parameterTypes.joinToString(",")})" 
+                }
 
                 classDef.methods.forEach { method ->
                     val implementation = method.implementation ?: return@forEach
-                    val mutableMethod = methodMap[method.name] ?: return@forEach
+                    val key = "${method.name}(${method.parameterTypes.joinToString(",")})"
+                    val mutableMethod = methodMap[key] ?: return@forEach
 
                     implementation.instructions.forEachIndexed { index, instruction ->
                         val str = (instruction as? Instruction21c)?.reference as? StringReference
@@ -219,11 +223,15 @@ val gmsCompatibilityPatch = bytecodePatch(
         ).forEach { classDescriptor ->
             classDefByOrNull(classDescriptor)?.let { classDef ->
                 val mutableClass = mutableClassDefBy(classDef)
-                val methodMap = mutableClass.methods.associateBy { it.name }
+                // Key by full signature to handle overloaded methods/constructors
+                val methodMap = mutableClass.methods.associateBy { 
+                    "${it.name}(${it.parameterTypes.joinToString(",")})" 
+                }
 
                 classDef.methods.forEach { method ->
                     val implementation = method.implementation ?: return@forEach
-                    val mutableMethod = methodMap[method.name] ?: return@forEach
+                    val key = "${method.name}(${method.parameterTypes.joinToString(",")})"
+                    val mutableMethod = methodMap[key] ?: return@forEach
                     val instructions = implementation.instructions.toList()
 
                     instructions.forEachIndexed { index, instruction ->
