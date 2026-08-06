@@ -201,6 +201,13 @@ val gmsCompatibilityPatch = bytecodePatch(
             "Lcom/google/android/gms/common/GooglePlayServicesUtil;",
             "Lcom/google/firebase/messaging/FirebaseMessaging;",
             "Lcom/google/android/gms/common/GoogleSignatureVerifier;",
+            // Maps SDK classes
+            "Lcom/google/android/gms/maps/SupportMapFragment;",
+            "Lcom/google/android/gms/maps/MapFragment;",
+            "Lcom/google/android/gms/maps/GoogleMapOptions;",
+            "Lcom/google/android/libraries/places/internal/zziw;",
+            "Lcom/google/android/libraries/places/internal/zzki;",
+            "Lcom/google/android/libraries/places/internal/zzjw;",
         ).forEach { classDescriptor ->
             classDefByOrNull(classDescriptor)?.let { classDef ->
                 val mutableClass = mutableClassDefBy(classDef)
@@ -239,6 +246,11 @@ val gmsCompatibilityPatch = bytecodePatch(
             "Lcom/google/firebase/remoteconfig/internal/ConfigRealtimeHttpClient;",
             "Lcom/google/android/libraries/places/internal/zzki;",
             "Lcom/google/android/libraries/places/internal/zzjw;",
+            // Maps SDK classes that make API requests
+            "Lcom/google/android/gms/maps/SupportMapFragment;",
+            "Lcom/google/android/gms/maps/MapFragment;",
+            "Lcom/google/android/gms/maps/GoogleMapOptions;",
+            "Lcom/google/android/libraries/places/internal/zziw;",
         ).forEach { classDescriptor ->
             classDefByOrNull(classDescriptor)?.let { classDef ->
                 val mutableClass = mutableClassDefBy(classDef)
