@@ -7,8 +7,16 @@ import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.iface.ClassDef
+import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
+
+private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
+
+private fun com.android.tools.smali.dexlib2.iface.Method.cachedInstructions(): List<Instruction> =
+    instructionCache.getOrPut(this) {
+        implementation?.instructions?.toList() ?: emptyList()
+    }
 
 private const val RETURN_VOID = "return-void"
 
@@ -92,6 +100,13 @@ private val seeWhoLikedMeProfileCardFingerprint = Fingerprint(
 
 private val bubbleManagerClassFingerprint = Fingerprint(
     filters = listOf(string("MagicBubble")),
+)
+
+private val proximityBubbleClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("distance"),
+        methodCall(name = "n7"),
+    ),
 )
 
 @Suppress("unused")
@@ -370,6 +385,46 @@ val uiCleanupPatch = bytecodePatch(
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/main/NewMainViewModel;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "V" &&
+                    method.parameterTypes.size == 6 &&
+                    method.parameterTypes.any { it.contains("Figure") } &&
+                    method.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is StringReference &&
+                        (instr.reference as StringReference).string == "e_see_floating_bubble"
+                    }
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        proximityBubbleClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "V" &&
+                    method.parameterTypes.any { it.contains("Figure") } &&
+                    method.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is StringReference &&
+                        (instr.reference as StringReference).string == "distance"
+                    }
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreLikers;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is StringReference &&
+                        (instr.reference as StringReference).string == "likers_for_popup_distance"
+                    }
+                }
+                .forEach { method ->
+                    method.addInstructions(0, "const/4 v0, 0x0\nreturn-object v0")
+                }
         }
     }
 }

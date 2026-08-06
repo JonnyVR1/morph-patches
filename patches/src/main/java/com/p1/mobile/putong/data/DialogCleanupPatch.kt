@@ -378,6 +378,34 @@ val dialogCleanupPatch = bytecodePatch(
                         const/4 v0, 0x0
                         return v0
                         :not_blocked34
+                        const-string v0, "see_bubble_conversation_tab_total_likes"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked35
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked35
+                        const-string v0, "see_bubble_conversation_tab_new_likes"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked36
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked36
+                        const-string v0, "see_entrance_conversation_tab_total_likes"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked37
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked37
+                        const-string v0, "see_entrance_conversation_tab_new_likes"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked38
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked38
                     """.trimIndent()
                     method.addInstructions(0, blocklistCheck)
                 }
