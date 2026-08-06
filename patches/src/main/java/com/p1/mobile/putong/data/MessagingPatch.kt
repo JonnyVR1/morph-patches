@@ -73,6 +73,8 @@ private const val GREETING_PERMISSION_FEED_CLASS = "Lcom/p1/mobile/putong/feed/d
 private const val CHAT_ROUNDS_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/ChatRoundsDisplayedExternallyConfig;"
 private const val QUICK_CHAT_LOFT_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/QuickChatLoftConfig;"
 private const val CONTINUOUS_CHAT_CLASS = "Lcom/p1/mobile/putong/core/data/ContinuousChat;"
+private const val ODIAMOND_VISITOR_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/ODiamondVisitorMessageGuideConfig;"
+private const val PROLOGUE_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/PrologueConfig;"
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
 
@@ -142,58 +144,33 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        h6wClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
+        val loveBuzzDataClasses = mutableListOf<com.android.tools.smali.dexlib2.iface.ClassDef>()
+        classDefForEach { classDef ->
+            val hasLoveBuzzField = classDef.fields.any { field ->
+                field.definingClass == "Lcom/p1/mobile/putong/core/data/LoveBuzzData;" &&
+                    field.name in setOf("remainingVoiceBuzz", "remainingTextBuzz", "remainingVideoBuzz", "remainingMemojiBuzz")
+            }
+            if (hasLoveBuzzField) {
+                loveBuzzDataClasses.add(classDef)
+            }
+        }
+        
+        loveBuzzDataClasses.forEach { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods.forEach { method ->
+                when {
                     method.name == "a" &&
                         method.parameterTypes.size == 1 &&
                         method.parameterTypes[0] == "Ljava/lang/String;" &&
-                        method.returnType == "Z"
-                }
-                .forEach { it.addInstructions(0, RETURN_FALSE) }
-        }
-
-        jlm0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
+                        method.returnType == "Z" -> method.addInstructions(0, RETURN_FALSE)
                     method.name == "j0" &&
                         method.parameterTypes.size == 2 &&
-                        method.returnType == "V"
+                        method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
                 }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
+            }
         }
 
-        eii0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    method.name == "j0" &&
-                        method.parameterTypes.size == 2 &&
-                        method.returnType == "V"
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
-
-        q1l0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    method.name == "j0" &&
-                        method.parameterTypes.size == 2 &&
-                        method.returnType == "V"
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
-
-        dgyClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    method.name == "j0" &&
-                        method.parameterTypes.size == 2 &&
-                        method.returnType == "V"
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
-
-        fczClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        typingIndicatorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "X2" &&
@@ -447,6 +424,62 @@ val messagingPatch = bytecodePatch(
         }
 
         // NOTE: nullCheck() methods are empty no-ops in the original APK - no patching needed
+
+        classDefByOrNull(ODIAMOND_VISITOR_CONFIG_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(ODIAMOND_VISITOR_CONFIG_CLASS, "total_limit_daily") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(ODIAMOND_VISITOR_CONFIG_CLASS, "user_limit_daily") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
+
+        classDefByOrNull(PROLOGUE_CONFIG_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(PROLOGUE_CONFIG_CLASS, "enable") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(PROLOGUE_CONFIG_CLASS, "enter_conv_limit") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(PROLOGUE_CONFIG_CLASS, "untalked_daily_show_count") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(PROLOGUE_CONFIG_CLASS, "unreply_daily_show_count") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
     }
 }
 
@@ -480,59 +513,7 @@ private val rd6ClassFingerprint = Fingerprint(
     ),
 )
 
-private val h6wClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingVoiceBuzz",
-        ),
-        string("voiceBuzz"),
-        string("videoBuzz"),
-        string("memojiBuzz"),
-    ),
-)
-
-private val jlm0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingVoiceBuzz",
-        ),
-        methodCall(name = "getNOT_LIMIT_VALUE"),
-    ),
-)
-
-private val eii0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingTextBuzz",
-        ),
-        methodCall(name = "getNOT_LIMIT_VALUE"),
-    ),
-)
-
-private val q1l0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingVideoBuzz",
-        ),
-        methodCall(name = "getNOT_LIMIT_VALUE"),
-    ),
-)
-
-private val dgyClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;",
-            name = "remainingMemojiBuzz",
-        ),
-        methodCall(name = "getNOT_LIMIT_VALUE"),
-    ),
-)
-
-private val fczClassFingerprint = Fingerprint(
+private val typingIndicatorClassFingerprint = Fingerprint(
     filters = listOf(
         fieldAccess(
             definingClass = "Lcom/p1/mobile/putong/core/data/KeepConnection;",
@@ -542,6 +523,7 @@ private val fczClassFingerprint = Fingerprint(
             definingClass = "Lcom/p1/mobile/putong/core/data/KeepConnection;",
             name = "chatTypingInterval",
         ),
+        methodCall(name = "interval"),
     ),
 )
 

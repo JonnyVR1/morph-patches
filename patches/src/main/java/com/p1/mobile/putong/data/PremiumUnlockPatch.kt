@@ -1701,6 +1701,20 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // CoreSuggested: Likers data source - n8() initiates the likers poll
+            classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreSuggested;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "n8" && method.parameterTypes.isEmpty() &&
+                        (method.returnType.startsWith("Lrx/") || method.returnType.startsWith("Lio/reactivex/"))) {
+                        method.addInstructions(0, """
+                            invoke-static {}, Lrx/c;->a()Lrx/c;
+                            move-result-object v0
+                            return-object v0
+                        """)
+                    }
+                }
+            }
+
             // FakeLikersAct: Suppress fake likers activity launch
             classDefByOrNull("Lcom/p1/mobile/putong/core/ui/seepage/likers/FakeLikersAct;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
@@ -1862,49 +1876,25 @@ val premiumUnlockPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
-            if (resolved.size == 49) return@classDefForEach
+            if (resolved.size == 47) return@classDefForEach
 
             val classType = classDef.type
             val isSettingsUi = classType.startsWith("Lcom/p1/mobile/putong/core/ui/settings/")
 
-            var hasAnchorString = false
-            var hasAnchorField = false
-            var hasAnchorMethod = false
+            val strings = mutableSetOf<String>()
+            val methodCallFull = mutableSetOf<String>()
+            val methodCallNames = mutableSetOf<String>()
+            val fieldAccessFull = mutableSetOf<String>()
+            val fieldNames = mutableSetOf<String>()
+            val methodCallSigs = mutableSetOf<String>()
+            val methodCallFullSigs = mutableSetOf<String>()
+            val methodNameRet = mutableSetOf<String>()
             var hasZUserMethod = false
 
             classDef.methods.forEach { method ->
                 if (method.returnType == "Z" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;") {
                     hasZUserMethod = true
                 }
-                if (hasAnchorString && hasAnchorField && hasAnchorMethod) return@forEach
-                instructionsOf(method).forEach { instr ->
-                    if (instr is ReferenceInstruction) {
-                        when (val ref = instr.reference) {
-                            is StringReference -> {
-                                if (!hasAnchorString && ref.string in anchorStrings) hasAnchorString = true
-                            }
-                            is MethodReference -> {
-                                if (!hasAnchorMethod && ref.name in anchorMethodNames) hasAnchorMethod = true
-                            }
-                            is FieldReference -> {
-                                if (!hasAnchorField && ref.name in anchorFieldNames) hasAnchorField = true
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!hasAnchorString && !hasAnchorField && !hasAnchorMethod) return@classDefForEach
-
-            val strings = mutableSetOf<String>()
-            val methodCallFull = mutableSetOf<String>()
-            val methodCallNames = mutableSetOf<String>()
-            val fieldAccessFull = mutableSetOf<String>()
-            val methodCallSigs = mutableSetOf<String>()
-            val methodCallFullSigs = mutableSetOf<String>()
-            val methodNameRet = mutableSetOf<String>()
-
-            classDef.methods.forEach { method ->
                 instructionsOf(method).forEach { instr ->
                     if (instr is ReferenceInstruction) {
                         when (val ref = instr.reference) {
@@ -1921,11 +1911,18 @@ val premiumUnlockPatch = bytecodePatch(
                             }
                             is FieldReference -> {
                                 fieldAccessFull.add("${ref.definingClass}.${ref.name}")
+                                fieldNames.add(ref.name)
                             }
                         }
                     }
                 }
             }
+
+            val hasAnchorString = strings.any { it in anchorStrings }
+            val hasAnchorField = fieldNames.any { it in anchorFieldNames }
+            val hasAnchorMethod = methodCallNames.any { it in anchorMethodNames }
+
+            if (!hasAnchorString && !hasAnchorField && !hasAnchorMethod) return@classDefForEach
 
             val hasConvNew_ = "Lcom/p1/mobile/putong/core/data/Conversation;.new_.0.Lcom/p1/mobile/putong/core/data/Conversation;" in methodCallFullSigs
 
@@ -2003,15 +2000,6 @@ val premiumUnlockPatch = bytecodePatch(
             if ("qtk" !in resolved && "reBackAppGuideDialog" in strings &&
                 methodCallFull.any { it.contains("hlh0") }) {
                 resolved["qtk"] = classDef
-            }
-            
-            // CoreSuggested: Likers data source
-            // CoreSuggested.n8() initiates the likers poll
-            // Anchored on "home_new_liker_float" + "home_total_liker_float" strings
-            if ("coreSuggested" !in resolved && "home_new_liker_float" in strings &&
-                "home_total_liker_float" in strings &&
-                classDef.type.contains("CoreSuggested")) {
-                resolved["coreSuggested"] = classDef
             }
             
             if ("secretCrush" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
@@ -2099,39 +2087,6 @@ val premiumUnlockPatch = bytecodePatch(
 
         resolved["xma"]?.let { xmaClassDef ->
             val mutableXma = mutableClassDefBy(xmaClassDef)
-            xmaS3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-            mutableXma.methods.forEach { method ->
-                if (method.isStaticSummarizedPrivilegesIdReturnBool() && !method.callsGuessedCurrentServerTime()) {
-                    method.addInstructions(0, RETURN_TRUE)
-                }
-            }
-
-            xmaV3W3Fingerprint.matchAll(xmaClassDef, 1..2).forEach { match ->
-                match.method.addInstructions(0, RETURN_LONG_MAX)
-            }
-
-            xmaQ3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_LONG_MAX)
-            }
-            xmaS3LongWrapperFingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_LONG_MAX)
-            }
-
-            xmaT3Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-            mutableXma.methods.forEach { method ->
-                if (method.isStaticUserPrivilegeReturnBool() && !method.callsGuessedCurrentServerTime()) {
-                    method.addInstructions(0, RETURN_TRUE)
-                }
-            }
-
-            xmaA4Fingerprint.matchOrNull(xmaClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-
             val s3StyleKeys = setOf(
                 "unlimitedSwipes", "roaming", "superLikeMembership", "undoMembership", "seeWhoLikedMe",
                 "message_read_state", "top_like", "top_chat", "premium_compliment",
@@ -2147,49 +2102,64 @@ val premiumUnlockPatch = bytecodePatch(
                 "revokeUnPair" to false
             )
 
-            mutableXma.methods
-                .filter { it.isStaticNoArgReturnBool() || (it.parameterTypes.isEmpty() && it.returnType == "Z") }
-                .forEach { method ->
-                    when {
-                        method.callsMethodNamed("h5") -> {
-                            method.addInstructions(0, RETURN_TRUE)
+            mutableXma.methods.forEach { method ->
+                if (!AccessFlags.PUBLIC.isSet(method.accessFlags) || !AccessFlags.STATIC.isSet(method.accessFlags)) return@forEach
+                when {
+                    method.returnType == "Z" && method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/SummarizedPrivilegesId;" &&
+                        method.callsGuessedCurrentServerTime() -> {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                    method.returnType == "J" && method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/SummarizedPrivilegesId;" -> {
+                        method.addInstructions(0, RETURN_LONG_MAX)
+                    }
+                    method.returnType == "Z" && method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/UserPrivilege;" &&
+                        method.callsGuessedCurrentServerTime() -> {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                    method.returnType == "Z" && method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
+                        method.containsString("unknown_") -> {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                    method.isStaticSummarizedPrivilegesIdReturnBool() -> {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                    method.isStaticUserPrivilegeReturnBool() -> {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                    method.returnType == "J" && method.parameterTypes.isEmpty() && method.containsString("femaleVip") -> {
+                        method.addInstructions(0, RETURN_LONG_MAX)
+                    }
+                    method.returnType == "J" && method.parameterTypes.isEmpty() && method.containsString("limitedTrialSee") -> {
+                        method.addInstructions(0, RETURN_LONG_MAX)
+                    }
+                    method.returnType == "I" && method.parameterTypes.isEmpty() -> {
+                        method.addInstructions(0, RETURN_INT_200000)
+                    }
+                    method.returnType == "Z" && method.parameterTypes.isEmpty() && method.containsString("oDiamond") -> {
+                        when {
+                            method.hasNegation() -> method.addInstructions(0, LOG_XMA_F3_TRUE)
+                            method.callsMethodNamed("c4") -> method.addInstructions(0, LOG_XMA_Y3_TRUE)
+                            else -> method.addInstructions(0, LOG_XMA_X3_FALSE)
                         }
-                        method.callsMethodNamed("TEnum") -> {
-                            method.addInstructions(0, RETURN_FALSE)
-                        }
-                        negatedKeys.any { method.containsString(it) } && method.hasNegation() -> {
-                            method.addInstructions(0, RETURN_TRUE)
-                        }
-                        s3StyleKeys.any { method.containsString(it) } -> {
-                            method.addInstructions(0, RETURN_FALSE)
-                        }
-                        else -> {
-                            singleMethodKeys.entries.firstOrNull { (key, _) -> method.containsString(key) }?.let { (_, returnValue) ->
-                                method.addInstructions(0, if (returnValue) RETURN_TRUE else RETURN_FALSE)
+                    }
+                    method.returnType == "Z" && method.parameterTypes.isEmpty() -> {
+                        when {
+                            method.callsMethodNamed("h5") -> method.addInstructions(0, RETURN_TRUE)
+                            method.callsMethodNamed("TEnum") -> method.addInstructions(0, RETURN_FALSE)
+                            negatedKeys.any { method.containsString(it) } && method.hasNegation() -> method.addInstructions(0, RETURN_TRUE)
+                            s3StyleKeys.any { method.containsString(it) } -> method.addInstructions(0, RETURN_FALSE)
+                            else -> {
+                                singleMethodKeys.entries.firstOrNull { (key, _) -> method.containsString(key) }?.let { (_, returnValue) ->
+                                    method.addInstructions(0, if (returnValue) RETURN_TRUE else RETURN_FALSE)
+                                }
                             }
                         }
                     }
                 }
-
-            mutableXma.methods
-                .filter { it.isStaticNoArgReturnBool() }
-                .filter { it.containsString("oDiamond") }
-                .forEach { method ->
-                    when {
-                        method.hasNegation() -> {
-                            method.addInstructions(0, LOG_XMA_F3_TRUE)
-                        }
-                        method.callsMethodNamed("c4") -> {
-                            method.addInstructions(0, LOG_XMA_Y3_TRUE)
-                        }
-                        else -> {
-                            method.addInstructions(0, LOG_XMA_X3_FALSE)
-                        }
-                    }
-                }
-
-            xmaCreditCountFingerprint.matchAll(xmaClassDef, 1..15).forEach { match ->
-                match.method.addInstructions(0, RETURN_INT_200000)
             }
         }
 
@@ -2396,14 +2366,25 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         resolved["u59"]?.let { u59ClassDef ->
-            u59RegionalGateFingerprint.matchAll(u59ClassDef, 1..20).forEach { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
-            u59RFingerprint.matchOrNull(u59ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
-            u59VFingerprint.matchOrNull(u59ClassDef)?.let { match ->
-                match.method.addInstructions(0, U59_V_BODY)
+            mutableClassDefBy(u59ClassDef).methods.forEach { method ->
+                if (!AccessFlags.PUBLIC.isSet(method.accessFlags) || !AccessFlags.STATIC.isSet(method.accessFlags)) return@forEach
+                when {
+                    method.returnType == "Z" && method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                        method.callsMethodNamed("isUltraPremium") -> {
+                        method.addInstructions(0, U59_V_BODY)
+                    }
+                    method.returnType == "Z" && method.parameterTypes.isEmpty() &&
+                        method.cachedInstructions().any { it is ReferenceInstruction && it.reference is MethodReference &&
+                            (it.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;" &&
+                            (it.reference as MethodReference).name == "k" } -> {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                    method.returnType == "Z" && method.parameterTypes.isEmpty() &&
+                        method.containsString("intl_instantmatch_open_user") -> {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                }
             }
         }
 
@@ -2435,20 +2416,41 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         resolved["n3b0"]?.let { n3b0ClassDef ->
-            n3b0QFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-            n3b0GFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
-                match.method.addInstructions(0, FAR_FUTURE_MS_BODY)
-            }
-            n3b0BoostRemainingFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_INT_200000)
-            }
-            n3b0BoostHasFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
-            n3b0BoostAvailableFingerprint.matchOrNull(n3b0ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
+            mutableClassDefBy(n3b0ClassDef).methods.forEach { method ->
+                if (!AccessFlags.STATIC.isSet(method.accessFlags)) return@forEach
+                val instrs = method.cachedInstructions()
+                when {
+                    method.returnType == "Z" && method.parameterTypes.isEmpty() &&
+                        instrs.any { it is ReferenceInstruction && it.reference is FieldReference &&
+                            (it.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/data/LikersLimit;" &&
+                            (it.reference as FieldReference).name == "remaining" } -> {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                    method.returnType == "J" && method.parameterTypes.isEmpty() &&
+                        instrs.any { it is ReferenceInstruction && it.reference is FieldReference &&
+                            (it.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/data/LikersLimit;" &&
+                            (it.reference as FieldReference).name == "expiresTime" } -> {
+                        method.addInstructions(0, FAR_FUTURE_MS_BODY)
+                    }
+                    method.returnType == "I" && method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;" &&
+                        instrs.any { it is ReferenceInstruction && it.reference is FieldReference &&
+                            (it.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/data/Counter;" &&
+                            (it.reference as FieldReference).name == "boostLimits" } -> {
+                        method.addInstructions(0, RETURN_INT_200000)
+                    }
+                    method.returnType == "Z" && method.parameterTypes.isEmpty() &&
+                        instrs.any { it is ReferenceInstruction && it.reference is FieldReference &&
+                            (it.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/data/Counter;" &&
+                            (it.reference as FieldReference).name == "boostLimits" } -> {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                    method.returnType == "Z" && method.parameterTypes.isEmpty() &&
+                        instrs.any { it is ReferenceInstruction && it.reference is MethodReference &&
+                            (it.reference as MethodReference).name == "e" } -> {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
             }
         }
 
@@ -2507,26 +2509,10 @@ val premiumUnlockPatch = bytecodePatch(
         // All are static methods that return void. Patching to return-void prevents the dialog.
         resolved["hl3"]?.let { hl3ClassDef ->
             mutableClassDefBy(hl3ClassDef).methods.forEach { method ->
-                // J(Act, int, CoreLikers$a) → void
-                if (method.name == "J" && method.parameterTypes.size == 3 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                    method.parameterTypes[1] == "I" &&
-                    method.parameterTypes[2].contains("CoreLikers") &&
-                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-                // H(Act, int, List) → void
                 if (method.name == "H" && method.parameterTypes.size == 3 &&
                     method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
                     method.parameterTypes[1] == "I" &&
                     method.parameterTypes[2] == "Ljava/util/List;" &&
-                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-                // L(Act, int) → void - SVIP recover dialog
-                if (method.name == "L" && method.parameterTypes.size == 2 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                    method.parameterTypes[1] == "I" &&
                     method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
                 }
@@ -2574,25 +2560,6 @@ val premiumUnlockPatch = bytecodePatch(
                 if (method.name == "B0" && method.parameterTypes.isEmpty() &&
                     method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // CoreSuggested: Likers data source
-        // CoreSuggested.n8() initiates the likers poll with home_new_liker_float/home_total_liker_float
-        // This is the ROOT SOURCE of data that feeds all popup chains
-        // Instance method that returns Observable. Patch to return empty Observable.
-        resolved["coreSuggested"]?.let { coreSuggestedClassDef ->
-            mutableClassDefBy(coreSuggestedClassDef).methods.forEach { method ->
-                // n8() → Observable (initiates likers poll)
-                if (method.name == "n8" && method.parameterTypes.isEmpty() &&
-                    method.returnType.startsWith("Lrx/") || method.returnType.startsWith("Lio/reactivex/")) {
-                    // Return empty Observable to cut off data at source
-                    method.addInstructions(0, """
-                        invoke-static {}, Lrx/c;->a()Lrx/c;
-                        move-result-object v0
-                        return-object v0
-                    """)
                 }
             }
         }

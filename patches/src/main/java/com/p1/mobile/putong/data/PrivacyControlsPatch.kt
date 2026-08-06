@@ -30,30 +30,6 @@ private const val RETURN_LONG_0 = """
 
 // ── Class fingerprints anchored on stable privilege-name strings ──
 
-// vo50: OnlineZone view — references nearby_people + "p_home_nearby,online"
-private val nearbyPeopleOnlineClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("nearby_people"),
-        string("p_home_nearby,online"),
-    ),
-)
-
-// k7y: NearbyPresenter — references nearby_people + "p_meet_nearby,default"
-private val nearbyPeopleMeetClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("nearby_people"),
-        string("p_meet_nearby,default"),
-    ),
-)
-
-// l920: NearbyPresenter view — references nearby_people + D9/bg gate pattern
-private val nearbyPeoplePresenterClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("nearby_people"),
-        string("p_suggest_nearby"),
-    ),
-)
-
 // c220/h120: visitor footprint purchase dialog triggers
 private val visitorFootprintGateClassFingerprint = Fingerprint(
     filters = listOf(
@@ -72,36 +48,6 @@ private val readReceiptPurchaseDialogClassFingerprint = Fingerprint(
 
 private const val BLIVE_COMMON_CONFIG_CLASS = "Lcom/p1/mobile/putong/live/base/data/BLiveCommonConfig;"
 private const val PERMISSION_HELPER_CLASS = "Lcom/p1/mobile/putong/ui/permission/PermissionHelper;"
-
-private val privacyMembershipHideLocationClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/PrivacyMembershipSetting;",
-            name = "hideLocation",
-        ),
-        string("hideLocation"),
-    ),
-)
-
-private val svipPrivacyHideLocationClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/SvipPrivacySettings;",
-            name = "hideLocation",
-        ),
-        string("hideLocation"),
-    ),
-)
-
-private val userPrivacySettingsClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/UserPrivacySettings;",
-            name = "hideContacts",
-        ),
-        string("hideContacts"),
-    ),
-)
 
 private val settingsMomentClassFingerprint = Fingerprint(
     filters = listOf(
@@ -283,45 +229,6 @@ val privacyControlsPatch = bytecodePatch(
 
         // ── Obfuscated classes resolved via fingerprints ──
 
-        nearbyPeopleOnlineClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                val analysis = method.analyze()
-                if (analysis.containsString("p_home_nearby,online") &&
-                    analysis.containsString("nearby_people") &&
-                    (analysis.callsMethodNamed("D9") || analysis.callsMethodNamed("bg")) &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        nearbyPeopleMeetClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                val analysis = method.analyze()
-                if (analysis.containsString("p_meet_nearby,default") &&
-                    analysis.containsString("nearby_people") &&
-                    analysis.callsMethodNamed("Gs") &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        nearbyPeoplePresenterClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                val analysis = method.analyze()
-                if (analysis.containsString("p_suggest_nearby") &&
-                    analysis.containsString("nearby_people") &&
-                    (analysis.callsMethodNamed("D9") || analysis.callsMethodNamed("bg")) &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
         visitorFootprintGateClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 val analysis = method.analyze()
@@ -355,7 +262,7 @@ val privacyControlsPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        privacyMembershipHideLocationClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/PrivacyMembershipSetting;")?.let { classDef ->
             val privacyMembershipBoolFields = setOf("hideLocation", "hideAge", "hideIcon", "frozenActivity")
             mutableClassDefBy(classDef).methods
                 .filter { method ->
@@ -369,7 +276,7 @@ val privacyControlsPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        svipPrivacyHideLocationClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        classDefByOrNull("Lcom/p1/mobile/putong/data/SvipPrivacySettings;")?.let { classDef ->
             val mutableClass = mutableClassDefBy(classDef)
             val svipBoolFields = setOf("hideLocation", "hideAge", "hideIcon")
             mutableClass.methods
@@ -391,9 +298,8 @@ val privacyControlsPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_LONG_0) }
         }
 
-        // ── Privacy Settings Force Enable (single fingerprint, 3 fields) ──
-        val userPrivacyTargetFields = setOf("hideContacts", "hideMutualContacts", "hideSchool", "hideActivityTime", "personalizeSuggest", "adsSuggest", "hideVIP", "heartbeatDisable", "verifiedUserMsg", "onlineReminder", "unrepliedReminder")
-        userPrivacySettingsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        val userPrivacyTargetFields = setOf("hideContacts", "hideMutualContacts", "hideSchool", "hideActivityTime", "personalizeSuggest", "adsSuggest", "hideVIP", "heartbeatDisable", "verifiedUserMsg", "onlineReminder", "unrepliedReminder", "hideBodyType", "hideChineseZodiac", "hideHeight", "hideHoroscope", "hideReligion", "hideSexuality", "imperialHeight")
+        classDefByOrNull("Lcom/p1/mobile/putong/data/UserPrivacySettings;")?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     val returnType = method.returnType

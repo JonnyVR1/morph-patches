@@ -1,11 +1,9 @@
 package com.p1.mobile.putong.data
 
-import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.patch.resourcePatch
-import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction21c
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
@@ -114,18 +112,6 @@ private val manifestPatch = resourcePatch {
     }
 }
 
-private val googleSignInClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("218526224262-usliqg20cepnb3ql98amgeum18v8uatv.apps.googleusercontent.com"),
-    ),
-)
-
-private val facebookSdkClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("The SDK has not been initialized"),
-    ),
-)
-
 private val RETURN_FALSE = """
     const/4 v0, 0x0
     return v0
@@ -184,10 +170,12 @@ val gmsCompatibilityPatch = bytecodePatch(
             "Lcom/google/android/gms/common/internal/zzo;",
             "Lcom/google/android/gms/common/internal/BaseGmsClient;",
             "Lcom/google/android/gms/common/internal/GetServiceRequest;",
+            "Lcom/google/android/gms/common/GooglePlayServicesUtil;",
+            "Lcom/google/firebase/messaging/FirebaseMessaging;",
+            "Lcom/google/android/gms/common/GoogleSignatureVerifier;",
         ).forEach { classDescriptor ->
             classDefByOrNull(classDescriptor)?.let { classDef ->
                 val mutableClass = mutableClassDefBy(classDef)
-                // Key by full signature to handle overloaded methods/constructors
                 val methodMap = mutableClass.methods.associateBy { 
                     "${it.name}(${it.parameterTypes.joinToString(",")})" 
                 }
@@ -196,8 +184,9 @@ val gmsCompatibilityPatch = bytecodePatch(
                     val implementation = method.implementation ?: return@forEach
                     val key = "${method.name}(${method.parameterTypes.joinToString(",")})"
                     val mutableMethod = methodMap[key] ?: return@forEach
+                    val instructions = implementation.instructions.toList()
 
-                    implementation.instructions.forEachIndexed { index, instruction ->
+                    instructions.forEachIndexed { index, instruction ->
                         val str = (instruction as? Instruction21c)?.reference as? StringReference
                             ?: return@forEachIndexed
 
@@ -273,11 +262,41 @@ val gmsCompatibilityPatch = bytecodePatch(
             }
         }
 
-        // ── Google Sign-In: patch sign-in client to work with re-signed APKs ──
-        googleSignInClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { it.name != "<init>" && it.name != "<clinit>" && it.returnType == "Z" }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
+        // ── Google Sign-In + Facebook SDK: single-pass scan for all matching classes ──
+        val googleSignInClientId = "218526224262-usliqg20cepnb3ql98amgeum18v8uatv.apps.googleusercontent.com"
+        val facebookSdkInit = "The SDK has not been initialized"
+
+        classDefForEach { classDef ->
+            var foundGoogleSignIn = false
+            var foundFacebookSdk = false
+
+            for (method in classDef.methods) {
+                val impl = method.implementation ?: continue
+                for (instruction in impl.instructions) {
+                    val stringRef = (instruction as? Instruction21c)?.reference as? StringReference
+                        ?: continue
+                    val str = stringRef.string
+                    if (str == googleSignInClientId) foundGoogleSignIn = true
+                    if (str == facebookSdkInit) foundFacebookSdk = true
+                    if (foundGoogleSignIn && foundFacebookSdk) break
+                }
+                if (foundGoogleSignIn && foundFacebookSdk) break
+            }
+
+            if (foundGoogleSignIn) {
+                mutableClassDefBy(classDef).methods
+                    .filter { it.name != "<init>" && it.name != "<clinit>" && it.returnType == "Z" }
+                    .forEach { it.addInstructions(0, RETURN_TRUE) }
+            }
+
+            if (foundFacebookSdk) {
+                mutableClassDefBy(classDef).methods
+                    .filter {
+                        it.name != "<init>" && it.name != "<clinit>" &&
+                                it.returnType == "Z" && it.parameterTypes.isEmpty()
+                    }
+                    .forEach { it.addInstructions(0, RETURN_TRUE) }
+            }
         }
 
         // ── Google Places API: ensure Places initialization works with re-signed APKs ──
@@ -300,16 +319,6 @@ val gmsCompatibilityPatch = bytecodePatch(
                         it.addInstructions(0, "return-void")
                     }
                 }
-        }
-
-        // ── Facebook Login: patch SDK initialization for re-signed APKs ──
-        facebookSdkClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter {
-                    it.name != "<init>" && it.name != "<clinit>" &&
-                            it.returnType == "Z" && it.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
     }

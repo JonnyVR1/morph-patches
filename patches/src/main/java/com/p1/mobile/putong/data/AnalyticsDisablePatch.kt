@@ -33,13 +33,13 @@ private val ANALYTICS_ANCHOR_STRINGS = setOf(
     "e_request_none_oaid", "com.tantanapp.beatles", "miit_oaid",
     "add_payment_info", "com.google.android.gms.ads.identifier.service.START",
     "mmfile_push_statistic", "BatteryMetrics", "live-PerfTracer",
-    "DNS_SLA", "_getOrCreate", "_compressRecordFile", "setMmcvVersion",
-    "setMagicEffectVersion", "getSubmitAlternative", "ANDROIDID", "OAID",
-    "LBS", "androidid", "cid", "screen", "android_id", "wlan0/address",
+    "DNS_SLA", "_getOrCreate", "_compressRecordFile",
+    "getSubmitAlternative", "android_id", "wlan0/address",
+    "[IMEI]", "[MAC]", "[OAID]", "device_fingerprint",
 )
 
 private const val FOX_STATS_DEFAULT_ENV = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"
-private const val ANALYTICS_TOTAL_EXPECTED = 16
+private const val ANALYTICS_TOTAL_EXPECTED = 14
 
 @Suppress("unused")
 @JvmField
@@ -56,20 +56,15 @@ val analyticsDisablePatch = bytecodePatch(
             if (analyticsClasses.size == ANALYTICS_TOTAL_EXPECTED) return@classDefForEach
 
             val found = mutableSetOf<String>()
-            var hasDefaultEnvCall = false
 
             for (method in classDef.methods) {
                 val impl = method.implementation ?: continue
                 for (instr in impl.instructions) {
                     if (instr is ReferenceInstruction) {
-                        when (val ref = instr.reference) {
-                            is StringReference -> {
-                                val s = ref.string
-                                if (s in ANALYTICS_ANCHOR_STRINGS) found.add(s)
-                            }
-                            is MethodReference -> {
-                                if (ref.definingClass == FOX_STATS_DEFAULT_ENV) hasDefaultEnvCall = true
-                            }
+                        val ref = instr.reference
+                        if (ref is StringReference) {
+                            val s = ref.string
+                            if (s in ANALYTICS_ANCHOR_STRINGS) found.add(s)
                         }
                     }
                 }
@@ -86,11 +81,9 @@ val analyticsDisablePatch = bytecodePatch(
             if ("DNS_SLA" in found) analyticsClasses.putIfAbsent("dnsSla", classDef)
             if ("getSubmitAlternative" in found) analyticsClasses.putIfAbsent("moLiveApm2", classDef)
             if ("_getOrCreate" in found && "_compressRecordFile" in found) analyticsClasses.putIfAbsent("moTracing", classDef)
-            if ("setMmcvVersion" in found && "setMagicEffectVersion" in found) analyticsClasses.putIfAbsent("networkMetrics", classDef)
-            if ("ANDROIDID" in found && "OAID" in found && "LBS" in found) analyticsClasses.putIfAbsent("deviceFingerprintCollector", classDef)
-            if ("androidid" in found && "cid" in found && "screen" in found) analyticsClasses.putIfAbsent("deviceFingerprintHash", classDef)
+            if ("[IMEI]" in found && "[MAC]" in found && "[OAID]" in found) analyticsClasses.putIfAbsent("deviceFingerprintCollector", classDef)
+            if ("device_fingerprint" in found) analyticsClasses.putIfAbsent("deviceFingerprintHash", classDef)
             if ("android_id" in found && "wlan0/address" in found) analyticsClasses.putIfAbsent("deviceInfoCollector", classDef)
-            if (hasDefaultEnvCall) analyticsClasses.putIfAbsent("coreEventLogger", classDef)
         }
 
         classDefByOrNull("Lcom/appsflyer/AppsFlyerLib;")?.let { classDef ->
@@ -152,11 +145,68 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        classDefByOrNull("Lcom/google/firebase/crashlytics/FirebaseCrashlytics;")?.let { classDef ->
+        classDefByOrNull("Lcom/sina/deviceidjnisdk/DeviceId;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
-                if (method.name == "getInstance" && method.returnType.startsWith("L")) {
-                    method.addInstructions(0, RETURN_NULL_OBJECT)
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                    else -> if (method.returnType.startsWith("L")) {
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+                    }
+                }
+            }
+        }
+
+        listOf(
+            "Lcom/cosmos/photon/push/uniqueid/UniqueAndroidId;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueIMEI;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueDeviceId;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueSerialNumber;"
+        ).forEach { descriptor ->
+            classDefByOrNull(descriptor)?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
+                    if (isConstructor(method)) return@forEach
+                    when (method.returnType) {
+                        "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                        "V" -> method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/tencent/liteav/basic/datareport/TXCDRApi;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.returnType == "V") method.addInstructions(0, RETURN_VOID)
+            }
+        }
+
+        classDefByOrNull("Lcom/cosmos/mdlog/MDLog;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when (method.returnType) {
+                    "V" -> method.addInstructions(0, RETURN_VOID)
+                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    else -> if (method.returnType.startsWith("L")) {
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+                    }
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/android/installreferrer/api/InstallReferrerClient;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
+                    method.returnType == "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
+                    method.returnType.startsWith("L") -> method.addInstructions(0, RETURN_NULL_OBJECT)
                 }
             }
         }
@@ -257,7 +307,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // MoTracing - disable tracing methods
         analyticsClasses["moTracing"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -276,21 +325,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // Network Metrics - disable metrics methods
-        analyticsClasses["networkMetrics"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                if (method.name in setOf("init", "flush", "report", "realTimeReport",
-                                        "setMMCVVersion", "setMagicEffectVersion",
-                                        "setRecorderSDKVersion", "setUID", "setXEngineVersion") &&
-                    method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // MoLive APM - disable APM methods
         analyticsClasses["moLiveApm2"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -304,80 +338,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // Sina DeviceId JNI SDK - disable device fingerprinting
-        classDefByOrNull("Lcom/sina/deviceidjnisdk/DeviceId;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                when (method.returnType) {
-                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
-                    "V" -> method.addInstructions(0, RETURN_VOID)
-                    else -> if (method.returnType.startsWith("L")) {
-                        method.addInstructions(0, RETURN_NULL_OBJECT)
-                    }
-                }
-            }
-        }
-
-        // Cosmos Photon Push UniqueIDs - disable hardware ID collection
-        listOf(
-            "Lcom/cosmos/photon/push/uniqueid/UniqueAndroidId;",
-            "Lcom/cosmos/photon/push/uniqueid/UniqueIMEI;",
-            "Lcom/cosmos/photon/push/uniqueid/UniqueDeviceId;",
-            "Lcom/cosmos/photon/push/uniqueid/UniqueSerialNumber;"
-        ).forEach { descriptor ->
-            classDefByOrNull(descriptor)?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.implementation == null) return@forEach
-                    if (isConstructor(method)) return@forEach
-                    when (method.returnType) {
-                        "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
-                        "V" -> method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-        }
-
-        // Tencent LiteAV Telemetry - disable performance tracking
-        classDefByOrNull("Lcom/tencent/liteav/basic/datareport/TXCDRApi;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                if (method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // Cosmos MDLog - disable core logging infrastructure
-        classDefByOrNull("Lcom/cosmos/mdlog/MDLog;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                when (method.returnType) {
-                    "V" -> method.addInstructions(0, RETURN_VOID)
-                    "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
-                    else -> if (method.returnType.startsWith("L")) {
-                        method.addInstructions(0, RETURN_NULL_OBJECT)
-                    }
-                }
-            }
-        }
-
-        // Install Referrer API - disable install attribution tracking
-        classDefByOrNull("Lcom/android/installreferrer/api/InstallReferrerClient;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                when {
-                    method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
-                    method.returnType == "Ljava/lang/String;" -> method.addInstructions(0, RETURN_EMPTY_STRING)
-                    method.returnType.startsWith("L") -> method.addInstructions(0, RETURN_NULL_OBJECT)
-                }
-            }
-        }
-
-        // Central device fingerprint collector (dk50) - block URL template substitution and all identifier collection
         analyticsClasses["deviceFingerprintCollector"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -385,10 +345,7 @@ val analyticsDisablePatch = bytecodePatch(
                 when {
                     method.returnType == "Ljava/lang/String;" &&
                     method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Ljava/lang/String;" -> method.addInstructions(0, """
-                        const/4 v0, 0x0
-                        return-object v0
-                    """)
+                    method.parameterTypes[0] == "Ljava/lang/String;" -> method.addInstructions(0, RETURN_NULL_OBJECT)
 
                     method.returnType == "Ljava/lang/String;" &&
                     AccessFlags.STATIC.isSet(method.accessFlags) -> method.addInstructions(0, RETURN_EMPTY_STRING)
@@ -396,7 +353,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // Device fingerprint hash collector (nuq0) - block device fingerprint generation
         analyticsClasses["deviceFingerprintHash"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -408,7 +364,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // Device info collector (vrq0) - block ANDROIDID, IMEI, MAC collection at source
         analyticsClasses["deviceInfoCollector"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -420,7 +375,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // Enhanced OAID collection (hb00) - block OAID init and collection
         analyticsClasses["oaid"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -441,7 +395,22 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // Core Event Logger (i4g0) - central analytics hub, ALL app analytics flow through this class
+        classDefForEach { classDef ->
+            if (analyticsClasses.containsKey("coreEventLogger")) return@classDefForEach
+            for (method in classDef.methods) {
+                val impl = method.implementation ?: continue
+                for (instr in impl.instructions) {
+                    if (instr is ReferenceInstruction) {
+                        val ref = instr.reference
+                        if (ref is MethodReference && ref.definingClass == FOX_STATS_DEFAULT_ENV) {
+                            analyticsClasses["coreEventLogger"] = classDef
+                            return@classDefForEach
+                        }
+                    }
+                }
+            }
+        }
+
         analyticsClasses["coreEventLogger"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -452,7 +421,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // MEStatistics - live streaming performance analytics
         classDefByOrNull("Lcom/momo/xengine/mestatistics/MEStatisticsImpl;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -466,7 +434,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // AppOpenWayStats - app launch tracking
         classDefByOrNull("Lcom/p1/mobile/putong/app/statistics/AppOpenWayStats;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -477,7 +444,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // FPS Monitor (Beatles SDK) - UI frame rate monitoring
         classDefByOrNull("Lcom/tantanapp/beatles/fpsmonitor/FpsMonitor;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -488,7 +454,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // ANR Monitor (Beatles SDK) - Application Not Responding detection
         classDefByOrNull("Lcom/tantanapp/beatles/anrmonitor/a;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -499,7 +464,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // SVGA Cache Tracker - animation cache metrics
         classDefByOrNull("Lcom/tantan/library/svga/tracker/CacheTrackerManager;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -510,33 +474,23 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // ByteDance Performance Monitor - device performance metrics
         classDefByOrNull("Lcom/bytedance/realx/base/RXPerformanceMonitorAndroid;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
                 when {
                     method.name == "getCurrentPidMemorySize" && method.returnType == "I" ->
-                        method.addInstructions(0, """
-                            const/4 v0, 0x0
-                            return v0
-                        """)
+                        method.addInstructions(0, RETURN_FALSE)
 
                     method.name == "getJavaAppMemoryUsage" && method.returnType == "I" ->
-                        method.addInstructions(0, """
-                            const/4 v0, 0x0
-                            return v0
-                        """)
+                        method.addInstructions(0, RETURN_FALSE)
 
                     method.name == "getIfRoomsDevice" && method.returnType == "Z" ->
                         method.addInstructions(0, RETURN_FALSE)
 
                     method.name in setOf("getMemoryState", "getThermalState", "getThreadCount") &&
                     method.returnType == "I" ->
-                        method.addInstructions(0, """
-                            const/4 v0, 0x0
-                            return v0
-                        """)
+                        method.addInstructions(0, RETURN_FALSE)
 
                     method.name == "setThermalState" && method.returnType == "V" ->
                         method.addInstructions(0, RETURN_VOID)
