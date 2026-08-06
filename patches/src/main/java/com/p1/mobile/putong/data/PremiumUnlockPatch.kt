@@ -1208,8 +1208,8 @@ val premiumUnlockPatch = bytecodePatch(
                             method.callsU4WithString() -> {
                             method.addInstructions(0, LOG_COREPRODUCT_GATE_FALSE)
                         }
-                        // S4(PurchaseType) → false (no purchase needed)
-                        method.name == "S4" &&
+                        // X4(PurchaseType) → false (no purchase needed)
+                        method.name == "X4" &&
                             method.parameterTypes.size == 1 &&
                             method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
                             method.returnType == "Z" -> {
@@ -1261,10 +1261,10 @@ val premiumUnlockPatch = bytecodePatch(
                 coreBusinessSlFingerprint.matchOrNull(classDef)?.let { match ->
                     match.method.addInstructions(0, RETURN_VOID)
                 }
-                // zi(Act) → true: allows boost activation (Gate 3 in f93.y())
+                // Ai(Act) → true: allows boost activation (Gate 3 in f93.y())
                 // Original: hardcoded `return false` — blocks actual boost activation.
                 mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "zi" &&
+                    if (method.name == "Ai" &&
                         method.parameterTypes.size == 1 &&
                         method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
                         method.returnType == "Z"
@@ -1620,7 +1620,7 @@ val premiumUnlockPatch = bytecodePatch(
             // Moved to Pass 2 using fingerprint-based discovery (see below)
             // The old hardcoded class descriptors (Ll/qa9;, Ll/hva;, etc.) don't exist in the APK.
             // Suppresses the "x girls just liked you" promotional dialog that appears on app launch
-            classDefByOrNull("Lcom/p1/mobile/putong/core/p058ui/seepop/NewLikeView;")?.let { classDef ->
+            classDefByOrNull("Lcom/p1/mobile/putong/core/ui/seepop/NewLikeView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "E" && method.parameterTypes.size == 3 && method.returnType == "V") {
                         method.addInstructions(0, "return-void")
@@ -1657,20 +1657,22 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // TODO: ViewTreeObserverOnGlobalLayoutListenerC8017b was renamed to ViewTreeObserverOnGlobalLayoutListenerC0351b
+            // and moved to an inner class in com/p1/mobile/putong/feed/ui/moments/b.java
+            // The old descriptor no longer exists. Needs fingerprint-based discovery to re-enable.
             // ── ViewTreeObserverOnGlobalLayoutListenerC8017b.u6(): Bubble display method ──
             // This is the FINAL method that renders the floating "x girls y miles away" bubble.
             // It calls act().m7() to display the bubble on screen.
             // Patching u6() to return-void prevents ANY bubble from being displayed, regardless
             // of which code path (u7, k8, w7) created it.
-            // This is a stable CamelCase class - direct lookup, no fingerprint needed.
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "u6" && method.parameterTypes.size == 8 && method.returnType == "V" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
+            // classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;")?.let { classDef ->
+            //     mutableClassDefBy(classDef).methods.forEach { method ->
+            //         if (method.name == "u6" && method.parameterTypes.size == 8 && method.returnType == "V" &&
+            //             !AccessFlags.STATIC.isSet(method.accessFlags)) {
+            //             method.addInstructions(0, RETURN_VOID)
+            //         }
+            //     }
+            // }
 
             // n1b0: Profile page "See who liked me" banner
             // Suppresses the banner that appears on the profile page
@@ -1877,8 +1879,9 @@ val premiumUnlockPatch = bytecodePatch(
             if ("r8n" !in resolved && "intl_chat_request_insert_users" in strings) resolved["r8n"] = classDef
             if ("headRecommendAdapter" !in resolved && "fake_conversation_profile_like_enter" in strings && "fake_conversation_oof_pick" in strings && "getItemViewType.1.I" in methodCallSigs) resolved["headRecommendAdapter"] = classDef
             if ("seeAnimBubbleCreator" !in resolved && "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6" in methodCallFull && "u7\u0001V" in methodNameRet && "Lcom/p051p1/mobile/putong/core/p058ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE" in fieldAccessFull) resolved["seeAnimBubbleCreator"] = classDef
-            if ("seeAnimBubbleLifecycle" !in resolved && "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;.u6" in methodCallFull && "Lcom/p051p1/mobile/putong/core/newui/home/bubble/MagicBubble;.SEE_ANIM" in fieldAccessFull) resolved["seeAnimBubbleLifecycle"] = classDef
-            // bubbleDisplayMethod: ViewTreeObserverOnGlobalLayoutListenerC8017b is stable CamelCase - use classDefByOrNull directly (see Pass 1)
+            // TODO: seeAnimBubbleLifecycle fingerprint disabled - old descriptor no longer exists
+            // if ("seeAnimBubbleLifecycle" !in resolved && "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;.u6" in methodCallFull && "Lcom/p051p1/mobile/putong/core/newui/home/bubble/MagicBubble;.SEE_ANIM" in fieldAccessFull) resolved["seeAnimBubbleLifecycle"] = classDef
+            // bubbleDisplayMethod: ViewTreeObserverOnGlobalLayoutListenerC8017b was renamed to C0351b - needs fingerprint-based discovery
             if ("sb90Companion" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.localRelationship" in fieldAccessFull && "matched" in strings && "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery" in methodCallFull && "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe" in methodCallFull && hasZUserMethod) resolved["sb90Companion"] = classDef
             if ("u59" !in resolved && !isSettingsUi && "intl_sl_guide_config" in strings) resolved["u59"] = classDef
             if ("tm90" !in resolved && !isSettingsUi && "intl_good_c_bage_config" in strings) resolved["tm90"] = classDef
@@ -2275,8 +2278,8 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // bubbleDisplayMethod: ViewTreeObserverOnGlobalLayoutListenerC8017b is stable CamelCase
-        // Patched directly in Pass 1 via classDefByOrNull (see below)
+        // bubbleDisplayMethod: ViewTreeObserverOnGlobalLayoutListenerC8017b was renamed to C0351b
+        // Patch disabled - needs fingerprint-based discovery (see TODO in Pass 1)
 
         resolved["sja"]?.let { sjaClassDef ->
             sjaPicksRemainingFingerprint.matchAll(sjaClassDef, 1..5).forEach { match ->
@@ -2504,7 +2507,7 @@ val premiumUnlockPatch = bytecodePatch(
         // LikersDialogView.b(int, CoreLikers$a) populates dialog with likers data
         // LikersDialogView.c(List) populates dialog with photo URLs
         // Both are instance methods that return void. Patching to return-void prevents content.
-        classDefByOrNull("Lcom/p1/mobile/putong/core/p058ui/vip/likers/LikersDialogView;")?.let { classDef ->
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/vip/likers/LikersDialogView;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 // b(int, CoreLikers$a) → void
                 if (method.name == "b" && method.parameterTypes.size == 2 &&

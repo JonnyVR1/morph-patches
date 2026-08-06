@@ -184,13 +184,13 @@ val privacyControlsPatch = bytecodePatch(
                     analysis.containsString("visitor_hide_footprint") ||
                     analysis.containsString("nearby_people") ||
                     analysis.containsString("hide_me_from_nearby")
-                if (targetsPrivacyPrivilege && analysis.callsMethodNamed("Hm") && method.returnType == "V") {
+                if (targetsPrivacyPrivilege && analysis.callsMethodNamed("Im") && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
 
-        classDefByOrNull("Lcom/p046p1/mobile/putong/core/p053ui/messages/view/IntlMessageReadReceiptsView;")?.let { classDef ->
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/messages/view/IntlMessageReadReceiptsView;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 val analysis = method.analyze()
                 if (analysis.containsString("bubble_key_intl_read_receipts") && method.returnType == "V") {
@@ -301,7 +301,7 @@ val privacyControlsPatch = bytecodePatch(
                 val analysis = method.analyze()
                 if (analysis.containsString("p_meet_nearby,default") &&
                     analysis.containsString("nearby_people") &&
-                    analysis.callsMethodNamed("Fs") &&
+                    analysis.callsMethodNamed("Gs") &&
                     method.returnType == "V"
                 ) {
                     method.addInstructions(0, RETURN_VOID)
@@ -327,7 +327,7 @@ val privacyControlsPatch = bytecodePatch(
                 val analysis = method.analyze()
                 if (analysis.containsString("visitor_hide_footprint") &&
                     analysis.containsString("p_navigation_visit,isee") &&
-                    analysis.callsMethodNamed("wh") &&
+                    analysis.callsMethodNamed("xh") &&
                     method.returnType == "V"
                 ) {
                     method.addInstructions(0, RETURN_VOID)
