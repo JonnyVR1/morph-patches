@@ -220,6 +220,8 @@ val gmsCompatibilityPatch = bytecodePatch(
             "Lcom/google/firebase/installations/remote/FirebaseInstallationServiceClient;",
             "Lcom/google/firebase/remoteconfig/internal/ConfigFetchHttpClient;",
             "Lcom/google/firebase/remoteconfig/internal/ConfigRealtimeHttpClient;",
+            "Lcom/google/android/libraries/places/internal/zzki;",
+            "Lcom/google/android/libraries/places/internal/zzjw;",
         ).forEach { classDescriptor ->
             classDefByOrNull(classDescriptor)?.let { classDef ->
                 val mutableClass = mutableClassDefBy(classDef)
