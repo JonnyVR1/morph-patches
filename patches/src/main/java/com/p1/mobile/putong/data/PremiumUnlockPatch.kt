@@ -9,6 +9,7 @@ import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
@@ -2711,6 +2712,67 @@ val premiumUnlockPatch = bytecodePatch(
                         const-string v0, ""
                         return-object v0
                     """)
+                }
+            }
+        }
+
+        // ── Promotional label suppression (swipe/home tab) ─────────────────────
+        // Force server-driven promotional boolean fields to false at the data level.
+        // Kills "x people like you" / "She/He liked you" labels and overlays.
+        //
+        // Targets:
+        // - CardInfos.momentLikedYou / boostLikeYou (protobuf + JSON parsing)
+        // - CardModel.momentLikedYou / boostLikeYou (protobuf + JSON parsing)
+        // - CoreSuggested$UserInfo.hasLikeMeSlideCardTop
+        //
+        // Approach: after every iput-byte that writes to a target field, inject
+        // a second iput-byte that overwrites it with false (0). This catches all
+        // write sites (protobuf parse, JSON parseField, copy/clone) without
+        // needing to identify each individually.
+
+        data class PromoFieldTarget(val classDesc: String, val fieldNames: Set<String>)
+
+        val promoTargets = listOf(
+            PromoFieldTarget(
+                "Lcom/p1/mobile/putong/core/data/CardInfos;",
+                setOf("momentLikedYou", "boostLikeYou")
+            ),
+            PromoFieldTarget(
+                "Lcom/p1/mobile/putong/core/data/CardModel;",
+                setOf("momentLikedYou", "boostLikeYou")
+            ),
+            PromoFieldTarget(
+                "Lcom/p1/mobile/putong/core/api/CoreSuggested\$UserInfo;",
+                setOf("hasLikeMeSlideCardTop")
+            ),
+        )
+
+        for (target in promoTargets) {
+            classDefByOrNull(target.classDesc)?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    val instrs = method.cachedInstructions()
+                    val writeIndices = instrs.withIndex().filter { (_, instr) ->
+                        instr.opcode.name == "iput-byte" &&
+                            instr is ReferenceInstruction &&
+                            instr.reference is FieldReference &&
+                            (instr.reference as FieldReference).name in target.fieldNames &&
+                            (instr.reference as FieldReference).definingClass == target.classDesc
+                    }.map { it.index }
+
+                    if (writeIndices.isEmpty()) return@forEach
+
+                    writeIndices.reversed().forEach { idx ->
+                        val instr = instrs[idx]
+                        if (instr is TwoRegisterInstruction) {
+                            val objReg = instr.registerB
+                            val fieldRef = (instr as ReferenceInstruction).reference as FieldReference
+                            val tempReg = if (objReg != 0) "v0" else "v1"
+                            method.addInstructions(idx + 1, """
+                                const/4 $tempReg, 0x0
+                                iput-byte $tempReg, v$objReg, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
+                            """)
+                        }
+                    }
                 }
             }
         }
