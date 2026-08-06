@@ -254,73 +254,6 @@ private val PROFILE_IMAGES_NULL_GUARD_BODY: String = """
     :t_continue
 """
 
-private val GROUP_CREATION_LIMIT_NULL_CHECK_BODY: String = """
-    if-eqz p0, :gcl_skip
-    iget-object v0, p0, Lcom/p1/mobile/putong/core/data/GroupCreationLimit;->groupRemaining:Ljava/lang/Integer;
-    if-eqz v0, :gcl_has_remaining
-    const v0, 0x30d40
-    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-    move-result-object v0
-    iput-object v0, p0, Lcom/p1/mobile/putong/core/data/GroupCreationLimit;->groupRemaining:Ljava/lang/Integer;
-    :gcl_has_remaining
-    iget-object v0, p0, Lcom/p1/mobile/putong/core/data/GroupCreationLimit;->memberLimit:Ljava/lang/Integer;
-    if-eqz v0, :gcl_skip
-    const v0, 0x30d40
-    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-    move-result-object v0
-    iput-object v0, p0, Lcom/p1/mobile/putong/core/data/GroupCreationLimit;->memberLimit:Ljava/lang/Integer;
-    :gcl_skip
-"""
-
-private val AGE_VERIFICATION_NULL_CHECK_BODY: String = """
-    if-eqz p0, :avi_skip
-    const/4 v0, 0x2
-    iput v0, p0, Lcom/p1/mobile/putong/core/data/AgeVerificationInfo;->status:I
-    :avi_skip
-"""
-
-private val GREETING_COUNTER_NULL_CHECK_BODY: String = """
-    if-eqz p0, :gc_skip
-    const v0, 0x270f
-    iput v0, p0, Lcom/p1/mobile/putong/core/data/GreetingCounter;->remaining:I
-    iput v0, p0, Lcom/p1/mobile/putong/core/data/GreetingCounter;->max:I
-    iput v0, p0, Lcom/p1/mobile/putong/core/data/GreetingCounter;->replyThanksRemain:I
-    :gc_skip
-"""
-
-private val INTL_ULTRA_PREMIUM_CONFIG_NULL_CHECK_BODY: String = """
-    if-eqz p0, :iupc_skip
-    const/4 v0, 0x1
-    iput-boolean v0, p0, Lcom/p1/mobile/putong/core/data/IntlUltraPremiumConfig;->androidEnable:Z
-    :iupc_skip
-"""
-
-private val COUNTER_LIKE_LIMIT_NULL_CHECK_BODY: String = """
-    if-eqz p0, :cll_skip
-    const v0, 0x30d40
-    iput v0, p0, Lcom/p1/mobile/putong/data/CounterLikeLimit;->remaining:I
-    iput v0, p0, Lcom/p1/mobile/putong/data/CounterLikeLimit;->total:I
-    iput v0, p0, Lcom/p1/mobile/putong/data/CounterLikeLimit;->tribeRemaining:I
-    :cll_skip
-"""
-
-private val BOOST_LIMIT_NULL_CHECK_BODY: String = """
-    if-eqz p0, :bl_skip
-    const v0, 0x30d40
-    iput v0, p0, Lcom/p1/mobile/putong/data/BoostLimit;->remaining:I
-    const-wide v0, 0x66700F60000L
-    iput-wide v0, p0, Lcom/p1/mobile/putong/data/BoostLimit;->duration:J
-    :bl_skip
-"""
-
-private val COUNTER_SECRET_CRUSH_LIMIT_NULL_CHECK_BODY: String = """
-    if-eqz p0, :cscl_skip
-    const v0, 0x30d40
-    iput v0, p0, Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;->remaining:I
-    iput v0, p0, Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;->total:I
-    :cscl_skip
-"""
-
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
 
@@ -1116,15 +1049,6 @@ val premiumUnlockPatch = bytecodePatch(
         classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/recommend/view/NewMatchItemLayout;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "o" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // ConversationItemGoogleAdView.c(): bind method for Google ad conversation item (type 15)
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemGoogleAdView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "c" && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
@@ -1943,41 +1867,26 @@ val premiumUnlockPatch = bytecodePatch(
             val classType = classDef.type
             val isSettingsUi = classType.startsWith("Lcom/p1/mobile/putong/core/ui/settings/")
 
-            val strings = mutableSetOf<String>()
-            val methodCallFull = mutableSetOf<String>()
-            val methodCallNames = mutableSetOf<String>()
-            val fieldAccessFull = mutableSetOf<String>()
-            val methodCallSigs = mutableSetOf<String>()
-            val methodCallFullSigs = mutableSetOf<String>()
-            val methodNameRet = mutableSetOf<String>()
-            var hasZUserMethod = false
             var hasAnchorString = false
             var hasAnchorField = false
             var hasAnchorMethod = false
+            var hasZUserMethod = false
 
             classDef.methods.forEach { method ->
                 if (method.returnType == "Z" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;") {
                     hasZUserMethod = true
                 }
+                if (hasAnchorString && hasAnchorField && hasAnchorMethod) return@forEach
                 instructionsOf(method).forEach { instr ->
                     if (instr is ReferenceInstruction) {
                         when (val ref = instr.reference) {
                             is StringReference -> {
-                                val s = ref.string
-                                strings.add(s)
-                                if (!hasAnchorString && s in anchorStrings) hasAnchorString = true
+                                if (!hasAnchorString && ref.string in anchorStrings) hasAnchorString = true
                             }
                             is MethodReference -> {
-                                methodCallNames.add(ref.name)
-                                methodCallFull.add("${ref.definingClass}.${ref.name}")
-                                val sig = "${ref.name}.${ref.parameterTypes.size}.${ref.returnType}"
-                                methodCallSigs.add(sig)
-                                methodCallFullSigs.add("${ref.definingClass}.$sig")
-                                methodNameRet.add("${ref.name}\u0001${ref.returnType}")
                                 if (!hasAnchorMethod && ref.name in anchorMethodNames) hasAnchorMethod = true
                             }
                             is FieldReference -> {
-                                fieldAccessFull.add("${ref.definingClass}.${ref.name}")
                                 if (!hasAnchorField && ref.name in anchorFieldNames) hasAnchorField = true
                             }
                         }
@@ -1986,6 +1895,37 @@ val premiumUnlockPatch = bytecodePatch(
             }
 
             if (!hasAnchorString && !hasAnchorField && !hasAnchorMethod) return@classDefForEach
+
+            val strings = mutableSetOf<String>()
+            val methodCallFull = mutableSetOf<String>()
+            val methodCallNames = mutableSetOf<String>()
+            val fieldAccessFull = mutableSetOf<String>()
+            val methodCallSigs = mutableSetOf<String>()
+            val methodCallFullSigs = mutableSetOf<String>()
+            val methodNameRet = mutableSetOf<String>()
+
+            classDef.methods.forEach { method ->
+                instructionsOf(method).forEach { instr ->
+                    if (instr is ReferenceInstruction) {
+                        when (val ref = instr.reference) {
+                            is StringReference -> {
+                                strings.add(ref.string)
+                            }
+                            is MethodReference -> {
+                                methodCallNames.add(ref.name)
+                                methodCallFull.add("${ref.definingClass}.${ref.name}")
+                                val sig = "${ref.name}.${ref.parameterTypes.size}.${ref.returnType}"
+                                methodCallSigs.add(sig)
+                                methodCallFullSigs.add("${ref.definingClass}.$sig")
+                                methodNameRet.add("${ref.name}\u0001${ref.returnType}")
+                            }
+                            is FieldReference -> {
+                                fieldAccessFull.add("${ref.definingClass}.${ref.name}")
+                            }
+                        }
+                    }
+                }
+            }
 
             val hasConvNew_ = "Lcom/p1/mobile/putong/core/data/Conversation;.new_.0.Lcom/p1/mobile/putong/core/data/Conversation;" in methodCallFullSigs
 
@@ -2126,14 +2066,6 @@ val premiumUnlockPatch = bytecodePatch(
                 else if ("i0p" !in resolved && hasCoreLikersCall && classDef.superclass?.contains("re90") == true) {
                     resolved["i0p"] = classDef
                 }
-            }
-
-            // wid0: String formatter for "%s people liked you" text
-            // wid0.j(int) formats the promotional "X people liked you" string
-            // Anchored on stable string "%s people liked you"
-            if ("wid0" !in resolved && "%s people liked you" in strings &&
-                classDef.methods.any { it.name == "j" && it.parameterTypes.size == 1 && it.parameterTypes[0] == "I" && it.returnType == "Ljava/lang/CharSequence;" }) {
-                resolved["wid0"] = classDef
             }
 
             // ajy: MeetLikersNewLikersData - has getNewLikersCount() returning int

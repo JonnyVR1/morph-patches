@@ -1,11 +1,11 @@
 package com.p1.mobile.putong.data
 
-import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patcher.fieldAccess
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.iface.ClassDef
+import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 private const val RETURN_VOID = "return-void"
 
@@ -26,10 +26,41 @@ val dialogCleanupPatch = bytecodePatch(
         // Removed: hardcoded obfuscated class Lcom/p1/mobile/putong/core/ui/gp/a; 
         // Too risky - could be startup-critical, use fingerprint-based approach instead
 
-        mx0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        val dialogClasses = mutableMapOf<String, ClassDef>()
+
+        classDefForEach { classDef ->
+            if (dialogClasses.size == 6) return@classDefForEach
+
+            var matchedKey: String? = null
+            classDef.methods.forEach { method ->
+                if (matchedKey != null) return@forEach
+                val impl = method.implementation ?: return@forEach
+                impl.instructions.forEach { instr ->
+                    if (matchedKey != null) return@forEach
+                    if (instr is ReferenceInstruction && instr.reference is StringReference) {
+                        val s = (instr.reference as StringReference).string
+                        matchedKey = when {
+                            s == "p_appstore_rating_filter_popup" || s == "showRankGuideDlg" -> "mx0"
+                            s == "p_alert_version_upgrade_popup" || s == "updateDlg" -> "zrj0"
+                            s == "p_offline_popup" || s == "LikersDialogView" -> "ok3"
+                            s == "vip_upgrade_popup" -> "vipUpgradePopup"
+                            s == "limitDialogLastShowTime" -> "omsDialogController"
+                            s == "p_intl_5star_dialog_view" || s == "rate_popup_last_shown_new" -> "gpRateGuide"
+                            else -> null
+                        }
+                    }
+                }
+            }
+
+            if (matchedKey != null && matchedKey !in dialogClasses) {
+                dialogClasses[matchedKey!!] = classDef
+            }
+        }
+
+        dialogClasses["mx0"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
-                .filter { 
-                    it.name == "H" && 
+                .filter {
+                    it.name == "H" &&
                     it.returnType == "V" &&
                     it.parameterTypes.size == 1 && it.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
                     AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.FINAL.isSet(it.accessFlags)
@@ -37,10 +68,10 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        zrj0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        dialogClasses["zrj0"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
-                .filter { 
-                    it.name == "c" && 
+                .filter {
+                    it.name == "c" &&
                     it.returnType == "V" &&
                     it.parameterTypes.size == 3 && it.parameterTypes[0] == "Z" && it.parameterTypes[1] == "Lcom/p1/mobile/android/app/Act;" && it.parameterTypes[2] == "Lcom/p1/mobile/putong/data/UpdateApiResult;" &&
                     AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags)
@@ -48,7 +79,7 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        ok3ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        dialogClasses["ok3"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     (method.name == "J" &&
@@ -68,15 +99,6 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        // Removed: u750 fingerprint too broad - methodCall(name = "h0") matches many unrelated classes
-        // and patching all public b/d methods could break startup-critical boolean checks
-
-        // Removed: ygh0ClassFingerprint - notification permission prompt
-        // Too aggressive, could break startup flow
-
-        // Removed: autoSubDialogClassFingerprint - auto-subscription dialog
-        // Risky, could interfere with payment flow
-
         classDefByOrNull("Lcom/p1/mobile/putong/core/ui/pricerecall/PriceRecall2Dialog;")?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter {
@@ -95,10 +117,10 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        vipUpgradePopupClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        dialogClasses["vipUpgradePopup"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
-                .filter { 
-                    it.name == "d" && 
+                .filter {
+                    it.name == "d" &&
                     it.returnType == "Z" &&
                     it.parameterTypes.size == 1 &&
                     AccessFlags.PUBLIC.isSet(it.accessFlags)
@@ -106,10 +128,7 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_FALSE) }
         }
 
-        // Removed: dislikeWhoLikedMe fingerprint too risky - injects cross-class sget-object reference
-        // which could cause VerifyError at class load time if DEX boundaries don't align
-
-        omsDialogControllerFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        dialogClasses["omsDialogController"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.name == "M" &&
@@ -249,7 +268,7 @@ val dialogCleanupPatch = bytecodePatch(
         // Patching all public void no-arg methods breaks lifecycle methods (onCreate, onResume, etc.)
         // Phone auth dialogs are already handled by OMS dialog blocklist above
 
-        gpRateGuideFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        dialogClasses["gpRateGuide"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.parameterTypes.size == 1 &&
@@ -260,99 +279,5 @@ val dialogCleanupPatch = bytecodePatch(
                 }
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEnhancedPromotionBannerView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter {
-                    it.name == "J" &&
-                    it.returnType == "V" &&
-                    AccessFlags.PUBLIC.isSet(it.accessFlags)
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/operation/OperationBannerView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter {
-                    it.name == "C" &&
-                    it.returnType == "V" &&
-                    AccessFlags.PUBLIC.isSet(it.accessFlags)
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/NewUserSpecialLikeBannerView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter {
-                    it.name == "r" &&
-                    it.returnType == "V" &&
-                    AccessFlags.PRIVATE.isSet(it.accessFlags)
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/SuperLikeBannerView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter {
-                    it.name == "r" &&
-                    it.returnType == "V" &&
-                    AccessFlags.PRIVATE.isSet(it.accessFlags)
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/purchase/intlpage/discountentry/IntlDiscountEntryBannerView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter {
-                    it.name == "g" &&
-                    it.returnType == "V" &&
-                    AccessFlags.PUBLIC.isSet(it.accessFlags)
-                }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
-        }
     }
 }
-
-private val mx0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_appstore_rating_filter_popup"),
-        string("showRankGuideDlg"),
-    ),
-)
-
-private val zrj0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_alert_version_upgrade_popup"),
-        string("updateDlg"),
-    ),
-)
-
-private val ok3ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_offline_popup"),
-        string("LikersDialogView"),
-    ),
-)
-
-private val vipUpgradePopupClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("vip_upgrade_popup"),
-    ),
-)
-
-private val omsDialogControllerFingerprint = Fingerprint(
-    filters = listOf(
-        string("limitDialogLastShowTime"),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/OMSDialogInfo;",
-            name = "identifier",
-        ),
-    ),
-)
-
-private val gpRateGuideFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_intl_5star_dialog_view"),
-        string("rate_popup_last_shown_new"),
-    ),
-)

@@ -2,6 +2,8 @@ package com.p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.fieldAccess
+import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
@@ -61,6 +63,13 @@ private val facebookEmulatorDetectionFingerprint = Fingerprint(
 
 private val packageEnumerationFingerprint = Fingerprint(
     filters = listOf(string("getInstalledPackages"), string("firstInstallTime")),
+)
+
+private val apkSignatureVerificationFingerprint = Fingerprint(
+    filters = listOf(
+        fieldAccess(type = "Ljavax/security/auth/x500/X500Principal;"),
+        methodCall(name = "getSubjectX500Principal"),
+    ),
 )
 
 @Suppress("unused")
@@ -143,18 +152,7 @@ val privacyEnhancementPatch = bytecodePatch(
             }
         }
 
-        classDefForEach { classDef ->
-            val hasX500PrincipalField = classDef.fields.any { field ->
-                field.type == "Ljavax/security/auth/x500/X500Principal;" && AccessFlags.STATIC.isSet(field.accessFlags)
-            }
-            if (!hasX500PrincipalField) return@classDefForEach
-            val hasSignatureCheck = classDef.methods.any { method ->
-                method.implementation?.instructions?.any { instr ->
-                    instr is ReferenceInstruction && instr.reference is MethodReference &&
-                        (instr.reference as MethodReference).name == "getSubjectX500Principal"
-                } == true
-            }
-            if (!hasSignatureCheck) return@classDefForEach
+        apkSignatureVerificationFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach

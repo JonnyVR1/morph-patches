@@ -1,14 +1,13 @@
 package com.p1.mobile.putong.data
 
-import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
+import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 private const val RETURN_VOID = "return-void"
 
@@ -30,71 +29,17 @@ private const val RETURN_FALSE = """
 private fun isConstructor(method: Method): Boolean =
     method.name == "<init>" || method.name == "<clinit>"
 
-private val foxStatsClassFingerprint = Fingerprint(
-    filters = listOf(string("e_request_none_oaid")),
+private val ANALYTICS_ANCHOR_STRINGS = setOf(
+    "e_request_none_oaid", "com.tantanapp.beatles", "miit_oaid",
+    "add_payment_info", "com.google.android.gms.ads.identifier.service.START",
+    "mmfile_push_statistic", "BatteryMetrics", "live-PerfTracer",
+    "DNS_SLA", "_getOrCreate", "_compressRecordFile", "setMmcvVersion",
+    "setMagicEffectVersion", "getSubmitAlternative", "ANDROIDID", "OAID",
+    "LBS", "androidid", "cid", "screen", "android_id", "wlan0/address",
 )
 
-private val beatlesClassFingerprint = Fingerprint(
-    filters = listOf(string("com.tantanapp.beatles")),
-)
-
-private val oaidClassFingerprint = Fingerprint(
-    filters = listOf(string("miit_oaid")),
-)
-
-private val firebaseAnalyticsClassFingerprint = Fingerprint(
-    filters = listOf(string("add_payment_info")),
-)
-
-private val googleAdIdClassFingerprint = Fingerprint(
-    filters = listOf(string("com.google.android.gms.ads.identifier.service.START")),
-)
-
-private val pushStatsClassFingerprint = Fingerprint(
-    filters = listOf(string("mmfile_push_statistic")),
-)
-
-private val batteryMetricsClassFingerprint = Fingerprint(
-    filters = listOf(string("BatteryMetrics")),
-)
-
-private val moLiveApmClassFingerprint = Fingerprint(
-    filters = listOf(string("live-PerfTracer")),
-)
-
-private val dnsSlaClassFingerprint = Fingerprint(
-    filters = listOf(string("DNS_SLA")),
-)
-
-private val moTracingClassFingerprint = Fingerprint(
-    filters = listOf(string("_getOrCreate"), string("_compressRecordFile")),
-)
-
-private val networkMetricsClassFingerprint = Fingerprint(
-    filters = listOf(string("setMmcvVersion"), string("setMagicEffectVersion")),
-)
-
-private val moLiveApmClassFingerprint2 = Fingerprint(
-    filters = listOf(string("getSubmitAlternative")),
-)
-
-private val deviceFingerprintCollectorClassFingerprint = Fingerprint(
-    filters = listOf(string("ANDROIDID"), string("OAID"), string("LBS")),
-)
-
-private val deviceFingerprintHashClassFingerprint = Fingerprint(
-    filters = listOf(string("androidid"), string("cid"), string("screen")),
-)
-
-private val deviceInfoCollectorClassFingerprint = Fingerprint(
-    filters = listOf(string("android_id"), string("wlan0/address")),
-)
-
-private val coreEventLoggerClassFingerprint = Fingerprint(
-    filters = listOf(
-        methodCall(definingClass = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"),
-    ),
-)
+private const val FOX_STATS_DEFAULT_ENV = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"
+private const val ANALYTICS_TOTAL_EXPECTED = 16
 
 @Suppress("unused")
 @JvmField
@@ -105,6 +50,49 @@ val analyticsDisablePatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
+        val analyticsClasses = mutableMapOf<String, ClassDef>()
+
+        classDefForEach { classDef ->
+            if (analyticsClasses.size == ANALYTICS_TOTAL_EXPECTED) return@classDefForEach
+
+            val found = mutableSetOf<String>()
+            var hasDefaultEnvCall = false
+
+            for (method in classDef.methods) {
+                val impl = method.implementation ?: continue
+                for (instr in impl.instructions) {
+                    if (instr is ReferenceInstruction) {
+                        when (val ref = instr.reference) {
+                            is StringReference -> {
+                                val s = ref.string
+                                if (s in ANALYTICS_ANCHOR_STRINGS) found.add(s)
+                            }
+                            is MethodReference -> {
+                                if (ref.definingClass == FOX_STATS_DEFAULT_ENV) hasDefaultEnvCall = true
+                            }
+                        }
+                    }
+                }
+            }
+
+            if ("e_request_none_oaid" in found) analyticsClasses.putIfAbsent("foxStats", classDef)
+            if ("com.tantanapp.beatles" in found) analyticsClasses.putIfAbsent("beatles", classDef)
+            if ("miit_oaid" in found) analyticsClasses.putIfAbsent("oaid", classDef)
+            if ("add_payment_info" in found) analyticsClasses.putIfAbsent("firebaseAnalytics", classDef)
+            if ("com.google.android.gms.ads.identifier.service.START" in found) analyticsClasses.putIfAbsent("googleAdId", classDef)
+            if ("mmfile_push_statistic" in found) analyticsClasses.putIfAbsent("pushStats", classDef)
+            if ("BatteryMetrics" in found) analyticsClasses.putIfAbsent("batteryMetrics", classDef)
+            if ("live-PerfTracer" in found) analyticsClasses.putIfAbsent("moLiveApm", classDef)
+            if ("DNS_SLA" in found) analyticsClasses.putIfAbsent("dnsSla", classDef)
+            if ("getSubmitAlternative" in found) analyticsClasses.putIfAbsent("moLiveApm2", classDef)
+            if ("_getOrCreate" in found && "_compressRecordFile" in found) analyticsClasses.putIfAbsent("moTracing", classDef)
+            if ("setMmcvVersion" in found && "setMagicEffectVersion" in found) analyticsClasses.putIfAbsent("networkMetrics", classDef)
+            if ("ANDROIDID" in found && "OAID" in found && "LBS" in found) analyticsClasses.putIfAbsent("deviceFingerprintCollector", classDef)
+            if ("androidid" in found && "cid" in found && "screen" in found) analyticsClasses.putIfAbsent("deviceFingerprintHash", classDef)
+            if ("android_id" in found && "wlan0/address" in found) analyticsClasses.putIfAbsent("deviceInfoCollector", classDef)
+            if (hasDefaultEnvCall) analyticsClasses.putIfAbsent("coreEventLogger", classDef)
+        }
+
         classDefByOrNull("Lcom/appsflyer/AppsFlyerLib;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
@@ -173,7 +161,7 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        foxStatsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["foxStats"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -192,7 +180,7 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        beatlesClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["beatles"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -202,7 +190,7 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        firebaseAnalyticsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["firebaseAnalytics"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (method.name in setOf("logEvent", "setAnalyticsCollectionEnabled", "setUserId",
@@ -214,7 +202,7 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        googleAdIdClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["googleAdId"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (method.name == "getAdvertisingIdInfo" &&
@@ -226,7 +214,7 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        pushStatsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["pushStats"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -237,7 +225,7 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        batteryMetricsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["batteryMetrics"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -247,7 +235,7 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        moLiveApmClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["moLiveApm"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -258,7 +246,7 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        dnsSlaClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["dnsSla"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -270,7 +258,7 @@ val analyticsDisablePatch = bytecodePatch(
         }
 
         // MoTracing - disable tracing methods
-        moTracingClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["moTracing"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -289,7 +277,7 @@ val analyticsDisablePatch = bytecodePatch(
         }
 
         // Network Metrics - disable metrics methods
-        networkMetricsClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["networkMetrics"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -303,7 +291,7 @@ val analyticsDisablePatch = bytecodePatch(
         }
 
         // MoLive APM - disable APM methods
-        moLiveApmClassFingerprint2.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["moLiveApm2"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -390,7 +378,7 @@ val analyticsDisablePatch = bytecodePatch(
         }
 
         // Central device fingerprint collector (dk50) - block URL template substitution and all identifier collection
-        deviceFingerprintCollectorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["deviceFingerprintCollector"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -409,7 +397,7 @@ val analyticsDisablePatch = bytecodePatch(
         }
 
         // Device fingerprint hash collector (nuq0) - block device fingerprint generation
-        deviceFingerprintHashClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["deviceFingerprintHash"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -421,7 +409,7 @@ val analyticsDisablePatch = bytecodePatch(
         }
 
         // Device info collector (vrq0) - block ANDROIDID, IMEI, MAC collection at source
-        deviceInfoCollectorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["deviceInfoCollector"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -433,7 +421,7 @@ val analyticsDisablePatch = bytecodePatch(
         }
 
         // Enhanced OAID collection (hb00) - block OAID init and collection
-        oaidClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["oaid"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -454,7 +442,7 @@ val analyticsDisablePatch = bytecodePatch(
         }
 
         // Core Event Logger (i4g0) - central analytics hub, ALL app analytics flow through this class
-        coreEventLoggerClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        analyticsClasses["coreEventLogger"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
