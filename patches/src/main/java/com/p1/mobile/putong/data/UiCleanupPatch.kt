@@ -1,7 +1,11 @@
 package com.p1.mobile.putong.data
 
+import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.fieldAccess
+import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
@@ -59,6 +63,35 @@ private val FINGERPRINT_METHOD_MAP = mapOf(
 private val FINGERPRINT_BOOL_METHOD_MAP = mapOf(
     "aiTranslateGuide" to "isGuideShown",
     "newFunctionGuide" to "isShown",
+)
+
+private val seeAnimTriggerClassFingerprint = Fingerprint(
+    filters = listOf(string("IntlSeeAnimBubble")),
+)
+
+private val seeAnimRenderClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("see_anim_bubble"),
+        methodCall(name = "x6"),
+    ),
+)
+
+private val seeWhoLikedMeBannerClassFingerprint = Fingerprint(
+    filters = listOf(
+        string("e_see_who_liked_me_banner"),
+        string("p_suggest_user_profile_info_view"),
+    ),
+)
+
+private val seeWhoLikedMeProfileCardFingerprint = Fingerprint(
+    filters = listOf(
+        string("e_see_who_liked_me_banner"),
+        fieldAccess(name = "receivedLikes"),
+    ),
+)
+
+private val bubbleManagerClassFingerprint = Fingerprint(
+    filters = listOf(string("MagicBubble")),
 )
 
 @Suppress("unused")
@@ -281,6 +314,60 @@ val uiCleanupPatch = bytecodePatch(
                     if (method.name == "onFinishInflate" && method.returnType == "V") {
                         method.addInstructions(0, RETURN_VOID)
                     }
+                }
+            }
+        }
+
+        seeAnimTriggerClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.returnType == "Z" && method.parameterTypes.any { it.contains("CoreLikers") } ->
+                        method.addInstructions(0, RETURN_FALSE)
+                    method.returnType == "V" && method.parameterTypes.any { it.contains("CoreLikers") } ->
+                        method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        seeAnimRenderClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.returnType == "I" && method.parameterTypes.isEmpty()) {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
+        seeWhoLikedMeBannerClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "B" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        seeWhoLikedMeProfileCardFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name == "l" && method.returnType == "Z" ->
+                        method.addInstructions(0, RETURN_FALSE)
+                    method.name == "t" && method.returnType == "V" ->
+                        method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/view/LookUpView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "u" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        bubbleManagerClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "i" && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
