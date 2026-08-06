@@ -224,8 +224,9 @@ val gmsCompatibilityPatch = bytecodePatch(
                 classDef.methods.forEach { method ->
                     val implementation = method.implementation ?: return@forEach
                     val mutableMethod = methodMap[method.name] ?: return@forEach
+                    val instructions = implementation.instructions.toList()
 
-                    implementation.instructions.forEachIndexed { index, instruction ->
+                    instructions.forEachIndexed { index, instruction ->
                         val strRef = (instruction as? Instruction21c)?.reference as? StringReference
                             ?: return@forEachIndexed
                         val replacementValue = when (strRef.string) {
@@ -235,22 +236,27 @@ val gmsCompatibilityPatch = bytecodePatch(
                         }
                         val headerReg = instruction.registerA
 
-                        data class Injection(val index: Int, val registerName: String, val value: String)
-                        val injections = mutableListOf<Injection>()
-                        val instructions = implementation.instructions.toList()
-
                         for (j in index + 1 until minOf(index + 30, instructions.size)) {
                             val candidate = instructions[j]
                             val valueRegNum = extractValueRegister(candidate, headerReg) ?: continue
-                            injections.add(Injection(j, "v$valueRegNum", replacementValue))
-                            break
-                        }
 
-                        injections.sortedByDescending { it.index }.forEach { injection ->
-                            mutableMethod.addInstructions(
-                                injection.index,
-                                "const-string ${injection.registerName}, \"${injection.value}\"",
-                            )
+                            for (k in j - 1 downTo 0) {
+                                val valueInst = instructions[k]
+                                if (valueInst is Instruction21c && valueInst.registerA == valueRegNum
+                                    && valueInst.reference is StringReference
+                                ) {
+                                    mutableMethod.replaceInstruction(
+                                        k,
+                                        BuilderInstruction21c(
+                                            Opcode.CONST_STRING,
+                                            valueRegNum,
+                                            ImmutableStringReference(replacementValue),
+                                        ),
+                                    )
+                                    break
+                                }
+                            }
+                            break
                         }
                     }
                 }
