@@ -1725,6 +1725,39 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                 }
             }
+
+            // IntlMeetLikersNewLikersView: Suppress "New like" section in intlmeet
+            // Shows "x more girls liked you" / "x more people liked you" promotional content
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/intlmeet/likers/items/IntlMeetLikersNewLikersView;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // e(afo) - data binding method that populates the view
+                    if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // MeetLikersNewLikersView: Suppress "New like" section in meet
+            // Similar promotional content for non-international meet section
+            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/meet/likers/items/MeetLikersNewLikersView;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // e(afo) - data binding method that populates the view
+                    if (method.name == "e" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+
+            // LikersNewLikeBubble: Suppress animated floating bubble
+            // Shows animated "new like" notifications that float on screen
+            classDefByOrNull("Lcom/p1/mobile/putong/core/p053ui/vip/likers/LikersNewLikeBubble;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    // d() and e() - animation show/dismiss methods
+                    if (method.name in setOf("d", "e") && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
             
             // ConversationsList adapter: Enhanced view hiding for promotional types
             // Instead of just setVisibility(GONE), also set height to 0 to prevent ListView from allocating space
