@@ -130,6 +130,34 @@ val gmsCompatibilityPatch = bytecodePatch(
     extendWith("extensions/signature.mpe")
 
     execute {
+        // ── Signature spoof initialization: hook Application.attachBaseContext() ──
+        // This bypasses the need for the ContentProvider declaration in AndroidManifest.xml,
+        // which is silently dropped by morphe's resourcePatch due to an XML-to-binary encoding bug.
+        // SignatureSpoofApplication.initialize() hooks the PackageManager to return the original
+        // Tantan certificate, allowing Google Maps and other signature-dependent services to work.
+        classDefByOrNull("Lcom/p1/mobile/putong/app/TantanApp;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { it.name == "attachBaseContext" && it.parameterTypes == listOf("Landroid/content/Context;") }
+                .forEach { method ->
+                    // Find the super.attachBaseContext() call and insert after it
+                    val instructions = method.implementation?.instructions?.toList() ?: return@forEach
+                    val superCallIndex = instructions.indexOfFirst { instruction ->
+                        instruction is ReferenceInstruction &&
+                            instruction.reference is MethodReference &&
+                            (instruction.reference as MethodReference).let { ref ->
+                                ref.name == "attachBaseContext" &&
+                                    (ref.definingClass == "Landroid/app/Application;" ||
+                                        ref.definingClass == "Landroid/content/ContextWrapper;")
+                            }
+                    }
+                    val insertIndex = if (superCallIndex >= 0) superCallIndex + 1 else 0
+                    method.addInstructions(
+                        insertIndex,
+                        "invoke-static {p0}, Lcom/p1/mobile/putong/data/extension/signature/SignatureSpoofApplication;->initialize(Landroid/content/Context;)V",
+                    )
+                }
+        }
+
         classDefByOrNull("Lcom/google/android/gms/common/GooglePlayServicesUtilLight;")?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { it.name == "isGooglePlayServicesAvailable" }
