@@ -337,7 +337,6 @@ val uiCleanupPatch = bytecodePatch(
             "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEntranceSingleTextView;",
             "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEntranceSingleTextWithIconBgView;",
 
-            "Lcom/p1/mobile/putong/core/newui/intlmeet/tribe/IntlTribeGroupBanner;",
             "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;",
             "Lcom/p1/mobile/putong/core/newui/messages/ItemMatchIceBreakGuide;",
             "Lcom/p1/mobile/putong/core/ui/emoji/CoreCommendHintEmojiView;",
