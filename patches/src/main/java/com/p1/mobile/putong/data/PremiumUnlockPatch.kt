@@ -1126,22 +1126,6 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── Me tab profile privilege pay guide: ProfilePrivilegePayGuide.l0() ──
-            //
-            // The Me tab shows a profile privilege pay guide banner driven by server-side
-            // IntlTabMePayGuide data. l0() checks if the guide was clicked within a time
-            // window. Patching to FALSE makes the banner think it was already dismissed.
-            classDefByOrNull("Lcom/p1/mobile/putong/core/newui/profile/newme/ProfilePrivilegePayGuide;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "l0" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z"
-                    ) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-            }
-
             // ── Me tab dark upgrade card suppression moved to Pass 2 ──
             // Uses jh30ClassFingerprint to avoid scanning every class in Pass 1
 
