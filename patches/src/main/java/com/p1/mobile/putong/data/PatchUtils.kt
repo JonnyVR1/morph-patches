@@ -27,7 +27,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "[IMEI]", "[MAC]", "[OAID]", "device_fingerprint"
     )
     
-    private const val FOX_STATS_DEFAULT_ENV = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"
+    private val FOX_STATS_DEFAULT_ENV = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"
     
     private val uiCleanupAnchors = mapOf(
         "aiChatGuide" to setOf("core_messages_ai_p2p_chat_guide"),

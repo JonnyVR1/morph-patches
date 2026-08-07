@@ -24,25 +24,6 @@ private const val RETURN_FALSE = """
     return v0
 """
 
-private val UI_CLEANUP_ANCHORS = linkedMapOf(
-    "aiChatGuide" to setOf("core_messages_ai_p2p_chat_guide"),
-    "aiTranslateGuide" to setOf("e_intl_ai_translate_bubble", "ai_chat_advice_guide"),
-    "mktFeaturePopup" to setOf("p_intl_mkt_feature_regular_popup"),
-    "mktTimeSticker" to setOf("p_intl_mkt_time_sticker_choose"),
-    "newFunctionGuide" to setOf("svip_new_function_guide_shown_Intl"),
-    "purchaseGuide" to setOf("p_new_users_see_purchase_guide_see_view"),
-    "myTabTopBanner" to setOf("core_my_tab_top_banner_view"),
-    "discountEntryBanner" to setOf("discount_entry_banner", "IntlMeetILikeNewLikeDiscountEntry"),
-    "positioningGuide" to setOf("p_alert_positioning_authority_open_guide_popup"),
-    "avatarVerificationGuide" to setOf("p_alert_avatar_verification_upgrade_guide_popup"),
-    "buzzPopup" to setOf("p_intl_buzz_memoji_paired"),
-    "idVerificationGuide" to setOf("p_id_verification_new_function_guide"),
-)
-
-private const val UI_CLEANUP_FINGERPRINT_COUNT = 12
-
-private val ALL_UI_CLEANUP_ANCHOR_STRINGS: Set<String> = UI_CLEANUP_ANCHORS.values.flatten().toSet()
-
 private val SHOW_LIKE_METHODS = setOf("show", "display", "init", "onResume")
 private val AI_TRANSLATE_METHODS = setOf("show", "showGuide", "display")
 private val MKT_FEATURE_METHODS = setOf("show", "display", "present")
@@ -127,30 +108,15 @@ val uiCleanupPatch = bytecodePatch(
     compatibleWith(tantanCompatibility)
     execute {
 
-        val resolved = mutableMapOf<String, ClassDef>()
+        val resolver = UnifiedClassResolver(this)
+        resolver.resolve()
 
-        classDefForEach { classDef ->
-            if (resolved.size == UI_CLEANUP_FINGERPRINT_COUNT) return@classDefForEach
-
-            val foundStrings = mutableSetOf<String>()
-            outer@ for (method in classDef.methods) {
-                val impl = method.implementation ?: continue
-                for (instr in impl.instructions) {
-                    if (instr is ReferenceInstruction && instr.reference is StringReference) {
-                        val s = (instr.reference as StringReference).string
-                        if (s in ALL_UI_CLEANUP_ANCHOR_STRINGS) {
-                            foundStrings.add(s)
-                            for ((key, anchors) in UI_CLEANUP_ANCHORS) {
-                                if (key !in resolved && anchors.any { it in foundStrings }) {
-                                    resolved[key] = classDef
-                                    if (resolved.size == UI_CLEANUP_FINGERPRINT_COUNT) return@classDefForEach
-                                }
-                            }
-                            if (foundStrings.size >= 2) break@outer
-                        }
-                    }
-                }
-            }
+        val resolved = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
+        val uiKeys = listOf("aiChatGuide", "aiTranslateGuide", "mktFeaturePopup", "mktTimeSticker",
+            "newFunctionGuide", "purchaseGuide", "myTabTopBanner", "discountEntryBanner",
+            "positioningGuide", "avatarVerificationGuide", "buzzPopup", "idVerificationGuide")
+        for (key in uiKeys) {
+            resolver.getUiCleanupClass(key)?.let { resolved[key] = it }
         }
 
         for ((key, classDef) in resolved) {
