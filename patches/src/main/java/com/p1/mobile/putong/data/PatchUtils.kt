@@ -66,7 +66,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "picksUser id is not found in users : ", "p_offline_popup", "last_likers_req_time",
         "offline_dialog_show_time", "reBackAppGuideDialog", "open_fill_info_debug",
         "fromWhoLikedMe", "e_red_dot_message_see", "MeetLikersNewLikersData",
-        "IntlMeetLikersNewLikersData"
+        "IntlMeetLikersNewLikersData", "matched"
     )
     
     private val premiumAnchorFields = setOf(
@@ -124,6 +124,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             val foundMethods = mutableSetOf<String>()
             val methodCallFull = mutableSetOf<String>()
             val methodCallSigs = mutableSetOf<String>()
+            val methodCallFullSigs = mutableSetOf<String>()
             val methodNameRet = mutableSetOf<String>()
             var hasZUserMethod = false
             var hasCoreEventLoggerRef = false
@@ -152,6 +153,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                                 methodCallFull.add(methodFull)
                                 val sig = "${ref.name}.${ref.parameterTypes.size}.${ref.returnType}"
                                 methodCallSigs.add(sig)
+                                val fullSig = "${ref.definingClass}.${ref.name}.${ref.parameterTypes.size}.${ref.returnType}"
+                                methodCallFullSigs.add(fullSig)
                                 methodNameRet.add("${ref.name}\u0001${ref.returnType}")
                             }
                         }
@@ -167,7 +170,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolveUiCleanup(foundStrings, classDef)
             resolveDialogs(foundStrings, classDef)
             resolvePremium(foundStrings, foundFields, foundMethods, methodCallFull, 
-                          methodCallSigs, methodNameRet, hasZUserMethod, isSettingsUi, classDef)
+                          methodCallSigs, methodCallFullSigs, methodNameRet, hasZUserMethod, isSettingsUi, classDef)
         }
     }
     
@@ -211,12 +214,13 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         foundMethods: Set<String>,
         methodCallFull: Set<String>,
         methodCallSigs: Set<String>,
+        methodCallFullSigs: Set<String>,
         methodNameRet: Set<String>,
         hasZUserMethod: Boolean,
         isSettingsUi: Boolean,
         classDef: ClassDef
     ) {
-        val hasConvNew_ = "Lcom/p1/mobile/putong/core/data/Conversation;.new_.0.Lcom/p1/mobile/putong/core/data/Conversation;" in methodCallSigs
+        val hasConvNew_ = "Lcom/p1/mobile/putong/core/data/Conversation;.new_.0.Lcom/p1/mobile/putong/core/data/Conversation;" in methodCallFullSigs
         
         if ("xma" !in resolvedClasses && !isSettingsUi && "/summarized-privileges?with=diamond" in foundStrings) {
             resolvedClasses["xma"] = classDef
@@ -354,7 +358,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         if ("coreData" !in resolvedClasses && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/CoreData;.surpriseGiftExpirationTime" in foundFields) {
             resolvedClasses["coreData"] = classDef
         }
-        if ("mb90" !in resolvedClasses && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.isVIP" in foundMethods && 
+        if ("mb90" !in resolvedClasses && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.isVIP" in foundFields && 
             "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in foundFields && !classDef.type.contains("/ui/settings/")) {
             val hasPurchaseTypeZ = classDef.methods.any { it.parameterTypes.size == 1 && it.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" && it.returnType == "Z" }
             if (hasPurchaseTypeZ) resolvedClasses["mb90"] = classDef
@@ -373,7 +377,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         }
         
         if ("bhe0" !in resolvedClasses && "e_red_dot_message_see" in foundStrings &&
-            "Lcom/p1/mobile/putong/core/newui/messages/business/BusinessEntranceStyle;" in methodCallSigs) {
+            methodCallFull.any { it.contains("Lcom/p1/mobile/putong/core/newui/messages/business/BusinessEntranceStyle;") }) {
             resolvedClasses["bhe0"] = classDef
         }
         
@@ -384,7 +388,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             val hasPairReturn = classDef.methods.any { it.returnType == "Landroid/util/Pair;" }
             val hasVPairMethod = classDef.methods.any { it.name == "v" && it.returnType == "Landroid/util/Pair;" }
             val hasCoreLikersCall = methodCallFull.any { it.startsWith("Lcom/p1/mobile/putong/core/api/CoreLikers;.") }
-            val hasGStringReturn = methodCallSigs.any { it.contains(".G.") && it.endsWith(".Ljava/lang/String;") }
+            val hasGStringReturn = methodCallFullSigs.any { it.contains(".G.") && it.endsWith(".Ljava/lang/String;") }
             
             if ("vqo" !in resolvedClasses && hasVPairMethod && hasGStringReturn) {
                 resolvedClasses["vqo"] = classDef
