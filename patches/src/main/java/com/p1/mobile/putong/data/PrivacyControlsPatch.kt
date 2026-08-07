@@ -3,6 +3,7 @@ package com.p1.mobile.putong.data
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.fieldAccess
+import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
@@ -48,6 +49,13 @@ private val readReceiptPurchaseDialogClassFingerprint = Fingerprint(
 
 private const val BLIVE_COMMON_CONFIG_CLASS = "Lcom/p1/mobile/putong/live/base/data/BLiveCommonConfig;"
 private const val PERMISSION_HELPER_CLASS = "Lcom/p1/mobile/putong/ui/permission/PermissionHelper;"
+
+private val intlTabMePayGuideBannerFingerprint = Fingerprint(
+    filters = listOf(
+        fieldAccess(name = "showBanner"),
+        methodCall(name = "o0"),
+    ),
+)
 
 private val settingsMomentClassFingerprint = Fingerprint(
     filters = listOf(
@@ -332,6 +340,16 @@ val privacyControlsPatch = bytecodePatch(
                     analysis.accessesField("Lcom/p1/mobile/putong/data/Profile;", "onlyShowAboutMeInside")
                 }
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
+        }
+
+        intlTabMePayGuideBannerFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    val analysis = method.analyze()
+                    analysis.accessesField("Lcom/p1/mobile/putong/core/data/IntlTabMePayGuide;", "showBanner") &&
+                        method.returnType == "V"
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
         }
     }
 }
