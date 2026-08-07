@@ -25,7 +25,7 @@ private val profilePhotoCarouselAdFingerprint = Fingerprint(
 @JvmField
 val adRemovalPatch = bytecodePatch(
     name = "Ad Removal",
-    description = "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live video feed ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads, likers ads, meet likers ads, meet visitor ads, splash screen ads, profile photo carousel ads, incentive video ads",
+    description = "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live video feed ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads, likers ads, meet likers ads, meet visitor ads, splash screen ads, profile photo carousel ads, incentive video ads, fake splash view, video ad player",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -388,6 +388,33 @@ val adRemovalPatch = bytecodePatch(
                     }
                     method.name == "A" &&
                         method.parameterTypes.size == 3 &&
+                        method.returnType == "V" -> {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/ui/splash/FakeSplashView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "<init>") return@forEach
+                if (method.name == "onFinishInflate" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.returnType == "V"
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/advertisingcard/AdvertisPlayVideoView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "<init>") return@forEach
+                when {
+                    method.name == "k" &&
+                        method.parameterTypes.size == 2 &&
+                        method.parameterTypes[0] == "Ljava/lang/String;" &&
+                        method.parameterTypes[1] == "F" &&
                         method.returnType == "V" -> {
                         method.addInstructions(0, RETURN_VOID)
                     }
