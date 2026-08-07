@@ -336,9 +336,7 @@ val uiCleanupPatch = bytecodePatch(
             "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEntrancePrivilegeTopView;",
             "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEntranceSingleTextView;",
             "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEntranceSingleTextWithIconBgView;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadRecommendLayout;",
-            "Lcom/p1/mobile/putong/core/newui/messages/ConversationRecommendItemView;",
-            "Lcom/p1/mobile/putong/core/newui/messages/RecommendNormalUserView;",
+
             "Lcom/p1/mobile/putong/core/newui/intlmeet/tribe/IntlTribeGroupBanner;",
             "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;",
             "Lcom/p1/mobile/putong/core/newui/messages/ItemMatchIceBreakGuide;",
@@ -484,7 +482,7 @@ val uiCleanupPatch = bytecodePatch(
 
         classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadIntlSeeItem;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if ((method.name == "L" || method.name == "onFinishInflate") && method.returnType == "V") {
+                if (method.name == "L" && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
@@ -541,14 +539,6 @@ val uiCleanupPatch = bytecodePatch(
         classDefByOrNull("Lcom/p1/mobile/putong/core/ui/lovebuzz/widget/MemojiBuzzComboEntranceView;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "n" && method.returnType == "V" && method.parameterTypes.size == 1) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/BaseConversationRecommendItemView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "e" && method.returnType == "V" && method.parameterTypes.size == 1) {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
