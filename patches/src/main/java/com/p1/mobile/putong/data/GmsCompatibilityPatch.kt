@@ -435,6 +435,11 @@ val gmsCompatibilityPatch = bytecodePatch(
         val facebookSdkInit = "The SDK has not been initialized"
 
         classDefForEach { classDef ->
+            val type = classDef.type
+            if (type == "Lcom/google/android/gms/common/internal/zzo;") {
+                return@classDefForEach
+            }
+
             var foundGoogleSignIn = false
             var foundFacebookSdk = false
 
