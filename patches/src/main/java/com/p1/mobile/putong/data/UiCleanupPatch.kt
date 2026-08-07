@@ -364,6 +364,17 @@ val uiCleanupPatch = bytecodePatch(
             "Lcom/p1/mobile/putong/feed/newui/view/TopicRecommendView;",
             "Lcom/p1/mobile/putong/feed/newui/photoalbum/view/TopicRecommendTopicView;",
             "Lcom/p1/mobile/putong/feed/newui/photoalbum/view/TopicRecommendUserView;",
+
+            "Lcom/p1/mobile/putong/live/livingroom/voice/intl/heatbox/VoiceLiveHeatBoxEntryView;",
+            "Lcom/p1/mobile/putong/live/livingroom/voice/intl/increment/leaderboard/hourleaderboard/widget/VoiceLiveHourBoardEntryView;",
+            "Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/intlstarboard/IntlLiveStarBoardEntryView;",
+            "Lcom/p1/mobile/putong/live/livingroom/increment/leaderboard/intlstarboard/IntlLiveStarBoardEntryItemView;",
+            "Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlLiveSquareActiveGiftDialogView;",
+            "Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlLiveActivitiesEntryView;",
+            "Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlLiveActivitiesEntryRead;",
+            "Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlLiveActivitiesEntrySignIn;",
+            "Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlLiveActivitiesEntryUnRead;",
+            "Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlLiveActivitiesEntryOrigin;",
         )
         guideViewDescriptors.forEach { descriptor ->
             classDefByOrNull(descriptor)?.let { classDef ->
@@ -570,6 +581,25 @@ val uiCleanupPatch = bytecodePatch(
         classDefByOrNull("Lcom/p1/mobile/putong/core/newui/profile/newme/revamp/common/MeTabRevampMemberCardHelper;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "e" && method.returnType == "V" && method.parameterTypes.size == 4) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name == "O3" && method.returnType == "Z" && method.parameterTypes.isEmpty() ->
+                        method.addInstructions(0, RETURN_FALSE)
+                    method.name == "s3" && method.returnType.startsWith("L") && method.parameterTypes.isEmpty() ->
+                        method.addInstructions(0, "const/4 v0, 0x0\nreturn-object v0")
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlVoiceActivitiesInChatView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "z" && method.returnType == "V" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "I") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
