@@ -1868,7 +1868,7 @@ val premiumUnlockPatch = bytecodePatch(
         val anchorFieldNames = setOf(
             "likersLimit", "secretCrushLimit", "surpriseGiftExpirationTime",
             "TYPE_ROAMING_PKG", "INTL_SEE_ANIM_BUBBLE", "SEE_ANIM",
-            "localRelationship",
+            "localRelationship", "replyThanksRemain",
         )
         val anchorMethodNames = setOf(
             "S6", "u6", "isSupremePartnerOpenMystery", "isHideIconFromSVipWithMe",
@@ -1876,7 +1876,7 @@ val premiumUnlockPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
-            if (resolved.size == 49) return@classDefForEach
+            if (resolved.size == 50) return@classDefForEach
 
             val classType = classDef.type
             val isSettingsUi = classType.startsWith("Lcom/p1/mobile/putong/core/ui/settings/")
@@ -2003,6 +2003,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
             
             if ("secretCrush" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
+            if ("greetingCounter" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/GreetingCounter;.replyThanksRemain" in fieldAccessFull) resolved["greetingCounter"] = classDef
             if ("coreData" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/CoreData;.surpriseGiftExpirationTime" in fieldAccessFull) resolved["coreData"] = classDef
             if ("mb90" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull && "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in fieldAccessFull && !classDef.type.contains("/ui/settings/")) {
                 val hasPurchaseTypeZ = classDef.methods.any { it.parameterTypes.size == 1 && it.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" && it.returnType == "Z" }
@@ -2619,6 +2620,23 @@ val premiumUnlockPatch = bytecodePatch(
             }
             secretCrushExpirationFingerprint.matchOrNull(secretCrushClassDef)?.let { match ->
                 match.method.addInstructions(0, FAR_FUTURE_MS_BODY)
+            }
+        }
+
+        resolved["greetingCounter"]?.let { greetingCounterClassDef ->
+            mutableClassDefBy(greetingCounterClassDef).methods.forEach { method ->
+                val accessesGreetingCounterField = method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction &&
+                        instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/GreetingCounter;" &&
+                        (instr.reference as FieldReference).name in setOf("remaining", "max", "replyThanksRemain")
+                }
+                if (!accessesGreetingCounterField) return@forEach
+                when (method.returnType) {
+                    "I" -> method.addInstructions(0, RETURN_INT_200000)
+                    "Ljava/lang/Integer;" -> method.addInstructions(0, RETURN_INTEGER_200000)
+                    "Z" -> method.addInstructions(0, RETURN_TRUE)
+                }
             }
         }
 
