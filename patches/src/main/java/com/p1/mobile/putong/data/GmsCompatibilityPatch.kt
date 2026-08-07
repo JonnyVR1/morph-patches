@@ -216,6 +216,9 @@ val gmsCompatibilityPatch = bytecodePatch(
                 }
 
                 classDef.methods.forEach { method ->
+                    // Skip constructors to avoid VerifyError
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
+                    
                     val implementation = method.implementation ?: return@forEach
                     val key = "${method.name}(${method.parameterTypes.joinToString(",")})"
                     val mutableMethod = methodMap[key] ?: return@forEach
@@ -260,6 +263,9 @@ val gmsCompatibilityPatch = bytecodePatch(
                 }
 
                 classDef.methods.forEach { method ->
+                    // Skip constructors to avoid VerifyError
+                    if (method.name == "<init>" || method.name == "<clinit>") return@forEach
+                    
                     val implementation = method.implementation ?: return@forEach
                     val key = "${method.name}(${method.parameterTypes.joinToString(",")})"
                     val mutableMethod = methodMap[key] ?: return@forEach
@@ -332,6 +338,9 @@ val gmsCompatibilityPatch = bytecodePatch(
             val methodMap = classDef.methods.zip(mutableClass.methods).toMap()
 
             classDef.methods.forEach { method ->
+                // Skip constructors to avoid VerifyError
+                if (method.name == "<init>" || method.name == "<clinit>") return@forEach
+                
                 val implementation = method.implementation ?: return@forEach
                 val mutableMethod = methodMap[method] ?: return@forEach
 
