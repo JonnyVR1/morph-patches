@@ -487,20 +487,5 @@ val gmsCompatibilityPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        // ── Firebase Crashlytics: disable collection for re-signed APKs (server rejects reports) ──
-        classDefByOrNull("Lcom/google/firebase/crashlytics/FirebaseCrashlytics;")?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { it.name == "isCrashlyticsCollectionEnabled" }
-                .forEach { it.addInstructions(0, RETURN_FALSE) }
-            mutableClass.methods
-                .filter { it.name == "setCrashlyticsCollectionEnabled" }
-                .forEach {
-                    if (it.parameterTypes.isEmpty() || it.parameterTypes[0] == "Z") {
-                        it.addInstructions(0, "return-void")
-                    }
-                }
-        }
-
     }
 }
