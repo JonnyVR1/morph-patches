@@ -174,7 +174,7 @@ val privacyControlsPatch = bytecodePatch(
 
         classDefByOrNull("Lcom/p1/mobile/putong/data/Location;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name in setOf("isHideDistance", "isHideUpdateTime", "isHideRegionCity", "isHideRegionCountry", "isHideRegionDistrict") &&
+                if ((method.name == "isHideDistance" || method.name == "isHideUpdateTime") &&
                     method.parameterTypes.isEmpty() && method.returnType == "Z"
                 ) {
                     method.addInstructions(0, RETURN_TRUE)
@@ -263,7 +263,7 @@ val privacyControlsPatch = bytecodePatch(
         }
 
         classDefByOrNull("Lcom/p1/mobile/putong/core/data/PrivacyMembershipSetting;")?.let { classDef ->
-            val privacyMembershipBoolFields = setOf("hideLocation", "hideAge", "hideIcon", "frozenActivity", "showMeToMyLike")
+            val privacyMembershipBoolFields = setOf("hideLocation", "hideAge", "hideIcon", "frozenActivity")
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     val returnType = method.returnType

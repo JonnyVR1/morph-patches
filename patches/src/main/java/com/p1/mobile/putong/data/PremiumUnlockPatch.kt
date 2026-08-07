@@ -1876,7 +1876,7 @@ val premiumUnlockPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
-            if (resolved.size == 49) return@classDefForEach
+            if (resolved.size == 47) return@classDefForEach
 
             val classType = classDef.type
             val isSettingsUi = classType.startsWith("Lcom/p1/mobile/putong/core/ui/settings/")
@@ -2082,27 +2082,6 @@ val premiumUnlockPatch = bytecodePatch(
             if ("meetNewLikersAdapter" !in resolved &&
                 methodCallFull.any { it.contains("Lcom/p1/mobile/putong/core/newui/meet/likers/items/MeetLikersNewLikersItem;") }) {
                 resolved["meetNewLikersAdapter"] = classDef
-            }
-
-            // ysa: AB config class with VerifyPremiumIsolationConfig gates (e/f/g)
-            // and SwipeRateLimitConfig loader (g1)
-            // Anchored on field access to VerifyPremiumIsolationConfig.restrict_non_verified_common
-            if ("ysa" !in resolved && !isSettingsUi &&
-                "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_common" in fieldAccessFull &&
-                "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_received_likes" in fieldAccessFull &&
-                "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_matches" in fieldAccessFull) {
-                resolved["ysa"] = classDef
-            }
-
-            // ae9: Membership/Ultra upgrade gate class
-            // j3() checks UltraRightsUpgradeInfo.isCanUpgradeUltra + IntlCountryCodeController.k()
-            // k3() checks ProductCategory upgrade paths
-            // Anchored on UltraRightsUpgradeInfo.isCanUpgradeUltra field + ProductCategory upgrade strings
-            if ("ae9" !in resolved && !isSettingsUi &&
-                "Lcom/p1/mobile/putong/core/data/UltraRightsUpgradeInfo;.isCanUpgradeUltra" in fieldAccessFull &&
-                "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k" in methodCallFull &&
-                "Lcom/p1/mobile/putong/core/data/MembershipUpgradeInfo;" in fieldAccessFull) {
-                resolved["ae9"] = classDef
             }
         }
 
@@ -2857,169 +2836,6 @@ val premiumUnlockPatch = bytecodePatch(
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "J" && method.parameterTypes.size == 2 && method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/DbLinks;" && method.parameterTypes[1] == "Ljava/util/List;" && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // ── 1. VerifyPremiumIsolationConfig gates (ysa.e/f/g) ─────────────────
-        // Patch all three methods to return FALSE (allow non-verified users)
-        resolved["ysa"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.parameterTypes.isEmpty() && method.returnType == "Z" &&
-                    AccessFlags.STATIC.isSet(method.accessFlags) &&
-                    method.name in setOf("e", "f", "g")) {
-                    val instrs = method.cachedInstructions()
-                    val accessesVerifyConfig = instrs.any { instr ->
-                        instr is ReferenceInstruction && instr.reference is FieldReference &&
-                            (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;" &&
-                            (instr.reference as FieldReference).name.startsWith("restrict_non_verified_")
-                    }
-                    if (accessesVerifyConfig) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-            }
-        }
-
-        // ── 2. UltraRightsUpgradeInfo gate (ae9.j3) ───────────────────────────
-        // Patch to return FALSE (suppress "upgrade to Ultra Premium" prompts)
-        resolved["ae9"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "j3" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
-                    method.addInstructions(0, RETURN_FALSE)
-                }
-            }
-        }
-
-        // ── 4. MembershipUpgradeInfo upgrade path (ae9.k3) ────────────────────
-        // Patch to return FALSE (suppress upgrade path prompts)
-        resolved["ae9"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "k3" && method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/ProductCategory;" &&
-                    method.returnType == "Z") {
-                    method.addInstructions(0, RETURN_FALSE)
-                }
-            }
-        }
-
-        // ── 7. SwipeRateLimitConfig full bypass (ysa.g1) ──────────────────────
-        // Patch g1() to return a disabled config immediately
-        resolved["ysa"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "g1" && method.parameterTypes.isEmpty() &&
-                    method.returnType == "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;") {
-                    method.addInstructions(0, """
-                        new-instance v0, Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;
-                        invoke-direct {v0}, Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;-><init>()V
-                        const/4 v1, 0x0
-                        iput-byte v1, v0, Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;->enable:Z
-                        return-object v0
-                    """)
-                }
-            }
-        }
-
-        // ── 3. PremiumWeeklyGuideData.needGuide ───────────────────────────────
-        // Patch all iput-byte writes to needGuide field to always write false
-        classDefByOrNull("Lcom/p1/mobile/putong/core/data/PremiumWeeklyGuideData;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                val instrs = method.cachedInstructions()
-                val writeIndices = instrs.withIndex().filter { (_, instr) ->
-                    instr.opcode.name == "iput-byte" &&
-                        instr is ReferenceInstruction &&
-                        instr.reference is FieldReference &&
-                        (instr.reference as FieldReference).name == "needGuide" &&
-                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/PremiumWeeklyGuideData;"
-                }.map { it.index }
-
-                if (writeIndices.isEmpty()) return@forEach
-
-                writeIndices.reversed().forEach { idx ->
-                    val instr = instrs[idx]
-                    if (instr is TwoRegisterInstruction) {
-                        val objReg = instr.registerB
-                        val tempReg = if (objReg != 0) "v0" else "v1"
-                        method.addInstructions(idx + 1, """
-                            const/4 $tempReg, 0x0
-                            iput-byte $tempReg, v$objReg, Lcom/p1/mobile/putong/core/data/PremiumWeeklyGuideData;->needGuide:Z
-                        """)
-                    }
-                }
-            }
-        }
-
-        // ── 5. SvipResumePurchase limits ──────────────────────────────────────
-        // Patch all iput writes to limit fields to always write 0 (no limit)
-        classDefByOrNull("Lcom/p1/mobile/putong/core/data/SvipResumePurchase;")?.let { classDef ->
-            val limitFields = setOf("no_match_swipe_limit", "no_match_days_limit")
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                val instrs = method.cachedInstructions()
-                val writeIndices = instrs.withIndex().filter { (_, instr) ->
-                    instr.opcode.name == "iput" &&
-                        instr is ReferenceInstruction &&
-                        instr.reference is FieldReference &&
-                        (instr.reference as FieldReference).name in limitFields &&
-                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/SvipResumePurchase;"
-                }.map { it.index }
-
-                if (writeIndices.isEmpty()) return@forEach
-
-                writeIndices.reversed().forEach { idx ->
-                    val instr = instrs[idx]
-                    if (instr is TwoRegisterInstruction && instr is ReferenceInstruction) {
-                        val objReg = instr.registerB
-                        val tempReg = if (objReg != 0) "v0" else "v1"
-                        val fieldName = (instr.reference as FieldReference).name
-                        method.addInstructions(idx + 1, """
-                            const/4 $tempReg, 0x0
-                            iput $tempReg, v$objReg, Lcom/p1/mobile/putong/core/data/SvipResumePurchase;->$fieldName:I
-                        """)
-                    }
-                }
-            }
-        }
-
-        // ── 6. FreeTrialConfig gates ──────────────────────────────────────────
-        // Patch all iput writes to config fields to always write 0 (disable trial prompts)
-        classDefByOrNull("Lcom/p1/mobile/putong/core/data/FreeTrialConfig;")?.let { classDef ->
-            val configFields = setOf("conditionCount", "benefitCount", "remindCount")
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                val instrs = method.cachedInstructions()
-                val writeIndices = instrs.withIndex().filter { (_, instr) ->
-                    (instr.opcode.name == "iput" &&
-                        instr is ReferenceInstruction &&
-                        instr.reference is FieldReference &&
-                        (instr.reference as FieldReference).name in configFields &&
-                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/FreeTrialConfig;") ||
-                    (instr.opcode.name == "iput-wide" &&
-                        instr is ReferenceInstruction &&
-                        instr.reference is FieldReference &&
-                        (instr.reference as FieldReference).name == "durationSeconds" &&
-                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/FreeTrialConfig;")
-                }.map { it.index }
-
-                if (writeIndices.isEmpty()) return@forEach
-
-                writeIndices.reversed().forEach { idx ->
-                    val instr = instrs[idx]
-                    if (instr is TwoRegisterInstruction && instr is ReferenceInstruction) {
-                        val objReg = instr.registerB
-                        val fieldRef = instr.reference as FieldReference
-                        if (fieldRef.type == "J") {
-                            val tempReg = if (objReg != 0 && objReg != 1) "v0" else "v2"
-                            method.addInstructions(idx + 1, """
-                                const-wide/16 $tempReg, 0x0
-                                iput-wide $tempReg, v$objReg, Lcom/p1/mobile/putong/core/data/FreeTrialConfig;->durationSeconds:J
-                            """)
-                        } else {
-                            val tempReg = if (objReg != 0) "v0" else "v1"
-                            method.addInstructions(idx + 1, """
-                                const/4 $tempReg, 0x0
-                                iput $tempReg, v$objReg, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
-                            """)
-                        }
-                    }
                 }
             }
         }

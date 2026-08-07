@@ -1,10 +1,7 @@
 package com.p1.mobile.putong.data
 
-import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
 
 private const val RETURN_VOID = "return-void"
@@ -14,18 +11,11 @@ private const val RETURN_FALSE = """
     return v0
 """
 
-private val profilePhotoCarouselAdFingerprint = Fingerprint(
-    filters = listOf(
-        string("ca-app-pub-6567608331519569/1891609663"),
-        methodCall(name = "onAdClicked"),
-    ),
-)
-
 @Suppress("unused")
 @JvmField
 val adRemovalPatch = bytecodePatch(
     name = "Ad Removal",
-    description = "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live video feed ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads, likers ads, meet likers ads, meet visitor ads, splash screen ads, profile photo carousel ads, incentive video ads",
+    description = "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live video feed ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads, likers ads, meet likers ads, meet visitor ads",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -357,57 +347,6 @@ val adRemovalPatch = bytecodePatch(
                         method.addInstructions(0, RETURN_VOID)
                     }
                     method.name == "onFinishInflate" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/main/view/ExpandedSplashLayout;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                if (method.name == "j" &&
-                    method.parameterTypes.isEmpty() &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        profilePhotoCarouselAdFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>" || method.name == "<clinit>") return@forEach
-                when {
-                    method.name == "q" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z" -> {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                    method.name == "A" &&
-                        method.parameterTypes.size == 3 &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/incentivevideo/IncentVideoResultAct;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                when {
-                    method.name == "inflateView" &&
-                        method.parameterTypes.size == 2 &&
-                        method.returnType == "Landroid/view/View;" -> {
-                        method.addInstructions(0, """
-                            const/4 v0, 0x0
-                            return-object v0
-                        """)
-                    }
-                    method.name == "initDataOnCreate" &&
                         method.parameterTypes.isEmpty() &&
                         method.returnType == "V" -> {
                         method.addInstructions(0, RETURN_VOID)
