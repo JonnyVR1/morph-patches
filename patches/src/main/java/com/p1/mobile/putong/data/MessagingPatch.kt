@@ -75,6 +75,10 @@ private const val QUICK_CHAT_LOFT_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/dat
 private const val CONTINUOUS_CHAT_CLASS = "Lcom/p1/mobile/putong/core/data/ContinuousChat;"
 private const val ODIAMOND_VISITOR_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/ODiamondVisitorMessageGuideConfig;"
 private const val PROLOGUE_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/PrologueConfig;"
+private const val MESSAGE_TAB_REVISION_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/MessageTabRevisionConfig;"
+private const val COLLAPSIBLE_CONVERSATION_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/CollapsibleConversationConfig;"
+private const val CHAT_HELPER_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/ChatHelperConfig;"
+private const val CALL_RECORD_CLASS = "Lcom/p1/mobile/putong/core/data/CallRecord;"
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
 
@@ -95,7 +99,7 @@ private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingC
 @JvmField
 val messagingPatch = bytecodePatch(
     name = "Messaging Enhancement",
-    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit",
+    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit, message tab revision, collapsible conversation, chat helper AI, call duration",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -479,6 +483,133 @@ val messagingPatch = bytecodePatch(
                         method.parameterTypes.isEmpty()
                 }
                 .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
+
+        classDefByOrNull(MESSAGE_TAB_REVISION_CONFIG_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "enabled") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "new_tag_show_max_time") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "new_tag_exposure_after_max_time") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "click_chat_tab_interval_time") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "new_tag_exposure_after_max_minutes") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
+
+        classDefByOrNull(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "enabled") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "ignore_old_unread_msg") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "ignorable_unread_msg_days") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "ignore_msg_days") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "ignore_tip_expose_threshold") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "last_conversation_not_participating") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
+
+        classDefByOrNull(CHAT_HELPER_CONFIG_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(CHAT_HELPER_CONFIG_CLASS, "female_chat_assistant_enable") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(CHAT_HELPER_CONFIG_CLASS, "female_chat_assistant_profile_dlg_close_max") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+        }
+
+        classDefByOrNull(CALL_RECORD_CLASS)?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(CALL_RECORD_CLASS, "duration") &&
+                        method.returnType == "J" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_LONG_MAX) }
         }
     }
 }
