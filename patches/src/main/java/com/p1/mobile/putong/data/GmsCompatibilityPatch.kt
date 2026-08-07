@@ -330,7 +330,8 @@ val gmsCompatibilityPatch = bytecodePatch(
             if (type.startsWith("Lcom/google/firebase/auth/") ||
                 type.startsWith("Lcom/google/firebase/installations/") ||
                 type.startsWith("Lcom/google/firebase/iid/") ||
-                type == "Lcom/google/android/gms/common/internal/zzf;") {
+                type == "Lcom/google/android/gms/common/internal/zzf;" ||
+                type == "Lcom/google/android/gms/common/internal/zzo;") {
                 return@classDefForEach
             }
 
@@ -382,7 +383,8 @@ val gmsCompatibilityPatch = bytecodePatch(
 
             val type = classDef.type
             // Exclude all Firebase classes to prevent auth/session issues
-            if (type.startsWith("Lcom/google/firebase/")) {
+            if (type.startsWith("Lcom/google/firebase/") ||
+                type == "Lcom/google/android/gms/common/internal/zzo;") {
                 return@classDefForEach
             }
 
