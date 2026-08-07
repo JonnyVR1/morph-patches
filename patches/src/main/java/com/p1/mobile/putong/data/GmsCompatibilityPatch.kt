@@ -195,7 +195,7 @@ val gmsCompatibilityPatch = bytecodePatch(
         }
 
         listOf(
-            "Lcom/google/android/gms/common/internal/zzo;",
+            // zzo excluded - mutableClassDefBy corrupts constructor even when skipping it
             "Lcom/google/android/gms/common/internal/BaseGmsClient;",
             "Lcom/google/android/gms/common/internal/GetServiceRequest;",
             "Lcom/google/android/gms/common/GooglePlayServicesUtil;",
