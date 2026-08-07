@@ -313,6 +313,12 @@ val gmsCompatibilityPatch = bytecodePatch(
         // This ensures Maps SDK and other GMS-dependent code uses MicroG instead of real GMS
         // Excludes Firebase auth classes to avoid breaking session authentication
         classDefForEach { classDef ->
+            val type = classDef.type
+            // Exclude zzo FIRST - mutableClassDefBy corrupts its constructor even when skipping
+            if (type == "Lcom/google/android/gms/common/internal/zzo;") {
+                return@classDefForEach
+            }
+            
             val hasMethods = classDef.methods.any { it.implementation != null }
             if (!hasMethods) return@classDefForEach
 
@@ -325,13 +331,11 @@ val gmsCompatibilityPatch = bytecodePatch(
 
             if (!containsTarget) return@classDefForEach
 
-            val type = classDef.type
             // Exclude Firebase auth classes to prevent session issues
             if (type.startsWith("Lcom/google/firebase/auth/") ||
                 type.startsWith("Lcom/google/firebase/installations/") ||
                 type.startsWith("Lcom/google/firebase/iid/") ||
-                type == "Lcom/google/android/gms/common/internal/zzf;" ||
-                type == "Lcom/google/android/gms/common/internal/zzo;") {
+                type == "Lcom/google/android/gms/common/internal/zzf;") {
                 return@classDefForEach
             }
 
@@ -368,6 +372,12 @@ val gmsCompatibilityPatch = bytecodePatch(
         // This ensures Maps API and other Google services accept requests from re-signed APKs
         // Excludes Firebase classes that handle authentication
         classDefForEach { classDef ->
+            val type = classDef.type
+            // Exclude zzo FIRST - mutableClassDefBy corrupts its constructor even when skipping
+            if (type == "Lcom/google/android/gms/common/internal/zzo;") {
+                return@classDefForEach
+            }
+            
             val hasMethods = classDef.methods.any { it.implementation != null }
             if (!hasMethods) return@classDefForEach
 
@@ -381,10 +391,8 @@ val gmsCompatibilityPatch = bytecodePatch(
 
             if (!containsTargetStrings) return@classDefForEach
 
-            val type = classDef.type
             // Exclude all Firebase classes to prevent auth/session issues
-            if (type.startsWith("Lcom/google/firebase/") ||
-                type == "Lcom/google/android/gms/common/internal/zzo;") {
+            if (type.startsWith("Lcom/google/firebase/")) {
                 return@classDefForEach
             }
 
