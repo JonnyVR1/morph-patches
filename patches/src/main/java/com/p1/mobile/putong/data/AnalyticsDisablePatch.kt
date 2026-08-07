@@ -1,7 +1,9 @@
 package com.p1.mobile.putong.data
 
+import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
@@ -690,6 +692,89 @@ val analyticsDisablePatch = bytecodePatch(
                         method.addInstructions(0, RETURN_VOID)
 
                     method.name == "j" && method.returnType.startsWith("L") ->
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/HomeStatisticsHelper;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/ui/jsbridge/implement/TrackBridgeImplementation;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                method.addInstructions(0, RETURN_VOID)
+            }
+        }
+
+        val omsAdTrackingFingerprint = Fingerprint(
+            filters = listOf(string("e_oms_show_event_report")),
+        )
+        omsAdTrackingFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/util/TrackMediaUploadUtil;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/tantanapp/beatles/BeatlesProvider;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.name == "query" && method.returnType.startsWith("L") ->
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+
+                    method.name == "onCreate" && method.returnType == "Z" ->
+                        method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/backtrace/backtrace/WarmUpService;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.name == "onCreate" && method.returnType == "V" ->
+                        method.addInstructions(0, RETURN_VOID)
+
+                    method.name == "onBind" && method.returnType.startsWith("L") ->
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/core/glcore/util/ErrorDotStatistics;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.name == "addErrInfo" && method.returnType == "V" ->
+                        method.addInstructions(0, RETURN_VOID)
+
+                    method.name == "getInstance" && method.returnType.startsWith("L") ->
                         method.addInstructions(0, RETURN_NULL_OBJECT)
                 }
             }

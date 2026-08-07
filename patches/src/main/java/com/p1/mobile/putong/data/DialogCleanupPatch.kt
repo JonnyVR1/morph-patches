@@ -18,7 +18,7 @@ private const val RETURN_FALSE = """
 @JvmField
 val dialogCleanupPatch = bytecodePatch(
     name = "Dialog Cleanup",
-    description = "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission, phone auth prompts, purchase pages",
+    description = "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission, phone auth prompts, purchase pages, purchase confirm, overheat popup, phone verify",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -700,6 +700,34 @@ val dialogCleanupPatch = bytecodePatch(
                         const/4 v0, 0x0
                         return v0
                         :not_blocked80
+                        const-string v0, "p_purchase_confirm_pop"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked81
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked81
+                        const-string v0, "p_purchase_intermediate_page"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked82
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked82
+                        const-string v0, "p_intl_ilike_im_overheat_popup"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked83
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked83
+                        const-string v0, "p_intl_verify_phone"
+                        invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-eqz v0, :not_blocked84
+                        const/4 v0, 0x0
+                        return v0
+                        :not_blocked84
                     """.trimIndent()
                     method.addInstructions(0, blocklistCheck)
                 }

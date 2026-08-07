@@ -51,6 +51,16 @@ private const val RETURN_INT_9999 = """
     return v0
 """
 
+private const val RETURN_INT_5 = """
+    const/4 v0, 0x5
+    return v0
+"""
+
+private const val RETURN_INT_10 = """
+    const/16 v0, 0xa
+    return v0
+"""
+
 private const val RETURN_LONG_MAX = """
     const-wide v0, 0x7fffffffffffffffL
     return-wide v0
@@ -79,6 +89,7 @@ private const val MESSAGE_TAB_REVISION_CONFIG_CLASS = "Lcom/p1/mobile/putong/cor
 private const val COLLAPSIBLE_CONVERSATION_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/CollapsibleConversationConfig;"
 private const val CHAT_HELPER_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/ChatHelperConfig;"
 private const val CALL_RECORD_CLASS = "Lcom/p1/mobile/putong/core/data/CallRecord;"
+private const val CONVERSATION_REFRESH_INTERVAL_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/ConversationRefreshIntervalConfig;"
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
 
@@ -99,7 +110,7 @@ private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingC
 @JvmField
 val messagingPatch = bytecodePatch(
     name = "Messaging Enhancement",
-    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit, message tab revision, collapsible conversation, chat helper AI, call duration",
+    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit, message tab revision, collapsible conversation, chat helper AI, call duration, conversation refresh interval",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -610,6 +621,34 @@ val messagingPatch = bytecodePatch(
                         method.parameterTypes.isEmpty()
                 }
                 .forEach { it.addInstructions(0, RETURN_LONG_MAX) }
+        }
+
+        classDefByOrNull(CONVERSATION_REFRESH_INTERVAL_CONFIG_CLASS)?.let { classDef ->
+            val mutableClass = mutableClassDefBy(classDef)
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(CONVERSATION_REFRESH_INTERVAL_CONFIG_CLASS, "conversationRefreshObsInterval") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_5) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(CONVERSATION_REFRESH_INTERVAL_CONFIG_CLASS, "conversationListRefreshInterval") &&
+                        method.returnType == "I" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_INT_10) }
+            mutableClass.methods
+                .filter { method ->
+                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.accessesField(CONVERSATION_REFRESH_INTERVAL_CONFIG_CLASS, "monitorEnable") &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.isEmpty()
+                }
+                .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
     }
 }
