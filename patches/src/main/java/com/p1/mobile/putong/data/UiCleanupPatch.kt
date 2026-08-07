@@ -488,5 +488,14 @@ val uiCleanupPatch = bytecodePatch(
                 }
             }
         }
+
+        // Patch CoreLikers.g7() to prevent "x people like you" promotional popup trigger
+        classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreLikers;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "g7" && method.returnType.startsWith("L")) {
+                    method.addInstructions(0, "const/4 v0, 0x0\nreturn-object v0")
+                }
+            }
+        }
     }
 }
