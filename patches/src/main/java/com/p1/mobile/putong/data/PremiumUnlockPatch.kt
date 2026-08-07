@@ -1354,6 +1354,96 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
+            // ── SwipeRateLimitConfig: disable swipe rate limiting ──
+            // Overwrite enable field to false after every write (protobuf/JSON parse, clone)
+            classDefByOrNull("Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    val instrs = method.cachedInstructions()
+                    val writeIndices = instrs.withIndex().filter { (_, instr) ->
+                        instr.opcode.name == "iput-byte" &&
+                            instr is ReferenceInstruction &&
+                            instr.reference is FieldReference &&
+                            (instr.reference as FieldReference).name == "enable" &&
+                            (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;"
+                    }.map { it.index }
+
+                    if (writeIndices.isEmpty()) return@forEach
+
+                    writeIndices.reversed().forEach { idx ->
+                        val instr = instrs[idx]
+                        if (instr is TwoRegisterInstruction) {
+                            val objReg = instr.registerB
+                            val fieldRef = (instr as ReferenceInstruction).reference as FieldReference
+                            val tempReg = if (objReg != 0) "v0" else "v1"
+                            method.addInstructions(idx + 1, """
+                                const/4 $tempReg, 0x0
+                                iput-byte $tempReg, v$objReg, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
+                            """)
+                        }
+                    }
+                }
+            }
+
+            // ── LeftSwipeLimitConfig: remove left swipe (dislike) limits ──
+            // Overwrite swipeLimit field to null after every write
+            classDefByOrNull("Lcom/p1/mobile/putong/core/data/LeftSwipeLimitConfig;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    val instrs = method.cachedInstructions()
+                    val writeIndices = instrs.withIndex().filter { (_, instr) ->
+                        instr.opcode.name == "iput-object" &&
+                            instr is ReferenceInstruction &&
+                            instr.reference is FieldReference &&
+                            (instr.reference as FieldReference).name == "swipeLimit" &&
+                            (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/LeftSwipeLimitConfig;"
+                    }.map { it.index }
+
+                    if (writeIndices.isEmpty()) return@forEach
+
+                    writeIndices.reversed().forEach { idx ->
+                        val instr = instrs[idx]
+                        if (instr is TwoRegisterInstruction) {
+                            val objReg = instr.registerB
+                            val fieldRef = (instr as ReferenceInstruction).reference as FieldReference
+                            val tempReg = if (objReg != 0) "v0" else "v1"
+                            method.addInstructions(idx + 1, """
+                                const/4 $tempReg, 0x0
+                                iput-object $tempReg, v$objReg, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
+                            """)
+                        }
+                    }
+                }
+            }
+
+            // ── IntlUltraPremiumConfig: enable ultra premium features ──
+            // Overwrite androidEnable field to true after every write
+            classDefByOrNull("Lcom/p1/mobile/putong/core/data/IntlUltraPremiumConfig;")?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    val instrs = method.cachedInstructions()
+                    val writeIndices = instrs.withIndex().filter { (_, instr) ->
+                        instr.opcode.name == "iput-byte" &&
+                            instr is ReferenceInstruction &&
+                            instr.reference is FieldReference &&
+                            (instr.reference as FieldReference).name == "androidEnable" &&
+                            (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/IntlUltraPremiumConfig;"
+                    }.map { it.index }
+
+                    if (writeIndices.isEmpty()) return@forEach
+
+                    writeIndices.reversed().forEach { idx ->
+                        val instr = instrs[idx]
+                        if (instr is TwoRegisterInstruction) {
+                            val objReg = instr.registerB
+                            val fieldRef = (instr as ReferenceInstruction).reference as FieldReference
+                            val tempReg = if (objReg != 0) "v0" else "v1"
+                            method.addInstructions(idx + 1, """
+                                const/4 $tempReg, 0x1
+                                iput-byte $tempReg, v$objReg, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
+                            """)
+                        }
+                    }
+                }
+            }
+
             // ── CoreProduct.S4(PurchaseType): no purchase needed ──
             // Merged with CoreProduct u4/gate patch above (single classDefByOrNull lookup)
 
@@ -1869,6 +1959,7 @@ val premiumUnlockPatch = bytecodePatch(
             "likersLimit", "secretCrushLimit", "surpriseGiftExpirationTime",
             "TYPE_ROAMING_PKG", "INTL_SEE_ANIM_BUBBLE", "SEE_ANIM",
             "localRelationship", "replyThanksRemain",
+            "swipeLimit", "androidEnable",
         )
         val anchorMethodNames = setOf(
             "S6", "u6", "isSupremePartnerOpenMystery", "isHideIconFromSVipWithMe",
@@ -1876,7 +1967,7 @@ val premiumUnlockPatch = bytecodePatch(
         )
 
         classDefForEach { classDef ->
-            if (resolved.size == 50) return@classDefForEach
+            if (resolved.size == 53) return@classDefForEach
 
             val classType = classDef.type
             val isSettingsUi = classType.startsWith("Lcom/p1/mobile/putong/core/ui/settings/")
@@ -2004,6 +2095,9 @@ val premiumUnlockPatch = bytecodePatch(
             
             if ("secretCrush" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in fieldAccessFull && "Lcom/p1/mobile/putong/data/CounterSecretCrushLimit;.remaining" in fieldAccessFull) resolved["secretCrush"] = classDef
             if ("greetingCounter" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/GreetingCounter;.replyThanksRemain" in fieldAccessFull) resolved["greetingCounter"] = classDef
+            if ("swipeRateLimit" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;.enable" in fieldAccessFull) resolved["swipeRateLimit"] = classDef
+            if ("leftSwipeLimit" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/LeftSwipeLimitConfig;.swipeLimit" in fieldAccessFull) resolved["leftSwipeLimit"] = classDef
+            if ("intlUltraPremium" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/IntlUltraPremiumConfig;.androidEnable" in fieldAccessFull) resolved["intlUltraPremium"] = classDef
             if ("coreData" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/core/data/CoreData;.surpriseGiftExpirationTime" in fieldAccessFull) resolved["coreData"] = classDef
             if ("mb90" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.isVIP" in methodCallFull && "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in fieldAccessFull && !classDef.type.contains("/ui/settings/")) {
                 val hasPurchaseTypeZ = classDef.methods.any { it.parameterTypes.size == 1 && it.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" && it.returnType == "Z" }
@@ -2636,6 +2730,51 @@ val premiumUnlockPatch = bytecodePatch(
                     "I" -> method.addInstructions(0, RETURN_INT_200000)
                     "Ljava/lang/Integer;" -> method.addInstructions(0, RETURN_INTEGER_200000)
                     "Z" -> method.addInstructions(0, RETURN_TRUE)
+                }
+            }
+        }
+
+        resolved["swipeRateLimit"]?.let { swipeRateLimitClassDef ->
+            mutableClassDefBy(swipeRateLimitClassDef).methods.forEach { method ->
+                val accessesEnableField = method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction &&
+                        instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/SwipeRateLimitConfig;" &&
+                        (instr.reference as FieldReference).name == "enable"
+                }
+                if (!accessesEnableField) return@forEach
+                if (method.returnType == "Z") {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
+        resolved["leftSwipeLimit"]?.let { leftSwipeLimitClassDef ->
+            mutableClassDefBy(leftSwipeLimitClassDef).methods.forEach { method ->
+                val accessesSwipeLimitField = method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction &&
+                        instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/LeftSwipeLimitConfig;" &&
+                        (instr.reference as FieldReference).name == "swipeLimit"
+                }
+                if (!accessesSwipeLimitField) return@forEach
+                if (method.returnType == "Lcom/p1/mobile/putong/core/data/PurchaseDialogConfigTrigger;") {
+                    method.addInstructions(0, "const/4 v0, 0x0\nreturn-object v0")
+                }
+            }
+        }
+
+        resolved["intlUltraPremium"]?.let { intlUltraPremiumClassDef ->
+            mutableClassDefBy(intlUltraPremiumClassDef).methods.forEach { method ->
+                val accessesAndroidEnableField = method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction &&
+                        instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/IntlUltraPremiumConfig;" &&
+                        (instr.reference as FieldReference).name == "androidEnable"
+                }
+                if (!accessesAndroidEnableField) return@forEach
+                if (method.returnType == "Z") {
+                    method.addInstructions(0, RETURN_TRUE)
                 }
             }
         }
