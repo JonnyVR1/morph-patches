@@ -282,7 +282,6 @@ val uiCleanupPatch = bytecodePatch(
             "Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlLiveActivitiesEntryUnRead;",
             "Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlLiveActivitiesEntryOrigin;",
 
-            "Lcom/p1/mobile/putong/core/newui/intltribe/view/IntlTribeSlideEmptyCardView;",
             "Lcom/p1/mobile/putong/core/newui/intlmeet/visitor/IntlMeetVisitorsEmptyItemView;",
         )
         guideViewDescriptors.forEach { descriptor ->
