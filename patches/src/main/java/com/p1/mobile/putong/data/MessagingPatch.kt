@@ -66,6 +66,13 @@ private const val RETURN_LONG_MAX = """
     return-wide v0
 """
 
+private val EXCLUDED_METHODS = setOf(
+    "<init>", "<clinit>", "hashCode", "equals", "clone",
+    "toString", "nullCheck", "getClassParseName", "toJson"
+)
+
+private val EXCLUDED_METHODS_EXTENDED = EXCLUDED_METHODS + "mo225055clone"
+
 private const val FREE_GIFT_INFO_CLASS = "Lcom/p1/mobile/putong/core/data/FreeGiftInfo;"
 private const val MESSAGE_CLASS = "Lcom/p1/mobile/putong/core/data/Message;"
 private const val MESSAGE_SETTING_CLASS = "Lcom/p1/mobile/putong/core/data/MessageSetting;"
@@ -169,7 +176,7 @@ val messagingPatch = bytecodePatch(
                 loveBuzzDataClasses.add(classDef)
             }
         }
-        
+
         loveBuzzDataClasses.forEach { classDef ->
             val mutableClass = mutableClassDefBy(classDef)
             mutableClass.methods.forEach { method ->
@@ -266,49 +273,41 @@ val messagingPatch = bytecodePatch(
         }
 
         classDefByOrNull(RECALL_CONFIG_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(RECALL_CONFIG_CLASS, "enable") &&
                         method.returnType == "Z" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_TRUE)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(RECALL_CONFIG_CLASS, "minutes") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_1440)
                 }
-                .forEach { it.addInstructions(0, RETURN_INT_1440) }
+            }
         }
 
         classDefByOrNull(GROUP_CREATION_LIMIT_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(GROUP_CREATION_LIMIT_CLASS, "groupRemaining") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(GROUP_CREATION_LIMIT_CLASS, "memberLimit") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_500)
                 }
-                .forEach { it.addInstructions(0, RETURN_INT_500) }
+            }
         }
 
         classDefByOrNull(LIVE_CHAT_LIMIT_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(LIVE_CHAT_LIMIT_CLASS, "remaining") &&
                         method.returnType == "I" &&
                         method.parameterTypes.isEmpty()
@@ -317,37 +316,30 @@ val messagingPatch = bytecodePatch(
         }
 
         classDefByOrNull(MESSAGE_FILTER_CONFIG_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(MESSAGE_FILTER_CONFIG_CLASS, "convUnreadLimit") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(MESSAGE_FILTER_CONFIG_CLASS, "redDotLimit") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(MESSAGE_FILTER_CONFIG_CLASS, "shownDayLimit") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
                 }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            }
         }
 
         classDefByOrNull(MSG_ICEBREAK_CONFIG_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                    method.name !in EXCLUDED_METHODS_EXTENDED &&
                         method.accessesField(MSG_ICEBREAK_CONFIG_CLASS, "enable") &&
                         method.returnType == "Z" &&
                         method.parameterTypes.isEmpty()
@@ -358,7 +350,7 @@ val messagingPatch = bytecodePatch(
         classDefByOrNull(MSG_ICEBREAK_CONFIG_V2_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                    method.name !in EXCLUDED_METHODS_EXTENDED &&
                         method.accessesField(MSG_ICEBREAK_CONFIG_V2_CLASS, "enable") &&
                         method.returnType == "Z" &&
                         method.parameterTypes.isEmpty()
@@ -369,7 +361,7 @@ val messagingPatch = bytecodePatch(
         classDefByOrNull(GREETING_PERMISSION_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                    method.name !in EXCLUDED_METHODS_EXTENDED &&
                         method.accessesField(GREETING_PERMISSION_CLASS, "enable") &&
                         method.returnType == "Z" &&
                         method.parameterTypes.isEmpty()
@@ -380,7 +372,7 @@ val messagingPatch = bytecodePatch(
         classDefByOrNull(GREETING_PERMISSION_FEED_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                    method.name !in EXCLUDED_METHODS_EXTENDED &&
                         method.accessesField(GREETING_PERMISSION_FEED_CLASS, "enable") &&
                         method.returnType == "Z" &&
                         method.parameterTypes.isEmpty()
@@ -391,7 +383,7 @@ val messagingPatch = bytecodePatch(
         classDefByOrNull(CHAT_ROUNDS_CONFIG_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                    method.name !in EXCLUDED_METHODS_EXTENDED &&
                         method.accessesField(CHAT_ROUNDS_CONFIG_CLASS, "enabled") &&
                         method.returnType == "Z" &&
                         method.parameterTypes.isEmpty()
@@ -402,7 +394,7 @@ val messagingPatch = bytecodePatch(
         classDefByOrNull(QUICK_CHAT_LOFT_CONFIG_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                    method.name !in EXCLUDED_METHODS_EXTENDED &&
                         method.accessesField(QUICK_CHAT_LOFT_CONFIG_CLASS, "online_count_max") &&
                         method.returnType == "I" &&
                         method.parameterTypes.isEmpty()
@@ -411,211 +403,155 @@ val messagingPatch = bytecodePatch(
         }
 
         classDefByOrNull(CONTINUOUS_CHAT_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS_EXTENDED &&
                         method.accessesField(CONTINUOUS_CHAT_CLASS, "days") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_999)
+
+                    method.name !in EXCLUDED_METHODS_EXTENDED &&
                         method.accessesField(CONTINUOUS_CHAT_CLASS, "lastTime") &&
                         method.returnType == "J" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_LONG_MAX) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson", "mo225055clone") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_LONG_MAX)
+
+                    method.name !in EXCLUDED_METHODS_EXTENDED &&
                         method.accessesField(CONTINUOUS_CHAT_CLASS, "todayMM") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_999)
                 }
-                .forEach { it.addInstructions(0, RETURN_INT_999) }
+            }
         }
 
-        // NOTE: nullCheck() methods are empty no-ops in the original APK - no patching needed
-
         classDefByOrNull(ODIAMOND_VISITOR_CONFIG_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(ODIAMOND_VISITOR_CONFIG_CLASS, "total_limit_daily") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(ODIAMOND_VISITOR_CONFIG_CLASS, "user_limit_daily") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
                 }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            }
         }
 
         classDefByOrNull(PROLOGUE_CONFIG_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(PROLOGUE_CONFIG_CLASS, "enable") &&
                         method.returnType == "Z" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_TRUE)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(PROLOGUE_CONFIG_CLASS, "enter_conv_limit") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(PROLOGUE_CONFIG_CLASS, "untalked_daily_show_count") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(PROLOGUE_CONFIG_CLASS, "unreply_daily_show_count") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
                 }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            }
         }
 
         classDefByOrNull(MESSAGE_TAB_REVISION_CONFIG_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "enabled") &&
                         method.returnType == "Z" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_TRUE)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "new_tag_show_max_time") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "new_tag_exposure_after_max_time") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "click_chat_tab_interval_time") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(MESSAGE_TAB_REVISION_CONFIG_CLASS, "new_tag_exposure_after_max_minutes") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
                 }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            }
         }
 
         classDefByOrNull(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "enabled") &&
                         method.returnType == "Z" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_TRUE)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "ignore_old_unread_msg") &&
                         method.returnType == "Z" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_TRUE)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "ignorable_unread_msg_days") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "ignore_msg_days") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "ignore_tip_expose_threshold") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(COLLAPSIBLE_CONVERSATION_CONFIG_CLASS, "last_conversation_not_participating") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
                 }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            }
         }
 
         classDefByOrNull(CHAT_HELPER_CONFIG_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(CHAT_HELPER_CONFIG_CLASS, "female_chat_assistant_enable") &&
                         method.returnType == "Z" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_TRUE)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(CHAT_HELPER_CONFIG_CLASS, "female_chat_assistant_profile_dlg_close_max") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
                 }
-                .forEach { it.addInstructions(0, RETURN_INT_9999) }
+            }
         }
 
         classDefByOrNull(CALL_RECORD_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(CALL_RECORD_CLASS, "duration") &&
                         method.returnType == "J" &&
                         method.parameterTypes.isEmpty()
@@ -624,31 +560,24 @@ val messagingPatch = bytecodePatch(
         }
 
         classDefByOrNull(CONVERSATION_REFRESH_INTERVAL_CONFIG_CLASS)?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                when {
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(CONVERSATION_REFRESH_INTERVAL_CONFIG_CLASS, "conversationRefreshObsInterval") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_5) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_5)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(CONVERSATION_REFRESH_INTERVAL_CONFIG_CLASS, "conversationListRefreshInterval") &&
                         method.returnType == "I" &&
-                        method.parameterTypes.isEmpty()
-                }
-                .forEach { it.addInstructions(0, RETURN_INT_10) }
-            mutableClass.methods
-                .filter { method ->
-                    method.name !in setOf("<init>", "<clinit>", "hashCode", "equals", "clone", "toString", "nullCheck", "getClassParseName", "toJson") &&
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_10)
+
+                    method.name !in EXCLUDED_METHODS &&
                         method.accessesField(CONVERSATION_REFRESH_INTERVAL_CONFIG_CLASS, "monitorEnable") &&
                         method.returnType == "Z" &&
-                        method.parameterTypes.isEmpty()
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_TRUE)
                 }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
+            }
         }
     }
 }

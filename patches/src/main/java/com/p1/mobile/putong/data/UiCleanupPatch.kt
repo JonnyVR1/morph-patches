@@ -42,6 +42,8 @@ private val UI_CLEANUP_ANCHORS = linkedMapOf(
 
 private const val UI_CLEANUP_FINGERPRINT_COUNT = 12
 
+private val ALL_UI_CLEANUP_ANCHOR_STRINGS: Set<String> = UI_CLEANUP_ANCHORS.values.flatten().toSet()
+
 private val SHOW_LIKE_METHODS = setOf("show", "display", "init", "onResume")
 private val AI_TRANSLATE_METHODS = setOf("show", "showGuide", "display")
 private val MKT_FEATURE_METHODS = setOf("show", "display", "present")
@@ -132,20 +134,22 @@ val uiCleanupPatch = bytecodePatch(
             if (resolved.size == UI_CLEANUP_FINGERPRINT_COUNT) return@classDefForEach
 
             val foundStrings = mutableSetOf<String>()
-            for (method in classDef.methods) {
-                if (foundStrings.size >= 2) break
+            outer@ for (method in classDef.methods) {
                 val impl = method.implementation ?: continue
                 for (instr in impl.instructions) {
                     if (instr is ReferenceInstruction && instr.reference is StringReference) {
-                        foundStrings.add((instr.reference as StringReference).string)
+                        val s = (instr.reference as StringReference).string
+                        if (s in ALL_UI_CLEANUP_ANCHOR_STRINGS) {
+                            foundStrings.add(s)
+                            for ((key, anchors) in UI_CLEANUP_ANCHORS) {
+                                if (key !in resolved && anchors.any { it in foundStrings }) {
+                                    resolved[key] = classDef
+                                    if (resolved.size == UI_CLEANUP_FINGERPRINT_COUNT) return@classDefForEach
+                                }
+                            }
+                            if (foundStrings.size >= 2) break@outer
+                        }
                     }
-                }
-            }
-
-            for ((key, anchors) in UI_CLEANUP_ANCHORS) {
-                if (key in resolved) continue
-                if (anchors.any { it in foundStrings }) {
-                    resolved[key] = classDef
                 }
             }
         }
@@ -186,73 +190,9 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEnhancedPromotionBannerView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
         classDefByOrNull("Lcom/p1/mobile/putong/core/ui/popup/ProfileThinPopup;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "initDataOnCreate" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/SuperLikeBannerView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/innerpush/ComplimentReceivedBannerLayout;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/operation/OperationBannerView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/home/views/NewUserSpecialLikeBannerView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/popup/ProfileFakeView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/home/virtualcard/SuperLikeOrUndoGuideCardView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/boost/BoostGuideCardView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
@@ -266,15 +206,16 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/superlikeopt/upgrade/SendMultiSuperLikePushBubble;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "onFinishInflate" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
         val guideViewDescriptors = listOf(
+            "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEnhancedPromotionBannerView;",
+            "Lcom/p1/mobile/putong/core/newui/home/views/SuperLikeBannerView;",
+            "Lcom/p1/mobile/putong/core/newui/home/views/innerpush/ComplimentReceivedBannerLayout;",
+            "Lcom/p1/mobile/putong/core/ui/operation/OperationBannerView;",
+            "Lcom/p1/mobile/putong/core/newui/home/views/NewUserSpecialLikeBannerView;",
+            "Lcom/p1/mobile/putong/core/ui/popup/ProfileFakeView;",
+            "Lcom/p1/mobile/putong/core/ui/home/virtualcard/SuperLikeOrUndoGuideCardView;",
+            "Lcom/p1/mobile/putong/core/newui/boost/BoostGuideCardView;",
+            "Lcom/p1/mobile/putong/core/ui/superlikeopt/upgrade/SendMultiSuperLikePushBubble;",
             "Lcom/p1/mobile/putong/core/newui/home/intlslguide/IntlSlGuideDialog;",
             "Lcom/p1/mobile/putong/core/newui/profile/newme/ProfilePrivilegePayGuide;",
             "Lcom/p1/mobile/putong/core/newui/boost/BoostGuidePushLayout;",
@@ -493,33 +434,9 @@ val uiCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadIntlSeeItem;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "L" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/promotion/PrivilegePromotionHeaderView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if ((method.name == "d" || method.name == "e") && method.returnType == "V" && method.parameterTypes.isEmpty()) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
         classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/business/meet/MeetEntranceModel;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if ((method.name == "a" || method.name == "n") && method.returnType == "V" && method.parameterTypes.isEmpty()) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name in setOf("show", "display") && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }

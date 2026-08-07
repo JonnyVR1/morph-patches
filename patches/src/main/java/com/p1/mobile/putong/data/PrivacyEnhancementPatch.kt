@@ -7,11 +7,15 @@ import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
-import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
+import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
+
+private val instructionCache = java.util.WeakHashMap<Method, List<com.android.tools.smali.dexlib2.iface.instruction.Instruction>>()
+private fun Method.cachedInstructions(): List<com.android.tools.smali.dexlib2.iface.instruction.Instruction> =
+    instructionCache.getOrPut(this) { implementation?.instructions?.toList() ?: emptyList() }
 
 private const val RETURN_VOID = "return-void"
 
@@ -34,14 +38,42 @@ private const val RETURN_EMPTY_LIST = """
 private fun isConstructor(method: Method): Boolean =
     method.name == "<init>" || method.name == "<clinit>"
 
-private val ROOT_ANCHOR_STRINGS = setOf(
-    "/system/app/Superuser.apk", "/system/xbin/daemonsu",
-    "/system/bin/cufsdosck", "/system/bin/conbb",
+private val jmd0Fingerprint = Fingerprint(
+    filters = listOf(
+        string("/system/app/Superuser.apk"),
+        string("/system/xbin/daemonsu"),
+    ),
 )
 
-private val EMULATOR_ANCHOR_STRINGS = setOf(
-    "ranchu", "generic", "emulator",
-    "google_sdk", "Genymotion",
+private val mmd0Fingerprint = Fingerprint(
+    filters = listOf(
+        string("/system/bin/cufsdosck"),
+        string("/system/bin/conbb"),
+    ),
+)
+
+private val ert0Fingerprint = Fingerprint(
+    filters = listOf(
+        string("ranchu"),
+        string("generic"),
+        string("emulator"),
+    ),
+)
+
+private val facebookEmulatorFingerprint = Fingerprint(
+    filters = listOf(
+        string("google_sdk"),
+        string("Genymotion"),
+        string("vbox86p"),
+    ),
+)
+
+private val additionalRootFingerprint = Fingerprint(
+    filters = listOf(
+        string("/data/local/su"),
+        string("/system/xbin/su"),
+        string("/su/bin/su"),
+    ),
 )
 
 private val shuMengSdkFingerprint = Fingerprint(
@@ -59,9 +91,6 @@ private val apkSignatureVerificationFingerprint = Fingerprint(
     ),
 )
 
-private const val ROOT_TOTAL_EXPECTED = 2
-private const val EMULATOR_TOTAL_EXPECTED = 2
-
 @Suppress("unused")
 @JvmField
 val privacyEnhancementPatch = bytecodePatch(
@@ -71,63 +100,17 @@ val privacyEnhancementPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val rootClasses = mutableMapOf<String, ClassDef>()
-        val emulatorClasses = mutableMapOf<String, ClassDef>()
+        val suPathStrings = setOf("/data/local/su", "/system/xbin/su", "/su/bin/su")
+        val fbEmulatorStrings = setOf("google_sdk", "Genymotion", "generic", "Emulator")
 
-        classDefForEach { classDef ->
-            val rootDone = rootClasses.size == ROOT_TOTAL_EXPECTED
-            val emulatorDone = emulatorClasses.size == EMULATOR_TOTAL_EXPECTED
-            if (rootDone && emulatorDone) return@classDefForEach
-
-            var foundRoot: MutableSet<String>? = if (!rootDone) mutableSetOf() else null
-            var foundEmulator: MutableSet<String>? = if (!emulatorDone) mutableSetOf() else null
-
-            for (method in classDef.methods) {
-                val impl = method.implementation ?: continue
-                for (instr in impl.instructions) {
-                    if (instr is ReferenceInstruction && instr.reference is StringReference) {
-                        val s = (instr.reference as StringReference).string
-                        if (foundRoot != null && s in ROOT_ANCHOR_STRINGS) foundRoot.add(s)
-                        if (foundEmulator != null && s in EMULATOR_ANCHOR_STRINGS) foundEmulator.add(s)
+        listOf(jmd0Fingerprint, mmd0Fingerprint).forEach { fingerprint ->
+            fingerprint.matchOrNull()?.classDef?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.implementation == null) return@forEach
+                    if (isConstructor(method)) return@forEach
+                    if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
+                        method.addInstructions(0, RETURN_FALSE)
                     }
-                }
-            }
-
-            if (foundRoot != null) {
-                if ("/system/app/Superuser.apk" in foundRoot && "/system/xbin/daemonsu" in foundRoot) {
-                    rootClasses.putIfAbsent("jmd0", classDef)
-                }
-                if ("/system/bin/cufsdosck" in foundRoot && "/system/bin/conbb" in foundRoot) {
-                    rootClasses.putIfAbsent("mmd0", classDef)
-                }
-            }
-
-            if (foundEmulator != null) {
-                if ("ranchu" in foundEmulator && "generic" in foundEmulator && "emulator" in foundEmulator) {
-                    emulatorClasses.putIfAbsent("ert0", classDef)
-                }
-                if ("google_sdk" in foundEmulator && "Genymotion" in foundEmulator) {
-                    emulatorClasses.putIfAbsent("facebook", classDef)
-                }
-            }
-        }
-
-        rootClasses["jmd0"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
-                    method.addInstructions(0, RETURN_FALSE)
-                }
-            }
-        }
-
-        rootClasses["mmd0"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
-                    method.addInstructions(0, RETURN_FALSE)
                 }
             }
         }
@@ -147,7 +130,7 @@ val privacyEnhancementPatch = bytecodePatch(
             }
         }
 
-        emulatorClasses["ert0"]?.let { classDef ->
+        ert0Fingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -157,14 +140,14 @@ val privacyEnhancementPatch = bytecodePatch(
             }
         }
 
-        emulatorClasses["facebook"]?.let { classDef ->
+        facebookEmulatorFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
                 if (method.returnType == "Z" && method.parameterTypes.isEmpty() && AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    val hasEmulatorStrings = method.implementation!!.instructions.any { instr ->
+                    val hasEmulatorStrings = method.cachedInstructions().any { instr ->
                         instr is ReferenceInstruction && instr.reference is StringReference &&
-                            (instr.reference as StringReference).string in setOf("google_sdk", "Genymotion", "generic", "Emulator")
+                            (instr.reference as StringReference).string in fbEmulatorStrings
                     }
                     if (hasEmulatorStrings) {
                         method.addInstructions(0, RETURN_FALSE)
@@ -197,7 +180,7 @@ val privacyEnhancementPatch = bytecodePatch(
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
-                val callsGetInstalledPackages = method.implementation!!.instructions.any { instr ->
+                val callsGetInstalledPackages = method.cachedInstructions().any { instr ->
                     instr is ReferenceInstruction && instr.reference is MethodReference &&
                         (instr.reference as MethodReference).name == "getInstalledPackages"
                 }
@@ -207,14 +190,14 @@ val privacyEnhancementPatch = bytecodePatch(
             }
         }
 
-        classDefByOrNull("Ll/e8r0;")?.let { classDef ->
+        additionalRootFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
                 if (method.returnType == "Z" && method.parameterTypes.isEmpty() && AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    val hasSuPaths = method.implementation!!.instructions.any { instr ->
+                    val hasSuPaths = method.cachedInstructions().any { instr ->
                         instr is ReferenceInstruction && instr.reference is StringReference &&
-                            (instr.reference as StringReference).string in setOf("/data/local/su", "/system/xbin/su", "/su/bin/su")
+                            (instr.reference as StringReference).string in suPathStrings
                     }
                     if (hasSuPaths) {
                         method.addInstructions(0, RETURN_FALSE)

@@ -4,8 +4,23 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.ClassDef
+import com.android.tools.smali.dexlib2.iface.Method
+import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
+
+private val instructionCache = java.util.WeakHashMap<Method, List<Instruction>>()
+private fun Method.cachedInstructions(): List<Instruction> =
+    instructionCache.getOrPut(this) { implementation?.instructions?.toList() ?: emptyList() }
+
+private val DIALOG_ANCHOR_STRINGS = setOf(
+    "p_appstore_rating_filter_popup", "showRankGuideDlg",
+    "p_alert_version_upgrade_popup", "updateDlg",
+    "p_offline_popup", "LikersDialogView",
+    "vip_upgrade_popup",
+    "limitDialogLastShowTime",
+    "p_intl_5star_dialog_view", "rate_popup_last_shown_new",
+)
 
 private const val RETURN_VOID = "return-void"
 
@@ -31,29 +46,32 @@ val dialogCleanupPatch = bytecodePatch(
         classDefForEach { classDef ->
             if (dialogClasses.size == 6) return@classDefForEach
 
-            var matchedKey: String? = null
+            val foundAnchors = mutableSetOf<String>()
             outer@for (method in classDef.methods) {
-                if (matchedKey != null) break@outer
-                val impl = method.implementation ?: continue
-                for (instr in impl.instructions) {
-                    if (matchedKey != null) break@outer
+                for (instr in method.cachedInstructions()) {
                     if (instr is ReferenceInstruction && instr.reference is StringReference) {
                         val s = (instr.reference as StringReference).string
-                        matchedKey = when {
-                            s == "p_appstore_rating_filter_popup" || s == "showRankGuideDlg" -> "mx0"
-                            s == "p_alert_version_upgrade_popup" || s == "updateDlg" -> "zrj0"
-                            s == "p_offline_popup" || s == "LikersDialogView" -> "ok3"
-                            s == "vip_upgrade_popup" -> "vipUpgradePopup"
-                            s == "limitDialogLastShowTime" -> "omsDialogController"
-                            s == "p_intl_5star_dialog_view" || s == "rate_popup_last_shown_new" -> "gpRateGuide"
-                            else -> null
+                        if (s in DIALOG_ANCHOR_STRINGS) {
+                            foundAnchors.add(s)
+                            if (foundAnchors.size >= 2) break@outer
                         }
                     }
                 }
             }
 
-            if (matchedKey != null && matchedKey !in dialogClasses) {
-                dialogClasses[matchedKey!!] = classDef
+            if (foundAnchors.isNotEmpty()) {
+                val matchedKey = when {
+                    foundAnchors.any { it in setOf("p_appstore_rating_filter_popup", "showRankGuideDlg") } -> "mx0"
+                    foundAnchors.any { it in setOf("p_alert_version_upgrade_popup", "updateDlg") } -> "zrj0"
+                    foundAnchors.any { it in setOf("p_offline_popup", "LikersDialogView") } -> "ok3"
+                    "vip_upgrade_popup" in foundAnchors -> "vipUpgradePopup"
+                    "limitDialogLastShowTime" in foundAnchors -> "omsDialogController"
+                    foundAnchors.any { it in setOf("p_intl_5star_dialog_view", "rate_popup_last_shown_new") } -> "gpRateGuide"
+                    else -> null
+                }
+                if (matchedKey != null && matchedKey !in dialogClasses) {
+                    dialogClasses[matchedKey] = classDef
+                }
             }
         }
 

@@ -11,6 +11,10 @@ import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
+private val instructionCache = java.util.WeakHashMap<Method, List<com.android.tools.smali.dexlib2.iface.instruction.Instruction>>()
+private fun Method.cachedInstructions(): List<com.android.tools.smali.dexlib2.iface.instruction.Instruction> =
+    instructionCache.getOrPut(this) { implementation?.instructions?.toList() ?: emptyList() }
+
 private const val RETURN_VOID = "return-void"
 
 private const val RETURN_EMPTY_STRING = """
@@ -36,7 +40,7 @@ private val ANALYTICS_ANCHOR_STRINGS = setOf(
     "add_payment_info", "com.google.android.gms.ads.identifier.service.START",
     "mmfile_push_statistic", "BatteryMetrics", "live-PerfTracer",
     "DNS_SLA", "_getOrCreate", "_compressRecordFile",
-    "getSubmitAlternative", "android_id", "wlan0/address",
+    "getSubmitAlternative", "ANDROIDID", "wlan0/address",
     "[IMEI]", "[MAC]", "[OAID]", "device_fingerprint",
 )
 
@@ -55,37 +59,48 @@ val analyticsDisablePatch = bytecodePatch(
         val analyticsClasses = mutableMapOf<String, ClassDef>()
 
         classDefForEach { classDef ->
-            if (analyticsClasses.size == ANALYTICS_TOTAL_EXPECTED) return@classDefForEach
+            val analyticsDone = analyticsClasses.size == ANALYTICS_TOTAL_EXPECTED
+            val coreEventLoggerDone = analyticsClasses.containsKey("coreEventLogger")
+            if (analyticsDone && coreEventLoggerDone) return@classDefForEach
 
             val found = mutableSetOf<String>()
+            var hasCoreEventLoggerRef = false
 
             for (method in classDef.methods) {
-                val impl = method.implementation ?: continue
-                for (instr in impl.instructions) {
+                for (instr in method.cachedInstructions()) {
                     if (instr is ReferenceInstruction) {
                         val ref = instr.reference
                         if (ref is StringReference) {
                             val s = ref.string
                             if (s in ANALYTICS_ANCHOR_STRINGS) found.add(s)
                         }
+                        if (!coreEventLoggerDone && ref is MethodReference && ref.definingClass == FOX_STATS_DEFAULT_ENV) {
+                            hasCoreEventLoggerRef = true
+                        }
                     }
                 }
             }
 
-            if ("e_request_none_oaid" in found) analyticsClasses.putIfAbsent("foxStats", classDef)
-            if ("com.tantanapp.beatles" in found) analyticsClasses.putIfAbsent("beatles", classDef)
-            if ("miit_oaid" in found) analyticsClasses.putIfAbsent("oaid", classDef)
-            if ("add_payment_info" in found) analyticsClasses.putIfAbsent("firebaseAnalytics", classDef)
-            if ("com.google.android.gms.ads.identifier.service.START" in found) analyticsClasses.putIfAbsent("googleAdId", classDef)
-            if ("mmfile_push_statistic" in found) analyticsClasses.putIfAbsent("pushStats", classDef)
-            if ("BatteryMetrics" in found) analyticsClasses.putIfAbsent("batteryMetrics", classDef)
-            if ("live-PerfTracer" in found) analyticsClasses.putIfAbsent("moLiveApm", classDef)
-            if ("DNS_SLA" in found) analyticsClasses.putIfAbsent("dnsSla", classDef)
-            if ("getSubmitAlternative" in found) analyticsClasses.putIfAbsent("moLiveApm2", classDef)
-            if ("_getOrCreate" in found && "_compressRecordFile" in found) analyticsClasses.putIfAbsent("moTracing", classDef)
-            if ("[IMEI]" in found && "[MAC]" in found && "[OAID]" in found) analyticsClasses.putIfAbsent("deviceFingerprintCollector", classDef)
-            if ("device_fingerprint" in found) analyticsClasses.putIfAbsent("deviceFingerprintHash", classDef)
-            if ("android_id" in found && "wlan0/address" in found) analyticsClasses.putIfAbsent("deviceInfoCollector", classDef)
+            if (!analyticsDone && found.isNotEmpty()) {
+                if ("e_request_none_oaid" in found) analyticsClasses.putIfAbsent("foxStats", classDef)
+                if ("com.tantanapp.beatles" in found) analyticsClasses.putIfAbsent("beatles", classDef)
+                if ("miit_oaid" in found) analyticsClasses.putIfAbsent("oaid", classDef)
+                if ("add_payment_info" in found) analyticsClasses.putIfAbsent("firebaseAnalytics", classDef)
+                if ("com.google.android.gms.ads.identifier.service.START" in found) analyticsClasses.putIfAbsent("googleAdId", classDef)
+                if ("mmfile_push_statistic" in found) analyticsClasses.putIfAbsent("pushStats", classDef)
+                if ("BatteryMetrics" in found) analyticsClasses.putIfAbsent("batteryMetrics", classDef)
+                if ("live-PerfTracer" in found) analyticsClasses.putIfAbsent("moLiveApm", classDef)
+                if ("DNS_SLA" in found) analyticsClasses.putIfAbsent("dnsSla", classDef)
+                if ("getSubmitAlternative" in found) analyticsClasses.putIfAbsent("moLiveApm2", classDef)
+                if ("_getOrCreate" in found && "_compressRecordFile" in found) analyticsClasses.putIfAbsent("moTracing", classDef)
+                if ("[IMEI]" in found && "[MAC]" in found && "[OAID]" in found) analyticsClasses.putIfAbsent("deviceFingerprintCollector", classDef)
+                if ("device_fingerprint" in found) analyticsClasses.putIfAbsent("deviceFingerprintHash", classDef)
+                if ("ANDROIDID" in found && "wlan0/address" in found) analyticsClasses.putIfAbsent("deviceInfoCollector", classDef)
+            }
+
+            if (!coreEventLoggerDone && hasCoreEventLoggerRef) {
+                analyticsClasses["coreEventLogger"] = classDef
+            }
         }
 
         classDefByOrNull("Lcom/appsflyer/AppsFlyerLib;")?.let { classDef ->
@@ -393,22 +408,6 @@ val analyticsDisablePatch = bytecodePatch(
 
                     method.returnType == "Z" &&
                     method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_FALSE)
-                }
-            }
-        }
-
-        classDefForEach { classDef ->
-            if (analyticsClasses.containsKey("coreEventLogger")) return@classDefForEach
-            for (method in classDef.methods) {
-                val impl = method.implementation ?: continue
-                for (instr in impl.instructions) {
-                    if (instr is ReferenceInstruction) {
-                        val ref = instr.reference
-                        if (ref is MethodReference && ref.definingClass == FOX_STATS_DEFAULT_ENV) {
-                            analyticsClasses["coreEventLogger"] = classDef
-                            return@classDefForEach
-                        }
-                    }
                 }
             }
         }

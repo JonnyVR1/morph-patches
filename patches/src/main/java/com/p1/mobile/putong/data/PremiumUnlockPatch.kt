@@ -515,38 +515,7 @@ private val h6aCFingerprint = Fingerprint(
     parameters = emptyList(),
 )
 
-// u59: regional gates. U/S/O/F/Z/a0/D all gate on IntlCountryCodeController.k()
-// (returns true when NOT in a restricted region). We force all to true
-// so premium tier availability is unconditional.
-private val u59RegionalGateFingerprint = Fingerprint(
-    classFingerprint = u59ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(
-        methodCall(
-            definingClass = "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;",
-            name = "k",
-        ),
-    ),
-)
 
-// u59.R() — instant-match open-user gate. Unique config key.
-private val u59RFingerprint = Fingerprint(
-    classFingerprint = u59ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(string("intl_instantmatch_open_user")),
-)
-
-private val u59VFingerprint = Fingerprint(
-    classFingerprint = u59ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
-    filters = listOf(methodCall(name = "isUltraPremium")),
-)
 
 // ugc0.k(PurchaseType) → true (subscription upgraded).
 private val ugc0KFingerprint = Fingerprint(
@@ -590,76 +559,7 @@ private val qgl0DFingerprint = Fingerprint(
     parameters = listOf("Lcom/p1/mobile/putong/core/data/UserPrivilege;"),
 )
 
-// n3b0.q() → false (likers limit not exceeded)
-private val n3b0QFingerprint = Fingerprint(
-    classFingerprint = n3b0ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/LikersLimit;",
-            name = "remaining",
-        ),
-    ),
-)
 
-// n3b0.g() → far-future timestamp
-private val n3b0GFingerprint = Fingerprint(
-    classFingerprint = n3b0ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "J",
-    parameters = emptyList(),
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/LikersLimit;",
-            name = "expiresTime",
-        ),
-    ),
-)
-
-// n3b0.d(Counter) → sum of BoostLimit.remaining → 200000
-private val n3b0BoostRemainingFingerprint = Fingerprint(
-    classFingerprint = n3b0ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "I",
-    parameters = listOf("Lcom/p1/mobile/putong/data/Counter;"),
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/Counter;",
-            name = "boostLimits",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/BoostLimit;",
-            name = "remaining",
-        ),
-    ),
-)
-
-// n3b0.p() → boostLimits.size() > 0 → true
-private val n3b0BoostHasFingerprint = Fingerprint(
-    classFingerprint = n3b0ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/data/Counter;",
-            name = "boostLimits",
-        ),
-    ),
-)
-
-// n3b0.o() → boost remaining <= 0 → false (boost available)
-private val n3b0BoostAvailableFingerprint = Fingerprint(
-    classFingerprint = n3b0ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    returnType = "Z",
-    parameters = emptyList(),
-    filters = listOf(
-        methodCall(name = "e"),
-    ),
-)
 
 // secretCrush: remaining check (static no-arg → Z, reads CounterSecretCrushLimit.remaining) → false
 private val secretCrushRemainingFingerprint = Fingerprint(
@@ -1908,7 +1808,7 @@ val premiumUnlockPatch = bytecodePatch(
                 "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemInstantChatGuideView;" to setOf("m"),
                 "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemBlindBoxEntrance;" to setOf("e"),
                 "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemSurpriseBoxEntrance;" to setOf("f"),
-                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;" to setOf("i"),
+                "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemProfileLikeEntrance;" to setOf("i", "show", "display"),
                 "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemPlatinumPinLike;" to setOf("q"),
                 "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemFriendMoments;" to setOf("o", "p", "q"),
                 "Lcom/p1/mobile/putong/core/newui/messages/ConversationItemTeamGroup;" to setOf("o"),
@@ -2033,9 +1933,7 @@ val premiumUnlockPatch = bytecodePatch(
             if ("r8n" !in resolved && "intl_chat_request_insert_users" in strings) resolved["r8n"] = classDef
             if ("headRecommendAdapter" !in resolved && "fake_conversation_profile_like_enter" in strings && "fake_conversation_oof_pick" in strings && "getItemViewType.1.I" in methodCallSigs) resolved["headRecommendAdapter"] = classDef
             if ("seeAnimBubbleCreator" !in resolved && "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6" in methodCallFull && "u7\u0001V" in methodNameRet && "Lcom/p051p1/mobile/putong/core/p058ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE" in fieldAccessFull) resolved["seeAnimBubbleCreator"] = classDef
-            // TODO: seeAnimBubbleLifecycle fingerprint disabled - old descriptor no longer exists
-            // if ("seeAnimBubbleLifecycle" !in resolved && "Lcom/p1/mobile/putong/core/newui/home/ViewTreeObserverOnGlobalLayoutListenerC8017b;.u6" in methodCallFull && "Lcom/p051p1/mobile/putong/core/newui/home/bubble/MagicBubble;.SEE_ANIM" in fieldAccessFull) resolved["seeAnimBubbleLifecycle"] = classDef
-            // bubbleDisplayMethod: ViewTreeObserverOnGlobalLayoutListenerC8017b was renamed to C0351b - needs fingerprint-based discovery
+
             if ("sb90Companion" !in resolved && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.localRelationship" in fieldAccessFull && "matched" in strings && "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery" in methodCallFull && "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe" in methodCallFull && hasZUserMethod) resolved["sb90Companion"] = classDef
             if ("u59" !in resolved && !isSettingsUi && "intl_sl_guide_config" in strings) resolved["u59"] = classDef
             if ("tm90" !in resolved && !isSettingsUi && "intl_good_c_bage_config" in strings) resolved["tm90"] = classDef
@@ -2446,20 +2344,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        resolved["seeAnimBubbleLifecycle"]?.let { bubbleLifecycleClassDef ->
-            mutableClassDefBy(bubbleLifecycleClassDef).methods.forEach { method ->
-                if (method.name == "A" && method.parameterTypes.isEmpty() && method.returnType == "I" &&
-                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const/4 v0, 0x0
-                        return v0
-                    """)
-                }
-            }
-        }
 
-        // bubbleDisplayMethod: ViewTreeObserverOnGlobalLayoutListenerC8017b was renamed to C0351b
-        // Patch disabled - needs fingerprint-based discovery (see TODO in Pass 1)
 
         resolved["sja"]?.let { sjaClassDef ->
             sjaPicksRemainingFingerprint.matchAll(sjaClassDef, 1..5).forEach { match ->
@@ -2958,19 +2843,7 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // wid0: String formatter for "%s people liked you" text
-        // wid0.j(int) returns CharSequence with promotional text
-        // Patch to return empty string
-        resolved["wid0"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "j" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "I" && method.returnType == "Ljava/lang/CharSequence;") {
-                    method.addInstructions(0, """
-                        const-string v0, ""
-                        return-object v0
-                    """)
-                }
-            }
-        }
+
 
         // ajy: MeetLikersNewLikersData - patch getNewLikersCount() to return 0
         // The method returns int and accesses this.newLikersCount field
