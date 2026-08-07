@@ -497,5 +497,26 @@ val uiCleanupPatch = bytecodePatch(
                 }
             }
         }
+
+        // Patch home presenter to prevent "x more people like you" popup display
+        // This is the single decision point for showing the popup, covering all trigger paths
+        val homePresenterClassFingerprint = Fingerprint(
+            filters = listOf(
+                string("home_total_liker_float"),
+                string("home_new_liker_float"),
+            )
+        )
+
+        homePresenterClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "Z" && 
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0].contains("CoreLikers")
+                }
+                .forEach { method ->
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+        }
     }
 }
