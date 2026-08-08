@@ -8,6 +8,7 @@ import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
@@ -719,6 +720,89 @@ val analyticsDisablePatch = bytecodePatch(
 
                     method.name == "getInstance" && method.returnType.startsWith("L") ->
                         method.addInstructions(0, RETURN_NULL_OBJECT)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/main/NewMainBaseAct;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                val instructions = method.implementation?.instructions?.toList() ?: return@forEach
+                val callsGetMacAddress = instructions.any { instruction ->
+                    instruction is ReferenceInstruction &&
+                    instruction.reference is MethodReference &&
+                    (instruction.reference as MethodReference).name == "getMacAddress"
+                }
+                if (callsGetMacAddress && method.returnType == "Ljava/lang/String;") {
+                    method.addInstructions(0, RETURN_EMPTY_STRING)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/api/api/Network;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.name in setOf("prepareSimpleXml", "prepareXmpXml") &&
+                    method.returnType.startsWith("L") ->
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/data/ApmConfigSetting;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                val instructions = method.implementation?.instructions?.toList() ?: return@forEach
+                val accessesApmFields = instructions.any { instruction ->
+                    instruction is ReferenceInstruction &&
+                    instruction.reference is FieldReference &&
+                    (instruction.reference as FieldReference).name in setOf("enableMemoryReport", "enableCpuReport")
+                }
+                if (accessesApmFields && method.returnType == "Z") {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
+        classDefByOrNull("Lcom/google/firebase/analytics/FirebaseAnalytics;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                when {
+                    method.name in setOf("logEvent", "setAnalyticsCollectionEnabled", "setUserId",
+                        "setUserProperty", "resetAnalyticsData", "setCurrentScreen",
+                        "setDefaultEventParameters", "setSessionTimeoutDuration", "setConsent",
+                        "logEventInternal", "setAnalyticsCollectionEnabledInternal") &&
+                    method.returnType == "V" ->
+                        method.addInstructions(0, RETURN_VOID)
+
+                    method.name == "getAppInstanceId" && method.returnType.startsWith("L") ->
+                        method.addInstructions(0, RETURN_NULL_OBJECT)
+                }
+            }
+        }
+
+        val firebaseCrashlyticsCallerFingerprint = Fingerprint(
+            filters = listOf(
+                string("sp_protocal"),
+            ),
+        )
+        firebaseCrashlyticsCallerFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                val instructions = method.implementation?.instructions?.toList() ?: return@forEach
+                val callsCrashlytics = instructions.any { instruction ->
+                    instruction is ReferenceInstruction &&
+                    instruction.reference is MethodReference &&
+                    (instruction.reference as MethodReference).definingClass == "Lcom/google/firebase/crashlytics/FirebaseCrashlytics;"
+                }
+                if (callsCrashlytics && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
