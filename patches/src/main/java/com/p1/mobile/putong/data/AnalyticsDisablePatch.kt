@@ -740,17 +740,9 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        classDefByOrNull("Lcom/p1/mobile/putong/api/api/Network;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                when {
-                    method.name in setOf("prepareSimpleXml", "prepareXmpXml") &&
-                    method.returnType.startsWith("L") ->
-                        method.addInstructions(0, RETURN_NULL_OBJECT)
-                }
-            }
-        }
+        // NOTE: Network.prepareSimpleXml/prepareXmpXml are NOT analytics - they collect system
+        // properties that are hashed and used in MAC request authentication for ALL API calls.
+        // Returning null here causes NPE in maybeUpdateRequestBeforeCall() breaking all server comms.
 
         classDefByOrNull("Lcom/p1/mobile/putong/data/ApmConfigSetting;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
