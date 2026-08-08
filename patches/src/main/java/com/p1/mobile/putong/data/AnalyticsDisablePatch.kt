@@ -786,25 +786,6 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        val firebaseCrashlyticsCallerFingerprint = Fingerprint(
-            filters = listOf(
-                string("sp_protocal"),
-            ),
-        )
-        firebaseCrashlyticsCallerFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                val instructions = method.implementation?.instructions?.toList() ?: return@forEach
-                val callsCrashlytics = instructions.any { instruction ->
-                    instruction is ReferenceInstruction &&
-                    instruction.reference is MethodReference &&
-                    (instruction.reference as MethodReference).definingClass == "Lcom/google/firebase/crashlytics/FirebaseCrashlytics;"
-                }
-                if (callsCrashlytics && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
+
     }
 }
