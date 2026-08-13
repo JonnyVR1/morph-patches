@@ -19,6 +19,7 @@ import com.p1.mobile.putong.data.*
  *  9. Privacy Enhancement        - Root/emulator detection bypass, ShuMeng SDK blocking, package enumeration prevention
  * 10. Ad Removal                 - Navigation bar ads, native feed ads, live streaming ads, live square ads
  * 11. Remote Config Override     - Override remote config values for beneficial feature defaults
+ * 12. AB Test Override           - Override A/B test values to enable beneficial features
  */
 object PatchRegistry {
     val allPatches: Set<Patch<*>> = setOf(
@@ -33,5 +34,6 @@ object PatchRegistry {
         privacyEnhancementPatch,
         adRemovalPatch,
         remoteConfigOverridePatch,
+        abTestOverridePatch,
     )
 }
