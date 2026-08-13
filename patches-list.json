@@ -257,6 +257,34 @@
       "options": []
     },
     {
+      "name": "Remote Config Override",
+      "description": "Overrides remote configuration values: disables popup scheduling, prevents aggressive token expiry, removes quick chat limits, disables text buzz auto-delete",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.tantantribe.tribe",
+          "name": "Tantan",
+          "description": "Tantan - Global Dating App",
+          "apkFileType": "APK_REQUIRED",
+          "appIconColor": null,
+          "signatures": [
+            "7c5d634c27841a5318a5bf47300e4415bee8011e009c74230b9aebca994d30c7"
+          ],
+          "targets": [
+            {
+              "version": "7.3.6",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "UI Cleanup",
       "description": "Removes guides, banners, stickers, decorations, and AI prompts",
       "default": true,
