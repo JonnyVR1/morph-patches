@@ -230,7 +230,7 @@
     },
     {
       "name": "Privacy Enhancement",
-      "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, Facebook SDK emulator detection bypass, APK signature verification bypass, package enumeration prevention",
+      "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, Facebook SDK emulator detection bypass, APK signature verification bypass, package enumeration prevention, VPN/proxy detection bypass, overlay detection bypass",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
