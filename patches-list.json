@@ -32,7 +32,7 @@
     },
     {
       "name": "Analytics Disable",
-      "description": "Disables all analytics, telemetry, and device fingerprinting for privacy",
+      "description": "Disables all analytics and telemetry for privacy",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
