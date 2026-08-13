@@ -2,117 +2,136 @@ package com.p1.mobile.putong.data
 
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
-import com.android.tools.smali.dexlib2.AccessFlags
-import com.android.tools.smali.dexlib2.iface.Method
+import com.android.tools.smali.dexlib2.iface.instruction.Instruction
+import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 
-private fun isConstructor(method: Method): Boolean =
-    method.name == "<init>" || method.name == "<clinit>"
+private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
 
-private const val RETURN_VOID = "return-void"
+private fun com.android.tools.smali.dexlib2.iface.Method.cachedInstructions(): List<Instruction> =
+    instructionCache.getOrPut(this) {
+        implementation?.instructions?.toList() ?: emptyList()
+    }
 
-private const val RETURN_MAX_INT = """
-    const v0, 0x7fffffff
-    return v0
+private const val RETURN_BOOLEAN_FALSE = """
+    sget-object v0, Ljava/lang/Boolean;->FALSE:Ljava/lang/Boolean;
+    return-object v0
 """
 
-private const val RETURN_MIN_INT = """
-    const v0, 0x0
-    return v0
+private const val RETURN_INTEGER_0 = """
+    const/4 v0, 0x0
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v0
+    return-object v0
 """
 
 @Suppress("unused")
 @JvmField
 val searchDiscoveryPatch = bytecodePatch(
     name = "Search Discovery",
-    description = "Expands search filters: unlimited distance, full age range (18-100)",
+    description = "Enhances search and discovery: disables auto-adjust radius, removes invisible radius, enables Gaea distance algorithm, expands liked user and visitor filter ranges",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        // Patch SearchRadius to allow unlimited distance
-        classDefByOrNull("Lcom/p1/mobile/putong/data/SearchRadius;")?.let { classDef ->
+        classDefByOrNull("Lcom/p1/mobile/putong/data/Settings;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                
-                // Patch getters for allowedMaximum to return max int (unlimited)
-                if (method.name == "getAllowedMaximum" && 
-                    method.returnType == "Ljava/lang/Integer;" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const v0, 0x7fffffff
-                        invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                        move-result-object v0
-                        return-object v0
-                    """)
-                }
-                
-                // Patch getters for value to return max int (unlimited distance)
-                if (method.name == "getValue" && 
-                    method.returnType == "Ljava/lang/Integer;" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const v0, 0x7fffffff
-                        invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                        move-result-object v0
-                        return-object v0
-                    """)
+                when {
+                    method.name == "autoAdjustSuggestRadius" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Ljava/lang/Boolean;" -> {
+                        method.addInstructions(0, RETURN_BOOLEAN_FALSE)
+                    }
+                    method.name == "getSearchInvisibleRadius" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Ljava/lang/Integer;" -> {
+                        method.addInstructions(0, RETURN_INTEGER_0)
+                    }
                 }
             }
         }
 
-        // Patch SearchAge to allow full age range (18-100)
-        classDefByOrNull("Lcom/p1/mobile/putong/data/SearchAge;")?.let { classDef ->
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/GaeaDistanceConfig;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                
-                // Patch allowedMinimum to return 18
-                if (method.name == "getAllowedMinimum" && 
-                    method.returnType == "Ljava/lang/Integer;" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const v0, 0x12
-                        invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                        move-result-object v0
-                        return-object v0
-                    """)
+                val instrs = method.cachedInstructions()
+                val writeIndices = instrs.withIndex().filter { (_, instr) ->
+                    instr.opcode.name == "iput-byte" &&
+                        instr is ReferenceInstruction &&
+                        instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).name == "gaeaDistanceOpen" &&
+                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/GaeaDistanceConfig;"
+                }.map { it.index }
+
+                if (writeIndices.isEmpty()) return@forEach
+
+                writeIndices.reversed().forEach { idx ->
+                    val instr = instrs[idx]
+                    if (instr is TwoRegisterInstruction) {
+                        val objReg = instr.registerB
+                        val fieldRef = (instr as ReferenceInstruction).reference as FieldReference
+                        val tempReg = if (objReg != 0) "v0" else "v1"
+                        method.addInstructions(idx + 1, """
+                            const/4 $tempReg, 0x1
+                            iput-byte $tempReg, v$objReg, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
+                        """)
+                    }
                 }
-                
-                // Patch allowedMaximum to return 100
-                if (method.name == "getAllowedMaximum" && 
-                    method.returnType == "Ljava/lang/Integer;" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const v0, 0x64
-                        invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                        move-result-object v0
-                        return-object v0
-                    """)
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/LikedUserFilterSettings;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                val instrs = method.cachedInstructions()
+                val distanceWrites = instrs.withIndex().filter { (_, instr) ->
+                    instr.opcode.name == "iput" &&
+                        instr is ReferenceInstruction &&
+                        instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).name == "distance" &&
+                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/LikedUserFilterSettings;"
+                }.map { it.index }
+
+                if (distanceWrites.isEmpty()) return@forEach
+
+                distanceWrites.reversed().forEach { idx ->
+                    val instr = instrs[idx]
+                    if (instr is TwoRegisterInstruction) {
+                        val objReg = instr.registerB
+                        val fieldRef = (instr as ReferenceInstruction).reference as FieldReference
+                        val tempReg = if (objReg != 0 && objReg != 1) "v0" else "v2"
+                        method.addInstructions(idx + 1, """
+                            const/16 $tempReg, 0x2710
+                            iput $tempReg, v$objReg, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
+                        """)
+                    }
                 }
-                
-                // Patch minimum to return 18
-                if (method.name == "getMinimum" && 
-                    method.returnType == "Ljava/lang/Integer;" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const v0, 0x12
-                        invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                        move-result-object v0
-                        return-object v0
-                    """)
-                }
-                
-                // Patch maximum to return 100
-                if (method.name == "getMaximum" && 
-                    method.returnType == "Ljava/lang/Integer;" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const v0, 0x64
-                        invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                        move-result-object v0
-                        return-object v0
-                    """)
+            }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/data/VisitorFilterSettings;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                val instrs = method.cachedInstructions()
+                val distanceWrites = instrs.withIndex().filter { (_, instr) ->
+                    instr.opcode.name == "iput" &&
+                        instr is ReferenceInstruction &&
+                        instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).name == "distance" &&
+                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/VisitorFilterSettings;"
+                }.map { it.index }
+
+                if (distanceWrites.isEmpty()) return@forEach
+
+                distanceWrites.reversed().forEach { idx ->
+                    val instr = instrs[idx]
+                    if (instr is TwoRegisterInstruction) {
+                        val objReg = instr.registerB
+                        val fieldRef = (instr as ReferenceInstruction).reference as FieldReference
+                        val tempReg = if (objReg != 0 && objReg != 1) "v0" else "v2"
+                        method.addInstructions(idx + 1, """
+                            const/16 $tempReg, 0x2710
+                            iput $tempReg, v$objReg, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
+                        """)
+                    }
                 }
             }
         }

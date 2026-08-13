@@ -314,7 +314,7 @@
     },
     {
       "name": "Search Discovery",
-      "description": "Expands search filters: unlimited distance, full age range (18-100)",
+      "description": "Enhances search and discovery: disables auto-adjust radius, removes invisible radius, enables Gaea distance algorithm, expands liked user and visitor filter ranges",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
