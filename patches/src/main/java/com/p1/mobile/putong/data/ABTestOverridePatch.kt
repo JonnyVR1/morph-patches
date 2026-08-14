@@ -10,160 +10,160 @@ private fun buildI0Instructions(paramReg: Int): String {
 
         const-string v1, "chat_newmatch_continue"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_chat_newmatch
+        move-result v1
+        if-eqz v1, :skip_chat_newmatch
         const-string v0, "exp_strategy"
         return-object v0
         :skip_chat_newmatch
 
         const-string v1, "quick_message"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_quick_message
+        move-result v1
+        if-eqz v1, :skip_quick_message
         const-string v0, "exp"
         return-object v0
         :skip_quick_message
 
         const-string v1, "batch_icebreak"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_batch_icebreak
+        move-result v1
+        if-eqz v1, :skip_batch_icebreak
         const-string v0, "exp1"
         return-object v0
         :skip_batch_icebreak
 
         const-string v1, "newuser_icebreak_lead"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_icebreak_lead
+        move-result v1
+        if-eqz v1, :skip_icebreak_lead
         const-string v0, "exp"
         return-object v0
         :skip_icebreak_lead
 
         const-string v1, "chat_match"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_chat_match
+        move-result v1
+        if-eqz v1, :skip_chat_match
         const-string v0, "with_icebreak_text"
         return-object v0
         :skip_chat_match
 
         const-string v1, "ChatViewOptimizationAndroid"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_chat_view_opt
+        move-result v1
+        if-eqz v1, :skip_chat_view_opt
         const-string v0, "_exp"
         return-object v0
         :skip_chat_view_opt
 
         const-string v1, "chat_cell_active"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_chat_cell
+        move-result v1
+        if-eqz v1, :skip_chat_cell
         const-string v0, "exp"
         return-object v0
         :skip_chat_cell
 
         const-string v1, "verified_to_chat"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_verified_chat
+        move-result v1
+        if-eqz v1, :skip_verified_chat
         const-string v0, "exp"
         return-object v0
         :skip_verified_chat
 
         const-string v1, "sticker_show_time"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_sticker
+        move-result v1
+        if-eqz v1, :skip_sticker
         const-string v0, "exp"
         return-object v0
         :skip_sticker
 
         const-string v1, "push_largepic"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_push_largepic
+        move-result v1
+        if-eqz v1, :skip_push_largepic
         const-string v0, "exp"
         return-object v0
         :skip_push_largepic
 
         const-string v1, "e_surprisebox"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_surprisebox
+        move-result v1
+        if-eqz v1, :skip_surprisebox
         const-string v0, "exp"
         return-object v0
         :skip_surprisebox
 
         const-string v1, "quickchat_male_ring"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_quickchat_ring
+        move-result v1
+        if-eqz v1, :skip_quickchat_ring
         const-string v0, "exp1"
         return-object v0
         :skip_quickchat_ring
 
         const-string v1, "anti_harass_customiza_set"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_anti_harass
+        move-result v1
+        if-eqz v1, :skip_anti_harass
         const-string v0, "_match_include"
         return-object v0
         :skip_anti_harass
 
         const-string v1, "REV_tieredmembership"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_tiered
+        move-result v1
+        if-eqz v1, :skip_tiered
         const-string v0, "exp"
         return-object v0
         :skip_tiered
 
         const-string v1, "REV_platinum_membership_2"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_plat2
+        move-result v1
+        if-eqz v1, :skip_plat2
         const-string v0, "exp"
         return-object v0
         :skip_plat2
 
         const-string v1, "REV_platinum_membership_3"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_plat3
+        move-result v1
+        if-eqz v1, :skip_plat3
         const-string v0, "exp"
         return-object v0
         :skip_plat3
 
         const-string v1, "REV_platinium_4"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_plat4
+        move-result v1
+        if-eqz v1, :skip_plat4
         const-string v0, "exp1"
         return-object v0
         :skip_plat4
 
         const-string v1, "REV_promo_upgrade1"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_promo
+        move-result v1
+        if-eqz v1, :skip_promo
         const-string v0, "exp"
         return-object v0
         :skip_promo
 
         const-string v1, "friend_active_remind_female"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_friend_remind
+        move-result v1
+        if-eqz v1, :skip_friend_remind
         const-string v0, "exp"
         return-object v0
         :skip_friend_remind
 
         const-string v1, "male_heartbeat_unactive"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_heartbeat
+        move-result v1
+        if-eqz v1, :skip_heartbeat
         const-string v0, "exp2"
         return-object v0
         :skip_heartbeat
@@ -176,40 +176,40 @@ private fun buildJ0Instructions(paramReg: Int): String {
 
         const-string v1, "intl_instantmatch_open_user"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_instantmatch
+        move-result v1
+        if-eqz v1, :skip_instantmatch
         const-string v0, "test"
         return-object v0
         :skip_instantmatch
 
         const-string v1, "intl_me_tab_revamp"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_me_tab
+        move-result v1
+        if-eqz v1, :skip_me_tab
         const-string v0, "test"
         return-object v0
         :skip_me_tab
 
         const-string v1, "intl_letterc"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_letter
+        move-result v1
+        if-eqz v1, :skip_letter
         const-string v0, "a"
         return-object v0
         :skip_letter
 
         const-string v1, "intl_consume_iap_large_page"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_iap_page
+        move-result v1
+        if-eqz v1, :skip_iap_page
         const-string v0, "_Test"
         return-object v0
         :skip_iap_page
 
         const-string v1, "intl_see_card_tag"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v2
-        if-eqz v2, :skip_card_tag
+        move-result v1
+        if-eqz v1, :skip_card_tag
         const-string v0, "test2"
         return-object v0
         :skip_card_tag
