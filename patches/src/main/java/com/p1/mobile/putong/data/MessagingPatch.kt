@@ -268,15 +268,18 @@ val messagingPatch = bytecodePatch(
                 }
         }
 
-        classDefByOrNull(AI_TRANSLATE_CLASS)?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    method.name == "p3" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z"
-                }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-        }
+        // TODO: CoreAITranslate.p3 signature changed in 7.4.3 from ()Z to (String,String,long,long,String)Lrx/c;
+        // Need to investigate the new API and update the patch accordingly.
+        // For now, AI translate unlock is disabled.
+        // classDefByOrNull(AI_TRANSLATE_CLASS)?.let { classDef ->
+        //     mutableClassDefBy(classDef).methods
+        //         .filter { method ->
+        //             method.name == "p3" &&
+        //                 method.parameterTypes.isEmpty() &&
+        //                 method.returnType == "Z"
+        //         }
+        //         .forEach { it.addInstructions(0, RETURN_TRUE) }
+        // }
 
         classDefByOrNull(RECALL_CONFIG_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
@@ -771,6 +774,5 @@ private val jailedGroupChatClassFingerprint = Fingerprint(
             definingClass = "Lcom/p1/mobile/putong/data/JailedGroupChat;",
             name = "expireTime",
         ),
-        methodCall(name = "m174454o"),
     ),
 )

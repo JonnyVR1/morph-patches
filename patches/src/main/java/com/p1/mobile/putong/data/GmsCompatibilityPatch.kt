@@ -188,12 +188,6 @@ val gmsCompatibilityPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        classDefByOrNull("Lcom/google/android/gms/common/zzn;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { it.name == "zzf" && it.returnType == "Z" }
-                .forEach { it.addInstructions(0, RETURN_TRUE) }
-        }
-
         classDefByOrNull("Lcom/cosmos/photon/push/util/AppContext;")?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { it.name == "hasGoogleMap" }

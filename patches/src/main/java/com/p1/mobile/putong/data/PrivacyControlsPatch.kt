@@ -52,8 +52,7 @@ private const val PERMISSION_HELPER_CLASS = "Lcom/p1/mobile/putong/ui/permission
 
 private val intlTabMePayGuideBannerFingerprint = Fingerprint(
     filters = listOf(
-        fieldAccess(name = "showBanner"),
-        methodCall(name = "o0"),
+        fieldAccess(name = "showBanner", definingClass = "Lcom/p1/mobile/putong/data/IntlTabMePayGuide;"),
     ),
 )
 
@@ -242,7 +241,7 @@ val privacyControlsPatch = bytecodePatch(
                 val analysis = method.analyze()
                 if (analysis.containsString("visitor_hide_footprint") &&
                     analysis.containsString("p_navigation_visit,isee") &&
-                    analysis.callsMethodNamed("xh") &&
+                    analysis.callsMethodNamed("yh") &&
                     method.returnType == "V"
                 ) {
                     method.addInstructions(0, RETURN_VOID)

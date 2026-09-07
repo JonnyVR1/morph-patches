@@ -87,7 +87,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_matches",
         "Lcom/p1/mobile/putong/core/data/UltraRightsUpgradeInfo;.isCanUpgradeUltra",
         "Lcom/p1/mobile/putong/core/data/MembershipUpgradeInfo;",
-        "Lcom/p051p1/mobile/putong/core/p058ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE"
+        "Lcom/p1/mobile/putong/core/ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE"
     )
     
     private val premiumAnchorMethods = setOf(
@@ -95,7 +95,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe",
         "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6",
         "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d",
-        "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k"
+        "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k",
+        "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.l"
     )
     
     private val allAnchorStrings = analyticsAnchors + 
@@ -264,7 +265,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolvedClasses["headRecommendAdapter"] = classDef
         }
         if ("seeAnimBubbleCreator" !in resolvedClasses && "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6" in foundMethods && 
-            "u7\u0001V" in methodNameRet && "Lcom/p051p1/mobile/putong/core/p058ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE" in foundFields) {
+            "u7\u0001V" in methodNameRet && "Lcom/p1/mobile/putong/core/ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE" in foundFields) {
             resolvedClasses["seeAnimBubbleCreator"] = classDef
         }
         
@@ -425,7 +426,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         
         if ("ae9" !in resolvedClasses && !isSettingsUi &&
             "Lcom/p1/mobile/putong/core/data/UltraRightsUpgradeInfo;.isCanUpgradeUltra" in foundFields &&
-            "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k" in foundMethods &&
+            ("Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k" in foundMethods ||
+             "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.l" in foundMethods) &&
             "Lcom/p1/mobile/putong/core/data/MembershipUpgradeInfo;" in foundFields) {
             resolvedClasses["ae9"] = classDef
         }

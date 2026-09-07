@@ -1771,7 +1771,7 @@ val premiumUnlockPatch = bytecodePatch(
 
             // LikersNewLikeBubble: Suppress animated floating bubble
             // Shows animated "new like" notifications that float on screen
-            classDefByOrNull("Lcom/p1/mobile/putong/core/p053ui/vip/likers/LikersNewLikeBubble;")?.let { classDef ->
+            classDefByOrNull("Lcom/p1/mobile/putong/core/ui/vip/likers/LikersNewLikeBubble;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     // d() and e() - animation show/dismiss methods
                     if (method.name in setOf("d", "e") && method.parameterTypes.isEmpty() && method.returnType == "V") {
@@ -2244,7 +2244,7 @@ val premiumUnlockPatch = bytecodePatch(
                     method.returnType == "Z" && method.parameterTypes.isEmpty() &&
                         method.cachedInstructions().any { it is ReferenceInstruction && it.reference is MethodReference &&
                             (it.reference as MethodReference).definingClass == "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;" &&
-                            (it.reference as MethodReference).name == "k" } -> {
+                            (it.reference as MethodReference).name in setOf("k", "l") } -> {
                         method.addInstructions(0, RETURN_TRUE)
                     }
                     method.returnType == "Z" && method.parameterTypes.isEmpty() &&
