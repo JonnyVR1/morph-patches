@@ -65,7 +65,11 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "picksUser id is not found in users : ", "p_offline_popup", "last_likers_req_time",
         "offline_dialog_show_time", "reBackAppGuideDialog", "open_fill_info_debug",
         "fromWhoLikedMe", "e_red_dot_message_see", "MeetLikersNewLikersData",
-        "IntlMeetLikersNewLikersData", "matched"
+        "IntlMeetLikersNewLikersData", "matched",
+        "business_entrance_last_show_time", "today_new_likes_changed",
+        "last_total_likes_count", "last_new_likes_count",
+        "%s people liked you", "Someone's %s y/o ; %s away",
+        "e_see_who_liked_me_banner", "p_suggest_user_profile_info_view"
     )
     
     private val premiumAnchorFields = setOf(
@@ -96,7 +100,9 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6",
         "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d",
         "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k",
-        "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.l"
+        "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.l",
+        "Ll/hkd0;.b", "Ll/hkd0;.d", "Ll/hkd0;.e", "Ll/hkd0;.j",
+        "Ll/mv6;.S0", "Ll/gxe0;.G"
     )
     
     private val allAnchorStrings = analyticsAnchors + 
@@ -105,7 +111,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         premiumAnchorStrings
     
     fun resolve() {
-        val totalTargets = 10 + 12 + 6 + 54
+        val totalTargets = 10 + 12 + 6 + 54 + 6
         
         context.classDefForEach { classDef ->
             if (resolvedClasses.size >= totalTargets) return@classDefForEach
@@ -447,6 +453,52 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 it.parameterTypes[2] == "Ljava/lang/String;"
             }
             if (hasStaticNMethod) resolvedClasses["c4m0"] = classDef
+        }
+        
+        if ("businessEntranceStateManager" !in resolvedClasses &&
+            "business_entrance_last_show_time" in foundStrings &&
+            "today_new_likes_changed" in foundStrings &&
+            classDef.methods.any { it.name == "b" && AccessFlags.STATIC.isSet(it.accessFlags) &&
+                                  it.returnType == classDef.type }) {
+            resolvedClasses["businessEntranceStateManager"] = classDef
+        }
+        
+        if ("serverDataFlagSetter" !in resolvedClasses &&
+            methodCallFull.any { it.contains("hkd0") && it.contains(".b") } &&
+            classDef.methods.any { it.name == "S0" && it.parameterTypes.size == 1 &&
+                                  it.parameterTypes[0] == "Z" && it.returnType == "V" }) {
+            resolvedClasses["serverDataFlagSetter"] = classDef
+        }
+        
+        if ("newLikesFlagSetter" !in resolvedClasses &&
+            methodCallFull.any { it.contains("hkd0") && it.contains(".l") } &&
+            classDef.methods.any { it.name == "G" && it.parameterTypes.size == 1 && it.returnType == "V" }) {
+            resolvedClasses["newLikesFlagSetter"] = classDef
+        }
+        
+        if ("profilePageBanner" !in resolvedClasses &&
+            "e_see_who_liked_me_banner" in foundStrings &&
+            classDef.methods.any { it.name == "l" && it.parameterTypes.isEmpty() && it.returnType == "Z" } &&
+            classDef.methods.any { it.name == "t" && it.parameterTypes.isEmpty() && it.returnType == "V" }) {
+            resolvedClasses["profilePageBanner"] = classDef
+        }
+        
+        if ("suggestedUsersBanner" !in resolvedClasses &&
+            "p_suggest_user_profile_info_view" in foundStrings &&
+            classDef.methods.any { it.name == "B" && it.parameterTypes.size == 4 && it.returnType == "V" }) {
+            resolvedClasses["suggestedUsersBanner"] = classDef
+        }
+        
+        if ("distanceAgeTextGenerator" !in resolvedClasses &&
+            classDef.methods.any {
+                it.name == "c" &&
+                AccessFlags.STATIC.isSet(it.accessFlags) &&
+                it.parameterTypes.size == 3 &&
+                it.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                it.parameterTypes[1] == "Landroid/content/Context;" &&
+                it.returnType == "Ljava/lang/CharSequence;"
+            }) {
+            resolvedClasses["distanceAgeTextGenerator"] = classDef
         }
     }
     

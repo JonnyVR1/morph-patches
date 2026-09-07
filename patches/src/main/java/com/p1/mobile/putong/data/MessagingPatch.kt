@@ -268,18 +268,12 @@ val messagingPatch = bytecodePatch(
                 }
         }
 
-        // TODO: CoreAITranslate.p3 signature changed in 7.4.3 from ()Z to (String,String,long,long,String)Lrx/c;
-        // Need to investigate the new API and update the patch accordingly.
-        // For now, AI translate unlock is disabled.
-        // classDefByOrNull(AI_TRANSLATE_CLASS)?.let { classDef ->
-        //     mutableClassDefBy(classDef).methods
-        //         .filter { method ->
-        //             method.name == "p3" &&
-        //                 method.parameterTypes.isEmpty() &&
-        //                 method.returnType == "Z"
-        //         }
-        //         .forEach { it.addInstructions(0, RETURN_TRUE) }
-        // }
+        // AI translate (CoreAITranslate.p3): In 7.3.6, p3() had signature ()Z (boolean availability gate).
+        // In 7.4.3, p3 was changed to the actual translation API call:
+        //   p3(String scene, String targetUserId, long messageId, long questionId, String promptId)Lrx/c;
+        // The boolean gate was removed entirely -- the feature is unconditionally available client-side.
+        // No patch needed. If the server restricts the /ai-translate/translate endpoint for non-premium
+        // users, that cannot be fixed client-side without faking translation results.
 
         classDefByOrNull(RECALL_CONFIG_CLASS)?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->

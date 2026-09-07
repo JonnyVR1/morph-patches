@@ -1514,113 +1514,13 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── b8d0: Business entrance state manager singleton ──
-            // This is the ROOT CAUSE of the persistent "x girls y miles away" banner.
-            // b8d0 manages banner visibility state independently via MMKV and Observable.
-            // Server responses set flags via zt6.S0() and lke0.G(), which update b8d0 state.
-            // BusinessConversationView.init() checks b8d0.m102970g() to decide visibility.
-            // CoreBusinessServiceIml calls b8d0.m102964d()/m102967j() to generate text.
-            // We patch ALL b8d0 methods to prevent any banner display.
-            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            classDefByOrNull("Lp153l/b8d0;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // Static text generation methods → return empty CharSequence
-                    // m102964d(User, User) → CharSequence (delegates to m102965e)
-                    if (method.name == "d" && method.parameterTypes.size == 2 && method.returnType == "Ljava/lang/CharSequence;" &&
-                        AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, """
-                            const-string v0, ""
-                            return-object v0
-                        """)
-                    }
-                    // m102965e(User, User) → CharSequence (actual implementation)
-                    if (method.name == "e" && method.parameterTypes.size == 2 && method.returnType == "Ljava/lang/CharSequence;" &&
-                        AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, """
-                            const-string v0, ""
-                            return-object v0
-                        """)
-                    }
-                    // m102967j(int) → CharSequence ("X people liked you")
-                    if (method.name == "j" && method.parameterTypes.size == 1 && method.returnType == "Ljava/lang/CharSequence;" &&
-                        AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, """
-                            const-string v0, ""
-                            return-object v0
-                        """)
-                    }
-                    // Instance state management methods
-                    // m102970g() → boolean (checks if banner should show based on last show time)
-                    if (method.name == "g" && method.parameterTypes.isEmpty() && method.returnType == "Z" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                    // m102971i() → void (sets last show time in MMKV)
-                    if (method.name == "i" && method.parameterTypes.isEmpty() && method.returnType == "V" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    // m102972k(int) → void (sets new likes count)
-                    if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    // m102973l(boolean) → void (sets "today new likes changed" flag)
-                    if (method.name == "l" && method.parameterTypes.size == 1 && method.returnType == "V" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── zt6.S0(): Server data flag setter ──
-            // zt6.S0(boolean) is called when server responses arrive.
-            // It sets b8d0.f75421b = true and emits on b8d0.f75420a observable.
-            // This allows server responses to trigger banner display even after our b8d0 patches.
-            // We patch S0() to return-void to prevent server data from activating the banner.
-            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            classDefByOrNull("Lp153l/zt6;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "S0" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ── lke0.G(): "New likes changed" flag setter ──
-            // lke0.G(bkj0) is called when CoreLikers data updates.
-            // It calls b8d0.m102963b().m102973l(true) to mark "today new likes changed".
-            // This triggers banner display in BusinessConversationView.
-            // We patch G() to return-void to prevent the flag from being set.
-            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            classDefByOrNull("Lp153l/lke0;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "G" && method.parameterTypes.size == 1 && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
+            // b8d0, zt6, lke0 moved to Pass 2 (fingerprint-based via UnifiedClassResolver)
 
             // ── b240 and kfe0 patches moved to Pass 2 (fingerprint-based) ──
             // Hardcoded descriptors (Lp153l/b240;, Lp153l/kfe0;) don't match actual DEX.
             // Using fingerprint-based discovery instead.
 
-            // ── tje0.c(): Distance/age text generation for dialogs ──
-            // tje0.c(User, Context, int[]) generates the "x girls y miles away" text for dialogs.
-            // It's used by LikersDialogView and other promotional dialogs.
-            // We patch c() to return empty CharSequence to prevent the text from being displayed.
-            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            classDefByOrNull("Lp153l/tje0;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "c" && method.parameterTypes.size == 3 && method.returnType == "Ljava/lang/CharSequence;" &&
-                        AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, """
-                            const-string v0, ""
-                            return-object v0
-                        """)
-                    }
-                }
-            }
+            // tje0 moved to Pass 2 (fingerprint-based via UnifiedClassResolver)
 
             // ── e230.b(): NewLikeView dialog strategy check ──
             // e230.b(p8l.C19323a) checks if the NewLikeView dialog should be shown.
@@ -1695,31 +1595,7 @@ val premiumUnlockPatch = bytecodePatch(
             //     }
             // }
 
-            // n1b0: Profile page "See who liked me" banner
-            // Suppresses the banner that appears on the profile page
-            classDefByOrNull("Lp153l/n1b0;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // mo53912l() - visibility check → FALSE
-                    if (method.name == "l" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                    // mo53914t() - text display → void
-                    if (method.name == "t" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // ela0: Suggested users banner
-            // Suppresses the "See who liked me" suggested users banner
-            classDefByOrNull("Lp153l/ela0;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // mo39153B() - text display → void
-                    if (method.name == "B" && method.parameterTypes.size == 4 && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
+            // n1b0, ela0 moved to Pass 2 (fingerprint-based via UnifiedClassResolver)
 
             // ip40: Me tab banner
             // Suppresses the banner click handler that navigates to LikersAct
@@ -1959,7 +1835,9 @@ val premiumUnlockPatch = bytecodePatch(
             "leftSwipeLimit", "intlUltraPremium", "coreData", "mb90", "jh30",
             "businessEntranceAdapter", "pm6", "bhe0", "vqo", "re90", "i0p",
             "meetNewLikersData", "intlMeetNewLikersData", "intlMeetNewLikersAdapter",
-            "meetNewLikersAdapter", "ysa", "ae9", "c4m0"
+            "meetNewLikersAdapter", "ysa", "ae9", "c4m0",
+            "businessEntranceStateManager", "serverDataFlagSetter", "newLikesFlagSetter",
+            "distanceAgeTextGenerator", "profilePageBanner", "suggestedUsersBanner"
         )
         for (key in premiumKeys) {
             resolver.getPremiumClass(key)?.let { resolved[key] = it }
@@ -2872,6 +2750,102 @@ val premiumUnlockPatch = bytecodePatch(
                     method.parameterTypes[1] == "Lcom/p1/mobile/android/app/Act;" &&
                     method.parameterTypes[2] == "Ljava/lang/String;") {
                     method.addInstructions(0, RETURN_TRUE)
+                }
+            }
+        }
+
+        // ── 6. Business entrance state manager (b8d0 → hkd0) ──
+        resolved["businessEntranceStateManager"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "d" && method.parameterTypes.size == 2 && method.returnType == "Ljava/lang/CharSequence;" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+                if (method.name == "e" && method.parameterTypes.size == 2 && method.returnType == "Ljava/lang/CharSequence;" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+                if (method.name == "j" && method.parameterTypes.size == 1 && method.returnType == "Ljava/lang/CharSequence;" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+                if (method.name == "g" && method.parameterTypes.isEmpty() && method.returnType == "Z" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+                if (method.name == "i" && method.parameterTypes.isEmpty() && method.returnType == "V" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+                if (method.name == "k" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+                if (method.name == "l" && method.parameterTypes.size == 1 && method.returnType == "V" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ── 7. Server data flag setter (zt6 → mv6) ──
+        resolved["serverDataFlagSetter"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "S0" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ── 8. New likes flag setter (lke0 → gxe0) ──
+        resolved["newLikesFlagSetter"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "G" && method.parameterTypes.size == 1 && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ── 9. Distance/age text generator (tje0) ──
+        resolved["distanceAgeTextGenerator"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "c" && method.parameterTypes.size == 3 &&
+                    method.returnType == "Ljava/lang/CharSequence;" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, """
+                        const-string v0, ""
+                        return-object v0
+                    """)
+                }
+            }
+        }
+
+        // ── 10. Profile page banner (n1b0) ──
+        resolved["profilePageBanner"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "l" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+                if (method.name == "t" && method.parameterTypes.isEmpty() && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ── 11. Suggested users banner (ela0) ──
+        resolved["suggestedUsersBanner"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "B" && method.parameterTypes.size == 4 && method.returnType == "V") {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
