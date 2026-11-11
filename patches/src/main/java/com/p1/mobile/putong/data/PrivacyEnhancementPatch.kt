@@ -55,67 +55,21 @@ val privacyEnhancementPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
+        val resolver = UnifiedClassResolver(this)
+        resolver.resolve()
+        
         val suPathStrings = setOf("/data/local/su", "/system/xbin/su", "/su/bin/su")
         val fbEmulatorStrings = setOf("google_sdk", "Genymotion", "generic", "Emulator")
 
-        val jmd0Anchors = setOf("/system/app/Superuser.apk", "/system/xbin/daemonsu")
-        val mmd0Anchors = setOf("/system/bin/cufsdosck", "/system/bin/conbb")
-        val ert0Anchors = setOf("ranchu", "generic", "emulator")
-        val fbEmulatorAnchors = setOf("google_sdk", "Genymotion", "vbox86p")
-        val additionalRootAnchors = setOf("/data/local/su", "/system/xbin/su", "/su/bin/su")
-        val shuMengAnchors = setOf("shumeng_init", "shuzilm")
-        val packageEnumAnchors = setOf("getInstalledPackages", "firstInstallTime")
-        val vpnProxyAnchors = setOf("http.proxyHost", "https.proxyHost")
-        val overlayAnchors = setOf("canDrawOverlays")
-
-        val allAnchors = jmd0Anchors + mmd0Anchors + ert0Anchors + fbEmulatorAnchors + additionalRootAnchors + shuMengAnchors + packageEnumAnchors + vpnProxyAnchors + overlayAnchors
-
-        var jmd0Class: ClassDef? = null
-        var mmd0Class: ClassDef? = null
-        var ert0Class: ClassDef? = null
-        var fbEmulatorClass: ClassDef? = null
-        var additionalRootClass: ClassDef? = null
-        var shuMengClass: ClassDef? = null
-        var packageEnumClass: ClassDef? = null
-        var vpnProxyClass: ClassDef? = null
-        var overlayClass: ClassDef? = null
-        var matchedCount = 0
-
-        classDefForEach { classDef ->
-            if (matchedCount == 9) return@classDefForEach
-
-            val type = classDef.type
-            if (type.startsWith("Landroid/") || type.startsWith("Lkotlin/") || type.startsWith("Ljava/")) {
-                return@classDefForEach
-            }
-
-            val foundStrings = mutableSetOf<String>()
-            for (method in classDef.methods) {
-                val impl = method.implementation ?: continue
-                for (instr in impl.instructions) {
-                    if (instr is ReferenceInstruction && instr.reference is StringReference) {
-                        val s = (instr.reference as StringReference).string
-                        if (s in allAnchors) {
-                            foundStrings.add(s)
-                        }
-                    }
-                }
-            }
-
-            if (foundStrings.isEmpty()) return@classDefForEach
-
-            when {
-                jmd0Class == null && foundStrings.containsAll(jmd0Anchors) -> { jmd0Class = classDef; matchedCount++ }
-                mmd0Class == null && foundStrings.containsAll(mmd0Anchors) -> { mmd0Class = classDef; matchedCount++ }
-                ert0Class == null && foundStrings.containsAll(ert0Anchors) -> { ert0Class = classDef; matchedCount++ }
-                fbEmulatorClass == null && foundStrings.containsAll(fbEmulatorAnchors) -> { fbEmulatorClass = classDef; matchedCount++ }
-                additionalRootClass == null && foundStrings.containsAll(additionalRootAnchors) -> { additionalRootClass = classDef; matchedCount++ }
-                shuMengClass == null && foundStrings.containsAll(shuMengAnchors) -> { shuMengClass = classDef; matchedCount++ }
-                packageEnumClass == null && foundStrings.containsAll(packageEnumAnchors) -> { packageEnumClass = classDef; matchedCount++ }
-                vpnProxyClass == null && foundStrings.containsAll(vpnProxyAnchors) -> { vpnProxyClass = classDef; matchedCount++ }
-                overlayClass == null && foundStrings.containsAll(overlayAnchors) -> { overlayClass = classDef; matchedCount++ }
-            }
-        }
+        val jmd0Class = resolver.getPrivacyClass("jmd0")
+        val mmd0Class = resolver.getPrivacyClass("mmd0")
+        val ert0Class = resolver.getPrivacyClass("ert0")
+        val fbEmulatorClass = resolver.getPrivacyClass("fbEmulator")
+        val additionalRootClass = resolver.getPrivacyClass("additionalRoot")
+        val shuMengClass = resolver.getPrivacyClass("shuMeng")
+        val packageEnumClass = resolver.getPrivacyClass("packageEnum")
+        val vpnProxyClass = resolver.getPrivacyClass("vpnProxy")
+        val overlayClass = resolver.getPrivacyClass("overlay")
 
         listOf(jmd0Class, mmd0Class).forEach { classDef ->
             classDef?.let {

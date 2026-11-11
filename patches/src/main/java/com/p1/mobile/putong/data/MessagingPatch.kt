@@ -172,16 +172,9 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        val loveBuzzDataClasses = mutableListOf<com.android.tools.smali.dexlib2.iface.ClassDef>()
-        classDefForEach { classDef ->
-            val hasLoveBuzzField = classDef.fields.any { field ->
-                field.definingClass == "Lcom/p1/mobile/putong/core/data/LoveBuzzData;" &&
-                    field.name in setOf("remainingVoiceBuzz", "remainingTextBuzz", "remainingVideoBuzz", "remainingMemojiBuzz")
-            }
-            if (hasLoveBuzzField) {
-                loveBuzzDataClasses.add(classDef)
-            }
-        }
+        val resolver = UnifiedClassResolver(this)
+        resolver.resolve()
+        val loveBuzzDataClasses = resolver.getLoveBuzzClasses()
 
         loveBuzzDataClasses.forEach { classDef ->
             val mutableClass = mutableClassDefBy(classDef)

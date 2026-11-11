@@ -366,13 +366,27 @@ When reverse-engineering decompiled Java:
 
 A `classFingerprint = parentFingerprint { ... }` chain must live as a top-level `val` (or `companion object val`), not inside a function. Inside `execute { }`, the same `matchOrNull()` call MUST NOT be called per-classDef (see #1).
 
-### 5. Performance: avoid `classDefForEach` for stable CamelCase classes
+### 5. Performance: UnifiedClassResolver for single-pass iteration
 
-`classDefForEach` iterates ALL ~50,000 classes in the APK. For each class it checks conditions, which is O(n) over the entire class pool. If you're looking for classes with stable CamelCase names (e.g., `NavigationBarAdView`, `ChatPartnerConfig`), use `classDefByOrNull("Lcom/p1/mobile/putong/...;")` instead — it's O(1) via the class index.
+`classDefForEach` iterates ALL ~50,000 classes in the APK. Multiple patches doing this independently causes O(n × patches) performance. The `UnifiedClassResolver` consolidates all class scanning into a single pass:
 
-**When to use `classDefForEach`:** Only when you need to find multiple obfuscated classes that share common anchor strings/fields/methods, and there's no stable name to look up directly. Even then, merge the anchor pre-filter and data collection into a single pass to avoid scanning matching classes twice.
+```kotlin
+val resolver = UnifiedClassResolver(this)
+resolver.resolve()  // Single O(n) pass through all classes
 
-**When to use `classDefByOrNull`:** Always, when the class has a stable CamelCase name. This was the #1 performance bottleneck — 5 patchsets had `classDefForEach` loops scanning all classes for stable-named targets.
+// Then retrieve pre-resolved classes:
+val analyticsClass = resolver.getAnalyticsClass("foxStats")
+val premiumClass = resolver.getPremiumClass("xma")
+val gmsClasses = resolver.getGmsClasses()
+val loveBuzzClasses = resolver.getLoveBuzzClasses()
+val privacyClass = resolver.getPrivacyClass("jmd0")
+```
+
+**What's consolidated:** AnalyticsDisable, DialogCleanup, UiCleanup, PremiumUnlock, GmsCompatibility, Messaging (LoveBuzz), and PrivacyEnhancement all use the same resolver.
+
+**When to use `classDefByOrNull`:** For stable CamelCase classes (e.g., `NavigationBarAdView`, `ChatPartnerConfig`), use `classDefByOrNull("Lcom/p1/mobile/putong/...;")` — it's O(1) via the class index.
+
+**When to add to UnifiedClassResolver:** When you need to find obfuscated classes by behavioral anchors (strings, fields, methods). Add anchors to the resolver's maps and a resolution method.
 
 ### 6. Performance: cache instruction iteration with WeakHashMap
 

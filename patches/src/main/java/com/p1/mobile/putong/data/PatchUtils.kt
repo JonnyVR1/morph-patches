@@ -52,6 +52,30 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "gpRateGuide" to setOf("p_intl_5star_dialog_view", "rate_popup_last_shown_new")
     )
     
+    private val gmsTargetStrings = setOf(
+        "com.google.android.gms",
+        "X-Android-Cert",
+        "X-Android-Package",
+        "218526224262-usliqg20cepnb3ql98amgeum18v8uatv.apps.googleusercontent.com",
+        "The SDK has not been initialized"
+    )
+    
+    private val loveBuzzFields = setOf(
+        "remainingVoiceBuzz", "remainingTextBuzz", "remainingVideoBuzz", "remainingMemojiBuzz"
+    )
+    
+    private val privacyAnchors = mapOf(
+        "jmd0" to setOf("/system/app/Superuser.apk", "/system/xbin/daemonsu"),
+        "mmd0" to setOf("/system/bin/cufsdosck", "/system/bin/conbb"),
+        "ert0" to setOf("ranchu", "generic", "emulator"),
+        "fbEmulator" to setOf("google_sdk", "Genymotion", "vbox86p"),
+        "additionalRoot" to setOf("/data/local/su", "/system/xbin/su", "/su/bin/su"),
+        "shuMeng" to setOf("shumeng_init", "shuzilm"),
+        "packageEnum" to setOf("getInstalledPackages", "firstInstallTime"),
+        "vpnProxy" to setOf("http.proxyHost", "https.proxyHost"),
+        "overlay" to setOf("canDrawOverlays")
+    )
+    
     private val premiumAnchorStrings = setOf(
         "/summarized-privileges?with=diamond", "intl_receive_like_guide_get", "receive_like_guide_get",
         "fake_conversation_surprise_gift_box", "fake_conversation_profile_like_enter",
@@ -108,10 +132,12 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val allAnchorStrings = analyticsAnchors + 
         uiCleanupAnchors.values.flatten().toSet() +
         dialogAnchors.values.flatten().toSet() +
-        premiumAnchorStrings
+        premiumAnchorStrings +
+        gmsTargetStrings +
+        privacyAnchors.values.flatten().toSet()
     
     fun resolve() {
-        val totalTargets = 10 + 12 + 6 + 54 + 6
+        val totalTargets = 10 + 12 + 6 + 54 + 6 + 5 + 3 + 9
         
         context.classDefForEach { classDef ->
             if (resolvedClasses.size >= totalTargets) return@classDefForEach
@@ -151,6 +177,10 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                             is FieldReference -> {
                                 val fieldFull = "${ref.definingClass}.${ref.name}"
                                 if (fieldFull in premiumAnchorFields) foundFields.add(fieldFull)
+                                if (ref.definingClass == "Lcom/p1/mobile/putong/core/data/LoveBuzzData;" && 
+                                    ref.name in loveBuzzFields) {
+                                    foundFields.add("LoveBuzzData.${ref.name}")
+                                }
                             }
                             is MethodReference -> {
                                 val methodFull = "${ref.definingClass}.${ref.name}"
@@ -177,6 +207,9 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolveDialogs(foundStrings, classDef)
             resolvePremium(foundStrings, foundFields, foundMethods, methodCallFull, 
                           methodCallSigs, methodCallFullSigs, methodNameRet, hasZUserMethod, isSettingsUi, classDef)
+            resolveGms(foundStrings, classDef, classType)
+            resolveLoveBuzz(foundFields, classDef)
+            resolvePrivacy(foundStrings, classDef)
         }
     }
     
@@ -502,8 +535,45 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         }
     }
     
+    private fun resolveGms(foundStrings: Set<String>, classDef: ClassDef, classType: String) {
+        if (classType == "Lcom/google/android/gms/common/internal/zzo;") return
+        
+        val hasGmsString = foundStrings.any { it in gmsTargetStrings }
+        if (!hasGmsString) return
+        
+        if ("gmsClasses" !in resolvedClasses) {
+            resolvedClasses["gmsClasses"] = classDef
+        } else {
+            val key = "gmsClasses_${resolvedClasses.keys.count { it.startsWith("gmsClasses_") }}"
+            resolvedClasses[key] = classDef
+        }
+    }
+    
+    private fun resolveLoveBuzz(foundFields: Set<String>, classDef: ClassDef) {
+        val hasLoveBuzzField = foundFields.any { it.startsWith("LoveBuzzData.") }
+        if (!hasLoveBuzzField) return
+        
+        if ("loveBuzzClasses" !in resolvedClasses) {
+            resolvedClasses["loveBuzzClasses"] = classDef
+        } else {
+            val key = "loveBuzzClasses_${resolvedClasses.keys.count { it.startsWith("loveBuzzClasses_") }}"
+            resolvedClasses[key] = classDef
+        }
+    }
+    
+    private fun resolvePrivacy(foundStrings: Set<String>, classDef: ClassDef) {
+        for ((key, anchors) in privacyAnchors) {
+            if (key !in resolvedClasses && foundStrings.containsAll(anchors)) {
+                resolvedClasses["privacy_$key"] = classDef
+            }
+        }
+    }
+    
     fun getAnalyticsClass(key: String): ClassDef? = resolvedClasses[key]
     fun getUiCleanupClass(key: String): ClassDef? = resolvedClasses[key]
     fun getDialogClass(key: String): ClassDef? = resolvedClasses[key]
     fun getPremiumClass(key: String): ClassDef? = resolvedClasses[key]
+    fun getGmsClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("gmsClasses") }.values.toList()
+    fun getLoveBuzzClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("loveBuzzClasses") }.values.toList()
+    fun getPrivacyClass(key: String): ClassDef? = resolvedClasses["privacy_$key"]
 }

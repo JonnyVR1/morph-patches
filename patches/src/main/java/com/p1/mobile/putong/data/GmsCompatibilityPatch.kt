@@ -235,41 +235,17 @@ val gmsCompatibilityPatch = bytecodePatch(
         }
 
         // ── Broad GMS package rewriting, X-Android-Cert injection, and Google Sign-In/Facebook SDK ──
-        // Single merged pass for all three transformations
+        // Uses pre-filtered classes from UnifiedClassResolver for performance
         val googleSignInClientId = "218526224262-usliqg20cepnb3ql98amgeum18v8uatv.apps.googleusercontent.com"
         val facebookSdkInit = "The SDK has not been initialized"
 
-        val targetStrings = setOf(
-            "com.google.android.gms",
-            "X-Android-Cert",
-            "X-Android-Package",
-            googleSignInClientId,
-            facebookSdkInit
-        )
-
-        classDefForEach { classDef ->
+        val resolver = UnifiedClassResolver(this)
+        resolver.resolve()
+        val gmsClasses = resolver.getGmsClasses()
+        
+        gmsClasses.forEach { classDef ->
             val type = classDef.type
-            if (type == "Lcom/google/android/gms/common/internal/zzo;") return@classDefForEach
-
-            // Package pre-filter: skip packages that don't contain GMS code
-            if (type.startsWith("Landroid/") ||
-                type.startsWith("Lkotlin/") ||
-                type.startsWith("Ljava/") ||
-                type.startsWith("Lkotlinx/") ||
-                type.startsWith("Lorg/intellij/") ||
-                type.startsWith("Lorg/jetbrains/")) {
-                return@classDefForEach
-            }
-
-            // Quick pre-scan: does this class contain ANY target strings?
-            val hasTargetString = classDef.methods.any { method ->
-                method.implementation?.instructions?.any { instr ->
-                    instr is Instruction21c &&
-                        (instr.reference as? StringReference)?.string in targetStrings
-                } == true
-            }
-
-            if (!hasTargetString) return@classDefForEach
+            if (type == "Lcom/google/android/gms/common/internal/zzo;") return@forEach
 
             val gmsReplacementsByMethod = mutableMapOf<Method, MutableList<Pair<Int, Int>>>()
             val certInjectionsByMethod = mutableMapOf<Method, MutableList<Triple<Int, String, String>>>()
@@ -314,7 +290,7 @@ val gmsCompatibilityPatch = bytecodePatch(
             }
 
             if (gmsReplacementsByMethod.isEmpty() && certInjectionsByMethod.isEmpty() && !hasGoogleSignIn && !hasFacebookSdk) {
-                return@classDefForEach
+                return@forEach
             }
 
             val mutableClass = mutableClassDefBy(classDef)
