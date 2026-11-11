@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "0.0.1-dev2",
+  "version": "0.0.1-dev3",
   "patches": [
     {
       "name": "AB Test Override",
@@ -19,8 +19,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -47,8 +52,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -75,8 +85,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -103,8 +118,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -133,8 +153,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -161,8 +186,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -189,8 +219,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -217,8 +252,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -245,8 +285,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -273,8 +318,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -301,8 +351,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -329,8 +384,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -357,8 +417,13 @@
           ],
           "targets": [
             {
-              "version": "7.3.6",
-              "versionCodes": null,
+              "version": "7.5.4",
+              "versionCodes": {
+                "ARM64_V8A": 2754010,
+                "ARMEABI_V7A": 2754010,
+                "X86_64": 2754010,
+                "X86": 2754010
+              },
               "isExperimental": false,
               "minSdk": null,
               "description": null
