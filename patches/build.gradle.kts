@@ -70,7 +70,7 @@ tasks {
         dependsOn("buildAndroid", "generatePatchesList")
 
         doLast {
-            val mppFile = file("build/libs/patches-0.0.1-dev3.mpp")
+            val mppFile = file("build/libs/patches-0.0.1-dev2.mpp")
             val patchListFile = rootProject.file("patches-list.json")
 
             if (!mppFile.exists()) throw GradleException("mpp file not found: ${mppFile.absolutePath}")
