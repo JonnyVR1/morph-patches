@@ -5,10 +5,10 @@ echo === Tantan APK Signature Extractor ===
 echo.
 
 REM Check if APK exists
-if not exist "tantan-7.3.6.apk" (
+if not exist "tantan-7.5.4.apk" (
     echo APK not found. Pulling from device...
     echo.
-    adb pull /data/app/~~I9ouu8Dy0osFDx6Wu-ynzA==/com.tantantribe.tribe-hlmqYxXoe5ADovZzRBpn2A==/base.apk tantan-7.3.6.apk
+    adb pull /data/app/~~I9ouu8Dy0osFDx6Wu-ynzA==/com.tantantribe.tribe-hlmqYxXoe5ADovZzRBpn2A==/base.apk tantan-7.5.4.apk
     if errorlevel 1 (
         echo ERROR: Failed to pull APK from device
         pause
@@ -30,7 +30,7 @@ for /d %%d in ("%LOCALAPPDATA%\Android\Sdk\build-tools\*") do (
         echo.
         echo Extracting signature...
         echo.
-        "%%d\apksigner.bat" verify --print-certs tantan-7.3.6.apk > signature-output.txt 2>&1
+        "%%d\apksigner.bat" verify --print-certs tantan-7.5.4.apk > signature-output.txt 2>&1
         
         REM Look for SHA-256 in output
         findstr /C:"SHA-256" signature-output.txt >nul
@@ -69,7 +69,7 @@ if %errorlevel% equ 0 (
     echo.
     echo Extracting signature...
     echo.
-    keytool -printcert -jarfile tantan-7.3.6.apk > signature-output.txt 2>&1
+    keytool -printcert -jarfile tantan-7.5.4.apk > signature-output.txt 2>&1
     
     REM Check if it worked
     findstr /C:"SHA256:" signature-output.txt >nul
@@ -124,7 +124,7 @@ echo 1. Install Android SDK Command Line Tools:
 echo    https://developer.android.com/studio#command-tools
 echo.
 echo 2. Or install Python and run:
-echo    python extract-signature.py tantan-7.3.6.apk
+echo    python extract-signature.py tantan-7.5.4.apk
 echo.
 echo 3. Or manually search for apksigner:
 echo    Get-ChildItem -Path $env:LOCALAPPDATA -Recurse -Filter 'apksigner.bat' -ErrorAction SilentlyContinue

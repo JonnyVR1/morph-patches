@@ -2,7 +2,7 @@
 # Finds apksigner and extracts SHA-256 signature from Tantan APK
 
 param(
-    [string]$ApkPath = ".\tantan-7.3.6.apk"
+    [string]$ApkPath = ".\tantan-7.5.4.apk"
 )
 
 Write-Host "=== APK Signature Extractor ===" -ForegroundColor Cyan
@@ -11,7 +11,7 @@ Write-Host ""
 # Check if APK exists
 if (-not (Test-Path $ApkPath)) {
     Write-Host "Error: APK file not found at $ApkPath" -ForegroundColor Red
-    Write-Host "Please run: adb pull /data/app/~~I9ouu8Dy0osFDx6Wu-ynzA==/com.tantantribe.tribe-hlmqYxXoe5ADovZzRBpn2A==/base.apk .\tantan-7.3.6.apk" -ForegroundColor Yellow
+    Write-Host "Please run: adb pull /data/app/~~I9ouu8Dy0osFDx6Wu-ynzA==/com.tantantribe.tribe-hlmqYxXoe5ADovZzRBpn2A==/base.apk .\tantan-7.5.4.apk" -ForegroundColor Yellow
     exit 1
 }
 

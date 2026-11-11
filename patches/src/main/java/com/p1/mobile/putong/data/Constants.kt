@@ -37,8 +37,9 @@ internal val tantanCompatibility = Compatibility(
     ),
     targets = listOf(
         AppTarget(
-            version = "7.3.6",
-            description = "Tested on 7.3.6",
+            version = "7.5.4",
+            versionCode = 2754010,
+            description = "Tested on 7.5.4",
         )
     )
 )

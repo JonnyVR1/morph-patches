@@ -33,7 +33,7 @@ If you have Android SDK installed:
 Get-ChildItem -Path "$env:LOCALAPPDATA\Android\Sdk\build-tools" -Recurse -Filter "apksigner.bat" | Select-Object -First 1
 
 # Use it
-& "C:\Users\Jonathon\AppData\Local\Android\Sdk\build-tools\34.0.0\apksigner.bat" verify --print-certs .\tantan-7.3.6.apk
+& "C:\Users\Jonathon\AppData\Local\Android\Sdk\build-tools\34.0.0\apksigner.bat" verify --print-certs .\tantan-7.5.4.apk
 ```
 
 ## What You're Looking For
@@ -57,8 +57,8 @@ internal val tantanCompatibility = Compatibility(
     ),
     targets = listOf(
         AppTarget(
-            version = "7.3.6",
-            description = "Tested on 7.3.6",
+            version = "7.5.4",
+            description = "Tested on 7.5.4",
         )
     )
 )
@@ -82,7 +82,7 @@ Get-ChildItem -Path "$env:LOCALAPPDATA" -Recurse -Filter "apksigner.bat" -ErrorA
 Pull it from your device:
 ```powershell
 adb shell pm path com.tantantribe.tribe
-adb pull /data/app/~~I9ouu8Dy0osFDx6Wu-ynzA==/com.tantantribe.tribe-hlmqYxXoe5ADovZzRBpn2A==/base.apk .\tantan-7.3.6.apk
+adb pull /data/app/~~I9ouu8Dy0osFDx6Wu-ynzA==/com.tantantribe.tribe-hlmqYxXoe5ADovZzRBpn2A==/base.apk .\tantan-7.5.4.apk
 ```
 
 ## Files

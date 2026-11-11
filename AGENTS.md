@@ -1,7 +1,7 @@
 # Morph - Tantan Android Patch Project
 
 ## Overview
-This repository contains patches and tools for the Tantan Android APK (international version, v7.3.3). The project includes 11 patchsets covering premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, ad removal, root/emulator detection bypass, live streaming features, UI cleanup, Google Maps compatibility, and remote config overrides.
+This repository contains patches and tools for the Tantan Android APK (international version, v7.5.4). The project includes 11 patchsets covering premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, ad removal, root/emulator detection bypass, live streaming features, UI cleanup, Google Maps compatibility, and remote config overrides.
 
 **Target:** International version only. China-specific features (WeChat Pay, Alipay, QQ login, Huawei services) are dead code in the international APK and should NOT be patched.
 
@@ -18,7 +18,7 @@ This repository contains patches and tools for the Tantan Android APK (internati
 - `patches-list.json` - Auto-generated patch metadata
 - `patches-bundle.json` - Bundle configuration
 - `tantan-tribe-decompiled/` - Decompiled Tantan APK source for reverse engineering
-- `tantan-decompiled-7.3.3/` - Decompiled Tantan 7.3.3 APK source (50,635 Java files)
+- `tantan-decompiled-7.5.4/` - Decompiled Tantan 7.5.4 APK source (52,187 Java files)
 
 ## Build and Release Commands
 

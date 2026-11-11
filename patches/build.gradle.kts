@@ -44,11 +44,11 @@ tasks {
         classpath = sourceSets["main"].runtimeClasspath
         mainClass.set("util.ExtractApkSignatureKt")
         
-        // Use command line argument if provided, otherwise default to tantan-7.3.6.apk
+        // Use command line argument if provided, otherwise default to tantan-7.5.4.apk
         val apkPath = if (project.hasProperty("apkPath")) {
             project.property("apkPath") as String
         } else {
-            rootProject.file("tantan-7.3.6.apk").absolutePath
+            rootProject.file("tantan-7.5.4.apk").absolutePath
         }
         args = listOf(apkPath)
     }

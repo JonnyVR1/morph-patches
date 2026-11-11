@@ -13,7 +13,7 @@ def extract_signature(apk_path):
     
     if not os.path.exists(apk_path):
         print(f"Error: APK file not found at {apk_path}")
-        print("Please run: adb pull /data/app/~~I9ouu8Dy0osFDx6Wu-ynzA==/com.tantantribe.tribe-hlmqYxXoe5ADovZzRBpn2A==/base.apk .\\tantan-7.3.6.apk")
+        print("Please run: adb pull /data/app/~~I9ouu8Dy0osFDx6Wu-ynzA==/com.tantantribe.tribe-hlmqYxXoe5ADovZzRBpn2A==/base.apk .\\tantan-7.5.4.apk")
         return None
     
     print("=== APK Signature Extractor (Python) ===\n")
@@ -76,5 +76,5 @@ def extract_signature(apk_path):
         return None
 
 if __name__ == "__main__":
-    apk_path = sys.argv[1] if len(sys.argv) > 1 else ".\\tantan-7.3.6.apk"
+    apk_path = sys.argv[1] if len(sys.argv) > 1 else ".\\tantan-7.5.4.apk"
     extract_signature(apk_path)
