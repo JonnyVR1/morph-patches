@@ -126,7 +126,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_matches",
         "Lcom/p1/mobile/putong/core/data/UltraRightsUpgradeInfo;.isCanUpgradeUltra",
         "Lcom/p1/mobile/putong/core/data/MembershipUpgradeInfo;",
-        "Lcom/p1/mobile/putong/core/ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE"
+        "Lcom/p1/mobile/putong/core/ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE",
+        "Lcom/p1/mobile/putong/core/oms/OmsDialog;.p_offline_popup"
     )
     
     private val premiumAnchorMethods = setOf(
@@ -386,18 +387,19 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         }
 
         if ("j7d0" !in resolvedClasses && "last_likers_req_time" in foundStrings &&
-            "offline_dialog_show_time" in foundStrings &&
-            methodCallFull.any { it.contains("hl3") }) {
+            "offline_dialog_show_time" in foundStrings) {
             resolvedClasses["j7d0"] = classDef
         }
-        
-        if ("gg50" !in resolvedClasses && "p_offline_popup" in foundStrings &&
-            methodCallFull.any { it.contains("j7d0") && it.contains(".h0") }) {
+
+        if ("gg50" !in resolvedClasses &&
+            "Lcom/p1/mobile/putong/core/oms/OmsDialog;.p_offline_popup" in foundFields &&
+            classDef.methods.any { it.name == "<init>" && it.parameterTypes.size == 2 &&
+                it.parameterTypes[0] == "Ljava/lang/String;" && it.parameterTypes[1] == "Z" } &&
+            classDef.methods.any { it.returnType == "Z" && it.parameterTypes.size == 1 }) {
             resolvedClasses["gg50"] = classDef
         }
-        
-        if ("qtk" !in resolvedClasses && "reBackAppGuideDialog" in foundStrings &&
-            methodCallFull.any { it.contains("hlh0") }) {
+
+        if ("qtk" !in resolvedClasses && "reBackAppGuideDialog" in foundStrings) {
             resolvedClasses["qtk"] = classDef
         }
         

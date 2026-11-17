@@ -2196,48 +2196,64 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // j7d0: Dialog orchestrator
-        // j7d0.h0(b240) orchestrates the likers dialog display
-        // Static method that takes b240 parameter and returns void
+        // j7d0 (7.5.4: bfe0): offline-popup orchestrator. i0(g350)V is the only
+        // static void 1-param method; it calls zw3.J. Void it as a version-agnostic
+        // backstop (the hl3 creator void is primary). Shape-based, not the old h0(b240) name.
         resolved["j7d0"]?.let { j7d0ClassDef ->
             mutableClassDefBy(j7d0ClassDef).methods.forEach { method ->
-                // h0(b240) → void
-                if (method.name == "h0" && method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0].contains("b240") &&
-                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 1) {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
 
-        // gg50: Dialog strategy for p_offline_popup
-        // gg50.b() checks if popup should show → patch to return false
-        // gg50.d() executes the popup display → patch to return false
+        // gg50 (7.5.4: si60): OMS dialog strategy for p_offline_popup. Its b/d/f
+        // overrides take a single lwl$a param (NOT no-arg). Force every 1-param Z
+        // override false so should-show/execute never fire. Shape-based, version-agnostic.
         resolved["gg50"]?.let { gg50ClassDef ->
             mutableClassDefBy(gg50ClassDef).methods.forEach { method ->
-                // b() → boolean (check if should show)
-                if (method.name == "b" && method.parameterTypes.isEmpty() &&
-                    method.returnType == "Z") {
-                    method.addInstructions(0, RETURN_FALSE)
-                }
-                // d() → boolean (execute display)
-                if (method.name == "d" && method.parameterTypes.isEmpty() &&
-                    method.returnType == "Z") {
+                if (method.returnType == "Z" && method.parameterTypes.size == 1) {
                     method.addInstructions(0, RETURN_FALSE)
                 }
             }
         }
 
-        // qtk: Return-to-app guide dialog
-        // qtk.B0() generates "你离开后，仍有 %s 个人喜欢着你" text and shows dialog
-        // Static method that returns void
+        // qtk (7.5.4: wgl): return-to-app guide. M0(Act,Runnable)V builds the
+        // p_reback_popup dialog ("99+ people liked you"). Match the static void method
+        // containing the "p_reback_popup" key (co-located, gotcha #15 safe), not the old
+        // no-arg B0() name (wgl.B0 is a 5-param error handler in 7.5.4).
         resolved["qtk"]?.let { qtkClassDef ->
             mutableClassDefBy(qtkClassDef).methods.forEach { method ->
-                // B0() → void
-                if (method.name == "B0" && method.parameterTypes.isEmpty() &&
-                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_VOID)
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) || method.returnType != "V") return@forEach
+                val hasRebackKey = method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction && instr.reference is StringReference &&
+                        (instr.reference as StringReference).string == "p_reback_popup"
                 }
+                if (hasRebackKey) method.addInstructions(0, RETURN_VOID)
+            }
+        }
+
+        // OmsPageAct: full-screen server-driven OMS "morph" promo container. Server
+        // campaigns (e.g. "99+ people liked you / Waiting for your match", text absent
+        // from local resources) render here via hn60.n -> OmsPageAct.Y1. Void b2() (reads
+        // "oms_identifier" intent extra) and c2() (reads OmsMerCuryData.id) so d/e stay
+        // null; r() then sees hn60.d(null)==false and self-finishes. Verification popups
+        // use the inline OmsBaseRender.c0 branch, NOT this activity, so they stay intact.
+        classDefByOrNull("Lcom/p1/mobile/putong/ui/oms/OmsPageAct;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.returnType != "V" || !method.parameterTypes.isEmpty()) return@forEach
+                val instrs = method.cachedInstructions()
+                val readsOmsIdentifier = instrs.any { instr ->
+                    instr is ReferenceInstruction && instr.reference is StringReference &&
+                        (instr.reference as StringReference).string == "oms_identifier"
+                }
+                val readsMercuryId = instrs.any { instr ->
+                    instr is ReferenceInstruction && instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/data/OmsMerCuryData;" &&
+                        (instr.reference as FieldReference).name == "id"
+                }
+                if (readsOmsIdentifier || readsMercuryId) method.addInstructions(0, RETURN_VOID)
             }
         }
 
