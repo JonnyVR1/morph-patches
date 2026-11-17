@@ -11,12 +11,11 @@ import kotlin.test.assertNull
 
 class PatchVerificationTest {
 
-    private val apkFile = File("../xapk-extract/com.tantantribe.tribe.apk")
-
+    private val apkFile = File("../tantan-7.5.4.apk")
     private val allPatches = PatchRegistry.allPatches
 
     @Test
-    fun `all patches apply successfully to Tantan APK`() {
+    fun `all patches apply successfully to Tantan 7_5_4 APK`() {
         assertTrue(apkFile.exists(), "APK file must exist at ${apkFile.absolutePath}")
 
         val results = mutableMapOf<String, Throwable?>()

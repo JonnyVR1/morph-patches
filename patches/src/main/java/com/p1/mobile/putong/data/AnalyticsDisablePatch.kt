@@ -172,21 +172,47 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        resolver.getAnalyticsClass("foxStats")?.let { classDef ->
+        resolver.getAnalyticsClass("oaidHelper")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
-                when {
+                if (method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Landroid/content/Context;" &&
+                    method.returnType == "V" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        resolver.getAnalyticsClass("foxUploader")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
                     method.parameterTypes.size == 2 &&
-                    method.parameterTypes[0] == "Landroid/content/Context;" &&
-                    method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
+                    method.parameterTypes[0] == "Ljava/lang/String;" &&
+                    method.parameterTypes[1] == "I" &&
+                    method.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? StringReference)?.string == "https://report.tantanapp.com/v1/online/android"
+                    }) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
 
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Landroid/content/Context;" &&
-                    method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
-
-                    method.name.length == 1 && method.returnType == "V" ->
-                        method.addInstructions(0, RETURN_VOID)
+        resolver.getAnalyticsClass("foxUploaderSc")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Ljava/lang/String;" &&
+                    method.parameterTypes[1] == "I" &&
+                    method.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? StringReference)?.string == "https://sc-report.tantanapp.com/v1/online/android"
+                    }) {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
@@ -213,14 +239,21 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        resolver.getAnalyticsClass("googleAdId")?.let { classDef ->
+        classDefByOrNull("Lcom/google/android/gms/ads/identifier/AdvertisingIdClient;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (method.name == "getAdvertisingIdInfo" &&
+                    AccessFlags.STATIC.isSet(method.accessFlags) &&
                     method.parameterTypes.size == 1 &&
                     method.parameterTypes[0] == "Landroid/content/Context;" &&
-                    method.returnType.startsWith("L")) {
-                    method.addInstructions(0, RETURN_NULL_OBJECT)
+                    method.returnType == "Lcom/google/android/gms/ads/identifier/AdvertisingIdClient\$a;") {
+                    method.addInstructions(0, """
+                        new-instance v0, Lcom/google/android/gms/ads/identifier/AdvertisingIdClient${'$'}a;
+                        const-string v1, ""
+                        const/4 v2, 0x1
+                        invoke-direct {v0, v1, v2}, Lcom/google/android/gms/ads/identifier/AdvertisingIdClient${'$'}a;-><init>(Ljava/lang/String;Z)V
+                        return-object v0
+                    """)
                 }
             }
         }
@@ -303,7 +336,58 @@ val analyticsDisablePatch = bytecodePatch(
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
-                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V") {
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    !(method.parameterTypes.isNotEmpty() && method.parameterTypes[0] == "Landroid/content/Context;")) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        resolver.getAnalyticsClass("fbAutoEvents")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Landroid/app/Application;" &&
+                    method.parameterTypes[1] == "Ljava/lang/String;") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        resolver.getAnalyticsClass("ga4Collection")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (method.returnType == "Z" && method.parameterTypes.isEmpty() &&
+                    method.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? StringReference)?.string == "firebase_analytics_collection_deactivated"
+                    }) {
+                    method.addInstructions(0, """
+                        const/4 v0, 0x1
+                        return v0
+                    """)
+                }
+            }
+        }
+
+        resolver.getAnalyticsClass("oneIdUploader")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "J") {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        resolver.getAnalyticsClass("oneIdStorage")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Landroid/content/Context;") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }

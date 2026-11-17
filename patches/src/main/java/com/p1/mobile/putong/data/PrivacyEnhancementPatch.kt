@@ -30,12 +30,6 @@ private const val RETURN_TRUE = """
     return v0
 """
 
-private const val RETURN_EMPTY_LIST = """
-    invoke-static {}, Ljava/util/Collections;->emptyList()Ljava/util/List;
-    move-result-object v0
-    return-object v0
-"""
-
 private fun isConstructor(method: Method): Boolean =
     method.name == "<init>" || method.name == "<clinit>"
 
@@ -66,9 +60,7 @@ val privacyEnhancementPatch = bytecodePatch(
         val fbEmulatorClass = resolver.getPrivacyClass("fbEmulator")
         val additionalRootClass = resolver.getPrivacyClass("additionalRoot")
         val shuMengClass = resolver.getPrivacyClass("shuMeng")
-        val packageEnumClass = resolver.getPrivacyClass("packageEnum")
-        val vpnProxyClass = resolver.getPrivacyClass("vpnProxy")
-        val overlayClass = resolver.getPrivacyClass("overlay")
+        val adClickSubstitutionClass = resolver.getPrivacyClass("adClickSubstitution")
 
         listOf(jmd0Class, mmd0Class).forEach { classDef ->
             classDef?.let {
@@ -143,16 +135,22 @@ val privacyEnhancementPatch = bytecodePatch(
             }
         }
 
-        packageEnumClass?.let { classDef ->
+        adClickSubstitutionClass?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
-                val callsGetInstalledPackages = method.cachedInstructions().any { instr ->
-                    instr is ReferenceInstruction && instr.reference is MethodReference &&
-                        (instr.reference as MethodReference).name == "getInstalledPackages"
-                }
-                if (callsGetInstalledPackages && method.returnType.startsWith("L") && method.returnType.endsWith(";")) {
-                    method.addInstructions(0, RETURN_EMPTY_LIST)
+                if (AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "Ljava/lang/String;" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ljava/lang/String;" &&
+                    method.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is StringReference &&
+                            (instr.reference as StringReference).string == "\\[(.*?)]"
+                    }) {
+                    method.addInstructions(0, """
+                        move-object/from16 v0, p0
+                        return-object v0
+                    """)
                 }
             }
         }
@@ -173,40 +171,11 @@ val privacyEnhancementPatch = bytecodePatch(
             }
         }
 
-        vpnProxyClass?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                if (method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    val hasVpnProxyChecks = method.cachedInstructions().any { instr ->
-                        if (instr is ReferenceInstruction && instr.reference is MethodReference) {
-                            val methodName = (instr.reference as MethodReference).name
-                            methodName == "hasTransport" || methodName == "getDefaultProxy"
-                        } else if (instr is ReferenceInstruction && instr.reference is StringReference) {
-                            (instr.reference as StringReference).string in setOf("http.proxyHost", "https.proxyHost")
-                        } else false
-                    }
-                    if (hasVpnProxyChecks) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-            }
-        }
-
-        overlayClass?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (isConstructor(method)) return@forEach
-                if (method.returnType == "Z" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Landroid/content/Context;") {
-                    val hasCanDrawOverlays = method.cachedInstructions().any { instr ->
-                        instr is ReferenceInstruction && instr.reference is MethodReference &&
-                            (instr.reference as MethodReference).name == "canDrawOverlays"
-                    }
-                    if (hasCanDrawOverlays) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-            }
-        }
+        // VPN/proxy detection (ebi0) and overlay detection (j21.b) are intentionally NOT patched:
+        // they are anti-fraud/risk-scoring adjacent (kept per the tracking-only decision), and ebi0
+        // has no direct app callers in 7.5.4. The old resolver anchors ("http.proxyHost"/"canDrawOverlays")
+        // were method/property names, never const-strings, so those blocks were silent no-ops anyway.
+        // Real package enumeration is momosec hje.t (kept) and rm60.a (already dead via bn60 void);
+        // the ad-click URL device-id substitution is handled by adClickSubstitution (qm60.F) above.
     }
 }

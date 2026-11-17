@@ -97,6 +97,20 @@ private val manifestPatch = resourcePatch {
             microgMetadata.setAttribute("android:value", VENDOR_GMS_PACKAGE)
             application.appendChild(microgMetadata)
 
+            // GA4 measurement engine collection off. The obfuscated engine reads
+            // firebase_analytics_collection_enabled via Bundle.getBoolean (default false), so a
+            // string "false" still yields false while containsKey() is true. The DEX backstop
+            // (iiu0.Q -> true in AnalyticsDisable) disables collection regardless.
+            val ga4Metadata = document.createElement("meta-data")
+            ga4Metadata.setAttribute("android:name", "firebase_analytics_collection_enabled")
+            ga4Metadata.setAttribute("android:value", "false")
+            application.appendChild(ga4Metadata)
+
+            val ga4AdidMetadata = document.createElement("meta-data")
+            ga4AdidMetadata.setAttribute("android:name", "google_analytics_adid_collection_enabled")
+            ga4AdidMetadata.setAttribute("android:value", "false")
+            application.appendChild(ga4AdidMetadata)
+
             val queries = document.getElementsByTagName("queries").item(0)
             if (queries == null) {
                 val newQueries = document.createElement("queries")

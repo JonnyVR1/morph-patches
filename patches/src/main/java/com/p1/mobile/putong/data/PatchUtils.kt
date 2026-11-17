@@ -27,11 +27,30 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val resolvedClasses = mutableMapOf<String, ClassDef>()
     
     private val analyticsAnchors = setOf(
-        "e_request_none_oaid", "com.tantanapp.beatles",
+        "miit_oaid", "com.tantanapp.beatles",
         "add_payment_info", "com.google.android.gms.ads.identifier.service.START",
         "mmfile_push_statistic", "BatteryMetrics", "live-PerfTracer",
         "DNS_SLA", "_getOrCreate", "_compressRecordFile",
-        "getSubmitAlternative"
+        "getSubmitAlternative",
+        "https://report.tantanapp.com/v1/online/android",
+        "https://sc-report.tantanapp.com/v1/online/android",
+        "com.facebook.appevents.internal.ActivityLifecycleTracker",
+        "firebase_analytics_collection_deactivated",
+        "https://deviceid.tantanapp.com/oneid/createid",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+    )
+
+    private val OMS_DIALOG_ENUM = "Lcom/p1/mobile/putong/core/oms/OmsDialog;"
+    private var oneIdUploaderType: String? = null
+    private val oneIdStorageCandidates = mutableListOf<Pair<ClassDef, Set<String>>>()
+    private var rbb0Type: String? = null
+    private val themeUnlockCandidates = mutableListOf<Pair<ClassDef, Set<String>>>()
+
+    private val adsAnchorStrings = setOf(
+        "ca-app-pub-6567608331519569/1891609663",
+        "ixxn_ad_channel",
+        "p_incentive_ad_choose_page"
     )
     
     private val FOX_STATS_DEFAULT_ENV = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"
@@ -39,16 +58,10 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val uiCleanupAnchors = mapOf(
         "aiChatGuide" to setOf("core_messages_ai_p2p_chat_guide"),
         "aiTranslateGuide" to setOf("e_intl_ai_translate_bubble", "ai_chat_advice_guide"),
-        "mktFeaturePopup" to setOf("p_intl_mkt_feature_regular_popup"),
-        "mktTimeSticker" to setOf("p_intl_mkt_time_sticker_choose"),
         "newFunctionGuide" to setOf("svip_new_function_guide_shown_Intl"),
-        "purchaseGuide" to setOf("p_new_users_see_purchase_guide_see_view"),
-        "myTabTopBanner" to setOf("core_my_tab_top_banner_view"),
         "discountEntryBanner" to setOf("discount_entry_banner", "IntlMeetILikeNewLikeDiscountEntry"),
         "positioningGuide" to setOf("p_alert_positioning_authority_open_guide_popup"),
-        "avatarVerificationGuide" to setOf("p_alert_avatar_verification_upgrade_guide_popup"),
-        "buzzPopup" to setOf("p_intl_buzz_memoji_paired"),
-        "idVerificationGuide" to setOf("p_id_verification_new_function_guide")
+        "buzzPopup" to setOf("p_intl_buzz_memoji_paired")
     )
     
     private val dialogAnchors = mapOf(
@@ -79,9 +92,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "fbEmulator" to setOf("google_sdk", "Genymotion", "vbox86p"),
         "additionalRoot" to setOf("/data/local/su", "/system/xbin/su", "/su/bin/su"),
         "shuMeng" to setOf("shumeng_init", "shuzilm"),
-        "packageEnum" to setOf("getInstalledPackages", "firstInstallTime"),
-        "vpnProxy" to setOf("http.proxyHost", "https.proxyHost"),
-        "overlay" to setOf("canDrawOverlays")
+        "adClickSubstitution" to setOf("ANDROIDID", "OAID", "\\[(.*?)]")
     )
     
     private val premiumAnchorStrings = setOf(
@@ -104,7 +115,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "e_see_who_liked_me_banner", "p_suggest_user_profile_info_view",
         "p_intl_visitors_list,e_intl_me_tab_visitors_old_visitor_discount_entry_banner,click",
         "p_meet_view,e_intl_meet_visitors_new_visitor_discount_entry_banner,click",
-        "distance"
+        "distance", "online"
     )
     
     private val premiumAnchorFields = setOf(
@@ -146,7 +157,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         dialogAnchors.values.flatten().toSet() +
         premiumAnchorStrings +
         gmsTargetStrings +
-        privacyAnchors.values.flatten().toSet()
+        privacyAnchors.values.flatten().toSet() +
+        adsAnchorStrings
     
     fun resolve() {
         context.classDefForEach { classDef ->
@@ -206,11 +218,23 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 }
             }
             
+            if ("android.permission.READ_EXTERNAL_STORAGE" in foundStrings &&
+                "android.permission.WRITE_EXTERNAL_STORAGE" in foundStrings) {
+                oneIdStorageCandidates.add(classDef to methodCallFull.toSet())
+            }
+
+            if ("online" in foundStrings && classDef.methods.any {
+                    AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "Z" &&
+                        it.parameterTypes.size == 1 && it.parameterTypes[0] == "Ljava/lang/String;"
+                }) {
+                themeUnlockCandidates.add(classDef to methodCallFull.toSet())
+            }
+
             if (foundStrings.isEmpty() && foundFields.isEmpty() && foundMethods.isEmpty() && !hasCoreEventLoggerRef) {
                 return@classDefForEach
             }
             
-            resolveAnalytics(foundStrings, classDef, hasCoreEventLoggerRef)
+            resolveAnalytics(foundStrings, classDef, hasCoreEventLoggerRef, methodCallFull)
             resolveUiCleanup(foundStrings, classDef)
             resolveDialogs(foundStrings, classDef)
             resolvePremium(foundStrings, foundFields, foundMethods, methodCallFull, 
@@ -218,11 +242,32 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolveGms(foundStrings, classDef, classType)
             resolveLoveBuzz(foundFields, classDef)
             resolvePrivacy(foundStrings, classDef)
+            resolveAds(foundStrings, classDef)
+        }
+
+        val uploader = oneIdUploaderType
+        if (uploader != null && "oneIdStorage" !in resolvedClasses) {
+            for ((cd, calls) in oneIdStorageCandidates) {
+                if (calls.contains("$uploader.e")) {
+                    resolvedClasses["oneIdStorage"] = cd
+                    break
+                }
+            }
+        }
+
+        val likersQuota = rbb0Type
+        if (likersQuota != null && "themeUnlock" !in resolvedClasses) {
+            for ((cd, calls) in themeUnlockCandidates) {
+                if (calls.contains("$likersQuota.q")) {
+                    resolvedClasses["themeUnlock"] = cd
+                    break
+                }
+            }
         }
     }
     
-    private fun resolveAnalytics(foundStrings: Set<String>, classDef: ClassDef, hasCoreEventLoggerRef: Boolean) {
-        if ("e_request_none_oaid" in foundStrings) resolvedClasses.putIfAbsent("foxStats", classDef)
+    private fun resolveAnalytics(foundStrings: Set<String>, classDef: ClassDef, hasCoreEventLoggerRef: Boolean, methodCallFull: Set<String>) {
+        if ("miit_oaid" in foundStrings) resolvedClasses.putIfAbsent("oaidHelper", classDef)
         if ("com.tantanapp.beatles" in foundStrings) resolvedClasses.putIfAbsent("beatles", classDef)
         if ("add_payment_info" in foundStrings) resolvedClasses.putIfAbsent("firebaseAnalytics", classDef)
         if ("com.google.android.gms.ads.identifier.service.START" in foundStrings) resolvedClasses.putIfAbsent("googleAdId", classDef)
@@ -232,18 +277,58 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         if ("DNS_SLA" in foundStrings) resolvedClasses.putIfAbsent("dnsSla", classDef)
         if ("getSubmitAlternative" in foundStrings) resolvedClasses.putIfAbsent("moLiveApm2", classDef)
         if ("_getOrCreate" in foundStrings && "_compressRecordFile" in foundStrings) resolvedClasses.putIfAbsent("moTracing", classDef)
-        if (hasCoreEventLoggerRef) resolvedClasses.putIfAbsent("coreEventLogger", classDef)
+
+        val hasStaticVoid = classDef.methods.any {
+            AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" && it.implementation != null
+        }
+        val callsFoxEnvRefresh = methodCallFull.contains("Lcom/tantanapp/foxstatistics/DefaultEnvironment;.j")
+        if (hasCoreEventLoggerRef && callsFoxEnvRefresh && hasStaticVoid) {
+            resolvedClasses.putIfAbsent("coreEventLogger", classDef)
+        }
+        val hasFoxUploadShape = classDef.methods.any {
+            AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                it.parameterTypes.size == 2 && it.parameterTypes[0] == "Ljava/lang/String;" && it.parameterTypes[1] == "I"
+        }
+        if ("https://report.tantanapp.com/v1/online/android" in foundStrings && hasFoxUploadShape) {
+            resolvedClasses.putIfAbsent("foxUploader", classDef)
+        }
+        if ("https://sc-report.tantanapp.com/v1/online/android" in foundStrings && hasFoxUploadShape) {
+            resolvedClasses.putIfAbsent("foxUploaderSc", classDef)
+        }
+        if ("com.facebook.appevents.internal.ActivityLifecycleTracker" in foundStrings) resolvedClasses.putIfAbsent("fbAutoEvents", classDef)
+        if ("firebase_analytics_collection_deactivated" in foundStrings) resolvedClasses.putIfAbsent("ga4Collection", classDef)
+        if ("https://deviceid.tantanapp.com/oneid/createid" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                    it.parameterTypes.size == 2 && it.parameterTypes[0] == "J"
+            }) {
+            oneIdUploaderType = classDef.type
+            resolvedClasses.putIfAbsent("oneIdUploader", classDef)
+        }
     }
     
     private fun resolveUiCleanup(foundStrings: Set<String>, classDef: ClassDef) {
+        if (classDef.type == OMS_DIALOG_ENUM) return
         for ((key, anchors) in uiCleanupAnchors) {
-            if (key !in resolvedClasses && anchors.any { it in foundStrings }) {
-                resolvedClasses[key] = classDef
+            if (key in resolvedClasses || anchors.none { it in foundStrings }) continue
+            if (key == "positioningGuide") {
+                val hasCreator = classDef.methods.any { m ->
+                    AccessFlags.STATIC.isSet(m.accessFlags) && m.returnType == "V" &&
+                        m.parameterTypes.isNotEmpty() &&
+                        m.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                        m.sharedCachedInstructions().any { instr ->
+                            instr is ReferenceInstruction &&
+                                (instr.reference as? StringReference)?.string == "p_alert_positioning_authority_open_guide_popup"
+                        }
+                }
+                if (!hasCreator) continue
             }
+            resolvedClasses[key] = classDef
         }
     }
     
     private fun resolveDialogs(foundStrings: Set<String>, classDef: ClassDef) {
+        if (classDef.type == OMS_DIALOG_ENUM) return
         for ((key, anchors) in dialogAnchors) {
             if (key !in resolvedClasses && anchors.any { it in foundStrings }) {
                 resolvedClasses[key] = classDef
@@ -358,7 +443,10 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 it.parameterTypes.size == 1 && 
                 it.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;"
             }
-            if (hasStaticZWithCounter) resolvedClasses["rbb0"] = classDef
+            if (hasStaticZWithCounter) {
+                resolvedClasses["rbb0"] = classDef
+                rbb0Type = classDef.type
+            }
         }
         
         if ("hl3" !in resolvedClasses &&
@@ -608,6 +696,38 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         }
     }
     
+    private fun resolveAds(foundStrings: Set<String>, classDef: ClassDef) {
+        if ("profileCarouselAd" !in resolvedClasses &&
+            "ca-app-pub-6567608331519569/1891609663" in foundStrings &&
+            classDef.methods.any {
+                it.parameterTypes.size == 2 &&
+                    it.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    it.parameterTypes[1] == "Z" &&
+                    it.returnType == "Lrx/c;"
+            }) {
+            resolvedClasses["profileCarouselAd"] = classDef
+        }
+        if ("officialAdvert" !in resolvedClasses &&
+            "ixxn_ad_channel" in foundStrings &&
+            classDef.methods.any {
+                it.parameterTypes.size == 2 &&
+                    it.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    it.parameterTypes[1] == "Landroid/view/ViewGroup;" &&
+                    it.returnType == "V"
+            }) {
+            resolvedClasses["officialAdvert"] = classDef
+        }
+        if ("adRewardDialog" !in resolvedClasses &&
+            "p_incentive_ad_choose_page" in foundStrings &&
+            classDef.methods.any {
+                it.parameterTypes.size == 1 &&
+                    it.parameterTypes[0] == "Lcom/p1/mobile/putong/data/AdConfiguration;" &&
+                    it.returnType == "Z"
+            }) {
+            resolvedClasses["adRewardDialog"] = classDef
+        }
+    }
+
     fun getAnalyticsClass(key: String): ClassDef? = resolvedClasses[key]
     fun getUiCleanupClass(key: String): ClassDef? = resolvedClasses[key]
     fun getDialogClass(key: String): ClassDef? = resolvedClasses[key]
@@ -615,4 +735,5 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     fun getGmsClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("gmsClasses") }.values.toList()
     fun getLoveBuzzClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("loveBuzzClasses") }.values.toList()
     fun getPrivacyClass(key: String): ClassDef? = resolvedClasses["privacy_$key"]
+    fun getAdClass(key: String): ClassDef? = resolvedClasses[key]
 }

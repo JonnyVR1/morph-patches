@@ -2,12 +2,17 @@ package com.p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.morphe.patcher.fieldAccess
 import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.Opcode
+import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction20t
+import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction22t
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
+import com.android.tools.smali.dexlib2.iface.instruction.NarrowLiteralInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
@@ -367,49 +372,10 @@ private val sjaClassFingerprint = Fingerprint(
     ),
 )
 
-// ── CoreBusinessServiceIml: only the first 3 parameter types are stable ──
-
-private val coreBusinessLfFingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "V",
-    parameters = listOf(
-        "Lcom/p1/mobile/android/app/Act;",
-        "Ljava/lang/String;",
-        "Lcom/p1/mobile/putong/core/data/Privilege;",
-        "L",
-        "L",
-    ),
-)
-
-private val coreBusinessR6Fingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "V",
-    parameters = listOf(
-        "Lcom/p1/mobile/android/app/Act;",
-        "Ljava/lang/String;",
-        "Lcom/p1/mobile/putong/core/data/Privilege;",
-        "L",
-        "L",
-    ),
-)
-
-private val coreBusinessSlFingerprint = Fingerprint(
-    accessFlags = listOf(AccessFlags.PUBLIC),
-    returnType = "V",
-    parameters = listOf(
-        "Lcom/p1/mobile/android/app/Act;",
-        "Ljava/lang/String;",
-        "Lcom/p1/mobile/putong/core/data/Privilege;",
-        "L",
-        "Ljava/lang/Object;",
-    ),
-)
-
 // ── xma method fingerprints (grouped by behavior) ──
 
 // Expiry-checker (static SummarizedPrivilegesId → Z, calls guessedCurrentServerTime): patch → false
 private val xmaS3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/core/data/SummarizedPrivilegesId;"),
@@ -418,7 +384,6 @@ private val xmaS3Fingerprint = Fingerprint(
 
 // Expiry-reader (static SummarizedPrivilegesId → J): patch → MAX. Matches v3 and w3.
 private val xmaV3W3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "J",
     parameters = listOf("Lcom/p1/mobile/putong/core/data/SummarizedPrivilegesId;"),
@@ -426,7 +391,6 @@ private val xmaV3W3Fingerprint = Fingerprint(
 
 // Long timestamp wrappers (static no-arg → J). q3 → femaleVip, s3 → limitedTrialSee.
 private val xmaQ3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "J",
     parameters = emptyList(),
@@ -434,7 +398,6 @@ private val xmaQ3Fingerprint = Fingerprint(
 )
 
 private val xmaS3LongWrapperFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "J",
     parameters = emptyList(),
@@ -443,7 +406,6 @@ private val xmaS3LongWrapperFingerprint = Fingerprint(
 
 // Instance expiry check (static UserPrivilege → Z, calls guessedCurrentServerTime): patch → false
 private val xmaT3Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/core/data/UserPrivilege;"),
@@ -452,7 +414,6 @@ private val xmaT3Fingerprint = Fingerprint(
 
 // Purchase expiry (static PurchaseType → Z, loads "unknown_"/"svip"): patch → false
 private val xmaA4Fingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/core/data/PurchaseType;"),
@@ -461,7 +422,6 @@ private val xmaA4Fingerprint = Fingerprint(
 
 // Credit-count methods (static no-arg → I): patch → 200000
 private val xmaCreditCountFingerprint = Fingerprint(
-    classFingerprint = xmaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "I",
     parameters = emptyList(),
@@ -471,7 +431,6 @@ private val xmaCreditCountFingerprint = Fingerprint(
 
 // sja: picks remaining count (static no-arg → I). Matches both r3 and B3.
 private val sjaPicksRemainingFingerprint = Fingerprint(
-    classFingerprint = sjaClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "I",
     parameters = emptyList(),
@@ -481,17 +440,16 @@ private val sjaPicksRemainingFingerprint = Fingerprint(
 
 // src0XDaysRemainingFingerprint removed
 
-// gqf0: spotlight pass-through. The single static no-arg Z method (f()) → true.
+// gqf0: spotlight pass-through. The single no-arg Z method (f()) → true. PUBLIC only —
+// f() is instance in 7.5.4 (was static in older builds); PUBLIC matches both.
 private val gqf0FFingerprint = Fingerprint(
-    classFingerprint = gqf0ClassFingerprint,
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    accessFlags = listOf(AccessFlags.PUBLIC),
     returnType = "Z",
     parameters = emptyList(),
 )
 
 // h6a: pricing restriction (static no-arg → Z): patch → true.
 private val h6aCFingerprint = Fingerprint(
-    classFingerprint = h6aClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "Z",
     parameters = emptyList(),
@@ -501,7 +459,6 @@ private val h6aCFingerprint = Fingerprint(
 
 // ugc0.k(PurchaseType) → true (subscription upgraded).
 private val ugc0KFingerprint = Fingerprint(
-    classFingerprint = ugc0ClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/core/data/PurchaseType;"),
@@ -509,7 +466,6 @@ private val ugc0KFingerprint = Fingerprint(
 
 // zva0.B0(User) → tier rank (3 = Ultra Premium) when current user, 0 otherwise.
 private val zva0B0Fingerprint = Fingerprint(
-    classFingerprint = zva0ClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
     returnType = "I",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
@@ -518,7 +474,6 @@ private val zva0B0Fingerprint = Fingerprint(
 
 // zva0.S() → true (show banner)
 private val zva0SFingerprint = Fingerprint(
-    classFingerprint = zva0ClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
     returnType = "Z",
     parameters = emptyList(),
@@ -526,7 +481,6 @@ private val zva0SFingerprint = Fingerprint(
 
 // th5: any static no-arg Z that references "showPurchaseDialog" → false (d/f/h).
 private val th5PurchaseDialogFingerprint = Fingerprint(
-    classFingerprint = th5ClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "Z",
     parameters = emptyList(),
@@ -535,7 +489,6 @@ private val th5PurchaseDialogFingerprint = Fingerprint(
 
 // qgl0.d(UserPrivilege) → String: fix expiredTime when 0.
 private val qgl0DFingerprint = Fingerprint(
-    classFingerprint = qgl0ClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "Ljava/lang/String;",
     parameters = listOf("Lcom/p1/mobile/putong/core/data/UserPrivilege;"),
@@ -545,7 +498,6 @@ private val qgl0DFingerprint = Fingerprint(
 
 // secretCrush: remaining check (static no-arg → Z, reads CounterSecretCrushLimit.remaining) → false
 private val secretCrushRemainingFingerprint = Fingerprint(
-    classFingerprint = secretCrushClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "Z",
     parameters = emptyList(),
@@ -583,7 +535,6 @@ private val secretCrushRemainingFingerprint = Fingerprint(
 
 // secretCrush: expiration time (static no-arg → J, reads CounterSecretCrushLimit) → far future
 private val secretCrushExpirationFingerprint = Fingerprint(
-    classFingerprint = secretCrushClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
     returnType = "J",
     parameters = emptyList(),
@@ -597,7 +548,6 @@ private val secretCrushExpirationFingerprint = Fingerprint(
 
 // coreData: surpriseGiftExpirationTime reader → far future
 private val coreDataSurpriseGiftFingerprint = Fingerprint(
-    classFingerprint = coreDataClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC),
     returnType = "J",
     parameters = emptyList(),
@@ -612,7 +562,6 @@ private val coreDataSurpriseGiftFingerprint = Fingerprint(
 // sb90 (Companion).c(User) → false. Outer sb90 just delegates, so patching
 // Companion alone is sufficient.
 private val sb90CFingerprint = Fingerprint(
-    classFingerprint = sb90CompanionClassFingerprint,
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
     filters = listOf(
@@ -633,7 +582,6 @@ private val sb90CFingerprint = Fingerprint(
 
 // tm90.g(User) → false (no VIP badge override)
 private val tm90GFingerprint = Fingerprint(
-    classFingerprint = tm90ClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC),
     returnType = "Z",
     parameters = listOf("Lcom/p1/mobile/putong/data/User;"),
@@ -1050,14 +998,21 @@ val premiumUnlockPatch = bytecodePatch(
 
             // ── CoreBusinessServiceIml: stable class, obfuscated param types ──
             classDefByOrNull("Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;")?.let { classDef ->
-                coreBusinessLfFingerprint.matchOrNull(classDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_VOID)
-                }
-                coreBusinessR6Fingerprint.matchOrNull(classDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_VOID)
-                }
-                coreBusinessSlFingerprint.matchOrNull(classDef)?.let { match ->
-                    match.method.addInstructions(0, RETURN_VOID)
+                // Void the (Act,String,Privilege,<ref>,<ref>)V purchase-guide entries. The old
+                // name-based Lf/R6/Sl fingerprints threw on 7.5.4 (multiple methods share this
+                // shape: Of/Wl/q6). Match by shape directly; the real 11-param purchase flow
+                // (Id) and 3/4-param entries are untouched.
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (AccessFlags.PUBLIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                        method.parameterTypes.size == 5 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                        method.parameterTypes[1] == "Ljava/lang/String;" &&
+                        method.parameterTypes[2] == "Lcom/p1/mobile/putong/core/data/Privilege;" &&
+                        method.parameterTypes[3].startsWith("L") &&
+                        method.parameterTypes[4].startsWith("L")
+                    ) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
                 }
                 // Ai(Act) → true: allows boost activation (Gate 3 in f93.y())
                 // Original: hardcoded `return false` — blocks actual boost activation.
@@ -1065,6 +1020,14 @@ val premiumUnlockPatch = bytecodePatch(
                     if (method.name == "Ai" &&
                         method.parameterTypes.size == 1 &&
                         method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                    // en()Z hardcoded false gates chat-history search (sole consumer si9.U();
+                    // search UI + ConversationSearchAct fully present, local DB only).
+                    if (method.name == "en" &&
+                        method.parameterTypes.isEmpty() &&
                         method.returnType == "Z"
                     ) {
                         method.addInstructions(0, RETURN_TRUE)
@@ -1117,6 +1080,15 @@ val premiumUnlockPatch = bytecodePatch(
             classDefByOrNull("Lcom/p1/mobile/putong/core/module/CoreProviderImpl;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
                     if (method.name == "Er" &&
+                        method.parameterTypes.isEmpty() &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                    // l()Z hardcoded false gates per-contact chat backgrounds + nicknames
+                    // (9 call sites audited; background 100% local localChatBg). Match the
+                    // exact no-arg l() — CoreProviderImpl has many *l() variants.
+                    if (method.name == "l" &&
                         method.parameterTypes.isEmpty() &&
                         method.returnType == "Z"
                     ) {
@@ -1751,7 +1723,7 @@ val premiumUnlockPatch = bytecodePatch(
             "meetNewLikersData", "intlMeetNewLikersData", "intlMeetNewLikersAdapter",
             "meetNewLikersAdapter", "ysa", "ae9", "c4m0",
             "businessEntranceStateManager", "serverDataFlagSetter", "newLikesFlagSetter",
-            "distanceAgeTextGenerator", "profilePageBanner", "suggestedUsersBanner"
+            "distanceAgeTextGenerator", "profilePageBanner", "suggestedUsersBanner", "themeUnlock"
         )
         for (key in premiumKeys) {
             resolver.getPremiumClass(key)?.let { resolved[key] = it }
@@ -2012,7 +1984,7 @@ val premiumUnlockPatch = bytecodePatch(
 
 
         resolved["sja"]?.let { sjaClassDef ->
-            sjaPicksRemainingFingerprint.matchAll(sjaClassDef, 1..5).forEach { match ->
+            sjaPicksRemainingFingerprint.matchAllOrNull(sjaClassDef).orEmpty().forEach { match ->
                 match.method.addInstructions(0, RETURN_INT_200000)
             }
         }
@@ -2020,15 +1992,11 @@ val premiumUnlockPatch = bytecodePatch(
         // src0 patch removed
 
         resolved["gqf0"]?.let { gqf0ClassDef ->
-            gqf0FFingerprint.matchOrNull(gqf0ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
+            gqf0FFingerprint.matchAllOrNull(gqf0ClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, RETURN_TRUE) }
         }
 
         resolved["h6a"]?.let { h6aClassDef ->
-            h6aCFingerprint.matchOrNull(h6aClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
+            h6aCFingerprint.matchAllOrNull(h6aClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, RETURN_TRUE) }
         }
 
         resolved["u59"]?.let { u59ClassDef ->
@@ -2055,30 +2023,22 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         resolved["ugc0"]?.let { ugc0ClassDef ->
-            ugc0KFingerprint.matchOrNull(ugc0ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
+            ugc0KFingerprint.matchAllOrNull(ugc0ClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, RETURN_TRUE) }
         }
 
         resolved["zva0"]?.let { zva0ClassDef ->
-            zva0B0Fingerprint.matchOrNull(zva0ClassDef)?.let { match ->
-                match.method.addInstructions(0, ZVA0_B0_BODY)
-            }
-            zva0SFingerprint.matchOrNull(zva0ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_TRUE)
-            }
+            zva0B0Fingerprint.matchAllOrNull(zva0ClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, ZVA0_B0_BODY) }
+            zva0SFingerprint.matchAllOrNull(zva0ClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, RETURN_TRUE) }
         }
 
         resolved["th5"]?.let { th5ClassDef ->
-            th5PurchaseDialogFingerprint.matchAll(th5ClassDef, 1..10).forEach { match ->
+            th5PurchaseDialogFingerprint.matchAllOrNull(th5ClassDef).orEmpty().forEach { match ->
                 match.method.addInstructions(0, LOG_TH5_FALSE)
             }
         }
 
         resolved["qgl0"]?.let { qgl0ClassDef ->
-            qgl0DFingerprint.matchOrNull(qgl0ClassDef)?.let { match ->
-                match.method.addInstructions(0, QGL0_D_BODY)
-            }
+            qgl0DFingerprint.matchAllOrNull(qgl0ClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, QGL0_D_BODY) }
         }
 
         resolved["n3b0"]?.let { n3b0ClassDef ->
@@ -2280,18 +2240,12 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         resolved["sb90Companion"]?.let { sb90CompanionClassDef ->
-            sb90CFingerprint.matchOrNull(sb90CompanionClassDef)?.let { match ->
-                match.method.addInstructions(0, LOG_SB90_FALSE)
-            }
+            sb90CFingerprint.matchAllOrNull(sb90CompanionClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, LOG_SB90_FALSE) }
         }
 
         resolved["secretCrush"]?.let { secretCrushClassDef ->
-            secretCrushRemainingFingerprint.matchOrNull(secretCrushClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
-            secretCrushExpirationFingerprint.matchOrNull(secretCrushClassDef)?.let { match ->
-                match.method.addInstructions(0, FAR_FUTURE_MS_BODY)
-            }
+            secretCrushRemainingFingerprint.matchAllOrNull(secretCrushClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, RETURN_FALSE) }
+            secretCrushExpirationFingerprint.matchAllOrNull(secretCrushClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, FAR_FUTURE_MS_BODY) }
         }
 
         resolved["greetingCounter"]?.let { greetingCounterClassDef ->
@@ -2357,15 +2311,11 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         resolved["coreData"]?.let { coreDataClassDef ->
-            coreDataSurpriseGiftFingerprint.matchOrNull(coreDataClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_LONG_MAX)
-            }
+            coreDataSurpriseGiftFingerprint.matchAllOrNull(coreDataClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, RETURN_LONG_MAX) }
         }
 
         resolved["tm90"]?.let { tm90ClassDef ->
-            tm90GFingerprint.matchOrNull(tm90ClassDef)?.let { match ->
-                match.method.addInstructions(0, RETURN_FALSE)
-            }
+            tm90GFingerprint.matchAllOrNull(tm90ClassDef).orEmpty().forEach { match -> match.method.addInstructions(0, RETURN_FALSE) }
         }
 
         resolved["mb90"]?.let { mb90ClassDef ->
@@ -2781,6 +2731,91 @@ val premiumUnlockPatch = bytecodePatch(
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "B" && method.parameterTypes.size == 4 && method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // ── Discovery theme unlock (regression fix): j5k.a(String)Z ──
+        // Our rbb0 patch forces gjc0.q() TRUE (quota exhausted) to suppress likers popups, which
+        // also makes j5k.a true for "online"/"popular" theme cards -> SuggestUserItem blurs them
+        // and routes taps to purchase. Force j5k.a FALSE so theme cards render clear + open chat.
+        // Keep rbb0 q/r/s TRUE (60+ nag-suppression call sites). Resolved as the unique static
+        // (String)Z caller of rbb0.q() carrying "online" (the online/popular strings alone are
+        // ambiguous — qee0 theme-card helper shares them).
+        resolved["themeUnlock"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "Z" &&
+                    method.parameterTypes.size == 1 && method.parameterTypes[0] == "Ljava/lang/String;"
+                ) {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
+        // ── Roaming location cap 5 -> unlimited (bun0.u) ──
+        // The client cap is `const/4 v2,0x5; if-lt v0,v2 -> add` (size<5 skips the toast).
+        // const/4 (1 unit) cannot become const/16 (2 units) in place, so replace the 2-unit
+        // if-lt with a same-size goto/16 to the same target (always proceed to add). Server
+        // remains authoritative for >5 saved locations (device-verify).
+        val roamingCapFingerprint = Fingerprint(
+            filters = listOf(string("passport_entrance"), string("e_add_roam_location"))
+        )
+        roamingCapFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            val mutable = mutableClassDefBy(classDef)
+            val methodMap = classDef.methods.zip(mutable.methods).toMap()
+            classDef.methods.forEach { method ->
+                val instrs = method.cachedInstructions()
+                val hasBoth = instrs.any { it is ReferenceInstruction && (it.reference as? StringReference)?.string == "passport_entrance" } &&
+                    instrs.any { it is ReferenceInstruction && (it.reference as? StringReference)?.string == "e_add_roam_location" }
+                if (!hasBoth) return@forEach
+                val mutableMethod = methodMap[method] ?: return@forEach
+                val mutableInstrs = mutableMethod.implementation?.instructions?.toList() ?: return@forEach
+                for (i in 0 until instrs.size - 1) {
+                    val cur = instrs[i]
+                    val next = instrs[i + 1]
+                    if (cur.opcode == Opcode.CONST_4 && cur is NarrowLiteralInstruction && cur.narrowLiteral == 5 &&
+                        next.opcode == Opcode.IF_LT
+                    ) {
+                        val mutableNext = mutableInstrs.getOrNull(i + 1)
+                        if (mutableNext is BuilderInstruction22t) {
+                            mutableMethod.replaceInstruction(i + 1, BuilderInstruction20t(Opcode.GOTO_16, mutableNext.target))
+                        }
+                    }
+                }
+            }
+        }
+
+        // ── ProfileLike quota display: remaining/total -> 200000 (clone LikersLimit pattern) ──
+        // Button appears; SEND remains server-quota-enforced. Override iput writes in the data
+        // class and its protobuf/json adapters. nullCheck() is never touched (gotcha #8).
+        listOf(
+            "Lcom/p1/mobile/putong/data/ProfileLike;",
+            "Lcom/p1/mobile/putong/data/ProfileLike\$1;",
+            "Lcom/p1/mobile/putong/data/ProfileLike\$2;"
+        ).forEach { descriptor ->
+            classDefByOrNull(descriptor)?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "nullCheck") return@forEach
+                    val instrs = method.cachedInstructions()
+                    val writeIndices = instrs.withIndex().filter { (_, instr) ->
+                        instr.opcode.name == "iput" &&
+                            instr is ReferenceInstruction &&
+                            instr.reference is FieldReference &&
+                            (instr.reference as FieldReference).name in setOf("remaining", "total") &&
+                            (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/data/ProfileLike;"
+                    }.map { it.index }
+                    writeIndices.reversed().forEach { idx ->
+                        val instr = instrs[idx]
+                        if (instr is TwoRegisterInstruction) {
+                            val objReg = instr.registerB
+                            val fieldRef = (instr as ReferenceInstruction).reference as FieldReference
+                            val tempReg = if (objReg != 0) "v0" else "v1"
+                            method.addInstructions(idx + 1, """
+                                const $tempReg, 0x30d40
+                                iput $tempReg, v$objReg, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
+                            """)
+                        }
+                    }
                 }
             }
         }

@@ -2,7 +2,6 @@ package com.p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patcher.fieldAccess
 import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
@@ -10,6 +9,7 @@ import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 private val adInstructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
@@ -37,43 +37,6 @@ private const val RETURN_FALSE = """
     const/4 v0, 0x0
     return v0
 """
-
-private val profilePhotoCarouselAdFingerprint = Fingerprint(
-    filters = listOf(
-        string("ca-app-pub-6567608331519569/1891609663"),
-        methodCall(name = "onAdClicked"),
-    ),
-)
-
-private val officialAdvertDisplayFingerprint = Fingerprint(
-    filters = listOf(
-        string("e_messages_ad"),
-        string("p_messages_ad"),
-        methodCall(name = "getAdvertData"),
-    ),
-)
-
-private val adRewardDialogFingerprint = Fingerprint(
-    filters = listOf(
-        string("p_incentive_ad_choose_page"),
-        string("\u89c2\u770b\u5e7f\u544a\u591a\u6ed1"),
-        fieldAccess(name = "adReward"),
-    ),
-)
-
-private val showLiveForIntlAdUserFingerprint = Fingerprint(
-    filters = listOf(
-        string("animations/christmas/config.xml"),
-        fieldAccess(name = "showLiveForIntlAdUser"),
-    ),
-)
-
-private val treasurePrizeAdFingerprint = Fingerprint(
-    filters = listOf(
-        string("treasureprizead"),
-        fieldAccess(name = "treasurePrizeAds"),
-    ),
-)
 
 private val omsAdCardPipelineFingerprint = Fingerprint(
     filters = listOf(
@@ -115,6 +78,8 @@ val adRemovalPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
+        val resolver = getSharedResolver()
+
         classDefByOrNull("Lcom/p1/mobile/putong/core/admob/NavigationBarAdView;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "<init>") return@forEach
@@ -451,20 +416,25 @@ val adRemovalPatch = bytecodePatch(
             }
         }
 
-        profilePhotoCarouselAdFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolver.getAdClass("profileCarouselAd")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "<init>" || method.name == "<clinit>") return@forEach
-                when {
-                    method.name == "q" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z" -> {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                    method.name == "A" &&
-                        method.parameterTypes.size == 3 &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
+                if (method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1] == "Z" &&
+                    method.returnType == "Lrx/c;"
+                ) {
+                    method.addInstructions(0, """
+                        sget-object v0, Ljava/lang/Boolean;->FALSE:Ljava/lang/Boolean;
+                        invoke-static {v0}, Lrx/c;->just(Ljava/lang/Object;)Lrx/c;
+                        move-result-object v0
+                        return-object v0
+                    """)
+                }
+                if (method.parameterTypes.isEmpty() && method.returnType == "Z" &&
+                    method.accessesFieldNamed("settingGroups")
+                ) {
+                    method.addInstructions(0, RETURN_FALSE)
                 }
             }
         }
@@ -517,21 +487,20 @@ val adRemovalPatch = bytecodePatch(
             }
         }
 
-        officialAdvertDisplayFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolver.getAdClass("officialAdvert")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                 when {
-                    method.name == "h" &&
-                        method.parameterTypes.size == 2 &&
+                    method.parameterTypes.size == 2 &&
                         method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
                         method.parameterTypes[1] == "Landroid/view/ViewGroup;" &&
                         method.returnType == "V" -> {
                         method.addInstructions(0, RETURN_VOID)
                     }
-                    method.name == "m" &&
-                        method.parameterTypes.size == 3 &&
+                    method.parameterTypes.size == 3 &&
                         method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
                         method.parameterTypes[1] == "Landroid/view/ViewGroup;" &&
+                        method.parameterTypes[2] == "Lcom/p1/mobile/putong/core/data/OfficialAdvertData;" &&
                         method.returnType == "V" -> {
                         method.addInstructions(0, RETURN_VOID)
                     }
@@ -539,26 +508,24 @@ val adRemovalPatch = bytecodePatch(
             }
         }
 
-        adRewardDialogFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolver.getAdClass("adRewardDialog")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "<init>" || method.name == "<clinit>") return@forEach
                 when {
-                    method.name == "m" &&
-                        method.parameterTypes.size == 2 &&
+                    method.parameterTypes.size == 2 &&
                         method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
                         method.parameterTypes[1] == "Ljava/lang/String;" &&
                         method.returnType == "V" -> {
                         method.addInstructions(0, RETURN_VOID)
                     }
-                    method.name == "n" &&
-                        method.parameterTypes.size == 3 &&
+                    method.parameterTypes.size == 3 &&
                         method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
                         method.parameterTypes[1] == "Ljava/lang/String;" &&
                         method.returnType == "V" -> {
                         method.addInstructions(0, RETURN_VOID)
                     }
-                    method.name == "j" &&
-                        method.parameterTypes.size == 1 &&
+                    method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/AdConfiguration;" &&
                         method.returnType == "Z" -> {
                         method.addInstructions(0, RETURN_FALSE)
                     }
@@ -566,30 +533,34 @@ val adRemovalPatch = bytecodePatch(
             }
         }
 
-        showLiveForIntlAdUserFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        // AdMob init + UMP GDPR consent form (g80). Force the consent gate j()Z false (natural
+        // no-consent path; wrn providers null-safe) and void the (Act,Runnable)V init entries
+        // (l/q/u) which run MobileAds.initialize, the consent form, and install-referrer collection.
+        val admobInitFingerprint = Fingerprint(filters = listOf(string("intl_admob_init")))
+        admobInitFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "<init>" || method.name == "<clinit>") return@forEach
-                when {
-                    method.name == "N" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z" -> {
-                        method.addInstructions(0, RETURN_FALSE)
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "Z" &&
+                    method.parameterTypes.isEmpty() &&
+                    method.cachedAdInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? MethodReference)?.definingClass == "Lcom/google/android/ump/ConsentInformation;"
                     }
+                ) {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+                if (method.returnType == "V" && method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1] == "Ljava/lang/Runnable;"
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
 
-        treasurePrizeAdFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>" || method.name == "<clinit>") return@forEach
-                when {
-                    method.returnType == "V" &&
-                        method.parameterTypes.any { it.contains("MonetizationTreasure") || it.contains("TreasurePrizeAd") } -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-        }
+        // showLiveForIntlAdUser (yd7) and treasurePrizeAd surfaces are dead code in the
+        // international 7.5.4 build (gated by isVIP / never inserted); their old split-anchor
+        // fingerprints resolved nothing. Removed per the ad-stack verdict (AdMob only).
 
         // Town Tales overlay - CasualGameEntranceView
         classDefByOrNull("Lcom/p1/mobile/putong/core/casualgame/CasualGameEntranceView;")?.let { classDef ->
@@ -749,24 +720,13 @@ val adRemovalPatch = bytecodePatch(
                     """)
                 }
 
-                // Client force-insert path (IntlRecallMembershipCard): drop virtual cards.
-                // Unique anchor: only this method references INSERT_LOCAL_FINAL.
-                if (method.accessesFieldNamed("INSERT_LOCAL_FINAL") &&
-                    method.parameterTypes.size == 3 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/api/CoreSuggested${'$'}UserInfo;" &&
-                    method.parameterTypes[1] == "I" &&
-                    method.parameterTypes[2] == "Z" &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, """
-                        move-object/from16 v0, p1
-                        invoke-virtual {v0}, Lcom/p1/mobile/putong/core/api/CoreSuggested${'$'}UserInfo;->isVirtualCard()Z
-                        move-result v0
-                        if-eqz v0, :morph_not_virtual_l
-                        return-void
-                        :morph_not_virtual_l
-                    """)
-                }
+                // Client force-insert path (IntlRecallMembershipCard, INSERT_LOCAL_FINAL) is
+                // intentionally NOT patched here: in 7.5.4 l7(UserInfo,I,Z)V is a SYNTHETIC
+                // bridge with regs==paramCount==4 (body is just `r6(this,UserInfo,I,Z)`), so it
+                // has NO free scratch register. Any isVirtualCard guard clobbers `this` (v0) and
+                // falls through to the r6 tail-call -> VerifyError (gotcha #9). The consumer-side
+                // home/c.y backstop below strips virtual cards downstream of EVERY insert path
+                // (including this one), so the card never renders regardless.
             }
         }
 

@@ -170,6 +170,12 @@ private fun patchManifestBytes(manifestBytes: ByteArray, authority: String, prov
             setValueAsString.invoke(attr, value)
         }
 
+        fun setAttrBoolean(elem: Any, localName: String, value: Boolean) {
+            val attr = getOrCreateAndroidAttribute.invoke(elem, localName, 0) ?: return
+            val setValueAsBoolean = attrClass.getMethod("setValueAsBoolean", java.lang.Boolean.TYPE)
+            setValueAsBoolean.invoke(attr, value)
+        }
+
         // Check if provider already exists
         val listApplicationElementsByTag = manifestBlockClass.getMethod(
             "listApplicationElementsByTag", String::class.java
@@ -219,6 +225,18 @@ private fun patchManifestBytes(manifestBytes: ByteArray, authority: String, prov
         addMetadata("app.revanced.android.gms.SPOOFED_PACKAGE_NAME", "com.tantantribe.tribe")
         addMetadata("app.revanced.android.gms.SPOOFED_PACKAGE_SIGNATURE", "71:5B:AB:0F:36:33:95:FE:34:D1:87:68:4B:0E:F7:71:A9:D4:00:F0")
         addMetadata("app.revanced.MICROG_PACKAGE_NAME", "app.revanced.android.gms")
+
+        // GA4 measurement engine collection off (boolean-typed meta-data; the obfuscated engine
+        // reads firebase_analytics_collection_enabled / _deactivated via Bundle.getBoolean).
+        fun addBooleanMetadata(name: String, value: Boolean) {
+            val newElement = applicationElementClass.getMethod("newElement", String::class.java)
+            val metadataElement = newElement.invoke(applicationElement, "meta-data")
+            setAttrString(metadataElement, "name", name)
+            setAttrBoolean(metadataElement, "value", value)
+        }
+        addBooleanMetadata("firebase_analytics_collection_enabled", false)
+        addBooleanMetadata("firebase_analytics_collection_deactivated", true)
+        addBooleanMetadata("google_analytics_adid_collection_enabled", false)
 
         // Re-encode to binary by writing to a temp file and reading back
         val tempFile = File.createTempFile("manifest-", ".bin")

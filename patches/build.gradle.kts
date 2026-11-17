@@ -122,7 +122,9 @@ tasks.register<JavaExec>("patchApk") {
     dependsOn("jar")
     classpath = sourceSets["main"].runtimeClasspath + files(tasks.jar.get().archiveFile)
     mainClass.set("app.morphe.PatcherMainKt")
-    val apkFile = rootProject.file("tantan-tribe-extracted/com.tantantribe.tribe.apk")
+    // Authoritative 7.5.4 target (versionCode 2754010) matching tantan-decompiled-7.5.4.
+    // 7.5.4 is the only supported version; local DEX verification uses this APK.
+    val apkFile = rootProject.file("tantan-7.5.4.apk")
     val outputApk = rootProject.file("tantan-premium-unlocked.apk")
     args = listOf(apkFile.absolutePath, outputApk.absolutePath)
 }
@@ -131,7 +133,7 @@ tasks.register<JavaExec>("signApk") {
     dependsOn("jar")
     classpath = sourceSets["main"].runtimeClasspath + files(tasks.jar.get().archiveFile)
     mainClass.set("app.morphe.SignApkKt")
-    val inputApk = rootProject.file("tantan-tribe-extracted/com.tantantribe.tribe.apk")
+    val inputApk = rootProject.file("tantan-7.5.4.apk")
     val outputApk = rootProject.file("tantan-signed.apk")
     args = listOf(inputApk.absolutePath, outputApk.absolutePath)
 }

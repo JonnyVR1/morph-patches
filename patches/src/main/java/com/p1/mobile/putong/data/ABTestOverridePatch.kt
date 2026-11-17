@@ -80,14 +80,6 @@ private fun buildI0Instructions(paramReg: Int): String {
         return-object v0
         :skip_sticker
 
-        const-string v1, "push_largepic"
-        invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v1
-        if-eqz v1, :skip_push_largepic
-        const-string v0, "exp"
-        return-object v0
-        :skip_push_largepic
-
         const-string v1, "e_surprisebox"
         invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
         move-result v1
@@ -220,7 +212,7 @@ private fun buildJ0Instructions(paramReg: Int): String {
 @JvmField
 val abTestOverridePatch = bytecodePatch(
     name = "AB Test Override",
-    description = "Overrides A/B test values to enable beneficial features: instant match, quick message, batch icebreak, chat optimization, letter features, me tab revamp, push enhancements, verified chat, tiered membership, platinum membership, surprise box, anti-harass customization",
+    description = "Overrides A/B test values to enable beneficial features: instant match, quick message, batch icebreak, chat optimization, letter features, me tab revamp, verified chat, tiered membership, platinum membership, surprise box, anti-harass customization",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)

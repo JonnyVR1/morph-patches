@@ -6,7 +6,7 @@ object MorphDebug {
     private const val TAG = "MORPH_DEBUG"
 
     @JvmStatic
-    var DEBUG = true
+    var DEBUG = false
 
     @JvmStatic
     fun log(message: String) {

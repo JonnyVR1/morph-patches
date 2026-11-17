@@ -29,28 +29,14 @@ private const val RETURN_FALSE = """
 
 private val SHOW_LIKE_METHODS = setOf("show", "display", "init", "onResume")
 private val AI_TRANSLATE_METHODS = setOf("show", "showGuide", "display")
-private val MKT_FEATURE_METHODS = setOf("show", "display", "present")
-private val MKT_STICKER_METHODS = setOf("show", "display", "choose")
 private val NEW_FUNC_METHODS = setOf("show", "showGuide", "display")
-private val PURCHASE_METHODS = setOf("show", "display", "init")
-private val MY_TAB_METHODS = setOf("show", "display", "setVisibility", "init")
 private val DISCOUNT_METHODS = setOf("show", "display", "init", "bind", "setup")
-private val POSITIONING_METHODS = setOf("show", "display", "showPopup")
-private val AVATAR_METHODS = setOf("show", "display", "showGuide")
 private val BUZZ_METHODS = setOf("show", "display", "showPopup")
-private val ID_VERIFY_METHODS = setOf("show", "display", "showGuide")
 
 private val FINGERPRINT_METHOD_MAP = mapOf(
     "aiChatGuide" to SHOW_LIKE_METHODS,
-    "mktFeaturePopup" to MKT_FEATURE_METHODS,
-    "mktTimeSticker" to MKT_STICKER_METHODS,
-    "purchaseGuide" to PURCHASE_METHODS,
-    "myTabTopBanner" to MY_TAB_METHODS,
     "discountEntryBanner" to DISCOUNT_METHODS,
-    "positioningGuide" to POSITIONING_METHODS,
-    "avatarVerificationGuide" to AVATAR_METHODS,
     "buzzPopup" to BUZZ_METHODS,
-    "idVerificationGuide" to ID_VERIFY_METHODS,
 )
 
 private val FINGERPRINT_BOOL_METHOD_MAP = mapOf(
@@ -107,9 +93,8 @@ val uiCleanupPatch = bytecodePatch(
         val resolver = getSharedResolver()
 
         val resolved = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
-        val uiKeys = listOf("aiChatGuide", "aiTranslateGuide", "mktFeaturePopup", "mktTimeSticker",
-            "newFunctionGuide", "purchaseGuide", "myTabTopBanner", "discountEntryBanner",
-            "positioningGuide", "avatarVerificationGuide", "buzzPopup", "idVerificationGuide")
+        val uiKeys = listOf("aiChatGuide", "aiTranslateGuide",
+            "newFunctionGuide", "discountEntryBanner", "buzzPopup")
         for (key in uiKeys) {
             resolver.getUiCleanupClass(key)?.let { resolved[key] = it }
         }
@@ -565,6 +550,156 @@ val uiCleanupPatch = bytecodePatch(
                         return-object v0
                     """)
                 }
+        }
+
+        // Positioning-authority guide popup creator (b2x.j). Resolver excludes the OmsDialog
+        // enum and requires a static (Act,...)V creator carrying the popup key. Void it.
+        resolver.getUiCleanupClass("positioningGuide")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.isNotEmpty() &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is StringReference &&
+                            (instr.reference as StringReference).string == "p_alert_positioning_authority_open_guide_popup"
+                    }
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Notification-permission nags (s160): void the two dialog creators G(Act,Z)V and
+        // H(Act,I,Z)V. KEEP A() (user-initiated system-settings open) and u() (runtime request).
+        val notifPermissionFingerprint = Fingerprint(filters = listOf(string("p_open_push_popup")))
+        notifPermissionFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) || method.returnType != "V") return@forEach
+                val isCreator = method.parameterTypes.isNotEmpty() &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    ((method.parameterTypes.size == 2 && method.parameterTypes[1] == "Z") ||
+                     (method.parameterTypes.size == 3 && method.parameterTypes[1] == "I" && method.parameterTypes[2] == "Z"))
+                if (isCreator) method.addInstructions(0, RETURN_VOID)
+            }
+        }
+
+        // Post-swipe marketing dispatcher (t5p.a): regular-sticker / flash time-sticker / quiz
+        // popups all branch from this single static (I,BooleanRef,Act,Envelope)Unit method.
+        // Mark the BooleanRef handled and return Unit so callers do not retry. Also void the
+        // instance fetch/show entries m/n(Act,I)V.
+        val mktDispatcherFingerprint = Fingerprint(filters = listOf(string("e_intl_mkt_feature_entry")))
+        mktDispatcherFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "Lkotlin/Unit;" &&
+                    method.parameterTypes.size == 4 &&
+                    method.parameterTypes[0] == "I" &&
+                    method.parameterTypes[1] == "Lkotlin/jvm/internal/Ref\$BooleanRef;" &&
+                    method.parameterTypes[2] == "Lcom/p1/mobile/android/app/Act;"
+                ) {
+                    method.addInstructions(0, """
+                        move-object/from16 v0, p1
+                        const/4 v1, 0x1
+                        iput-boolean v1, v0, Lkotlin/jvm/internal/Ref${'$'}BooleanRef;->element:Z
+                        sget-object v0, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
+                        return-object v0
+                    """)
+                }
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1] == "I"
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Home operation-activity gates (home/a.Companion): pet/sports/trip (hz70), interests
+        // (pyg0), animal (ny0), horoscope (qb6), camping, marketing (t5p). Resolved via the
+        // stable campingactivity/b.g() call (single-letter Companion name churns). Force the
+        // public ()Z gates false and the skip-flag a() true.
+        val homeOpGatesFingerprint = Fingerprint(
+            filters = listOf(
+                methodCall(
+                    definingClass = "Lcom/p1/mobile/putong/core/ui/intloperation/campingactivity/b;",
+                    name = "g",
+                ),
+            )
+        )
+        homeOpGatesFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "<init>" || method.name == "<clinit>") return@forEach
+                if (AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                    method.returnType == "Z" && method.parameterTypes.isEmpty()
+                ) {
+                    if (method.name == "a") {
+                        method.addInstructions(0, """
+                            const/4 v0, 0x1
+                            return v0
+                        """)
+                    } else {
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                }
+            }
+        }
+
+        // Left-swipe profile-completeness nag (swipe/o.r): hardcoded zh DatingGuide dialog.
+        // Both anchors co-located in r(Act,User)V.
+        val profileCompleteNagFingerprint = Fingerprint(
+            filters = listOf(
+                string("p_left_swipe_complete_profile"),
+                string("e_complete_profile"),
+            )
+        )
+        profileCompleteNagFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.returnType == "V" && method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1] == "Lcom/p1/mobile/putong/data/User;"
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Me-tab incomplete-profile dot (main/a.F9). Do NOT touch NewMainViewModel.p0 (shared
+        // with the Messages unread dot). Void the no-arg V method carrying e_mytab_incomplete.
+        val meTabIncompleteFingerprint = Fingerprint(filters = listOf(string("e_mytab_incomplete")))
+        meTabIncompleteFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.returnType == "V" && method.parameterTypes.isEmpty() &&
+                    method.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is StringReference &&
+                            (instr.reference as StringReference).string == "e_mytab_incomplete"
+                    }
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Edit-profile save drainage notice (wyp.show).
+        val profileDrainageFingerprint = Fingerprint(filters = listOf(string("p_edit_profile_save_drainage_notice")))
+        profileDrainageFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "show" && method.returnType == "V" && method.parameterTypes.isEmpty()) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Me-tab PROMOTION/SEE/BOOST/ODIAMOND badge: TabUniteManager.l() true makes o() early-return.
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/diamond/TabUniteManager;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "l" && method.returnType == "Z" && method.parameterTypes.isEmpty()) {
+                    method.addInstructions(0, """
+                        const/4 v0, 0x1
+                        return v0
+                    """)
+                }
+            }
         }
     }
 }

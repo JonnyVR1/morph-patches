@@ -1,7 +1,7 @@
 # Morph - Tantan Android Patch Project
 
 ## Overview
-This repository contains patches and tools for the Tantan Android APK (international version, v7.5.4). The project includes 11 patchsets covering premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, ad removal, root/emulator detection bypass, live streaming features, UI cleanup, Google Maps compatibility, and remote config overrides.
+This repository contains patches and tools for the Tantan Android APK (international version, v7.5.4 / versionCode 2754010). The project includes 13 patchsets covering premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, ad removal, root/emulator detection bypass, live streaming features, UI cleanup, Google Maps compatibility, remote config overrides, A/B-test overrides, and search/discovery enhancements.
 
 **Target:** International version only. China-specific features (WeChat Pay, Alipay, QQ login, Huawei services) are dead code in the international APK and should NOT be patched.
 
@@ -17,8 +17,9 @@ This repository contains patches and tools for the Tantan Android APK (internati
 - `patches/` - Individual bypass patch implementations
 - `patches-list.json` - Auto-generated patch metadata
 - `patches-bundle.json` - Bundle configuration
-- `tantan-tribe-decompiled/` - Decompiled Tantan APK source for reverse engineering
-- `tantan-decompiled-7.5.4/` - Decompiled Tantan 7.5.4 APK source (52,187 Java files)
+- `tantan-decompiled-7.5.4/` - Decompiled Tantan 7.5.4 APK source (the authoritative RE reference)
+- `tantan-7.5.4.apk` - The 7.5.4 target APK (versionCode 2754010) used by `patchApk` and tests
+- `tools/inspect.bat` - dexlib2 DEX inspector for local verification; `tools/gradle.bat` - gradle wrapper (creds + offline)
 
 ## Build and Release Commands
 
@@ -66,7 +67,7 @@ The pipeline is:
 ```bash
 # List current release assets
 curl -s -H "Authorization: token $GITHUB_TOKEN" \
-  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets" | \
+  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets" | \
   python3 -c "import json, sys; data = json.load(sys.stdin); [print(f'{a[\"id\"]} {a[\"name\"]}') for a in data]"
 
 # Delete old assets (replace ASSET_ID with actual IDs from above)
@@ -77,21 +78,21 @@ curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" \
 curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/octet-stream" \
   --data-binary @patches/build/libs/patches-0.0.1-dev2.mpp \
-  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets?name=patches-0.0.1-dev2.mpp" | \
+  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets?name=patches-0.0.1-dev2.mpp" | \
   python3 -c "import json, sys; d = json.load(sys.stdin); print(f'mpp: {d.get(\"name\", \"ERR\")}')"
 
 # Upload patches-list.json
 curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/json" \
   --data-binary @patches-list.json \
-  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets?name=patches-list.json" | \
+  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets?name=patches-list.json" | \
   python3 -c "import json, sys; d = json.load(sys.stdin); print(f'json: {d.get(\"name\", \"ERR\")}')"
 
 # Upload patches-bundle.json
 curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/json" \
   --data-binary @patches-bundle.json \
-  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets?name=patches-bundle.json" | \
+  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets?name=patches-bundle.json" | \
   python3 -c "import json, sys; d = json.load(sys.stdin); print(f'bundle: {d.get(\"name\", \"ERR\")}')"
 ```
 
@@ -99,7 +100,7 @@ curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
 ```bash
 # Check uploaded file sizes
 curl -s -H "Authorization: token $GITHUB_TOKEN" \
-  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/362723625/assets" | \
+  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets" | \
   python3 -c "import json, sys; assets = json.load(sys.stdin); [print(f'{a[\"name\"]}: {a[\"size\"]} bytes') for a in assets]"
 ```
 
@@ -159,28 +160,38 @@ Enhances messaging features:
 **Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
 
 ### Analytics Disable (`AnalyticsDisablePatch.kt`)
-Disables all tracking and telemetry:
-- FoxStatistics (custom analytics)
-- AppsFlyer (attribution tracking)
-- CleverTap (engagement analytics)
-- Facebook AppEvents
-- Beatles APM (crash reporting)
-- OAID device fingerprinting
-- Central device fingerprint collector (dk50 - IMEI, MAC, IP, LBS, UA)
-- Device info collector (vrq0 - ANDROIDID, IMEI, MAC, IP)
-- Device fingerprint hash generator (nuq0)
+Disables tracking and telemetry (anchors verified against the 7.5.4 DEX):
+- FoxStatistics core: the public facade `ofh0` (resolver `coreEventLogger`, anchored on a
+  `DefaultEnvironment.j()` call + ≥1 static-void method) has its static-void event methods
+  voided EXCEPT the Context-first init methods `i/j/k` (kept so `ofh0.e()` stays non-null —
+  non-Fox callers such as sogou image loading use it without null checks). Uploaders `f970.r`
+  and `g2f0.o` (resolver `foxUploader`/`foxUploaderSc`, endpoint-string + `(String,I)V` shape)
+  are voided. `m3m0.b` (the shared HTTP sender) is additionally gated by `ofh0.h()`, which stays
+  false because `ofh0.c()` is voided.
+- OAID helper `z810` (resolver `oaidHelper`, anchor `miit_oaid`): `c(Context)V` init voided.
+  NOTE: the old `foxStats` key anchored on `e_request_none_oaid` and resolved to `z810` (the OAID
+  helper), NOT the Fox pipeline — it was an OAID disable mislabeled as Fox.
+- GAID: `AdvertisingIdClient.getAdvertisingIdInfo` (stable descriptor) returns an empty
+  `Info("", limitAdTracking=true)`; this also neutered the OneID GAID path `srn.a()`.
+- OneID: `ui30.e(J,opm)V` createid request voided (resolver `oneIdUploader`, createid endpoint +
+  `(J,*)V` shape); `ls60.d(Context)V` external-storage cross-app Momo file read voided (resolver
+  `oneIdStorage`, post-pass matching callers of `ui30.e`). `ms60.d()` still returns a cached/random
+  oneId (server fields are isEmpty-guarded).
+- GA4 measurement engine: `iiu0.Q()Z` forced true (resolver `ga4Collection`, anchor
+  `firebase_analytics_collection_deactivated`) → `wpv0.s()` returns 1 → collection off. Manifest
+  `firebase_analytics_collection_enabled=false` added as a backstop (GmsCompatibility + PatcherMain).
+- Facebook auto-events: `k50.u(Application,String)V` (ActivityLifecycleTracker registration) voided
+  (resolver `fbAutoEvents`). `AttributionIdentifiers` is absent in 7.5.4 (no block needed).
+- AppsFlyer, CleverTap, Facebook AppEvents.activateApp, Beatles APM, push/battery/DNS/tracing stats.
+- The dk50/nuq0/vrq0 "device fingerprint collector" blocks documented in older revisions DO NOT
+  EXIST in the source and were never applied; real device-ID collection is momosec (kept per the
+  tracking-only decision). Ad-click URL device-id substitution is handled by `qm60.F` (PrivacyEnhancement).
 
 ### Dialog Cleanup (`DialogCleanupPatch.kt`)
-Removes annoying promotional dialogs:
-- 5-star rating dialog (`p_intl_5star_dialog_view`)
-- Appstore rating filter (`p_appstore_rating_filter_popup`)
-- Version upgrade prompt (`p_alert_version_upgrade_popup`)
-- Offline popup (`p_offline_popup`)
-- Notification permission prompt (`p_prompt_notification_auth_popup_view`)
-- Phone auth popups (`p_second_prompt_phone_auth_popup_view`, `p_sys_phone_auth_popup_view`, `p_prompt_phone_auth_popup_view`)
-- VIP upgrade popup (`p_vip_upgrade_popup`)
-- Purchase pages (`p_purchase_guide_page`, `p_purchase_expire_page`, `p_purchase_page`)
-- Welcome back popup (`p_welcomeback_popup`)
+Suppresses promotional dialogs at the ROOT, with creator-level backstops for bypass paths:
+- **OMS promo-engine gate (primary):** forces `em60.M(String,Z)Z` (dialog show-permission) and `em60.N(String,Z)Z` (ad-card show-permission) to `false`, matched by SHAPE (public instance `(String,Z)Z` == `{M,N}` in 7.5.4), not the obfuscated name. `M` is consulted by the swipe-after trigger `em60.L` (event `e_swipe_after`, page `p_suggest_users_home_view`), `see_guide`, `offline_popup`, 5-star, positioning and the purchase nags; `N` by the OMS ad-card batch (`id0`). Forcing both false kills EVERY OMS promo dialog/card regardless of popup key. This replaced the old per-key blocklist, which returned false only for listed purchase/VIP keys and fell through to the original allow-logic for everything else — leaking the likers/see swipe-tab promos ("99+ people liked you / X people online"). Verification/cheat-prevention popups route through `em60.s0 → hn60.n` and never consult `M`/`N`, so they stay intact. `RETURN_FALSE` (`const/4 v0,0; return v0`) is register-safe at any count.
+- **Creator-level backstops (NOT redundant):** `return-void`/`return-false` on specific creators (`mx0`, `zrj0`, `ok3`, `vipUpgradePopup`, `gpRateGuide`, `PriceRecall2Dialog`, `PriceRecallGetSurprise2Dialog`). The `__control` AB bucket and non-OMS triggers (e.g. 5-star `gp/a.o` when `!ern0.F()`) bypass `M`, so these creators must still be voided (gotcha #11).
+- Examples of promos suppressed: 5-star rating (`p_intl_5star_dialog_view`), appstore rating filter (`p_appstore_rating_filter_popup`), version upgrade (`p_alert_version_upgrade_popup`), offline popup (`p_offline_popup`), notification permission (`p_prompt_notification_auth_popup_view`), phone auth (`p_second_prompt_phone_auth_popup_view`, `p_sys_phone_auth_popup_view`, `p_prompt_phone_auth_popup_view`), VIP upgrade (`p_vip_upgrade_popup`), purchase pages (`p_purchase_guide_page`, `p_purchase_expire_page`, `p_purchase_page`), welcome back (`p_welcomeback_popup`).
 
 ### GMS Compatibility (`GmsCompatibilityPatch.kt`)
 Consolidated patch that makes Google Maps and GMS-dependent features work in re-signed APKs. Includes:
@@ -281,15 +292,18 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | `PlatinumPinChat` | `fieldAccess(expireTime)` |
 | `LoveBuzzData` | Consolidated single-pass: `fieldAccess(LoveBuzzData.remainingVoiceBuzz/TextBuzz/VideoBuzz/MemojiBuzz)` via `classDefForEach` pre-filter |
 | Typing indicator | `fieldAccess(KeepConnection.chatTypingOpen)` + `fieldAccess(KeepConnection.chatTypingInterval)` + `methodCall(interval)` |
-| FoxStatistics (`zvf0`) | `string("e_request_none_oaid")` |
+| FoxStatistics facade (`ofh0`) | `DefaultEnvironment.j()` call + ≥1 static-void method (resolver `coreEventLogger`) |
+| Fox uploaders (`f970`/`g2f0`) | endpoint `report.tantanapp.com/v1/online/android` / `sc-report...` + static `(String,I)V` shape |
 | AppsFlyer | `string("dmfeSDkpVxP8m6Ys6yJCpn")` (dev key) |
 | CleverTap | `string("CleverTap SDK initialized with accountId")` |
 | Facebook AppEvents | `string("facebook-core_release")` |
+| Facebook auto-events (`k50`) | `string("com.facebook.appevents.internal.ActivityLifecycleTracker")` |
 | Beatles APM | `string("com.tantanapp.beatles")` |
-| OAID (`k200`) | `string("miit_oaid")` |
-| Device fingerprint collector (`dk50`) | `string("[IMEI]")` + `string("[OAID]")` + `string("[MAC]")` |
-| Device fingerprint hash (`nuq0`) | `string("device_fingerprint")` + device ID collection |
-| Device info collector (`vrq0`) | `string("ANDROIDID")` + `string("IMEI")` + `string("MAC")` |
+| OAID helper (`z810`) | `string("miit_oaid")` (resolver `oaidHelper`; old `foxStats` key mislabeled this) |
+| GAID (`AdvertisingIdClient`) | stable descriptor `getAdvertisingIdInfo(Context)` → empty Info |
+| OneID (`ui30`/`ls60`) | createid endpoint + `(J,*)V` shape; storage via callers of `ui30.e` |
+| GA4 collection (`iiu0`) | `string("firebase_analytics_collection_deactivated")` → `Q()Z` true |
+| Ad-click substitution (`qm60`) | `string("ANDROIDID")` + `string("OAID")` + regex `\[(.*?)]` → `F(String)` passthrough |
 | Root detection (`jmd0`) | `string("/system/app/Superuser.apk")` + `string("/system/xbin/daemonsu")` |
 | Root detection (`mmd0`) | `string("/system/bin/cufsdosck")` + `string("/system/bin/conbb")` |
 | Emulator detection (`ert0`) | `string("ranchu")` + `string("generic")` + `string("emulator")` |
@@ -406,7 +420,7 @@ Before adding a patch, check if another patchset already covers the same class/m
 - Ad removal: `AdRemovalPatch` vs `PremiumUnlockPatch` (both had NavigationBarAdView, NativeAdViewCard)
 - Root detection: `AnalyticsDisablePatch` vs `PrivacyEnhancementPatch` (both had root detection classes)
 - Package enumeration: `AnalyticsDisablePatch` vs `PrivacyEnhancementPatch` (identical bytecode)
-- Dialog suppression: Individual fingerprint patches vs centralized OMS blocklist in `DialogCleanupPatch`
+- Dialog suppression: Individual creator patches vs centralized OMS show-permission gate (`em60.M`/`N`) in `DialogCleanupPatch` (creators still needed for `M`-bypass paths — gotcha #11)
 
 Duplicate patches waste time (redundant class lookups + method iteration) and can cause double-injection issues.
 
@@ -460,7 +474,7 @@ Use `move/from16` for ints, `move-wide/from16` for long/double. Keep ALL injecte
 - **Internal labels only resolve at index 0.** `addInstructions(N, ...)` with `N > 0` mis-resolves internal branch targets by the insertion point's code offset (e.g. injecting at index 2 after two 2-unit iputs shifted every `if-eqz` target −4 code units, landing mid-instruction). Always inject at index 0; if you need state set by the original prologue, replicate those prologue instructions at the start of your block (idempotent stores are safe to re-run).
 - **Methods with `registerCount == paramCount` have NO free scratch registers** (p0=v0, p1=v1, …). You cannot clobber a param and fall through to original code that still reads it. Either find a param the original redefines before reading (safe scratch), or save/restore a clobbered param from a field the prologue populates (e.g. `ConversationItemView.x0`: restore `Conv` from `hy6.a`). Morphe has no public register-expansion API, and expanding would shift all param registers anyway.
 
-**Verification technique:** pull the patched APK from the device (`adb pull /data/app/.../base.apk`), extract `classes*.dex`, and disassemble the target method with dexlib2 (`DexFileFactory.loadDexFile`) to confirm every injected instruction is present. The local `:patches:patchApk` source APK (`tantan-tribe-extracted/`) is a DIFFERENT version than the decompiled 7.5.4 sources — its obfuscated methods differ, so device-DEX inspection is the authoritative check. You can also pre-flight any smali block via `InlineSmaliCompiler.Companion.compile(smali, params, registerCount, isStatic)` and assert the returned instruction count matches (labels are not instructions).
+**Verification technique:** disassemble the target method in the patched APK with the local inspector (`tools\inspect.bat tantan-premium-unlocked.apk <class> <method>`) to confirm every injected instruction is present. `:patches:patchApk` now uses `tantan-7.5.4.apk` (the authoritative 7.5.4 target matching `tantan-decompiled-7.5.4/`), so local DEX inspection IS authoritative — no device pull needed for bytecode checks. You can also pre-flight any smali block via `InlineSmaliCompiler.Companion.compile(smali, params, registerCount, isStatic)` and assert the returned instruction count matches (labels are not instructions).
 
 **Real-world impact:** The swipe-deck `CoreSuggested.a7` insertion filter froze the app on startup (Nov 2026). Fixed by prefixing `move-object/from16 v0, p2`. Same fix applied to the r7/l7 guards.
 
@@ -485,7 +499,7 @@ The occasional "99+ people liked you" popup on the swipe tab is one of four like
 
 The "99+" cap lives in `LikersDialogView.b` (`i > 99 ? "99+"`, title `SVIP_OFFLINE_POPUP_MINTITLE_PLURAL`) and `hkh0.f`→`g(i,99)` for `.c`. **Patch the creators to `return-void`** (match by the popup-key string literal in `cachedInstructions`, static+void filter — version-agnostic, not the obfuscated method name). Patching only `LikersDialogView.b/c` to `return-void` is NOT enough: the dialog frame still shows (empty), and `I`/`L` use other views entirely. `PremiumUnlockPatch` does this in the `resolved["hl3"]` block.
 
-**Why the OMS `M()` blocklist alone fails here:** the trigger `g350.K7` only consults `cn60.j().f().M("p_offline_popup", false)` when `ern0.F()` is true; `ern0.F()` = `!"__control".equals(ABManager.i0("pop_platform_all"))` (an AB bucket). In the `__control` bucket it calls `bfe0.i0`→`zw3.J` directly, bypassing `M`. So creator-level `return-void` is the reliable fix. These are purchase nags, not the actual "see who liked you" feature (`LikersFrag`/`LikersAct`, `p_see_who_likes_me_view` — untouched).
+**Why the OMS `M()` gate alone fails here:** `DialogCleanupPatch` now forces `em60.M`→`false` app-wide, but the trigger `g350.K7` only consults `cn60.j().f().M("p_offline_popup", false)` when `ern0.F()` is true; `ern0.F()` = `!"__control".equals(ABManager.i0("pop_platform_all"))` (an AB bucket). In the `__control` bucket it calls `bfe0.i0`→`zw3.J` directly, bypassing `M` entirely. So creator-level `return-void` is still the reliable fix. These are purchase nags, not the actual "see who liked you" feature (`LikersFrag`/`LikersAct`, `p_see_who_likes_me_view` — untouched).
 
 ## 12. Swipe-deck promo CARDS (not dialogs) — filter at the consumer `home/c.y`, not just the insert points
 
@@ -562,7 +576,7 @@ Two systemic promo-popup leaks found Nov 2026 (the residual "99+ people liked yo
 
 **(a) Stale obfuscated names in resolver `methodCallFull` checks = silent no-ops.** The likers backstop resolvers embedded 7.3.3 names as literal substrings: `j7d0` required `methodCallFull.any { it.contains("hl3") }`, `gg50` required `contains("j7d0") && ".h0"`, `qtk` required `contains("hlh0")`. In 7.5.4 those classes are `zw3`/`bfe0`/`owi0`, so the checks never match → keys never resolve → blocks do nothing (build still reports OK). Their consumer method filters were ALSO stale (`h0(b240)V`, no-arg `b()/d()Z`, no-arg `B0()V`) vs the real `bfe0.i0(g350)V`, `si60.b/d(lwl$a)Z`, `wgl.M0(Act,Runnable)V`. **Fix:** anchor resolvers on stable strings/fields/shapes only — `j7d0`=`last_likers_req_time`+`offline_dialog_show_time` (unique to bfe0); `gg50`=`OmsDialog.p_offline_popup` field + `(String,Z)` ctor + a 1-param `Z` method (unique to si60); `qtk`=`reBackAppGuideDialog` (unique to wgl). Consumers match by shape / string co-location, not names. **Rule: never put an obfuscated class/method name in a resolver condition.** The full audit also found `rbb0`, `bhe0`, `vqo`/`re90`/`i0p`, `meetEntranceBanner`, `seeAnimBubbleCreator`, `serverDataFlagSetter`/`newLikesFlagSetter` broken by the same pattern, plus an anchor-gate that skips anchor-less classes (methodCallFull-only conditions never resolve) and an `OmsDialog` enum first-match hijack (`mx0`/`purchaseGuide`/`positioningGuide`/`avatarVerificationGuide` resolve to the enum, not the creator → consumer no-ops).
 
-**(b) Server-driven OMS "morph" promos render outside zw3.** Text absent from local resources (e.g. "Waiting for your match") = a server-configured morph campaign: `pzl`/`s0`/`em60.L` → `em60.u0`→`t0` → `hn60.n` → fullScreen `OmsPageAct.Y1` (or inline `OmsBaseRender.c0`). The `M()` blocklist is bypassed (`t0` never checks it; the `__control` AB bucket skips it). **Safe kill:** void `OmsPageAct.b2()` (anchor const-string `oms_identifier`) AND `c2()` (anchor `OmsMerCuryData.id` field) so `d`/`e` stay null; `r()` then sees `hn60.d(null)==false` (HashMap.containsKey is null-safe and short-circuits before `e()`) and self-finishes. Voiding `b2` alone NPEs `c2` (`this.e.id`). Verification popups use the inline `c0()` branch, NOT OmsPageAct, so they stay intact. Do NOT void `hn60.n` wholesale (it routes cheat-prevention verification via `em60.s0`).
+**(b) Server-driven OMS "morph" promos render outside zw3.** Text absent from local resources (e.g. "Waiting for your match") = a server-configured morph campaign: `pzl`/`s0`/`em60.L` → `em60.u0`→`t0` → `hn60.n` → fullScreen `OmsPageAct.Y1` (or inline `OmsBaseRender.c0`). The `M()` gate is bypassed (`t0` never checks it; the `__control` AB bucket skips it). `DialogCleanupPatch` now forces `M`/`N`→`false`, which blocks the `em60.L` swipe-after trigger upstream; the `OmsPageAct` kill below remains a backstop for morph promos reached outside `L`. **Safe kill:** void `OmsPageAct.b2()` (anchor const-string `oms_identifier`) AND `c2()` (anchor `OmsMerCuryData.id` field) so `d`/`e` stay null; `r()` then sees `hn60.d(null)==false` (HashMap.containsKey is null-safe and short-circuits before `e()`) and self-finishes. Voiding `b2` alone NPEs `c2` (`this.e.id`). Verification popups use the inline `c0()` branch, NOT OmsPageAct, so they stay intact. Do NOT void `hn60.n` wholesale (it routes cheat-prevention verification via `em60.s0`).
 
 The local likers creators (`zw3.H/I/J/L` + `LikersDialogView.b/c` + `NewLikeView.F`) fully suppress the native dialogs; the morph path is the only structural bypass. `zw3.H` (p_no_match_svip) and `wgl.M0` (p_reback_popup) are DebugUtil-only in 7.5.4 but stay patched for device version skew.
 
@@ -644,7 +658,7 @@ task(description="Fix all issues", subagent_type="general", prompt="
   Fix 2: Remove isODiamond from true-returning set
   Fix 3: Change counter from MAX_VALUE to 200000
   ...
-  Build and deploy to release 362723625
+  Build and deploy to release 441228387
 ")
 ```
 
@@ -654,3 +668,71 @@ task(description="Fix all issues", subagent_type="general", prompt="
 - **Focus** - Each subagent has clear, narrow scope
 - **Efficiency** - Reduces context switching for main agent
 - **Completeness** - Ensures all angles are investigated
+
+## 18. 7.5.4 compatibility wave (Nov 2026) — APK versions, safe matching, inner-class hijacks
+
+**APK version mapping (7.5.4 is the ONLY target — older versions are out of scope):**
+- `tantan-7.5.4.apk` = **7.5.4 / versionCode 2754010** — matches `tantan-decompiled-7.5.4/` exactly
+  (verified: `j5k.a` theme gate identical). This is the AUTHORITATIVE target. `:patches:patchApk`,
+  `signApk`, and `PatchVerificationTest` all use it.
+- Older 7.3.x / 7.4.3 APKs and decompiled dumps were REMOVED from the workspace (Nov 2026 cleanup).
+  Their obfuscated names differed from 7.5.4; never verify 7.5.4 anchors against an older build.
+- `aapt2 dump badging <apk> | findstr package` confirms versionCode. The inspector tool
+  `tools/inspect.bat <apk> <classDescriptor> [methodFilter] [maxInstr]` (dexlib2; also `--find`,
+  `--call`, `--field`, `--full`, `--list`) is the local DEX verification harness — there is NO
+  `InspectDex` gradle task despite older references. Quote descriptors containing `;`/`$`
+  (PowerShell eats `$a` and splits on `;`).
+
+**The apply-only test passes on silent no-ops.** `PatchVerificationTest` only asserts patches apply
+without exception. ALWAYS DEX-verify each target method's first instructions in the patched APK
+(`tools\inspect.bat tantan-premium-unlocked.apk ...`). A resolver block that resolves nothing, or a
+fingerprint that matches the wrong class, is invisible at build time.
+
+**`match.method` THROWS; use `matchAllOrNull(classDef).orEmpty().forEach`.** A method `Fingerprint`
+used via `matchOrNull(resolvedClassDef)?.let { it.method... }` throws `PatchException` if (a) its
+`classFingerprint` resolves to a DIFFERENT class than the resolver picked (ambiguous string anchor),
+or (b) no method matches. Fix: REMOVE the redundant `classFingerprint =` from method fingerprints
+that are matched against an already-resolved class (the resolver already found the class), and use
+`matchAllOrNull(classDef).orEmpty().forEach { it.method.addInstructions(...) }` (returns only real
+matches, empty if none — never throws). `matchAll(classDef, 1..N)` also throws on cardinality
+mismatch; prefer `matchAllOrNull`. This fixed the entire Premium Unlock patch, which aborted on
+7.5.4 at `CoreBusinessServiceIml.Mf` and `gqf0` (string `e_intl_spotlight_activity_card` resolves
+ambiguously; `gqf0.f()` is INSTANCE in 7.5.4, not static — match PUBLIC only).
+
+**Inner-class hijack of string anchors.** A const-string often lives in BOTH an outer class and its
+inner Runnable/lambda (e.g. Fox endpoint in `f970.r` AND `f970$c.run`; carousel unit in `onb0.p` AND
+`onb0$a`). Resolver `putIfAbsent` picks the FIRST in DEX order — frequently the inner class, which
+lacks the target method shape → silent no-op. ALWAYS pair a string anchor with a target-method SHAPE
+check in the resolver (e.g. `foxUploader` requires a static `(String,I)V` method; `profileCarouselAd`
+requires `(Act,Z)Lrx/c;`). Same trap for `Fingerprint.matchOrNull()` standalone.
+
+**Enum constants are FIELD accesses, not method calls.** `EventNameEnum.MODULE_VIEW` is read via
+`sget-object`, so it appears in `foundFields`/field references, NEVER in `methodCallFull`. Anchoring
+`coreEventLogger` on `methodCallFull.contains("...EventNameEnum;.MODULE_VIEW")` resolved nothing.
+Use a stable METHOD call instead (`DefaultEnvironment.j()` is called only by `ofh0.J`). Compile-time
+`String` constants (e.g. `SuperlikeReason.popular`) are INLINED to `const-string` — no field ref exists.
+
+**Ambiguous common-word anchors resolve to the wrong class.** `j5k.a` (theme blur gate) shares
+`"online"`/`"popular"` with the theme-card helper `qee0`; a `string("online")+string("popular")+
+methodCall("q")` fingerprint resolved `qee0`, leaving `j5k` unpatched. Robust fix: resolve `j5k` as
+the unique static `(String)Z` caller of the already-resolved `rbb0` (`gjc0`) `.q()` carrying
+`"online"` — a resolver post-pass over candidates keyed on `rbb0Type` (order-independent).
+
+**`BuilderInstruction20t` takes a `Label`, not an Int offset.** To replace a branch in place
+(`bun0.u` roaming cap `if-lt` → unconditional `goto/16`), read the target `Label` from the MUTABLE
+builder instruction (`mutableMethod.implementation.instructions[i] as BuilderInstruction22t).target`)
+and build `BuilderInstruction20t(Opcode.GOTO_16, label)`. `const/4` (1 unit) cannot become `const/16`
+(2 units) in place — replace the 2-unit branch instead.
+
+**Local `patchApk` binary manifest is malformed (pre-existing).** `aapt2 dump xmltree` on
+`tantan-premium-unlocked.apk` fails ("no root element node found") — morphe's local resource
+encoding artifact on Windows, NOT caused by patch edits (`patchManifestBytes` has a catch-all
+returning original bytes). The release `.mpp` is applied via Morph Manager on device, which handles
+the manifest differently. DEX verification is unaffected. GA4 collection is disabled via the verified
+DEX backstop (`iiu0.Q→true`) regardless of the manifest flag.
+
+**Build needs GitHub creds + offline.** The morphe settings plugin adds a GitHub Packages maven repo
+whose null credentials throw `IllegalArgumentException` at configuration. Run gradle with
+`GITHUB_ACTOR`/`GITHUB_TOKEN` set to any non-null value and `--offline` (deps are cached):
+`tools\gradle.bat <task>` wraps this. The direct `bash` tool hangs in this environment; use
+`background_process monitor` for shell commands.
