@@ -634,11 +634,15 @@ val adRemovalPatch = bytecodePatch(
         // list; every return path returns the input list (or a y4m wrapper copied from it
         // after entry), so rebuilding p1 as a filtered ArrayList at index 0 covers all
         // branches. Match by signature (obfuscated name varies between builds), cardinality 1.
-        // Predicate: convType.startsWith("fake") (fake_one_side bot messages,
-        // fake_one_side_no_match, fakeReceiveLikeGuideSVip, fakeIntlReceiveLikeGuideSVip)
-        // OR convType=="intlSeeChatRequest" (chat-request promo). No real chat/match carries
-        // a "fake*" convType, so this never removes a real conversation. Do NOT filter on
-        // isFake/fake_id_ alone (real new-match placeholders are temporarily isFake=true).
+        // Predicate: drop ONLY the two pure like-guide promo cells by EXACT convType —
+        // "fakeReceiveLikeGuideSVip" and "fakeIntlReceiveLikeGuideSVip" (these are replaced,
+        // not converted, when a real conversation arrives). KEEP fake_one_side /
+        // fake_one_side_no_match (REAL one-sided chats: PremiumUnlock forces isSVIP=true so
+        // the teaser gate ht6.o is bypassed and they render as normal conversations) and
+        // intlSeeChatRequest (a functional chat-request entry once the privilege is unlocked).
+        // The earlier startsWith("fake") + intlSeeChatRequest drop emptied inboxes dominated
+        // by one-sided chats / chat requests -> "It's quiet in here" empty state. New-match
+        // placeholders use convType="default" (kept). Do NOT filter on isFake/fake_id_ alone.
         // p1 is a high register (O2 has 22 regs -> p1=v20): read via move-object/from16,
         // write via move-object/16; all working regs kept in v0-v6. See AGENTS gotcha #9/#10.
         classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;")?.let { classDef ->
@@ -664,11 +668,11 @@ val adRemovalPatch = bytecodePatch(
                     check-cast v4, Lcom/p1/mobile/putong/core/data/Conversation;
                     iget-object v5, v4, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
                     if-eqz v5, :morph_add
-                    const-string v6, "fake"
-                    invoke-virtual {v5, v6}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+                    const-string v6, "fakeReceiveLikeGuideSVip"
+                    invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
                     move-result v4
                     if-nez v4, :morph_skip
-                    const-string v6, "intlSeeChatRequest"
+                    const-string v6, "fakeIntlReceiveLikeGuideSVip"
                     invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
                     move-result v4
                     if-nez v4, :morph_skip
