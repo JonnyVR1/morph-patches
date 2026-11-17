@@ -867,24 +867,6 @@ val premiumUnlockPatch = bytecodePatch(
                             method.addInstructions(0, RETURN_TRUE)
         // ── Messages tab promotional content suppression ──────────────────────
 
-        // ConversationHeadRecommendLayout.f0(): data source for head carousel
-        // Fetches friend suggestions from server via CoreModule.f18264c.f20384f0.m34147ug()
-        // Patching to return Observable.just(null) prevents carousel from receiving promotional data
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadRecommendLayout;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "f0" && method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Ljava/lang/String;" &&
-                    method.returnType == "Lp137rx/C22421c;") {
-                    method.addInstructions(0, """
-                        const/4 v0, 0x0
-                        invoke-static {v0}, Lp137rx/C22421c;->just(Ljava/lang/Object;)Lp137rx/C22421c;
-                        move-result-object v0
-                        return-object v0
-                    """)
-                }
-            }
-        }
-
         // ConversationRecommendItemView.X(): bind method for carousel item
         classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationRecommendItemView;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
@@ -1482,30 +1464,6 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // ── Meet entrance banner strategies: d9y, l8y, g9y ──
-            //
-            // The conversations tab shows teaser banners like "X girls Y miles away just liked you".
-            // Multiple strategy classes (d9y, l8y, g9y, z8y) implement the bzl interface and each has
-            // a c() method that gates visibility. In 7.3.3, xma and joa are the same class, so
-            // patching joa.i4() alone isn't sufficient — we patch the banner strategies directly.
-            // d9y: "X people new liked you" banner (gates on joa.i4() && newLikersUser != null)
-            // l8y: "Unlock X people who like me" fallback banner (gates on !joa.M3() && totalLikersUsers != null)
-            // g9y: "Who viewed me" banner (gates on joa.G3() && visitorData != null)
-            // z8y: "Nearby girls" banner (gates on !joa.M3() && nearbyUser != null)
-            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            listOf("Lp153l/d9y;", "Lp153l/l8y;", "Lp153l/g9y;", "Lp153l/z8y;").forEach { descriptor ->
-                classDefByOrNull(descriptor)?.let { classDef ->
-                    mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name == "c" &&
-                            method.parameterTypes.isEmpty() &&
-                            method.returnType == "Z"
-                        ) {
-                            method.addInstructions(0, RETURN_FALSE)
-                        }
-                    }
-                }
-            }
-
             // b8d0, zt6, lke0 moved to Pass 2 (fingerprint-based via UnifiedClassResolver)
 
             // ── b240 and kfe0 patches moved to Pass 2 (fingerprint-based) ──
@@ -1513,21 +1471,6 @@ val premiumUnlockPatch = bytecodePatch(
             // Using fingerprint-based discovery instead.
 
             // tje0 moved to Pass 2 (fingerprint-based via UnifiedClassResolver)
-
-            // ── e230.b(): NewLikeView dialog strategy check ──
-            // e230.b(p8l.C19323a) checks if the NewLikeView dialog should be shown.
-            // It's registered in the home dialog queue by dal.m115127e().
-            // Even though NewLikeView.E() is patched to return-void, we also patch e230.b()
-            // to return false to prevent the dialog from even being considered.
-            // NOTE: Package is p153l (not Ll) in 7.3.3 - JADX renaming trap
-            classDefByOrNull("Lp153l/e230;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "b" && method.parameterTypes.size == 1 && method.returnType == "Z" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-            }
 
             // ── Messages tab promotional content suppression ──
             // Moved to Pass 2 using fingerprint-based discovery (see below)
@@ -1594,32 +1537,6 @@ val premiumUnlockPatch = bytecodePatch(
             // }
 
             // n1b0, ela0 moved to Pass 2 (fingerprint-based via UnifiedClassResolver)
-
-            // ip40: Me tab banner
-            // Suppresses the banner click handler that navigates to LikersAct
-            classDefByOrNull("Lp153l/ip40;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // m141441g1() - banner click handler → void
-                    if (method.name == "g1" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-
-            // jcp: Business conversation controller
-            // Suppresses the business conversation banner display
-            classDefByOrNull("Lp153l/jcp;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    // mo144365L() - display method → void
-                    if (method.name == "L" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    // mo144366M() - hide method → void
-                    if (method.name == "M" && method.parameterTypes.isEmpty() && method.returnType == "V") {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
 
             // IntlMeetLikersNewLikersView: Suppress "New like" section in intlmeet
             // Shows "x more girls liked you" / "x more people liked you" promotional content
@@ -2484,7 +2401,8 @@ val premiumUnlockPatch = bytecodePatch(
 
         resolved["businessEntranceAdapter"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.returnType == "V" && method.parameterTypes.isEmpty()) {
+                if (method.name != "<init>" && method.name != "<clinit>" &&
+                    method.returnType == "V" && method.parameterTypes.isEmpty()) {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
@@ -2523,20 +2441,6 @@ val premiumUnlockPatch = bytecodePatch(
                 // f() → void (analytics event)
                 if (method.name == "f" && method.parameterTypes.isEmpty() && method.returnType == "V" &&
                     AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // ConversationsList.X1(): Privilege change handler
-        // Subscribes to seeWhoLikedMe privilege changes and triggers list refresh
-        // Server responses can change privilege state, causing re-display of promotional content
-        // Patching to return-void prevents server-triggered list refreshes
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "X1" && method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/UserPrivilege;" &&
-                    method.returnType == "V") {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }

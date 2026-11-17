@@ -66,6 +66,11 @@ private const val RETURN_LONG_MAX = """
     return-wide v0
 """
 
+private const val RETURN_DOUBLE_MAX = """
+    const-wide v0, 0x7fefffffffffffffL
+    return-wide v0
+"""
+
 private val EXCLUDED_METHODS = setOf(
     "<init>", "<clinit>", "hashCode", "equals", "clone",
     "toString", "nullCheck", "getClassParseName", "toJson"
@@ -586,7 +591,7 @@ val messagingPatch = bytecodePatch(
                     method.name !in EXCLUDED_METHODS &&
                         method.accessesField(HEARTBEAT_MATCH_DATA_CLASS, "expiredTime") &&
                         method.returnType == "D" &&
-                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_LONG_MAX)
+                        method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_DOUBLE_MAX)
                 }
             }
         }
