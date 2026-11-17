@@ -36,10 +36,6 @@ maps-logs.txt
 patch-logs.txt
 *-report.md
 
-# ===== Build artifacts =====
-patches-list.json
-patches-bundle.json
-
 # ===== IDE and tool directories =====
 .kilo/
 .kilocode/
