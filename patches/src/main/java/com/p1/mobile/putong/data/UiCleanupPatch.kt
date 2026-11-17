@@ -6,8 +6,10 @@ import app.morphe.patcher.fieldAccess
 import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
+import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
@@ -108,8 +110,7 @@ val uiCleanupPatch = bytecodePatch(
     compatibleWith(tantanCompatibility)
     execute {
 
-        val resolver = UnifiedClassResolver(this)
-        resolver.resolve()
+        val resolver = getSharedResolver()
 
         val resolved = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
         val uiKeys = listOf("aiChatGuide", "aiTranslateGuide", "mktFeaturePopup", "mktTimeSticker",
@@ -360,11 +361,8 @@ val uiCleanupPatch = bytecodePatch(
                 .filter { method ->
                     method.returnType == "V" &&
                     method.parameterTypes.size == 6 &&
-                    method.parameterTypes.any { it.contains("Figure") } &&
-                    method.cachedInstructions().any { instr ->
-                        instr is ReferenceInstruction && instr.reference is StringReference &&
-                        (instr.reference as StringReference).string == "e_see_floating_bubble"
-                    }
+                    method.parameterTypes[0] == "Ljava/lang/CharSequence;" &&
+                    method.parameterTypes.any { it.contains("Figure") }
                 }
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
@@ -505,24 +503,51 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
-        // Patch home presenter to prevent "x more people like you" popup display
-        // This is the single decision point for showing the popup, covering all trigger paths
+        // Suppress the top-of-swipe-screen likers-float promo banner ("X more people liked you" /
+        // "See who likes me"). The home presenter (obfuscated; 7.5.4 Ll/g350;) runs the pipeline
+        //   CoreLikers.P6() -> filter(O3) -> throttle -> filter(J7) -> filter(K7) -> L7 -> NewMainAct.k7()
+        // O3 is the FIRST filter: a STATIC Boolean(CoreLikers$a) predicate that returns true iff the
+        // trigger is home_total_liker_float / home_new_liker_float. Forcing O3 -> Boolean.FALSE kills
+        // the whole pipeline (the 2-line banner AND the related SEE_ANIM avatar bubble) without
+        // touching other likers features (msg badge home_tab_msg, new_like_dialog, my_privilege_liker,
+        // the See-Who-Likes-Me page). All NewMainAct.k7() callers are downstream of O3.
+        //
+        // The previous attempt anchored on string("home_total_liker_float")/string("home_new_liker_float")
+        // and filtered returnType=="Z": that NEVER matched, because those triggers are ENUM FIELD
+        // accesses (sget-object CoreLikers$LikersTriggerBy;->...), not const-string, and O3 returns
+        // boxed Ljava/lang/Boolean; (not Z). The block was a no-op. Resolve the presenter via the
+        // unique stable pref key "see_anim_show_times_after_launch" (g350-only), then select O3 by
+        // static + Boolean return + CoreLikers$a param + both enum field accesses (cardinality 1;
+        // J7/K7 are instance methods with an ii70 param, so they are excluded).
         val homePresenterClassFingerprint = Fingerprint(
             filters = listOf(
-                string("home_total_liker_float"),
-                string("home_new_liker_float"),
+                string("see_anim_show_times_after_launch"),
             )
         )
 
         homePresenterClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.returnType == "Z" && 
+                    AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "Ljava/lang/Boolean;" &&
                     method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0].contains("CoreLikers")
+                    method.parameterTypes[0].startsWith("Lcom/p1/mobile/putong/core/api/CoreLikers") &&
+                    method.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).name == "home_total_liker_float"
+                    } &&
+                    method.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is FieldReference &&
+                        (instr.reference as FieldReference).name == "home_new_liker_float"
+                    }
                 }
                 .forEach { method ->
-                    method.addInstructions(0, RETURN_FALSE)
+                    method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        invoke-static {v0}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+                        move-result-object v0
+                        return-object v0
+                    """)
                 }
         }
     }

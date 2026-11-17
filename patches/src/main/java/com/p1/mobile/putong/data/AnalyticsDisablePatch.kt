@@ -45,8 +45,7 @@ val analyticsDisablePatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val resolver = UnifiedClassResolver(this)
-        resolver.resolve()
+        val resolver = getSharedResolver()
 
         classDefByOrNull("Lcom/appsflyer/AppsFlyerLib;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->

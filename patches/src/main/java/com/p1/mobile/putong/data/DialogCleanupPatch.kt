@@ -26,8 +26,7 @@ val dialogCleanupPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val resolver = UnifiedClassResolver(this)
-        resolver.resolve()
+        val resolver = getSharedResolver()
 
         val dialogClasses = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
         val dialogKeys = listOf("mx0", "zrj0", "ok3", "vipUpgradePopup", "omsDialogController", "gpRateGuide")

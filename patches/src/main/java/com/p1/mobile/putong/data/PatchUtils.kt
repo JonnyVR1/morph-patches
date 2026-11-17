@@ -15,6 +15,14 @@ val sharedInstructionCache = WeakHashMap<Method, List<Instruction>>()
 fun Method.sharedCachedInstructions(): List<Instruction> =
     sharedInstructionCache.getOrPut(this) { implementation?.instructions?.toList() ?: emptyList() }
 
+private val sharedResolverCache = WeakHashMap<BytecodePatchContext, UnifiedClassResolver>()
+
+fun BytecodePatchContext.getSharedResolver(): UnifiedClassResolver {
+    return sharedResolverCache.getOrPut(this) {
+        UnifiedClassResolver(this).also { it.resolve() }
+    }
+}
+
 class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val resolvedClasses = mutableMapOf<String, ClassDef>()
     
@@ -137,11 +145,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         privacyAnchors.values.flatten().toSet()
     
     fun resolve() {
-        val totalTargets = 10 + 12 + 6 + 54 + 6 + 5 + 3 + 9
-        
         context.classDefForEach { classDef ->
-            if (resolvedClasses.size >= totalTargets) return@classDefForEach
-            
             val classType = classDef.type
             if (classType.startsWith("Landroid/") || 
                 classType.startsWith("Lkotlin/") ||
@@ -537,6 +541,16 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     
     private fun resolveGms(foundStrings: Set<String>, classDef: ClassDef, classType: String) {
         if (classType == "Lcom/google/android/gms/common/internal/zzo;") return
+        
+        // Only patch actual GMS/Firebase/Google classes, not app classes that reference GMS strings
+        // This prevents patching app network layers that happen to contain GMS-related headers
+        val isGmsClass = classType.startsWith("Lcom/google/android/gms/") ||
+            classType.startsWith("Lcom/google/firebase/") ||
+            classType.startsWith("Lcom/google/android/gmscommon/") ||
+            classType.startsWith("Lcom/cosmos/photon/") ||  // Tantan's GMS wrapper
+            classType.startsWith("Lcom/p1/mobile/putong/data/extension/")  // Signature extension
+        
+        if (!isGmsClass) return
         
         val hasGmsString = foundStrings.any { it in gmsTargetStrings }
         if (!hasGmsString) return

@@ -1,3 +1,7 @@
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.util.zip.ZipOutputStream
+
 group = "app.tantan"
 
 patches {
@@ -76,15 +80,32 @@ tasks {
             if (!mppFile.exists()) throw GradleException("mpp file not found: ${mppFile.absolutePath}")
             if (!patchListFile.exists()) throw GradleException("patches-list.json not found: ${patchListFile.absolutePath}")
 
-            // Use command-line zip to add patches-list.json at the root of the .mpp
+            // Use Java ZIP API to add patches-list.json at the root of the .mpp (cross-platform)
             val tempFile = File.createTempFile("patches-repack-", ".mpp")
             try {
-                // Copy original mpp
-                mppFile.copyTo(tempFile, overwrite = true)
-                // Use Runtime.exec to add patches-list.json with -j (junk paths, store at root)
-                val process = Runtime.getRuntime().exec(arrayOf("zip", "-j", tempFile.absolutePath, patchListFile.absolutePath))
-                process.waitFor()
-                tempFile.renameTo(mppFile)
+                // Copy original mpp entries to temp file, adding patches-list.json
+                val zos = ZipOutputStream(tempFile.outputStream())
+                zos.use {
+                    // Copy existing entries from original mpp
+                    val zipFile = ZipFile(mppFile)
+                    zipFile.use { zf ->
+                        val entries = zf.entries()
+                        while (entries.hasMoreElements()) {
+                            val entry = entries.nextElement()
+                            it.putNextEntry(ZipEntry(entry.name))
+                            zf.getInputStream(entry).use { input -> input.copyTo(it) }
+                            it.closeEntry()
+                        }
+                    }
+                    // Add patches-list.json at root
+                    it.putNextEntry(ZipEntry("patches-list.json"))
+                    patchListFile.inputStream().use { input -> input.copyTo(it) }
+                    it.closeEntry()
+                }
+                // Delete original and move temp file (more reliable than renameTo on Windows)
+                mppFile.delete()
+                tempFile.copyTo(mppFile)
+                tempFile.delete()
                 println("Repacked ${mppFile.name} with patches-list.json (${mppFile.length()} bytes)")
             } finally {
                 if (tempFile.exists()) tempFile.delete()

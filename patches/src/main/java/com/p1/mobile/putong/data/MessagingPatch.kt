@@ -172,8 +172,7 @@ val messagingPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_TRUE) }
         }
 
-        val resolver = UnifiedClassResolver(this)
-        resolver.resolve()
+        val resolver = getSharedResolver()
         val loveBuzzDataClasses = resolver.getLoveBuzzClasses()
 
         loveBuzzDataClasses.forEach { classDef ->

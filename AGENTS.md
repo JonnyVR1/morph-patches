@@ -429,6 +429,102 @@ void com.p1.mobile.putong.data.CounterSecretCrushLimit.nullCheck() failed to ver
 
 **Real-world impact:** This caused the app to crash on startup with VerifyError, forcing users back to the login screen. All nullCheck() patches have been removed from PremiumUnlockPatch.kt, MessagingPatch.kt, and PrivacyControlsPatch.kt.
 
+### 9. Injected smali: high parameter registers are SILENTLY DROPPED (4-bit register fields)
+
+`addInstructions` compiles your smali in a dummy method with the target's register count. Instructions whose register fields are 4-bit — `invoke-* {vN}` (35c), `iget/iput` destination (22c A-field), `filled-new-array` — only accept **v0–v15**. In a method with many registers, `p0/p1/p2` map to high numbers (e.g. `a7` has 23 registers → `p2 = v22`). Writing `iget-object v0, p2, ...` or `invoke-virtual {p2}, ...` there fails assembly with:
+
+```
+[7,0] Invalid register: v22. Must be between v0 and v15, inclusive.
+```
+
+**The killer:** Morphe logs this error but does NOT fail the patch — the offending instruction is silently dropped and the rest of the block is inserted. The build reports "OK". At runtime the truncated block fails verification:
+
+```
+java.lang.VerifyError: Verifier rejected class ...CoreSuggested: a7(boolean, l.ii70)
+failed to verify: [0x0] type Undefined unexpected as arg to if-eqz/if-nez
+```
+
+(the `iget` that defined `v0` vanished, leaving `if-eqz v0` reading an undefined register). The app freezes/crashes on startup.
+
+**Solution:** never pass `pN` directly to a 4-bit-field instruction. Shuttle it into a low register first with a `/from16` move (16-bit source field, always safe):
+
+```smali
+move-object/from16 v0, p2          # object param
+iget-object v0, v0, Ll/ii70;->b:Ljava/lang/Object;
+invoke-virtual {v0}, ...           # v0 is low → OK
+```
+
+Use `move/from16` for ints, `move-wide/from16` for long/double. Keep ALL injected working registers in v0–v15.
+
+**Two more injection traps found alongside this:**
+- **Internal labels only resolve at index 0.** `addInstructions(N, ...)` with `N > 0` mis-resolves internal branch targets by the insertion point's code offset (e.g. injecting at index 2 after two 2-unit iputs shifted every `if-eqz` target −4 code units, landing mid-instruction). Always inject at index 0; if you need state set by the original prologue, replicate those prologue instructions at the start of your block (idempotent stores are safe to re-run).
+- **Methods with `registerCount == paramCount` have NO free scratch registers** (p0=v0, p1=v1, …). You cannot clobber a param and fall through to original code that still reads it. Either find a param the original redefines before reading (safe scratch), or save/restore a clobbered param from a field the prologue populates (e.g. `ConversationItemView.x0`: restore `Conv` from `hy6.a`). Morphe has no public register-expansion API, and expanding would shift all param registers anyway.
+
+**Verification technique:** pull the patched APK from the device (`adb pull /data/app/.../base.apk`), extract `classes*.dex`, and disassemble the target method with dexlib2 (`DexFileFactory.loadDexFile`) to confirm every injected instruction is present. The local `:patches:patchApk` source APK (`tantan-tribe-extracted/`) is a DIFFERENT version than the decompiled 7.5.4 sources — its obfuscated methods differ, so device-DEX inspection is the authoritative check. You can also pre-flight any smali block via `InlineSmaliCompiler.Companion.compile(smali, params, registerCount, isStatic)` and assert the returned instruction count matches (labels are not instructions).
+
+**Real-world impact:** The swipe-deck `CoreSuggested.a7` insertion filter froze the app on startup (Nov 2026). Fixed by prefixing `move-object/from16 v0, p2`. Same fix applied to the r7/l7 guards.
+
+### 10. Messages list cells do NOT bind through `ConversationItemView.x0` — filter at the data level
+
+The main Messages conversation list (view type 0) binds through `NewConversationItemView.e4 → f4 → w3 → O0(hy6)` (dispatched to child views). `ConversationItemView.x0(Conversation, User, hy6)` is only dispatched for the type-13 header/team cell path (`K3/L3` from `n4`). So a `setVisibility(GONE)` injected into `x0` is **dead code** for normal conversation rows — the cell still appears.
+
+**To remove a promo conversation from the Messages list, filter the display data, not the view.** The display list is built by `ConversationsList.O2(List, Z)List` (obfuscated name varies — match by signature `(Ljava/util/List;Z)Ljava/util/List;` within stable `Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;`, cardinality 1). Every return path returns the input list (or a `y4m` wrapper copied from it after entry), so rebuilding `p1` as a filtered `ArrayList` at index 0 covers all branches with no control-flow surgery. `O2` has 22 registers (`p1=v20`): read via `move-object/from16 v1, p1`, write back via `move-object/16 p1, v0`, keep working regs in v0–v5. Sole caller `Y1` feeds adapter `b0.L` → covers All list, sort tabs, and search.
+
+**Predicate safety:** the shipped filter drops `convType.startsWith("fake")` (covers `fake_one_side` bot messages, `fake_one_side_no_match`, `fakeReceiveLikeGuideSVip`, `fakeIntlReceiveLikeGuideSVip`) OR `convType=="intlSeeChatRequest"` (chat-request promo). No real chat/match carries a `"fake*"` convType, so this never removes a real conversation; null `convType` is kept. Other never-real promo types you may add: `intlBoostMatch`, `local_instant_chat_guide`, `subtype==svipad`, `id.startsWith("fake_conversation")`. **Do NOT filter on `isFake` or `fake_id_` alone** — `g.uf` sets `isFake=true` on real new-match placeholders (cleared at server merge). The `chat_request_intl` head icon is gated solely on `convType==intlSeeChatRequest` (`ConversationItemHeadView` inside `O0`), so it identifies these promo rows in a UI dump. Keep all filter working registers in v0–v6 and pre-flight via `InlineSmaliCompiler` (gotcha #9) — a dropped high-register instruction here re-introduces the startup VerifyError freeze.
+
+## 11. Swipe-tab "99+ people liked you" promo popups — patch the dialog CREATOR, not the content view
+
+The occasional "99+ people liked you" popup on the swipe tab is one of four likers promo dialogs, all built+shown by static void methods in one obfuscated class (7.5.4 `Ll/zw3;`, resolver key `hl3`), each anchored on its OMS popup-key string literal:
+
+| Key literal | Method (7.5.4) | Dialog | Content view |
+|---|---|---|---|
+| `p_no_match_svip` | `H(Act,I,List)` | no-match likers alert | `LikersDialogView.c` |
+| `p_offline_popup` | `J(Act,I,CoreLikers$a)` | offline "99+ people liked you while away" | `LikersDialogView.b` |
+| `p_no_match_see_purchase_guide_view` | `I(Act,I,List)` | see-purchase guide | `VipItemDetailPage` |
+| `p_see_popup_expired_svip` | `L(Act,I)` | SVIP expired recover | `SVipSeeRecoverDlg` |
+
+The "99+" cap lives in `LikersDialogView.b` (`i > 99 ? "99+"`, title `SVIP_OFFLINE_POPUP_MINTITLE_PLURAL`) and `hkh0.f`→`g(i,99)` for `.c`. **Patch the creators to `return-void`** (match by the popup-key string literal in `cachedInstructions`, static+void filter — version-agnostic, not the obfuscated method name). Patching only `LikersDialogView.b/c` to `return-void` is NOT enough: the dialog frame still shows (empty), and `I`/`L` use other views entirely. `PremiumUnlockPatch` does this in the `resolved["hl3"]` block.
+
+**Why the OMS `M()` blocklist alone fails here:** the trigger `g350.K7` only consults `cn60.j().f().M("p_offline_popup", false)` when `ern0.F()` is true; `ern0.F()` = `!"__control".equals(ABManager.i0("pop_platform_all"))` (an AB bucket). In the `__control` bucket it calls `bfe0.i0`→`zw3.J` directly, bypassing `M`. So creator-level `return-void` is the reliable fix. These are purchase nags, not the actual "see who liked you" feature (`LikersFrag`/`LikersAct`, `p_see_who_likes_me_view` — untouched).
+
+## 12. Swipe-deck promo CARDS (not dialogs) — filter at the consumer `home/c.y`, not just the insert points
+
+Some swipe-tab promos are swipeable **cards** in the deck, not modal dialogs — e.g. the "see churnback" card titled "X more people liked you" / subtitle "She is active" (server-driven `Active.cardTitle`/`cardDesc`), rendered by `SeeActiveCard` via holder `Ll/qpf0;` (`VirtualCardType.IntlSeeCard`, factory `home/b` case 20). Sibling promo cards: `IntlVipCard`(spn0), `MinBoostCard`(g910), `IntlFreeSpotlightCard`(u9h0), buzz cards(vy3), `IntlPartnerActiveCard`(jkp), `IntlRecallMembershipCard`(c3q), `LiveActiveCard`(tms). All are built in `CoreInserterHelper` (`Lcom/p1/mobile/putong/core/api/m;`) `x3` with `id="VirtualCard"`.
+
+**The insert-point filters alone leak:** `AdRemovalPatch` strips `isVirtualCard()` at `CoreSuggested.a7` (merge SparseArray `ii70.b`), `r7` ("repeat suggested card"), `l7` (`INSERT_LOCAL_FINAL`) and the OMS `id0` batch. But cards that reach the **main loaded list** (server `intlInsertCardSets`) bypass those and still render.
+
+**Robust backstop = consumer-side filter at `Lcom/p1/mobile/putong/core/newui/home/c;->y(Ljava/util/List;)Ljava/util/List;`** — the FINAL deck render transform (`g350.F6 → b.N.y → b.N.K`), downstream of every insertion path, sole caller. Match by the unique `(List)→List` signature (cardinality 1; `K(List)V` and `C(List,List,UserInfo)V` differ). Rebuild `p1` as a filtered `ArrayList` at index 0 dropping `UserInfo.isVirtualCard()` (real profiles carry real ids → never removed; no blank card since `c.K` does `clear()+addAll()` and adapter count = list size).
+
+**Register trap:** `c.y` has only **5 registers** (instance: p0=this=v3, p1=list=v4) — NO free scratch beyond v0–v2. The filter must **save/restore `this`** (`move-object/from16 v1, p0` … `move-object/16 p0, v1`) and shuttle the list param (`/from16` read, `/16` write), keeping working regs in v0–v4. Recompute `List.size()` per iteration to avoid needing a 6th register. Clobbering v3 without restoring breaks the original prologue's `iget-object v2, v3, c.f` → crash. Pre-flight via `InlineSmaliCompiler` at regs=5 (gotcha #9). `fzn0.f()` is NOT a skip flag (it registers a swipe-out callback via `VirtualCard.J0`), and GONE-ing the holder view leaves a full-size invisible swipeable card — both rejected.
+
+## 13. Top-of-swipe-screen likers-float banner ("X more people liked you" / "See who likes me") — kill the `O3` filter, and enum constants are FIELD accesses not strings
+
+The occasional 2-line promo banner at the TOP of the Card tab (and its sibling SEE_ANIM avatar bubble) is driven by the home presenter (obfuscated; 7.5.4 `Ll/g350;`) pipeline:
+
+`CoreLikers.P6()` → **`filter(O3)`** → throttleFirst(10s) → combineLatest → `filter(J7)` (Card tab + no dialog) → `filter(K7)` (offline-popup gate) → `L7(ii70)` → guard `A8(CoreLikers$a)Z` → `NewMainAct.k7()V` → emits `ayl0.a` onto subject `main/a.t` → banner view.
+
+**Choke point = `O3`**: a **STATIC** method `O3(Lcom/p1/mobile/putong/core/api/CoreLikers$a;)Ljava/lang/Boolean;` returning true iff trigger == `home_total_liker_float` || `home_new_liker_float`. Force it to `Boolean.FALSE` (`const/4 v0,0x0; invoke-static {v0},Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean; move-result-object v0; return-object v0` — 4 instrs, v0 only, immediate return → register-safe at any count). This kills the whole pipeline upstream (banner + avatar bubble; all 3 `NewMainAct.k7()` callers are downstream of O3) without touching other likers features (`home_tab_msg` msg badge, `new_like_dialog`, `my_privilege_liker`, the `LikersAct` See-Who-Likes-Me page — different triggers/subscribers of `P6()`). `UiCleanupPatch` does this.
+
+**Two fingerprint traps that made the first attempt a silent no-op:**
+1. **Enum constants are `sget-object` FIELD accesses, NOT `const-string`.** `string("home_total_liker_float")` / `string("home_new_liker_float")` NEVER match `g350` (it reads `CoreLikers$LikersTriggerBy;->home_*_liker_float` via `sget-object`). Use `fieldAccess(name=...)` / `FieldReference` instruction checks for enum fields. To resolve the obfuscated presenter class, anchor on a **unique stable const-string** it actually contains — `"see_anim_show_times_after_launch"` (a pref key, g350-only) works; the enum-field anchor is ambiguous (CoreSuggested/CoreLikers also read those fields).
+2. **`O3`/`J7`/`K7` return boxed `Ljava/lang/Boolean;`, not primitive `Z`.** A `returnType=="Z"` filter misses them (and instead hits `A8(CoreLikers$a)Z`, the suppress guard — patching that to false would *remove* suppression and show the banner MORE). Select O3 by `AccessFlags.STATIC` + `returnType=="Ljava/lang/Boolean;"` + single `CoreLikers$a` param + both enum-field accesses (cardinality 1; J7/K7 are instance methods with an `ii70` param).
+
+**Verify in patched DEX** (`InspectDex Ll/g350; O3`): first 4 instructions must be the Boolean.FALSE block; `A8` must remain original. The banner view's `a.t` subscriber is not present in the 7.5.4 jadx dump (version skew), but cutting O3 upstream suppresses it regardless — no need to see the consumer.
+
+## 14. UnifiedClassResolver early-exit cap silently dropped late-DEX classes (xma block was a no-op in 7.5.4)
+
+`PatchUtils.resolve()` used to abort the `classDefForEach` scan once `resolvedClasses.size >= totalTargets` (a hardcoded 105). Classes late in DEX iteration order — e.g. the privilege class `Ll/o3b;` lives in **classes9.dex** — were never reached, so `resolved["xma"]` stayed empty and the **entire `xma` patch block silently did nothing** in that layout. It happened to work on the device APK (different DEX ordering resolved `xma` before the cap), which masked the bug. **Fix: remove the early-exit; always complete the single O(n) pass** (gotcha #5 design). After the fix, modified-class count rose 663→669 and `o3b.c4`/`f4`/`E3`/`J3` became patched.
+
+**Lesson:** a resolver-based block doing nothing is invisible at build time (all patches report OK). ALWAYS verify a known method in the patched DEX (e.g. `InspectDex Ll/o3b; c4` must start `const/4 v0,0x0; return v0`). If a whole block is original, suspect resolver under-resolution, not the block logic.
+
+**Picks like gates (added to the `xma` ()Z-no-arg `when`):**
+- `E3()` = `!(Q3(svipPicksMembership) && Q3(picksMembership))` → anchor `containsString("picksMembership")` (exact) → `RETURN_TRUE`. Every `freePicks` paywall is guarded by `!E3` (`pq80.f:177/215/222`, `vq80.I:63`, `Ak:285`), so forcing E3 true also clears the freePicks-remaining gates — no separate `j0b.o3` patch needed.
+- `J3()` = `(g5() || Lg()) && !c4()` (Top Picks AB-bucket gate) → anchor `callsCoreProviderAbFlag()` (invokes a no-arg `Z` method on stable `CoreProviderInterface`/`CoreProviderImpl`; unique among static ()Z gates — H3 is instance) → `RETURN_TRUE`. Unblocks Top Picks likes for control-bucket accounts.
+- `CounterSuperlikeAndUndoLimit.remainToday/remainAll` already forced 200000 (stable class) — covers the superlike-button daily-count math.
+- **`picksTagType==masking` deliberately NOT patched**: mid-method enum comparison in a 13-param method (register/branch surgery risk, gotcha #9) AND masked picks are server-locked, so bypassing the client gate would not make them match.
+
+**Likes-screen like failure is SERVER-side** (not patchable): the like uses the identical `POST /users/me/relationships/{id}` endpoint as the working swipe deck; all client self-gates pass or are patched. The who-liked-me list is a masked teaser feed for non-subscribed accounts (placeholder names, possibly photo-less entries hitting the silent `x9p.E` pictures gate); match creation from it is server-authoritative.
+
 ## Fable Method
 Before any non-trivial backend task, apply the fable-method loop; for tasks that will run unattended or fan out subagents, use fable-loop. After completing substantive work, or whenever any agent/tool claims work is done, run a fable-judge pass before presenting it as finished.
 

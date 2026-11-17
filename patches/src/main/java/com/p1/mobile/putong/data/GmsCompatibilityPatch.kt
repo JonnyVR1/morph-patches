@@ -239,8 +239,7 @@ val gmsCompatibilityPatch = bytecodePatch(
         val googleSignInClientId = "218526224262-usliqg20cepnb3ql98amgeum18v8uatv.apps.googleusercontent.com"
         val facebookSdkInit = "The SDK has not been initialized"
 
-        val resolver = UnifiedClassResolver(this)
-        resolver.resolve()
+        val resolver = getSharedResolver()
         val gmsClasses = resolver.getGmsClasses()
         
         gmsClasses.forEach { classDef ->

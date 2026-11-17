@@ -50,7 +50,7 @@ private val LOG_AND_RETURN_NULL = """
 private val LOG_XMA_X3_FALSE = RETURN_FALSE
 private val LOG_SWIPE_M_B_FALSE = RETURN_FALSE
 private val LOG_TH5_FALSE = RETURN_FALSE
-private val LOG_COREPRODUCT_U4_TRUE = RETURN_TRUE
+private val LOG_COREPRODUCT_Q4_FALSE = RETURN_FALSE
 private val LOG_COREPRODUCT_GATE_FALSE = RETURN_FALSE
 private val LOG_SB90_FALSE = RETURN_FALSE
 // pib.W9() and xma server refresh patches REMOVED - let server calls run normally.
@@ -76,24 +76,6 @@ private val LOG_SB90_FALSE = RETURN_FALSE
 // override the return values for the current user, so premium status is preserved.
 private val LOG_XMA_F3_TRUE = RETURN_TRUE
 private val LOG_XMA_Y3_TRUE = RETURN_TRUE
-
-private const val RETURN_TRUE_WITH_ME_CHECK = """
-    invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
-    move-result v0
-    if-eqz v0, :cond_0
-    const/4 v0, 0x1
-    return v0
-    :cond_0
-"""
-
-private const val RETURN_FALSE_WITH_ME_CHECK = """
-    invoke-virtual {p0}, Lcom/p1/mobile/putong/data/User;->isMe()Z
-    move-result v0
-    if-eqz v0, :cond_0
-    const/4 v0, 0x0
-    return v0
-    :cond_0
-"""
 
 private const val RETURN_NULL_OBJECT = """
     const/4 v0, 0x0
@@ -750,6 +732,27 @@ private fun com.android.tools.smali.dexlib2.iface.Method.containsString(str: Str
             (instr.reference as StringReference).string == str
     }
 
+// True if the method invokes a no-arg boolean AB-flag method on the core provider
+// (CoreProviderInterface / CoreProviderImpl). Within the privilege class this uniquely
+// identifies the Top Picks gate J3() = (g5() || Lg()) && !c4(); the other ()Z gates call
+// only same-class privilege helpers or carry privilege string literals.
+private fun com.android.tools.smali.dexlib2.iface.Method.callsCoreProviderAbFlag(): Boolean {
+    return try {
+        cachedInstructions().any { instr ->
+            instr is ReferenceInstruction &&
+                instr.reference is MethodReference &&
+                (instr.reference as MethodReference).let { ref ->
+                    ref.definingClass in setOf(
+                        "Lcom/p1/mobile/putong/core/api/inject/provider/CoreProviderInterface;",
+                        "Lcom/p1/mobile/putong/core/module/CoreProviderImpl;"
+                    ) && ref.returnType == "Z" && ref.parameterTypes.isEmpty()
+                }
+        }
+    } catch (e: Exception) {
+        false
+    }
+}
+
 private fun com.android.tools.smali.dexlib2.iface.Method.instructionCount(): Int =
     cachedInstructions().size
 
@@ -817,7 +820,7 @@ val premiumUnlockPatch = bytecodePatch(
                     when {
                         method.name in setOf("isUltraPremium", "isSupremePartner") &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                            method.addInstructions(0, RETURN_TRUE)
                         }
                          // isVIP/isSVIP/isPlatinum: Ultra Premium is a superset that includes all
                          // VIP/SVIP/Platinum features. The app uses isVIP() as a baseline premium
@@ -826,11 +829,11 @@ val premiumUnlockPatch = bytecodePatch(
                          // isUltraPremium() FIRST, so returning TRUE here doesn't affect badge precedence.
                          method.name in setOf("isVIP", "isSVIP", "isPlatinum") &&
                              method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                             method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                             method.addInstructions(0, RETURN_TRUE)
                          }
                         method.name in setOf("gpHideVip", "isHideIconFromSVipWithMe") &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
+                            method.addInstructions(0, RETURN_FALSE)
                         }
 
                         method.name == "isVIPExpired" &&
@@ -839,17 +842,17 @@ val premiumUnlockPatch = bytecodePatch(
                         }
                         method.name == "isVIPUsed" &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                            method.addInstructions(0, RETURN_TRUE)
                         }
                         method.name in setOf("getVipExpireTime", "getVipToExpireTimeInMill") &&
                             method.parameterTypes.isEmpty() && method.returnType == "J" -> {
                             method.addInstructions(0, GET_VIP_EXPIRE_FAR_FUTURE_BODY)
                         }
                         method.name == "isMembership" -> {
-                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                            method.addInstructions(0, RETURN_TRUE)
                         }
                          method.name == "isMembershipUsed" -> {
-                             method.addInstructions(0, RETURN_FALSE_WITH_ME_CHECK)
+                             method.addInstructions(0, RETURN_FALSE)
                          }
                          method.name in setOf("isPicVerificationVerified", "isIdCardVerified", "isStudentVerified", "isIdAndPicBothVerified") &&
                              method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
@@ -857,11 +860,11 @@ val premiumUnlockPatch = bytecodePatch(
                          }
                         method.name == "isODiamond" &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                            method.addInstructions(0, RETURN_TRUE)
                         }
                         method.name == "isBlackDiamondVIP" &&
                             method.parameterTypes.isEmpty() && method.returnType == "Z" -> {
-                            method.addInstructions(0, RETURN_TRUE_WITH_ME_CHECK)
+                            method.addInstructions(0, RETURN_TRUE)
         // ── Messages tab promotional content suppression ──────────────────────
 
         // ConversationHeadRecommendLayout.f0(): data source for head carousel
@@ -1013,34 +1016,23 @@ val premiumUnlockPatch = bytecodePatch(
             // Since we've already narrowed to a single stable class, we can filter and
             // patch directly via `mutableClassDefBy(classDef).methods` (which returns
             // MutableMethod instances — the only type with `addInstructions(String)`).
+            // CoreProduct: promotion and purchase gate checks
+            // q4(String) checks if a promotion is active by type (e.g., "vip", "premium", "seeWhoLikedMe")
+            // It returns FALSE when FreeTrialData is null (non-promotional user state)
+            // We do NOT patch q4() because it already returns the correct value for free users
+            // Patching it breaks the promotion state machine and causes crashes
+            
+            // Q4(PurchaseType) - purchase requirement check
+            // Returns TRUE if a purchase is needed, FALSE otherwise
+            // We patch to FALSE to bypass purchase requirements
             classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreProduct;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
-                    when {
-                        // u4(String) — the only public final Z(String) method
+                    if (method.name == "Q4" &&
                         method.parameterTypes.size == 1 &&
-                            method.parameterTypes[0] == "Ljava/lang/String;" &&
-                            method.returnType == "Z" &&
-                            AccessFlags.FINAL.isSet(method.accessFlags) -> {
-                            method.addInstructions(0, LOG_COREPRODUCT_U4_TRUE)
-                        }
-                        // Upgrade dialog gates (A4, B4, Q4, y4, z4) — these call u4(String)
-                        // with specific strings and should return FALSE to prevent upgrade dialogs.
-                        // They have a simple structure: invoke u4(String) and return the result.
-                        method.parameterTypes.isEmpty() &&
-                            method.returnType == "Z" &&
-                            AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                            method.callsU4WithString() -> {
-                            method.addInstructions(0, LOG_COREPRODUCT_GATE_FALSE)
-                        }
-                        // X4(PurchaseType) → false (no purchase needed)
-                        method.name == "X4" &&
-                            method.parameterTypes.size == 1 &&
-                            method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
-                            method.returnType == "Z" -> {
-                            method.addInstructions(0, RETURN_FALSE)
-                        }
-                        // Feature/data gates (L4, O4, P4, R4, T4) — these have different behavior
-                        // and should NOT be patched. Leave them unpatched to preserve original behavior.
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
+                        method.returnType == "Z"
+                    ) {
+                        method.addInstructions(0, RETURN_FALSE)
                     }
                 }
             }
@@ -1540,20 +1532,26 @@ val premiumUnlockPatch = bytecodePatch(
             // ── Messages tab promotional content suppression ──
             // Moved to Pass 2 using fingerprint-based discovery (see below)
             // The old hardcoded class descriptors (Ll/qa9;, Ll/hva;, etc.) don't exist in the APK.
-            // Suppresses the "x girls just liked you" promotional dialog that appears on app launch
+            // Suppresses the "x girls just liked you" premium upsell dialog entirely
+            // Patch F(Act, CoreLikers.a, y20) - the static method that creates and shows the dialog
+            // so it never gets created at all
             classDefByOrNull("Lcom/p1/mobile/putong/core/ui/seepop/NewLikeView;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "E" && method.parameterTypes.size == 3 && method.returnType == "V") {
+                    if (method.name == "F" && method.parameterTypes.size == 3 && method.returnType == "V" &&
+                        AccessFlags.STATIC.isSet(method.accessFlags)) {
                         method.addInstructions(0, "return-void")
                     }
                 }
             }
 
-            // ConversationHeadLikerItemLayout: u(Act, C8266c) → return-void
-            // Suppresses the "X+ people liked you" banner in the head recommend carousel
+            // ConversationHeadLikerItemLayout: bind method (Act, ConversationHeadRecommendLayout.c) → return-void
+            // Suppresses the server-text "X women Y miles liked you" gold card in the head recommend carousel.
+            // 7.5.4 renamed u → w; match by signature (instance, V, 2 params, first = Act) instead of name.
             classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationHeadLikerItemLayout;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "u" && method.parameterTypes.size == 2 && method.returnType == "V") {
+                    if (method.parameterTypes.size == 2 && method.returnType == "V" &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)) {
                         method.addInstructions(0, "return-void")
                     }
                 }
@@ -1821,8 +1819,7 @@ val premiumUnlockPatch = bytecodePatch(
         // Pass 2: Batch resolution of obfuscated class fingerprints (unified)
         // ----------------------------------------------------------------------
 
-        val resolver = UnifiedClassResolver(this)
-        resolver.resolve()
+        val resolver = getSharedResolver()
 
         val resolved = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
         val premiumKeys = listOf(
@@ -1906,6 +1903,13 @@ val premiumUnlockPatch = bytecodePatch(
                     }
                     method.returnType == "Z" && method.parameterTypes.isEmpty() -> {
                         when {
+                            // Picks membership E3() = !(Q3(svipPicksMembership) && Q3(picksMembership)).
+                            // Force "has membership": every freePicks paywall is guarded by !E3, so this
+                            // also clears the freePicks-remaining gates on all Picks surfaces.
+                            method.containsString("picksMembership") -> method.addInstructions(0, RETURN_TRUE)
+                            // Top Picks AB-bucket gate J3() = (g5() || Lg()) && !c4(); force enabled so
+                            // control-bucket accounts can like Top Picks (client gate; server authoritative).
+                            method.callsCoreProviderAbFlag() -> method.addInstructions(0, RETURN_TRUE)
                             method.callsMethodNamed("h5") -> method.addInstructions(0, RETURN_TRUE)
                             method.callsMethodNamed("TEnum") -> method.addInstructions(0, RETURN_FALSE)
                             negatedKeys.any { method.containsString(it) } && method.hasNegation() -> method.addInstructions(0, RETURN_TRUE)
@@ -2247,20 +2251,31 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // hl3: Likers dialog creator
-        // hl3.J(Act, int, CoreLikers$a) creates the full modal dialog with LikersDialogView
-        // hl3.H(Act, int, List) creates the dialog with photo URLs (no-match variant)
-        // hl3.L(Act, int) creates the SVIP recover dialog
-        // All are static methods that return void. Patching to return-void prevents the dialog.
+        // hl3 (7.5.4: zw3): swipe-tab likers promo dialog creator. Each promo dialog is
+        // built + shown by a distinct static void method anchored on its OMS popup key:
+        //   "p_no_match_svip"                    -> H (no-match likers alert, LikersDialogView.c)
+        //   "p_offline_popup"                    -> J (offline "99+ people liked you", LikersDialogView.b)
+        //   "p_no_match_see_purchase_guide_view" -> I (see-purchase guide, VipItemDetailPage)
+        //   "p_see_popup_expired_svip"           -> L (SVIP expired recover, SVipSeeRecoverDlg)
+        // Patch the CREATORS to return-void so the whole dialog is suppressed. Patching only
+        // the LikersDialogView content populators (b/c) left an empty popup frame still showing.
+        // Match by the popup-key string literal (version-agnostic), not the obfuscated method name.
+        // The OMS M() blocklist alone is unreliable here: g350.K7 bypasses M() when ern0.F()
+        // (AB "pop_platform_all") is false and calls the creator directly.
+        val likersPromoKeys = setOf(
+            "p_no_match_svip",
+            "p_offline_popup",
+            "p_no_match_see_purchase_guide_view",
+            "p_see_popup_expired_svip",
+        )
         resolved["hl3"]?.let { hl3ClassDef ->
             mutableClassDefBy(hl3ClassDef).methods.forEach { method ->
-                if (method.name == "H" && method.parameterTypes.size == 3 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                    method.parameterTypes[1] == "I" &&
-                    method.parameterTypes[2] == "Ljava/util/List;" &&
-                    method.returnType == "V" && AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_VOID)
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) || method.returnType != "V") return@forEach
+                val hasPromoKey = method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction && instr.reference is StringReference &&
+                        (instr.reference as StringReference).string in likersPromoKeys
                 }
+                if (hasPromoKey) method.addInstructions(0, RETURN_VOID)
             }
         }
 

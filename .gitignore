@@ -1,34 +1,46 @@
-# Build outputs
-*.apk
+# ===== Build outputs =====
 *.xapk
 *.idsig
 *.keystore
 *.bak
 *.mpp
+*.apk
+*.aab
+*.ap_
 build/
 .gradle/
 apk-build/
 patches/bin/
 patches/morphe-temporary-files/
 
-# Decompiled sources
+# ===== Decompiled/extracted APK sources =====
 tantan-decompiled-*/
 tantan-tribe-*/
 tantan-*-decoded/
 tantan-*-extracted/
 tantan-*-config.*/
 tantan-*-resources/
+tantan-*-xapk/
 tantan-full-decompiled/
+tantan-patched-check/
+tantan-verify-patch*/
+xapk-extract/
 jadx-*/
 
-# Log files
+# ===== Log files =====
 *.log
 crash*.txt
 logcat*.txt
+map_log.txt
 maps-logs.txt
 patch-logs.txt
+*-report.md
 
-# IDE and tool directories
+# ===== Build artifacts =====
+patches-list.json
+patches-bundle.json
+
+# ===== IDE and tool directories =====
 .kilo/
 .kilocode/
 .octto/
@@ -36,16 +48,50 @@ patch-logs.txt
 .kotlin/
 .idea/
 *.iml
+*.ipr
+*.iws
+*.swp
+*.swo
 .DS_Store
+Thumbs.db
+captures/
+.externalNativeBuild/
+.cxx/
+out/
 
-# Local configuration
+# ===== Local configuration =====
 local.properties
 
-# Temporary investigation documents
+# ===== Temporary investigation documents =====
 *-performance-report.md
 *-performance-analysis.md
 INFINITE_LOADING_INVESTIGATION.md
 dev2-plan.md
 
-# Test artifacts
+# ===== Test artifacts =====
 test-output/
+
+# ===== Utility scripts (temporary) =====
+ExtractSignature.kt
+extract-signature.*
+README-extract-signature.md
+install-android-sdk.sh
+
+# ===== Compiled class files =====
+*.class
+
+# ===== Package files =====
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ===== VM crash logs =====
+hs_err_pid*
+replay_pid*
+
+# ===== Profiling =====
+*.hprof

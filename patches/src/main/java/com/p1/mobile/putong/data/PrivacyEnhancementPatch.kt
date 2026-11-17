@@ -55,8 +55,7 @@ val privacyEnhancementPatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val resolver = UnifiedClassResolver(this)
-        resolver.resolve()
+        val resolver = getSharedResolver()
         
         val suPathStrings = setOf("/data/local/su", "/system/xbin/su", "/su/bin/su")
         val fbEmulatorStrings = setOf("google_sdk", "Genymotion", "generic", "Emulator")

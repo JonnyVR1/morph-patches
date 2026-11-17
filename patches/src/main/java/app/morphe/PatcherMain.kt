@@ -136,7 +136,7 @@ private fun injectSignatureSpoofProvider(apkFile: File) {
 
 /**
  * Decode binary AndroidManifest.xml, append a `<provider>` element to `<application>`,
- * and re-encode. Returns the original bytes if the provider is already present or
+ * remove split-related attributes, and re-encode. Returns the original bytes if
  * something goes wrong.
  */
 private fun patchManifestBytes(manifestBytes: ByteArray, authority: String, providerName: String): ByteArray {
