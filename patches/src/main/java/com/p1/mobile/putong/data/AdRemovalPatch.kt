@@ -82,6 +82,30 @@ private val omsAdCardPipelineFingerprint = Fingerprint(
     ),
 )
 
+private val liveAdPreloadSwitchFingerprint = Fingerprint(
+    filters = listOf(
+        string("ad_monetize_live_banner_switch"),
+    ),
+)
+
+private val liveActiveGiftPopupFingerprint = Fingerprint(
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/live/external/intl/view/widgets/IntlLiveSquareActiveGiftDialogView;",
+            name = "S",
+        ),
+    ),
+)
+
+private val liveVoicePayGuideFingerprint = Fingerprint(
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/p1/mobile/putong/live/livingroom/virtual/payGuide/LiveVoicePayGuideBottomDialog;",
+            name = "g",
+        ),
+    ),
+)
+
 @Suppress("unused")
 @JvmField
 val adRemovalPatch = bytecodePatch(
@@ -800,6 +824,61 @@ val adRemovalPatch = bytecodePatch(
                     method.parameterTypes.size == 1 &&
                     method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PartialListOpt;" &&
                     AccessFlags.STATIC.isSet(method.accessFlags)
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Live-square suggested feed: drop native+banner ad holders at the consumer
+        // (Y5/Z5 insert yvo/mwo). Stable CamelCase; (View,List)V cardinality 2.
+        // Fixes the blank sized gap left by the view-only ad patches (gotcha #12).
+        classDefByOrNull("Lcom/p1/mobile/putong/live/external/intl/livesquare/fragments/suggestedTab/IntlLiveSquareSuggestedFrag;")?.let { classDef ->
+            val targets = mutableClassDefBy(classDef).methods.filter { method ->
+                !AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "V" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Landroid/view/View;" &&
+                    method.parameterTypes[1] == "Ljava/util/List;"
+            }
+            if (targets.size == 2) targets.forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        // Live ad preload Firebase switches (hcj.s/t): void so lm9.s/u stay false ->
+        // csn.n()/o() false -> no AdMob preload. Unique string anchors, static ()V.
+        liveAdPreloadSwitchFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "V" && method.parameterTypes.isEmpty() &&
+                    (method.containsString("ad_monetize_live_banner_switch") ||
+                        method.containsString("ad_monetize_live_native_switch"))
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Live-square active-gift purchase popup creator (rrn.d3(Bean)V): void the
+        // creator, not IntlLiveSquareActiveGiftDialogView.S (frame already shown, gotcha #11).
+        liveActiveGiftPopupFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "V" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0].endsWith("LiveSquareActiveGiftBean;")
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Voice-room server-pushed pay-guide popups (ciq0.j4/k4/l4 enqueue): void the
+        // enqueue choke points; the dialogs show() before bind (gotcha #11).
+        liveVoicePayGuideFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "V" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0].contains("PayGuide") &&
+                    method.parameterTypes[0].endsWith("PopUp;")
                 ) {
                     method.addInstructions(0, RETURN_VOID)
                 }

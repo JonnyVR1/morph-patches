@@ -101,7 +101,10 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "business_entrance_last_show_time", "today_new_likes_changed",
         "last_total_likes_count", "last_new_likes_count",
         "%s people liked you", "Someone's %s y/o ; %s away",
-        "e_see_who_liked_me_banner", "p_suggest_user_profile_info_view"
+        "e_see_who_liked_me_banner", "p_suggest_user_profile_info_view",
+        "p_intl_visitors_list,e_intl_me_tab_visitors_old_visitor_discount_entry_banner,click",
+        "p_meet_view,e_intl_meet_visitors_new_visitor_discount_entry_banner,click",
+        "distance"
     )
     
     private val premiumAnchorFields = setOf(
@@ -363,7 +366,25 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             methodCallFull.any { it.contains("LikersDialogView") }) {
             resolvedClasses["hl3"] = classDef
         }
-        
+
+        if ("visitorsDiscountBanner" !in resolvedClasses &&
+            "p_intl_visitors_list,e_intl_me_tab_visitors_old_visitor_discount_entry_banner,click" in foundStrings &&
+            methodCallFull.any { it.contains("IntlDiscountEntryBannerView;.<init>") }) {
+            resolvedClasses["visitorsDiscountBanner"] = classDef
+        }
+
+        if ("meetDiscountBanner" !in resolvedClasses &&
+            "p_meet_view,e_intl_meet_visitors_new_visitor_discount_entry_banner,click" in foundStrings &&
+            methodCallFull.any { it.contains("IntlDiscountEntryBannerView;.<init>") }) {
+            resolvedClasses["meetDiscountBanner"] = classDef
+        }
+
+        if ("proximityBubble" !in resolvedClasses &&
+            "distance" in foundStrings &&
+            methodCallFull.any { it.endsWith(".n7") }) {
+            resolvedClasses["proximityBubble"] = classDef
+        }
+
         if ("j7d0" !in resolvedClasses && "last_likers_req_time" in foundStrings &&
             "offline_dialog_show_time" in foundStrings &&
             methodCallFull.any { it.contains("hl3") }) {

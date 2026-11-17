@@ -10,6 +10,7 @@ import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
@@ -84,13 +85,6 @@ private val seeWhoLikedMeProfileCardFingerprint = Fingerprint(
 
 private val bubbleManagerClassFingerprint = Fingerprint(
     filters = listOf(string("MagicBubble")),
-)
-
-private val proximityBubbleClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("distance"),
-        methodCall(name = "n7"),
-    ),
 )
 
 private val friendsOnlinePopupClassFingerprint = Fingerprint(
@@ -302,6 +296,28 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
+        // Visitor "who viewed me" affiliate discount banners: IntlDiscountEntryBannerView
+        // has no onFinishInflate (built programmatically), so the guideViewDescriptors entry
+        // above is a no-op. Void the HOST methods that create+add the banner (liq.f / rcp.h,
+        // (FrameLayout)V calling the banner <init>). Host refresh early-returns on banner==null.
+        val discountBannerDesc = "Lcom/p1/mobile/putong/core/ui/purchase/intlpage/discountentry/IntlDiscountEntryBannerView;"
+        listOf("visitorsDiscountBanner", "meetDiscountBanner").forEach { key ->
+            resolver.getPremiumClass(key)?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    val addsBanner = method.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && (instr.reference as? MethodReference)?.let {
+                            it.definingClass == discountBannerDesc && it.name == "<init>"
+                        } == true
+                    }
+                    if (method.returnType == "V" && method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Landroid/widget/FrameLayout;" && addsBanner
+                    ) {
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                }
+            }
+        }
+
         seeAnimTriggerClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 when {
@@ -367,7 +383,7 @@ val uiCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        proximityBubbleClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolver.getPremiumClass("proximityBubble")?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     method.returnType == "V" &&
