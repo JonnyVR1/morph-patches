@@ -14,12 +14,10 @@ patches {
         website = "https://github.com/JonnyVR1/morph-patches"
         license = "GPLv3"
     }
-    extensionsProjectPath = ":extensions:signature"
 }
 
 kotlin {
     compilerOptions {
-        freeCompilerArgs.add("-Xcontext-parameters")
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
