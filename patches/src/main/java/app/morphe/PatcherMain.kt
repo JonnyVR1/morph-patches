@@ -4,6 +4,7 @@ import app.morphe.patcher.Patcher
 import app.morphe.patcher.PatcherConfig
 import app.morphe.patcher.apk.ApkUtils
 import app.morphe.patcher.apk.ApkUtils.applyTo
+import app.morphe.patcher.dex.BytecodeMode
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.util.zip.ZipEntry
@@ -30,8 +31,7 @@ fun main(args: Array<String>) {
             PatcherConfig(
                 apkFile = inputApk,
                 temporaryFilesPath = tempDir,
-                aaptBinaryPath = "",
-                frameworkFileDirectory = tempDir.absolutePath,
+                useBytecodeMode = BytecodeMode.STRIP_FAST,
             )
         ).use { patcher ->
             patcher += patches
@@ -162,7 +162,11 @@ private fun patchManifestBytes(manifestBytes: ByteArray, authority: String, prov
 
         fun setAttrString(elem: Any, localName: String, value: String) {
             val attr = getOrCreateAndroidAttribute.invoke(elem, localName, 0) ?: return
-            val setValueAsString = attrClass.getMethod("setValueAsString", String::class.java)
+            val setValueAsString = try {
+                attrClass.getMethod("setDataAsString", String::class.java)
+            } catch (e: NoSuchMethodException) {
+                attrClass.getMethod("setValueAsString", String::class.java)
+            }
             setValueAsString.invoke(attr, value)
         }
 

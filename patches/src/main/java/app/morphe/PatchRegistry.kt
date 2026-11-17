@@ -23,7 +23,7 @@ import com.p1.mobile.putong.data.*
  * 13. Search Discovery           - Expand search filters: unlimited distance, full age range
  */
 object PatchRegistry {
-    val allPatches: Set<Patch<*>> = setOf(
+    val allPatches: Set<Patch> = setOf(
         gmsCompatibilityPatch,
         premiumUnlockPatch,
         analyticsDisablePatch,

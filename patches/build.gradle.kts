@@ -39,7 +39,8 @@ dependencies {
     patchListGeneratorClasspath(libs.gson)
     implementation("org.bouncycastle:bcpkix-jdk18on:1.78.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:2.2.21")
+    implementation("com.google.guava:guava:33.6.0-jre")
+    testImplementation(kotlin("test"))
 }
 
 tasks {
