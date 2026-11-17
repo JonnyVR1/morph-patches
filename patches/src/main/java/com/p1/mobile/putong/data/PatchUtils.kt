@@ -357,7 +357,9 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             if (hasStaticZWithCounter) resolvedClasses["rbb0"] = classDef
         }
         
-        if ("hl3" !in resolvedClasses && "p_offline_popup" in foundStrings &&
+        if ("hl3" !in resolvedClasses &&
+            foundStrings.any { it == "p_no_match_svip" || it == "p_offline_popup" ||
+                it == "p_no_match_see_purchase_guide_view" || it == "p_see_popup_expired_svip" } &&
             methodCallFull.any { it.contains("LikersDialogView") }) {
             resolvedClasses["hl3"] = classDef
         }
