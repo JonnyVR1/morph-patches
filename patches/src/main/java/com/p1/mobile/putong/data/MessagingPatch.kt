@@ -11,6 +11,7 @@ import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
+import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 private const val RETURN_TRUE = """
     const/4 v0, 0x1
@@ -108,6 +109,7 @@ private const val ASSISTANT_MESSAGE_CLEAR_CLASS = "Lcom/p1/mobile/putong/core/da
 private const val LOVE_BUZZ_DATA_CLASS = "Lcom/p1/mobile/putong/core/data/LoveBuzzData;"
 private const val ICE_BREAK_DLG_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/IceBreakDlgConfig;"
 private const val CONTINUES_OP_CONV_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/ContinuesOpConvConfig;"
+private const val ITEM_MESSAGE_BASE_CLASS = "Lcom/p1/mobile/putong/core/ui/messages/ItemMessageBase;"
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
 
@@ -128,7 +130,7 @@ private fun com.android.tools.smali.dexlib2.iface.Method.accessesField(definingC
 @JvmField
 val messagingPatch = bytecodePatch(
     name = "Messaging Enhancement",
-    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit, message tab revision, collapsible conversation, chat helper AI, call duration, conversation refresh interval, heartbeat match, message integration, assistant message clear, love buzz prolong count, ice break dialog config, continues op conv config",
+    description = "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit, message tab revision, collapsible conversation, chat helper AI, call duration, conversation refresh interval, heartbeat match, message integration, assistant message clear, love buzz prolong count, ice break dialog config, continues op conv config, unlimited recall window, telepathy reply minimums",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -674,6 +676,47 @@ val messagingPatch = bytecodePatch(
                         method.parameterTypes.isEmpty() -> method.addInstructions(0, RETURN_INT_9999)
                 }
             }
+        }
+
+        // Unlimited recall window: ItemMessageBase.S(Message,Z)Z returns true when the message
+        // is EXPIRED (createdTime + minutes*60000 < now). Forcing false keeps the recall menu
+        // offered and passes the confirm re-check. Server may still enforce its own window
+        // (TantanForbidden toast) — worst case status quo. Signature cardinality 1 in 7.5.4.
+        classDefByOrNull(ITEM_MESSAGE_BASE_CLASS)?.let { classDef ->
+            val hasRecallConfig = classDef.methods.any { it.cachedInstructions().any { instr ->
+                instr is ReferenceInstruction &&
+                    (instr.reference as? StringReference)?.string == "recall_config"
+            } }
+            if (hasRecallConfig) {
+                mutableClassDefBy(classDef).methods
+                    .filter { method ->
+                        method.parameterTypes.size == 2 &&
+                            method.parameterTypes[0] == MESSAGE_CLASS &&
+                            method.parameterTypes[1] == "Z" &&
+                            method.returnType == "Z"
+                    }
+                    .forEach { method ->
+                        method.preflightSmali(RETURN_FALSE, 2)
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+            }
+        }
+
+        // Telepathy reply-length minimums: o3k0.b(TpTelepathyConv)Z gates the 15-char / 3-s
+        // checks (c/d/e) on the server flag replyLengthLimit. Force the gate false; the actual
+        // check methods are left untouched.
+        resolver.getMiscClass("telepathyReplyLimit")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    AccessFlags.STATIC.isSet(method.accessFlags) &&
+                        method.returnType == "Z" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;"
+                }
+                .forEach { method ->
+                    method.preflightSmali(RETURN_FALSE, 2)
+                    method.addInstructions(0, RETURN_FALSE)
+                }
         }
     }
 }

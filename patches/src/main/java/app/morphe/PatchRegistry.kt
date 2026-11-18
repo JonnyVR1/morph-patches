@@ -21,6 +21,9 @@ import com.p1.mobile.putong.data.*
  * 11. Remote Config Override     - Override remote config values for beneficial feature defaults
  * 12. AB Test Override           - Override A/B test values to enable beneficial features
  * 13. Search Discovery           - Expand search filters: unlimited distance, full age range
+ * 14. Location Enhancement       - Location-upload gate, GPS re-fetch throttle, mock-location flag
+ * 15. Push Notification Filter   - Suppress marketing/promo pushes, keep messages/calls/matches
+ * 16. Experimental Unlock        - Opt-in server-dependent unlocks (voice-to-text, buzz, AI, fake-GPS)
  */
 object PatchRegistry {
     val allPatches: Set<Patch> = setOf(
@@ -37,5 +40,8 @@ object PatchRegistry {
         remoteConfigOverridePatch,
         abTestOverridePatch,
         searchDiscoveryPatch,
+        locationEnhancementPatch,
+        pushNotificationFilterPatch,
+        experimentalUnlockPatch,
     )
 }

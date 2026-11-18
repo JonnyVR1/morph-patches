@@ -1,7 +1,7 @@
 # Morph - Tantan Android Patch Project
 
 ## Overview
-This repository contains patches and tools for the Tantan Android APK (international version, v7.5.4 / versionCode 2754010). The project includes 13 patchsets covering premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, ad removal, root/emulator detection bypass, live streaming features, UI cleanup, Google Maps compatibility, remote config overrides, A/B-test overrides, and search/discovery enhancements.
+This repository contains patches and tools for the Tantan Android APK (international version, v7.5.4 / versionCode 2754010). The project includes 16 patchsets covering premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, ad removal, root/emulator detection bypass, live streaming features, UI cleanup, Google Maps compatibility, remote config overrides, A/B-test overrides, search/discovery enhancements, location enhancement, push-notification filtering, and opt-in experimental unlocks.
 
 **Target:** International version only. China-specific features (WeChat Pay, Alipay, QQ login, Huawei services) are dead code in the international APK and should NOT be patched.
 
@@ -156,6 +156,11 @@ Enhances messaging features:
 - Secret crush limits (CounterSecretCrushLimit)
 - Boost limits (BoostLimit remaining/duration)
 - Live chat limits (LiveChatLimit)
+- Unlimited recall window (`ItemMessageBase.S(Message,Z)Z` expiry check → false; signature cardinality 1,
+  class carries `recall_config`). **Server may still enforce its own window** (`TantanForbidden` toast) —
+  worst case status quo; device-test.
+- Telepathy reply-length minimums (resolver `telepathyReplyLimit` = `o3k0.b(TpTelepathyConv)Z` gate → false;
+  the 15-char/3-s check methods c/d/e are untouched).
 
 **Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
 
@@ -192,6 +197,12 @@ Suppresses promotional dialogs at the ROOT, with creator-level backstops for byp
 - **OMS promo-engine gate (primary):** forces `em60.M(String,Z)Z` (dialog show-permission) and `em60.N(String,Z)Z` (ad-card show-permission) to `false`, matched by SHAPE (public instance `(String,Z)Z` == `{M,N}` in 7.5.4), not the obfuscated name. `M` is consulted by the swipe-after trigger `em60.L` (event `e_swipe_after`, page `p_suggest_users_home_view`), `see_guide`, `offline_popup`, 5-star, positioning and the purchase nags; `N` by the OMS ad-card batch (`id0`). Forcing both false kills EVERY OMS promo dialog/card regardless of popup key. This replaced the old per-key blocklist, which returned false only for listed purchase/VIP keys and fell through to the original allow-logic for everything else — leaking the likers/see swipe-tab promos ("99+ people liked you / X people online"). Verification/cheat-prevention popups route through `em60.s0 → hn60.n` and never consult `M`/`N`, so they stay intact. `RETURN_FALSE` (`const/4 v0,0; return v0`) is register-safe at any count.
 - **Creator-level backstops (NOT redundant):** `return-void`/`return-false` on specific creators (`mx0`, `zrj0`, `ok3`, `vipUpgradePopup`, `gpRateGuide`, `PriceRecall2Dialog`, `PriceRecallGetSurprise2Dialog`). The `__control` AB bucket and non-OMS triggers (e.g. 5-star `gp/a.o` when `!ern0.F()`) bypass `M`, so these creators must still be voided (gotcha #11).
 - Examples of promos suppressed: 5-star rating (`p_intl_5star_dialog_view`), appstore rating filter (`p_appstore_rating_filter_popup`), version upgrade (`p_alert_version_upgrade_popup`), offline popup (`p_offline_popup`), notification permission (`p_prompt_notification_auth_popup_view`), phone auth (`p_second_prompt_phone_auth_popup_view`, `p_sys_phone_auth_popup_view`, `p_prompt_phone_auth_popup_view`), VIP upgrade (`p_vip_upgrade_popup`), purchase pages (`p_purchase_guide_page`, `p_purchase_expire_page`, `p_purchase_page`), welcome back (`p_welcomeback_popup`).
+- Fake "87% match" recall-match bait popup (resolver `recallMatchPopup` = `ih9.x(Act,GrowthPushConfig,y20)V`
+  → return-void; matched by BOTH `p_recall_match_popup` + `p_match_invitation_popup` strings co-occurring in
+  one method of that shape — sibling `H` has the shape but no strings). Raw PopupWindow bypasses the OMS M/N
+  gate; percentage fabricated `Random().nextInt(19)+80`; AB-gated not region-gated (leaks zh text to intl).
+- UX experience-questionnaire fetch (resolver `uxQuestionnaire` = `ytb.Z2(QuestionnaireScene,QuestionnaireStrategy)Lrx/c;`
+  → `rx.c.empty()`). NOT the `/risk/` content-moderation pipeline (`dt9.h3`), which stays untouched.
 
 ### GMS Compatibility (`GmsCompatibilityPatch.kt`)
 Consolidated patch that makes Google Maps and GMS-dependent features work in re-signed APKs. Includes:
@@ -214,12 +225,29 @@ Advanced privacy protections:
 - Emulator detection bypass (ert0, DeviceUtil classes)
 - ShuMeng SDK blocking (r8f0 - Chinese data collection SDK)
 - Package enumeration prevention (o0e - installed app list collection)
+- Screenshot-warning nag suppression (resolver `screenshotWarning` = `pnf0`; static `()Z` gate `u()` → false). Local dialog + Fox analytics only — NO server report, NO notification to the other party.
+- Telepathy private-photo screenshot enable (`TelepathyPrivatePhotoPreviewAct.preCreateView`): the `const/16` loading `0x2000` (FLAG_SECURE) feeding `Window.addFlags(I)V` is zeroed in place. Does NOT bypass payment or the server burn timer. Only app-code FLAG_SECURE site (Tencent `huiyansdk` face-verify is China-only and kept).
+
+### Location Enhancement (`LocationEnhancementPatch.kt`, default=true)
+- Location-upload distance gate: `core/api/c.p3(Location)V` `const-wide 500.0` → `1.0` in place (BuilderInstruction51l), so small moves upload. Selected by the `location/a.f(DDDDDD)D` distance call + the 500.0 literal.
+- GPS re-fetch throttle: `location/a.v(JZ)V` body replaced with unconditional `w(z)`. **Registers computed absolutely** (this=rc-4, z=rc-1) — see gotcha #19 (InlineSmaliCompiler `pN` mis-counts wide params).
+- Mock-location flag zero (resolver `mockLocationFlag` = `nr5`, the UNIQUE `Location.isFromMockProvider()Z` caller): the 1-unit `move-result` after the invoke is replaced with `const/4 0`. **POLICY EXCEPTION — user approved:** momosec is otherwise KEPT; only this single flag is zeroed. The server can still infer mocking from other signals; login/payment risk-control (MMUID) is untouched.
+
+### Push Notification Filter (`PushNotificationFilterPatch.kt`, default=true)
+Suppresses marketing/promo pushes at the single posting choke point (resolver `pushPoster` = `c0j0.f(PushMessage,PendingIntent,Intent,Action,Action)V`; all 4 notification callers funnel here; only 3 generic channels exist so intent filtering is the only client lever). Reads stable `PushMessage.intent` String field; keep-list `startsWith`/equals checks run FIRST (early fall-through), blocklist second, unlisted intents kept. Working regs v0–v2 (original prologue redefines them). KEEP: `conversation.*`/`message.*`/`call.*` (esp. `call.voiceinviting.single`)/`moment.*`, `superLike.received`, `letter.received`, `secretcrush.received`, `friendship.request`, `quickchat.match`. BLOCK: growth/picks/coupon/membership/visit-bait intents + `heartbeat.match.`/`lucky.money.` prefixes (full list in the patch).
+
+### Experimental Unlock (`ExperimentalUnlockPatch.kt`, default=false — OPT-IN)
+Server-dependent/risky items; each has a graceful-failure UI. Client gates only — the server may refuse (quota/region). Enable only after device-testing.
+- Voice-to-text transcription flag: interface default `()Z` returning `const/4 0` (= `xo7.g1`), resolved via the `ItemMessageBase` method carrying `e_chat_message_convert_to_text_hold_press_button` → its `invokeinterface ()Z` names → the matching const-false default in `CoreBusinessServiceIml.interfaces` → true. (`CoreBusinessServiceIml` does not override it.)
+- Buzz call +time (prolong) count: resolver `buzzProlong` (= `i4x.f`) `()I` → 999. `buzzProlong` is an INLINED String constant (gotcha #18), anchored by string not field. The `ymy` countdown is server-push-driven and NOT patched.
+- AI chat companion gate: `xma.x3()Z` (string `aiChatCompanion`) → true. **The AI count getters (aiChatAnalysis/aiChatAdvice/letter) are ALREADY forced to 200000 by PremiumUnlock's blanket static `()I` override — NOT duplicated here (gotcha #7).**
+- Fake-GPS default-coordinate blacklist: `location/a.k(Location)Z` (30.0/104.0 literals) → false. Risk: genuine (0,0) invalid fixes → "null island" profile; opt-in only.
 
 ### Shared Constants (`Constants.kt`)
 
 ### Remote Config Override (`RemoteConfigOverridePatch.kt`)
 Overrides remote configuration values for beneficial defaults:
-- `F()` (string getter): returns `{}` for `popup_schedule_config` (disables popup scheduling), returns `""` for `ttt_tab_bar_bottom_banner` (disables nav bar ads)
+- `F()` (string getter): returns `{}` for `popup_schedule_config` (disables popup scheduling), returns `""` for `ttt_tab_bar_bottom_banner` (disables nav bar ads), returns `{"enable":true,"disabledMcc":[]}` for `ttt_lgbt_gender_for_ttt` (multi-gender / looking-for-everyone selector; consumer `pfp.i()` → `IntlMoreGenderConfig`; server may reject saves in disabled-MCC regions). Patched on the dynamically-derived provider getter `f96.t(String)String`, NOT `RemoteConfig.F` (no scratch registers — gotcha #15)
 - `s()` (boolean exists): returns false for `bad_token_exprie_control` (prevents aggressive token expiry)
 - `z()` (int with default): returns 9999 for `showQuickChatCardSwipedCount` (removes quick chat limit)
 - `B()` (long with default): returns 0L for `intl_text_buzz_auto_delete_interval` (disables text buzz auto-delete)
@@ -319,6 +347,18 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | ODiamondVisitorMessageGuideConfig | `fieldAccess(total_limit_daily)` + `fieldAccess(user_limit_daily)` |
 | PrologueConfig | `fieldAccess(enter_conv_limit)` + `fieldAccess(untalked_daily_show_count)` |
 | RemoteConfig | CamelCase stable (`com/p1/mobile/putong/remote_config/RemoteConfig`) — override `s()` (boolean), `y()`/`z()` (int), `A()`/`B()` (long), `F()` (string) for specific config keys |
+| ItemMessageBase recall gate | stable CamelCase + `(Message,Z)Z` signature (cardinality 1) + class string `recall_config` |
+| Telepathy reply gate (`o3k0`) | `fieldAccess(TpTelepathyConv.replyLengthLimit)` + static `(TpTelepathyConv)Z` carrying that field |
+| Screenshot warning (`pnf0`) | `string("p_get_screenshoot_warning")` + static `()Z` shape |
+| Recall-match popup (`ih9`) | `string("p_recall_match_popup")` + `string("p_match_invitation_popup")` in ONE `(Act,GrowthPushConfig,*)V` method |
+| UX questionnaire (`ytb`) | `string("/experience-questionnaire?scene=")` in a `(QuestionnaireScene,QuestionnaireStrategy)Lrx/c;` method |
+| Push poster (`c0j0`) | `string("bundle_from_notification")` + static `(PushMessage,PendingIntent,Intent,Action,Action)V` shape |
+| Buzz prolong (`i4x`) | `string("buzzProlong")` in a `()I` method (INLINED constant — gotcha #18, not fieldAccess) |
+| Mock-location flag (`nr5`) | UNIQUE `methodCall(Location.isFromMockProvider()Z)`; resolved pre-gate (rex-encrypted, no string anchors) |
+| Location upload gate | stable `core/api/c` `(Location)V` + `location/a.f(DDDDDD)D` call + `const-wide 500.0` |
+| GPS throttle / fake-GPS blacklist | stable `location/a` `(J,Z)V`+`currentTimeMillis` / `(Location)Z`+`const-wide 30.0`+`104.0` |
+| Voice-to-text flag | `ItemMessageBase` method w/ `e_chat_message_convert_to_text_hold_press_button` → `invokeinterface ()Z` names → const-false default in `CoreBusinessServiceIml.interfaces` |
+| AI companion gate | reuse `xma` resolver; `string("aiChatCompanion")` in a public static `()Z` |
 
 For groups of byte-identical overloaded methods (e.g. u59's U/S/O/F/Z/a0/D all return `!IntlCountryCodeController.k()`), fingerprint them as one cluster — they cannot be reliably separated.
 
@@ -736,3 +776,28 @@ whose null credentials throw `IllegalArgumentException` at configuration. Run gr
 `GITHUB_ACTOR`/`GITHUB_TOKEN` set to any non-null value and `--offline` (deps are cached):
 `tools\gradle.bat <task>` wraps this. The direct `bash` tool hangs in this environment; use
 `background_process monitor` for shell commands.
+
+### 19. InlineSmaliCompiler `pN` aliases mis-count WIDE parameters
+
+`InlineSmaliCompiler.Companion.compile(smali, params, registerCount, isStatic)` maps `pN`→`vN` by
+incrementing 1 per parameter, **ignoring that `J`/`D` occupy 2 registers**. Concrete evidence (7.5.4
+`location/a.v(JZ)V`, regs=6, instance): layout is this=v2, J=v3/v4, Z=v5; `move/from16 v0, p2` compiled
+to `v4` (the HIGH word of J) instead of `v5` (Z) — passing garbage as the boolean. `p0` (this) resolved
+correctly to v2, so the bug only bites `p1+` after a wide param.
+
+**Fix:** for any method with a wide parameter, compute ABSOLUTE registers from `registerCount` and the
+known param signature instead of `pN` (for `(J,Z)` instance: this=rc-4, z=rc-1; require rc>=6 so scratch
+v0/v1 stay below the param block). `pN` is safe ONLY when every parameter is single-word (verified: push
+filter `c0j0.f` `p0`→v17, RC provider `f96.t` `p1`→v3). **The `preflightSmali` count assertion does NOT
+catch this** — it assembles valid-but-wrong registers; only post-build DEX inspection (`tools\inspect.bat`)
+reveals the wrong source register. This is why gotcha #14/#18 DEX verification is mandatory even when
+pre-flight passes.
+
+**Related notes:**
+- **7c deviation:** AI count getters (aiChatAnalysis/aiChatAdvice/letter) are ALREADY forced to 200000 by
+  PremiumUnlock's blanket public-static `()I` override; ExperimentalUnlock adds ONLY the `aiChatCompanion`
+  `()Z` gate (`xma.x3`). Do not duplicate the counts (gotcha #7). Verified `o3b.h3` already `const 0x30d40`.
+- **Inlined privilege IDs:** `SummarizedPrivilegesId.buzzProlong`/`aiChat*`/`letter` are compile-time String
+  constants → `const-string` in consumers, NO field reference (gotcha #18). Anchor by string + method shape.
+- **momosec policy exception (5c):** momosec is otherwise KEPT; only the single `isFromMockProvider` flag in
+  `nr5.c` is zeroed (user-approved). Server can still infer mocking; MMUID/login/payment risk-control untouched.

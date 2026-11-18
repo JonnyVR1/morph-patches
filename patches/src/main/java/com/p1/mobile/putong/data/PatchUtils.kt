@@ -1,6 +1,7 @@
 package com.p1.mobile.putong.data
 
 import app.morphe.patcher.patch.BytecodePatchContext
+import app.morphe.patcher.util.smali.InlineSmaliCompiler
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
@@ -14,6 +15,24 @@ import java.util.WeakHashMap
 val sharedInstructionCache = WeakHashMap<Method, List<Instruction>>()
 fun Method.sharedCachedInstructions(): List<Instruction> =
     sharedInstructionCache.getOrPut(this) { implementation?.instructions?.toList() ?: emptyList() }
+
+fun Method.containsExactString(str: String): Boolean =
+    sharedCachedInstructions().any { instr ->
+        instr is ReferenceInstruction && (instr.reference as? StringReference)?.string == str
+    }
+
+fun Method.preflightSmali(smali: String, expectedInstructions: Int) {
+    val compiled = InlineSmaliCompiler.Companion.compile(
+        smali,
+        parameterTypes.joinToString(""),
+        implementation?.registerCount ?: 1,
+        AccessFlags.STATIC.isSet(accessFlags)
+    )
+    check(compiled.size == expectedInstructions) {
+        "Smali pre-flight failed for $name: expected $expectedInstructions instructions, compiled ${compiled.size} " +
+            "(a dropped instruction means an invalid register field — gotcha #9)"
+    }
+}
 
 private val sharedResolverCache = WeakHashMap<BytecodePatchContext, UnifiedClassResolver>()
 
@@ -51,6 +70,15 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "ca-app-pub-6567608331519569/1891609663",
         "ixxn_ad_channel",
         "p_incentive_ad_choose_page"
+    )
+
+    private val miscAnchorStrings = setOf(
+        "p_get_screenshoot_warning",
+        "/experience-questionnaire?scene=",
+        "p_recall_match_popup",
+        "p_match_invitation_popup",
+        "bundle_from_notification",
+        "buzzProlong"
     )
     
     private val FOX_STATS_DEFAULT_ENV = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"
@@ -138,7 +166,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "Lcom/p1/mobile/putong/core/data/UltraRightsUpgradeInfo;.isCanUpgradeUltra",
         "Lcom/p1/mobile/putong/core/data/MembershipUpgradeInfo;",
         "Lcom/p1/mobile/putong/core/ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE",
-        "Lcom/p1/mobile/putong/core/oms/OmsDialog;.p_offline_popup"
+        "Lcom/p1/mobile/putong/core/oms/OmsDialog;.p_offline_popup",
+        "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;.replyLengthLimit"
     )
     
     private val premiumAnchorMethods = setOf(
@@ -158,7 +187,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         premiumAnchorStrings +
         gmsTargetStrings +
         privacyAnchors.values.flatten().toSet() +
-        adsAnchorStrings
+        adsAnchorStrings +
+        miscAnchorStrings
     
     fun resolve() {
         context.classDefForEach { classDef ->
@@ -230,6 +260,14 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 themeUnlockCandidates.add(classDef to methodCallFull.toSet())
             }
 
+            // mockLocationFlag (nr5) carries only rex-encrypted strings, so it would be dropped
+            // by the anchor gate below. Resolve it from the unique isFromMockProvider call site
+            // before that gate (methodCallFull is already complete at this point).
+            if ("mockLocationFlag" !in resolvedClasses &&
+                methodCallFull.contains("Landroid/location/Location;.isFromMockProvider")) {
+                resolvedClasses["mockLocationFlag"] = classDef
+            }
+
             if (foundStrings.isEmpty() && foundFields.isEmpty() && foundMethods.isEmpty() && !hasCoreEventLoggerRef) {
                 return@classDefForEach
             }
@@ -243,6 +281,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolveLoveBuzz(foundFields, classDef)
             resolvePrivacy(foundStrings, classDef)
             resolveAds(foundStrings, classDef)
+            resolveMisc(foundStrings, foundFields, classDef)
         }
 
         val uploader = oneIdUploaderType
@@ -728,10 +767,82 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         }
     }
 
+    private fun resolveMisc(foundStrings: Set<String>, foundFields: Set<String>, classDef: ClassDef) {
+        if ("screenshotWarning" !in resolvedClasses && "p_get_screenshoot_warning" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "Z" && it.parameterTypes.isEmpty()
+            }) {
+            resolvedClasses["screenshotWarning"] = classDef
+        }
+
+        if ("uxQuestionnaire" !in resolvedClasses && "/experience-questionnaire?scene=" in foundStrings &&
+            classDef.methods.any { m ->
+                m.returnType == "Lrx/c;" && m.parameterTypes.size == 2 &&
+                    m.containsExactString("/experience-questionnaire?scene=")
+            }) {
+            resolvedClasses["uxQuestionnaire"] = classDef
+        }
+
+        if ("recallMatchPopup" !in resolvedClasses &&
+            "p_recall_match_popup" in foundStrings && "p_match_invitation_popup" in foundStrings &&
+            classDef.methods.any { m ->
+                m.returnType == "V" && m.parameterTypes.size == 3 &&
+                    m.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    m.parameterTypes[1] == "Lcom/p1/mobile/putong/core/data/GrowthPushConfig;" &&
+                    m.containsExactString("p_recall_match_popup") &&
+                    m.containsExactString("p_match_invitation_popup")
+            }) {
+            resolvedClasses["recallMatchPopup"] = classDef
+        }
+
+        if ("pushPoster" !in resolvedClasses && "bundle_from_notification" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                    it.parameterTypes == listOf(
+                        "Lcom/p1/mobile/putong/data/PushMessage;",
+                        "Landroid/app/PendingIntent;",
+                        "Landroid/content/Intent;",
+                        "Landroidx/core/app/NotificationCompat${'$'}Action;",
+                        "Landroidx/core/app/NotificationCompat${'$'}Action;"
+                    )
+            }) {
+            resolvedClasses["pushPoster"] = classDef
+        }
+
+        // buzzProlong is a compile-time String constant on SummarizedPrivilegesId, so it is
+        // INLINED to const-string in consumers (gotcha #18) — anchor on the string co-occurring
+        // with a ()I method, not a field access. SummarizedPrivilegesId itself only carries the
+        // string in <clinit> (()V), so the shape check excludes it.
+        if ("buzzProlong" !in resolvedClasses && "buzzProlong" in foundStrings &&
+            classDef.methods.any { m ->
+                m.returnType == "I" && m.parameterTypes.isEmpty() && m.containsExactString("buzzProlong")
+            }) {
+            resolvedClasses["buzzProlong"] = classDef
+        }
+
+        if ("telepathyReplyLimit" !in resolvedClasses &&
+            "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;.replyLengthLimit" in foundFields &&
+            classDef.methods.any { m ->
+                AccessFlags.STATIC.isSet(m.accessFlags) && m.returnType == "Z" &&
+                    m.parameterTypes.size == 1 &&
+                    m.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;" &&
+                    m.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? FieldReference)?.let {
+                                it.definingClass == "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;" &&
+                                    it.name == "replyLengthLimit"
+                            } == true
+                    }
+            }) {
+            resolvedClasses["telepathyReplyLimit"] = classDef
+        }
+    }
+
     fun getAnalyticsClass(key: String): ClassDef? = resolvedClasses[key]
     fun getUiCleanupClass(key: String): ClassDef? = resolvedClasses[key]
     fun getDialogClass(key: String): ClassDef? = resolvedClasses[key]
     fun getPremiumClass(key: String): ClassDef? = resolvedClasses[key]
+    fun getMiscClass(key: String): ClassDef? = resolvedClasses[key]
     fun getGmsClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("gmsClasses") }.values.toList()
     fun getLoveBuzzClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("loveBuzzClasses") }.values.toList()
     fun getPrivacyClass(key: String): ClassDef? = resolvedClasses["privacy_$key"]

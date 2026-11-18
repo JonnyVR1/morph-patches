@@ -11,11 +11,17 @@ private const val RETURN_FALSE = """
     return v0
 """
 
+private const val RETURN_RX_EMPTY = """
+    invoke-static {}, Lrx/c;->empty()Lrx/c;
+    move-result-object v0
+    return-object v0
+"""
+
 @Suppress("unused")
 @JvmField
 val dialogCleanupPatch = bytecodePatch(
     name = "Dialog Cleanup",
-    description = "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission, phone auth prompts, purchase pages, purchase confirm, overheat popup, phone verify",
+    description = "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission, phone auth prompts, purchase pages, purchase confirm, overheat popup, phone verify, fake recall-match bait popup, UX experience questionnaire",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -134,6 +140,39 @@ val dialogCleanupPatch = bytecodePatch(
                     !AccessFlags.STATIC.isSet(method.accessFlags)
                 }
                 .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        // Fake "87% match" recall-match bait popup (ih9.x): raw PopupWindow, bypasses the OMS
+        // M/N gate; percentage is fabricated Random().nextInt(19)+80; AB-gated (recall_guide)
+        // not region-gated, so it leaks zh text to intl users. All triggers converge E→H→I→x.
+        // Match the (Act,GrowthPushConfig,*)V method carrying BOTH popup-key strings in one
+        // method (gotcha #15); sibling H has the same shape but no strings → excluded.
+        resolver.getMiscClass("recallMatchPopup")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "V" && method.parameterTypes.size == 3 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                        method.parameterTypes[1] == "Lcom/p1/mobile/putong/core/data/GrowthPushConfig;" &&
+                        method.containsExactString("p_recall_match_popup") &&
+                        method.containsExactString("p_match_invitation_popup")
+                }
+                .forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        // UX experience-questionnaire fetch (ytb.Z2): return an empty Observable instead of
+        // hitting /experience-questionnaire. rx.c.empty() is non-null → subscribers safe.
+        // NOT the /risk/ content-moderation pipeline (dt9.h3), which stays untouched.
+        resolver.getMiscClass("uxQuestionnaire")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "Lrx/c;" && method.parameterTypes.size == 2 &&
+                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/QuestionnaireScene;" &&
+                        method.parameterTypes[1] == "Lcom/p1/mobile/putong/core/data/QuestionnaireStrategy;"
+                }
+                .forEach { method ->
+                    method.preflightSmali(RETURN_RX_EMPTY, 3)
+                    method.addInstructions(0, RETURN_RX_EMPTY)
+                }
         }
     }
 }

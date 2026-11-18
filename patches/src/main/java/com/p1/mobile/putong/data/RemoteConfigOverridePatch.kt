@@ -32,6 +32,11 @@ private const val RC_F_OVERRIDE = """
     invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
     move-result v0
     if-nez v0, :rc_verif_guide
+    move-object/from16 v0, p1
+    const-string v1, "ttt_lgbt_gender_for_ttt"
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v0
+    if-nez v0, :rc_lgbt_gender
     goto :rc_not_matched
     :rc_empty_obj
     const-string v0, "{}"
@@ -47,6 +52,9 @@ private const val RC_F_OVERRIDE = """
     return-object v0
     :rc_verif_guide
     const-string v0, "{\"swipedCard\":2147483647,\"displayCount\":0}"
+    return-object v0
+    :rc_lgbt_gender
+    const-string v0, "{\"enable\":true,\"disabledMcc\":[]}"
     return-object v0
     :rc_not_matched
 """
@@ -73,7 +81,7 @@ private const val RC_S_OVERRIDE = """
 @JvmField
 val remoteConfigOverridePatch = bytecodePatch(
     name = "Remote Config Override",
-    description = "Overrides remote configuration values: removes quick chat limits, disables text buzz auto-delete, suppresses scheduled promo popups and see/visitor red-dot nags",
+    description = "Overrides remote configuration values: removes quick chat limits, disables text buzz auto-delete, suppresses scheduled promo popups and see/visitor red-dot nags, enables multi-gender / looking-for-everyone selector",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
