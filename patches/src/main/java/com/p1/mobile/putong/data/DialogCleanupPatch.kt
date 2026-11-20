@@ -126,6 +126,27 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_FALSE) }
         }
 
+        // Morph promo inline render bypass (hn60.n): server-driven morph promos with text absent
+        // from local resources (e.g. "99+ people liked you" / "waiting for your match") bypass the
+        // OMS M/N gate and the zw3 creators. They route through hn60.n which either calls
+        // OmsBaseRender.c0() (inline) or starts OmsPageAct (fullscreen). We patched OmsPageAct.b2/c2
+        // for the fullscreen case, but the inline path was unpatched. Fix: make hn60.n return false
+        // immediately for morph content. Verification popups use a different contentType and still work.
+        // Match by signature: (Act, OMSDialogInfo)Z, public instance method.
+        classDefByOrNull("Ll/hn60;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.name == "n" &&
+                    method.returnType == "Z" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1] == "Lcom/p1/mobile/putong/data/OMSDialogInfo;" &&
+                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)
+                }
+                .forEach { it.addInstructions(0, RETURN_FALSE) }
+        }
+
         // Removed: splashProxyActFingerprint patch - too aggressive
         // Patching all public void no-arg methods breaks lifecycle methods (onCreate, onResume, etc.)
         // Phone auth dialogs are already handled by the OMS show-permission gate (M/N) above
