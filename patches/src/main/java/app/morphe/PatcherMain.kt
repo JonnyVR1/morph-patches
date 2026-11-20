@@ -237,6 +237,7 @@ private fun patchManifestBytes(manifestBytes: ByteArray, authority: String, prov
         addBooleanMetadata("firebase_analytics_collection_enabled", false)
         addBooleanMetadata("firebase_analytics_collection_deactivated", true)
         addBooleanMetadata("google_analytics_adid_collection_enabled", false)
+        addBooleanMetadata("firebase_sessions_enabled", false)
 
         // Re-encode to binary by writing to a temp file and reading back
         val tempFile = File.createTempFile("manifest-", ".bin")

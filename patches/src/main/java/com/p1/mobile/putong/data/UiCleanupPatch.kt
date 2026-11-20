@@ -27,6 +27,11 @@ private const val RETURN_FALSE = """
     return v0
 """
 
+private const val RETURN_EMPTY_STRING = """
+    const-string v0, ""
+    return-object v0
+"""
+
 private val SHOW_LIKE_METHODS = setOf("show", "display", "init", "onResume")
 private val AI_TRANSLATE_METHODS = setOf("show", "showGuide", "display")
 private val NEW_FUNC_METHODS = setOf("show", "showGuide", "display")
@@ -698,6 +703,63 @@ val uiCleanupPatch = bytecodePatch(
                         const/4 v0, 0x1
                         return v0
                     """)
+                }
+            }
+        }
+
+        // Superlike upsell bubbles (ihi0). The poplevel config override
+        // (superlike_promotion_config -> 999) is the first lever; these creator voids are the
+        // backstop for bubbles that ignore poplevel. K (remaining-count bubble) is DORMANT:
+        // its gate !o3b.L3() && !o3b.A3() is false under tier forcing (Q3->false makes both
+        // L3/A3 true), so K is left untouched. String-returning creators get empty-string
+        // returns (callers store the bubble id; "" matches nothing), void creators return-void.
+        resolver.getMiscClass("superlikeBubble")?.let { classDef ->
+            val putongFrag = "Lcom/p1/mobile/putong/app/PutongFrag;"
+            val user = "Lcom/p1/mobile/putong/data/User;"
+            val view = "Landroid/view/View;"
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                val p = method.parameterTypes
+                val isStatic = AccessFlags.STATIC.isSet(method.accessFlags)
+                fun hasString(s: String) = method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction && (instr.reference as? StringReference)?.string == s
+                }
+                when {
+                    // J(User,PutongFrag,View,I)String — popLevel-gated "很受欢迎" promo bubble
+                    !isStatic && method.returnType == "Ljava/lang/String;" && p.size == 4 &&
+                        p[0] == user && p[1] == putongFrag && p[2] == view && p[3] == "I" &&
+                        hasString("bubble_superlike_coin_guide") -> {
+                        method.preflightSmali(RETURN_EMPTY_STRING, 2)
+                        method.addInstructions(0, RETURN_EMPTY_STRING)
+                    }
+                    // y(User,PutongFrag,View,Z)V — combo guidance "试试长按连送"
+                    !isStatic && method.returnType == "V" && p.size == 4 &&
+                        p[0] == user && p[1] == putongFrag && p[2] == view && p[3] == "Z" &&
+                        hasString("e_superlike_combo_guidance") -> {
+                        method.preflightSmali(RETURN_VOID, 1)
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    // M(PutongFrag,ViewGroup,View,I)V — coin-guide bubble
+                    isStatic && method.returnType == "V" && p.size == 4 &&
+                        p[0] == putongFrag && p[1] == "Landroid/view/ViewGroup;" && p[2] == view && p[3] == "I" &&
+                        hasString("bubble_superlike_coin_guide") -> {
+                        method.preflightSmali(RETURN_VOID, 1)
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    // E(PutongFrag,View,I,y20)V — multi-superlike bubble (4th param is the
+                    // obfuscated click callback; matched by position, not name)
+                    isStatic && method.returnType == "V" && p.size == 4 &&
+                        p[0] == putongFrag && p[1] == view && p[2] == "I" &&
+                        hasString("bubble_multi_superlike_bubble") -> {
+                        method.preflightSmali(RETURN_VOID, 1)
+                        method.addInstructions(0, RETURN_VOID)
+                    }
+                    // D(Frag,User,View,I)V — profile-list "很受欢迎" bubble (delegates to C)
+                    !isStatic && method.returnType == "V" && p.size == 4 &&
+                        p[0] == "Lcom/p1/mobile/android/app/Frag;" && p[1] == user && p[2] == view && p[3] == "I" -> {
+                        method.preflightSmali(RETURN_VOID, 1)
+                        method.addInstructions(0, RETURN_VOID)
+                    }
                 }
             }
         }

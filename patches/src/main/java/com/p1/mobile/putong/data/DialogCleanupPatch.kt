@@ -21,7 +21,7 @@ private const val RETURN_RX_EMPTY = """
 @JvmField
 val dialogCleanupPatch = bytecodePatch(
     name = "Dialog Cleanup",
-    description = "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission, phone auth prompts, purchase pages, purchase confirm, overheat popup, phone verify, fake recall-match bait popup, UX experience questionnaire",
+    description = "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission, phone auth prompts, purchase pages, purchase confirm, overheat popup, phone verify, fake recall-match bait popup, UX experience questionnaire, post-swipe suggesters interrupt",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -193,6 +193,25 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { method ->
                     method.preflightSmali(RETURN_RX_EMPTY, 3)
                     method.addInstructions(0, RETURN_RX_EMPTY)
+                }
+        }
+
+        // Post-swipe full-screen "people who liked you" interrupt (SuggestersAct.c2 launcher).
+        // Both callers are promo: g350 k7 routes showRules=="immediately" here, and the
+        // type=newpage deeplink (jjf0). The functional See-Who-Likes-Me page (LikersAct) is a
+        // separate activity and stays untouched. Stable CamelCase descriptor, cardinality 1.
+        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/suggest/SuggestersAct;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    AccessFlags.STATIC.isSet(method.accessFlags) &&
+                        method.returnType == "V" &&
+                        method.parameterTypes.size == 2 &&
+                        method.parameterTypes[0] == "Landroid/content/Context;" &&
+                        method.parameterTypes[1] == "Lcom/p1/mobile/putong/core/data/ActionPageFormat;"
+                }
+                .forEach { method ->
+                    method.preflightSmali(RETURN_VOID, 1)
+                    method.addInstructions(0, RETURN_VOID)
                 }
         }
     }

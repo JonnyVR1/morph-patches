@@ -103,7 +103,7 @@
     },
     {
       "name": "Dialog Cleanup",
-      "description": "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission, phone auth prompts, purchase pages, purchase confirm, overheat popup, phone verify, fake recall-match bait popup, UX experience questionnaire",
+      "description": "Removes annoying promotional dialogs: 5-star rating, appstore rating, version upgrade, offline popup, notification permission, phone auth prompts, purchase pages, purchase confirm, overheat popup, phone verify, fake recall-match bait popup, UX experience questionnaire, post-swipe suggesters interrupt",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -369,7 +369,7 @@
     },
     {
       "name": "Privacy Enhancement",
-      "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, Facebook SDK emulator detection bypass, APK signature verification bypass, package enumeration prevention, VPN/proxy detection bypass, overlay detection bypass, screenshot-warning nag suppression, telepathy private-photo screenshot enable",
+      "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, Facebook SDK emulator detection bypass, APK signature verification bypass, package enumeration prevention, VPN/proxy detection bypass, overlay detection bypass, screenshot-warning nag suppression, telepathy private-photo screenshot enable, contacts upload block, clipboard invite-code read block, MK live-H5 app-enumeration block, WebView mixed-content hardening",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -435,7 +435,7 @@
     },
     {
       "name": "Remote Config Override",
-      "description": "Overrides remote configuration values: removes quick chat limits, disables text buzz auto-delete, suppresses scheduled promo popups and see/visitor red-dot nags, enables multi-gender / looking-for-everyone selector",
+      "description": "Overrides remote configuration values: removes quick chat limits, disables text buzz auto-delete, suppresses scheduled promo popups and see/visitor red-dot nags, enables multi-gender / looking-for-everyone selector, kills swipe-tab webview takeover and verification/cert/VIP me-tab nags, raises superlike bubble thresholds, unmasks Meet feed, relaxes profile tag limits, enables profile voice intro",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [

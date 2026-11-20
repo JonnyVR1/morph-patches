@@ -46,6 +46,8 @@ Expected output:
      8633  08-05-2026 19:30   patches-list.json
 ```
 
+**Build-order trap:** `:patches:patchApk` depends on `jar`, which REGENERATES `patches-0.0.1-dev2.mpp` as a plain class jar — clobbering the repacked dex+json. Always run `:patches:repackMppWithPatchList` LAST (after `patchApk`), with `--rerun-tasks` if `buildAndroid` would otherwise be UP-TO-DATE (the dex is injected into the .mpp by the buildAndroid chain, not by the repack task itself, which only adds patches-list.json).
+
 ### Local Patch Test (End-to-End Pipeline)
 
 To produce an actual patched APK from the local source APK (useful for verifying patches before publishing):
@@ -131,6 +133,11 @@ The largest and most complex patch. Handles:
 - Ultra premium O-Diamond (isODiamond field, d79.W method)
 - Purchase gate bypass (CoreProduct.S4)
 - Swipe rate limit bypass (gra class)
+- Quick Chat tickets (`onlinematch/a`, stable descriptor): `b0()` static ()I carrying
+  `quickchatNumber` → 200000 (S()/quickchatSpeedUpNum untouched); `U()`/`V()` static ()Z carrying
+  `quickchatMembership` → true/false, distinguished by the cmp-long branch direction
+  (U: if-ltz = active `>=`; V: if-gez = expired `<`). Clears the OnlineMatchManager `s0()<=0`
+  start gate; server may validate ticket balance (device-test).
 
 **Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
 
@@ -161,6 +168,12 @@ Enhances messaging features:
   worst case status quo; device-test.
 - Telepathy reply-length minimums (resolver `telepathyReplyLimit` = `o3k0.b(TpTelepathyConv)Z` gate → false;
   the 15-char/3-s check methods c/d/e are untouched).
+- Voice-message 60 s cap (resolver `voiceRecord` = `a310`, discriminated from the telepathy twin
+  `mal0` by the MessagesAct constructor param; `voiceRecordInner` = `a310$b` via run()V +
+  const-wide 60000 + uptimeMillis candidates, outer-type-prefix post-pass). The cap literal is
+  replaced with Long.MAX_VALUE via replaceInstruction — the 1 s UI tick stays, auto-stop/send
+  never fires. Server may reject over-long audio (device-test). `mal0$b` intentionally NOT
+  patched (telepathy has its own server-time gate `o3k0.e`).
 
 **Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
 
@@ -186,7 +199,36 @@ Disables tracking and telemetry (anchors verified against the 7.5.4 DEX):
   `firebase_analytics_collection_deactivated`) → `wpv0.s()` returns 1 → collection off. Manifest
   `firebase_analytics_collection_enabled=false` added as a backstop (GmsCompatibility + PatcherMain).
 - Facebook auto-events: `k50.u(Application,String)V` (ActivityLifecycleTracker registration) voided
-  (resolver `fbAutoEvents`). `AttributionIdentifiers` is absent in 7.5.4 (no block needed).
+  (resolver `fbAutoEvents`). `AttributionIdentifiers` IS present in 7.5.4
+  (`com/facebook/internal/AttributionIdentifiers.java`); it is neutralized indirectly — its GAID
+  read reflects `AdvertisingIdClient.getAdvertisingIdInfo` (`:94`), which the GAID patch above
+  forces to an empty `Info`, and the auto-events registration is voided. No separate block needed.
+- Facebook app-settings fetch: `FetchedAppSettingsManager.e(String)JSONObject` (stable descriptor,
+  GraphRequest "app" executor) returns an EMPTY JSONObject — NOT null (`r()`/`LoginButton`
+  dereference the result; null NPEs FB login). FB login init (`FacebookInitProvider`/`c.L`) untouched.
+- Push click/delivery tracking: `rtc0.f0` (entry) + `rtc0.m` (URL builder/uploader), both static
+  `(PushTrackData)V` → return-void (resolver `pushTracker`, `client-monitor.tantanapp.com/push?`
+  endpoint + shape). Notification click/delivery handling (PutongAct) unaffected; sibling `g0`
+  (Fox `e_push_token_upload`) already dead via the Fox facade.
+- Silent remote xlog pull: `u53$d.a(String,String,PushMessage,PushTrackData)Z` handler → false
+  (resolver `xlogPull`, inlined `xlog.upload` constant + handler shape). Server cannot extract
+  7 days of xlogs (request URLs/responses); registration `u53.v()` stays, handler just declines.
+- Beatles/xlog residual (FIXED Nov 2026): the old `beatles` anchor `"com.tantanapp.beatles"` does
+  NOT exist as a const-string in 7.5.4 (only longer variants in mom0/BeatlesProvider), so the old
+  name-based init/install/start block was a silent no-op. Re-anchored on h53's unique
+  `"[init] context of init() is null, check it."` + 5-param static install shape; the block now
+  voids the upload facade wrappers `h53.A(Date,String,J,j3m0)` / `h53.B(List,String,J,j3m0)` by
+  shape. Additionally `luw.m(Date,String,J,j3m0)V` (resolver `xlogUploader`, `marsxlog` + shape;
+  sole caller h53.A) — the single enqueue point for date-based xlog uploads — is voided. Local
+  xlog writing stays intact. The custom-type push branch (`u53.n → c6j.b/c`) is starved by the
+  `xlogPull` handler void above.
+- Firebase Sessions: `SessionsSettings.getSessionsEnabled()Z` → false (stable descriptor) +
+  manifest `firebase_sessions_enabled=false` backstop (GmsCompatibility + PatcherMain). The
+  `FirebaseSessionsDependencies` register/addDependency void (subscription registry) is separate
+  and stays. Optional `RemoteSettingsFetcher.doConfigFetch` void deliberately SKIPPED (suspend
+  callback contract; the enabled-gate already disables collection).
+- Push SDK WiFi MAC: `UniqueMacAddress` added to the unique-ID void loop (String methods → "";
+  `UniqueIdManager.seekUniqueId` skips empty IDs — push registration unaffected).
 - AppsFlyer, CleverTap, Facebook AppEvents.activateApp, Beatles APM, push/battery/DNS/tracing stats.
 - The dk50/nuq0/vrq0 "device fingerprint collector" blocks documented in older revisions DO NOT
   EXIST in the source and were never applied; real device-ID collection is momosec (kept per the
@@ -203,6 +245,9 @@ Suppresses promotional dialogs at the ROOT, with creator-level backstops for byp
   gate; percentage fabricated `Random().nextInt(19)+80`; AB-gated not region-gated (leaks zh text to intl).
 - UX experience-questionnaire fetch (resolver `uxQuestionnaire` = `ytb.Z2(QuestionnaireScene,QuestionnaireStrategy)Lrx/c;`
   → `rx.c.empty()`). NOT the `/risk/` content-moderation pipeline (`dt9.h3`), which stays untouched.
+- Post-swipe suggesters interrupt: `SuggestersAct.c2(Context,ActionPageFormat)V` launcher → return-void
+  (stable descriptor, cardinality 1). Both callers are promo (g350 k7 `showRules=="immediately"`,
+  jjf0 `type=newpage` deeplink); the functional LikersAct See-Who-Likes-Me page is untouched.
 
 ### GMS Compatibility (`GmsCompatibilityPatch.kt`)
 Consolidated patch that makes Google Maps and GMS-dependent features work in re-signed APKs. Includes:
@@ -227,6 +272,10 @@ Advanced privacy protections:
 - Package enumeration prevention (o0e - installed app list collection)
 - Screenshot-warning nag suppression (resolver `screenshotWarning` = `pnf0`; static `()Z` gate `u()` → false). Local dialog + Fox analytics only — NO server report, NO notification to the other party.
 - Telepathy private-photo screenshot enable (`TelepathyPrivatePhotoPreviewAct.preCreateView`): the `const/16` loading `0x2000` (FLAG_SECURE) feeding `Window.addFlags(I)V` is zeroed in place. Does NOT bypass payment or the server burn timer. Only app-code FLAG_SECURE site (Tencent `huiyansdk` face-verify is China-only and kept).
+- Contacts upload block (resolver `contactsSync` = `zf6`, `checkContacts`+`contacts_new` strings + READ_CONTACTS `()Z` shape): `q()` → false starves `v()` → `rx.c.empty()` and the sole foreground sync entry `E()` (CoreBusinessModule.B0) — no `/contacts` POST. Mutual-contact matching stops (accepted); `hideContacts` setting untouched.
+- Clipboard invite-code reads (resolver `clipboardInvite`, MULTI-CLASS: `eev.e3` live + `zq4.m4` campaign share the same regex `tantan:.*邀请码：[A-Z|1-9]{4,}` — two identical single-key anchors would collide, so all matching classes are collected) → empty-string return. Sud mini-game JS clipboard reader `tech/sud/runtime/component/c/c.b(Context)String` (stable descriptor, getPrimaryClip call) → empty string. Clipboard WRITE sites kept.
+- MK live-H5 bridge app enumeration (resolver `mkBridge` = `zv3`, `checkAppInstalled` + `(JSONObject)V` shape — `pkg_android` lives in inner `zv3$c`, so a both-strings class condition would fail gotcha #15): `x(JSONObject)V` → return-void. callPhone/sendSMS handlers kept; H5 install-targeting callback never fires (device-test live H5).
+- WebView mixed-content hardening: resolver collects ALL `WebSettings.setMixedContentMode` callers pre-gate (`getMixedContentClasses()`); the patch forces 1 (NEVER_ALLOW) at every const-0-fed call. A naive in-place const edit is UNSAFE — VWebView/NormalWebViewActivity load `const/4 vN,0` ONCE and reuse the register for many other settings — so the patch inserts `const/4 s,1` before the invoke and repoints it at a register proven DEAD at that point (liveness scan on the original snapshot, sites processed in reverse index order). Exactly 7 sites in 7.5.4 (MKWebView 1, NormalWebViewActivity 2, LiveMkWebView 1, jb10 1, VWebView 2 — build-time cardinality check); mode-2 sites (AdMob lw0, Weibo) excluded by construction.
 
 ### Location Enhancement (`LocationEnhancementPatch.kt`, default=true)
 - Location-upload distance gate: `core/api/c.p3(Location)V` `const-wide 500.0` → `1.0` in place (BuilderInstruction51l), so small moves upload. Selected by the `location/a.f(DDDDDD)D` distance call + the 500.0 literal.
@@ -243,14 +292,26 @@ Server-dependent/risky items; each has a graceful-failure UI. Client gates only 
 - AI chat companion gate: `xma.x3()Z` (string `aiChatCompanion`) → true. **The AI count getters (aiChatAnalysis/aiChatAdvice/letter) are ALREADY forced to 200000 by PremiumUnlock's blanket static `()I` override — NOT duplicated here (gotcha #7).**
 - Fake-GPS default-coordinate blacklist: `location/a.k(Location)Z` (30.0/104.0 literals) → false. Risk: genuine (0,0) invalid fixes → "null island" profile; opt-in only.
 
+### UI Cleanup (`UiCleanupPatch.kt`)
+Removes guides, banners, stickers, decorations, AI prompts, and promo bubbles. Nov 2026 addition:
+- Superlike upsell bubbles (resolver `superlikeBubble` = `ihi0`, `bubble_superlike_bubble` + `superlike_promotion_config` strings + J-shape): `J(User,PutongFrag,View,I)String` → empty-string, `y(User,PutongFrag,View,Z)V` (combo guidance), `M(PutongFrag,ViewGroup,View,I)V` (coin guide), `E(PutongFrag,View,I,y20)V` (multi-superlike), `D(Frag,User,View,I)V` (profile-list) → return-void. `K` (remaining-count bubble) is DORMANT under tier forcing (`!o3b.L3() && !o3b.A3()` = false since Q3→false makes L3/A3 true) — left untouched. The `superlike_promotion_config` poplevel override (RemoteConfigOverride) is the first lever; these voids are the backstop.
+
+### AB Test Override (`ABTestOverridePatch.kt`)
+Overrides A/B buckets via the LIVE `ABManager.j0`/`b0` maps. **`ABManager.i0(String)` and `h0(String)` are NULL STUBS in 7.5.4** (`ABManager.java:824-838`) — i0-keyed nags are dormant unless forced; new overrides go in the j0 map (the existing i0 block is legacy). Nov 2026 j0 additions (all `""` = off): `intl_photo_verification_banner` (lm9.l0), `intl_me_subscription_card_show` (lm9.L), `IntlRewardAds` (lm9.b0/c0 backstop; default "" already off). Purchase-page pricing variants and feature variants are deliberately NOT forced.
+**j0 has registers==2 in 7.5.4** (static: key=v1, ONE scratch v0). The old two-scratch injection pattern carried a `registerCount >= 3` guard and was a SILENT NO-OP — the entire j0 map (including the pre-existing `intl_instantmatch_open_user`→"test", `intl_me_tab_revamp`→"test", `intl_letterc`→"a", `intl_consume_iap_large_page`→"_Test", `intl_see_card_tag`→"test2" entries) never applied. Fixed with a single-scratch pattern (key stays in its param register, only v0 clobbered, absolute paramReg=rc-1 guarded ≤15, preflight 45 instructions). Those five pre-existing overrides are now LIVE as designed.
+
 ### Shared Constants (`Constants.kt`)
 
 ### Remote Config Override (`RemoteConfigOverridePatch.kt`)
 Overrides remote configuration values for beneficial defaults:
 - `F()` (string getter): returns `{}` for `popup_schedule_config` (disables popup scheduling), returns `""` for `ttt_tab_bar_bottom_banner` (disables nav bar ads), returns `{"enable":true,"disabledMcc":[]}` for `ttt_lgbt_gender_for_ttt` (multi-gender / looking-for-everyone selector; consumer `pfp.i()` → `IntlMoreGenderConfig`; server may reject saves in disabled-MCC regions). Patched on the dynamically-derived provider getter `f96.t(String)String`, NOT `RemoteConfig.F` (no scratch registers — gotcha #15)
-- `s()` (boolean exists): returns false for `bad_token_exprie_control` (prevents aggressive token expiry)
-- `z()` (int with default): returns 9999 for `showQuickChatCardSwipedCount` (removes quick chat limit)
+- `F()` promo batch (Nov 2026, all parser-verified): `home_top_item_web_config`/`my_tab_opt_v2_config` → `{"enable":false}` (swipe-tab webview takeover + cert-center red dot); `verify_enter_config` → both entries disabled (p4n0 reads `enable` Boolean, default true); `luckytantan_native_entrance` → `""` (LuckyTtConfig.parse null hides banner); `my_tab_vip` → `{"enable_scroll_guide":false}`; `moment_unread_notes` → nag counters zeroed, OTHER preset fields preserved (autoClearSwitch/unreadNotes/MomentUnreadNotesAll — omitting them would flip autoClearSwitch true→false); `vas_enhanced_promotion_perception` → `{"show_promotion_hours_limit":0}`; `superlike_promotion_config` → poplevels 999 (received_superlike_count falls back to preset 2); `intl_sl_guide_config` → both dlg counts 0, other preset fields preserved; `optimize_tag_config` → tagClickable true + count limits relaxed (ONLY tagClickable has a 7.5.4 consumer — k6b.u2; the count fields are forward-compat); `meet_feed_limit` → mask/clear 0 (server may re-mask; device-test).
+- `s()` (boolean exists): returns false for `bad_token_exprie_control` (prevents aggressive token expiry), false for `nearbyBanner_reddot`, TRUE for `ttt_profile_voice_enabled` (profile voice-intro row; lm9.m0).
+- `z()` (int with default): returns 9999 for `showQuickChatCardSwipedCount` (removes quick chat limit); 0 for `vas_platinum_top_message_guide_max_show(_per_conv)`, `vas_platinum_pin_like_guide_anim_max_count`, `vas_hide_visit_banner_show_times_someone_daily`, `vas_hide_visit_banner_show_total_times_daily` (NOTE: preset key is `show_total_times_daily`, NOT `show_times_total_times_daily`); 999 for `platinum_accelerate_pairing_free_num`, `vas_diamond_hide_visit_privilege_count_permonth`, `vas_diamond_hide_visit_visit_other_times`, `moment_interact_quick_comment_limit`. Registers computed absolutely (key=rc-2, default=rc-1).
 - `B()` (long with default): returns 0L for `intl_text_buzz_auto_delete_interval` (disables text buzz auto-delete)
+- `y()` (int, NO default — NEW hook): delegates to provider `m(String)I` (derived dynamically like F/s). 7.5.4 `f96.m` has regs=3 → ONE scratch (v0); key stays in its param register (absolute keyReg=rc-1, guarded ≤15), single-scratch comparison pattern. Overrides `guide_give_superlike_pop(_female)` → 999 (ufe0.f0; 0 would fall back to 6/7). `RemoteConfig.y` itself has regs=2 (no scratch) — cannot be patched directly. `instant_chat_num` deliberately SKIPPED: baa0.a() feeds only marketing copy + an H5 info bridge, not a functional gate (o3b.O3/o3 already 200000).
+- `RemoteConfig.v(JsonAdapter)` calls `F()` internally (`:589`) — the F-provider override intercepts ALL v()-consumed JSON configs (parsed results are cached per key in `this.f`).
+- Preset catalog: `tantan-decompiled-7.5.4/resources/assets/rc_release_default.json`. Keys absent from it are server-only but still overridable via the provider hooks.
 
 ### Shared Constants (`Constants.kt`)
 Shared constants: `TANTAN_PACKAGE_NAME`, `TANTAN_USER_CLASS`, `tantanCompatibility`.
@@ -359,6 +420,16 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | GPS throttle / fake-GPS blacklist | stable `location/a` `(J,Z)V`+`currentTimeMillis` / `(Location)Z`+`const-wide 30.0`+`104.0` |
 | Voice-to-text flag | `ItemMessageBase` method w/ `e_chat_message_convert_to_text_hold_press_button` → `invokeinterface ()Z` names → const-false default in `CoreBusinessServiceIml.interfaces` |
 | AI companion gate | reuse `xma` resolver; `string("aiChatCompanion")` in a public static `()Z` |
+| Contacts sync (`zf6`) | `string("checkContacts")` + `string("contacts_new")` + `()Z` carrying READ_CONTACTS (resolver `contactsSync`) |
+| Clipboard invite (`eev`/`zq4`) | regex `tantan:.*邀请码：[A-Z|1-9]{4,}` in a `()String` method; MULTI-CLASS collector `clipboardInvite` (both classes share the anchor) |
+| MK bridge (`zv3`) | `string("checkAppInstalled")` + `(JSONObject)V` shape (resolver `mkBridge`; `pkg_android` is in inner `zv3$c`) |
+| Push tracker (`rtc0`) | `string("https://client-monitor.tantanapp.com/push?")` + static `(PushTrackData)V` (resolver `pushTracker`) |
+| Xlog pull handler (`u53$d`) | inlined `string("xlog.upload")` + `(String,String,PushMessage,PushTrackData)Z` shape (resolver `xlogPull`) |
+| Superlike bubbles (`ihi0`) | `string("bubble_superlike_bubble")` + `string("superlike_promotion_config")` + J-shape (resolver `superlikeBubble`) |
+| Voice recorder (`a310`) | `RecordAnimLayout.setRecordStartTime` call + `<init>(MessagesAct)` (excludes telepathy twin `mal0`); inner `a310$b` via run()V+const-wide 60000+uptimeMillis candidates, outer-prefix post-pass (resolvers `voiceRecord`/`voiceRecordInner`, pre-gate) |
+| Mixed-content WebViews | ALL `WebSettings.setMixedContentMode` callers collected pre-gate (`getMixedContentClasses()`); const-0 feeds forced to 1 via dead-scratch const insert + invoke repoint |
+| Beatles facade (`h53`) | `string("[init] context of init() is null, check it.")` + 5-param static install shape (resolver `beatles` RE-ANCHORED — old `com.tantanapp.beatles` string absent in 7.5.4) |
+| Xlog uploader (`luw`) | `string("marsxlog")` + instance `(Date,String,J,*)V` shape (resolver `xlogUploader`; Xlog SDK class excluded by shape) |
 
 For groups of byte-identical overloaded methods (e.g. u59's U/S/O/F/Z/a0/D all return `!IntlCountryCodeController.k()`), fingerprint them as one cluster — they cannot be reliably separated.
 
@@ -744,7 +815,10 @@ inner Runnable/lambda (e.g. Fox endpoint in `f970.r` AND `f970$c.run`; carousel 
 `onb0$a`). Resolver `putIfAbsent` picks the FIRST in DEX order — frequently the inner class, which
 lacks the target method shape → silent no-op. ALWAYS pair a string anchor with a target-method SHAPE
 check in the resolver (e.g. `foxUploader` requires a static `(String,I)V` method; `profileCarouselAd`
-requires `(Act,Z)Lrx/c;`). Same trap for `Fingerprint.matchOrNull()` standalone.
+requires `(Act,Z)Lrx/c;`). Same trap for `Fingerprint.matchOrNull()` standalone. **Related:** when
+matching inner classes by outer-type prefix, strip the trailing `;` first — DEX types are `Ll/a310;`,
+so the prefix is `type.removeSuffix(";") + "$"` (`"Ll/a310$"`, NOT `"Ll/a310;$"` which never matches
+`Ll/a310$b;`). The `voiceRecordInner` post-pass uses this.
 
 **Enum constants are FIELD accesses, not method calls.** `EventNameEnum.MODULE_VIEW` is read via
 `sget-object`, so it appears in `foundFields`/field references, NEVER in `methodCallFull`. Anchoring

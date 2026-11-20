@@ -2,13 +2,18 @@ package com.p1.mobile.putong.data
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.morphe.patcher.fieldAccess
 import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.Opcode
+import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction51l
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
+import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.WideLiteralInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
@@ -717,6 +722,36 @@ val messagingPatch = bytecodePatch(
                     method.preflightSmali(RETURN_FALSE, 2)
                     method.addInstructions(0, RETURN_FALSE)
                 }
+        }
+
+        // Voice-message 60 s cap (a310$b.run): the 1 s tick reposts while elapsed <= 60000
+        // (inlined Constants.ONE_MIN_IN_MILLIS), else auto-stops/sends. Replace the const-wide
+        // 60000 literal with Long.MAX_VALUE via replaceInstruction (builder re-lays-out code
+        // offsets symbolically; branch structure and the UI tick are preserved). The 49700 ms
+        // start delay and the 50 ms sound-level sibling c.run are untouched. Pure client timer
+        // — the server may reject over-long audio on send (device-test; worst case status quo).
+        // The telepathy twin mal0$b carries the same cap but is intentionally NOT patched:
+        // telepathy has its own server-driven time gate (o3k0.e) on the send path.
+        resolver.getMiscClass("voiceRecordInner")?.let { classDef ->
+            val mutable = mutableClassDefBy(classDef)
+            val methodMap = classDef.methods.zip(mutable.methods).toMap()
+            var edited = false
+            classDef.methods.forEach { method ->
+                if (method.name != "run" || method.returnType != "V" ||
+                    method.parameterTypes.isNotEmpty()) return@forEach
+                val mutableMethod = methodMap[method] ?: return@forEach
+                method.cachedInstructions().forEachIndexed { i, instr ->
+                    if (instr is WideLiteralInstruction && instr.wideLiteral == 60000L &&
+                        instr.opcode.name.startsWith("const-wide") &&
+                        instr is OneRegisterInstruction) {
+                        mutableMethod.replaceInstruction(
+                            i, BuilderInstruction51l(Opcode.CONST_WIDE, instr.registerA, Long.MAX_VALUE)
+                        )
+                        edited = true
+                    }
+                }
+            }
+            check(edited) { "voiceRecordInner: no const-wide 60000 literal found in run()V" }
         }
     }
 }

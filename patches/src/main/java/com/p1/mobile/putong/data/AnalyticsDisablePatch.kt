@@ -31,6 +31,12 @@ private const val RETURN_FALSE = """
     return v0
 """
 
+private const val RETURN_EMPTY_JSON = """
+    new-instance v0, Lorg/json/JSONObject;
+    invoke-direct {v0}, Lorg/json/JSONObject;-><init>()V
+    return-object v0
+"""
+
 private fun isConstructor(method: Method): Boolean =
     method.name == "<init>" || method.name == "<clinit>"
 
@@ -124,7 +130,8 @@ val analyticsDisablePatch = bytecodePatch(
             "Lcom/cosmos/photon/push/uniqueid/UniqueAndroidId;",
             "Lcom/cosmos/photon/push/uniqueid/UniqueIMEI;",
             "Lcom/cosmos/photon/push/uniqueid/UniqueDeviceId;",
-            "Lcom/cosmos/photon/push/uniqueid/UniqueSerialNumber;"
+            "Lcom/cosmos/photon/push/uniqueid/UniqueSerialNumber;",
+            "Lcom/cosmos/photon/push/uniqueid/UniqueMacAddress;"
         ).forEach { descriptor ->
             classDefByOrNull(descriptor)?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
@@ -217,12 +224,75 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
+        // Beatles install facade (h53, re-anchored — the old "com.tantanapp.beatles" const-string
+        // does not exist in 7.5.4, so the old name-based init/install/start filter was a silent
+        // no-op). Void the xlog UPLOAD facade wrappers A(Date,String,J,j3m0) / B(List,String,J,j3m0)
+        // by shape; local xlog writing (v/l) and the install itself stay intact.
         resolver.getAnalyticsClass("beatles")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
-                if (method.name in setOf("init", "install", "start") && method.returnType == "V") {
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 4 &&
+                    method.parameterTypes[1] == "Ljava/lang/String;" &&
+                    method.parameterTypes[2] == "J" &&
+                    (method.parameterTypes[0] == "Ljava/util/Date;" ||
+                        method.parameterTypes[0] == "Ljava/util/List;")) {
+                    method.preflightSmali(RETURN_VOID, 1)
                     method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Beatles xlog upload backend (luw.m): the single choke point enqueuing the upload
+        // runnable (luw$b) for date-based xlog pulls (push "xlog.upload", feedback, user-triggered).
+        // Sole caller h53.A (also voided above). Local log writing stays intact.
+        resolver.getAnalyticsClass("xlogUploader")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 4 &&
+                    method.parameterTypes[0] == "Ljava/util/Date;" &&
+                    method.parameterTypes[1] == "Ljava/lang/String;" &&
+                    method.parameterTypes[2] == "J") {
+                    method.preflightSmali(RETURN_VOID, 1)
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Push click/delivery tracking (rtc0.f0 entry + rtc0.m URL builder/uploader): both static
+        // (PushTrackData)V methods. Notification click/delivery HANDLING (PutongAct) is unaffected.
+        // Sibling g0 (Fox e_push_token_upload) is already dead via the Fox facade void.
+        resolver.getAnalyticsClass("pushTracker")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/api/push/PushTrackData;") {
+                    method.preflightSmali(RETURN_VOID, 1)
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Silent remote xlog pull (u53$d handler): declines the server-pushed "xlog.upload"
+        // intent (returns false = not handled), so 7 days of xlogs (request URLs/responses)
+        // cannot be extracted. Registration u53.v() stays; the handler just declines.
+        resolver.getAnalyticsClass("xlogPull")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (method.returnType == "Z" && method.parameterTypes.size == 4 &&
+                    method.parameterTypes[0] == "Ljava/lang/String;" &&
+                    method.parameterTypes[1] == "Ljava/lang/String;" &&
+                    method.parameterTypes[2] == "Lcom/p1/mobile/putong/data/PushMessage;" &&
+                    method.parameterTypes[3] == "Lcom/p1/mobile/putong/api/push/PushTrackData;" &&
+                    method.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? StringReference)?.string == "xlog.upload"
+                    }) {
+                    method.preflightSmali(RETURN_FALSE, 2)
+                    method.addInstructions(0, RETURN_FALSE)
                 }
             }
         }
@@ -649,6 +719,43 @@ val analyticsDisablePatch = bytecodePatch(
 
                     method.name == "addDependency" && method.returnType == "V" ->
                         method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Firebase Sessions telemetry: getSessionsEnabled() false disables session collection.
+        // Stable SDK descriptor. Manifest backstop firebase_sessions_enabled=false is added in
+        // GmsCompatibility/PatcherMain; this DEX gate is the locally-verifiable path. FCM and
+        // Crashlytics are independent — no functional dependency. The subscription-registry
+        // void (FirebaseSessionsDependencies above) is a separate concern and stays.
+        classDefByOrNull("Lcom/google/firebase/sessions/settings/SessionsSettings;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (method.name == "getSessionsEnabled" && method.returnType == "Z" &&
+                    method.parameterTypes.isEmpty()) {
+                    method.preflightSmali(RETURN_FALSE, 2)
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
+        // Facebook app-settings fetch (FetchedAppSettingsManager.e): builds GraphRequest "app"
+        // and executes it. Return an EMPTY JSONObject (NOT null — r()/LoginButton dereference
+        // the result; null NPEs FB login). Empty settings fall back to SDK defaults; FB login
+        // init (FacebookInitProvider / c.L) is untouched.
+        classDefByOrNull("Lcom/facebook/internal/FetchedAppSettingsManager;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "Lorg/json/JSONObject;" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ljava/lang/String;" &&
+                    method.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? MethodReference)?.definingClass == "Lcom/facebook/GraphRequest;"
+                    }) {
+                    method.preflightSmali(RETURN_EMPTY_JSON, 3)
+                    method.addInstructions(0, RETURN_EMPTY_JSON)
                 }
             }
         }

@@ -111,6 +111,14 @@ private val manifestPatch = resourcePatch {
             ga4AdidMetadata.setAttribute("android:value", "false")
             application.appendChild(ga4AdidMetadata)
 
+            // Firebase Sessions collection off (LocalOverrideSettings.SESSIONS_ENABLED). The
+            // DEX backstop (SessionsSettings.getSessionsEnabled -> false in AnalyticsDisable)
+            // is the locally-verifiable path; this meta-data covers the manifest read path.
+            val sessionsMetadata = document.createElement("meta-data")
+            sessionsMetadata.setAttribute("android:name", "firebase_sessions_enabled")
+            sessionsMetadata.setAttribute("android:value", "false")
+            application.appendChild(sessionsMetadata)
+
             val queries = document.getElementsByTagName("queries").item(0)
             if (queries == null) {
                 val newQueries = document.createElement("queries")

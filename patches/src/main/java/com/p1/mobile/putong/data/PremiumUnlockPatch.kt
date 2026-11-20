@@ -1739,11 +1739,12 @@ val premiumUnlockPatch = bytecodePatch(
                 "hide_me_from_nearby", "visitor_hide_footprint", "nearby_people",
             )
             val negatedKeys = setOf("ultraPremium", "platinum")
+            // intlReadMessage/revokeUnPair removed: their gates H3/I3 are INSTANCE methods,
+            // skipped by this static-only loop; Q3 forcing already yields the correct values
+            // (H3 -> true read receipts, I3 -> true recall/unpair).
             val singleMethodKeys = mapOf(
                 "svip" to false,
-                "vip" to false,
-                "intlReadMessage" to true,
-                "revokeUnPair" to false
+                "vip" to false
             )
 
             mutableXma.methods.forEach { method ->
@@ -2816,6 +2817,50 @@ val premiumUnlockPatch = bytecodePatch(
                             """)
                         }
                     }
+                }
+            }
+        }
+
+        // ── Quick Chat tickets (onlinematch/a, stable descriptor) ──
+        // b0() = remaining quickchatNumber privilege -> 200000 (S() carries quickchatSpeedUpNum,
+        // a different literal, untouched). Clears the OnlineMatchManager s0()<=0 start gate
+        // (s0 = b0 + coins). Server may validate ticket balance on match start — worst case
+        // error toast / status quo; device-test starting a Quick Chat.
+        // U() (active check, expiredTime >= now) -> true; V() (expired-for-male check,
+        // expiredTime < now) -> false. Both carry "quickchatMembership"; distinguished by the
+        // conditional branch direction immediately after cmp-long (U: if-ltz, V: if-gez).
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/onlinematch/a;")?.let { classDef ->
+            val mutable = mutableClassDefBy(classDef)
+            mutable.methods
+                .filter {
+                    AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "I" &&
+                        it.parameterTypes.isEmpty() && it.containsExactString("quickchatNumber")
+                }
+                .forEach {
+                    it.preflightSmali(RETURN_INT_200000, 2)
+                    it.addInstructions(0, RETURN_INT_200000)
+                }
+            val membershipMethods = mutable.methods.filter {
+                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "Z" &&
+                    it.parameterTypes.isEmpty() && it.containsExactString("quickchatMembership")
+            }
+            check(membershipMethods.size == 2) {
+                "onlinematch/a quickchatMembership ()Z gates: expected 2 (U/V), found ${membershipMethods.size}"
+            }
+            membershipMethods.forEach { method ->
+                val instrs = method.implementation?.instructions?.toList() ?: return@forEach
+                val cmpIdx = instrs.indexOfFirst { it.opcode == Opcode.CMP_LONG }
+                if (cmpIdx < 0 || cmpIdx + 1 >= instrs.size) return@forEach
+                when (instrs[cmpIdx + 1].opcode) {
+                    Opcode.IF_LTZ -> {
+                        method.preflightSmali(RETURN_TRUE, 2)
+                        method.addInstructions(0, RETURN_TRUE)
+                    }
+                    Opcode.IF_GEZ -> {
+                        method.preflightSmali(RETURN_FALSE, 2)
+                        method.addInstructions(0, RETURN_FALSE)
+                    }
+                    else -> {}
                 }
             }
         }

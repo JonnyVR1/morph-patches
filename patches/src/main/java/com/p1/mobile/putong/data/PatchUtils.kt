@@ -7,6 +7,7 @@ import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.WideLiteralInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
@@ -46,7 +47,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val resolvedClasses = mutableMapOf<String, ClassDef>()
     
     private val analyticsAnchors = setOf(
-        "miit_oaid", "com.tantanapp.beatles",
+        "miit_oaid", "[init] context of init() is null, check it.",
         "add_payment_info", "com.google.android.gms.ads.identifier.service.START",
         "mmfile_push_statistic", "BatteryMetrics", "live-PerfTracer",
         "DNS_SLA", "_getOrCreate", "_compressRecordFile",
@@ -57,7 +58,10 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "firebase_analytics_collection_deactivated",
         "https://deviceid.tantanapp.com/oneid/createid",
         "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE"
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "https://client-monitor.tantanapp.com/push?",
+        "xlog.upload",
+        "marsxlog"
     )
 
     private val OMS_DIALOG_ENUM = "Lcom/p1/mobile/putong/core/oms/OmsDialog;"
@@ -65,6 +69,9 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val oneIdStorageCandidates = mutableListOf<Pair<ClassDef, Set<String>>>()
     private var rbb0Type: String? = null
     private val themeUnlockCandidates = mutableListOf<Pair<ClassDef, Set<String>>>()
+    private val clipboardInviteClasses = mutableListOf<ClassDef>()
+    private val mixedContentClasses = mutableListOf<ClassDef>()
+    private val voiceRecordInnerCandidates = mutableListOf<ClassDef>()
 
     private val adsAnchorStrings = setOf(
         "ca-app-pub-6567608331519569/1891609663",
@@ -78,7 +85,14 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "p_recall_match_popup",
         "p_match_invitation_popup",
         "bundle_from_notification",
-        "buzzProlong"
+        "buzzProlong",
+        "checkContacts",
+        "contacts_new",
+        "android.permission.READ_CONTACTS",
+        "tantan:.*邀请码：[A-Z|1-9]{4,}",
+        "checkAppInstalled",
+        "bubble_superlike_bubble",
+        "superlike_promotion_config"
     )
     
     private val FOX_STATS_DEFAULT_ENV = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"
@@ -268,6 +282,36 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 resolvedClasses["mockLocationFlag"] = classDef
             }
 
+            // Mixed-content hardening candidates: every class calling WebSettings.setMixedContentMode.
+            // Collected before the anchor gate (jb10 carries no anchor strings). The patch edits only
+            // const-0 feeds (NEVER_ALLOW), so mode-2 sites (AdMob lw0, Weibo) are untouched by design.
+            if (methodCallFull.contains("Landroid/webkit/WebSettings;.setMixedContentMode")) {
+                mixedContentClasses.add(classDef)
+            }
+
+            // voiceRecord (a310): the MessagesAct voice recorder. setRecordStartTime is also called
+            // by the telepathy twin mal0 — discriminate by the MessagesAct constructor param
+            // (mal0 takes TpMessagesAct). No const-strings in the outer class, so resolve pre-gate.
+            if ("voiceRecord" !in resolvedClasses &&
+                methodCallFull.contains("Lcom/p1/mobile/putong/core/ui/messages/model/record/view/RecordAnimLayout;.setRecordStartTime") &&
+                classDef.methods.any {
+                    it.name == "<init>" && it.parameterTypes.size == 1 &&
+                        it.parameterTypes[0] == "Lcom/p1/mobile/putong/core/ui/messages/MessagesAct;"
+                }) {
+                resolvedClasses["voiceRecord"] = classDef
+            }
+
+            // voiceRecord inner-class candidates: run()V carrying the inlined 60000 ms cap
+            // (Constants.ONE_MIN_IN_MILLIS) + SystemClock.uptimeMillis. The post-pass picks the
+            // one whose DEX type is prefixed by the resolved outer type (a310$b, not mal0$b).
+            if (methodCallFull.contains("Landroid/os/SystemClock;.uptimeMillis") &&
+                classDef.methods.any { m ->
+                    m.name == "run" && m.returnType == "V" && m.parameterTypes.isEmpty() &&
+                        m.sharedCachedInstructions().any { it is WideLiteralInstruction && it.wideLiteral == 60000L }
+                }) {
+                voiceRecordInnerCandidates.add(classDef)
+            }
+
             if (foundStrings.isEmpty() && foundFields.isEmpty() && foundMethods.isEmpty() && !hasCoreEventLoggerRef) {
                 return@classDefForEach
             }
@@ -282,6 +326,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolvePrivacy(foundStrings, classDef)
             resolveAds(foundStrings, classDef)
             resolveMisc(foundStrings, foundFields, classDef)
+            resolveExpansion(foundStrings, classDef)
         }
 
         val uploader = oneIdUploaderType
@@ -303,11 +348,21 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 }
             }
         }
+
+        val voiceRecordOuter = resolvedClasses["voiceRecord"]
+        if (voiceRecordOuter != null && "voiceRecordInner" !in resolvedClasses) {
+            val innerPrefix = voiceRecordOuter.type.removeSuffix(";") + "$"
+            for (cd in voiceRecordInnerCandidates) {
+                if (cd.type.startsWith(innerPrefix)) {
+                    resolvedClasses["voiceRecordInner"] = cd
+                    break
+                }
+            }
+        }
     }
     
     private fun resolveAnalytics(foundStrings: Set<String>, classDef: ClassDef, hasCoreEventLoggerRef: Boolean, methodCallFull: Set<String>) {
         if ("miit_oaid" in foundStrings) resolvedClasses.putIfAbsent("oaidHelper", classDef)
-        if ("com.tantanapp.beatles" in foundStrings) resolvedClasses.putIfAbsent("beatles", classDef)
         if ("add_payment_info" in foundStrings) resolvedClasses.putIfAbsent("firebaseAnalytics", classDef)
         if ("com.google.android.gms.ads.identifier.service.START" in foundStrings) resolvedClasses.putIfAbsent("googleAdId", classDef)
         if ("mmfile_push_statistic" in foundStrings) resolvedClasses.putIfAbsent("pushStats", classDef)
@@ -838,6 +893,109 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         }
     }
 
+    // Patch-expansion keys (7.5.4 wave). All conditions are class-wide string+shape pairs —
+    // never obfuscated names (gotcha #17), shape paired against inner-class hijack (gotcha #18).
+    private fun resolveExpansion(foundStrings: Set<String>, classDef: ClassDef) {
+        // Contacts sync pipeline (zf6): q() is the READ_CONTACTS permission gate; forcing it
+        // false starves v() -> rx.c.empty() and the whole foreground-triggered upload chain.
+        if ("contactsSync" !in resolvedClasses &&
+            "checkContacts" in foundStrings && "contacts_new" in foundStrings &&
+            classDef.methods.any {
+                it.returnType == "Z" && it.parameterTypes.isEmpty() &&
+                    it.containsExactString("android.permission.READ_CONTACTS")
+            }) {
+            resolvedClasses["contactsSync"] = classDef
+        }
+
+        // Clipboard invite-code readers (eev live / zq4 campaign): BOTH classes carry the same
+        // regex, so collect every class with a ()String method containing it (multi-class key).
+        if ("tantan:.*邀请码：[A-Z|1-9]{4,}" in foundStrings &&
+            classDef.methods.any {
+                it.returnType == "Ljava/lang/String;" && it.parameterTypes.isEmpty() &&
+                    it.containsExactString("tantan:.*邀请码：[A-Z|1-9]{4,}")
+            } &&
+            clipboardInviteClasses.none { it.type == classDef.type }) {
+            clipboardInviteClasses.add(classDef)
+        }
+
+        // MK live-H5 bridge (zv3): checkAppInstalled dispatcher. "pkg_android" lives in the
+        // inner zv3$c, so anchor on the outer's dispatcher string + (JSONObject)V shape.
+        if ("mkBridge" !in resolvedClasses && "checkAppInstalled" in foundStrings &&
+            classDef.methods.any {
+                it.returnType == "V" && it.parameterTypes.size == 1 &&
+                    it.parameterTypes[0] == "Lorg/json/JSONObject;"
+            }) {
+            resolvedClasses["mkBridge"] = classDef
+        }
+
+        // Push click/delivery tracker (rtc0): endpoint string + static (PushTrackData)V shape.
+        if ("pushTracker" !in resolvedClasses &&
+            "https://client-monitor.tantanapp.com/push?" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                    it.parameterTypes.size == 1 &&
+                    it.parameterTypes[0] == "Lcom/p1/mobile/putong/api/push/PushTrackData;"
+            }) {
+            resolvedClasses["pushTracker"] = classDef
+        }
+
+        // Silent remote xlog pull handler (u53$d): "xlog.upload" is an inlined compile-time
+        // constant (gotcha #18); the outer u53 carries it too (registration v()), so pair with
+        // the rtc0.g handler shape (String,String,PushMessage,PushTrackData)Z.
+        if ("xlogPull" !in resolvedClasses && "xlog.upload" in foundStrings &&
+            classDef.methods.any {
+                it.returnType == "Z" && it.parameterTypes.size == 4 &&
+                    it.parameterTypes[0] == "Ljava/lang/String;" &&
+                    it.parameterTypes[1] == "Ljava/lang/String;" &&
+                    it.parameterTypes[2] == "Lcom/p1/mobile/putong/data/PushMessage;" &&
+                    it.parameterTypes[3] == "Lcom/p1/mobile/putong/api/push/PushTrackData;"
+            }) {
+            resolvedClasses["xlogPull"] = classDef
+        }
+
+        // Superlike upsell bubbles (ihi0): promo config read in <clinit> + bubble id in C();
+        // pair with the J(User,PutongFrag,View,I)String creator shape.
+        if ("superlikeBubble" !in resolvedClasses &&
+            "bubble_superlike_bubble" in foundStrings && "superlike_promotion_config" in foundStrings &&
+            classDef.methods.any {
+                it.returnType == "Ljava/lang/String;" && it.parameterTypes.size == 4 &&
+                    it.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
+                    it.parameterTypes[1] == "Lcom/p1/mobile/putong/app/PutongFrag;" &&
+                    it.parameterTypes[2] == "Landroid/view/View;" &&
+                    it.parameterTypes[3] == "I"
+            }) {
+            resolvedClasses["superlikeBubble"] = classDef
+        }
+
+        // Beatles xlog upload backend (luw): "marsxlog" loadLibrary in <clinit> (also in the
+        // stable Xlog SDK class — excluded by the instance (Date,String,J,*)V shape).
+        if ("xlogUploader" !in resolvedClasses && "marsxlog" in foundStrings &&
+            classDef.methods.any {
+                !AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                    it.parameterTypes.size == 4 &&
+                    it.parameterTypes[0] == "Ljava/util/Date;" &&
+                    it.parameterTypes[1] == "Ljava/lang/String;" &&
+                    it.parameterTypes[2] == "J"
+            }) {
+            resolvedClasses["xlogUploader"] = classDef
+        }
+
+        // Beatles install facade (h53): the old "com.tantanapp.beatles" anchor does NOT exist
+        // as a const-string in 7.5.4 (only longer variants), so the old key never resolved.
+        // Re-anchor on the unique init-check string + the 5-param static install shape.
+        if ("beatles" !in resolvedClasses &&
+            "[init] context of init() is null, check it." in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                    it.parameterTypes.size == 5 &&
+                    it.parameterTypes[0] == "Landroid/content/Context;" &&
+                    it.parameterTypes[1] == "Ljava/lang/String;" &&
+                    it.parameterTypes[3] == "Z"
+            }) {
+            resolvedClasses["beatles"] = classDef
+        }
+    }
+
     fun getAnalyticsClass(key: String): ClassDef? = resolvedClasses[key]
     fun getUiCleanupClass(key: String): ClassDef? = resolvedClasses[key]
     fun getDialogClass(key: String): ClassDef? = resolvedClasses[key]
@@ -847,4 +1005,6 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     fun getLoveBuzzClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("loveBuzzClasses") }.values.toList()
     fun getPrivacyClass(key: String): ClassDef? = resolvedClasses["privacy_$key"]
     fun getAdClass(key: String): ClassDef? = resolvedClasses[key]
+    fun getClipboardInviteClasses(): List<ClassDef> = clipboardInviteClasses.toList()
+    fun getMixedContentClasses(): List<ClassDef> = mixedContentClasses.toList()
 }

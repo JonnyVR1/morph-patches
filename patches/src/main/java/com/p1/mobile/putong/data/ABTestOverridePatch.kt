@@ -163,48 +163,62 @@ private fun buildI0Instructions(paramReg: Int): String {
 }
 
 private fun buildJ0Instructions(paramReg: Int): String {
+    // Single-scratch pattern: the key stays in its param register (v$paramReg) and only v0
+    // is clobbered, so this is safe at registers==2 (7.5.4 j0: p0=v1, scratch v0). The old
+    // two-scratch pattern required regs>=3 and was a SILENT NO-OP in 7.5.4 (j0 has regs=2).
+    // Pre-existing entry values are unchanged; the three promo keys return "" (off).
     return """
-        move-object v0, v$paramReg
-
-        const-string v1, "intl_instantmatch_open_user"
-        invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v1
-        if-eqz v1, :skip_instantmatch
+        const-string v0, "intl_instantmatch_open_user"
+        invoke-virtual {v$paramReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+        move-result v0
+        if-nez v0, :val_test
+        const-string v0, "intl_me_tab_revamp"
+        invoke-virtual {v$paramReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+        move-result v0
+        if-nez v0, :val_test
+        const-string v0, "intl_letterc"
+        invoke-virtual {v$paramReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+        move-result v0
+        if-nez v0, :val_a
+        const-string v0, "intl_consume_iap_large_page"
+        invoke-virtual {v$paramReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+        move-result v0
+        if-nez v0, :val_Test
+        const-string v0, "intl_see_card_tag"
+        invoke-virtual {v$paramReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+        move-result v0
+        if-nez v0, :val_test2
+        const-string v0, "intl_photo_verification_banner"
+        invoke-virtual {v$paramReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+        move-result v0
+        if-nez v0, :val_empty
+        const-string v0, "intl_me_subscription_card_show"
+        invoke-virtual {v$paramReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+        move-result v0
+        if-nez v0, :val_empty
+        const-string v0, "IntlRewardAds"
+        invoke-virtual {v$paramReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+        move-result v0
+        if-nez v0, :val_empty
+        goto :not_matched
+        :val_test
         const-string v0, "test"
         return-object v0
-        :skip_instantmatch
-
-        const-string v1, "intl_me_tab_revamp"
-        invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v1
-        if-eqz v1, :skip_me_tab
-        const-string v0, "test"
-        return-object v0
-        :skip_me_tab
-
-        const-string v1, "intl_letterc"
-        invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v1
-        if-eqz v1, :skip_letter
+        :val_a
         const-string v0, "a"
         return-object v0
-        :skip_letter
-
-        const-string v1, "intl_consume_iap_large_page"
-        invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v1
-        if-eqz v1, :skip_iap_page
+        :val_Test
         const-string v0, "_Test"
         return-object v0
-        :skip_iap_page
-
-        const-string v1, "intl_see_card_tag"
-        invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v1
-        if-eqz v1, :skip_card_tag
+        :val_test2
         const-string v0, "test2"
         return-object v0
-        :skip_card_tag
+        :val_empty
+        const-string v0, ""
+        return-object v0
+        :not_matched
+        move-object v0, v$paramReg
+        return-object v0
     """
 }
 
@@ -248,9 +262,11 @@ val abTestOverridePatch = bytecodePatch(
                 }
                 .forEach { method ->
                     val registerCount = method.implementation?.registerCount ?: 0
-                    if (registerCount >= 3) {
-                        val paramReg = registerCount - 1
-                        method.addInstructions(0, buildJ0Instructions(paramReg))
+                    val paramReg = registerCount - 1
+                    if (registerCount >= 2 && paramReg <= 15) {
+                        val smali = buildJ0Instructions(paramReg)
+                        method.preflightSmali(smali, 45)
+                        method.addInstructions(0, smali)
                     }
                 }
         }
