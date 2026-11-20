@@ -66,6 +66,22 @@ The pipeline is:
 **Do NOT call `ApkMerger.merge()` after `applyTo()`** — see "Morphe Patcher Gotchas" below.
 
 ### Upload to GitHub Release
+
+**MANDATORY on every new or amended release:** refresh `patches-bundle.json` `created_at`
+to the CURRENT local time (`yyyy-MM-ddTHH:mm:ss`, no offset) and update its `description`
+to match the shipped wave. Morph Manager shows the patch source as **outdated** when
+`created_at` is stale, even if the `.mpp` bytes are new. Full publish sequence:
+1. Edit `patches-bundle.json` (`created_at` = now, description current).
+2. `tools\gradle.bat :patches:repackMppWithPatchList --rerun-tasks` (regenerates
+   `patches-list.json` + dex; run LAST — `patchApk`'s `jar` dependency clobbers the .mpp).
+3. Delete the three old release assets and re-upload `patches-0.0.1-dev2.mpp`,
+   `patches-list.json`, `patches-bundle.json` (gh CLI: `gh api -X POST -H "Content-Type: ..."
+   --input <file> "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets?name=<name>"`;
+   the plain `repos/...` endpoint 404s for uploads — use the `uploads.github.com` host).
+4. Optionally PATCH the release body to match; commit + push the metadata change.
+GitHub's `published_at` is immutable via API — the bundle `created_at` + asset
+`updated_at` are the freshness signals Morph reads.
+
 ```bash
 # List current release assets
 curl -s -H "Authorization: token $GITHUB_TOKEN" \
@@ -263,6 +279,22 @@ Removes all ad displays:
 - Live streaming banner ads (LiveVideoBannerAdCardView)
 - Live square native ads (IntlLiveSquareFeedNativeAdView)
 - Live square banner ads (IntlLiveSquareFeedBannerAdView)
+- Town Tales casual-game promo stack (Nov 2026): the floating Me-tab game entrance
+  (`CasualGameEntranceView`, inflated ONLY by `ProfileFrag`; layout root defaults GONE) is
+  fed by the `uu7` manager (resolver `casualGameManager`, anchor `/intl-live-casualGameMenu`
+  + static `(Z)V` shape), which fetches the game menu at startup, on region-rule updates
+  (`main/a.C2`) and on every Me-tab selection (`main/a.Z8`). Patch voids the single fetch
+  gate `uu7.e(Z)V` (all overloads delegate to it → no network, `currentGameButton` stays
+  null), forces `CasualGameButton.isDisplayable()Z` → false (data-level backstop), and
+  hides the entrance bind method (shape: instance `(CasualGameButton)V` PLUS a
+  `CasualGameButton.isDisplayable()` call — the icon renderer `Y` shares the param shape,
+  so the call discriminator is required; NOT the obfuscated name `g0`; regs=4 so `p0` is
+  safe, but the injection shuttles `this` via `move-object/from16` anyway). `sz4` red-dot
+  persistence is consumed only by this
+  view — starved automatically. The live-room Sud/octopus game sessions
+  (`live/livingroom/intl/game/`) are a SEPARATE functional live feature, NOT Town Tales —
+  left untouched. "Town Tales" itself is server-side branding; the string does not exist
+  in the 7.5.4 DEX.
 
 ### Privacy Enhancement (`PrivacyEnhancementPatch.kt`)
 Advanced privacy protections:
@@ -430,6 +462,7 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | Mixed-content WebViews | ALL `WebSettings.setMixedContentMode` callers collected pre-gate (`getMixedContentClasses()`); const-0 feeds forced to 1 via dead-scratch const insert + invoke repoint |
 | Beatles facade (`h53`) | `string("[init] context of init() is null, check it.")` + 5-param static install shape (resolver `beatles` RE-ANCHORED — old `com.tantanapp.beatles` string absent in 7.5.4) |
 | Xlog uploader (`luw`) | `string("marsxlog")` + instance `(Date,String,J,*)V` shape (resolver `xlogUploader`; Xlog SDK class excluded by shape) |
+| Town Tales manager (`uu7`) | `string("/intl-live-casualGameMenu")` + static `(Z)V` shape (resolver `casualGameManager`); entrance bind matched by instance `(CasualGameButton)V` shape, `isDisplayable` by stable class + `()Z` |
 
 For groups of byte-identical overloaded methods (e.g. u59's U/S/O/F/Z/a0/D all return `!IntlCountryCodeController.k()`), fingerprint them as one cluster — they cannot be reliably separated.
 

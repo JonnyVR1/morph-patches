@@ -73,7 +73,7 @@ private val liveVoicePayGuideFingerprint = Fingerprint(
 @JvmField
 val adRemovalPatch = bytecodePatch(
     name = "Ad Removal",
-    description = "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live video feed ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads, likers ads, meet likers ads, meet visitor ads, splash screen ads, profile photo carousel ads, incentive video ads, fake splash view, video ad player, official advert, ad reward dialogs, live streaming ad user, treasure prize ads, Town Tales overlay, chat request promotional entries",
+    description = "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live video feed ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads, likers ads, meet likers ads, meet visitor ads, splash screen ads, profile photo carousel ads, incentive video ads, fake splash view, video ad player, official advert, ad reward dialogs, live streaming ad user, treasure prize ads, Town Tales game entrance + menu fetch, chat request promotional entries",
     default = true,
 ) {
     compatibleWith(tantanCompatibility)
@@ -562,21 +562,57 @@ val adRemovalPatch = bytecodePatch(
         // international 7.5.4 build (gated by isVIP / never inserted); their old split-anchor
         // fingerprints resolved nothing. Removed per the ad-stack verdict (AdMob only).
 
-        // Town Tales overlay - CasualGameEntranceView
+        // Town Tales (casual game menu) promo stack. The floating Me-tab entrance
+        // (CasualGameEntranceView, inflated only by ProfileFrag) is fed by uu7, which
+        // fetches /intl-live-casualGameMenu at startup, on region-rule updates and on
+        // every Me-tab selection. Kill the fetch at its single gate (static (Z)V — all
+        // fetch overloads delegate to it), force the display gate false, and hide the
+        // entrance bind method as a backstop. The layout root defaults to GONE, so with
+        // no button data the entrance never shows. sz4 red-dot persistence is only
+        // consumed by this view; live-room Sud/octopus games are a separate feature.
+        resolver.getAdClass("casualGameManager")?.let { classDef ->
+            val fetchGates = mutableClassDefBy(classDef).methods.filter {
+                AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "V" &&
+                    it.parameterTypes == listOf("Z")
+            }
+            check(fetchGates.size == 1) { "casualGameManager fetch gate cardinality ${fetchGates.size}" }
+            fetchGates.forEach { it.addInstructions(0, RETURN_VOID) }
+        }
+
+        classDefByOrNull("Lcom/p1/mobile/putong/core/casualgame/CasualGameButton;")?.let { classDef ->
+            val displayGates = mutableClassDefBy(classDef).methods.filter {
+                !AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "Z" && it.parameterTypes.isEmpty()
+            }
+            check(displayGates.size == 1) { "CasualGameButton display gate cardinality ${displayGates.size}" }
+            displayGates.forEach { it.addInstructions(0, RETURN_FALSE) }
+        }
+
         classDefByOrNull("Lcom/p1/mobile/putong/core/casualgame/CasualGameEntranceView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>" || method.name == "<clinit>") return@forEach
-                // Patch g0() which is the main setup method - force visibility to GONE
-                if (method.name == "g0" &&
-                    method.parameterTypes.size == 1 &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, """
-                        const/16 v0, 0x8
-                        invoke-virtual {p0, v0}, Landroid/view/View;->setVisibility(I)V
-                        return-void
-                    """)
-                }
+            // Two instance methods take a single CasualGameButton: the bind method (g0)
+            // and the icon renderer (Y). Discriminate by the isDisplayable() call, which
+            // only the bind method makes.
+            val bindMethods = mutableClassDefBy(classDef).methods.filter {
+                !AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "V" &&
+                    it.parameterTypes == listOf("Lcom/p1/mobile/putong/core/casualgame/CasualGameButton;") &&
+                    it.cachedAdInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? MethodReference)?.let { ref ->
+                                ref.definingClass == "Lcom/p1/mobile/putong/core/casualgame/CasualGameButton;" &&
+                                    ref.name == "isDisplayable"
+                            } == true
+                    }
+            }
+            check(bindMethods.size == 1) { "CasualGameEntranceView bind cardinality ${bindMethods.size}" }
+            bindMethods.forEach { method ->
+                method.addInstructions(0, """
+                    const/16 v0, 0x8
+                    move-object/from16 v1, p0
+                    invoke-virtual {v1, v0}, Landroid/view/View;->setVisibility(I)V
+                    return-void
+                """)
             }
         }
 

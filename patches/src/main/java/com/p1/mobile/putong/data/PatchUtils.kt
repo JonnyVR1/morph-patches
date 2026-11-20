@@ -76,7 +76,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val adsAnchorStrings = setOf(
         "ca-app-pub-6567608331519569/1891609663",
         "ixxn_ad_channel",
-        "p_incentive_ad_choose_page"
+        "p_incentive_ad_choose_page",
+        "/intl-live-casualGameMenu"
     )
 
     private val miscAnchorStrings = setOf(
@@ -819,6 +820,15 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                     it.returnType == "Z"
             }) {
             resolvedClasses["adRewardDialog"] = classDef
+        }
+        if ("casualGameManager" !in resolvedClasses &&
+            "/intl-live-casualGameMenu" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "V" &&
+                    it.parameterTypes == listOf("Z")
+            }) {
+            resolvedClasses["casualGameManager"] = classDef
         }
     }
 
