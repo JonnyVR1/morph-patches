@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-11-24T00:15:00",
-  "description": "## Tantan 7.5.4 — promo dialog suppression wave\n\n- NewLikeView.F() popup creator voided (p_new_like_notification_popup — was bypassing em60.M/N gates)\n- y240 DialogStrategyQueue strategy gate forced false (b()/f() → false)\n- Counterproductive AB overrides removed: friend_active_remind_female, male_heartbeat_unactive (were creating engagement nudge messages)\n- All existing promo suppressions retained: O3 banner filter, zw3 creators, em60.M/N gates, OmsPageAct morph backstop, hn60.n handler\n- 11 promo-suppression targets DEX-verified in patched APK\n- All 16 patches apply to 7.5.4 (2754010); PatchVerificationTest green",
+  "created_at": "2026-11-24T01:25:00",
+  "description": "## Tantan 7.5.4 — see-anim bubble suppression (generic fix)\n\n- upf0.B() → return 0: GENERIC kill for ALL see-anim poplevel bubbles regardless of trigger path\n- g350.q7() → return-void: blocks the CoreLikers.P6() subscriber that creates upf0 bubbles\n- Previous wave retained: O3 banner filter, zw3 creators, em60.M/N gates, OmsPageAct, hn60.n, NewLikeView.F, y240 strategy\n- 12 promo-suppression targets DEX-verified in patched APK\n- All 16 patches apply to 7.5.4 (2754010); PatchVerificationTest green",
   "download_url": "https://github.com/JonnyVR1/morph-patches/releases/download/v0.0.1-dev2/patches-0.0.1-dev2.mpp",
   "signature_download_url": null,
   "version": "0.0.1-dev2"

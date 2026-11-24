@@ -735,6 +735,39 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
+        // See-anim poplevel bubble ("X people liked you" floating avatar bubble). The upf0 class
+        // is the SEE_ANIM bubble (MagicBubble.SEE_ANIM). Multiple code paths create it:
+        // - g350.q7() (P6() subscriber bypassing O3 filter)
+        // - g350 lines 799, 839, 3365 (various likers event handlers)
+        // - DebugUtil line 9180 (debug-only, but patch for completeness)
+        // Generic fix: patch upf0.B() to return 0 (duration=0 means "don't show"). This kills
+        // ALL see_anim bubbles regardless of which code path creates them.
+        classDefByOrNull("Ll/upf0;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                // B()I — returns display duration in ms. Return 0 to suppress.
+                if (method.name == "B" && method.returnType == "I" && method.parameterTypes.isEmpty()) {
+                    method.addInstructions(0, """
+                        const/4 v0, 0x0
+                        return v0
+                    """)
+                }
+            }
+        }
+
+        // Also patch g350.q7() directly — the P6() subscriber that creates upf0 bubbles.
+        // This is defense-in-depth alongside the upf0.B() patch above.
+        classDefByOrNull("Ll/g350;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                // q7(CoreLikers$a)V — the see_anim bubble subscriber
+                if (method.name == "q7" && method.returnType == "V" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0].contains("CoreLikers")
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
         // Superlike upsell bubbles (ihi0). The poplevel config override
         // (superlike_promotion_config -> 999) is the first lever; these creator voids are the
         // backstop for bubbles that ignore poplevel. K (remaining-count bubble) is DORMANT:
