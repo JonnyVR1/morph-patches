@@ -707,6 +707,34 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
+        // New-like notification popup ("99+ people liked you" dialog). NewLikeView.F() is the
+        // popup creator; y240 is the DialogStrategyQueue strategy that calls it. Patch both:
+        // F() -> return-void kills the popup at the display level (any caller path), and
+        // y240.b() -> false prevents the strategy gate from firing at all.
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/seepop/NewLikeView;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "F" && AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "V" && method.parameterTypes.size == 3 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1].contains("CoreLikers") &&
+                    method.parameterTypes[2].contains("y20")
+                ) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        val newLikeStrategyFingerprint = Fingerprint(filters = listOf(string("new_like_dialog_show_count_")))
+        newLikeStrategyFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.returnType == "Z" && method.parameterTypes.size == 1 &&
+                    (method.parameterTypes[0].contains("lwl") || method.parameterTypes[0].contains("aqm"))
+                ) {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
+
         // Superlike upsell bubbles (ihi0). The poplevel config override
         // (superlike_promotion_config -> 999) is the first lever; these creator voids are the
         // backstop for bubbles that ignore poplevel. K (remaining-count bubble) is DORMANT:

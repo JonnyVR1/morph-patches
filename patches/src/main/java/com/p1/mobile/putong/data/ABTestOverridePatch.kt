@@ -143,22 +143,6 @@ private fun buildI0Instructions(paramReg: Int): String {
         const-string v0, "exp"
         return-object v0
         :skip_promo
-
-        const-string v1, "friend_active_remind_female"
-        invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v1
-        if-eqz v1, :skip_friend_remind
-        const-string v0, "exp"
-        return-object v0
-        :skip_friend_remind
-
-        const-string v1, "male_heartbeat_unactive"
-        invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-        move-result v1
-        if-eqz v1, :skip_heartbeat
-        const-string v0, "exp2"
-        return-object v0
-        :skip_heartbeat
     """
 }
 
