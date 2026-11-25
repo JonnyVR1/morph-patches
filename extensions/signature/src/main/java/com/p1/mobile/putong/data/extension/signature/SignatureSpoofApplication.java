@@ -196,31 +196,12 @@ public class SignatureSpoofApplication extends ContentProvider {
                 Log.w(TAG, "ApplicationPackageManager.mPackageInfoCache not accessible: " + e.getMessage());
             }
             
-            // Strategy 3: Clear Parcel caches (all Android versions)
-            try {
-                Field mCreatorsField = Parcel.class.getDeclaredField("mCreators");
-                mCreatorsField.setAccessible(true);
-                Map<?, ?> mCreators = (Map<?, ?>) mCreatorsField.get(null);
-                if (mCreators != null) {
-                    mCreators.clear();
-                    Log.d(TAG, "Cleared Parcel.mCreators");
-                }
-            } catch (NoSuchFieldException e) {
-                Log.w(TAG, "Parcel.mCreators not found");
-            }
-            
-            try {
-                Field sPairedCreatorsField = Parcel.class.getDeclaredField("sPairedCreators");
-                sPairedCreatorsField.setAccessible(true);
-                Map<?, ?> sPairedCreators = (Map<?, ?>) sPairedCreatorsField.get(null);
-                if (sPairedCreators != null) {
-                    sPairedCreators.clear();
-                    Log.d(TAG, "Cleared Parcel.sPairedCreators");
-                }
-            } catch (NoSuchFieldException e) {
-                Log.w(TAG, "Parcel.sPairedCreators not found");
-            }
-            
+            // NOTE: a former "Strategy 3" cleared Parcel.mCreators / sPairedCreators here. Those are
+            // the GLOBAL Parcelable CREATOR-lookup caches; clearing them forces every Parcelable in
+            // the process to re-resolve its CREATOR by reflection on next use (app-wide allocation +
+            // reflection churn, heavy on binder traffic). They hold no PackageInfo/signature data, so
+            // clearing them is unnecessary for signature spoofing. Removed Nov 2026 (perf).
+
             // NOTE: a former "Strategy 4" called System.gc() + Thread.sleep(100) here. That ran on
             // the MAIN THREAD during attachBaseContext() and added a fixed ~100ms+ startup stall for
             // no benefit — clearing the caches above does not require a GC or a sleep. Removed Nov 2026.
@@ -246,6 +227,9 @@ public class SignatureSpoofApplication extends ContentProvider {
         private volatile Field signingInfoField;
         private volatile Object signingInfoTemplate;
         private volatile boolean signingInfoResolved;
+        // Cached DER bytes of the spoofed cert so hasSigningCertificate() does not allocate a fresh
+        // byte[] on every call (perf fix Nov 2026).
+        private volatile byte[] spoofedCertBytes;
 
         StaticInvocationHandler(Object originalPackageManager, Signature spoofedSignature, String packageName) {
             this.originalPackageManager = originalPackageManager;
@@ -308,7 +292,11 @@ public class SignatureSpoofApplication extends ContentProvider {
                         if (packageName.equals(pkgName)) {
                             // Check if the queried cert matches our spoofed signature
                             try {
-                                byte[] spoofedBytes = spoofedSignature.toByteArray();
+                                byte[] spoofedBytes = spoofedCertBytes;
+                                if (spoofedBytes == null) {
+                                    spoofedBytes = spoofedSignature.toByteArray();
+                                    spoofedCertBytes = spoofedBytes;
+                                }
                                 if (java.util.Arrays.equals(certBytes, spoofedBytes)) {
                                     return true;
                                 }
