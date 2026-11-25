@@ -221,15 +221,10 @@ public class SignatureSpoofApplication extends ContentProvider {
                 Log.w(TAG, "Parcel.sPairedCreators not found");
             }
             
-            // Strategy 4: Force garbage collection and clear any LRU caches
-            try {
-                System.gc();
-                Thread.sleep(100);
-                Log.d(TAG, "Triggered GC to clear cached PackageInfo objects");
-            } catch (Exception e) {
-                Log.w(TAG, "GC trigger failed: " + e.getMessage());
-            }
-            
+            // NOTE: a former "Strategy 4" called System.gc() + Thread.sleep(100) here. That ran on
+            // the MAIN THREAD during attachBaseContext() and added a fixed ~100ms+ startup stall for
+            // no benefit — clearing the caches above does not require a GC or a sleep. Removed Nov 2026.
+
             Log.d(TAG, "PackageManager cache clearing completed");
         } catch (Exception e) {
             Log.e(TAG, "Failed to clear PackageManager caches (static)", e);
@@ -243,7 +238,15 @@ public class SignatureSpoofApplication extends ContentProvider {
         private final Object originalPackageManager;
         private final Signature spoofedSignature;
         private final String packageName;
-        
+
+        // Cached reflection results so repeated own-package signature queries do NOT re-run the
+        // expensive SigningInfo construction / field-enumeration on every call (perf fix Nov 2026).
+        // The first successful spoof resolves the Field and a reusable SigningInfo template; every
+        // later query just assigns the cached template (a single field set).
+        private volatile Field signingInfoField;
+        private volatile Object signingInfoTemplate;
+        private volatile boolean signingInfoResolved;
+
         StaticInvocationHandler(Object originalPackageManager, Signature spoofedSignature, String packageName) {
             this.originalPackageManager = originalPackageManager;
             this.spoofedSignature = spoofedSignature;
@@ -265,7 +268,6 @@ public class SignatureSpoofApplication extends ContentProvider {
                         PackageInfo info = (PackageInfo) method.invoke(originalPackageManager, args);
                         if (info != null) {
                             spoofPackageInfo(info);
-                            Log.d(TAG, "Spoofed signature for getPackageInfo: " + pkgName + " (flags=0x" + Long.toHexString(flags) + ")");
                             return info;
                         }
                     }
@@ -279,7 +281,6 @@ public class SignatureSpoofApplication extends ContentProvider {
                         PackageInfo info = (PackageInfo) method.invoke(originalPackageManager, args);
                         if (info != null && packageName.equals(info.packageName)) {
                             spoofPackageInfo(info);
-                            Log.d(TAG, "Spoofed signature for getPackageArchiveInfo: " + info.packageName);
                             return info;
                         }
                     }
@@ -293,7 +294,6 @@ public class SignatureSpoofApplication extends ContentProvider {
                             // Return a ParceledListSlice containing our spoofed signature
                             Object result = createSpoofedSigningCertificateHistory();
                             if (result != null) {
-                                Log.d(TAG, "Spoofed signing certificate history for: " + pkgName);
                                 return result;
                             }
                         }
@@ -310,7 +310,6 @@ public class SignatureSpoofApplication extends ContentProvider {
                             try {
                                 byte[] spoofedBytes = spoofedSignature.toByteArray();
                                 if (java.util.Arrays.equals(certBytes, spoofedBytes)) {
-                                    Log.d(TAG, "hasSigningCertificate: returning true for spoofed cert");
                                     return true;
                                 }
                             } catch (Exception e) {
@@ -328,39 +327,40 @@ public class SignatureSpoofApplication extends ContentProvider {
         
         // Helper method to spoof a PackageInfo object
         private void spoofPackageInfo(PackageInfo info) {
-            // Spoof legacy signatures field
+            // Spoof legacy signatures field (cheap, always).
             info.signatures = new Signature[]{spoofedSignature};
-            
-            // Spoof modern SigningInfo field (API 28+)
+
+            // Spoof modern SigningInfo field (API 28+). The Field lookup and the SigningInfo
+            // construction are resolved ONCE and cached; every later query takes the fast path
+            // (a single field set) instead of re-running reflection strategies (perf fix Nov 2026).
             if (Build.VERSION.SDK_INT >= 28) {
                 try {
-                    Field signingInfoField = PackageInfo.class.getDeclaredField("signingInfo");
-                    signingInfoField.setAccessible(true);
-                    Object existingSigningInfo = signingInfoField.get(info);
-                    
+                    Field f = signingInfoField;
+                    if (f == null) {
+                        f = PackageInfo.class.getDeclaredField("signingInfo");
+                        f.setAccessible(true);
+                        signingInfoField = f;
+                    }
+
+                    if (signingInfoResolved) {
+                        // Fast path: reuse the resolved template (null => force legacy fallback).
+                        f.set(info, signingInfoTemplate);
+                        return;
+                    }
+
+                    Object existingSigningInfo = f.get(info);
                     if (existingSigningInfo != null) {
-                        // Strategy 1: Try to create a new SigningInfo via constructor
-                        if (tryCreateNewSigningInfo(info, signingInfoField)) {
+                        if (tryCreateNewSigningInfo(info, f)
+                                || tryModifySigningInfoFields(existingSigningInfo)
+                                || tryCreateSigningInfoViaCreator(info, f)) {
+                            signingInfoTemplate = f.get(info);
+                            signingInfoResolved = true;
                             return;
                         }
-                        
-                        // Strategy 2: Try to modify internal fields by enumerating them
-                        // (field names change between Android versions)
-                        if (tryModifySigningInfoFields(existingSigningInfo)) {
-                            return;
-                        }
-                        
-                        // Strategy 3: Create SigningInfo via CREATOR and Parcel (Android 16+)
-                        if (tryCreateSigningInfoViaCreator(info, signingInfoField)) {
-                            return;
-                        }
-                        
-                        // Strategy 4: Try to set signingInfo to null to force fallback to legacy signatures
-                        if (trySetSigningInfoToNull(info, signingInfoField)) {
-                            return;
-                        }
-                        
-                        Log.w(TAG, "All strategies to spoof SigningInfo failed");
+                        // Last resort: null forces fallback to the legacy signatures field.
+                        f.set(info, null);
+                        signingInfoTemplate = null;
+                        signingInfoResolved = true;
                     }
                 } catch (Exception e) {
                     Log.w(TAG, "Failed to update SigningInfo", e);

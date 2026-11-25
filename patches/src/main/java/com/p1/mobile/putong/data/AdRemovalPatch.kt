@@ -661,12 +661,38 @@ val adRemovalPatch = bytecodePatch(
                     method.returnType == "Ljava/util/List;"
             }
             if (targets.size == 1) {
+                // Perf (Nov 2026): scan first; if NO promo convType is present (the common case)
+                // leave p1 untouched — no ArrayList allocation, no full-list copy. Only when a promo
+                // cell is found do we build the filtered copy. The filter pass keeps the fetched item
+                // in v4 and stores the TextUtils.equals result in v6 (the spent const-string reg) so
+                // List.get(i) is called once per item, not twice. Working regs v0-v6; p1=v20 shuttled
+                // via /from16 + /16 (gotcha #9/#10).
                 targets[0].addInstructions(0, """
-                    new-instance v0, Ljava/util/ArrayList;
-                    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
                     move-object/from16 v1, p1
                     invoke-interface {v1}, Ljava/util/List;->size()I
                     move-result v2
+                    const/4 v3, 0x0
+                    :morph_scan
+                    if-ge v3, v2, :morph_end
+                    invoke-interface {v1, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
+                    move-result-object v4
+                    check-cast v4, Lcom/p1/mobile/putong/core/data/Conversation;
+                    iget-object v5, v4, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
+                    if-eqz v5, :morph_scan_next
+                    const-string v6, "fakeReceiveLikeGuideSVip"
+                    invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+                    move-result v4
+                    if-nez v4, :morph_build
+                    const-string v6, "fakeIntlReceiveLikeGuideSVip"
+                    invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+                    move-result v4
+                    if-nez v4, :morph_build
+                    :morph_scan_next
+                    add-int/lit8 v3, v3, 0x1
+                    goto :morph_scan
+                    :morph_build
+                    new-instance v0, Ljava/util/ArrayList;
+                    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
                     const/4 v3, 0x0
                     :morph_loop
                     if-ge v3, v2, :morph_done
@@ -677,21 +703,20 @@ val adRemovalPatch = bytecodePatch(
                     if-eqz v5, :morph_add
                     const-string v6, "fakeReceiveLikeGuideSVip"
                     invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
-                    move-result v4
-                    if-nez v4, :morph_skip
+                    move-result v6
+                    if-nez v6, :morph_skip
                     const-string v6, "fakeIntlReceiveLikeGuideSVip"
                     invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
-                    move-result v4
-                    if-nez v4, :morph_skip
+                    move-result v6
+                    if-nez v6, :morph_skip
                     :morph_add
-                    invoke-interface {v1, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
-                    move-result-object v4
                     invoke-virtual {v0, v4}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
                     :morph_skip
                     add-int/lit8 v3, v3, 0x1
                     goto :morph_loop
                     :morph_done
                     move-object/16 p1, v0
+                    :morph_end
                 """)
             }
         }
@@ -784,11 +809,36 @@ val adRemovalPatch = bytecodePatch(
                     method.returnType == "Ljava/util/List;"
             }
             if (targets.size == 1) {
+                // Perf (Nov 2026): scan first; if NO virtual card is present (the common steady state)
+                // restore `this` and leave p1 untouched — no ArrayList allocation, no full-list copy.
+                // Only when a virtual card is found do we build the filtered copy. c.y has 5 registers
+                // (p0=this=v3, p1=v4): save/restore this via v1, shuttle params /from16 + /16, working
+                // regs v0-v4 only (gotcha #9/#12). size() is re-queried per iteration because there is
+                // no free register to cache it.
                 targets[0].addInstructions(0, """
-                    new-instance v0, Ljava/util/ArrayList;
-                    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
                     move-object/from16 v1, p0
                     move-object/from16 v4, p1
+                    const/4 v2, 0x0
+                    :morph_scan
+                    invoke-interface {v4}, Ljava/util/List;->size()I
+                    move-result v3
+                    if-ge v2, v3, :morph_no_filter
+                    invoke-interface {v4, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+                    move-result-object v3
+                    if-eqz v3, :morph_scan_next
+                    check-cast v3, Lcom/p1/mobile/putong/core/api/CoreSuggested${'$'}UserInfo;
+                    invoke-virtual {v3}, Lcom/p1/mobile/putong/core/api/CoreSuggested${'$'}UserInfo;->isVirtualCard()Z
+                    move-result v3
+                    if-nez v3, :morph_build
+                    :morph_scan_next
+                    add-int/lit8 v2, v2, 0x1
+                    goto :morph_scan
+                    :morph_no_filter
+                    move-object/16 p0, v1
+                    goto :morph_end
+                    :morph_build
+                    new-instance v0, Ljava/util/ArrayList;
+                    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
                     const/4 v2, 0x0
                     :morph_loop
                     invoke-interface {v4}, Ljava/util/List;->size()I
@@ -811,6 +861,7 @@ val adRemovalPatch = bytecodePatch(
                     :morph_done
                     move-object/16 p0, v1
                     move-object/16 p1, v0
+                    :morph_end
                 """)
             }
         }

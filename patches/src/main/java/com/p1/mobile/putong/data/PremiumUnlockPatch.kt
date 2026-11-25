@@ -842,14 +842,9 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // ConversationMatchItemLayout.P(): bind method for match carousel item
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationMatchItemLayout;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "P" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
+        // ConversationMatchItemLayout.P(): FUNCTIONAL new-match carousel bind (async-loads the
+        // matched users, shows "You have 1 new match"). Deliberately NOT voided: voiding it left
+        // the "Matched %s" (MATCHED_BEFORE) placeholder + shimmer permanently. Placeholder fix Nov 2026.
 
         // ConversationSuperBoostItemView.D0(): bind method for super boost carousel item
         classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationSuperBoostItemView;")?.let { classDef ->
@@ -878,41 +873,16 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // NewMatchItemLayout.o(): bind method for new match carousel item
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/recommend/view/NewMatchItemLayout;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "o" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // ConversationItemUserStatesView.i(): bind method for user states conversation item (type 16)
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemUserStatesView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "i" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // ConversationFoldView.T(): bind method for fold conversation item (type 39)
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationFoldView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "T" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // IntlVisitorConversationView.m0(): bind method for visitor conversation item (type 48)
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/business/IntlVisitorConversationView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "m0" && method.returnType == "V") {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
+        // NewMatchItemLayout.o(): FUNCTIONAL new-match carousel bind (async-loads matched user,
+        // sets avatar/name). Deliberately NOT voided — voiding left shimmer + default text. Nov 2026.
+        //
+        // ConversationItemUserStatesView.i() (type 16), ConversationFoldView.T() (type 39, old-messages
+        // fold) and IntlVisitorConversationView.m0() (type 48, visitor cell) are FUNCTIONAL conversation
+        // cell binds, NOT promo. They were previously voided under the promo-suppression banner, which
+        // left those cells unbound (default/placeholder text). Deliberately NOT voided now (Nov 2026).
+        // Only genuine promo binds above/below (RecommendItemView, RecommendNormalUserView,
+        // AllPairItemView, SuperBoostItemView, HeadBackUserTipLayout, CityCentreCardLayout,
+        // PrivilegePromotionHeaderView) remain suppressed.
 
         // PrivilegePromotionHeaderView.d(): loads promotional image, prevents display
         // PrivilegePromotionHeaderView.e(): updates promotion text, prevents display
