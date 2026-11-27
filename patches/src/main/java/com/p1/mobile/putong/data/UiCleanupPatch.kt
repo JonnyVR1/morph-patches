@@ -532,29 +532,47 @@ val uiCleanupPatch = bytecodePatch(
         )
 
         homePresenterClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    AccessFlags.STATIC.isSet(method.accessFlags) &&
-                    method.returnType == "Ljava/lang/Boolean;" &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0].startsWith("Lcom/p1/mobile/putong/core/api/CoreLikers") &&
-                    method.cachedInstructions().any { instr ->
-                        instr is ReferenceInstruction && instr.reference is FieldReference &&
-                        (instr.reference as FieldReference).name == "home_total_liker_float"
-                    } &&
-                    method.cachedInstructions().any { instr ->
-                        instr is ReferenceInstruction && instr.reference is FieldReference &&
-                        (instr.reference as FieldReference).name == "home_new_liker_float"
+            val mutable = mutableClassDefBy(classDef)
+            val floatFilter = mutable.methods.firstOrNull { method ->
+                AccessFlags.STATIC.isSet(method.accessFlags) &&
+                method.returnType == "Ljava/lang/Boolean;" &&
+                method.parameterTypes.size == 2 &&
+                method.parameterTypes[0] == classDef.type &&
+                method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction && instr.reference is FieldReference &&
+                    (instr.reference as FieldReference).name == "home_total_liker_float"
+                } &&
+                method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction && instr.reference is FieldReference &&
+                    (instr.reference as FieldReference).name == "home_new_liker_float"
+                }
+            }
+            floatFilter?.let { method ->
+                val falseBody = """
+                    const/4 v0, 0x0
+                    invoke-static {v0}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+                    move-result-object v0
+                    return-object v0
+                """
+                method.preflightSmali(falseBody, 4)
+                method.addInstructions(0, falseBody)
+                mutable.methods
+                    .filter { m ->
+                        AccessFlags.STATIC.isSet(m.accessFlags) &&
+                        m.returnType == "V" &&
+                        m.parameterTypes == method.parameterTypes &&
+                        m.cachedInstructions().any { instr ->
+                            instr is ReferenceInstruction && (instr.reference as? MethodReference)?.let {
+                                it.definingClass == classDef.type && it.returnType == "Z" &&
+                                    it.parameterTypes.size == 1
+                            } == true
+                        }
                     }
-                }
-                .forEach { method ->
-                    method.addInstructions(0, """
-                        const/4 v0, 0x0
-                        invoke-static {v0}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
-                        move-result-object v0
-                        return-object v0
-                    """)
-                }
+                    .forEach { m ->
+                        m.preflightSmali(RETURN_VOID, 1)
+                        m.addInstructions(0, RETURN_VOID)
+                    }
+            }
         }
 
         // Positioning-authority guide popup creator (b2x.j). Resolver excludes the OmsDialog
@@ -849,6 +867,67 @@ val uiCleanupPatch = bytecodePatch(
                     }
                 }
             }
+        }
+
+        // See-anim bubble dedicated method (ddf.V): static (ddf,kk3)V that creates the
+        // INTL_SEE_ANIM_BUBBLE pop level and calls zng.n. Void the entire method.
+        resolver.getUiCleanupClass("seeAnimBubbleV")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    AccessFlags.STATIC.isSet(method.accessFlags) &&
+                        method.returnType == "V" &&
+                        method.parameterTypes.size == 2 &&
+                        method.parameterTypes[1] == "Ll/kk3;" &&
+                        method.cachedInstructions().any { instr ->
+                            instr is ReferenceInstruction &&
+                                (instr.reference as? FieldReference)?.name == "INTL_SEE_ANIM_BUBBLE"
+                        }
+                }
+                .forEach { method ->
+                    method.preflightSmali(RETURN_VOID, 1)
+                    method.addInstructions(0, RETURN_VOID)
+                }
+        }
+
+        // See-anim bubble in larger method (ddf.m1): instance (kk3)Z that has two zng.n calls
+        // guarded by INTL_SEE_ANIM_BUBBLE. The see-anim path starts after the love_buzz check
+        // (at the jump target of the if-eqz for love_buzz key not found). Inject return-false
+        // at that point to suppress the see-anim bubble while preserving the love_buzz bubble.
+        resolver.getUiCleanupClass("seeAnimBubbleM1")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "Z" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Ll/kk3;" &&
+                        method.containsExactString("love_buzz_tab_tip_bubble_key")
+                }
+                .forEach { method ->
+                    val instructions = method.implementation?.instructions?.toList() ?: return@forEach
+                    val loveBuzzKeyIdx = instructions.indexOfFirst { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? StringReference)?.string == "love_buzz_tab_tip_bubble_key"
+                    }
+                    if (loveBuzzKeyIdx < 0) return@forEach
+                    val ifEqzIdx = instructions.indexOfFirst { instr ->
+                        instr.opcode.name == "if-eqz"
+                    }
+                    if (ifEqzIdx < 0) return@forEach
+                    val jumpTargetOffset = (instructions[ifEqzIdx] as com.android.tools.smali.dexlib2.iface.instruction.OffsetInstruction).codeOffset
+                    val ifEqzCodeOffset = instructions.take(ifEqzIdx).sumOf { it.codeUnits }
+                    val targetCodeOffset = ifEqzCodeOffset + 2 + jumpTargetOffset
+                    var cumulativeOffset = 0
+                    var targetIdx = -1
+                    for ((idx, instr) in instructions.withIndex()) {
+                        if (cumulativeOffset == targetCodeOffset) {
+                            targetIdx = idx
+                            break
+                        }
+                        cumulativeOffset += instr.codeUnits
+                    }
+                    if (targetIdx >= 0) {
+                        method.addInstructions(targetIdx, "const/4 v2, 0x0\nreturn v2")
+                    }
+                }
         }
     }
 }

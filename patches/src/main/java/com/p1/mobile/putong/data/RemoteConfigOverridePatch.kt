@@ -179,25 +179,38 @@ val remoteConfigOverridePatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        val rcDesc = "Lcom/p1/mobile/putong/remote_config/RemoteConfig;"
-        classDefByOrNull(rcDesc)?.let { classDef ->
+        // 7.5.6.1: the stable RemoteConfig class was obfuscated to Ll/ngi; (only ConfigStep /
+        // RemoteConfigException keep the name). Getters: F->k(String)String regs5, s->c(String)Z
+        // regs6, z->i(String,I)I regs3, y->h(String)I regs3. The long getter B has no ngi wrapper;
+        // consumers call the provider pq2.e(String,J)J regs9 directly. Resolve ngi via the
+        // "saved_device_uid_md5" anchor; derive the provider from h's (String,I)I delegate.
+        val resolver = getSharedResolver()
+        resolver.getMiscClass("remoteConfig")?.let { classDef ->
+            val rcDesc = classDef.type
             val mutableClassDef = mutableClassDefBy(classDef)
 
-            // z(String,I)I: registers computed absolutely (key=rc-2, default=rc-1; 7.5.4 rc=3
-            // -> key=v1, default=v2, v0 scratch clobbers `this` but every branch returns
-            // immediately). Unlisted keys fall through to the caller-supplied default.
+            // k(String)String: RC_F_OVERRIDE uses v0/v1 scratch + p1 key shuttle; falls through
+            // to the original JSON read for unlisted keys (this/key untouched).
             mutableClassDef.methods
-                .filter { method ->
-                    method.name == "z" &&
-                        method.parameterTypes.size == 2 &&
-                        method.parameterTypes[0] == "Ljava/lang/String;" &&
-                        method.parameterTypes[1] == "I" &&
-                        method.returnType == "I" &&
-                        AccessFlags.PUBLIC.isSet(method.accessFlags)
-                }
+                .filter { it.parameterTypes == listOf("Ljava/lang/String;") && it.returnType == "Ljava/lang/String;" &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags) && !AccessFlags.STATIC.isSet(it.accessFlags) }
+                .forEach { it.addInstructions(0, RC_F_OVERRIDE) }
+
+            // c(String)Z: RC_S_OVERRIDE, same scratch/shuttle pattern.
+            mutableClassDef.methods
+                .filter { it.parameterTypes == listOf("Ljava/lang/String;") && it.returnType == "Z" &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags) && !AccessFlags.STATIC.isSet(it.accessFlags) }
+                .forEach { it.addInstructions(0, RC_S_OVERRIDE) }
+
+            // i(String,I)I: registers computed absolutely (key=rc-2, default=rc-1; rc=3 ->
+            // key=v1, default=v2, v0 scratch clobbers `this` but every branch returns immediately).
+            // Unlisted keys return the caller-supplied default.
+            mutableClassDef.methods
+                .filter { it.parameterTypes == listOf("Ljava/lang/String;", "I") && it.returnType == "I" &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags) }
                 .forEach { method ->
                     val rc = method.implementation?.registerCount ?: 0
-                    check(rc >= 3) { "RemoteConfig.z has no scratch register (regs=$rc)" }
+                    check(rc >= 3) { "RemoteConfig int getter has no scratch register (regs=$rc)" }
                     val keyReg = rc - 2
                     val defReg = rc - 1
                     val zeroKeys = listOf(
@@ -249,112 +262,71 @@ val remoteConfigOverridePatch = bytecodePatch(
                     method.addInstructions(0, smali)
                 }
 
-            mutableClassDef.methods
-                .filter { method ->
-                    method.name == "B" &&
-                        method.parameterTypes.size == 2 &&
-                        method.parameterTypes[0] == "Ljava/lang/String;" &&
-                        method.parameterTypes[1] == "J" &&
-                        method.returnType == "J" &&
-                        AccessFlags.PUBLIC.isSet(method.accessFlags)
-                }
-                .forEach { method ->
-                    method.addInstructions(0, """
-                        const-string v0, "intl_text_buzz_auto_delete_interval"
-                        invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+            // h(String)I (no-default int): single-scratch pattern (key stays in rc-1, only v0
+            // clobbered; the original body redefines v0 before reading). rc=3 -> keyReg=v2.
+            val intNoDefaultGetter = mutableClassDef.methods.firstOrNull {
+                it.parameterTypes == listOf("Ljava/lang/String;") && it.returnType == "I" &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags) && !AccessFlags.STATIC.isSet(it.accessFlags)
+            }
+            intNoDefaultGetter?.let { method ->
+                val rc = method.implementation?.registerCount ?: 0
+                val keyReg = rc - 1
+                if (rc >= 3 && keyReg <= 15) {
+                    val smali = """
+                        const-string v0, "guide_give_superlike_pop"
+                        invoke-virtual {v$keyReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
                         move-result v0
-                        if-eqz v0, :not_matched
-                        const-wide/16 v0, 0x0
-                        return-wide v0
-                        :not_matched
-                        return-wide v2
-                    """)
+                        if-nez v0, :rc_999
+                        const-string v0, "guide_give_superlike_pop_female"
+                        invoke-virtual {v$keyReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v0
+                        if-nez v0, :rc_999
+                        goto :rc_not_matched
+                        :rc_999
+                        const/16 v0, 0x3e7
+                        return v0
+                        :rc_not_matched
+                    """.trimIndent()
+                    method.preflightSmali(smali, 11)
+                    method.addInstructions(0, smali)
                 }
 
-            // F(String)String and s(String)Z have registers==2 (no free scratch) and their
-            // bodies read `this` immediately, so they cannot be patched with a fall-through
-            // key comparison (gotcha #9). Both delegate to the backing provider returned by
-            // u() (7.5.4: Ll/f96;->t(String)String / f(String)Z, registers 4/5 with free
-            // scratch). Derive that provider + getter names from the stable RemoteConfig.F/s
-            // bodies (version-agnostic) and patch the provider getters, which DO fall through.
-            fun delegateGetter(name: String, ret: String): Pair<String, String>? {
-                val m = mutableClassDef.methods.firstOrNull {
-                    it.name == name && it.parameterTypes.size == 1 &&
-                        it.parameterTypes[0] == "Ljava/lang/String;" && it.returnType == ret
-                } ?: return null
-                val ref = m.implementation?.instructions?.asSequence()
+                // Derive the backing provider (7.5.6.1 pq2) from h's (String,I)I delegate, then
+                // patch its long getter e(String,J)J for the text-buzz auto-delete key. h's body
+                // is a pure delegate (e().d(str,0)), so the first foreign (String,I)I call is the
+                // provider int getter — NOT a JSONObject read (the k/c inlining trap avoids here).
+                val providerRef = method.implementation?.instructions?.asSequence()
                     ?.mapNotNull { (it as? ReferenceInstruction)?.reference as? MethodReference }
                     ?.firstOrNull {
-                        it.definingClass != rcDesc && it.parameterTypes.size == 1 &&
-                            it.parameterTypes[0] == "Ljava/lang/String;" && it.returnType == ret
-                    } ?: return null
-                return ref.definingClass to ref.name
-            }
-
-            delegateGetter("F", "Ljava/lang/String;")?.let { (providerDesc, getterName) ->
-                classDefByOrNull(providerDesc)?.let { provider ->
-                    mutableClassDefBy(provider).methods
-                        .filter {
-                            it.name == getterName && it.parameterTypes.size == 1 &&
-                                it.parameterTypes[0] == "Ljava/lang/String;" &&
-                                it.returnType == "Ljava/lang/String;" &&
-                                AccessFlags.PUBLIC.isSet(it.accessFlags)
-                        }
-                        .forEach { it.addInstructions(0, RC_F_OVERRIDE) }
-                }
-            }
-
-            delegateGetter("s", "Z")?.let { (providerDesc, getterName) ->
-                classDefByOrNull(providerDesc)?.let { provider ->
-                    mutableClassDefBy(provider).methods
-                        .filter {
-                            it.name == getterName && it.parameterTypes.size == 1 &&
-                                it.parameterTypes[0] == "Ljava/lang/String;" &&
-                                it.returnType == "Z" &&
-                                AccessFlags.PUBLIC.isSet(it.accessFlags)
-                        }
-                        .forEach { it.addInstructions(0, RC_S_OVERRIDE) }
-                }
-            }
-
-            // y(String)I (no-default int) delegates to provider m(String)I. 7.5.4 f96.m has
-            // registers==3: this=v1, key=v2, ONE free scratch v0 — so the key stays in its
-            // param register (absolute keyReg=rc-1, must be <=15 for the 4-bit invoke field)
-            // and only v0 is clobbered (the original body redefines v0 before reading it).
-            // RemoteConfig.y itself has registers==2 (no scratch) and cannot be patched
-            // directly. If the provider getter lacks a scratch reg or keyReg>15, skip the
-            // two keys (documented) rather than risk a silent drop (gotcha #9/#19).
-            delegateGetter("y", "I")?.let { (providerDesc, getterName) ->
-                classDefByOrNull(providerDesc)?.let { provider ->
-                    mutableClassDefBy(provider).methods
-                        .filter {
-                            it.name == getterName && it.parameterTypes.size == 1 &&
-                                it.parameterTypes[0] == "Ljava/lang/String;" &&
-                                it.returnType == "I" &&
-                                AccessFlags.PUBLIC.isSet(it.accessFlags)
-                        }
-                        .forEach { method ->
-                            val rc = method.implementation?.registerCount ?: 0
-                            val keyReg = rc - 1
-                            if (rc < 3 || keyReg > 15) return@forEach
-                            val smali = """
-                                const-string v0, "guide_give_superlike_pop"
-                                invoke-virtual {v$keyReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-                                move-result v0
-                                if-nez v0, :rc_999
-                                const-string v0, "guide_give_superlike_pop_female"
-                                invoke-virtual {v$keyReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-                                move-result v0
-                                if-nez v0, :rc_999
-                                goto :rc_not_matched
-                                :rc_999
-                                const/16 v0, 0x3e7
-                                return v0
-                                :rc_not_matched
-                            """
-                            method.preflightSmali(smali, 11)
-                            method.addInstructions(0, smali)
-                        }
+                        it.definingClass != rcDesc &&
+                            it.parameterTypes == listOf("Ljava/lang/String;", "I") && it.returnType == "I"
+                    }
+                providerRef?.let { ref ->
+                    classDefByOrNull(ref.definingClass)?.let { provider ->
+                        mutableClassDefBy(provider).methods
+                            .filter { it.parameterTypes == listOf("Ljava/lang/String;", "J") && it.returnType == "J" &&
+                                AccessFlags.PUBLIC.isSet(it.accessFlags) }
+                            .forEach { longMethod ->
+                                val lrc = longMethod.implementation?.registerCount ?: 0
+                                // instance (String,J): this=rc-4, key=rc-3, default=rc-2 (wide).
+                                val lKeyReg = lrc - 3
+                                val lDefReg = lrc - 2
+                                if (lrc >= 5 && lKeyReg <= 15) {
+                                    val smali = """
+                                        const-string v0, "intl_text_buzz_auto_delete_interval"
+                                        invoke-virtual {v$lKeyReg, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                                        move-result v0
+                                        if-eqz v0, :not_matched
+                                        const-wide/16 v0, 0x0
+                                        return-wide v0
+                                        :not_matched
+                                        return-wide v$lDefReg
+                                    """.trimIndent()
+                                    longMethod.preflightSmali(smali, 7)
+                                    longMethod.addInstructions(0, smali)
+                                }
+                            }
+                    }
                 }
             }
         }

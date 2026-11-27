@@ -31,6 +31,11 @@ private const val RETURN_FALSE = """
     return v0
 """
 
+private const val RETURN_TRUE = """
+    const/4 v0, 0x1
+    return v0
+"""
+
 private const val RETURN_EMPTY_JSON = """
     new-instance v0, Lorg/json/JSONObject;
     invoke-direct {v0}, Lorg/json/JSONObject;-><init>()V
@@ -53,7 +58,9 @@ val analyticsDisablePatch = bytecodePatch(
     execute {
         val resolver = getSharedResolver()
 
-        classDefByOrNull("Lcom/appsflyer/AppsFlyerLib;")?.let { classDef ->
+        // 7.5.6.1: AppsFlyerLib became abstract (init/start have no body); the concrete impl is
+        // the stable internal AFb1tSDK. Target it; init still returns the AppsFlyerLib base type.
+        classDefByOrNull("Lcom/appsflyer/internal/AFb1tSDK;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
@@ -92,22 +99,18 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        classDefByOrNull("Lcom/facebook/appevents/AppEventsLogger;")?.let { classDef ->
+        // Facebook AppEventsLogger.activateApp (7.5.6.1 na0.b): outer class obfuscated; resolve
+        // via the warning-string anchor. Drop the FINAL requirement (b is not final). FB login
+        // init is untouched; only auto-event logging activation is voided.
+        resolver.getAnalyticsClass("fbAppEvents")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
-                val isPublicStaticFinal = AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                                         AccessFlags.STATIC.isSet(method.accessFlags) &&
-                                         AccessFlags.FINAL.isSet(method.accessFlags)
-                when {
-                    isPublicStaticFinal &&
-                    method.returnType == "V" &&
-                    method.parameterTypes == listOf("Landroid/app/Application;") ->
-                        method.addInstructions(0, RETURN_VOID)
-
-                    isPublicStaticFinal &&
-                    method.returnType == "V" &&
-                    method.parameterTypes == listOf("Landroid/app/Application;", "Ljava/lang/String;") ->
-                        method.addInstructions(0, RETURN_VOID)
+                val isPublicStatic = AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                                     AccessFlags.STATIC.isSet(method.accessFlags)
+                if (isPublicStatic && method.returnType == "V" &&
+                    (method.parameterTypes == listOf("Landroid/app/Application;") ||
+                        method.parameterTypes == listOf("Landroid/app/Application;", "Ljava/lang/String;"))) {
+                    method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
@@ -183,8 +186,13 @@ val analyticsDisablePatch = bytecodePatch(
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
+                // 7.5.6.1: init switched Context -> TantanApp (f8e.b(TantanApp)V). Accept any
+                // single Context-assignable param (Context / Application / TantanApp).
                 if (method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Landroid/content/Context;" &&
+                    method.parameterTypes[0] in setOf(
+                        "Landroid/content/Context;",
+                        "Landroid/app/Application;",
+                        "Lcom/p1/mobile/putong/app/TantanApp;") &&
                     method.returnType == "V" &&
                     AccessFlags.STATIC.isSet(method.accessFlags)) {
                     method.addInstructions(0, RETURN_VOID)
@@ -192,107 +200,55 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        resolver.getAnalyticsClass("foxUploader")?.let { classDef ->
+        // Fox HTTP sender (7.5.6.1 mmm.b): the single upload choke point for BOTH report and
+        // sc-report endpoints. Force true ("upload succeeded") so callers purge their queues and
+        // never retry. Replaces the old per-endpoint f970.r/g2f0.o voids AND the lost ofh0.h()
+        // enable gate on the old m3m0.b sender (the new sender has no enable check).
+        resolver.getAnalyticsClass("foxSender")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
-                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
-                    method.parameterTypes.size == 2 &&
-                    method.parameterTypes[0] == "Ljava/lang/String;" &&
-                    method.parameterTypes[1] == "I" &&
-                    method.sharedCachedInstructions().any { instr ->
-                        instr is ReferenceInstruction &&
-                            (instr.reference as? StringReference)?.string == "https://report.tantanapp.com/v1/online/android"
-                    }) {
-                    method.addInstructions(0, RETURN_VOID)
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "Z" &&
+                    method.parameterTypes == listOf("Ljava/lang/String;", "Lcom/google/gson/JsonArray;", "I")) {
+                    method.preflightSmali(RETURN_TRUE, 2)
+                    method.addInstructions(0, RETURN_TRUE)
                 }
             }
         }
 
-        resolver.getAnalyticsClass("foxUploaderSc")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
-                    method.parameterTypes.size == 2 &&
-                    method.parameterTypes[0] == "Ljava/lang/String;" &&
-                    method.parameterTypes[1] == "I" &&
-                    method.sharedCachedInstructions().any { instr ->
-                        instr is ReferenceInstruction &&
-                            (instr.reference as? StringReference)?.string == "https://sc-report.tantanapp.com/v1/online/android"
-                    }) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // Beatles install facade (h53, re-anchored — the old "com.tantanapp.beatles" const-string
-        // does not exist in 7.5.4, so the old name-based init/install/start filter was a silent
-        // no-op). Void the xlog UPLOAD facade wrappers A(Date,String,J,j3m0) / B(List,String,J,j3m0)
-        // by shape; local xlog writing (v/l) and the install itself stay intact.
+        // Beatles install + upload facade (7.5.6.1 c41, re-anchored on "Please init Beatles!!!").
+        // Void the xlog UPLOAD enqueue f(List,String,J,lmm)V (the old luw.m backend was inlined
+        // into it) AND the push date-range upload entry a(J,String,String)V (sole caller is the
+        // shared z31 push dispatcher — voiding c41.a starves the "xlog.upload" pull WITHOUT
+        // touching z31.b, which multiplexes lovebuzz/feed/live/pay/member push handling).
+        // Local xlog writing (v31.c) and the install itself stay intact.
         resolver.getAnalyticsClass("beatles")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
-                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                val isUploadFacade = AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
                     method.parameterTypes.size == 4 &&
                     method.parameterTypes[1] == "Ljava/lang/String;" &&
                     method.parameterTypes[2] == "J" &&
                     (method.parameterTypes[0] == "Ljava/util/Date;" ||
-                        method.parameterTypes[0] == "Ljava/util/List;")) {
+                        method.parameterTypes[0] == "Ljava/util/List;")
+                val isPushUploadEntry = AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes == listOf("J", "Ljava/lang/String;", "Ljava/lang/String;")
+                if (isUploadFacade || isPushUploadEntry) {
                     method.preflightSmali(RETURN_VOID, 1)
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
         }
 
-        // Beatles xlog upload backend (luw.m): the single choke point enqueuing the upload
-        // runnable (luw$b) for date-based xlog pulls (push "xlog.upload", feedback, user-triggered).
-        // Sole caller h53.A (also voided above). Local log writing stays intact.
-        resolver.getAnalyticsClass("xlogUploader")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (!AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
-                    method.parameterTypes.size == 4 &&
-                    method.parameterTypes[0] == "Ljava/util/Date;" &&
-                    method.parameterTypes[1] == "Ljava/lang/String;" &&
-                    method.parameterTypes[2] == "J") {
-                    method.preflightSmali(RETURN_VOID, 1)
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // Push click/delivery tracking (rtc0.f0 entry + rtc0.m URL builder/uploader): both static
-        // (PushTrackData)V methods. Notification click/delivery HANDLING (PutongAct) is unaffected.
-        // Sibling g0 (Fox e_push_token_upload) is already dead via the Fox facade void.
+        // Push click/delivery tracking (7.5.6.1 mb0): the endpoint now lives in a synthetic
+        // tracking Runnable whose two cases are both analytics (AppOpenWayStats + client-monitor
+        // upload). Void run()V; notification click/delivery HANDLING (PutongAct) is unaffected.
         resolver.getAnalyticsClass("pushTracker")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
-                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/api/push/PushTrackData;") {
+                if (method.name == "run" && method.returnType == "V" && method.parameterTypes.isEmpty()) {
                     method.preflightSmali(RETURN_VOID, 1)
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // Silent remote xlog pull (u53$d handler): declines the server-pushed "xlog.upload"
-        // intent (returns false = not handled), so 7 days of xlogs (request URLs/responses)
-        // cannot be extracted. Registration u53.v() stays; the handler just declines.
-        resolver.getAnalyticsClass("xlogPull")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.implementation == null) return@forEach
-                if (method.returnType == "Z" && method.parameterTypes.size == 4 &&
-                    method.parameterTypes[0] == "Ljava/lang/String;" &&
-                    method.parameterTypes[1] == "Ljava/lang/String;" &&
-                    method.parameterTypes[2] == "Lcom/p1/mobile/putong/data/PushMessage;" &&
-                    method.parameterTypes[3] == "Lcom/p1/mobile/putong/api/push/PushTrackData;" &&
-                    method.sharedCachedInstructions().any { instr ->
-                        instr is ReferenceInstruction &&
-                            (instr.reference as? StringReference)?.string == "xlog.upload"
-                    }) {
-                    method.preflightSmali(RETURN_FALSE, 2)
-                    method.addInstructions(0, RETURN_FALSE)
                 }
             }
         }
@@ -312,18 +268,30 @@ val analyticsDisablePatch = bytecodePatch(
         classDefByOrNull("Lcom/google/android/gms/ads/identifier/AdvertisingIdClient;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
+                // 7.5.6.1: the Info return type was obfuscated (AdvertisingIdClient$a -> Ll/st;).
+                // Derive the Info descriptor + (String,Z)V ctor from the method's actual return
+                // type instead of hardcoding a name (gotcha #17). Empty id + limitAdTracking=true.
                 if (method.name == "getAdvertisingIdInfo" &&
                     AccessFlags.STATIC.isSet(method.accessFlags) &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Landroid/content/Context;" &&
-                    method.returnType == "Lcom/google/android/gms/ads/identifier/AdvertisingIdClient\$a;") {
-                    method.addInstructions(0, """
-                        new-instance v0, Lcom/google/android/gms/ads/identifier/AdvertisingIdClient${'$'}a;
+                    method.parameterTypes == listOf("Landroid/content/Context;") &&
+                    method.returnType.startsWith("L")) {
+                    val infoType = method.returnType
+                    val infoClass = classDefByOrNull(infoType) ?: return@forEach
+                    val hasCtor = infoClass.methods.any {
+                        it.name == "<init>" && it.parameterTypes == listOf("Ljava/lang/String;", "Z")
+                    }
+                    if (!hasCtor) return@forEach
+                    val rc = method.implementation?.registerCount ?: 0
+                    if (rc < 3) return@forEach
+                    val smali = """
+                        new-instance v0, $infoType
                         const-string v1, ""
                         const/4 v2, 0x1
-                        invoke-direct {v0, v1, v2}, Lcom/google/android/gms/ads/identifier/AdvertisingIdClient${'$'}a;-><init>(Ljava/lang/String;Z)V
+                        invoke-direct {v0, v1, v2}, $infoType-><init>(Ljava/lang/String;Z)V
                         return-object v0
-                    """)
+                    """.trimIndent()
+                    method.preflightSmali(smali, 5)
+                    method.addInstructions(0, smali)
                 }
             }
         }
@@ -406,8 +374,14 @@ val analyticsDisablePatch = bytecodePatch(
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
-                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
-                    !(method.parameterTypes.isNotEmpty() && method.parameterTypes[0] == "Landroid/content/Context;")) {
+                // Exempt the init method(s): 7.5.6.1 init is c(TantanApp,String)V (was Context-first
+                // i/j/k). Voiding init leaves the facade Context field null, which non-Fox readers
+                // (image loading idd, statistics_store s64) dereference WITHOUT null checks -> NPE.
+                val isInit = method.parameterTypes.isNotEmpty() && method.parameterTypes[0] in setOf(
+                    "Landroid/content/Context;",
+                    "Landroid/app/Application;",
+                    "Lcom/p1/mobile/putong/app/TantanApp;")
+                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" && !isInit) {
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
@@ -428,15 +402,15 @@ val analyticsDisablePatch = bytecodePatch(
         resolver.getAnalyticsClass("ga4Collection")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
-                if (method.returnType == "Z" && method.parameterTypes.isEmpty() &&
+                // 7.5.6.1: the deactivated-metadata gate is dyq.g()I (returns 1 = collection off),
+                // not the old iiu0.Q()Z. Force the no-arg ()I carrier of the string to 1.
+                if (method.returnType == "I" && method.parameterTypes.isEmpty() &&
                     method.sharedCachedInstructions().any { instr ->
                         instr is ReferenceInstruction &&
                             (instr.reference as? StringReference)?.string == "firebase_analytics_collection_deactivated"
                     }) {
-                    method.addInstructions(0, """
-                        const/4 v0, 0x1
-                        return v0
-                    """)
+                    method.preflightSmali(RETURN_TRUE, 2)
+                    method.addInstructions(0, RETURN_TRUE)
                 }
             }
         }
@@ -739,21 +713,16 @@ val analyticsDisablePatch = bytecodePatch(
             }
         }
 
-        // Facebook app-settings fetch (FetchedAppSettingsManager.e): builds GraphRequest "app"
-        // and executes it. Return an EMPTY JSONObject (NOT null — r()/LoginButton dereference
-        // the result; null NPEs FB login). Empty settings fall back to SDK defaults; FB login
-        // init (FacebookInitProvider / c.L) is untouched.
-        classDefByOrNull("Lcom/facebook/internal/FetchedAppSettingsManager;")?.let { classDef ->
+        // Facebook app-settings fetch (7.5.6.1 ru6.a()JSONObject, static no-arg): builds
+        // GraphRequest "app" and executes it. Return an EMPTY JSONObject (NOT null — consumers
+        // dereference the result; null NPEs FB login). Empty settings fall back to SDK defaults;
+        // FB login init (FacebookInitProvider) is untouched.
+        resolver.getAnalyticsClass("fbAppSettings")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
-                if (!AccessFlags.STATIC.isSet(method.accessFlags) &&
+                if (AccessFlags.STATIC.isSet(method.accessFlags) &&
                     method.returnType == "Lorg/json/JSONObject;" &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Ljava/lang/String;" &&
-                    method.sharedCachedInstructions().any { instr ->
-                        instr is ReferenceInstruction &&
-                            (instr.reference as? MethodReference)?.definingClass == "Lcom/facebook/GraphRequest;"
-                    }) {
+                    method.parameterTypes.isEmpty()) {
                     method.preflightSmali(RETURN_EMPTY_JSON, 3)
                     method.addInstructions(0, RETURN_EMPTY_JSON)
                 }

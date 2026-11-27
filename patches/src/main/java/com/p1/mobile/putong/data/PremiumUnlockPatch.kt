@@ -18,6 +18,7 @@ import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
+import com.android.tools.smali.dexlib2.iface.reference.TypeReference
 import com.android.tools.smali.dexlib2.iface.Method
 
 /**
@@ -208,39 +209,6 @@ private val USER_NULL_CHECK_BODY: String = """
     :status_not_null
 """
 
-// ProfileImagesItemHolder.t(): defensive null-K2 guard
-//
-// `t()` is the holder's bind method. It reads `User userK2 = O().K2()` and
-// then `arrayList.addAll(userK2.pictures)` (NPE site: `iget-object v5, v0,
-// User->pictures` at offset ~14 of the original body). On a first-frame
-// cache miss, RxJava combineLatest can dispatch the bind call before the
-// second source has emitted, so K2() returns null and `t()` NPEs.
-//
-// Real Tantan doesn't hit this because the production fragment gates the
-// bind call behind `viewModel.user.distinctUntilChanged()` etc. — but our
-// patches have shifted timing enough that the race is visible in the
-// patched build.
-//
-// Patch shape: load K2() into v1, branch over the original body if null.
-// `goto :t_continue` falls through to the original body's first instruction
-// when v1 != 0. v1 is overwritten by the original body at offset 5
-// (`move-result-object v1` after the second O() call) so no register
-// conflict; `.registers 8` stays unchanged.
-//
-// Mirrors the original bytecode 1:1 (including the `Lp153l/c5m;` interface
-// dispatch for K2()) so behavior is byte-identical when K2() != null.
-private val PROFILE_IMAGES_NULL_GUARD_BODY: String = """
-    invoke-virtual {p0}, Lcom/p1/mobile/putong/core/ui/profile/profilelist/itemholders/ProfileImagesItemHolder;->O()Lp153l/a1m;
-    move-result-object v0
-    invoke-interface {v0}, Lp153l/c5m;->K2()Lcom/p1/mobile/putong/data/User;
-    move-result-object v1
-    if-eqz v1, :t_early_exit
-    goto :t_continue
-    :t_early_exit
-    return-void
-    :t_continue
-"""
-
 // ── Class-level fingerprints (resolve obfuscated classes by stable strings /
 //    field-access / method-call anchors) ──
 
@@ -365,12 +333,6 @@ private val qgl0ClassFingerprint = Fingerprint(
 )
 
 // src0ClassFingerprint removed - class matching issues in 7.3.3
-
-private val sjaClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("picksUser id is not found in users : "),
-    ),
-)
 
 // ── xma method fingerprints (grouped by behavior) ──
 
@@ -512,22 +474,6 @@ private val secretCrushRemainingFingerprint = Fingerprint(
 // rbb0: Likers limit gate checks - matched directly without class fingerprint
 // to avoid ambiguity with other classes that access LikersLimit.remaining
 
-// hl3: Likers dialog creator
-// hl3.J(Act, int, CoreLikers$a) creates the full modal dialog with LikersDialogView
-// hl3.H(Act, int, List) creates the dialog with photo URLs (no-match variant)
-// hl3.L(Act, int) creates the SVIP recover dialog
-// Anchored on "p_offline_popup" OMS dialog ID + LikersDialogView method calls
-// Resolution in classDefForEach below
-
-// gg50: Dialog strategy for p_offline_popup
-// gg50.b() checks if popup should show
-// gg50.d() executes the popup display
-// Anchored on "p_offline_popup" + j7d0 method calls
-
-// qtk: Return-to-app guide dialog
-// qtk.B0() generates "你离开后，仍有 %s 个人喜欢着你" text and shows reBackAppGuideDialog
-// Anchored on "reBackAppGuideDialog" string
-
 // CoreSuggested: Likers data source
 // CoreSuggested.n8() initiates the likers poll with home_new_liker_float/home_total_liker_float triggers
 // This is the ROOT SOURCE of data that feeds all popup chains
@@ -591,9 +537,6 @@ private val tm90GFingerprint = Fingerprint(
 // The g9 method no longer references Membership.active field, so this fingerprint won't match.
 // The User.isVIP()/isUltraPremium() patches already override premium status via isMe() checks,
 // so this membership flip is no longer needed.
-
-// jh30U0Fingerprint removed — dark upgrade card suppression moved to Pass 2 (jh30ClassFingerprint)
-// to handle both Me tab variants (xp30 and xnx) with dynamic getter resolution.
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -922,14 +865,13 @@ val premiumUnlockPatch = bytecodePatch(
             // We do NOT patch q4() because it already returns the correct value for free users
             // Patching it breaks the promotion state machine and causes crashes
             
-            // Q4(PurchaseType) - purchase requirement check
-            // Returns TRUE if a purchase is needed, FALSE otherwise
-            // We patch to FALSE to bypass purchase requirements
-            classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreProduct;")?.let { classDef ->
+            // Q4(PurchaseType) - purchase requirement check (7.5.6.1: CoreProduct obfuscated to
+            // Ll/is3;, Q4 -> S static). Resolve via the location-bubble pref anchor; match the
+            // (PurchaseType)Z gate by shape (name-agnostic). Returns TRUE if a purchase is needed;
+            // force FALSE to bypass purchase requirements.
+            getSharedResolver().getPremiumClass("coreProduct")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "Q4" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" &&
+                    if (method.parameterTypes == listOf("Lcom/p1/mobile/putong/core/data/PurchaseType;") &&
                         method.returnType == "Z"
                     ) {
                         method.addInstructions(0, RETURN_FALSE)
@@ -945,23 +887,6 @@ val premiumUnlockPatch = bytecodePatch(
                         method.parameterTypes.isEmpty() && method.returnType == "I"
                     ) {
                         method.addInstructions(0, RETURN_INT_200000)
-                    }
-                }
-            }
-
-            // ── ProfileImagesItemHolder.t(): defensive null-K2 guard ────────
-            //
-            // Stable CamelCase class, but `t()` is the obfuscated bind name.
-            // Filter by signature (name == "t", no params, V return) — single
-            // method match. Uses direct `mutableClassDefBy().methods.forEach`
-            // to avoid the matchOrNull(method) cache trap (AGENTS.md §1b).
-            classDefByOrNull("Lcom/p1/mobile/putong/core/ui/profile/profilelist/itemholders/ProfileImagesItemHolder;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "t" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
-                    ) {
-                        method.addInstructions(0, PROFILE_IMAGES_NULL_GUARD_BODY)
                     }
                 }
             }
@@ -1003,6 +928,23 @@ val premiumUnlockPatch = bytecodePatch(
                         method.addInstructions(0, RETURN_TRUE)
                     }
                 }
+                val emptySpannableBody = """
+                    new-instance v0, Landroid/text/SpannableString;
+                    const-string v1, ""
+                    invoke-direct {v0, v1}, Landroid/text/SpannableString;-><init>(Ljava/lang/CharSequence;)V
+                    return-object v0
+                """
+                val distanceAgeMethods = mutableClassDefBy(classDef).methods.filter {
+                    it.parameterTypes == listOf("Lcom/p1/mobile/putong/data/User;", "Landroid/content/Context;", "[I") &&
+                        it.returnType == "Landroid/text/SpannableString;"
+                }
+                check(distanceAgeMethods.size == 1) {
+                    "CoreBusinessServiceIml distance/age (User,Context,int[])SpannableString: expected 1, found ${distanceAgeMethods.size}"
+                }
+                distanceAgeMethods.forEach { method ->
+                    method.preflightSmali(emptySpannableBody, 4)
+                    method.addInstructions(0, emptySpannableBody)
+                }
             }
 
             // ── Instant Match regional gate: REMOVED ──
@@ -1015,26 +957,22 @@ val premiumUnlockPatch = bytecodePatch(
             // in 7.3.3 and doesn't match the actual class in the APK. This patch would need fingerprint-based
             // discovery to work correctly. Removed to fix test failures.
 
-            // ── Me tab affiliate discount entry banner: CoreIntlAffiliatePromotions.M3() ──
+            // ── Me tab affiliate discount entry banner: CoreIntlAffiliatePromotions.S() ──
             //
             // The Me tab shows an affiliate discount banner driven by server-side promotion
-            // data, NOT user tier. M3() checks if there's a cached IapAffiliatePromotion
+            // data, NOT user tier. S() checks if there's a cached IapAffiliatePromotion
             // for the given tab. Patching to FALSE hides ALL discount entry banners
             // (ME_TAB, MESSAGE_TAB, WHISPER_TAB, etc.) — desired for premium unlock.
-            classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions;")?.let { classDef ->
+            getSharedResolver().getPremiumClass("affiliatePromotions")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "M3" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions\$IntlAffiliateDiscountEntryTab;" &&
+                    if (method.parameterTypes == listOf("Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions\$IntlAffiliateDiscountEntryTab;") &&
                         method.returnType == "Z"
                     ) {
+                        method.preflightSmali(RETURN_FALSE, 2)
                         method.addInstructions(0, RETURN_FALSE)
                     }
                 }
             }
-
-            // ── Me tab dark upgrade card suppression moved to Pass 2 ──
-            // Uses jh30ClassFingerprint to avoid scanning every class in Pass 1
 
             // ── Daily like limit bypass: REMOVED ──
             // Hardcoded descriptors for h0, l1, m1 are obfuscated in 7.3.3 and don't match
@@ -1686,14 +1624,14 @@ val premiumUnlockPatch = bytecodePatch(
             "feedStateFakeConv", "meetEntranceBanner", "instantChatGuide", "mainUiFakeConv",
             "coreApiTeamGroup", "coreApiLimitedTrialFold", "intlSeeChatRequestCreator", "r8n",
             "headRecommendAdapter", "seeAnimBubbleCreator", "sb90Companion", "u59", "tm90",
-            "gqf0", "h6a", "ugc0", "zva0", "th5", "qgl0", "sja", "n3b0", "rbb0", "hl3",
-            "j7d0", "gg50", "qtk", "secretCrush", "greetingCounter", "swipeRateLimit",
-            "leftSwipeLimit", "intlUltraPremium", "coreData", "mb90", "jh30",
+            "gqf0", "h6a", "ugc0", "zva0", "th5", "qgl0", "sja", "n3b0", "rbb0", "svipRecoverStrategy",
+            "secretCrush", "greetingCounter", "swipeRateLimit",
+            "leftSwipeLimit", "intlUltraPremium", "coreData", "mb90",
             "businessEntranceAdapter", "pm6", "bhe0", "vqo", "re90", "i0p",
             "meetNewLikersData", "intlMeetNewLikersData", "intlMeetNewLikersAdapter",
-            "meetNewLikersAdapter", "ysa", "ae9", "c4m0",
+            "meetNewLikersAdapter", "ae9", "c4m0",
             "businessEntranceStateManager", "serverDataFlagSetter", "newLikesFlagSetter",
-            "distanceAgeTextGenerator", "profilePageBanner", "suggestedUsersBanner", "themeUnlock"
+            "profilePageBanner", "suggestedUsersBanner", "themeUnlock", "profileImagesHolder"
         )
         for (key in premiumKeys) {
             resolver.getPremiumClass(key)?.let { resolved[key] = it }
@@ -1767,6 +1705,7 @@ val premiumUnlockPatch = bytecodePatch(
                             // Force "has membership": every freePicks paywall is guarded by !E3, so this
                             // also clears the freePicks-remaining gates on all Picks surfaces.
                             method.containsString("picksMembership") -> method.addInstructions(0, RETURN_TRUE)
+                            method.containsExactString("letter") -> method.addInstructions(0, RETURN_TRUE)
                             // Top Picks AB-bucket gate J3() = (g5() || Lg()) && !c4(); force enabled so
                             // control-bucket accounts can like Top Picks (client gate; server authoritative).
                             method.callsCoreProviderAbFlag() -> method.addInstructions(0, RETURN_TRUE)
@@ -1956,6 +1895,7 @@ val premiumUnlockPatch = bytecodePatch(
 
         resolved["sja"]?.let { sjaClassDef ->
             sjaPicksRemainingFingerprint.matchAllOrNull(sjaClassDef).orEmpty().forEach { match ->
+                match.method.preflightSmali(RETURN_INT_200000, 2)
                 match.method.addInstructions(0, RETURN_INT_200000)
             }
         }
@@ -2051,46 +1991,22 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // rbb0: Likers limit gate checks
-        // q() - no-arg static → Z, delegates to s()
-        // r(Counter) - static Counter → Z, returns counter == null || counter.likersLimit.remaining <= 0
-        // s(Counter, int, Object) - synthetic bridge → Z
-        // Patching all to return TRUE makes all callers think there are 0 likers remaining,
-        // preventing "x people liked you" popups from appearing on the swipe tab.
+        // rbb0: likers-quota gate (7.5.6.1 oth.c()Z / a()J / b()J, was gjc0.q/r/s/g/i).
+        // Force the static no-arg ()Z quota gate TRUE (callers see 0 likers remaining -> no
+        // "x people liked you" popups) and the static no-arg ()J expiry gates to 0L. Match by
+        // shape, not the churned method names. The theme gate (themeUnlock/cj7.a) is forced
+        // FALSE separately so theme cards stay unlocked despite the quota gate reporting exhausted.
         resolved["rbb0"]?.let { rbb0ClassDef ->
             mutableClassDefBy(rbb0ClassDef).methods.forEach { method ->
-                // q() - no-arg static → Z
-                if (method.name == "q" && method.parameterTypes.isEmpty() && 
-                    method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                if (!AccessFlags.STATIC.isSet(method.accessFlags)) return@forEach
+                if (method.returnType == "Z" && method.parameterTypes.isEmpty()) {
                     method.addInstructions(0, RETURN_TRUE)
                 }
-                // r(Counter) - static Counter → Z
-                if (method.name == "r" && method.parameterTypes.size == 1 && 
-                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;" &&
-                    method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                if (method.returnType == "Z" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;") {
                     method.addInstructions(0, RETURN_TRUE)
                 }
-                // s(Counter, int, Object) - synthetic bridge → Z
-                if (method.name == "s" && method.parameterTypes.size == 3 && 
-                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;" &&
-                    method.parameterTypes[1] == "I" &&
-                    method.parameterTypes[2] == "Ljava/lang/Object;" &&
-                    method.returnType == "Z" && AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_TRUE)
-                }
-                // g() - static no-arg → J, returns likersLimit.expiresTime
-                // Patch to return 0L to make all callers think likers limit never expires
-                if (method.name == "g" && method.parameterTypes.isEmpty() &&
-                    method.returnType == "J" && AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const-wide v0, 0x0
-                        return-wide v0
-                    """)
-                }
-                // i() - static no-arg → J, returns remaining time on likers limit
-                // Patch to return 0L
-                if (method.name == "i" && method.parameterTypes.isEmpty() &&
-                    method.returnType == "J" && AccessFlags.STATIC.isSet(method.accessFlags)) {
+                if (method.returnType == "J" && method.parameterTypes.isEmpty()) {
                     method.addInstructions(0, """
                         const-wide v0, 0x0
                         return-wide v0
@@ -2099,69 +2015,18 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // hl3 (7.5.4: zw3): swipe-tab likers promo dialog creator. Each promo dialog is
-        // built + shown by a distinct static void method anchored on its OMS popup key:
-        //   "p_no_match_svip"                    -> H (no-match likers alert, LikersDialogView.c)
-        //   "p_offline_popup"                    -> J (offline "99+ people liked you", LikersDialogView.b)
-        //   "p_no_match_see_purchase_guide_view" -> I (see-purchase guide, VipItemDetailPage)
-        //   "p_see_popup_expired_svip"           -> L (SVIP expired recover, SVipSeeRecoverDlg)
-        // Patch the CREATORS to return-void so the whole dialog is suppressed. Patching only
-        // the LikersDialogView content populators (b/c) left an empty popup frame still showing.
-        // Match by the popup-key string literal (version-agnostic), not the obfuscated method name.
-        // The OMS M() blocklist alone is unreliable here: g350.K7 bypasses M() when ern0.F()
-        // (AB "pop_platform_all") is false and calls the creator directly.
-        val likersPromoKeys = setOf(
-            "p_no_match_svip",
-            "p_offline_popup",
-            "p_no_match_see_purchase_guide_view",
-            "p_see_popup_expired_svip",
-        )
-        resolved["hl3"]?.let { hl3ClassDef ->
-            mutableClassDefBy(hl3ClassDef).methods.forEach { method ->
-                if (!AccessFlags.STATIC.isSet(method.accessFlags) || method.returnType != "V") return@forEach
-                val hasPromoKey = method.cachedInstructions().any { instr ->
+        resolved["svipRecoverStrategy"]?.let { svipRecoverClassDef ->
+            mutableClassDefBy(svipRecoverClassDef).methods.forEach { method ->
+                if (AccessFlags.STATIC.isSet(method.accessFlags) || method.returnType != "Z" ||
+                    method.parameterTypes.size != 1) return@forEach
+                val hasRecoverKey = method.cachedInstructions().any { instr ->
                     instr is ReferenceInstruction && instr.reference is StringReference &&
-                        (instr.reference as StringReference).string in likersPromoKeys
+                        (instr.reference as StringReference).string == "p_see_popup_expired_svip"
                 }
-                if (hasPromoKey) method.addInstructions(0, RETURN_VOID)
-            }
-        }
-
-        // j7d0 (7.5.4: bfe0): offline-popup orchestrator. i0(g350)V is the only
-        // static void 1-param method; it calls zw3.J. Void it as a version-agnostic
-        // backstop (the hl3 creator void is primary). Shape-based, not the old h0(b240) name.
-        resolved["j7d0"]?.let { j7d0ClassDef ->
-            mutableClassDefBy(j7d0ClassDef).methods.forEach { method ->
-                if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
-                    method.parameterTypes.size == 1) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // gg50 (7.5.4: si60): OMS dialog strategy for p_offline_popup. Its b/d/f
-        // overrides take a single lwl$a param (NOT no-arg). Force every 1-param Z
-        // override false so should-show/execute never fire. Shape-based, version-agnostic.
-        resolved["gg50"]?.let { gg50ClassDef ->
-            mutableClassDefBy(gg50ClassDef).methods.forEach { method ->
-                if (method.returnType == "Z" && method.parameterTypes.size == 1) {
+                if (hasRecoverKey) {
+                    method.preflightSmali(RETURN_FALSE, 2)
                     method.addInstructions(0, RETURN_FALSE)
                 }
-            }
-        }
-
-        // qtk (7.5.4: wgl): return-to-app guide. M0(Act,Runnable)V builds the
-        // p_reback_popup dialog ("99+ people liked you"). Match the static void method
-        // containing the "p_reback_popup" key (co-located, gotcha #15 safe), not the old
-        // no-arg B0() name (wgl.B0 is a 5-param error handler in 7.5.4).
-        resolved["qtk"]?.let { qtkClassDef ->
-            mutableClassDefBy(qtkClassDef).methods.forEach { method ->
-                if (!AccessFlags.STATIC.isSet(method.accessFlags) || method.returnType != "V") return@forEach
-                val hasRebackKey = method.cachedInstructions().any { instr ->
-                    instr is ReferenceInstruction && instr.reference is StringReference &&
-                        (instr.reference as StringReference).string == "p_reback_popup"
-                }
-                if (hasRebackKey) method.addInstructions(0, RETURN_VOID)
             }
         }
 
@@ -2304,36 +2169,29 @@ val premiumUnlockPatch = bytecodePatch(
 
         // joa patch removed: in 7.3.3 xma and joa are the same class, xma patch handles these methods
 
-        resolved["jh30"]?.let { jh30ClassDef ->
-            val newProfilePrivilegedPagerType = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;"
-            val methods = jh30ClassDef.methods
-
-            val populateMethod = methods.firstOrNull { method ->
-                AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                    AccessFlags.FINAL.isSet(method.accessFlags) &&
-                    method.returnType == "V" &&
-                    method.parameterTypes.size == 2 &&
-                    method.parameterTypes[0] == "Ljava/util/List;" &&
-                    method.parameterTypes[1] == "Z"
-            } ?: return@let
-
-            val getterMethod = methods.firstOrNull { method ->
-                method.parameterTypes.isEmpty() &&
-                    method.returnType == newProfilePrivilegedPagerType
-            } ?: return@let
-
-            val classType = jh30ClassDef.type
-            val getterName = getterMethod.name
-            val bannerHideBody = """
-                invoke-virtual {p0}, ${classType}->${getterName}()${newProfilePrivilegedPagerType}
-                move-result-object v0
-                const/16 v1, 0x8
-                invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
-                return-void
-            """
-            mutableClassDefBy(jh30ClassDef).methods
-                .first { it.name == populateMethod.name && it.parameterTypes == populateMethod.parameterTypes }
-                .addInstructions(0, bannerHideBody)
+        resolver.getMeTabPagerClasses().forEach { classDef ->
+            val pagerType = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;"
+            val pagerField = classDef.fields.firstOrNull { it.type == pagerType } ?: return@forEach
+            val populateMethods = mutableClassDefBy(classDef).methods.filter {
+                !AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                    it.parameterTypes == listOf("Ljava/util/ArrayList;", "Z")
+            }
+            check(populateMethods.size == 1) {
+                "meTabPager ${classDef.type}: expected 1 (ArrayList,Z)V method, found ${populateMethods.size}"
+            }
+            populateMethods.forEach { method ->
+                val pagerHideBody = """
+                    move-object/from16 v0, p0
+                    iget-object v0, v0, ${classDef.type}->${pagerField.name}:$pagerType
+                    if-eqz v0, :morph_done
+                    const/16 v1, 0x8
+                    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+                    :morph_done
+                    return-void
+                """
+                method.preflightSmali(pagerHideBody, 6)
+                method.addInstructions(0, pagerHideBody)
+            }
         }
 
         resolved["businessEntranceAdapter"]?.let { classDef ->
@@ -2552,58 +2410,41 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // ── 1. VerifyPremiumIsolationConfig gates (ysa.e/f/g) ─────────────────
-        // Patch all three methods to return FALSE (allow non-verified users)
-        resolved["ysa"]?.let { classDef ->
+        // ── 2. UltraRightsUpgradeInfo gates (7.5.6.1 zi3.G/H/I, was ae9.j3/k3) ──
+        // Patch to return FALSE (suppress "upgrade to Ultra Premium" prompts).
+        // Match by shape: instance ()Z reading isCanUpgradeUltra, static
+        // (ProductCategory)Z, instance (PurchaseType)Z.
+        resolved["ae9"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.parameterTypes.isEmpty() && method.returnType == "Z" &&
-                    AccessFlags.STATIC.isSet(method.accessFlags) &&
-                    method.name in setOf("e", "f", "g")) {
-                    val instrs = method.cachedInstructions()
-                    val accessesVerifyConfig = instrs.any { instr ->
+                if (method.returnType != "Z") return@forEach
+                val isUpgradeGate = !AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.parameterTypes.isEmpty() &&
+                    method.cachedInstructions().any { instr ->
                         instr is ReferenceInstruction && instr.reference is FieldReference &&
-                            (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;" &&
-                            (instr.reference as FieldReference).name.startsWith("restrict_non_verified_")
+                            (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/core/data/UltraRightsUpgradeInfo;" &&
+                            (instr.reference as FieldReference).name == "isCanUpgradeUltra"
                     }
-                    if (accessesVerifyConfig) {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
-            }
-        }
-
-        // ── 2. UltraRightsUpgradeInfo gate (ae9.j3) ───────────────────────────
-        // Patch to return FALSE (suppress "upgrade to Ultra Premium" prompts)
-        resolved["ae9"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "j3" && method.parameterTypes.isEmpty() && method.returnType == "Z") {
+                val isCategoryGate = AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.parameterTypes == listOf("Lcom/p1/mobile/putong/core/data/ProductCategory;")
+                val isPurchaseGate = !AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.parameterTypes == listOf("Lcom/p1/mobile/putong/core/data/PurchaseType;")
+                if (isUpgradeGate || isCategoryGate || isPurchaseGate) {
+                    method.preflightSmali(RETURN_FALSE, 2)
                     method.addInstructions(0, RETURN_FALSE)
                 }
             }
         }
 
-        // ── 4. MembershipUpgradeInfo upgrade path (ae9.k3) ────────────────────
-        // Patch to return FALSE (suppress upgrade path prompts)
-        resolved["ae9"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "k3" && method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/ProductCategory;" &&
-                    method.returnType == "Z") {
-                    method.addInstructions(0, RETURN_FALSE)
-                }
-            }
-        }
-
-        // ── 5. VIP roaming location UI gate (c4m0.n) ──────────────────────────
-        // Patch static method n(String, Act, String)Z to return TRUE (always allow roaming)
+        // ── 5. VIP roaming location UI gate (7.5.6.1 yan.a, was c4m0/bun0.n) ──────
+        // Patch the static (Act,String,String)Z roaming gate to TRUE (always allow roaming).
+        // Param order changed (String,Act,String)->(Act,String,String); match by shape, not name.
         resolved["c4m0"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "n" && 
-                    AccessFlags.STATIC.isSet(method.accessFlags) &&
+                if (AccessFlags.STATIC.isSet(method.accessFlags) &&
                     method.returnType == "Z" &&
                     method.parameterTypes.size == 3 &&
-                    method.parameterTypes[0] == "Ljava/lang/String;" &&
-                    method.parameterTypes[1] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
+                    method.parameterTypes[1] == "Ljava/lang/String;" &&
                     method.parameterTypes[2] == "Ljava/lang/String;") {
                     method.addInstructions(0, RETURN_TRUE)
                 }
@@ -2671,20 +2512,6 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
-        // ── 9. Distance/age text generator (tje0) ──
-        resolved["distanceAgeTextGenerator"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "c" && method.parameterTypes.size == 3 &&
-                    method.returnType == "Ljava/lang/CharSequence;" &&
-                    AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, """
-                        const-string v0, ""
-                        return-object v0
-                    """)
-                }
-            }
-        }
-
         // ── 10. Profile page banner (n1b0) ──
         resolved["profilePageBanner"]?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
@@ -2704,6 +2531,48 @@ val premiumUnlockPatch = bytecodePatch(
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
+        }
+
+        resolved["profileImagesHolder"]?.let { classDef ->
+            val target = classDef.methods.firstOrNull { m ->
+                !AccessFlags.STATIC.isSet(m.accessFlags) && m.returnType == "V" && m.parameterTypes.isEmpty() &&
+                    m.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is FieldReference &&
+                            (instr.reference as FieldReference).definingClass == "Lcom/p1/mobile/putong/data/User;" &&
+                            (instr.reference as FieldReference).name == "pictures"
+                    } &&
+                    m.cachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && instr.reference is MethodReference &&
+                            (instr.reference as MethodReference).definingClass == "Lv/VPagerCircleIndicator;" &&
+                            (instr.reference as MethodReference).name == "c"
+                    }
+            } ?: return@let
+            val instrs = target.cachedInstructions()
+            if (instrs.size < 3 ||
+                instrs[0].opcode != Opcode.IGET_OBJECT ||
+                instrs[1].opcode != Opcode.CHECK_CAST ||
+                instrs[2].opcode != Opcode.INVOKE_INTERFACE
+            ) return@let
+            val fieldRef = (instrs[0] as ReferenceInstruction).reference as? FieldReference ?: return@let
+            val typeRef = (instrs[1] as ReferenceInstruction).reference as? TypeReference ?: return@let
+            val methodRef = (instrs[2] as ReferenceInstruction).reference as? MethodReference ?: return@let
+            if (methodRef.returnType != "Lcom/p1/mobile/putong/data/User;" || !methodRef.parameterTypes.isEmpty()) return@let
+            val nullGuardBody = """
+                move-object/from16 v0, p0
+                iget-object v0, v0, ${fieldRef.definingClass}->${fieldRef.name}:${fieldRef.type}
+                check-cast v0, ${typeRef.type}
+                invoke-interface {v0}, ${methodRef.definingClass}->${methodRef.name}(${methodRef.parameterTypes.joinToString("")})${methodRef.returnType}
+                move-result-object v0
+                if-eqz v0, :morph_guard_exit
+                goto :morph_guard_continue
+                :morph_guard_exit
+                return-void
+                :morph_guard_continue
+            """
+            val mutableTarget = mutableClassDefBy(classDef).methods
+                .first { it.name == target.name && it.parameterTypes == target.parameterTypes }
+            mutableTarget.preflightSmali(nullGuardBody, 8)
+            mutableTarget.addInstructions(0, nullGuardBody)
         }
 
         // ── Discovery theme unlock (regression fix): j5k.a(String)Z ──
@@ -2839,7 +2708,7 @@ val premiumUnlockPatch = bytecodePatch(
         // These patches used unsafe mid-method injection (addInstructions(idx + 1, ...)) which corrupts
         // register state and causes app hangs on splash screen. The ysa.g1 patch also attempted to create
         // a new SwipeRateLimitConfig instance, which could fail if the constructor or field doesn't exist.
-        // Safe patches (ysa.e/f/g, ae9.j3, ae9.k3) that prepend at index 0 are retained above.
+        // Safe patches that prepend at index 0 are retained above.
 
     }
 }

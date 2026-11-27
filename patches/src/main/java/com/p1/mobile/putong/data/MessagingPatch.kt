@@ -9,6 +9,7 @@ import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
+import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction11n
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction51l
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
@@ -77,6 +78,22 @@ private const val RETURN_DOUBLE_MAX = """
     return-wide v0
 """
 
+private val FAKE_CONV_UPSERT_GUARD = """
+    iget-object v0, v2, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
+    if-eqz v0, :morph_g1_orig
+    const-string v1, "fakeReceiveLikeGuideSVip"
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v1
+    if-nez v1, :morph_g1_ret
+    const-string v1, "fakeIntlReceiveLikeGuideSVip"
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v1
+    if-eqz v1, :morph_g1_orig
+    :morph_g1_ret
+    return-void
+    :morph_g1_orig
+"""
+
 private val EXCLUDED_METHODS = setOf(
     "<init>", "<clinit>", "hashCode", "equals", "clone",
     "toString", "nullCheck", "getClassParseName", "toJson"
@@ -115,6 +132,11 @@ private const val LOVE_BUZZ_DATA_CLASS = "Lcom/p1/mobile/putong/core/data/LoveBu
 private const val ICE_BREAK_DLG_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/IceBreakDlgConfig;"
 private const val CONTINUES_OP_CONV_CONFIG_CLASS = "Lcom/p1/mobile/putong/core/data/ContinuesOpConvConfig;"
 private const val ITEM_MESSAGE_BASE_CLASS = "Lcom/p1/mobile/putong/core/ui/messages/ItemMessageBase;"
+private const val KEEP_CONNECTION_CLASS = "Lcom/p1/mobile/putong/core/data/KeepConnection;"
+private const val PRIVILEGE_CLASS = "Lcom/p1/mobile/putong/core/data/Privilege;"
+private const val USER_PRIVILEGE_CONTENT_CLASS = "Lcom/p1/mobile/putong/core/data/UserPrivilegeContent;"
+
+private val BUZZ_TYPE_STRINGS = setOf("voiceBuzz", "videoBuzz", "memojiBuzz", "textBuzz")
 
 private val instructionCache = java.util.WeakHashMap<com.android.tools.smali.dexlib2.iface.Method, List<Instruction>>()
 
@@ -187,42 +209,79 @@ val messagingPatch = bytecodePatch(
         val resolver = getSharedResolver()
         val loveBuzzDataClasses = resolver.getLoveBuzzClasses()
 
+        var loveBuzzGateEdits = 0
         loveBuzzDataClasses.forEach { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods.forEach { method ->
-                when {
-                    method.name == "a" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Ljava/lang/String;" &&
-                        method.returnType == "Z" -> method.addInstructions(0, RETURN_FALSE)
-                    method.name == "j0" &&
-                        method.parameterTypes.size == 2 &&
-                        method.returnType == "V" -> method.addInstructions(0, RETURN_VOID)
+            val mutable = mutableClassDefBy(classDef)
+            val methodMap = classDef.methods.zip(mutable.methods).toMap()
+            classDef.methods.forEach { method ->
+                val instrs = method.cachedInstructions()
+                if (!BUZZ_TYPE_STRINGS.all { s ->
+                        instrs.any { it is ReferenceInstruction && (it.reference as? StringReference)?.string == s }
+                    }) return@forEach
+                val intValueIdx = instrs.indexOfFirst { instr ->
+                    instr is ReferenceInstruction && (instr.reference as? MethodReference)?.let {
+                        it.definingClass == "Ljava/lang/Integer;" && it.name == "intValue"
+                    } == true
                 }
+                if (intValueIdx < 0 || intValueIdx + 1 >= instrs.size) return@forEach
+                val next = instrs[intValueIdx + 1]
+                if (next.opcode != Opcode.MOVE_RESULT || next !is OneRegisterInstruction) return@forEach
+                val reg = next.registerA
+                if (reg > 15) return@forEach
+                val mutableMethod = methodMap[method] ?: return@forEach
+                mutableMethod.replaceInstruction(intValueIdx + 1, BuilderInstruction11n(Opcode.CONST_4, reg, -1))
+                loveBuzzGateEdits++
             }
         }
+        check(loveBuzzGateEdits == 1) { "loveBuzz master gate edits: $loveBuzzGateEdits" }
 
-        typingIndicatorClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
+        resolver.getTypingIndicatorClasses().forEach { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name == "X2" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags) &&
                         method.parameterTypes.isEmpty() &&
-                        method.returnType == "V"
+                        method.returnType == "V" &&
+                        method.accessesField(KEEP_CONNECTION_CLASS, "chatTypingOpen") &&
+                        method.accessesField(KEEP_CONNECTION_CLASS, "chatTypingInterval")
                 }
-                .forEach { it.addInstructions(0, RETURN_VOID) }
+                .forEach { method ->
+                    method.preflightSmali(RETURN_VOID, 1)
+                    method.addInstructions(0, RETURN_VOID)
+                }
         }
 
-        swh0ClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            val mutableClass = mutableClassDefBy(classDef)
-            mutableClass.methods.forEach { method ->
-                when {
-                    method.name == "G" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z" -> method.addInstructions(0, RETURN_TRUE)
-                    method.name == "x" &&
-                        method.parameterTypes.size == 1 &&
-                        method.returnType == "Z" -> method.addInstructions(0, RETURN_TRUE)
+        resolver.getMiscClass("letterCoinGate")?.let { classDef ->
+            val mutable = mutableClassDefBy(classDef)
+            val letterGate = mutable.methods.filter { method ->
+                AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "Z" &&
+                    method.parameterTypes == listOf(PRIVILEGE_CLASS) &&
+                    method.accessesField(PRIVILEGE_CLASS, "letter")
+            }
+            check(letterGate.size == 1) { "letterCoinGate b(Privilege) cardinality ${letterGate.size}" }
+            letterGate.forEach { method ->
+                method.preflightSmali(RETURN_TRUE, 2)
+                method.addInstructions(0, RETURN_TRUE)
+            }
+            val coinAffordability = mutable.methods.filter { method ->
+                if (!(AccessFlags.STATIC.isSet(method.accessFlags) &&
+                        method.returnType == "Z" && method.parameterTypes.isEmpty())) return@filter false
+                val calls = method.cachedInstructions().mapNotNull {
+                    (it as? ReferenceInstruction)?.reference as? MethodReference
                 }
+                val repeatedInt = calls.filter { it.returnType == "I" && it.parameterTypes.isEmpty() }
+                    .groupBy { "${it.definingClass}.${it.name}" }
+                    .filter { it.value.size >= 2 }
+                repeatedInt.size == 1 && calls.all { call ->
+                    call.returnType == "J" ||
+                        (call.returnType == "I" && call.parameterTypes.isEmpty() &&
+                            repeatedInt.containsKey("${call.definingClass}.${call.name}"))
+                }
+            }
+            check(coinAffordability.size == 1) { "letterCoinGate d() cardinality ${coinAffordability.size}" }
+            coinAffordability.forEach { method ->
+                method.preflightSmali(RETURN_TRUE, 2)
+                method.addInstructions(0, RETURN_TRUE)
             }
         }
 
@@ -707,16 +766,24 @@ val messagingPatch = bytecodePatch(
             }
         }
 
-        // Telepathy reply-length minimums: o3k0.b(TpTelepathyConv)Z gates the 15-char / 3-s
-        // checks (c/d/e) on the server flag replyLengthLimit. Force the gate false; the actual
-        // check methods are left untouched.
+        // Telepathy reply-length minimums: the gate (7.5.6.1 x3r.b(g6m)Z, was o3k0.b(TpTelepathyConv)Z)
+        // reads the server flag replyLengthLimit. Force the gate false; the actual check methods
+        // are left untouched. Match the static ()Z carrier of the replyLengthLimit field by shape
+        // (the param type is now the obfuscated telepathy view-model, not TpTelepathyConv).
         resolver.getMiscClass("telepathyReplyLimit")?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
                     AccessFlags.STATIC.isSet(method.accessFlags) &&
                         method.returnType == "Z" &&
                         method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;"
+                        method.parameterTypes[0].startsWith("L") &&
+                        method.sharedCachedInstructions().any { instr ->
+                            instr is ReferenceInstruction &&
+                                (instr.reference as? FieldReference)?.let {
+                                    it.definingClass == "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;" &&
+                                        it.name == "replyLengthLimit"
+                                } == true
+                        }
                 }
                 .forEach { method ->
                     method.preflightSmali(RETURN_FALSE, 2)
@@ -753,6 +820,66 @@ val messagingPatch = bytecodePatch(
             }
             check(edited) { "voiceRecordInner: no const-wide 60000 literal found in run()V" }
         }
+
+        // Local fake-conversation persistence choke point (7.5.6.1 mc3.G1): every caller is
+        // a local fake-factory lambda (no server-merge caller), so guarding this single public
+        // static (Conversation)V upsert suppresses LOCAL like-guide promos only. Drop the two
+        // pure promo convTypes before the DB write; everything else (fake_one_side*,
+        // intlSeeChatRequest, real server conversations) passes through. The method has 3 regs
+        // (static: conversation=p0=v2, scratch v0/v1); the original prologue redefines v0/v1
+        // before reading them. Match by shape + the (Conversation,*)V DB upsert call, never
+        // the obfuscated names (gotcha #17/#18).
+        resolver.getMiscClass("convUpsert")?.let { classDef ->
+            val targets = mutableClassDefBy(classDef).methods.filter { method ->
+                AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                    AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "V" &&
+                    method.parameterTypes == listOf("Lcom/p1/mobile/putong/core/data/Conversation;") &&
+                    method.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? MethodReference)?.let { ref ->
+                                ref.returnType == "V" && ref.parameterTypes.size == 2 &&
+                                    ref.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/Conversation;"
+                            } == true
+                    }
+            }
+            check(targets.size == 1) { "convUpsert cardinality ${targets.size}" }
+            targets.forEach { method ->
+                method.preflightSmali(FAKE_CONV_UPSERT_GUARD, 11)
+                method.addInstructions(0, FAKE_CONV_UPSERT_GUARD)
+            }
+        }
+
+        // Icebreak limit (y95.call [67]): the iget reading iceBreakLastMessageShowCountLimit
+        // from MsgIcebreakConfigV2 controls how many times the icebreak prompt is shown.
+        // Replace with const/16 30000 to effectively remove the limit. Size-preserving:
+        // iget (22c, 2 code units) → const/16 (21s, 2 code units).
+        resolver.getMiscClass("icebreakLimit")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Ljava/lang/Object;" &&
+                        method.returnType == "Ljava/lang/Object;" &&
+                        method.containsExactString("msg_ice_break_config_v2")
+                }
+                .forEach { method ->
+                    val instructions = method.implementation?.instructions?.toList() ?: return@forEach
+                    val targetIdx = instructions.indexOfFirst { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? FieldReference)?.name == "iceBreakLastMessageShowCountLimit" &&
+                            instr.opcode.name.startsWith("iget")
+                    }
+                    if (targetIdx < 0) return@forEach
+                    val targetInstr = instructions[targetIdx]
+                    val register = (targetInstr as? OneRegisterInstruction)?.registerA ?: return@forEach
+                    val replacement = com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction21s(
+                        Opcode.CONST_16,
+                        register,
+                        30000
+                    )
+                    method.replaceInstruction(targetIdx, replacement)
+                }
+        }
     }
 }
 
@@ -782,30 +909,6 @@ private val rd6ClassFingerprint = Fingerprint(
         methodCall(
             definingClass = "Lcom/p1/mobile/putong/core/data/Conversation;",
             name = "getLevel",
-        ),
-    ),
-)
-
-private val typingIndicatorClassFingerprint = Fingerprint(
-    filters = listOf(
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/KeepConnection;",
-            name = "chatTypingOpen",
-        ),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/KeepConnection;",
-            name = "chatTypingInterval",
-        ),
-        methodCall(name = "interval"),
-    ),
-)
-
-private val swh0ClassFingerprint = Fingerprint(
-    filters = listOf(
-        string("tantan_coin_intl_letter_confirm_dialog_shown_"),
-        fieldAccess(
-            definingClass = "Lcom/p1/mobile/putong/core/data/Privilege;",
-            name = "letter",
         ),
     ),
 )

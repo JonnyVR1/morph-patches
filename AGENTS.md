@@ -1,24 +1,19 @@
 # Morph - Tantan Android Patch Project
 
 ## Overview
-This repository contains patches and tools for the Tantan Android APK (international version, v7.5.4 / versionCode 2754010). The project includes 16 patchsets covering premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, ad removal, root/emulator detection bypass, live streaming features, UI cleanup, Google Maps compatibility, remote config overrides, A/B-test overrides, search/discovery enhancements, location enhancement, push-notification filtering, and opt-in experimental unlocks.
+This repository contains patches and tools for the Tantan Android APK (international version, v7.5.6.1 / versionCode 2756110). The project includes 16 patchsets covering premium feature unlocking, privacy protection, analytics disabling, messaging enhancements, dialog cleanup, ad removal, root/emulator detection bypass, live streaming features, UI cleanup, Google Maps compatibility, remote config overrides, A/B-test overrides, search/discovery enhancements, location enhancement, push-notification filtering, and opt-in experimental unlocks.
 
 **Target:** International version only. China-specific features (WeChat Pay, Alipay, QQ login, Huawei services) are dead code in the international APK and should NOT be patched.
 
-## Workspace Configuration
-```json
-{
-  "name": "Morph",
-  "path": "/Users/jonathon/RiderProjects/Morph"
-}
-```
+> **7.5.6.1 migration (Nov 2026):** the target was upgraded from 7.5.4 (2754010) to 7.5.6.1 (2756110). 7.5.4 is NO LONGER supported. 7.5.6.1 is a **mass-refactor release**, not ordinary obfuscation churn — see §20 for class renames, the `rx.c`→`Ll/vpf;` Observable obfuscation, the shared synthetic lambda-dispatcher hazard, and restored vs pending blocks. The signing certificate is UNCHANGED (SHA-256 `7c5d634c…`), so GMS signature spoofing constants remain valid.
 
 ## Files
 - `patches/` - Individual bypass patch implementations
 - `patches-list.json` - Auto-generated patch metadata
 - `patches-bundle.json` - Bundle configuration
-- `tantan-decompiled-7.5.4/` - Decompiled Tantan 7.5.4 APK source (the authoritative RE reference)
-- `tantan-7.5.4.apk` - The 7.5.4 target APK (versionCode 2754010) used by `patchApk` and tests
+- `tantan-decompiled-7.5.6.1/` - Decompiled Tantan 7.5.6.1 APK source (authoritative RE reference; jadx keeps `com/p1/...` verbatim, obfuscated `Ll/` appears as `p002l/`)
+- `tantan-7.5.6.1.apk` - The 7.5.6.1 target APK (versionCode 2756110) used by `patchApk` and tests
+- `tantan-decompiled-7.5.4/` / `tantan-7.5.4.apk` - Retained ONLY as historical old-version reference for anchor mapping (obfuscated `Ll/` appears as `p001l/`); not a build target
 - `tools/inspect.bat` - dexlib2 DEX inspector for local verification; `tools/gradle.bat` - gradle wrapper (creds + offline)
 
 ## Build and Release Commands
@@ -27,365 +22,65 @@ This repository contains patches and tools for the Tantan Android APK (internati
 ```bash
 # Build the patch bundle with DEX bytecode and metadata (RECOMMENDED)
 ./gradlew :patches:repackMppWithPatchList
-
-# This command chains:
-# 1. buildAndroid - compiles Kotlin to DEX bytecode
-# 2. generatePatchesList - generates patches-list.json metadata
-# 3. repacks both into the .mpp file
 ```
+**Important:** Always use `:patches:repackMppWithPatchList` — it ensures the .mpp contains both `classes.dex` and `patches-list.json`. `:patches:buildAndroid`/`:patches:build` alone produces an incomplete .mpp.
 
-**Important:** Always use `:patches:repackMppWithPatchList` to build the .mpp file. This ensures the .mpp contains both `classes.dex` (patch bytecode) and `patches-list.json` (patch metadata). Using individual tasks like `:patches:buildAndroid` or `:patches:build` alone will produce an incomplete .mpp file that Morph Manager cannot read correctly (shows "0 patches found").
+**Verification:** `unzip -l patches/build/libs/patches-0.0.1-dev2.mpp | grep -E "classes.dex|patches-list.json"` — should show both files.
 
-**Verification:** After building, verify the .mpp contains both files:
-```bash
-unzip -l patches/build/libs/patches-0.0.1-dev2.mpp | grep -E "classes.dex|patches-list.json"
-```
-Expected output:
-```
-   209000  01-01-1970 01:00   classes.dex
-     8633  08-05-2026 19:30   patches-list.json
-```
+**Build-order trap:** `:patches:patchApk` depends on `jar`, which REGENERATES the .mpp as a plain class jar. Always run `:patches:repackMppWithPatchList` LAST (after `patchApk`), with `--rerun-tasks` if needed.
 
-**Build-order trap:** `:patches:patchApk` depends on `jar`, which REGENERATES `patches-0.0.1-dev2.mpp` as a plain class jar — clobbering the repacked dex+json. Always run `:patches:repackMppWithPatchList` LAST (after `patchApk`), with `--rerun-tasks` if `buildAndroid` would otherwise be UP-TO-DATE (the dex is injected into the .mpp by the buildAndroid chain, not by the repack task itself, which only adds patches-list.json).
-
-### Local Patch Test (End-to-End Pipeline)
-
-To produce an actual patched APK from the local source APK (useful for verifying patches before publishing):
-
+### Local Patch Test
 ```bash
 ./gradlew :patches:patchApk
 ```
-
-Output: `tantan-premium-unlocked.apk` in repo root (~55 MB, signed, installable).
-
-The pipeline is:
-1. `Patcher` runs all patches from `PatchRegistry.allPatches`
-2. `PatcherResult.applyTo(rebuiltApk)` overlays patched dex/resources onto the APK in-place (via `ZFile.openReadWrite`)
-3. `ApkUtils.signApk(...)` signs with the dev keystore
-
-**Do NOT call `ApkMerger.merge()` after `applyTo()`** — see "Morphe Patcher Gotchas" below.
+Output: `tantan-premium-unlocked.apk` in repo root (~55 MB, signed, installable). **Do NOT call `ApkMerger.merge()` after `applyTo()`** — see Gotcha #2.
 
 ### Upload to GitHub Release
-
-**MANDATORY on every new or amended release:** refresh `patches-bundle.json` `created_at`
-to the CURRENT local time (`yyyy-MM-ddTHH:mm:ss`, no offset) and update its `description`
-to match the shipped wave. Morph Manager shows the patch source as **outdated** when
-`created_at` is stale, even if the `.mpp` bytes are new. Full publish sequence:
-1. Edit `patches-bundle.json` (`created_at` = now, description current).
-2. `tools\gradle.bat :patches:repackMppWithPatchList --rerun-tasks` (regenerates
-   `patches-list.json` + dex; run LAST — `patchApk`'s `jar` dependency clobbers the .mpp).
-3. Delete the three old release assets and re-upload `patches-0.0.1-dev2.mpp`,
-   `patches-list.json`, `patches-bundle.json` (gh CLI: `gh api -X POST -H "Content-Type: ..."
-   --input <file> "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets?name=<name>"`;
-   the plain `repos/...` endpoint 404s for uploads — use the `uploads.github.com` host).
-4. Optionally PATCH the release body to match; commit + push the metadata change.
-GitHub's `published_at` is immutable via API — the bundle `created_at` + asset
-`updated_at` are the freshness signals Morph reads.
-
+**MANDATORY per release:** refresh `patches-bundle.json` `created_at` to current local time (`yyyy-MM-ddTHH:mm:ss`, no offset) and update `description`. Morph Manager flags stale `created_at` as outdated.
+1. Edit `patches-bundle.json` (`created_at` = now, description current)
+2. `tools\gradle.bat :patches:repackMppWithPatchList --rerun-tasks`
+3. Re-upload the three files via `uploads.github.com` (not `api.github.com`):
 ```bash
-# List current release assets
-curl -s -H "Authorization: token $GITHUB_TOKEN" \
-  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets" | \
-  python3 -c "import json, sys; data = json.load(sys.stdin); [print(f'{a[\"id\"]} {a[\"name\"]}') for a in data]"
-
-# Delete old assets (replace ASSET_ID with actual IDs from above)
-curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" \
-  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/assets/ASSET_ID"
-
-# Upload new .mpp file
-curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
-  -H "Content-Type: application/octet-stream" \
+curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" \
   --data-binary @patches/build/libs/patches-0.0.1-dev2.mpp \
-  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets?name=patches-0.0.1-dev2.mpp" | \
-  python3 -c "import json, sys; d = json.load(sys.stdin); print(f'mpp: {d.get(\"name\", \"ERR\")}')"
-
-# Upload patches-list.json
-curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
-  -H "Content-Type: application/json" \
-  --data-binary @patches-list.json \
-  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets?name=patches-list.json" | \
-  python3 -c "import json, sys; d = json.load(sys.stdin); print(f'json: {d.get(\"name\", \"ERR\")}')"
-
-# Upload patches-bundle.json
-curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
-  -H "Content-Type: application/json" \
-  --data-binary @patches-bundle.json \
-  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets?name=patches-bundle.json" | \
-  python3 -c "import json, sys; d = json.load(sys.stdin); print(f'bundle: {d.get(\"name\", \"ERR\")}')"
+  "https://uploads.github.com/repos/JonnyVR1/morph-patches/releases/<RELEASE_ID>/assets?name=patches-0.0.1-dev2.mpp"
+# Repeat for patches-list.json and patches-bundle.json (Content-Type: application/json)
 ```
-
-### Verify Upload
-```bash
-# Check uploaded file sizes
-curl -s -H "Authorization: token $GITHUB_TOKEN" \
-  "https://api.github.com/repos/JonnyVR1/morph-patches/releases/441228387/assets" | \
-  python3 -c "import json, sys; assets = json.load(sys.stdin); [print(f'{a[\"name\"]}: {a[\"size\"]} bytes') for a in assets]"
-```
-
-Expected file size for `patches-0.0.1-dev2.mpp`: ~880 KB (includes DEX bytecode for all 10 patches). If it's significantly smaller (~40 KB), the buildAndroid task was not run.
+Expected .mpp size: ~880 KB (~40 KB means `buildAndroid` was not run).
 
 ## Patch Architecture
 
-The project uses 10 patches registered in `PatchRegistry.kt`. All patch files are in `patches/src/main/java/com/p1/mobile/putong/data/`:
+10 patches registered in `PatchRegistry.kt`. All files in `patches/src/main/java/com/p1/mobile/putong/data/`:
 
-### Premium Unlock (`PremiumUnlockPatch.kt`)
-The largest and most complex patch. Handles:
-- User tier status methods (isUltraPremium, isVIP, isSVIP, isPlatinum, isSupremePartner)
-- Privilege gates and expiration checks (xma class)
-- Subscription validation and regional gates (u59 class)
-- Feature gates and display timestamps (CounterSuperlikeAndUndoLimit, CoreProduct, etc.)
-- Auto-subscription dialog suppression (src0 class)
-- Mystery/blur gating (sb90 Companion class)
-- Daily like limit bypass (h0.b, l1.b, m1.b)
-- Ad removal (NavigationBarAdmobHelper, NavigationBarAdView, NativeAdViewCard)
-- Boost remaining count (n3b0.d, BoostRemainingCountView)
-- Search filter expansion (Settings radius/age limits)
-- Server refresh prevention (pib.W9 → Observable.just)
-- VIP badge override (zva0, tm90)
-- Spotlight/boost activation (gqf0, CoreBusinessServiceIml)
-- Counter limits (likeLimit, superLikeLimit, undoLimit, boostLimits)
-- Privacy features (hide_me_from_nearby, visitor_hide_footprint, nearby_people)
-- Read receipts (intl_message_read, message_read_state)
-- Ultra premium O-Diamond (isODiamond field, d79.W method)
-- Purchase gate bypass (CoreProduct.S4)
-- Swipe rate limit bypass (gra class)
-- Quick Chat tickets (`onlinematch/a`, stable descriptor): `b0()` static ()I carrying
-  `quickchatNumber` → 200000 (S()/quickchatSpeedUpNum untouched); `U()`/`V()` static ()Z carrying
-  `quickchatMembership` → true/false, distinguished by the cmp-long branch direction
-  (U: if-ltz = active `>=`; V: if-gez = expired `<`). Clears the OnlineMatchManager `s0()<=0`
-  start gate; server may validate ticket balance (device-test).
+| Patch | Key Targets | Resolver Keys |
+|-------|-------------|---------------|
+| PremiumUnlock | Tier status, privilege gates, subscription validation, daily limits, ad removal, boost count, search filters, VIP badge, O-Diamond, purchase gate, swipe rate limit | `xma`, `u59`, `src0`, `sb90`, `n3b0`, `sja`, `pib`, `gra` |
+| PrivacyControls | `hide_me_from_nearby`, `visitor_hide_footprint`, `mysterious_mode`, `nearby_people` privileges | — |
+| Messaging | Message limits, pin chat, voice/video calls, typing indicator, visitor limits, conversation entry, buzz toggles, telepathy reply-length, voice 60s cap | `telepathyReplyLimit`, `voiceRecord`, `voiceRecordInner` |
+| AnalyticsDisable | FoxStatistics, Fox uploaders, OAID, GAID, OneID, GA4, FB auto-events, push tracking, xlog, Beatles/xlog, Firebase Sessions, AppsFlyer, CleverTap | `coreEventLogger`, `foxUploader`, `oaidHelper`, `ga4Collection`, `fbAutoEvents`, `pushTracker`, `xlogPull`, `beatles`, `xlogUploader` |
+| DialogCleanup | OMS gate, creator-level backstops, recall-match popup, UX questionnaire, post-swipe suggesters | `recallMatchPopup`, `uxQuestionnaire` |
+| GmsCompatibility | Signature spoofing via ContentProvider, Maps auth header injection, MicroG support, GMS availability bypass | — |
+| AdRemoval | Nav bar banners, native feed ads, live streaming ads, live square ads, Town Tales casual-game promo | `casualGameManager` |
+| PrivacyEnhancement | Root/emulator detection bypass, ShuMeng SDK block, package enumeration prevention, screenshot warning, contacts upload block, clipboard invite reads, MK bridge app enumeration, WebView mixed-content hardening | `screenshotWarning`, `contactsSync`, `clipboardInvite`, `mkBridge` |
+| LocationEnhancement | Distance gate (500.0→1.0), GPS re-fetch throttle, mock-location flag zero | `mockLocationFlag` |
+| PushNotificationFilter | Single posting choke point (d9l.f), keep/block lists by intent | `pushPoster` |
+| ExperimentalUnlock (OPT-IN) | Voice-to-text flag, buzz prolong count, AI chat companion gate, fake-GPS blacklist | `buzzProlong` |
+| UiCleanup | Guides, banners, stickers, decorations, AI prompts, superlike upsell bubbles | `superlikeBubble` |
+| ABTestOverride | A/B bucket overrides via `q.t` (j0 map), single-scratch injection pattern | — |
+| RemoteConfigOverride | Config overrides via provider hooks (ngi k/c/i/h + pq2.e) | — |
 
-**Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
+**Note:** nullCheck() methods are NOT patched (see Gotcha #8). All tier overrides MUST use `isMe()` guards.
 
-### Privacy Controls (`PrivacyControlsPatch.kt`)
-Unlocks privacy features:
-- Hide from nearby (`hide_me_from_nearby` privilege)
-- Visitor hide footprint (`visitor_hide_footprint` privilege)
-- Mysterious mode (`mysterious_mode` privilege)
-- Nearby people access (`nearby_people` privilege)
+### Region Detection
+**Master Switch:** `IntlCountryCodeController.m29114k()` returns `TextUtils.equals("hms", "gms")` = **ALWAYS FALSE** in international APK → all China-only code is dead.
 
-**Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
+**DO NOT PATCH:** WeChat Pay/Alipay/Huabei/JD Pay, WeChat/QQ login, Weibo sharing, Huawei push/services, `nightclub_config`, `LiveRegionTag.mainland`, Chinese locale features.
 
-### Messaging Enhancement (`MessagingPatch.kt`)
-Enhances messaging features:
-- Message limits removal (ChatPartnerConfig limits)
-- Pin chat unlimited (PlatinumPinChat expiration)
-- Voice/video calls (LoveBuzzData remaining counts - consolidated single-pass scan)
-- Quick chat features (quickchat privileges)
-- Typing indicator control (conversation view model X2 method)
-- Visitor message limits (ODiamondVisitorMessageGuideConfig)
-- Conversation entry limits (PrologueConfig)
-- Buzz call toggles (voiceBuzz, videoBuzz, textBuzz, memojiBuzz)
-- Secret crush limits (CounterSecretCrushLimit)
-- Boost limits (BoostLimit remaining/duration)
-- Live chat limits (LiveChatLimit)
-- Unlimited recall window (`ItemMessageBase.S(Message,Z)Z` expiry check → false; signature cardinality 1,
-  class carries `recall_config`). **Server may still enforce its own window** (`TantanForbidden` toast) —
-  worst case status quo; device-test.
-- Telepathy reply-length minimums (resolver `telepathyReplyLimit` = `o3k0.b(TpTelepathyConv)Z` gate → false;
-  the 15-char/3-s check methods c/d/e are untouched).
-- Voice-message 60 s cap (resolver `voiceRecord` = `a310`, discriminated from the telepathy twin
-  `mal0` by the MessagesAct constructor param; `voiceRecordInner` = `a310$b` via run()V +
-  const-wide 60000 + uptimeMillis candidates, outer-type-prefix post-pass). The cap literal is
-  replaced with Long.MAX_VALUE via replaceInstruction — the 1 s UI tick stays, auto-stop/send
-  never fires. Server may reject over-long audio (device-test). `mal0$b` intentionally NOT
-  patched (telepathy has its own server-time gate `o3k0.e`).
+**SAFE TO PATCH:** All `intl_` prefix features, Google Play Billing, Facebook/Google login, Firebase push, all premium features, all `d79` flags.
 
-**Note:** nullCheck() methods in these classes are NOT patched (see Gotcha #8).
+## Version-Agnostic Fingerprints
 
-### Analytics Disable (`AnalyticsDisablePatch.kt`)
-Disables tracking and telemetry (anchors verified against the 7.5.4 DEX):
-- FoxStatistics core: the public facade `ofh0` (resolver `coreEventLogger`, anchored on a
-  `DefaultEnvironment.j()` call + ≥1 static-void method) has its static-void event methods
-  voided EXCEPT the Context-first init methods `i/j/k` (kept so `ofh0.e()` stays non-null —
-  non-Fox callers such as sogou image loading use it without null checks). Uploaders `f970.r`
-  and `g2f0.o` (resolver `foxUploader`/`foxUploaderSc`, endpoint-string + `(String,I)V` shape)
-  are voided. `m3m0.b` (the shared HTTP sender) is additionally gated by `ofh0.h()`, which stays
-  false because `ofh0.c()` is voided.
-- OAID helper `z810` (resolver `oaidHelper`, anchor `miit_oaid`): `c(Context)V` init voided.
-  NOTE: the old `foxStats` key anchored on `e_request_none_oaid` and resolved to `z810` (the OAID
-  helper), NOT the Fox pipeline — it was an OAID disable mislabeled as Fox.
-- GAID: `AdvertisingIdClient.getAdvertisingIdInfo` (stable descriptor) returns an empty
-  `Info("", limitAdTracking=true)`; this also neutered the OneID GAID path `srn.a()`.
-- OneID: `ui30.e(J,opm)V` createid request voided (resolver `oneIdUploader`, createid endpoint +
-  `(J,*)V` shape); `ls60.d(Context)V` external-storage cross-app Momo file read voided (resolver
-  `oneIdStorage`, post-pass matching callers of `ui30.e`). `ms60.d()` still returns a cached/random
-  oneId (server fields are isEmpty-guarded).
-- GA4 measurement engine: `iiu0.Q()Z` forced true (resolver `ga4Collection`, anchor
-  `firebase_analytics_collection_deactivated`) → `wpv0.s()` returns 1 → collection off. Manifest
-  `firebase_analytics_collection_enabled=false` added as a backstop (GmsCompatibility + PatcherMain).
-- Facebook auto-events: `k50.u(Application,String)V` (ActivityLifecycleTracker registration) voided
-  (resolver `fbAutoEvents`). `AttributionIdentifiers` IS present in 7.5.4
-  (`com/facebook/internal/AttributionIdentifiers.java`); it is neutralized indirectly — its GAID
-  read reflects `AdvertisingIdClient.getAdvertisingIdInfo` (`:94`), which the GAID patch above
-  forces to an empty `Info`, and the auto-events registration is voided. No separate block needed.
-- Facebook app-settings fetch: `FetchedAppSettingsManager.e(String)JSONObject` (stable descriptor,
-  GraphRequest "app" executor) returns an EMPTY JSONObject — NOT null (`r()`/`LoginButton`
-  dereference the result; null NPEs FB login). FB login init (`FacebookInitProvider`/`c.L`) untouched.
-- Push click/delivery tracking: `rtc0.f0` (entry) + `rtc0.m` (URL builder/uploader), both static
-  `(PushTrackData)V` → return-void (resolver `pushTracker`, `client-monitor.tantanapp.com/push?`
-  endpoint + shape). Notification click/delivery handling (PutongAct) unaffected; sibling `g0`
-  (Fox `e_push_token_upload`) already dead via the Fox facade.
-- Silent remote xlog pull: `u53$d.a(String,String,PushMessage,PushTrackData)Z` handler → false
-  (resolver `xlogPull`, inlined `xlog.upload` constant + handler shape). Server cannot extract
-  7 days of xlogs (request URLs/responses); registration `u53.v()` stays, handler just declines.
-- Beatles/xlog residual (FIXED Nov 2026): the old `beatles` anchor `"com.tantanapp.beatles"` does
-  NOT exist as a const-string in 7.5.4 (only longer variants in mom0/BeatlesProvider), so the old
-  name-based init/install/start block was a silent no-op. Re-anchored on h53's unique
-  `"[init] context of init() is null, check it."` + 5-param static install shape; the block now
-  voids the upload facade wrappers `h53.A(Date,String,J,j3m0)` / `h53.B(List,String,J,j3m0)` by
-  shape. Additionally `luw.m(Date,String,J,j3m0)V` (resolver `xlogUploader`, `marsxlog` + shape;
-  sole caller h53.A) — the single enqueue point for date-based xlog uploads — is voided. Local
-  xlog writing stays intact. The custom-type push branch (`u53.n → c6j.b/c`) is starved by the
-  `xlogPull` handler void above.
-- Firebase Sessions: `SessionsSettings.getSessionsEnabled()Z` → false (stable descriptor) +
-  manifest `firebase_sessions_enabled=false` backstop (GmsCompatibility + PatcherMain). The
-  `FirebaseSessionsDependencies` register/addDependency void (subscription registry) is separate
-  and stays. Optional `RemoteSettingsFetcher.doConfigFetch` void deliberately SKIPPED (suspend
-  callback contract; the enabled-gate already disables collection).
-- Push SDK WiFi MAC: `UniqueMacAddress` added to the unique-ID void loop (String methods → "";
-  `UniqueIdManager.seekUniqueId` skips empty IDs — push registration unaffected).
-- AppsFlyer, CleverTap, Facebook AppEvents.activateApp, Beatles APM, push/battery/DNS/tracing stats.
-- The dk50/nuq0/vrq0 "device fingerprint collector" blocks documented in older revisions DO NOT
-  EXIST in the source and were never applied; real device-ID collection is momosec (kept per the
-  tracking-only decision). Ad-click URL device-id substitution is handled by `qm60.F` (PrivacyEnhancement).
-
-### Dialog Cleanup (`DialogCleanupPatch.kt`)
-Suppresses promotional dialogs at the ROOT, with creator-level backstops for bypass paths:
-- **OMS promo-engine gate (primary):** forces `em60.M(String,Z)Z` (dialog show-permission) and `em60.N(String,Z)Z` (ad-card show-permission) to `false`, matched by SHAPE (public instance `(String,Z)Z` == `{M,N}` in 7.5.4), not the obfuscated name. `M` is consulted by the swipe-after trigger `em60.L` (event `e_swipe_after`, page `p_suggest_users_home_view`), `see_guide`, `offline_popup`, 5-star, positioning and the purchase nags; `N` by the OMS ad-card batch (`id0`). Forcing both false kills EVERY OMS promo dialog/card regardless of popup key. This replaced the old per-key blocklist, which returned false only for listed purchase/VIP keys and fell through to the original allow-logic for everything else — leaking the likers/see swipe-tab promos ("99+ people liked you / X people online"). Verification/cheat-prevention popups route through `em60.s0 → hn60.n` and never consult `M`/`N`, so they stay intact. `RETURN_FALSE` (`const/4 v0,0; return v0`) is register-safe at any count.
-- **Creator-level backstops (NOT redundant):** `return-void`/`return-false` on specific creators (`mx0`, `zrj0`, `ok3`, `vipUpgradePopup`, `gpRateGuide`, `PriceRecall2Dialog`, `PriceRecallGetSurprise2Dialog`). The `__control` AB bucket and non-OMS triggers (e.g. 5-star `gp/a.o` when `!ern0.F()`) bypass `M`, so these creators must still be voided (gotcha #11).
-- Examples of promos suppressed: 5-star rating (`p_intl_5star_dialog_view`), appstore rating filter (`p_appstore_rating_filter_popup`), version upgrade (`p_alert_version_upgrade_popup`), offline popup (`p_offline_popup`), notification permission (`p_prompt_notification_auth_popup_view`), phone auth (`p_second_prompt_phone_auth_popup_view`, `p_sys_phone_auth_popup_view`, `p_prompt_phone_auth_popup_view`), VIP upgrade (`p_vip_upgrade_popup`), purchase pages (`p_purchase_guide_page`, `p_purchase_expire_page`, `p_purchase_page`), welcome back (`p_welcomeback_popup`).
-- Fake "87% match" recall-match bait popup (resolver `recallMatchPopup` = `ih9.x(Act,GrowthPushConfig,y20)V`
-  → return-void; matched by BOTH `p_recall_match_popup` + `p_match_invitation_popup` strings co-occurring in
-  one method of that shape — sibling `H` has the shape but no strings). Raw PopupWindow bypasses the OMS M/N
-  gate; percentage fabricated `Random().nextInt(19)+80`; AB-gated not region-gated (leaks zh text to intl).
-- UX experience-questionnaire fetch (resolver `uxQuestionnaire` = `ytb.Z2(QuestionnaireScene,QuestionnaireStrategy)Lrx/c;`
-  → `rx.c.empty()`). NOT the `/risk/` content-moderation pipeline (`dt9.h3`), which stays untouched.
-- Post-swipe suggesters interrupt: `SuggestersAct.c2(Context,ActionPageFormat)V` launcher → return-void
-  (stable descriptor, cardinality 1). Both callers are promo (g350 k7 `showRules=="immediately"`,
-  jjf0 `type=newpage` deeplink); the functional LikersAct See-Who-Likes-Me page is untouched.
-
-### GMS Compatibility (`GmsCompatibilityPatch.kt`)
-Consolidated patch that makes Google Maps and GMS-dependent features work in re-signed APKs. Includes:
-- Signature spoofing via ContentProvider (hooks PackageManager to return original Tantan certificate)
-- Maps auth header injection (replaces X-Android-Cert and X-Android-Package with original Tantan values)
-- MicroG support (rewrites `com.google.android.gms` → `app.revanced.android.gms`, adds manifest metadata)
-- GMS availability bypass (forces `isGooglePlayServicesAvailable` to return SUCCESS)
-
-### Ad Removal (`AdRemovalPatch.kt`)
-Removes all ad displays:
-- Navigation bar bottom banner ads (NavigationBarAdView, NavigationBarAdmobHelper)
-- Native feed ad cards disguised as user profiles (NativeAdViewCard)
-- Live streaming banner ads (LiveVideoBannerAdCardView)
-- Live square native ads (IntlLiveSquareFeedNativeAdView)
-- Live square banner ads (IntlLiveSquareFeedBannerAdView)
-- Town Tales casual-game promo stack (Nov 2026): the floating Me-tab game entrance
-  (`CasualGameEntranceView`, inflated ONLY by `ProfileFrag`; layout root defaults GONE) is
-  fed by the `uu7` manager (resolver `casualGameManager`, anchor `/intl-live-casualGameMenu`
-  + static `(Z)V` shape), which fetches the game menu at startup, on region-rule updates
-  (`main/a.C2`) and on every Me-tab selection (`main/a.Z8`). Patch voids the single fetch
-  gate `uu7.e(Z)V` (all overloads delegate to it → no network, `currentGameButton` stays
-  null), forces `CasualGameButton.isDisplayable()Z` → false (data-level backstop), and
-  hides the entrance bind method (shape: instance `(CasualGameButton)V` PLUS a
-  `CasualGameButton.isDisplayable()` call — the icon renderer `Y` shares the param shape,
-  so the call discriminator is required; NOT the obfuscated name `g0`; regs=4 so `p0` is
-  safe, but the injection shuttles `this` via `move-object/from16` anyway). `sz4` red-dot
-  persistence is consumed only by this
-  view — starved automatically. The live-room Sud/octopus game sessions
-  (`live/livingroom/intl/game/`) are a SEPARATE functional live feature, NOT Town Tales —
-  left untouched. "Town Tales" itself is server-side branding; the string does not exist
-  in the 7.5.4 DEX.
-
-### Privacy Enhancement (`PrivacyEnhancementPatch.kt`)
-Advanced privacy protections:
-- Root detection bypass (jmd0, mmd0 classes)
-- Emulator detection bypass (ert0, DeviceUtil classes)
-- ShuMeng SDK blocking (r8f0 - Chinese data collection SDK)
-- Package enumeration prevention (o0e - installed app list collection)
-- Screenshot-warning nag suppression (resolver `screenshotWarning` = `pnf0`; static `()Z` gate `u()` → false). Local dialog + Fox analytics only — NO server report, NO notification to the other party.
-- Telepathy private-photo screenshot enable (`TelepathyPrivatePhotoPreviewAct.preCreateView`): the `const/16` loading `0x2000` (FLAG_SECURE) feeding `Window.addFlags(I)V` is zeroed in place. Does NOT bypass payment or the server burn timer. Only app-code FLAG_SECURE site (Tencent `huiyansdk` face-verify is China-only and kept).
-- Contacts upload block (resolver `contactsSync` = `zf6`, `checkContacts`+`contacts_new` strings + READ_CONTACTS `()Z` shape): `q()` → false starves `v()` → `rx.c.empty()` and the sole foreground sync entry `E()` (CoreBusinessModule.B0) — no `/contacts` POST. Mutual-contact matching stops (accepted); `hideContacts` setting untouched.
-- Clipboard invite-code reads (resolver `clipboardInvite`, MULTI-CLASS: `eev.e3` live + `zq4.m4` campaign share the same regex `tantan:.*邀请码：[A-Z|1-9]{4,}` — two identical single-key anchors would collide, so all matching classes are collected) → empty-string return. Sud mini-game JS clipboard reader `tech/sud/runtime/component/c/c.b(Context)String` (stable descriptor, getPrimaryClip call) → empty string. Clipboard WRITE sites kept.
-- MK live-H5 bridge app enumeration (resolver `mkBridge` = `zv3`, `checkAppInstalled` + `(JSONObject)V` shape — `pkg_android` lives in inner `zv3$c`, so a both-strings class condition would fail gotcha #15): `x(JSONObject)V` → return-void. callPhone/sendSMS handlers kept; H5 install-targeting callback never fires (device-test live H5).
-- WebView mixed-content hardening: resolver collects ALL `WebSettings.setMixedContentMode` callers pre-gate (`getMixedContentClasses()`); the patch forces 1 (NEVER_ALLOW) at every const-0-fed call. A naive in-place const edit is UNSAFE — VWebView/NormalWebViewActivity load `const/4 vN,0` ONCE and reuse the register for many other settings — so the patch inserts `const/4 s,1` before the invoke and repoints it at a register proven DEAD at that point (liveness scan on the original snapshot, sites processed in reverse index order). Exactly 7 sites in 7.5.4 (MKWebView 1, NormalWebViewActivity 2, LiveMkWebView 1, jb10 1, VWebView 2 — build-time cardinality check); mode-2 sites (AdMob lw0, Weibo) excluded by construction.
-
-### Location Enhancement (`LocationEnhancementPatch.kt`, default=true)
-- Location-upload distance gate: `core/api/c.p3(Location)V` `const-wide 500.0` → `1.0` in place (BuilderInstruction51l), so small moves upload. Selected by the `location/a.f(DDDDDD)D` distance call + the 500.0 literal.
-- GPS re-fetch throttle: `location/a.v(JZ)V` body replaced with unconditional `w(z)`. **Registers computed absolutely** (this=rc-4, z=rc-1) — see gotcha #19 (InlineSmaliCompiler `pN` mis-counts wide params).
-- Mock-location flag zero (resolver `mockLocationFlag` = `nr5`, the UNIQUE `Location.isFromMockProvider()Z` caller): the 1-unit `move-result` after the invoke is replaced with `const/4 0`. **POLICY EXCEPTION — user approved:** momosec is otherwise KEPT; only this single flag is zeroed. The server can still infer mocking from other signals; login/payment risk-control (MMUID) is untouched.
-
-### Push Notification Filter (`PushNotificationFilterPatch.kt`, default=true)
-Suppresses marketing/promo pushes at the single posting choke point (resolver `pushPoster` = `c0j0.f(PushMessage,PendingIntent,Intent,Action,Action)V`; all 4 notification callers funnel here; only 3 generic channels exist so intent filtering is the only client lever). Reads stable `PushMessage.intent` String field; keep-list `startsWith`/equals checks run FIRST (early fall-through), blocklist second, unlisted intents kept. Working regs v0–v2 (original prologue redefines them). KEEP: `conversation.*`/`message.*`/`call.*` (esp. `call.voiceinviting.single`)/`moment.*`, `superLike.received`, `letter.received`, `secretcrush.received`, `friendship.request`, `quickchat.match`. BLOCK: growth/picks/coupon/membership/visit-bait intents + `heartbeat.match.`/`lucky.money.` prefixes (full list in the patch).
-
-### Experimental Unlock (`ExperimentalUnlockPatch.kt`, default=false — OPT-IN)
-Server-dependent/risky items; each has a graceful-failure UI. Client gates only — the server may refuse (quota/region). Enable only after device-testing.
-- Voice-to-text transcription flag: interface default `()Z` returning `const/4 0` (= `xo7.g1`), resolved via the `ItemMessageBase` method carrying `e_chat_message_convert_to_text_hold_press_button` → its `invokeinterface ()Z` names → the matching const-false default in `CoreBusinessServiceIml.interfaces` → true. (`CoreBusinessServiceIml` does not override it.)
-- Buzz call +time (prolong) count: resolver `buzzProlong` (= `i4x.f`) `()I` → 999. `buzzProlong` is an INLINED String constant (gotcha #18), anchored by string not field. The `ymy` countdown is server-push-driven and NOT patched.
-- AI chat companion gate: `xma.x3()Z` (string `aiChatCompanion`) → true. **The AI count getters (aiChatAnalysis/aiChatAdvice/letter) are ALREADY forced to 200000 by PremiumUnlock's blanket static `()I` override — NOT duplicated here (gotcha #7).**
-- Fake-GPS default-coordinate blacklist: `location/a.k(Location)Z` (30.0/104.0 literals) → false. Risk: genuine (0,0) invalid fixes → "null island" profile; opt-in only.
-
-### UI Cleanup (`UiCleanupPatch.kt`)
-Removes guides, banners, stickers, decorations, AI prompts, and promo bubbles. Nov 2026 addition:
-- Superlike upsell bubbles (resolver `superlikeBubble` = `ihi0`, `bubble_superlike_bubble` + `superlike_promotion_config` strings + J-shape): `J(User,PutongFrag,View,I)String` → empty-string, `y(User,PutongFrag,View,Z)V` (combo guidance), `M(PutongFrag,ViewGroup,View,I)V` (coin guide), `E(PutongFrag,View,I,y20)V` (multi-superlike), `D(Frag,User,View,I)V` (profile-list) → return-void. `K` (remaining-count bubble) is DORMANT under tier forcing (`!o3b.L3() && !o3b.A3()` = false since Q3→false makes L3/A3 true) — left untouched. The `superlike_promotion_config` poplevel override (RemoteConfigOverride) is the first lever; these voids are the backstop.
-
-### AB Test Override (`ABTestOverridePatch.kt`)
-Overrides A/B buckets via the LIVE `ABManager.j0`/`b0` maps. **`ABManager.i0(String)` and `h0(String)` are NULL STUBS in 7.5.4** (`ABManager.java:824-838`) — i0-keyed nags are dormant unless forced; new overrides go in the j0 map (the existing i0 block is legacy). Nov 2026 j0 additions (all `""` = off): `intl_photo_verification_banner` (lm9.l0), `intl_me_subscription_card_show` (lm9.L), `IntlRewardAds` (lm9.b0/c0 backstop; default "" already off). Purchase-page pricing variants and feature variants are deliberately NOT forced.
-**j0 has registers==2 in 7.5.4** (static: key=v1, ONE scratch v0). The old two-scratch injection pattern carried a `registerCount >= 3` guard and was a SILENT NO-OP — the entire j0 map (including the pre-existing `intl_instantmatch_open_user`→"test", `intl_me_tab_revamp`→"test", `intl_letterc`→"a", `intl_consume_iap_large_page`→"_Test", `intl_see_card_tag`→"test2" entries) never applied. Fixed with a single-scratch pattern (key stays in its param register, only v0 clobbered, absolute paramReg=rc-1 guarded ≤15, preflight 45 instructions). Those five pre-existing overrides are now LIVE as designed.
-
-### Shared Constants (`Constants.kt`)
-
-### Remote Config Override (`RemoteConfigOverridePatch.kt`)
-Overrides remote configuration values for beneficial defaults:
-- `F()` (string getter): returns `{}` for `popup_schedule_config` (disables popup scheduling), returns `""` for `ttt_tab_bar_bottom_banner` (disables nav bar ads), returns `{"enable":true,"disabledMcc":[]}` for `ttt_lgbt_gender_for_ttt` (multi-gender / looking-for-everyone selector; consumer `pfp.i()` → `IntlMoreGenderConfig`; server may reject saves in disabled-MCC regions). Patched on the dynamically-derived provider getter `f96.t(String)String`, NOT `RemoteConfig.F` (no scratch registers — gotcha #15)
-- `F()` promo batch (Nov 2026, all parser-verified): `home_top_item_web_config`/`my_tab_opt_v2_config` → `{"enable":false}` (swipe-tab webview takeover + cert-center red dot); `verify_enter_config` → both entries disabled (p4n0 reads `enable` Boolean, default true); `luckytantan_native_entrance` → `""` (LuckyTtConfig.parse null hides banner); `my_tab_vip` → `{"enable_scroll_guide":false}`; `moment_unread_notes` → nag counters zeroed, OTHER preset fields preserved (autoClearSwitch/unreadNotes/MomentUnreadNotesAll — omitting them would flip autoClearSwitch true→false); `vas_enhanced_promotion_perception` → `{"show_promotion_hours_limit":0}`; `superlike_promotion_config` → poplevels 999 (received_superlike_count falls back to preset 2); `intl_sl_guide_config` → both dlg counts 0, other preset fields preserved; `optimize_tag_config` → tagClickable true + count limits relaxed (ONLY tagClickable has a 7.5.4 consumer — k6b.u2; the count fields are forward-compat); `meet_feed_limit` → mask/clear 0 (server may re-mask; device-test).
-- `s()` (boolean exists): returns false for `bad_token_exprie_control` (prevents aggressive token expiry), false for `nearbyBanner_reddot`, TRUE for `ttt_profile_voice_enabled` (profile voice-intro row; lm9.m0).
-- `z()` (int with default): returns 9999 for `showQuickChatCardSwipedCount` (removes quick chat limit); 0 for `vas_platinum_top_message_guide_max_show(_per_conv)`, `vas_platinum_pin_like_guide_anim_max_count`, `vas_hide_visit_banner_show_times_someone_daily`, `vas_hide_visit_banner_show_total_times_daily` (NOTE: preset key is `show_total_times_daily`, NOT `show_times_total_times_daily`); 999 for `platinum_accelerate_pairing_free_num`, `vas_diamond_hide_visit_privilege_count_permonth`, `vas_diamond_hide_visit_visit_other_times`, `moment_interact_quick_comment_limit`. Registers computed absolutely (key=rc-2, default=rc-1).
-- `B()` (long with default): returns 0L for `intl_text_buzz_auto_delete_interval` (disables text buzz auto-delete)
-- `y()` (int, NO default — NEW hook): delegates to provider `m(String)I` (derived dynamically like F/s). 7.5.4 `f96.m` has regs=3 → ONE scratch (v0); key stays in its param register (absolute keyReg=rc-1, guarded ≤15), single-scratch comparison pattern. Overrides `guide_give_superlike_pop(_female)` → 999 (ufe0.f0; 0 would fall back to 6/7). `RemoteConfig.y` itself has regs=2 (no scratch) — cannot be patched directly. `instant_chat_num` deliberately SKIPPED: baa0.a() feeds only marketing copy + an H5 info bridge, not a functional gate (o3b.O3/o3 already 200000).
-- `RemoteConfig.v(JsonAdapter)` calls `F()` internally (`:589`) — the F-provider override intercepts ALL v()-consumed JSON configs (parsed results are cached per key in `this.f`).
-- Preset catalog: `tantan-decompiled-7.5.4/resources/assets/rc_release_default.json`. Keys absent from it are server-only but still overridable via the provider hooks.
-
-### Shared Constants (`Constants.kt`)
-Shared constants: `TANTAN_PACKAGE_NAME`, `TANTAN_USER_CLASS`, `tantanCompatibility`.
-
-All tier overrides MUST use `isMe()` guards to ensure they only affect the current user, not other users' profiles.
-
-### Region Detection & China vs International Features
-
-The international APK has a critical region detection mechanism that determines which features are active:
-
-**Master Switch:** `IntlCountryCodeController.m29114k()` (HMS check)
-- Returns `TextUtils.equals("hms", "gms")` which is **ALWAYS FALSE** in the international APK
-- This means ALL China-only code paths are dead code and never execute
-- All features gated behind `!m29114k()` (i.e., "not China") are always enabled
-
-**China-Only Features (DO NOT PATCH - Dead Code):**
-- WeChat Pay, Alipay, Huabei, JD Pay payment flows
-- WeChat Login, QQ Login flows
-- Weibo sharing integration
-- Huawei push/services (HWPushEngine, Huawei AppGallery)
-- `nightclub_config` (international uses `intl_nightclub_config`)
-- `LiveRegionTag.mainland` specific features
-- Chinese locale-specific features (`zh`+`CN` checks)
-
-**International-Only Features (SAFE TO PATCH):**
-- All features with `intl_` prefix
-- Google Play Billing (`IntlPayMethod.nativeMethod`)
-- Facebook/Google social login
-- Firebase push notifications
-- All premium features (VIP, SVIP, Ultra Premium)
-- All feature flags in `d79` class (gated by `!m29114k()`)
-- All region-specific UI for non-China regions
-
-**Risk Assessment:**
-- Patching China-only code is harmless but pointless (never executed)
-- The real risk is patching a method used by international users but misidentified as China-only
-- Always verify the gating condition before patching
-- Our existing patches all target international features and are safe
-
-### Version-Agnostic Fingerprints
-
-Patches MUST survive obfuscation churn between app versions. **Never match obfuscated names like `Lp001l/xma;` or `Lp1/...`**. Use `string()`, `methodCall()`, `fieldAccess()`, `opcode()` filters anchored against stable product strings and behavioral signatures:
+Patches MUST survive obfuscation churn. **Never match obfuscated names like `Lp001l/xma;`**. Use `string()`, `methodCall()`, `fieldAccess()`, `opcode()` filters anchored against stable product strings:
 
 | Class | Anchor |
 |-------|--------|
@@ -405,7 +100,7 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | `NavigationBarAdView` | `string("ca-app-pub-6567608331519569/1242795139")` |
 | `NativeAdViewCard` | `string("ca-app-pub-6567608331519569/7831936718")` |
 | `Settings` | CamelCase stable (`com/p1/mobile/putong/data/Settings`) |
-| `BoostRemainingCountView` | CamelCase stable (`com/p1/mobile/putong/core/newui/home/BoostRemainingCountView`) |
+| `BoostRemainingCountView` | CamelCase stable |
 | `HiddenNearByView` | CamelCase stable + `string("hide_me_from_nearby")` |
 | `MyVisitorsItemView` | CamelCase stable + `string("visitor_hide_footprint")` |
 | `PrivilegeContentDlgItemView` | CamelCase stable + `string("mysterious_mode")` |
@@ -420,7 +115,7 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | Facebook AppEvents | `string("facebook-core_release")` |
 | Facebook auto-events (`k50`) | `string("com.facebook.appevents.internal.ActivityLifecycleTracker")` |
 | Beatles APM | `string("com.tantanapp.beatles")` |
-| OAID helper (`z810`) | `string("miit_oaid")` (resolver `oaidHelper`; old `foxStats` key mislabeled this) |
+| OAID helper (`z810`) | `string("miit_oaid")` (resolver `oaidHelper`) |
 | GAID (`AdvertisingIdClient`) | stable descriptor `getAdvertisingIdInfo(Context)` → empty Info |
 | OneID (`ui30`/`ls60`) | createid endpoint + `(J,*)V` shape; storage via callers of `ui30.e` |
 | GA4 collection (`iiu0`) | `string("firebase_analytics_collection_deactivated")` → `Q()Z` true |
@@ -439,7 +134,7 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | LiveChatLimit | `fieldAccess(remaining)` + `fieldAccess(total)` |
 | ODiamondVisitorMessageGuideConfig | `fieldAccess(total_limit_daily)` + `fieldAccess(user_limit_daily)` |
 | PrologueConfig | `fieldAccess(enter_conv_limit)` + `fieldAccess(untalked_daily_show_count)` |
-| RemoteConfig | CamelCase stable (`com/p1/mobile/putong/remote_config/RemoteConfig`) — override `s()` (boolean), `y()`/`z()` (int), `A()`/`B()` (long), `F()` (string) for specific config keys |
+| RemoteConfig | CamelCase stable — override `s()` (boolean), `y()`/`z()` (int), `A()`/`B()` (long), `F()` (string) for specific config keys |
 | ItemMessageBase recall gate | stable CamelCase + `(Message,Z)Z` signature (cardinality 1) + class string `recall_config` |
 | Telepathy reply gate (`o3k0`) | `fieldAccess(TpTelepathyConv.replyLengthLimit)` + static `(TpTelepathyConv)Z` carrying that field |
 | Screenshot warning (`pnf0`) | `string("p_get_screenshoot_warning")` + static `()Z` shape |
@@ -447,464 +142,178 @@ Patches MUST survive obfuscation churn between app versions. **Never match obfus
 | UX questionnaire (`ytb`) | `string("/experience-questionnaire?scene=")` in a `(QuestionnaireScene,QuestionnaireStrategy)Lrx/c;` method |
 | Push poster (`c0j0`) | `string("bundle_from_notification")` + static `(PushMessage,PendingIntent,Intent,Action,Action)V` shape |
 | Buzz prolong (`i4x`) | `string("buzzProlong")` in a `()I` method (INLINED constant — gotcha #18, not fieldAccess) |
-| Mock-location flag (`nr5`) | UNIQUE `methodCall(Location.isFromMockProvider()Z)`; resolved pre-gate (rex-encrypted, no string anchors) |
+| Mock-location flag (`nr5`) | UNIQUE `methodCall(Location.isFromMockProvider()Z)`; resolved pre-gate |
 | Location upload gate | stable `core/api/c` `(Location)V` + `location/a.f(DDDDDD)D` call + `const-wide 500.0` |
 | GPS throttle / fake-GPS blacklist | stable `location/a` `(J,Z)V`+`currentTimeMillis` / `(Location)Z`+`const-wide 30.0`+`104.0` |
 | Voice-to-text flag | `ItemMessageBase` method w/ `e_chat_message_convert_to_text_hold_press_button` → `invokeinterface ()Z` names → const-false default in `CoreBusinessServiceIml.interfaces` |
 | AI companion gate | reuse `xma` resolver; `string("aiChatCompanion")` in a public static `()Z` |
-| Contacts sync (`zf6`) | `string("checkContacts")` + `string("contacts_new")` + `()Z` carrying READ_CONTACTS (resolver `contactsSync`) |
-| Clipboard invite (`eev`/`zq4`) | regex `tantan:.*邀请码：[A-Z|1-9]{4,}` in a `()String` method; MULTI-CLASS collector `clipboardInvite` (both classes share the anchor) |
-| MK bridge (`zv3`) | `string("checkAppInstalled")` + `(JSONObject)V` shape (resolver `mkBridge`; `pkg_android` is in inner `zv3$c`) |
-| Push tracker (`rtc0`) | `string("https://client-monitor.tantanapp.com/push?")` + static `(PushTrackData)V` (resolver `pushTracker`) |
-| Xlog pull handler (`u53$d`) | inlined `string("xlog.upload")` + `(String,String,PushMessage,PushTrackData)Z` shape (resolver `xlogPull`) |
-| Superlike bubbles (`ihi0`) | `string("bubble_superlike_bubble")` + `string("superlike_promotion_config")` + J-shape (resolver `superlikeBubble`) |
-| Voice recorder (`a310`) | `RecordAnimLayout.setRecordStartTime` call + `<init>(MessagesAct)` (excludes telepathy twin `mal0`); inner `a310$b` via run()V+const-wide 60000+uptimeMillis candidates, outer-prefix post-pass (resolvers `voiceRecord`/`voiceRecordInner`, pre-gate) |
-| Mixed-content WebViews | ALL `WebSettings.setMixedContentMode` callers collected pre-gate (`getMixedContentClasses()`); const-0 feeds forced to 1 via dead-scratch const insert + invoke repoint |
-| Beatles facade (`h53`) | `string("[init] context of init() is null, check it.")` + 5-param static install shape (resolver `beatles` RE-ANCHORED — old `com.tantanapp.beatles` string absent in 7.5.4) |
-| Xlog uploader (`luw`) | `string("marsxlog")` + instance `(Date,String,J,*)V` shape (resolver `xlogUploader`; Xlog SDK class excluded by shape) |
-| Town Tales manager (`uu7`) | `string("/intl-live-casualGameMenu")` + static `(Z)V` shape (resolver `casualGameManager`); entrance bind matched by instance `(CasualGameButton)V` shape, `isDisplayable` by stable class + `()Z` |
+| Contacts sync (`zf6`) | `string("checkContacts")` + `string("contacts_new")` + `()Z` carrying READ_CONTACTS |
+| Clipboard invite (`eev`/`zq4`) | regex `tantan:.*邀请码：[A-Z|1-9]{4,}` in a `()String` method; MULTI-CLASS collector |
+| MK bridge (`zv3`) | `string("checkAppInstalled")` + `(JSONObject)V` shape (`pkg_android` is in inner `zv3$c`) |
+| Push tracker (`rtc0`) | `string("https://client-monitor.tantanapp.com/push?")` + static `(PushTrackData)V` |
+| Xlog pull handler (`u53$d`) | inlined `string("xlog.upload")` + `(String,String,PushMessage,PushTrackData)Z` shape |
+| Superlike bubbles (`ihi0`) | `string("bubble_superlike_bubble")` + `string("superlike_promotion_config")` + J-shape |
+| Voice recorder (`a310`) | `RecordAnimLayout.setRecordStartTime` call + `<init>(MessagesAct)` (excludes telepathy twin `mal0`) |
+| Mixed-content WebViews | ALL `WebSettings.setMixedContentMode` callers collected pre-gate; const-0 feeds forced to 1 |
+| Beatles facade (`h53`) | `string("[init] context of init() is null, check it.")` + 5-param static install shape |
+| Xlog uploader (`luw`) | `string("marsxlog")` + instance `(Date,String,J,*)V` shape |
+| Town Tales manager (`uu7`) | `string("/intl-live-casualGameMenu")` + static `(Z)V` shape |
 
-For groups of byte-identical overloaded methods (e.g. u59's U/S/O/F/Z/a0/D all return `!IntlCountryCodeController.k()`), fingerprint them as one cluster — they cannot be reliably separated.
-
-Use **bounded** `matchAll(classDef, expectedRange)` to assert expected cardinalities (e.g. `1..2` not `0..N`).
+For byte-identical overloaded methods, fingerprint as one cluster. Use **bounded** `matchAll(classDef, expectedRange)` to assert expected cardinalities.
 
 ## Morphe Patcher Gotchas
 
-Critical non-obvious behaviors of Morphe v2.4.0 + plugin v2.1.0 (upgraded from v1.6.0/v1.3.3 in Nov 2026 — see gotcha #16). **Read before touching patches or PatcherMain.**
+Critical behaviors of Morphe v2.4.0 + plugin v2.1.0.
 
-### 1. Fingerprint caching: never resolve inside `classDefForEach`
+### 1. Fingerprint caching — never resolve inside `classDefForEach`
+`matchOrNull(classDef)` caches per classDef per instance; inside a loop it returns the first cached result every iteration. **Fix:** 2-pass structure — Pass 1 iterates stable CamelCase classes only; Pass 2 resolves obfuscated fingerprints once at top-level.
 
-`Fingerprint.matchOrNull(classDef)` caches its result per `classDef` **per Fingerprint instance** for the lifetime of the patcher. If you call it inside `classDefForEach { classDef -> ... matchOrNull(classDef) ... }`, it returns whatever the first classDef cached — usually the wrong class — and silently applies to every iteration, including non-matching classes. Prepending `addInstructions(0, ...)` to a loop function produces an **infinite hang at compile time** ("Stripping 275 modified classes" never finishes).
-
-**Solution:** Restructure `execute { }` into 2 passes:
-- **Pass 1** (`classDefForEach`): only iterate classes with stable identifiers (e.g. `User`, `CoreProduct` — known CamelCase names)
-- **Pass 2** (top-level): resolve obfuscated class fingerprints once via `classFingerprint.matchOrNull()?.classDef?.let { ... }`
-
-### 1b. `matchOrNull(method)` cache: same trap at method granularity
-
-The `matchOrNull(method)` and `matchOrNull(method, classDef)` overloads share the same `_matchOrNull` cache as the class-level variants. The first call matches a method and caches it; every subsequent call returns the **cached Match** — even if you pass a different method. Consequence: in a loop like
-
-```kotlin
-classDef.methods.forEach { method ->
-    if (someCondition(method)) {
-        someFingerprint.matchOrNull(method)?.let { match ->
-            match.method.addInstructions(0, REPLACEMENT)
-        }
-    }
-}
-```
-
-only the FIRST method that satisfies `someCondition` is patched. Subsequent methods silently get the cached first match's `match.method`, so `addInstructions` writes the same replacement into the same first method (a no-op). Symptoms: one method patched, the rest of the set silently left original.
-
-**Real-world case:** `CoreProduct` has 10 public no-arg boolean methods (`A4/B4/y4/T4/Q4/z4/R4/L4/O4/P4`) all sharing `accessFlags={PUBLIC}, returnType=Z, parameters=[]`. The original loop only patched `A4` (the first one in dex declaration order). `B4` and `y4` kept calling `u4("vip")`, which a sibling patch forces to `RETURN_TRUE` — so the "send message" / "see who liked me" purchase dialog gates opened and crashed with `NullPointerException` on `FreeTrialData.titleText` (`r0` was never populated).
-
-**Solution:** once you've narrowed by class descriptor (e.g. inside `if (classDef.type == CoreProduct)`), skip the fingerprint entirely and patch methods directly:
-
-```kotlin
-mutableClassDefBy(classDef).methods
-    .filter { someCondition(it) }
-    .forEach { it.addInstructions(0, REPLACEMENT) }
-```
-
-`mutableClassDefBy` returns a `MutableClassDef` whose `.methods` is `List<MutableMethod>` — the only type with `addInstructions(String)`. Never call `matchOrNull(method)` per-method in a loop.
+### 1b. `matchOrNull(method)` cache — same trap at method granularity
+First call caches; subsequent calls return the cached Match for different methods. **Fix:** once narrowed by class descriptor, skip the fingerprint and patch methods directly via `mutableClassDefBy(classDef).methods.filter { ... }.forEach { it.addInstructions(0, ...) }`.
 
 ### 2. `ApkMerger` is for App Bundles, not standalone APKs
-
-`ApkMerger.merge(input, output)` calls `extractFile()` which filters ZIP entries by `.apk` extension. A standalone single-module APK has no such entries, so it throws `IOException("No *.apk files found on: $file")`.
-
-**`PatcherResult.applyTo(apkFile)` already produces a valid patched APK in-place** via `ZFile.openReadWrite`. Just sign after that — don't call `ApkMerger`.
+`ApkMerger.merge()` filters by `.apk` extension and throws on standalone APKs. `PatcherResult.applyTo(apkFile)` already produces a valid patched APK in-place. Just sign after that.
 
 ### 3. jadx naming traps
-
-When reverse-engineering decompiled Java:
-- jadx renames `com.p1` → `com.p335p1`. **Always use the real `com/p1/mobile/putong/...` descriptors in patches.**
-- jadx renames obfuscated package `Ll/<obf>;` (single-letter `l` package) to `Lp001l/<obf>;` for readability. **Real DEX descriptors are `Ll/<obf>;`. Never use the `p001l` prefix in fingerprints.**
+- jadx renames `com.p1` → `com.p335p1`. **Always use real `com/p1/mobile/putong/...` descriptors.**
+- jadx renames `Ll/<obf>;` → `Lp001l/<obf>;`. **Real DEX descriptors are `Ll/<obf>;`. Never use `p001l`.**
 
 ### 4. Class fingerprints resolve at the patcher-class level
-
-A `classFingerprint = parentFingerprint { ... }` chain must live as a top-level `val` (or `companion object val`), not inside a function. Inside `execute { }`, the same `matchOrNull()` call MUST NOT be called per-classDef (see #1).
+`classFingerprint = parentFingerprint { ... }` must be a top-level `val`, not inside a function.
 
 ### 5. Performance: UnifiedClassResolver for single-pass iteration
-
-`classDefForEach` iterates ALL ~50,000 classes in the APK. Multiple patches doing this independently causes O(n × patches) performance. The `UnifiedClassResolver` consolidates all class scanning into a single pass:
-
-```kotlin
-val resolver = UnifiedClassResolver(this)
-resolver.resolve()  // Single O(n) pass through all classes
-
-// Then retrieve pre-resolved classes:
-val analyticsClass = resolver.getAnalyticsClass("foxStats")
-val premiumClass = resolver.getPremiumClass("xma")
-val gmsClasses = resolver.getGmsClasses()
-val loveBuzzClasses = resolver.getLoveBuzzClasses()
-val privacyClass = resolver.getPrivacyClass("jmd0")
-```
-
-**What's consolidated:** AnalyticsDisable, DialogCleanup, UiCleanup, PremiumUnlock, GmsCompatibility, Messaging (LoveBuzz), and PrivacyEnhancement all use the same resolver.
-
-**When to use `classDefByOrNull`:** For stable CamelCase classes (e.g., `NavigationBarAdView`, `ChatPartnerConfig`), use `classDefByOrNull("Lcom/p1/mobile/putong/...;")` — it's O(1) via the class index.
-
-**When to add to UnifiedClassResolver:** When you need to find obfuscated classes by behavioral anchors (strings, fields, methods). Add anchors to the resolver's maps and a resolution method.
+`classDefForEach` iterates ALL ~50,000 classes. `UnifiedClassResolver` consolidates scanning into one O(n) pass. Use `classDefByOrNull` for stable CamelCase classes (O(1) via class index).
 
 ### 6. Performance: cache instruction iteration with WeakHashMap
-
-Methods' `implementation?.instructions` iterates the bytecode each time. If you call `accessesField()` or similar instruction-scanning helpers multiple times on the same method, cache the materialized instruction list:
-
-```kotlin
-private val instructionCache = java.util.WeakHashMap<Method, List<Instruction>>()
-private fun Method.cachedInstructions(): List<Instruction> =
-    instructionCache.getOrPut(this) { implementation?.instructions?.toList() ?: emptyList() }
-```
-
-This prevents redundant iteration when the same method is analyzed multiple times across different patch blocks.
+`implementation?.instructions` iterates bytecode each time. Cache with `WeakHashMap<Method, List<Instruction>>` to prevent redundant iteration.
 
 ### 7. Performance: avoid cross-patch redundancy
-
-Before adding a patch, check if another patchset already covers the same class/method. Common overlaps:
-- Ad removal: `AdRemovalPatch` vs `PremiumUnlockPatch` (both had NavigationBarAdView, NativeAdViewCard)
-- Root detection: `AnalyticsDisablePatch` vs `PrivacyEnhancementPatch` (both had root detection classes)
-- Package enumeration: `AnalyticsDisablePatch` vs `PrivacyEnhancementPatch` (identical bytecode)
-- Dialog suppression: Individual creator patches vs centralized OMS show-permission gate (`em60.M`/`N`) in `DialogCleanupPatch` (creators still needed for `M`-bypass paths — gotcha #11)
-
-Duplicate patches waste time (redundant class lookups + method iteration) and can cause double-injection issues.
+Before adding a patch, check if another patchset already covers the same class/method. Common overlaps: ad removal, root detection, package enumeration, dialog suppression.
 
 ### 8. Never patch nullCheck() methods
+`nullCheck()` methods cause `VerifyError` when patched — no expected register allocation; prepending breaks jump targets. **Fix:** Remove all nullCheck() patches; patch the calling code instead.
 
-The `nullCheck()` methods in data classes (CounterSecretCrushLimit, BoostLimit, CounterLikeLimit, ChatPartnerConfig, LoveBuzzData, PrologueConfig, ODiamondVisitorMessageGuideConfig, LiveChatLimit, BLiveCommonConfig, GreetingCounter, IntlUltraPremiumConfig, User) are either empty no-ops or simple validation methods. Attempting to patch them with `addInstructions(0, ...)` causes bytecode verification errors:
+### 9. Injected smali: high parameter registers are SILENTLY DROPPED
+4-bit register fields (`invoke-* {vN}`, `iget/iput` destination) only accept v0–v15. `pN` maps to high numbers in methods with many registers; Morphe silently drops the instruction → VerifyError at runtime.
 
-```
-java.lang.VerifyError: Verifier rejected class com.p1.mobile.putong.data.CounterSecretCrushLimit: 
-void com.p1.mobile.putong.data.CounterSecretCrushLimit.nullCheck() failed to verify: 
-[0x5] instance field access on object that has non-reference type IntegerConstant
-```
-
-**Why it fails:**
-- The methods don't have the expected register allocation for injected instructions
-- Prepending instructions breaks jump target offsets in existing bytecode
-- The bytecode verifier rejects modifications to these validation methods
-
-**Solution:** Remove all nullCheck() patches entirely. These methods don't need patching — they're either empty or perform validation that doesn't interfere with patch goals. If a nullCheck() method needs to be bypassed, find the calling code and patch it there instead.
-
-**Real-world impact:** This caused the app to crash on startup with VerifyError, forcing users back to the login screen. All nullCheck() patches have been removed from PremiumUnlockPatch.kt, MessagingPatch.kt, and PrivacyControlsPatch.kt.
-
-### 9. Injected smali: high parameter registers are SILENTLY DROPPED (4-bit register fields)
-
-`addInstructions` compiles your smali in a dummy method with the target's register count. Instructions whose register fields are 4-bit — `invoke-* {vN}` (35c), `iget/iput` destination (22c A-field), `filled-new-array` — only accept **v0–v15**. In a method with many registers, `p0/p1/p2` map to high numbers (e.g. `a7` has 23 registers → `p2 = v22`). Writing `iget-object v0, p2, ...` or `invoke-virtual {p2}, ...` there fails assembly with:
-
-```
-[7,0] Invalid register: v22. Must be between v0 and v15, inclusive.
-```
-
-**The killer:** Morphe logs this error but does NOT fail the patch — the offending instruction is silently dropped and the rest of the block is inserted. The build reports "OK". At runtime the truncated block fails verification:
-
-```
-java.lang.VerifyError: Verifier rejected class ...CoreSuggested: a7(boolean, l.ii70)
-failed to verify: [0x0] type Undefined unexpected as arg to if-eqz/if-nez
-```
-
-(the `iget` that defined `v0` vanished, leaving `if-eqz v0` reading an undefined register). The app freezes/crashes on startup.
-
-**Solution:** never pass `pN` directly to a 4-bit-field instruction. Shuttle it into a low register first with a `/from16` move (16-bit source field, always safe):
-
+**Fix:** shuttle `pN` into a low register first:
 ```smali
 move-object/from16 v0, p2          # object param
 iget-object v0, v0, Ll/ii70;->b:Ljava/lang/Object;
 invoke-virtual {v0}, ...           # v0 is low → OK
 ```
+- Internal labels only resolve at index 0. Always inject at index 0.
+- Methods with `registerCount == paramCount` have NO free scratch registers. Save/restore clobbered params from fields.
+- **Verify:** disassemble target method in patched APK with `tools\inspect.bat`.
 
-Use `move/from16` for ints, `move-wide/from16` for long/double. Keep ALL injected working registers in v0–v15.
+### 10. Messages list cells — filter at the data level, not the view
+`ConversationItemView.x0` is only dispatched for type-13 header cells — injecting GONE there is dead code for normal rows. **Fix:** filter display data at `ConversationsList.O2(List, Z)List`. Drop ONLY `fakeReceiveLikeGuideSVip` and `fakeIntlReceiveChatRequest` by EXACT convType. KEEP `fake_one_side`/`fake_one_side_no_match` and `intlSeeChatRequest`. Do NOT filter on `isFake`/`fake_id_` alone or `startsWith("fake")`.
 
-**Two more injection traps found alongside this:**
-- **Internal labels only resolve at index 0.** `addInstructions(N, ...)` with `N > 0` mis-resolves internal branch targets by the insertion point's code offset (e.g. injecting at index 2 after two 2-unit iputs shifted every `if-eqz` target −4 code units, landing mid-instruction). Always inject at index 0; if you need state set by the original prologue, replicate those prologue instructions at the start of your block (idempotent stores are safe to re-run).
-- **Methods with `registerCount == paramCount` have NO free scratch registers** (p0=v0, p1=v1, …). You cannot clobber a param and fall through to original code that still reads it. Either find a param the original redefines before reading (safe scratch), or save/restore a clobbered param from a field the prologue populates (e.g. `ConversationItemView.x0`: restore `Conv` from `hy6.a`). Morphe has no public register-expansion API, and expanding would shift all param registers anyway.
+### 11. Swipe-tab promo popups — patch the dialog CREATOR, not the content view
+Likers promo dialogs built by static void methods in one obfuscated class. **Fix:** patch creators to `return-void` (match by popup-key string literal, static+void filter). Patching only the content view leaves an empty dialog frame. OMS `M()` gate alone fails in `__control` AB bucket which bypasses it.
 
-**Verification technique:** disassemble the target method in the patched APK with the local inspector (`tools\inspect.bat tantan-premium-unlocked.apk <class> <method>`) to confirm every injected instruction is present. `:patches:patchApk` now uses `tantan-7.5.4.apk` (the authoritative 7.5.4 target matching `tantan-decompiled-7.5.4/`), so local DEX inspection IS authoritative — no device pull needed for bytecode checks. You can also pre-flight any smali block via `InlineSmaliCompiler.Companion.compile(smali, params, registerCount, isStatic)` and assert the returned instruction count matches (labels are not instructions).
+### 12. Swipe-deck promo CARDS — filter at the consumer, not just insert points
+Insert-point filters leak cards from the server-loaded list. **Fix:** consumer-side filter at `home/c.y(List)List` — the FINAL deck render transform. Rebuild list dropping `UserInfo.isVirtualCard()`. Register trap: only 5 registers — save/restore `this` and shuttle params.
 
-**Real-world impact:** The swipe-deck `CoreSuggested.a7` insertion filter froze the app on startup (Nov 2026). Fixed by prefixing `move-object/from16 v0, p2`. Same fix applied to the r7/l7 guards.
+### 13. Top-of-swipe-screen likers-float banner — kill the `O3` filter
+Banner pipeline: `CoreLikers.P6()` → `filter(O3)` → banner view. **Fix:** force `O3` (static, returns boxed `Boolean`) to `Boolean.FALSE`. Fingerprint traps: enum constants are `sget-object` FIELD accesses (use `fieldAccess(name=...)`); `O3`/`J7`/`K7` return boxed `Ljava/lang/Boolean;` — select by `AccessFlags.STATIC` + `returnType=="Ljava/lang/Boolean;"`.
 
-### 10. Messages list cells do NOT bind through `ConversationItemView.x0` — filter at the data level
+### 14. UnifiedClassResolver early-exit cap silently dropped late-DEX classes
+Early-exit at `resolvedClasses.size >= totalTargets` skipped classes late in DEX order. **Fix:** remove the early-exit; always complete the single O(n) pass. ALWAYS DEX-verify a known method in the patched APK.
 
-The main Messages conversation list (view type 0) binds through `NewConversationItemView.e4 → f4 → w3 → O0(hy6)` (dispatched to child views). `ConversationItemView.x0(Conversation, User, hy6)` is only dispatched for the type-13 header/team cell path (`K3/L3` from `n4`). So a `setVisibility(GONE)` injected into `x0` is **dead code** for normal conversation rows — the cell still appears.
+### 15. `Fingerprint(filters=...)` anchors must co-occur in ONE method
+Anchors in different methods → `matchOrNull()` returns null (silent no-op). **Fix:** single unique anchor → resolve class then iterate methods class-wide; or class-wide resolver combining `foundStrings` + `methodCallFull`. RemoteConfig F/s no-scratch override: delegate to provider returned by `u()` (has free scratch).
 
-**To remove a promo conversation from the Messages list, filter the display data, not the view.** The display list is built by `ConversationsList.O2(List, Z)List` (obfuscated name varies — match by signature `(Ljava/util/List;Z)Ljava/util/List;` within stable `Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;`, cardinality 1). Every return path returns the input list (or a `y4m` wrapper copied from it after entry), so rebuilding `p1` as a filtered `ArrayList` at index 0 covers all branches with no control-flow surgery. `O2` has 22 registers (`p1=v20`): read via `move-object/from16 v1, p1`, write back via `move-object/16 p1, v0`, keep working regs in v0–v5. Sole caller `Y1` feeds adapter `b0.L` → covers All list, sort tabs, and search.
+### 16. Patcher 2.4.0 / plugin 2.1.0 upgrade notes
+- `Patch` is non-generic now (`Set<Patch>`, not `Set<Patch<*>>`)
+- `PatcherConfig` signature changed (no `aaptBinaryPath`/`frameworkFileDirectory`/`useArsclib`)
+- arsclib fork rename: `setValueAsString` → `setDataAsString`
+- Signing is v2-only library-side; add `implementation("com.google.guava:guava:33.6.0-jre")`; Windows STRIP_FAST safe.
 
-**Predicate safety (CORRECTED Nov 2026):** drop ONLY the two pure like-guide promo cells by EXACT convType — `fakeReceiveLikeGuideSVip` and `fakeIntlReceiveLikeGuideSVip` (these are *replaced*, not converted, when a real conversation arrives, `q09.J`). **KEEP `fake_one_side` / `fake_one_side_no_match`** — these are REAL one-sided chats, NOT bots: PremiumUnlock forces `isSVIP()=true`, so the teaser gate `ht6.o()` (`!isSVIP && mm<=0`) is bypassed and they render as normal conversations (`MessagesAct:658` falls through to the real chat page; `fake_one_side_no_match` has no purchase gate at all). **KEEP `intlSeeChatRequest`** — a functional chat-request entry once the privilege is unlocked. The original `startsWith("fake")` + `intlSeeChatRequest` drop was UNSAFE: it emptied inboxes dominated by one-sided chats / chat requests (typical free intl account with likes but no mutual matches) → adapter `D()`=`wgc.J(c)` true (`ConversationsList:426`) → "It's quiet in here" empty state (`CORE_ACTION_KEEP_SWIPING_TITLE`). New-match placeholders (`g.uf`, `api/g.java:8952`) use `convType="default"` (kept); `isFake=true` is cleared at server merge (`q09:775`). **Do NOT filter on `isFake`/`fake_id_` alone, and do NOT use `startsWith("fake")`** — `fake_one_side*` are real. Real matched chats carry `default`/`group`/`quickchat`/`lovebuzz`/`heartbeatMatch` etc., never the two promo types. Keep working registers v0–v6 and pre-flight via `InlineSmaliCompiler` (gotcha #9) — a dropped high-register instruction re-introduces the startup VerifyError freeze.
+### 17. Resolver conditions must NOT embed obfuscated names
+Stale obfuscated names in resolver `methodCallFull` checks = silent no-ops. **Rule:** never put an obfuscated class/method name in a resolver condition; anchor on stable strings/fields/shapes only.
 
-## 11. Swipe-tab "99+ people liked you" promo popups — patch the dialog CREATOR, not the content view
+**OMS "morph" server promos:** text absent from local resources = server-configured morph campaign; `M()` gate bypassed. **Fix:** void `OmsPageAct.b2()` AND `c2()` so fields stay null. Do NOT void `hn60.n` wholesale (routes verification).
 
-The occasional "99+ people liked you" popup on the swipe tab is one of four likers promo dialogs, all built+shown by static void methods in one obfuscated class (7.5.4 `Ll/zw3;`, resolver key `hl3`), each anchored on its OMS popup-key string literal:
+### 18. Compatibility waves — APK versions, safe matching, inner-class hijacks
+- `tantan-7.5.6.1.apk` = 7.5.6.1 (AUTHORITATIVE). `tantan-7.5.4.apk` = historical reference only.
+- Apply-only test passes on silent no-ops. ALWAYS DEX-verify each target method's first instructions in the patched APK.
+- `match.method` THROWS; use `matchAllOrNull(classDef).orEmpty().forEach`.
+- Inner-class hijack: const-string lives in both outer class and inner Runnable. Pair string anchor with target-method SHAPE check. For inner-class prefix matching: `type.removeSuffix(";") + "$"`.
+- Enum constants are FIELD accesses, not method calls; compile-time String constants are INLINED to `const-string`.
+- `BuilderInstruction20t` takes a `Label`, not an Int offset. Read target `Label` from mutable builder instruction.
+- Build needs GitHub creds + offline: `tools\gradle.bat <task>` with `GITHUB_ACTOR`/`GITHUB_TOKEN` and `--offline`.
 
-| Key literal | Method (7.5.4) | Dialog | Content view |
-|---|---|---|---|
-| `p_no_match_svip` | `H(Act,I,List)` | no-match likers alert | `LikersDialogView.c` |
-| `p_offline_popup` | `J(Act,I,CoreLikers$a)` | offline "99+ people liked you while away" | `LikersDialogView.b` |
-| `p_no_match_see_purchase_guide_view` | `I(Act,I,List)` | see-purchase guide | `VipItemDetailPage` |
-| `p_see_popup_expired_svip` | `L(Act,I)` | SVIP expired recover | `SVipSeeRecoverDlg` |
+### 19. InlineSmaliCompiler `pN` aliases mis-count WIDE parameters
+`pN`→`vN` mapping ignores that `J`/`D` occupy 2 registers; bug bites `p1+` after a wide param. **Fix:** compute ABSOLUTE registers from `registerCount` and param signature for wide-parameter methods; `pN` safe ONLY when every parameter is single-word. `preflightSmali` count assertion does NOT catch this — only post-build DEX inspection reveals wrong source register.
 
-The "99+" cap lives in `LikersDialogView.b` (`i > 99 ? "99+"`, title `SVIP_OFFLINE_POPUP_MINTITLE_PLURAL`) and `hkh0.f`→`g(i,99)` for `.c`. **Patch the creators to `return-void`** (match by the popup-key string literal in `cachedInstructions`, static+void filter — version-agnostic, not the obfuscated method name). Patching only `LikersDialogView.b/c` to `return-void` is NOT enough: the dialog frame still shows (empty), and `I`/`L` use other views entirely. `PremiumUnlockPatch` does this in the `resolved["hl3"]` block.
+## 20. 7.5.6.1 migration notes — mass-refactor release
 
-**Why the OMS `M()` gate alone fails here:** `DialogCleanupPatch` now forces `em60.M`→`false` app-wide, but the trigger `g350.K7` only consults `cn60.j().f().M("p_offline_popup", false)` when `ern0.F()` is true; `ern0.F()` = `!"__control".equals(ABManager.i0("pop_platform_all"))` (an AB bucket). In the `__control` bucket it calls `bfe0.i0`→`zw3.J` directly, bypassing `M` entirely. So creator-level `return-void` is still the reliable fix. These are purchase nags, not the actual "see who liked you" feature (`LikersFrag`/`LikersAct`, `p_see_who_likes_me_view` — untouched).
+7.5.6.1 (2756110) is NOT ordinary obfuscation churn. Three systemic changes:
 
-## 12. Swipe-deck promo CARDS (not dialogs) — filter at the consumer `home/c.y`, not just the insert points
+### Systemic changes
+1. **`rx.c` (RxJava Observable) was obfuscated to `Ll/vpf;`.** `rx/c.java` no longer exists. Use `Ll/vpf;->empty()Ll/vpf;` and `Ll/vpf;->just(Object)Ll/vpf;`.
 
-Some swipe-tab promos are swipeable **cards** in the deck, not modal dialogs — e.g. the "see churnback" card titled "X more people liked you" / subtitle "She is active" (server-driven `Active.cardTitle`/`cardDesc`), rendered by `SeeActiveCard` via holder `Ll/qpf0;` (`VirtualCardType.IntlSeeCard`, factory `home/b` case 20). Sibling promo cards: `IntlVipCard`(spn0), `MinBoostCard`(g910), `IntlFreeSpotlightCard`(u9h0), buzz cards(vy3), `IntlPartnerActiveCard`(jkp), `IntlRecallMembershipCard`(c3q), `LiveActiveCard`(tms). All are built in `CoreInserterHelper` (`Lcom/p1/mobile/putong/core/api/m;`) `x3` with `id="VirtualCard"`.
+2. **Previously-stable outer classes were obfuscated or deleted.** Key renames (7.5.4 → 7.5.6.1):
 
-**The insert-point filters alone leak:** `AdRemovalPatch` strips `isVirtualCard()` at `CoreSuggested.a7` (merge SparseArray `ii70.b`), `r7` ("repeat suggested card"), `l7` (`INSERT_LOCAL_FINAL`) and the OMS `id0` batch. But cards that reach the **main loaded list** (server `intlInsertCardSets`) bypass those and still render.
+| old | new | note |
+|-----|-----|------|
+| `remote_config/RemoteConfig` | `Ll/ngi;` | getters F→k/c/s/i/h/y; long B → provider `Ll/pq2;.e(String,J)J` |
+| `ab/ABManager` (api/) | `Ll/q;` | bucket read j0→`q.t(String)String` |
+| `core/api/CoreProduct` | `Ll/is3;` | purchase gate Q4→`is3.S(PurchaseType)Z` static |
+| `core/api/CoreLikers` | `Ll/lk3;` | `CoreLikers$a`→`Ll/kk3;`; `S6()` removed |
+| `core/api/CoreSuggested` | `Ll/yom;` | only `CoreSuggested$UserInfo` keeps the name |
+| `core/api/CoreIntlAffiliatePromotions` | `Ll/oh3;` | M3→`oh3.S(IntlAffiliateDiscountEntryTab)Z` |
+| `home/b` | `Ll/naf;` | `home/c` gone (deck transform relocated) |
+| Fox facade `ofh0` | `Ll/l7k;` | init `c(TantanApp,String)V` (exempt!) |
+| Fox sender `m3m0.b` | `Ll/mmm.b(String,JsonArray,I)Z` | force true |
+| GA4 `iiu0.Q()Z` | `Ll/dyq.g()I` | force 1 |
+| Beatles `h53`/`luw` | `Ll/c41;` | upload `f(List,String,J,lmm)V` + push entry `a(J,String,String)V` |
+| OAID `z810` | `Ll/f8e;` | init `b(TantanApp)V` |
+| AppsFlyerLib | `com/appsflyer/internal/AFb1tSDK` | abstract base, concrete impl |
+| FetchedAppSettingsManager | `Ll/ru6;` | fetch `a()JSONObject` static no-arg |
+| AppEventsLogger | `Ll/na0;` | activateApp `b(Application,String)V` (not final) |
+| AdvertisingIdClient$Info | `Ll/st;` | derive Info type from `getAdvertisingIdInfo` returnType dynamically |
+| OMS gate `em60` | `Ll/ssf;` | M→`n(String,Z)Z` |
+| morph router `hn60` | `Ll/btf;` | `c(Act,OMSDialogInfo)Z` |
+| likers quota `gjc0` | `Ll/oth;` | quota `c()Z`, expiry `a()/b()J` |
+| roaming gate `bun0` | `Ll/yan;` | `a(Act,String,String)Z` (param order changed) |
+| location upload `core/api/c` | `Ll/a33;` | gate in `call(Object)V` lambda |
+| location throttle `location/a.v(J,Z)V` | `location/a.h(J)V` | Z param removed |
+| push poster `c0j0` | `Ll/d9l;` | `c(PushMessage,PendingIntent,Intent,Action,Action)V` |
+| push tracker `rtc0` | `Ll/mb0;` | tracking Runnable `run()V` |
+| telepathy gate `o3k0` | `Ll/x3r;` | `b(g6m)Z` reads TpTelepathyConv.replyLengthLimit |
+| privilege `o3b` (xma) | `Ll/cs3;` | core gates survive; counts moved to `fv2.g(...)` |
 
-**Robust backstop = consumer-side filter at `Lcom/p1/mobile/putong/core/newui/home/c;->y(Ljava/util/List;)Ljava/util/List;`** — the FINAL deck render transform (`g350.F6 → b.N.y → b.N.K`), downstream of every insertion path, sole caller. Match by the unique `(List)→List` signature (cardinality 1; `K(List)V` and `C(List,List,UserInfo)V` differ). Rebuild `p1` as a filtered `ArrayList` at index 0 dropping `UserInfo.isVirtualCard()` (real profiles carry real ids → never removed; no blank card since `c.K` does `clear()+addAll()` and adapter count = list size).
+3. **Method bodies extracted into shared synthetic lambda dispatchers** (`ej7`, `tq3`, `uu3`, `kbf`, `sga`, `c03`, `edf`, `lrd`, `c22`, `h0e`, `z31`, `zic`, `a14`, `z0`, `te3`, `m1`…). These multiplex UNRELATED features via `packed-switch`/`call(Object)` cases. **Never prepend-void a shared dispatcher** — it breaks other cases. Re-anchor on the dedicated downstream method or do case-level surgery.
 
-**Register trap:** `c.y` has only **5 registers** (instance: p0=this=v3, p1=list=v4) — NO free scratch beyond v0–v2. The filter must **save/restore `this`** (`move-object/from16 v1, p0` … `move-object/16 p0, v1`) and shuttle the list param (`/from16` read, `/16` write), keeping working regs in v0–v4. Recompute `List.size()` per iteration to avoid needing a 6th register. Clobbering v3 without restoring breaks the original prologue's `iget-object v2, v3, c.f` → crash. Pre-flight via `InlineSmaliCompiler` at regs=5 (gotcha #9). `fzn0.f()` is NOT a skip flag (it registers a swipe-out callback via `VirtualCard.J0`), and GONE-ing the holder view leaves a full-size invisible swipeable card — both rejected.
+### Name-reuse hazard
+`zw3, ih9, ytb, o71, hcj, rrn, liq, rcp, uu7, zx6, j5k` STILL EXIST in 7.5.6.1 but are UNRELATED classes. Hardcoded `classDefByOrNull` on them silently no-ops. Always resolve by anchor + shape.
 
-## 13. Top-of-swipe-screen likers-float banner ("X more people liked you" / "See who likes me") — kill the `O3` filter, and enum constants are FIELD accesses not strings
+**Verified identity corrections:** `yom` is NOT CoreSuggested; real successor is **`ev3`** (`CoreModule.c.U`). `tbg` is NOT `ii70` — generic **Pair**. `ae9` is EMPTY (Ultra upgrade is **`zi3`**); `ysa` is Google **Tink protobuf** (dead upstream). `CoreSuggested$UserInfo` and `CoreLikers$LikersTriggerBy` enum are STABLE.
 
-The occasional 2-line promo banner at the TOP of the Card tab (and its sibling SEE_ANIM avatar bubble) is driven by the home presenter (obfuscated; 7.5.4 `Ll/g350;`) pipeline:
+### Restored & pending (summary)
+**Restored:** RemoteConfig, ABTest, Analytics, Location, Premium purchase gate, roaming gate, theme unlock, Privacy, Messaging telepathy gate, OMS morph router, Push Filter, Search Discovery, GMS, Live Streaming, Premium tier/privilege core, Settings, counters, fake-conversation filter, persistence choke, likers/banner/bubble, premium secondary, ad binds, typing, voice 60s cap, loveBuzz, buzzProlong/pinChat/aiChatAdvice, see-anim bubble, icebreak limit.
 
-`CoreLikers.P6()` → **`filter(O3)`** → throttleFirst(10s) → combineLatest → `filter(J7)` (Card tab + no dialog) → `filter(K7)` (offline-popup gate) → `L7(ii70)` → guard `A8(CoreLikers$a)Z` → `NewMainAct.k7()V` → emits `ayl0.a` onto subject `main/a.t` → banner view.
+**Pending (deferred — shared-dispatcher case surgery HIGH risk or un-restorable upstream):**
+- See-purchase-guide dialog (`rcf.call` case1, shared 29-case dispatcher): case-entry detection failed.
+- Deck insert filters (`tq3`/`uu3` shared cases): case-entry detection failed; old consumer backstop GONE.
+- aiChatCompanion (`j4e.o`): count branch targets TOAST/failure path; recipe inapplicable.
+- Experimental voice-to-text 7a: anchor string GONE; no client-side gate found (server-gated).
+- Already dead in 7.5.4: meetEntranceBanner, suggestedUsersBanner, meetNewLikersData, serverDataFlagSetter/newLikesFlagSetter, mb90, coreData, secretCrush; ChatPartnerConfig messageLimit + PlatinumPinChat getLevel removed upstream.
 
-**Choke point = `O3`**: a **STATIC** method `O3(Lcom/p1/mobile/putong/core/api/CoreLikers$a;)Ljava/lang/Boolean;` returning true iff trigger == `home_total_liker_float` || `home_new_liker_float`. Force it to `Boolean.FALSE` (`const/4 v0,0x0; invoke-static {v0},Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean; move-result-object v0; return-object v0` — 4 instrs, v0 only, immediate return → register-safe at any count). This kills the whole pipeline upstream (banner + avatar bubble; all 3 `NewMainAct.k7()` callers are downstream of O3) without touching other likers features (`home_tab_msg` msg badge, `new_like_dialog`, `my_privilege_liker`, the `LikersAct` See-Who-Likes-Me page — different triggers/subscribers of `P6()`). `UiCleanupPatch` does this.
+### In-place branch recipe correction
+`if-gtz`/`if-lez` are SINGLE-register conditions = format **21t** (`BuilderInstruction21t`), NOT 22t. 22t is two-register `if-lt`/`if-gt`. Casting if-gtz to `BuilderInstruction22t` silently fails → 0 edits. Use `BuilderInstruction21t.target` + `replaceInstruction(i, BuilderInstruction20t(Opcode.GOTO_16, target))`.
 
-**Two fingerprint traps that made the first attempt a silent no-op:**
-1. **Enum constants are `sget-object` FIELD accesses, NOT `const-string`.** `string("home_total_liker_float")` / `string("home_new_liker_float")` NEVER match `g350` (it reads `CoreLikers$LikersTriggerBy;->home_*_liker_float` via `sget-object`). Use `fieldAccess(name=...)` / `FieldReference` instruction checks for enum fields. To resolve the obfuscated presenter class, anchor on a **unique stable const-string** it actually contains — `"see_anim_show_times_after_launch"` (a pref key, g350-only) works; the enum-field anchor is ambiguous (CoreSuggested/CoreLikers also read those fields).
-2. **`O3`/`J7`/`K7` return boxed `Ljava/lang/Boolean;`, not primitive `Z`.** A `returnType=="Z"` filter misses them (and instead hits `A8(CoreLikers$a)Z`, the suppress guard — patching that to false would *remove* suppression and show the banner MORE). Select O3 by `AccessFlags.STATIC` + `returnType=="Ljava/lang/Boolean;"` + single `CoreLikers$a` param + both enum-field accesses (cardinality 1; J7/K7 are instance methods with an `ii70` param).
+### Update-resilient anchoring
+Mass-refactor fragility is fixed by making anchors **relational** (follow call edges) not **co-locational**:
+1. **Reverse-call-graph navigation** — index callee→callers, BFS from stable sink to gating method.
+2. **Instruction-filter chains with OR + allowed gaps** — tolerates insertion/reordering.
+3. **Framework-superclass / manifest / resource seeds** as stable entry points.
+4. **CI zero-match reporting** — run resolver per new APK, flag anchors resolving 0 matches.
+5. **Shared dispatchers:** anchor on unique downstream callee or call-site discriminator, never the shared class.
 
-**Verify in patched DEX** (`InspectDex Ll/g350; O3`): first 4 instructions must be the Boolean.FALSE block; `A8` must remain original. The banner view's `a.t` subscriber is not present in the 7.5.4 jadx dump (version skew), but cutting O3 upstream suppresses it regardless — no need to see the consumer.
-
-## 14. UnifiedClassResolver early-exit cap silently dropped late-DEX classes (xma block was a no-op in 7.5.4)
-
-`PatchUtils.resolve()` used to abort the `classDefForEach` scan once `resolvedClasses.size >= totalTargets` (a hardcoded 105). Classes late in DEX iteration order — e.g. the privilege class `Ll/o3b;` lives in **classes9.dex** — were never reached, so `resolved["xma"]` stayed empty and the **entire `xma` patch block silently did nothing** in that layout. It happened to work on the device APK (different DEX ordering resolved `xma` before the cap), which masked the bug. **Fix: remove the early-exit; always complete the single O(n) pass** (gotcha #5 design). After the fix, modified-class count rose 663→669 and `o3b.c4`/`f4`/`E3`/`J3` became patched.
-
-**Lesson:** a resolver-based block doing nothing is invisible at build time (all patches report OK). ALWAYS verify a known method in the patched DEX (e.g. `InspectDex Ll/o3b; c4` must start `const/4 v0,0x0; return v0`). If a whole block is original, suspect resolver under-resolution, not the block logic.
-
-**Picks like gates (added to the `xma` ()Z-no-arg `when`):**
-- `E3()` = `!(Q3(svipPicksMembership) && Q3(picksMembership))` → anchor `containsString("picksMembership")` (exact) → `RETURN_TRUE`. Every `freePicks` paywall is guarded by `!E3` (`pq80.f:177/215/222`, `vq80.I:63`, `Ak:285`), so forcing E3 true also clears the freePicks-remaining gates — no separate `j0b.o3` patch needed.
-- `J3()` = `(g5() || Lg()) && !c4()` (Top Picks AB-bucket gate) → anchor `callsCoreProviderAbFlag()` (invokes a no-arg `Z` method on stable `CoreProviderInterface`/`CoreProviderImpl`; unique among static ()Z gates — H3 is instance) → `RETURN_TRUE`. Unblocks Top Picks likes for control-bucket accounts.
-- `CounterSuperlikeAndUndoLimit.remainToday/remainAll` already forced 200000 (stable class) — covers the superlike-button daily-count math.
-- **`picksTagType==masking` deliberately NOT patched**: mid-method enum comparison in a 13-param method (register/branch surgery risk, gotcha #9) AND masked picks are server-locked, so bypassing the client gate would not make them match.
-
-**Likes-screen like failure is SERVER-side** (not patchable): the like uses the identical `POST /users/me/relationships/{id}` endpoint as the working swipe deck; all client self-gates pass or are patched. The who-liked-me list is a masked teaser feed for non-subscribed accounts (placeholder names, possibly photo-less entries hitting the silent `x9p.E` pictures gate); match creation from it is server-authoritative.
-
-## 15. `Fingerprint(filters=...)` anchors must co-occur in ONE method — multi-method anchors silently resolve nothing
-
-A `Fingerprint(filters = listOf(string(...), methodCall(...), ...))` resolves a class only if **some single method satisfies ALL filters**. If the anchors live in *different* methods of the class, `matchOrNull()` returns null and the whole block is a **silent no-op** (build still reports OK). This is distinct from gotcha #14 (resolver under-resolution) but has the same invisible symptom.
-
-**Real cases (Nov 2026, all DEX-confirmed original before fix):**
-- `proximityBubbleClassFingerprint` = `string("distance")` (in `home/b.H6`) + `methodCall(n7)` (in a *different* `home/b` method) → never resolved `home/b`, so **H6 was unpatched** and the see_anim bubble pipeline B leaked despite gotcha #13's O3 cut. Fixed by resolving `home/b` class-wide via the resolver (`"distance" in foundStrings && methodCallFull.any { it.endsWith(".n7") }`, key `proximityBubble`) and voiding the Figure-param + "distance" method (H6).
-- New live/visitor fingerprints combining a const-string in the ctor with a `methodCall` in the bind method failed the same way.
-
-**Fix patterns:**
-1. **Single unique anchor in one method** → resolves the class; then iterate `mutableClassDefBy(cd).methods` class-wide to patch the real target. Used for `hcj` (`string("ad_monetize_live_banner_switch")` lives in `s`; void both `s`/`t` by `containsString`), `rrn` (`methodCall(IntlLiveSquareActiveGiftDialogView.S)` lives in `d3`), `ciq0` (`methodCall(LiveVoicePayGuideBottomDialog.g)`).
-2. **Class-wide resolver** when anchors span methods: add the string anchors to `premiumAnchorStrings` (so `foundStrings` collects them) and a `resolvePremium` condition combining `foundStrings` + `methodCallFull` (which captures ALL calls class-wide). Retrieve with `resolver.getPremiumClass(key)`. Used for `visitorsDiscountBanner` (`liq.f`) and `meetDiscountBanner` (`rcp.h`): analytics string (ctor) **AND** `IntlDiscountEntryBannerView;.<init>` call (bind method). The `<init>`-call requirement excludes `ysn$g`, which holds the identical analytics string but never constructs the banner.
-
-**Substring trap:** `ciq0` pay-guide enqueue params are `VoicePayGuidePopUp`, `VoicePayGuideV2PopUp`, `VoiceAvatarFramePayGuidePopUp`. `contains("PayGuidePopUp")` MISSES the V2 variant — use `contains("PayGuide") && endsWith("PopUp;")`.
-
-**RemoteConfig F/s no-scratch override:** `RemoteConfig.F(String)String` and `s(String)Z` have `registers==2` (p0=this=v0, p1=key=v1, NO free scratch) and read `this` immediately, so they cannot take a fall-through key comparison (gotcha #9). Both delegate to the provider returned by `u()` (7.5.4 `Ll/f96;->t(String)String` regs=4 / `f(String)Z` regs=5, free scratch v0/v1). Derive the provider descriptor + getter name dynamically from the stable `RemoteConfig.F`/`s` bodies (scan for the 1-String-param delegate `MethodReference` whose `definingClass != RemoteConfig`), then patch the provider getter with a `move-object/from16 v0, p1` key shuttle + `:not_matched` fall-through. `z`/`B` already return the caller default on both branches (all int/long remote configs neutered app-wide). F-key overrides: `popup_schedule_config→{}`, `mytab_see_red_dot_config`/`me_badge_icon_see_configs`/`private_custom_config`/`ttt_verification_guide_config` JSON; s-key: `bad_token_exprie_control`/`nearbyBanner_reddot→false`.
-
-**New promo suppressions added (all DEX-verified `return-void`):** live-square ad holders `IntlLiveSquareSuggestedFrag.Y5/Z5(View,List)V` (stable CamelCase, cardinality 2 — also fixes the blank-gap defect of view-only ad patches); live ad preload Firebase switches `hcj.s/t` (stops AdMob load); active-gift popup creator `rrn.d3(LiveSquareActiveGiftBean)V`; voice-room pay-guide enqueue `ciq0.j4/k4/l4`; visitor affiliate discount-banner hosts `liq.f`/`rcp.h(FrameLayout)V`. The type-20 Messages head liker card (`ConversationHeadLikerItemLayout.w`) and `NewLikeView`/`y240` need NO new patch (data-starved / already voided). **Always DEX-verify every target method after building** — fingerprint and resolver blocks alike fail invisibly.
-
-## 16. Patcher 2.4.0 / plugin 2.1.0 upgrade (Nov 2026) — API + perf notes
-
-Upgraded from patcher 1.6.0 / plugin 1.3.3 to **patcher 2.4.0 / plugin 2.1.0** (smali `4220ae75f7`, KGP 2.4.21, AGP 9.1.0, Gradle 9.3.1 wrapper unchanged). Local verify build dropped from ~3m32s to **~1m49s (~50% faster)**: DEX now processed **in parallel (4 threads)** (was single-threaded), selective resource decoding, one-pass APK write. All 13 patches + 18 critical DEX targets + manifest signature spoofing re-verified under 2.4.0.
-
-**Migration facts (the breaks were small and confined to infrastructure, NOT the patch DSL):**
-- **`Patch` is non-generic now.** `PatchRegistry.allPatches` and `PatchListGenerator` use `Set<Patch>` (was `Set<Patch<*>>`). The metadata property names/types are UNCHANGED — the long list of "Unresolved reference name/description/..." errors were all *cascading* from the one invalid `Patch<*>` type argument. Removing the type param fixed everything; `patches-list.json` schema preserved byte-for-byte.
-- **`PatcherConfig` signature changed:** no `aaptBinaryPath`/`frameworkFileDirectory`/`useArsclib`. New: `PatcherConfig(apkFile, temporaryFilesPath, keepArchitectures=emptySet(), useBytecodeMode=BytecodeMode.STRIP_FAST, verifier=NoOpDexVerifier, ...)`. `resourceMode` is internal and auto-set to FULL when any `ResourcePatch` is added (so GmsCompatibility resource edits still run). `applyTo`/`signApk`/`KeyStoreDetails`/`plusAssign`/`invoke`/`get` unchanged.
-- **arsclib fork rename:** 2.4.0 bundles `com.github.MorpheApp:ARSCLib:50418a07a8` (not REAndroid). `ValueItem.setValueAsString(String)` → `setDataAsString(String)` (and `getValueAsString`→`getDataAsString`). `PatcherMain.setAttrString` tries `setDataAsString` first, falls back to `setValueAsString`. All other reflection targets (`AndroidManifestBlock`, `ResXmlElement`, `ResXmlAttribute`) verified present. Without this fix the signature-spoof manifest workaround silently no-ops.
-- **Signing is v2-only library-side now:** 2.4.0 `ApkSigner.Signer` hardcodes `setV1/V3SigningEnabled(false)` (minSdk floor 26). The `"v3"` string passed to `signApk` is only the signer *name* (it was only a name in 1.6.0 too). Keystore format is PKCS12 now (was BKS) — recreated per run, harmless.
-- **Build scripts:** add `implementation("com.google.guava:guava:33.6.0-jre")` (patcher/smali POMs expose guava at runtime only; needed for dexlib2-exposed signatures; auto-excluded from the `.mpp`). Use `testImplementation(kotlin("test"))` (KGP 2.4.21), not a pinned 2.2.21. `extensionsProjectPath` is inert (plugin reads it at apply time, default `:extensions`); extension wiring works via the default. Plugin 1.3.3→2.1.0 diff is bundle-signing only (signs `.mpp` if `morphe-signing.key`/`MORPHE_SIGNING_KEY` exists; none here → unsigned).
-- **Deprecation warnings (not errors):** `bytecodePatch`/`resourcePatch`/`classDefByOrNull`/`mutableClassDefBy`/`document` are deprecated in favor of `patch()` + global functions. They still compile and run identically; migrating the patch files to the new API is optional future cleanup. `-Xcontext-parameters` is redundant on Kotlin 2.4 (harmless warning).
-- **Windows STRIP_FAST is safe in 2.4.0:** `MappedFile`'s JDK<22 fallback calls `Unsafe.invokeCleaner` on close (the reflection-unmap fix the old morphe-cli Windows→FULL override awaited); current morphe-cli removed that override.
-
-### 17. Resolver conditions must NOT embed obfuscated names; OMS "morph" server promos bypass creator voids
-
-Two systemic promo-popup leaks found Nov 2026 (the residual "99+ people liked you / Waiting for your match" swipe-tab popup):
-
-**(a) Stale obfuscated names in resolver `methodCallFull` checks = silent no-ops.** The likers backstop resolvers embedded 7.3.3 names as literal substrings: `j7d0` required `methodCallFull.any { it.contains("hl3") }`, `gg50` required `contains("j7d0") && ".h0"`, `qtk` required `contains("hlh0")`. In 7.5.4 those classes are `zw3`/`bfe0`/`owi0`, so the checks never match → keys never resolve → blocks do nothing (build still reports OK). Their consumer method filters were ALSO stale (`h0(b240)V`, no-arg `b()/d()Z`, no-arg `B0()V`) vs the real `bfe0.i0(g350)V`, `si60.b/d(lwl$a)Z`, `wgl.M0(Act,Runnable)V`. **Fix:** anchor resolvers on stable strings/fields/shapes only — `j7d0`=`last_likers_req_time`+`offline_dialog_show_time` (unique to bfe0); `gg50`=`OmsDialog.p_offline_popup` field + `(String,Z)` ctor + a 1-param `Z` method (unique to si60); `qtk`=`reBackAppGuideDialog` (unique to wgl). Consumers match by shape / string co-location, not names. **Rule: never put an obfuscated class/method name in a resolver condition.** The full audit also found `rbb0`, `bhe0`, `vqo`/`re90`/`i0p`, `meetEntranceBanner`, `seeAnimBubbleCreator`, `serverDataFlagSetter`/`newLikesFlagSetter` broken by the same pattern, plus an anchor-gate that skips anchor-less classes (methodCallFull-only conditions never resolve) and an `OmsDialog` enum first-match hijack (`mx0`/`purchaseGuide`/`positioningGuide`/`avatarVerificationGuide` resolve to the enum, not the creator → consumer no-ops).
-
-**(b) Server-driven OMS "morph" promos render outside zw3.** Text absent from local resources (e.g. "Waiting for your match") = a server-configured morph campaign: `pzl`/`s0`/`em60.L` → `em60.u0`→`t0` → `hn60.n` → fullScreen `OmsPageAct.Y1` (or inline `OmsBaseRender.c0`). The `M()` gate is bypassed (`t0` never checks it; the `__control` AB bucket skips it). `DialogCleanupPatch` now forces `M`/`N`→`false`, which blocks the `em60.L` swipe-after trigger upstream; the `OmsPageAct` kill below remains a backstop for morph promos reached outside `L`. **Safe kill:** void `OmsPageAct.b2()` (anchor const-string `oms_identifier`) AND `c2()` (anchor `OmsMerCuryData.id` field) so `d`/`e` stay null; `r()` then sees `hn60.d(null)==false` (HashMap.containsKey is null-safe and short-circuits before `e()`) and self-finishes. Voiding `b2` alone NPEs `c2` (`this.e.id`). Verification popups use the inline `c0()` branch, NOT OmsPageAct, so they stay intact. Do NOT void `hn60.n` wholesale (it routes cheat-prevention verification via `em60.s0`).
-
-The local likers creators (`zw3.H/I/J/L` + `LikersDialogView.b/c` + `NewLikeView.F`) fully suppress the native dialogs; the morph path is the only structural bypass. `zw3.H` (p_no_match_svip) and `wgl.M0` (p_reback_popup) are DebugUtil-only in 7.5.4 but stay patched for device version skew.
+**Verification rule:** the apply-only test passes on silent no-ops. ALWAYS DEX-verify each target method's first instructions in `tantan-premium-unlocked.apk` (`tools\inspect.bat`). Modified-class count: **625** (final wave).
 
 ## Fable Method
 Before any non-trivial backend task, apply the fable-method loop; for tasks that will run unattended or fan out subagents, use fable-loop. After completing substantive work, or whenever any agent/tool claims work is done, run a fable-judge pass before presenting it as finished.
-
-## Using Subagents
-
-When investigating complex issues or implementing multiple fixes, use subagents to parallelize work and get specialized focus.
-
-### When to Use Subagents
-
-**Use subagents for:**
-- Investigating multiple unrelated issues in parallel
-- Deep dives into specific features or code paths
-- Implementing multiple independent fixes
-- Code exploration and analysis tasks
-- Build and deployment tasks after fixes are identified
-
-**Don't use subagents for:**
-- Simple single-file edits
-- Quick investigations that take < 2 minutes
-- Tasks that depend on each other's output
-
-### How to Launch Subagents
-
-Use the `task` tool with appropriate agent type:
-
-```
-task(
-  description="Short description",
-  subagent_type="general",  # or "explore" for read-only investigation
-  prompt="Detailed task description..."
-)
-```
-
-**Agent types:**
-- `explore` - Read-only investigation, code search, analysis
-- `general` - Implementation, file editing, build/deploy tasks
-
-### Parallel Investigation Pattern
-
-When multiple features are broken, launch parallel investigation subagents:
-
-```
-# Launch all investigations in parallel
-task(description="Investigate feature A", subagent_type="explore", prompt="...")
-task(description="Investigate feature B", subagent_type="explore", prompt="...")
-task(description="Investigate feature C", subagent_type="explore", prompt="...")
-
-# Wait for all to complete, then synthesize findings
-# Launch single implementation subagent with all fixes
-task(description="Fix all issues", subagent_type="general", prompt="...")
-```
-
-### Subagent Prompt Structure
-
-Include in every subagent prompt:
-1. **Context** - What's broken, what's been tried
-2. **Specific investigation targets** - Files to check, methods to trace
-3. **Expected deliverables** - What to report back
-4. **Build/deploy instructions** - If implementing fixes
-5. **Credentials** - GitHub token, release ID, etc.
-
-### Example: Multi-Feature Investigation
-
-```
-# Investigate 6 broken features in parallel
-task(description="Investigate badge display", subagent_type="explore", prompt="...")
-task(description="Investigate blur issue", subagent_type="explore", prompt="...")
-task(description="Investigate super likes", subagent_type="explore", prompt="...")
-task(description="Investigate roaming", subagent_type="explore", prompt="...")
-task(description="Investigate banner", subagent_type="explore", prompt="...")
-task(description="Investigate payment dialogs", subagent_type="explore", prompt="...")
-
-# Synthesize findings and launch comprehensive fix
-task(description="Fix all issues", subagent_type="general", prompt="
-  Fix 1: Change xma.e4() from RETURN_TRUE to RETURN_FALSE
-  Fix 2: Remove isODiamond from true-returning set
-  Fix 3: Change counter from MAX_VALUE to 200000
-  ...
-  Build and deploy to release 441228387
-")
-```
-
-### Benefits
-
-- **Parallelism** - Multiple investigations run simultaneously
-- **Focus** - Each subagent has clear, narrow scope
-- **Efficiency** - Reduces context switching for main agent
-- **Completeness** - Ensures all angles are investigated
-
-## 18. 7.5.4 compatibility wave (Nov 2026) — APK versions, safe matching, inner-class hijacks
-
-**APK version mapping (7.5.4 is the ONLY target — older versions are out of scope):**
-- `tantan-7.5.4.apk` = **7.5.4 / versionCode 2754010** — matches `tantan-decompiled-7.5.4/` exactly
-  (verified: `j5k.a` theme gate identical). This is the AUTHORITATIVE target. `:patches:patchApk`,
-  `signApk`, and `PatchVerificationTest` all use it.
-- Older 7.3.x / 7.4.3 APKs and decompiled dumps were REMOVED from the workspace (Nov 2026 cleanup).
-  Their obfuscated names differed from 7.5.4; never verify 7.5.4 anchors against an older build.
-- `aapt2 dump badging <apk> | findstr package` confirms versionCode. The inspector tool
-  `tools/inspect.bat <apk> <classDescriptor> [methodFilter] [maxInstr]` (dexlib2; also `--find`,
-  `--call`, `--field`, `--full`, `--list`) is the local DEX verification harness — there is NO
-  `InspectDex` gradle task despite older references. Quote descriptors containing `;`/`$`
-  (PowerShell eats `$a` and splits on `;`).
-
-**The apply-only test passes on silent no-ops.** `PatchVerificationTest` only asserts patches apply
-without exception. ALWAYS DEX-verify each target method's first instructions in the patched APK
-(`tools\inspect.bat tantan-premium-unlocked.apk ...`). A resolver block that resolves nothing, or a
-fingerprint that matches the wrong class, is invisible at build time.
-
-**`match.method` THROWS; use `matchAllOrNull(classDef).orEmpty().forEach`.** A method `Fingerprint`
-used via `matchOrNull(resolvedClassDef)?.let { it.method... }` throws `PatchException` if (a) its
-`classFingerprint` resolves to a DIFFERENT class than the resolver picked (ambiguous string anchor),
-or (b) no method matches. Fix: REMOVE the redundant `classFingerprint =` from method fingerprints
-that are matched against an already-resolved class (the resolver already found the class), and use
-`matchAllOrNull(classDef).orEmpty().forEach { it.method.addInstructions(...) }` (returns only real
-matches, empty if none — never throws). `matchAll(classDef, 1..N)` also throws on cardinality
-mismatch; prefer `matchAllOrNull`. This fixed the entire Premium Unlock patch, which aborted on
-7.5.4 at `CoreBusinessServiceIml.Mf` and `gqf0` (string `e_intl_spotlight_activity_card` resolves
-ambiguously; `gqf0.f()` is INSTANCE in 7.5.4, not static — match PUBLIC only).
-
-**Inner-class hijack of string anchors.** A const-string often lives in BOTH an outer class and its
-inner Runnable/lambda (e.g. Fox endpoint in `f970.r` AND `f970$c.run`; carousel unit in `onb0.p` AND
-`onb0$a`). Resolver `putIfAbsent` picks the FIRST in DEX order — frequently the inner class, which
-lacks the target method shape → silent no-op. ALWAYS pair a string anchor with a target-method SHAPE
-check in the resolver (e.g. `foxUploader` requires a static `(String,I)V` method; `profileCarouselAd`
-requires `(Act,Z)Lrx/c;`). Same trap for `Fingerprint.matchOrNull()` standalone. **Related:** when
-matching inner classes by outer-type prefix, strip the trailing `;` first — DEX types are `Ll/a310;`,
-so the prefix is `type.removeSuffix(";") + "$"` (`"Ll/a310$"`, NOT `"Ll/a310;$"` which never matches
-`Ll/a310$b;`). The `voiceRecordInner` post-pass uses this.
-
-**Enum constants are FIELD accesses, not method calls.** `EventNameEnum.MODULE_VIEW` is read via
-`sget-object`, so it appears in `foundFields`/field references, NEVER in `methodCallFull`. Anchoring
-`coreEventLogger` on `methodCallFull.contains("...EventNameEnum;.MODULE_VIEW")` resolved nothing.
-Use a stable METHOD call instead (`DefaultEnvironment.j()` is called only by `ofh0.J`). Compile-time
-`String` constants (e.g. `SuperlikeReason.popular`) are INLINED to `const-string` — no field ref exists.
-
-**Ambiguous common-word anchors resolve to the wrong class.** `j5k.a` (theme blur gate) shares
-`"online"`/`"popular"` with the theme-card helper `qee0`; a `string("online")+string("popular")+
-methodCall("q")` fingerprint resolved `qee0`, leaving `j5k` unpatched. Robust fix: resolve `j5k` as
-the unique static `(String)Z` caller of the already-resolved `rbb0` (`gjc0`) `.q()` carrying
-`"online"` — a resolver post-pass over candidates keyed on `rbb0Type` (order-independent).
-
-**`BuilderInstruction20t` takes a `Label`, not an Int offset.** To replace a branch in place
-(`bun0.u` roaming cap `if-lt` → unconditional `goto/16`), read the target `Label` from the MUTABLE
-builder instruction (`mutableMethod.implementation.instructions[i] as BuilderInstruction22t).target`)
-and build `BuilderInstruction20t(Opcode.GOTO_16, label)`. `const/4` (1 unit) cannot become `const/16`
-(2 units) in place — replace the 2-unit branch instead.
-
-**Local `patchApk` binary manifest is malformed (pre-existing).** `aapt2 dump xmltree` on
-`tantan-premium-unlocked.apk` fails ("no root element node found") — morphe's local resource
-encoding artifact on Windows, NOT caused by patch edits (`patchManifestBytes` has a catch-all
-returning original bytes). The release `.mpp` is applied via Morph Manager on device, which handles
-the manifest differently. DEX verification is unaffected. GA4 collection is disabled via the verified
-DEX backstop (`iiu0.Q→true`) regardless of the manifest flag.
-
-**Build needs GitHub creds + offline.** The morphe settings plugin adds a GitHub Packages maven repo
-whose null credentials throw `IllegalArgumentException` at configuration. Run gradle with
-`GITHUB_ACTOR`/`GITHUB_TOKEN` set to any non-null value and `--offline` (deps are cached):
-`tools\gradle.bat <task>` wraps this. The direct `bash` tool hangs in this environment; use
-`background_process monitor` for shell commands.
-
-### 19. InlineSmaliCompiler `pN` aliases mis-count WIDE parameters
-
-`InlineSmaliCompiler.Companion.compile(smali, params, registerCount, isStatic)` maps `pN`→`vN` by
-incrementing 1 per parameter, **ignoring that `J`/`D` occupy 2 registers**. Concrete evidence (7.5.4
-`location/a.v(JZ)V`, regs=6, instance): layout is this=v2, J=v3/v4, Z=v5; `move/from16 v0, p2` compiled
-to `v4` (the HIGH word of J) instead of `v5` (Z) — passing garbage as the boolean. `p0` (this) resolved
-correctly to v2, so the bug only bites `p1+` after a wide param.
-
-**Fix:** for any method with a wide parameter, compute ABSOLUTE registers from `registerCount` and the
-known param signature instead of `pN` (for `(J,Z)` instance: this=rc-4, z=rc-1; require rc>=6 so scratch
-v0/v1 stay below the param block). `pN` is safe ONLY when every parameter is single-word (verified: push
-filter `c0j0.f` `p0`→v17, RC provider `f96.t` `p1`→v3). **The `preflightSmali` count assertion does NOT
-catch this** — it assembles valid-but-wrong registers; only post-build DEX inspection (`tools\inspect.bat`)
-reveals the wrong source register. This is why gotcha #14/#18 DEX verification is mandatory even when
-pre-flight passes.
-
-**Related notes:**
-- **7c deviation:** AI count getters (aiChatAnalysis/aiChatAdvice/letter) are ALREADY forced to 200000 by
-  PremiumUnlock's blanket public-static `()I` override; ExperimentalUnlock adds ONLY the `aiChatCompanion`
-  `()Z` gate (`xma.x3`). Do not duplicate the counts (gotcha #7). Verified `o3b.h3` already `const 0x30d40`.
-- **Inlined privilege IDs:** `SummarizedPrivilegesId.buzzProlong`/`aiChat*`/`letter` are compile-time String
-  constants → `const-string` in consumers, NO field reference (gotcha #18). Anchor by string + method shape.
-- **momosec policy exception (5c):** momosec is otherwise KEPT; only the single `isFromMockProvider` flag in
-  `nr5.c` is zeroed (user-approved). Server can still infer mocking; MMUID/login/payment risk-control untouched.

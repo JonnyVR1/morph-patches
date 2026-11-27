@@ -215,31 +215,15 @@ val abTestOverridePatch = bytecodePatch(
 ) {
     compatibleWith(tantanCompatibility)
     execute {
-        classDefByOrNull("Lcom/p1/mobile/putong/api/ABManager;")?.let { classDef ->
-            val mutableClassDef = mutableClassDefBy(classDef)
-
-            mutableClassDef.methods
+        // 7.5.6.1: ABManager was obfuscated to Ll/q; (only ABManager$Mode keeps the name). The
+        // live AB bucket read is the public static (String)String getter (q.t, regs=2). Resolve
+        // version-agnostically via the "newabgroups_mode_device" anchor + getter shape. The old
+        // i0 map is gone (legacy null-stub overrides dropped). Single-scratch injection unchanged:
+        // key stays in its param register (rc-1), only v0 clobbered, safe at regs==2.
+        getSharedResolver().getMiscClass("abManager")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name == "i0" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Ljava/lang/String;" &&
-                        method.returnType == "Ljava/lang/String;" &&
-                        AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                        AccessFlags.STATIC.isSet(method.accessFlags)
-                }
-                .forEach { method ->
-                    val registerCount = method.implementation?.registerCount ?: 0
-                    if (registerCount >= 3) {
-                        val paramReg = registerCount - 1
-                        method.addInstructions(0, buildI0Instructions(paramReg))
-                    }
-                }
-
-            mutableClassDef.methods
-                .filter { method ->
-                    method.name == "j0" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Ljava/lang/String;" &&
+                    method.parameterTypes == listOf("Ljava/lang/String;") &&
                         method.returnType == "Ljava/lang/String;" &&
                         AccessFlags.PUBLIC.isSet(method.accessFlags) &&
                         AccessFlags.STATIC.isSet(method.accessFlags)

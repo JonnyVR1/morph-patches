@@ -1,13 +1,19 @@
 package com.p1.mobile.putong.data
 
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
+import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction20t
+import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction21t
 import com.android.tools.smali.dexlib2.iface.Method
+import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.NarrowLiteralInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.WideLiteralInstruction
+import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
 private const val RETURN_TRUE = """
@@ -20,15 +26,15 @@ private const val RETURN_FALSE = """
     return v0
 """
 
-private const val RETURN_INT_999 = """
-    const/16 v0, 0x3e7
-    return v0
-"""
-
 private const val ITEM_MESSAGE_BASE_CLASS = "Lcom/p1/mobile/putong/core/ui/messages/ItemMessageBase;"
 private const val CORE_BUSINESS_SERVICE_IML_CLASS = "Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;"
 private const val LOCATION_CLASS = "Lcom/p1/mobile/putong/location/a;"
 private const val LOCATION_PARAM = "Lcom/p1/mobile/putong/location/Location;"
+private const val CORE_BUZZ_INNER_SERVICE_CLASS = "Lcom/p1/mobile/putong/core/buzz/module/CoreBuzzInnerServiceImpl;"
+private const val ACT_CLASS = "Lcom/p1/mobile/android/app/Act;"
+private const val VIEW_CLASS = "Landroid/view/View;"
+private const val USER_PRIVILEGE_CONTENT_CLASS = "Lcom/p1/mobile/putong/core/data/UserPrivilegeContent;"
+private const val AI_CHAT_ADVICE_CONVS_CLASS = "Lcom/p1/mobile/putong/core/data/AiChatAdviceConvs;"
 
 private const val LAT_30_BITS = 0x403e000000000000L
 private const val LNG_104_BITS = 0x405a000000000000L
@@ -42,11 +48,39 @@ private fun isConstFalseBody(method: Method): Boolean {
         second.opcode == Opcode.RETURN
 }
 
+private fun openRemainingCountGates(
+    instrs: List<Instruction>,
+    mutableMethod: MutableMethod
+): Int {
+    val mutableInstrs = mutableMethod.implementation?.instructions?.toList() ?: return 0
+    val remainingIndices = instrs.withIndex().filter { (_, instr) ->
+        instr.opcode == Opcode.IGET && instr is ReferenceInstruction &&
+            (instr.reference as? FieldReference)?.let {
+                it.definingClass == USER_PRIVILEGE_CONTENT_CLASS && it.name == "remaining"
+            } == true
+    }.map { it.index }
+    var edited = 0
+    remainingIndices.forEachIndexed { k, i ->
+        val limit = if (k + 1 < remainingIndices.size) remainingIndices[k + 1] else instrs.size
+        for (j in i + 1 until limit) {
+            if (instrs[j].opcode == Opcode.IF_GTZ) {
+                val branch = mutableInstrs.getOrNull(j)
+                if (branch is BuilderInstruction21t) {
+                    mutableMethod.replaceInstruction(j, BuilderInstruction20t(Opcode.GOTO_16, branch.target))
+                    edited++
+                }
+                break
+            }
+        }
+    }
+    return edited
+}
+
 @Suppress("unused")
 @JvmField
 val experimentalUnlockPatch = bytecodePatch(
     name = "Experimental Unlock",
-    description = "Opt-in, server-dependent unlocks: voice-to-text transcription flag, buzz call +time (prolong) count, AI chat companion gate, and fake-GPS default-coordinate blacklist bypass. Client gates only — the server may refuse (quota/region); each has a graceful failure path. Enable only after device-testing",
+    description = "Opt-in, server-dependent unlocks: buzz call +time (prolong) count, pin-chat remaining count, AI chat advice/analysis guide counts, and fake-GPS default-coordinate blacklist bypass. Client gates only — the server may refuse (quota/region); each has a graceful failure path. Enable only after device-testing",
     default = false,
 ) {
     compatibleWith(tantanCompatibility)
@@ -85,34 +119,70 @@ val experimentalUnlockPatch = bytecodePatch(
             }
         }
 
-        // 7b. Buzz call +time (prolong) count (i4x.f). Enables the +time button; the server
-        // consumes the privilege and may reject at remaining=0. Matched calls already unlimited.
-        // The ymy countdown is server-push-driven and deliberately NOT patched.
-        resolver.getMiscClass("buzzProlong")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { m ->
-                    m.returnType == "I" && m.parameterTypes.isEmpty() && m.containsExactString("buzzProlong")
-                }
-                .forEach { m ->
-                    m.preflightSmali(RETURN_INT_999, 2)
-                    m.addInstructions(0, RETURN_INT_999)
-                }
+        classDefByOrNull(CORE_BUZZ_INNER_SERVICE_CLASS)?.let { classDef ->
+            val mutable = mutableClassDefBy(classDef)
+            val methodMap = classDef.methods.zip(mutable.methods).toMap()
+            var edited = 0
+            classDef.methods.forEach { method ->
+                if (method.returnType != "V" ||
+                    method.parameterTypes != listOf(ACT_CLASS, "Ljava/lang/String;") ||
+                    !method.containsExactString("buzzProlong")) return@forEach
+                val mutableMethod = methodMap[method] ?: return@forEach
+                edited += openRemainingCountGates(method.sharedCachedInstructions(), mutableMethod)
+            }
+            check(edited == 1) { "buzzProlong V5 count-gate edits: $edited" }
         }
 
-        // 7c. AI chat companion gate (xma.x3). The AI count getters (aiChatAnalysis/aiChatAdvice/
-        // letter) are ALREADY forced to 200000 by PremiumUnlock's blanket static ()I override —
-        // do not duplicate them here (gotcha #7). Only the ()Z companion gate is unpatched.
-        resolver.getPremiumClass("xma")?.let { xma ->
-            mutableClassDefBy(xma).methods
-                .filter { m ->
-                    AccessFlags.PUBLIC.isSet(m.accessFlags) && AccessFlags.STATIC.isSet(m.accessFlags) &&
-                        m.returnType == "Z" && m.parameterTypes.isEmpty() &&
-                        m.containsExactString("aiChatCompanion")
-                }
-                .forEach { m ->
-                    m.preflightSmali(RETURN_TRUE, 2)
-                    m.addInstructions(0, RETURN_TRUE)
-                }
+        resolver.getMiscClass("pinChatListener")?.let { classDef ->
+            val mutable = mutableClassDefBy(classDef)
+            val methodMap = classDef.methods.zip(mutable.methods).toMap()
+            var edited = 0
+            classDef.methods.forEach { method ->
+                if (method.name != "onClick" || method.returnType != "V" ||
+                    method.parameterTypes != listOf(VIEW_CLASS)) return@forEach
+                val mutableMethod = methodMap[method] ?: return@forEach
+                edited += openRemainingCountGates(method.sharedCachedInstructions(), mutableMethod)
+            }
+            check(edited == 1) { "pinChat onClick count-gate edits: $edited" }
+        }
+
+        resolver.getMiscClass("aiChatGuideVm")?.let { classDef ->
+            val mutable = mutableClassDefBy(classDef)
+            val adviceShow = mutable.methods.filter { m ->
+                m.returnType == "Z" && m.parameterTypes.isEmpty() &&
+                    m.containsExactString("aiChatAdvice") &&
+                    m.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && (instr.reference as? FieldReference)?.let {
+                            it.definingClass == AI_CHAT_ADVICE_CONVS_CLASS && it.name == "adviceConvList"
+                        } == true
+                    }
+            }
+            check(adviceShow.size == 1) { "aiChatAdvice w2 cardinality ${adviceShow.size}" }
+            adviceShow.forEach { m ->
+                m.preflightSmali(RETURN_TRUE, 2)
+                m.addInstructions(0, RETURN_TRUE)
+            }
+            val methodMap = classDef.methods.zip(mutable.methods).toMap()
+            var edited = 0
+            classDef.methods.forEach { method ->
+                if (method.returnType != "V" || !method.containsExactString("aiChatAnalysis")) return@forEach
+                val mutableMethod = methodMap[method] ?: return@forEach
+                edited += openRemainingCountGates(method.sharedCachedInstructions(), mutableMethod)
+            }
+            check(edited == 1) { "aiChatAnalysis z2 count-gate edits: $edited" }
+        }
+
+        resolver.getMiscClass("aiChatGuideListener")?.let { classDef ->
+            val mutable = mutableClassDefBy(classDef)
+            val methodMap = classDef.methods.zip(mutable.methods).toMap()
+            var edited = 0
+            classDef.methods.forEach { method ->
+                if (method.name != "onClick" || method.returnType != "V" ||
+                    method.parameterTypes != listOf(VIEW_CLASS)) return@forEach
+                val mutableMethod = methodMap[method] ?: return@forEach
+                edited += openRemainingCountGates(method.sharedCachedInstructions(), mutableMethod)
+            }
+            check(edited == 2) { "aiChatGuideListener onClick count-gate edits: $edited" }
         }
 
         // 7d. Fake-GPS default-coordinate blacklist (location/a.k). Accept all fixes by forcing

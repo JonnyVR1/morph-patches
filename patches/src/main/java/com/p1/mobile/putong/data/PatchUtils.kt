@@ -47,14 +47,15 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val resolvedClasses = mutableMapOf<String, ClassDef>()
     
     private val analyticsAnchors = setOf(
-        "miit_oaid", "[init] context of init() is null, check it.",
+        "miit_oaid", "Please init Beatles!!!",
         "add_payment_info", "com.google.android.gms.ads.identifier.service.START",
         "mmfile_push_statistic", "BatteryMetrics", "live-PerfTracer",
         "DNS_SLA", "_getOrCreate", "_compressRecordFile",
         "getSubmitAlternative",
-        "https://report.tantanapp.com/v1/online/android",
-        "https://sc-report.tantanapp.com/v1/online/android",
+        "0.9.3.2-SNAPSHOT",
         "com.facebook.appevents.internal.ActivityLifecycleTracker",
+        "Warning: Please call AppEventsLogger.activateApp(...)from the long-lived activity's onResume() methodbefore logging other app events.",
+        "app_events_feature_bitmask",
         "firebase_analytics_collection_deactivated",
         "https://deviceid.tantanapp.com/oneid/createid",
         "android.permission.READ_EXTERNAL_STORAGE",
@@ -65,6 +66,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     )
 
     private val OMS_DIALOG_ENUM = "Lcom/p1/mobile/putong/core/oms/OmsDialog;"
+    private val SVIP_SEE_RECOVER_DLG = "Lcom/p1/mobile/putong/core/ui/dlg/SVipSeeRecoverDlg;"
+    private val NEW_PROFILE_PAGER_TYPE = "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;"
     private var oneIdUploaderType: String? = null
     private val oneIdStorageCandidates = mutableListOf<Pair<ClassDef, Set<String>>>()
     private var rbb0Type: String? = null
@@ -72,12 +75,18 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val clipboardInviteClasses = mutableListOf<ClassDef>()
     private val mixedContentClasses = mutableListOf<ClassDef>()
     private val voiceRecordInnerCandidates = mutableListOf<ClassDef>()
+    private val typingIndicatorClasses = mutableListOf<ClassDef>()
+    private val locationUploadGateCandidates = mutableListOf<ClassDef>()
+    private val meTabPagerClasses = mutableListOf<ClassDef>()
 
     private val adsAnchorStrings = setOf(
         "ca-app-pub-6567608331519569/1891609663",
         "ixxn_ad_channel",
         "p_incentive_ad_choose_page",
-        "/intl-live-casualGameMenu"
+        "/intl-live-casualGameMenu",
+        "intl_ad_show_bottom_banner",
+        "ttt_tab_bar_bottom_banner",
+        "repeat suggested card"
     )
 
     private val miscAnchorStrings = setOf(
@@ -93,10 +102,21 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "tantan:.*邀请码：[A-Z|1-9]{4,}",
         "checkAppInstalled",
         "bubble_superlike_bubble",
-        "superlike_promotion_config"
+        "superlike_promotion_config",
+        "saved_device_uid_md5",
+        "newabgroups_mode_device",
+        "oms_mercury",
+        "intlWhisperConversationOrder",
+        "tantan_coin_intl_letter_confirm_dialog_shown_",
+        "aiChatAdvice",
+        "aiChatAnalysis",
+        "pinChat",
+        "e_platinum_top_chat",
+        "msg_ice_break_config_v2",
+        "IntlSeeAnimBubble"
     )
     
-    private val FOX_STATS_DEFAULT_ENV = "Lcom/tantanapp/foxstatistics/DefaultEnvironment;"
+    private val FOX_STATS_DEFAULT_ENV = "Lcom/tantanapp/foxstatistics/a;"
     
     private val uiCleanupAnchors = mapOf(
         "aiChatGuide" to setOf("core_messages_ai_p2p_chat_guide"),
@@ -113,7 +133,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "ok3" to setOf("p_offline_popup", "LikersDialogView"),
         "vipUpgradePopup" to setOf("vip_upgrade_popup"),
         "omsDialogController" to setOf("limitDialogLastShowTime"),
-        "gpRateGuide" to setOf("p_intl_5star_dialog_view", "rate_popup_last_shown_new")
+        "gpRateGuide" to setOf("p_intl_5star_dialog_view", "rate_popup_last_shown_new"),
+        "seePurchaseGuide" to setOf("p_no_match_see_purchase_guide_view")
     )
     
     private val gmsTargetStrings = setOf(
@@ -134,7 +155,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "ert0" to setOf("ranchu", "generic", "emulator"),
         "fbEmulator" to setOf("google_sdk", "Genymotion", "vbox86p"),
         "additionalRoot" to setOf("/data/local/su", "/system/xbin/su", "/su/bin/su"),
-        "shuMeng" to setOf("shumeng_init", "shuzilm"),
+        "shuMeng" to setOf("2918efe07"),
         "adClickSubstitution" to setOf("ANDROIDID", "OAID", "\\[(.*?)]")
     )
     
@@ -146,9 +167,10 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "fake_conversation_local_team_group_conversation", "fake_conversation_local_limited_trial_see_fold",
         "intlSeeChatRequest", "intl_chat_request_insert_users", "fake_conversation_oof_pick",
         "intl_sl_guide_config", "intl_good_c_bage_config", "e_intl_spotlight_activity_card",
-        "ttt_membership_price_diff", "seeUpgradeToPremium", "e_vip_banner",
+        "ttt_membership_price_diff",         "seeUpgradeToPremium",
+        "location_bubule_has_shown_", "e_vip_banner",
         "vas_commercial_card_right_slide_strategy", "暂未激活黑金会员",
-        "picksUser id is not found in users : ", "p_offline_popup", "last_likers_req_time",
+        "last_privilege_banner_picks_item_clicked_time_", "p_offline_popup", "p_see_popup_expired_svip", "last_likers_req_time",
         "offline_dialog_show_time", "reBackAppGuideDialog", "open_fill_info_debug",
         "fromWhoLikedMe", "e_red_dot_message_see", "MeetLikersNewLikersData",
         "IntlMeetLikersNewLikersData", "matched",
@@ -175,23 +197,20 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "Lcom/p1/mobile/putong/data/User;.isVIP",
         "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG",
         "Lcom/p1/mobile/putong/core/data/Conversation;.property",
-        "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_common",
-        "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_received_likes",
-        "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_matches",
         "Lcom/p1/mobile/putong/core/data/UltraRightsUpgradeInfo;.isCanUpgradeUltra",
-        "Lcom/p1/mobile/putong/core/data/MembershipUpgradeInfo;",
+        "Lcom/p1/mobile/putong/data/User;.pictures",
         "Lcom/p1/mobile/putong/core/ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE",
         "Lcom/p1/mobile/putong/core/oms/OmsDialog;.p_offline_popup",
-        "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;.replyLengthLimit"
+        "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;.replyLengthLimit",
+        "Lcom/p1/mobile/putong/core/data/Privilege;.letter",
+        "Lcom/p1/mobile/putong/core/data/MsgIcebreakConfigV2;.iceBreakLastMessageShowCountLimit"
     )
     
     private val premiumAnchorMethods = setOf(
         "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery",
         "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe",
         "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6",
-        "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d",
-        "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k",
-        "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.l",
+        "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.f",
         "Ll/hkd0;.b", "Ll/hkd0;.d", "Ll/hkd0;.e", "Ll/hkd0;.j",
         "Ll/mv6;.S0", "Ll/gxe0;.G"
     )
@@ -290,6 +309,36 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 mixedContentClasses.add(classDef)
             }
 
+            // Location-upload 500m gate candidates: any class calling into location/a AND
+            // carrying the const-wide 500.0 threshold. In 7.5.6.1 the gate lives in a synthetic
+            // lambda dispatcher (a33.call), not the old core/api/c — collected pre-gate because
+            // the dispatcher carries no anchor strings. The patch verifies the distance-call shape.
+            if (methodCallFull.any { it.startsWith("Lcom/p1/mobile/putong/location/a;.") } &&
+                classDef.methods.any { m ->
+                    m.sharedCachedInstructions().any {
+                        it is WideLiteralInstruction && it.wideLiteral == 0x407f400000000000L
+                    }
+                }) {
+                locationUploadGateCandidates.add(classDef)
+            }
+
+            if ("affiliatePromotions" !in resolvedClasses &&
+                classDef.methods.any {
+                    it.returnType == "Z" &&
+                        it.parameterTypes == listOf("Lcom/p1/mobile/putong/core/api/CoreIntlAffiliatePromotions${'$'}IntlAffiliateDiscountEntryTab;")
+                }) {
+                resolvedClasses["affiliatePromotions"] = classDef
+            }
+
+            if ((classDef.fields.any { it.type == NEW_PROFILE_PAGER_TYPE } ||
+                    classDef.methods.any { it.parameterTypes.isEmpty() && it.returnType == NEW_PROFILE_PAGER_TYPE }) &&
+                classDef.methods.any {
+                    !AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                        it.parameterTypes == listOf("Ljava/util/ArrayList;", "Z")
+                }) {
+                meTabPagerClasses.add(classDef)
+            }
+
             // voiceRecord (a310): the MessagesAct voice recorder. setRecordStartTime is also called
             // by the telepathy twin mal0 — discriminate by the MessagesAct constructor param
             // (mal0 takes TpMessagesAct). No const-strings in the outer class, so resolve pre-gate.
@@ -311,6 +360,25 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                         m.sharedCachedInstructions().any { it is WideLiteralInstruction && it.wideLiteral == 60000L }
                 }) {
                 voiceRecordInnerCandidates.add(classDef)
+            }
+
+            if (classDef.methods.any { m ->
+                    !AccessFlags.STATIC.isSet(m.accessFlags) && m.returnType == "V" &&
+                        m.parameterTypes.isEmpty() &&
+                        m.sharedCachedInstructions().any { instr ->
+                            instr is ReferenceInstruction && (instr.reference as? FieldReference)?.let {
+                                it.definingClass == "Lcom/p1/mobile/putong/core/data/KeepConnection;" &&
+                                    it.name == "chatTypingOpen"
+                            } == true
+                        } &&
+                        m.sharedCachedInstructions().any { instr ->
+                            instr is ReferenceInstruction && (instr.reference as? FieldReference)?.let {
+                                it.definingClass == "Lcom/p1/mobile/putong/core/data/KeepConnection;" &&
+                                    it.name == "chatTypingInterval"
+                            } == true
+                        }
+                }) {
+                typingIndicatorClasses.add(classDef)
             }
 
             if (foundStrings.isEmpty() && foundFields.isEmpty() && foundMethods.isEmpty() && !hasCoreEventLoggerRef) {
@@ -340,21 +408,39 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             }
         }
 
-        val likersQuota = rbb0Type
-        if (likersQuota != null && "themeUnlock" !in resolvedClasses) {
-            for ((cd, calls) in themeUnlockCandidates) {
-                if (calls.contains("$likersQuota.q")) {
+        // Theme gate (7.5.6.1 cj7.a, was j5k.a): a static (String)Z carrying "online"/"popular"
+        // that calls the likers-quota gate. Resolve directly by shape + strings (independent of
+        // the rbb0 quota method name, which churned q->c). Forcing it FALSE keeps theme cards
+        // unlocked even when the quota gate reports exhausted.
+        if ("themeUnlock" !in resolvedClasses) {
+            for ((cd, _) in themeUnlockCandidates) {
+                val hasThemeGate = cd.methods.any { m ->
+                    AccessFlags.STATIC.isSet(m.accessFlags) && m.returnType == "Z" &&
+                        m.parameterTypes == listOf("Ljava/lang/String;") &&
+                        m.sharedCachedInstructions().any { instr ->
+                            instr is ReferenceInstruction &&
+                                ((instr.reference as? StringReference)?.string == "online" ||
+                                    (instr.reference as? StringReference)?.string == "popular")
+                        }
+                }
+                if (hasThemeGate) {
                     resolvedClasses["themeUnlock"] = cd
                     break
                 }
             }
         }
 
-        val voiceRecordOuter = resolvedClasses["voiceRecord"]
-        if (voiceRecordOuter != null && "voiceRecordInner" !in resolvedClasses) {
-            val innerPrefix = voiceRecordOuter.type.removeSuffix(";") + "$"
+        if ("voiceRecordInner" !in resolvedClasses) {
             for (cd in voiceRecordInnerCandidates) {
-                if (cd.type.startsWith(innerPrefix)) {
+                val readsMessagesAct = cd.methods.any { m ->
+                    m.name == "run" && m.returnType == "V" && m.parameterTypes.isEmpty() &&
+                        m.sharedCachedInstructions().any { instr ->
+                            instr is ReferenceInstruction &&
+                                (instr.reference as? FieldReference)?.definingClass ==
+                                    "Lcom/p1/mobile/putong/core/ui/messages/MessagesAct;"
+                        }
+                }
+                if (readsMessagesAct) {
                     resolvedClasses["voiceRecordInner"] = cd
                     break
                 }
@@ -376,22 +462,60 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         val hasStaticVoid = classDef.methods.any {
             AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" && it.implementation != null
         }
-        val callsFoxEnvRefresh = methodCallFull.contains("Lcom/tantanapp/foxstatistics/DefaultEnvironment;.j")
-        if (hasCoreEventLoggerRef && callsFoxEnvRefresh && hasStaticVoid) {
+        // Fox facade (7.5.6.1 l7k): calls into foxstatistics.a AND exposes the varargs event
+        // method static V (String,String,[array). The shape discriminator excludes the engine /
+        // runnables / mmm sender that also reference foxstatistics.a (gotcha #18).
+        val hasFoxEventShape = classDef.methods.any {
+            AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                it.parameterTypes.size == 3 &&
+                it.parameterTypes[0] == "Ljava/lang/String;" &&
+                it.parameterTypes[1] == "Ljava/lang/String;" &&
+                it.parameterTypes[2].startsWith("[")
+        }
+        if (hasCoreEventLoggerRef && hasFoxEventShape && hasStaticVoid) {
             resolvedClasses.putIfAbsent("coreEventLogger", classDef)
         }
-        val hasFoxUploadShape = classDef.methods.any {
-            AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
-                it.parameterTypes.size == 2 && it.parameterTypes[0] == "Ljava/lang/String;" && it.parameterTypes[1] == "I"
-        }
-        if ("https://report.tantanapp.com/v1/online/android" in foundStrings && hasFoxUploadShape) {
-            resolvedClasses.putIfAbsent("foxUploader", classDef)
-        }
-        if ("https://sc-report.tantanapp.com/v1/online/android" in foundStrings && hasFoxUploadShape) {
-            resolvedClasses.putIfAbsent("foxUploaderSc", classDef)
+        // Fox HTTP sender (7.5.6.1 mmm.b): the single upload choke point for BOTH report and
+        // sc-report endpoints (the endpoint strings now live only in shared runnables a14/t7g,
+        // so the old per-endpoint static (String,I)V anchors are dead). Anchor on the SDK version
+        // string + the static (String,JsonArray,I)Z shape; forcing true purges the upload queues.
+        if ("0.9.3.2-SNAPSHOT" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "Z" &&
+                    it.parameterTypes == listOf("Ljava/lang/String;", "Lcom/google/gson/JsonArray;", "I")
+            }) {
+            resolvedClasses.putIfAbsent("foxSender", classDef)
         }
         if ("com.facebook.appevents.internal.ActivityLifecycleTracker" in foundStrings) resolvedClasses.putIfAbsent("fbAutoEvents", classDef)
-        if ("firebase_analytics_collection_deactivated" in foundStrings) resolvedClasses.putIfAbsent("ga4Collection", classDef)
+        // Facebook AppEventsLogger (7.5.6.1 na0): outer class obfuscated; anchor on the unique
+        // activateApp warning string + the static (Application,String)V activateApp shape.
+        if ("Warning: Please call AppEventsLogger.activateApp(...)from the long-lived activity's onResume() methodbefore logging other app events." in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
+                    it.parameterTypes == listOf("Landroid/app/Application;", "Ljava/lang/String;")
+            }) {
+            resolvedClasses.putIfAbsent("fbAppEvents", classDef)
+        }
+        // Facebook FetchedAppSettingsManager (7.5.6.1 ru6): outer obfuscated; the fetch executor
+        // is now static a()JSONObject (no args). Anchor on the unique app-settings field name
+        // (only ru6 carries it) + a static ()JSONObject method.
+        if ("app_events_feature_bitmask" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "Lorg/json/JSONObject;" &&
+                    it.parameterTypes.isEmpty()
+            }) {
+            resolvedClasses.putIfAbsent("fbAppSettings", classDef)
+        }
+        // GA4 collection gate (7.5.6.1 dyq.g()I): the deactivated-metadata read now returns I
+        // (1 = collection off), not Z. Pair the string with a no-arg ()I carrier so the resolver
+        // does not pick the first string holder (b2r.Y(J,Z)V) which has no ()I gate.
+        if ("firebase_analytics_collection_deactivated" in foundStrings &&
+            classDef.methods.any { m ->
+                m.returnType == "I" && m.parameterTypes.isEmpty() &&
+                    m.containsExactString("firebase_analytics_collection_deactivated")
+            }) {
+            resolvedClasses.putIfAbsent("ga4Collection", classDef)
+        }
         if ("https://deviceid.tantanapp.com/oneid/createid" in foundStrings &&
             classDef.methods.any {
                 AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
@@ -504,10 +628,14 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         if ("u59" !in resolvedClasses && !isSettingsUi && "intl_sl_guide_config" in foundStrings) {
             resolvedClasses["u59"] = classDef
         }
-        if ("tm90" !in resolvedClasses && !isSettingsUi && "intl_good_c_bage_config" in foundStrings) {
+        if ("tm90" !in resolvedClasses && !isSettingsUi && "intl_good_c_bage_config" in foundStrings &&
+            classDef.methods.any { AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "Z" &&
+                it.parameterTypes == listOf("Lcom/p1/mobile/putong/data/User;") }) {
             resolvedClasses["tm90"] = classDef
         }
-        if ("gqf0" !in resolvedClasses && !isSettingsUi && "e_intl_spotlight_activity_card" in foundStrings) {
+        if ("gqf0" !in resolvedClasses && !isSettingsUi && "e_intl_spotlight_activity_card" in foundStrings &&
+            classDef.methods.any { AccessFlags.PUBLIC.isSet(it.accessFlags) && it.returnType == "Z" &&
+                it.parameterTypes.isEmpty() }) {
             resolvedClasses["gqf0"] = classDef
         }
         if ("h6a" !in resolvedClasses && !isSettingsUi && "ttt_membership_price_diff" in foundStrings) {
@@ -516,7 +644,17 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         if ("ugc0" !in resolvedClasses && !isSettingsUi && "seeUpgradeToPremium" in foundStrings) {
             resolvedClasses["ugc0"] = classDef
         }
-        if ("zva0" !in resolvedClasses && !isSettingsUi && "e_vip_banner" in foundStrings) {
+        // CoreProduct was obfuscated to Ll/is3; in 7.5.6.1 (only CoreProduct$PromotionStatus keeps
+        // the name). Anchor on the unique location-bubble pref + a (PurchaseType)Z purchase gate.
+        if ("coreProduct" !in resolvedClasses && "location_bubule_has_shown_" in foundStrings &&
+            classDef.methods.any {
+                it.returnType == "Z" && it.parameterTypes == listOf("Lcom/p1/mobile/putong/core/data/PurchaseType;")
+            }) {
+            resolvedClasses["coreProduct"] = classDef
+        }
+        if ("zva0" !in resolvedClasses && !isSettingsUi && "e_vip_banner" in foundStrings &&
+            classDef.methods.any { AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.FINAL.isSet(it.accessFlags) &&
+                it.returnType == "Z" && it.parameterTypes.isEmpty() }) {
             resolvedClasses["zva0"] = classDef
         }
         if ("th5" !in resolvedClasses && !isSettingsUi && "vas_commercial_card_right_slide_strategy" in foundStrings) {
@@ -525,30 +663,50 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         if ("qgl0" !in resolvedClasses && !isSettingsUi && "暂未激活黑金会员" in foundStrings) {
             resolvedClasses["qgl0"] = classDef
         }
-        if ("sja" !in resolvedClasses && !isSettingsUi && "picksUser id is not found in users : " in foundStrings) {
+        if ("sja" !in resolvedClasses && !isSettingsUi && "last_privilege_banner_picks_item_clicked_time_" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "I" && it.parameterTypes.isEmpty()
+            }) {
             resolvedClasses["sja"] = classDef
         }
-        if ("n3b0" !in resolvedClasses && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.likersLimit" in foundFields) {
+        if ("n3b0" !in resolvedClasses && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.likersLimit" in foundFields &&
+            classDef.methods.any { it.returnType == "Z" && it.parameterTypes.isEmpty() && AccessFlags.STATIC.isSet(it.accessFlags) }) {
             resolvedClasses["n3b0"] = classDef
         }
         if ("rbb0" !in resolvedClasses && !isSettingsUi && "Lcom/p1/mobile/putong/data/LikersLimit;.remaining" in foundFields) {
-            val hasStaticZWithCounter = classDef.methods.any { 
-                it.returnType == "Z" && 
-                AccessFlags.STATIC.isSet(it.accessFlags) && 
-                it.parameterTypes.size == 1 && 
-                it.parameterTypes[0] == "Lcom/p1/mobile/putong/data/Counter;"
+            // 7.5.6.1: the quota gate is oth.c()Z (no-arg static) reading LikersLimit.remaining.
+            // Require the static ()Z method ITSELF to read remaining (narrows to oth, avoids
+            // first-wins hijack by other classes that merely reference the field elsewhere).
+            val hasQuotaGate = classDef.methods.any { m ->
+                m.returnType == "Z" && AccessFlags.STATIC.isSet(m.accessFlags) &&
+                    m.parameterTypes.isEmpty() &&
+                    m.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? FieldReference)?.let {
+                                it.definingClass == "Lcom/p1/mobile/putong/data/LikersLimit;" && it.name == "remaining"
+                            } == true
+                    }
             }
-            if (hasStaticZWithCounter) {
+            if (hasQuotaGate) {
                 resolvedClasses["rbb0"] = classDef
                 rbb0Type = classDef.type
             }
         }
         
-        if ("hl3" !in resolvedClasses &&
-            foundStrings.any { it == "p_no_match_svip" || it == "p_offline_popup" ||
-                it == "p_no_match_see_purchase_guide_view" || it == "p_see_popup_expired_svip" } &&
-            methodCallFull.any { it.contains("LikersDialogView") }) {
-            resolvedClasses["hl3"] = classDef
+        if ("svipRecoverStrategy" !in resolvedClasses &&
+            "p_see_popup_expired_svip" in foundStrings &&
+            classDef.methods.any { m ->
+                !AccessFlags.STATIC.isSet(m.accessFlags) && m.returnType == "Z" &&
+                    m.parameterTypes.size == 1 &&
+                    m.containsExactString("p_see_popup_expired_svip") &&
+                    m.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            ((instr.reference as? FieldReference)?.definingClass == SVIP_SEE_RECOVER_DLG ||
+                                (instr.reference as? MethodReference)?.definingClass == SVIP_SEE_RECOVER_DLG)
+                    }
+            }) {
+            resolvedClasses["svipRecoverStrategy"] = classDef
         }
 
         if ("visitorsDiscountBanner" !in resolvedClasses &&
@@ -565,25 +723,13 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
 
         if ("proximityBubble" !in resolvedClasses &&
             "distance" in foundStrings &&
-            methodCallFull.any { it.endsWith(".n7") }) {
+            classDef.methods.any { m ->
+                m.returnType == "V" &&
+                    m.parameterTypes.any { it == "Lcom/p1/mobile/putong/core/data/Figure;" } &&
+                    m.parameterTypes.any { it == "Ljava/lang/CharSequence;" } &&
+                    m.containsExactString("distance")
+            }) {
             resolvedClasses["proximityBubble"] = classDef
-        }
-
-        if ("j7d0" !in resolvedClasses && "last_likers_req_time" in foundStrings &&
-            "offline_dialog_show_time" in foundStrings) {
-            resolvedClasses["j7d0"] = classDef
-        }
-
-        if ("gg50" !in resolvedClasses &&
-            "Lcom/p1/mobile/putong/core/oms/OmsDialog;.p_offline_popup" in foundFields &&
-            classDef.methods.any { it.name == "<init>" && it.parameterTypes.size == 2 &&
-                it.parameterTypes[0] == "Ljava/lang/String;" && it.parameterTypes[1] == "Z" } &&
-            classDef.methods.any { it.returnType == "Z" && it.parameterTypes.size == 1 }) {
-            resolvedClasses["gg50"] = classDef
-        }
-
-        if ("qtk" !in resolvedClasses && "reBackAppGuideDialog" in foundStrings) {
-            resolvedClasses["qtk"] = classDef
         }
         
         if ("secretCrush" !in resolvedClasses && !isSettingsUi && "Lcom/p1/mobile/putong/data/Counter;.secretCrushLimit" in foundFields && 
@@ -609,9 +755,6 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in foundFields && !classDef.type.contains("/ui/settings/")) {
             val hasPurchaseTypeZ = classDef.methods.any { it.parameterTypes.size == 1 && it.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/PurchaseType;" && it.returnType == "Z" }
             if (hasPurchaseTypeZ) resolvedClasses["mb90"] = classDef
-        }
-        if ("jh30" !in resolvedClasses && "Lcom/p1/mobile/putong/core/newui/profile/newme/NewProfilePrivilegedPager;.d" in foundMethods) {
-            resolvedClasses["jh30"] = classDef
         }
         if ("businessEntranceAdapter" !in resolvedClasses && "open_fill_info_debug" in foundStrings && "clear" in methodCallFull.map { it.split(".").last() }) {
             resolvedClasses["businessEntranceAdapter"] = classDef
@@ -668,36 +811,30 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolvedClasses["meetNewLikersAdapter"] = classDef
         }
         
-        if ("ysa" !in resolvedClasses && !isSettingsUi &&
-            "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_common" in foundFields &&
-            "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_received_likes" in foundFields &&
-            "Lcom/p1/mobile/putong/core/data/VerifyPremiumIsolationConfig;.restrict_non_verified_matches" in foundFields) {
-            resolvedClasses["ysa"] = classDef
-        }
-        
         if ("ae9" !in resolvedClasses && !isSettingsUi &&
             "Lcom/p1/mobile/putong/core/data/UltraRightsUpgradeInfo;.isCanUpgradeUltra" in foundFields &&
-            ("Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.k" in foundMethods ||
-             "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.l" in foundMethods) &&
-            "Lcom/p1/mobile/putong/core/data/MembershipUpgradeInfo;" in foundFields) {
+            "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.f" in foundMethods) {
             resolvedClasses["ae9"] = classDef
         }
         
-        // c4m0: VIP roaming location UI gate - has static method n(String, Act, String)Z
-        // that checks PurchaseType.TYPE_ROAMING_PKG and references VipLocationHistoryAct
+        // c4m0: VIP roaming location UI gate (7.5.6.1 yan.a(Act,String,String)Z). The gate reads
+        // PurchaseType.TYPE_ROAMING_PKG; the old VipLocationHistoryAct reference is now a held
+        // field (no method call), so anchor on the static (Act,String,String)Z method that itself
+        // reads TYPE_ROAMING_PKG rather than a class-wide call anchor.
         if ("c4m0" !in resolvedClasses && !isSettingsUi &&
-            "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in foundFields &&
-            methodCallFull.any { it.contains("Lcom/p1/mobile/putong/core/ui/vip/VipLocationHistoryAct;") }) {
-            val hasStaticNMethod = classDef.methods.any { 
-                it.name == "n" && 
-                AccessFlags.STATIC.isSet(it.accessFlags) &&
-                it.returnType == "Z" &&
-                it.parameterTypes.size == 3 &&
-                it.parameterTypes[0] == "Ljava/lang/String;" &&
-                it.parameterTypes[1] == "Lcom/p1/mobile/android/app/Act;" &&
-                it.parameterTypes[2] == "Ljava/lang/String;"
+            "Lcom/p1/mobile/putong/core/data/PurchaseType;.TYPE_ROAMING_PKG" in foundFields) {
+            val hasRoamingGate = classDef.methods.any { m ->
+                AccessFlags.STATIC.isSet(m.accessFlags) &&
+                m.returnType == "Z" &&
+                m.parameterTypes == listOf("Lcom/p1/mobile/android/app/Act;", "Ljava/lang/String;", "Ljava/lang/String;") &&
+                m.sharedCachedInstructions().any { instr ->
+                    instr is ReferenceInstruction &&
+                        (instr.reference as? FieldReference)?.let {
+                            it.definingClass == "Lcom/p1/mobile/putong/core/data/PurchaseType;" && it.name == "TYPE_ROAMING_PKG"
+                        } == true
+                }
             }
-            if (hasStaticNMethod) resolvedClasses["c4m0"] = classDef
+            if (hasRoamingGate) resolvedClasses["c4m0"] = classDef
         }
         
         if ("businessEntranceStateManager" !in resolvedClasses &&
@@ -734,16 +871,24 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolvedClasses["suggestedUsersBanner"] = classDef
         }
         
-        if ("distanceAgeTextGenerator" !in resolvedClasses &&
-            classDef.methods.any {
-                it.name == "c" &&
-                AccessFlags.STATIC.isSet(it.accessFlags) &&
-                it.parameterTypes.size == 3 &&
-                it.parameterTypes[0] == "Lcom/p1/mobile/putong/data/User;" &&
-                it.parameterTypes[1] == "Landroid/content/Context;" &&
-                it.returnType == "Ljava/lang/CharSequence;"
+        if ("profileImagesHolder" !in resolvedClasses &&
+            "Lcom/p1/mobile/putong/data/User;.pictures" in foundFields &&
+            classDef.methods.any { m ->
+                !AccessFlags.STATIC.isSet(m.accessFlags) && m.returnType == "V" && m.parameterTypes.isEmpty() &&
+                    m.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && (instr.reference as? FieldReference)?.let {
+                            it.definingClass == "Lcom/p1/mobile/putong/data/User;" && it.name == "pictures"
+                        } == true
+                    } &&
+                    m.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && (instr.reference as? MethodReference)?.let {
+                            it.definingClass == "Lv/VPagerCircleIndicator;" && it.name == "c" &&
+                                it.parameterTypes == listOf("Landroidx/viewpager/widget/ViewPager;", "I") &&
+                                it.returnType == "V"
+                        } == true
+                    }
             }) {
-            resolvedClasses["distanceAgeTextGenerator"] = classDef
+            resolvedClasses["profileImagesHolder"] = classDef
         }
     }
     
@@ -798,7 +943,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 it.parameterTypes.size == 2 &&
                     it.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
                     it.parameterTypes[1] == "Z" &&
-                    it.returnType == "Lrx/c;"
+                    it.returnType == "Ll/vpf;"
             }) {
             resolvedClasses["profileCarouselAd"] = classDef
         }
@@ -830,6 +975,16 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             }) {
             resolvedClasses["casualGameManager"] = classDef
         }
+        if ("navBarAdHelper" !in resolvedClasses &&
+            "intl_ad_show_bottom_banner" in foundStrings &&
+            "ttt_tab_bar_bottom_banner" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "Z" &&
+                    it.parameterTypes == listOf("Lkotlin/jvm/functions/Function0;")
+            }) {
+            resolvedClasses["navBarAdHelper"] = classDef
+        }
     }
 
     private fun resolveMisc(foundStrings: Set<String>, foundFields: Set<String>, classDef: ClassDef) {
@@ -842,7 +997,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
 
         if ("uxQuestionnaire" !in resolvedClasses && "/experience-questionnaire?scene=" in foundStrings &&
             classDef.methods.any { m ->
-                m.returnType == "Lrx/c;" && m.parameterTypes.size == 2 &&
+                m.returnType == "Ll/vpf;" &&
                     m.containsExactString("/experience-questionnaire?scene=")
             }) {
             resolvedClasses["uxQuestionnaire"] = classDef
@@ -885,12 +1040,16 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolvedClasses["buzzProlong"] = classDef
         }
 
+        // Telepathy reply-length gate (7.5.6.1 x3r.b(g6m)Z): the gate now takes the telepathy
+        // view-model (obfuscated g6m), not TpTelepathyConv directly, but still reads the stable
+        // TpTelepathyConv.replyLengthLimit field. Match any single-reference-param static ()Z
+        // carrier of that field (version-agnostic; do not hardcode the obfuscated param type).
         if ("telepathyReplyLimit" !in resolvedClasses &&
             "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;.replyLengthLimit" in foundFields &&
             classDef.methods.any { m ->
                 AccessFlags.STATIC.isSet(m.accessFlags) && m.returnType == "Z" &&
                     m.parameterTypes.size == 1 &&
-                    m.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/TpTelepathyConv;" &&
+                    m.parameterTypes[0].startsWith("L") &&
                     m.sharedCachedInstructions().any { instr ->
                         instr is ReferenceInstruction &&
                             (instr.reference as? FieldReference)?.let {
@@ -900,6 +1059,94 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                     }
             }) {
             resolvedClasses["telepathyReplyLimit"] = classDef
+        }
+
+        // RemoteConfig accessor (7.5.6.1 ngi): the stable RemoteConfig class was obfuscated; only
+        // RemoteConfig$ConfigStep / RemoteConfigException keep the name. Anchor on the unique
+        // "saved_device_uid_md5" pref key + the (String)String / (String)Z / (String,I)I getter trio.
+        if ("remoteConfig" !in resolvedClasses && "saved_device_uid_md5" in foundStrings &&
+            classDef.methods.any { it.parameterTypes == listOf("Ljava/lang/String;") && it.returnType == "Ljava/lang/String;" } &&
+            classDef.methods.any { it.parameterTypes == listOf("Ljava/lang/String;") && it.returnType == "Z" } &&
+            classDef.methods.any { it.parameterTypes == listOf("Ljava/lang/String;", "I") && it.returnType == "I" }) {
+            resolvedClasses["remoteConfig"] = classDef
+        }
+
+        // AB-test accessor (7.5.6.1 q.t): ABManager was obfuscated (only ABManager$Mode keeps the
+        // name). Anchor on the unique "newabgroups_mode_device" pref key + a public static
+        // (String)String getter (the live AB bucket map read).
+        if ("abManager" !in resolvedClasses && "newabgroups_mode_device" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.STATIC.isSet(it.accessFlags) && AccessFlags.PUBLIC.isSet(it.accessFlags) &&
+                    it.parameterTypes == listOf("Ljava/lang/String;") && it.returnType == "Ljava/lang/String;"
+            }) {
+            resolvedClasses["abManager"] = classDef
+        }
+
+        // OMS morph promo router (7.5.6.1 btf.c, was hn60.n): server-driven morph promos bypass
+        // the ssf M/N gate. Anchor on "oms_mercury" + the public instance (Act,OMSDialogInfo)Z
+        // shape (OmsPageAct also carries the string but its method is ()V, so shape excludes it).
+        if ("morphRouter" !in resolvedClasses && "oms_mercury" in foundStrings &&
+            classDef.methods.any {
+                it.returnType == "Z" &&
+                    it.parameterTypes == listOf("Lcom/p1/mobile/android/app/Act;", "Lcom/p1/mobile/putong/data/OMSDialogInfo;") &&
+                    AccessFlags.PUBLIC.isSet(it.accessFlags) && !AccessFlags.STATIC.isSet(it.accessFlags)
+            }) {
+            resolvedClasses["morphRouter"] = classDef
+        }
+
+        // Conversation persistence facade (7.5.6.1 mc3.G1): every local fake-conversation
+        // factory lambda upserts through this single public static (Conversation)V entry
+        // (no server-merge caller). Anchor on the unique whisper-order query key + the
+        // static (Conversation)V shape; the consumer additionally requires the DB upsert call.
+        if ("convUpsert" !in resolvedClasses && "intlWhisperConversationOrder" in foundStrings &&
+            classDef.methods.any {
+                AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "V" &&
+                    it.parameterTypes == listOf("Lcom/p1/mobile/putong/core/data/Conversation;")
+            }) {
+            resolvedClasses["convUpsert"] = classDef
+        }
+
+        if ("letterCoinGate" !in resolvedClasses &&
+            "tantan_coin_intl_letter_confirm_dialog_shown_" in foundStrings &&
+            "Lcom/p1/mobile/putong/core/data/Privilege;.letter" in foundFields) {
+            resolvedClasses["letterCoinGate"] = classDef
+        }
+
+        if ("aiChatGuideVm" !in resolvedClasses &&
+            "aiChatAdvice" in foundStrings && "aiChatAnalysis" in foundStrings &&
+            classDef.methods.any { m ->
+                m.returnType == "Z" && m.parameterTypes.isEmpty() &&
+                    m.containsExactString("aiChatAdvice") &&
+                    m.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction && (instr.reference as? FieldReference)?.let {
+                            it.definingClass == "Lcom/p1/mobile/putong/core/data/AiChatAdviceConvs;" &&
+                                it.name == "adviceConvList"
+                        } == true
+                    }
+            }) {
+            resolvedClasses["aiChatGuideVm"] = classDef
+        }
+
+        if ("aiChatGuideListener" !in resolvedClasses &&
+            "aiChatAdvice" in foundStrings && "aiChatAnalysis" in foundStrings &&
+            classDef.fields.any { it.type == "Lcom/p1/mobile/putong/core/ui/messages/ItemAiChatGuideMessage;" } &&
+            classDef.methods.any { m ->
+                m.name == "onClick" && m.returnType == "V" &&
+                    m.parameterTypes == listOf("Landroid/view/View;") &&
+                    m.containsExactString("aiChatAdvice") && m.containsExactString("aiChatAnalysis")
+            }) {
+            resolvedClasses["aiChatGuideListener"] = classDef
+        }
+
+        if ("pinChatListener" !in resolvedClasses &&
+            "pinChat" in foundStrings && "e_platinum_top_chat" in foundStrings &&
+            classDef.methods.any { m ->
+                m.name == "onClick" && m.returnType == "V" &&
+                    m.parameterTypes == listOf("Landroid/view/View;") &&
+                    m.containsExactString("pinChat") && m.containsExactString("e_platinum_top_chat")
+            }) {
+            resolvedClasses["pinChatListener"] = classDef
         }
     }
 
@@ -917,11 +1164,14 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolvedClasses["contactsSync"] = classDef
         }
 
-        // Clipboard invite-code readers (eev live / zq4 campaign): BOTH classes carry the same
-        // regex, so collect every class with a ()String method containing it (multi-class key).
+        // Clipboard invite-code readers: BOTH the live and campaign classes carry the same
+        // regex, so collect every class with a no-arg method containing it (multi-class key).
+        // In 7.5.6.1 the regex moved from ()String readers (eev.e3/zq4.m4) into ()V campaign
+        // senders (ay1.S1/n1c.u1), so accept both return shapes; the consumer empties/voids each.
         if ("tantan:.*邀请码：[A-Z|1-9]{4,}" in foundStrings &&
             classDef.methods.any {
-                it.returnType == "Ljava/lang/String;" && it.parameterTypes.isEmpty() &&
+                (it.returnType == "Ljava/lang/String;" || it.returnType == "V") &&
+                    it.parameterTypes.isEmpty() &&
                     it.containsExactString("tantan:.*邀请码：[A-Z|1-9]{4,}")
             } &&
             clipboardInviteClasses.none { it.type == classDef.type }) {
@@ -938,29 +1188,19 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolvedClasses["mkBridge"] = classDef
         }
 
-        // Push click/delivery tracker (rtc0): endpoint string + static (PushTrackData)V shape.
+        // Push click/delivery tracker (7.5.6.1 mb0): the endpoint string now lives only in a
+        // synthetic tracking Runnable (mb0.run), not a static (PushTrackData)V method. Anchor on
+        // the endpoint + run()V + the (PushTrackData,I) ctor. Both mb0 cases are analytics
+        // (AppOpenWayStats + client-monitor upload); voiding run()V is safe. Do NOT touch the
+        // functional push dispatcher hwh.g.
         if ("pushTracker" !in resolvedClasses &&
             "https://client-monitor.tantanapp.com/push?" in foundStrings &&
+            classDef.methods.any { it.name == "run" && it.returnType == "V" && it.parameterTypes.isEmpty() } &&
             classDef.methods.any {
-                AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
-                    it.parameterTypes.size == 1 &&
-                    it.parameterTypes[0] == "Lcom/p1/mobile/putong/api/push/PushTrackData;"
+                it.name == "<init>" &&
+                    it.parameterTypes == listOf("Lcom/p1/mobile/putong/api/push/PushTrackData;", "I")
             }) {
             resolvedClasses["pushTracker"] = classDef
-        }
-
-        // Silent remote xlog pull handler (u53$d): "xlog.upload" is an inlined compile-time
-        // constant (gotcha #18); the outer u53 carries it too (registration v()), so pair with
-        // the rtc0.g handler shape (String,String,PushMessage,PushTrackData)Z.
-        if ("xlogPull" !in resolvedClasses && "xlog.upload" in foundStrings &&
-            classDef.methods.any {
-                it.returnType == "Z" && it.parameterTypes.size == 4 &&
-                    it.parameterTypes[0] == "Ljava/lang/String;" &&
-                    it.parameterTypes[1] == "Ljava/lang/String;" &&
-                    it.parameterTypes[2] == "Lcom/p1/mobile/putong/data/PushMessage;" &&
-                    it.parameterTypes[3] == "Lcom/p1/mobile/putong/api/push/PushTrackData;"
-            }) {
-            resolvedClasses["xlogPull"] = classDef
         }
 
         // Superlike upsell bubbles (ihi0): promo config read in <clinit> + bubble id in C();
@@ -977,32 +1217,68 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             resolvedClasses["superlikeBubble"] = classDef
         }
 
-        // Beatles xlog upload backend (luw): "marsxlog" loadLibrary in <clinit> (also in the
-        // stable Xlog SDK class — excluded by the instance (Date,String,J,*)V shape).
-        if ("xlogUploader" !in resolvedClasses && "marsxlog" in foundStrings &&
-            classDef.methods.any {
-                !AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
-                    it.parameterTypes.size == 4 &&
-                    it.parameterTypes[0] == "Ljava/util/Date;" &&
-                    it.parameterTypes[1] == "Ljava/lang/String;" &&
-                    it.parameterTypes[2] == "J"
-            }) {
-            resolvedClasses["xlogUploader"] = classDef
-        }
-
-        // Beatles install facade (h53): the old "com.tantanapp.beatles" anchor does NOT exist
-        // as a const-string in 7.5.4 (only longer variants), so the old key never resolved.
-        // Re-anchor on the unique init-check string + the 5-param static install shape.
+        // Beatles install + upload facade (7.5.6.1 c41): the old init-check string is gone; the
+        // unique "Please init Beatles!!!" log anchors c41. The upload enqueue is now the static
+        // f(List,String,J,lmm)V (the old luw.m backend was inlined into it, and the luw$b runnable
+        // merged into the shared zic dispatcher — do NOT void zic.run, it carries GA4 cases).
+        // Voiding c41.f kills ALL upload enqueues (push xlog via a, feedback via g); local xlog
+        // writing (v31.c) stays intact. The old 5-param install shape is gone.
         if ("beatles" !in resolvedClasses &&
-            "[init] context of init() is null, check it." in foundStrings &&
+            "Please init Beatles!!!" in foundStrings &&
             classDef.methods.any {
                 AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" &&
-                    it.parameterTypes.size == 5 &&
-                    it.parameterTypes[0] == "Landroid/content/Context;" &&
+                    it.parameterTypes.size == 4 &&
                     it.parameterTypes[1] == "Ljava/lang/String;" &&
-                    it.parameterTypes[3] == "Z"
+                    it.parameterTypes[2] == "J" &&
+                    (it.parameterTypes[0] == "Ljava/util/List;" || it.parameterTypes[0] == "Ljava/util/Date;")
             }) {
             resolvedClasses["beatles"] = classDef
+        }
+        if ("seePurchaseGuide" !in resolvedClasses &&
+            "p_no_match_see_purchase_guide_view" in foundStrings &&
+            classDef.methods.any { it.parameterTypes.size == 1 && it.parameterTypes[0] == "Ljava/lang/Object;" && it.returnType == "V" }) {
+            resolvedClasses["seePurchaseGuide"] = classDef
+        }
+        if ("seeAnimBubbleV" !in resolvedClasses &&
+            classDef.methods.any { method ->
+                AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.size == 2 &&
+                    method.parameterTypes[0].startsWith("Ll/") &&
+                    method.parameterTypes[1] == "Ll/kk3;" &&
+                    method.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? FieldReference)?.name == "INTL_SEE_ANIM_BUBBLE"
+                    }
+            }) {
+            resolvedClasses["seeAnimBubbleV"] = classDef
+        }
+        if ("seeAnimBubbleM1" !in resolvedClasses &&
+            classDef.methods.any { method ->
+                method.returnType == "Z" && method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ll/kk3;" &&
+                    method.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? FieldReference)?.name == "INTL_SEE_ANIM_BUBBLE"
+                    }
+            }) {
+            resolvedClasses["seeAnimBubbleM1"] = classDef
+        }
+        if ("repeatSuggestedCard" !in resolvedClasses &&
+            "repeat suggested card" in foundStrings &&
+            classDef.methods.any { it.parameterTypes.size == 1 && it.parameterTypes[0] == "Ljava/lang/Object;" && it.returnType == "V" }) {
+            resolvedClasses["repeatSuggestedCard"] = classDef
+        }
+        if ("icebreakLimit" !in resolvedClasses &&
+            "msg_ice_break_config_v2" in foundStrings &&
+            classDef.methods.any { method ->
+                method.parameterTypes.size == 1 && method.parameterTypes[0] == "Ljava/lang/Object;" &&
+                    method.returnType == "Ljava/lang/Object;" &&
+                    method.sharedCachedInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? FieldReference)?.name == "iceBreakLastMessageShowCountLimit"
+                    }
+            }) {
+            resolvedClasses["icebreakLimit"] = classDef
         }
     }
 
@@ -1013,8 +1289,11 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     fun getMiscClass(key: String): ClassDef? = resolvedClasses[key]
     fun getGmsClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("gmsClasses") }.values.toList()
     fun getLoveBuzzClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("loveBuzzClasses") }.values.toList()
+    fun getTypingIndicatorClasses(): List<ClassDef> = typingIndicatorClasses.toList()
+    fun getMeTabPagerClasses(): List<ClassDef> = meTabPagerClasses.toList()
     fun getPrivacyClass(key: String): ClassDef? = resolvedClasses["privacy_$key"]
     fun getAdClass(key: String): ClassDef? = resolvedClasses[key]
     fun getClipboardInviteClasses(): List<ClassDef> = clipboardInviteClasses.toList()
     fun getMixedContentClasses(): List<ClassDef> = mixedContentClasses.toList()
+    fun getLocationUploadGateCandidates(): List<ClassDef> = locationUploadGateCandidates.toList()
 }

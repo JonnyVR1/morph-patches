@@ -161,9 +161,20 @@ val privacyEnhancementPatch = bytecodePatch(
         }
 
         ert0Class?.let { classDef ->
+            val emulatorStrings = setOf("ranchu", "generic", "emulator")
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.implementation == null) return@forEach
                 if (isConstructor(method)) return@forEach
+                // 7.5.6.1: the (Z)Z twin is gone; the emulator check is now a no-arg ()Z
+                // (mjp.a). Force false on the ()Z carrier of the emulator strings (and keep the
+                // legacy (Z)Z branch for older layouts).
+                val carriesEmulatorStrings = method.cachedInstructions().any { instr ->
+                    instr is ReferenceInstruction && instr.reference is StringReference &&
+                        (instr.reference as StringReference).string in emulatorStrings
+                }
+                if (method.returnType == "Z" && method.parameterTypes.isEmpty() && carriesEmulatorStrings) {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
                 if (method.returnType == "Z" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "Z") {
                     method.addInstructions(0, RETURN_FALSE)
                 }
@@ -306,21 +317,28 @@ val privacyEnhancementPatch = bytecodePatch(
                 }
         }
 
-        // Clipboard invite-code reads (eev.e3 live / zq4.m4 campaign): both carry the unique
+        // Clipboard invite-code reads: both the live and campaign classes carry the unique
         // invite regex; empty-string return breaks live-campaign attribution (marketing only).
-        // Clipboard WRITE sites (user-initiated copies) are untouched.
+        // In 7.5.6.1 the regex moved from ()String readers (eev.e3/zq4.m4) into ()V campaign
+        // senders (ay1.S1/n1c.u1) — void those too. Clipboard WRITE sites stay untouched.
         resolver.getClipboardInviteClasses().forEach { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter {
-                    it.returnType == "Ljava/lang/String;" && it.parameterTypes.isEmpty() &&
+                    it.parameterTypes.isEmpty() &&
+                        (it.returnType == "Ljava/lang/String;" || it.returnType == "V") &&
                         it.cachedInstructions().any { instr ->
                             instr is ReferenceInstruction &&
                                 (instr.reference as? StringReference)?.string == "tantan:.*邀请码：[A-Z|1-9]{4,}"
                         }
                 }
                 .forEach {
-                    it.preflightSmali(RETURN_EMPTY_STRING, 2)
-                    it.addInstructions(0, RETURN_EMPTY_STRING)
+                    if (it.returnType == "V") {
+                        it.preflightSmali(RETURN_VOID, 1)
+                        it.addInstructions(0, RETURN_VOID)
+                    } else {
+                        it.preflightSmali(RETURN_EMPTY_STRING, 2)
+                        it.addInstructions(0, RETURN_EMPTY_STRING)
+                    }
                 }
         }
 

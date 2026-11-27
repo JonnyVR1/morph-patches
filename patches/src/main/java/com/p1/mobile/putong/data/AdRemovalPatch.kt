@@ -6,6 +6,7 @@ import app.morphe.patcher.methodCall
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
@@ -38,16 +39,77 @@ private const val RETURN_FALSE = """
     return v0
 """
 
+private val RETURN_NULL_OBSERVABLE = """
+    const/4 v0, 0x0
+    invoke-static {v0}, Ll/vpf;->just(Ljava/lang/Object;)Ll/vpf;
+    move-result-object v0
+    return-object v0
+"""
+
+private val CONVERSATION_PROMO_FILTER = """
+    move-object/from16 v1, p2
+    invoke-interface {v1}, Ljava/util/List;->size()I
+    move-result v2
+    const/4 v3, 0x0
+    :morph_scan
+    if-ge v3, v2, :morph_end
+    invoke-interface {v1, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    move-result-object v4
+    instance-of v0, v4, Lcom/p1/mobile/putong/core/data/Conversation;
+    if-eqz v0, :morph_scan_next
+    check-cast v4, Lcom/p1/mobile/putong/core/data/Conversation;
+    iget-object v4, v4, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
+    if-eqz v4, :morph_scan_next
+    const-string v0, "fakeReceiveLikeGuideSVip"
+    invoke-virtual {v0, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v0
+    if-nez v0, :morph_build
+    const-string v0, "fakeIntlReceiveLikeGuideSVip"
+    invoke-virtual {v0, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v0
+    if-nez v0, :morph_build
+    :morph_scan_next
+    add-int/lit8 v3, v3, 0x1
+    goto :morph_scan
+    :morph_build
+    new-instance v0, Ljava/util/ArrayList;
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+    const/4 v2, 0x0
+    :morph_loop
+    invoke-interface {v1}, Ljava/util/List;->size()I
+    move-result v4
+    if-ge v2, v4, :morph_done
+    invoke-interface {v1, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    move-result-object v3
+    instance-of v4, v3, Lcom/p1/mobile/putong/core/data/Conversation;
+    if-eqz v4, :morph_add
+    check-cast v3, Lcom/p1/mobile/putong/core/data/Conversation;
+    iget-object v4, v3, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
+    if-eqz v4, :morph_add
+    const-string v3, "fakeReceiveLikeGuideSVip"
+    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v3
+    if-nez v3, :morph_skip
+    const-string v3, "fakeIntlReceiveLikeGuideSVip"
+    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v3
+    if-nez v3, :morph_skip
+    :morph_add
+    invoke-interface {v1, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    move-result-object v3
+    invoke-virtual {v0, v3}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    :morph_skip
+    add-int/lit8 v2, v2, 0x1
+    goto :morph_loop
+    :morph_done
+    move-object/16 p2, v0
+    :morph_end
+"""
+
 private val omsAdCardPipelineFingerprint = Fingerprint(
     filters = listOf(
         string("e_oms_180club"),
         string("literatureCardGuide"),
-    ),
-)
-
-private val liveAdPreloadSwitchFingerprint = Fingerprint(
-    filters = listOf(
-        string("ad_monetize_live_banner_switch"),
     ),
 )
 
@@ -80,153 +142,60 @@ val adRemovalPatch = bytecodePatch(
     execute {
         val resolver = getSharedResolver()
 
-        classDefByOrNull("Lcom/p1/mobile/putong/core/admob/NavigationBarAdView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                when {
-                    method.name == "L" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "G" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "M" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "E" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
+        resolver.getAdClass("navBarAdHelper")?.let { classDef ->
+            val mutableClassDef = mutableClassDefBy(classDef)
+            val showGates = mutableClassDef.methods.filter {
+                AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "Z" &&
+                    it.parameterTypes == listOf("Lkotlin/jvm/functions/Function0;")
             }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/newui/admob/NavigationBarAdmobHelper;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                when {
-                    method.name == "g" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Lkotlin/jvm/functions/Function0;" &&
-                        method.returnType == "Z" -> {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                    method.name == "p" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "Z" -> {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                }
+            check(showGates.size == 1) { "navBarAdHelper show gate cardinality ${showGates.size}" }
+            showGates.forEach {
+                it.preflightSmali(RETURN_FALSE, 2)
+                it.addInstructions(0, RETURN_FALSE)
             }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/core/admob/NativeAdViewCard\$Companion;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                // 7.5.4: m(Act) is the ad preload entry (was l in older versions).
-                // Voiding it stops the native ad from ever being loaded.
-                if (method.name == "m" &&
-                    method.parameterTypes.size == 1 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
+            val targetingGates = mutableClassDef.methods.filter {
+                AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "Z" && it.parameterTypes.isEmpty()
+            }
+            check(targetingGates.size == 2) { "navBarAdHelper targeting gate cardinality ${targetingGates.size}" }
+            targetingGates.forEach {
+                it.preflightSmali(RETURN_FALSE, 2)
+                it.addInstructions(0, RETURN_FALSE)
             }
         }
 
         classDefByOrNull("Lcom/p1/mobile/putong/core/admob/NativeAdViewCard;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                when {
-                    // 7.5.4: s(NewNewHomeFrag, z20) binds the ad card (was 1-param in older versions)
-                    method.name == "s" &&
-                        method.parameterTypes.size == 2 &&
-                        method.parameterTypes[0].contains("NewNewHomeFrag") &&
-                        method.returnType == "V" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags) -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    // 7.5.4: t() renders the loaded ad into the card
-                    method.name == "t" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V" &&
-                        !AccessFlags.STATIC.isSet(method.accessFlags) -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
+            val mutableClassDef = mutableClassDefBy(classDef)
+            val bindMethods = mutableClassDef.methods.filter {
+                !AccessFlags.STATIC.isSet(it.accessFlags) &&
+                    it.returnType == "V" &&
+                    it.parameterTypes == listOf("Lcom/p1/mobile/putong/core/newui/home/NewNewHomeFrag;")
+            }
+            check(bindMethods.size == 1) { "NativeAdViewCard bind cardinality ${bindMethods.size}" }
+            bindMethods.forEach { it.addInstructions(0, RETURN_VOID) }
+
+            val companionType = classDef.fields.firstOrNull { it.name == "Companion" }?.type
+            if (companionType != null) {
+                val renderMethods = mutableClassDef.methods.filter {
+                    !AccessFlags.STATIC.isSet(it.accessFlags) &&
+                        it.returnType == "V" && it.parameterTypes.isEmpty() &&
+                        it.cachedAdInstructions().any { instr ->
+                            instr.opcode == Opcode.INVOKE_STATIC && instr is ReferenceInstruction &&
+                                (instr.reference as? MethodReference)?.definingClass == companionType
+                        }
                 }
+                check(renderMethods.size == 1) { "NativeAdViewCard render cardinality ${renderMethods.size}" }
+                renderMethods.forEach { it.addInstructions(0, RETURN_VOID) }
             }
         }
 
-        classDefByOrNull("Lcom/p1/mobile/putong/live/base/arch/card/cardmodel/feed/LiveVideoBannerAdCardView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                if (method.name == "onFinishInflate" &&
-                    method.parameterTypes.isEmpty() &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/live/external/intl/livesquare/admob/IntlLiveSquareFeedNativeAdView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                when {
-                    method.name == "a" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Landroid/view/View;" &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "b" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Landroid/view/View;" &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "onFinishInflate" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-        }
-
-        classDefByOrNull("Lcom/p1/mobile/putong/live/external/intl/livesquare/admob/IntlLiveSquareFeedBannerAdView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                when {
-                    method.name == "a" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Landroid/view/View;" &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "b" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Landroid/view/View;" &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                    method.name == "onFinishInflate" &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-        }
+        // LiveVideoBannerAdCardView / LiveVideoFeedAdCardView are redundant shells in 7.5.6.1
+        // (constructors + trivial onFinishInflate only, zero bind logic) — the upstream AdMob-init
+        // void is the lever. IntlLiveSquareFeedNativeAdView/BannerAdView holder binds are
+        // deliberately NOT voided: that leaves an empty SIZED container in the feed (gotcha #12
+        // gap defect), and the old gap-free Y5/Z5 feed-list filters are gone (shared F3 dispatcher).
+        // The CoreBusinessServiceIml live-ad preload kill below starves the holders instead.
 
         classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationItemGoogleAdView;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
@@ -335,18 +304,6 @@ val adRemovalPatch = bytecodePatch(
             }
         }
 
-        classDefByOrNull("Lcom/p1/mobile/putong/live/base/arch/card/cardmodel/feed/LiveVideoFeedAdCardView;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "<init>") return@forEach
-                if (method.name == "onFinishInflate" &&
-                    method.parameterTypes.isEmpty() &&
-                    method.returnType == "V"
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
         classDefByOrNull("Lcom/p1/mobile/putong/core/ui/seepage/likers/IntlLikersAdmobItem;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "<init>") return@forEach
@@ -422,11 +379,11 @@ val adRemovalPatch = bytecodePatch(
                 if (method.parameterTypes.size == 2 &&
                     method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
                     method.parameterTypes[1] == "Z" &&
-                    method.returnType == "Lrx/c;"
+                    method.returnType == "Ll/vpf;"
                 ) {
                     method.addInstructions(0, """
                         sget-object v0, Ljava/lang/Boolean;->FALSE:Ljava/lang/Boolean;
-                        invoke-static {v0}, Lrx/c;->just(Ljava/lang/Object;)Lrx/c;
+                        invoke-static {v0}, Ll/vpf;->just(Ljava/lang/Object;)Ll/vpf;
                         move-result-object v0
                         return-object v0
                     """)
@@ -635,89 +592,38 @@ val adRemovalPatch = bytecodePatch(
         }
 
         // Drop fake/bot promo conversations from the Messages display list.
-        // The main-list cell binds via NewConversationItemView.w3 -> O0 (NOT x0), so a
-        // view-level GONE in ConversationItemView.x0 never runs for these cells. Filter
-        // at the data level instead: ConversationsList.O2(List, Z)List builds the display
-        // list; every return path returns the input list (or a y4m wrapper copied from it
-        // after entry), so rebuilding p1 as a filtered ArrayList at index 0 covers all
-        // branches. Match by signature (obfuscated name varies between builds), cardinality 1.
-        // Predicate: drop ONLY the two pure like-guide promo cells by EXACT convType —
-        // "fakeReceiveLikeGuideSVip" and "fakeIntlReceiveLikeGuideSVip" (these are replaced,
+        // 7.5.6.1: ConversationsList.O2(List,Z)List is gone; the display transform moved to
+        // the adapter setter t03.r(I,List,Z)V, which stores the list param into t03.e and
+        // reads List.size() from the same register — rewriting p2 propagates. Resolve the
+        // adapter type dynamically from the stable getConversationsAdapter() getter (never
+        // hardcode the obfuscated adapter/setter names), then match the setter by signature
+        // (cardinality 1). Predicate: drop ONLY the two pure like-guide promo cells by EXACT
+        // convType — "fakeReceiveLikeGuideSVip" and "fakeIntlReceiveLikeGuideSVip" (replaced,
         // not converted, when a real conversation arrives). KEEP fake_one_side /
         // fake_one_side_no_match (REAL one-sided chats: PremiumUnlock forces isSVIP=true so
-        // the teaser gate ht6.o is bypassed and they render as normal conversations) and
+        // the teaser gate is bypassed and they render as normal conversations) and
         // intlSeeChatRequest (a functional chat-request entry once the privilege is unlocked).
-        // The earlier startsWith("fake") + intlSeeChatRequest drop emptied inboxes dominated
-        // by one-sided chats / chat requests -> "It's quiet in here" empty state. New-match
-        // placeholders use convType="default" (kept). Do NOT filter on isFake/fake_id_ alone.
-        // p1 is a high register (O2 has 22 regs -> p1=v20): read via move-object/from16,
-        // write via move-object/16; all working regs kept in v0-v6. See AGENTS gotcha #9/#10.
+        // New-match placeholders use convType="default" (kept). Do NOT filter on isFake/fake_id_
+        // alone — the earlier startsWith("fake") drop emptied inboxes dominated by one-sided
+        // chats -> "It's quiet in here" empty state. r has 9 regs (this=v5, i=v6, p2=list=v7,
+        // z=v8): working regs v0-v4 only, p2 shuttled via /from16 + /16, v5/v6/v8 preserved;
+        // the original prologue redefines v0-v4 before reading them (gotcha #9/#10). Scan
+        // first: the filtered ArrayList copy is built only when a promo cell is present.
         classDefByOrNull("Lcom/p1/mobile/putong/core/newui/messages/ConversationsList;")?.let { classDef ->
-            val targets = mutableClassDefBy(classDef).methods.filter { method ->
-                method.name != "<init>" && method.name != "<clinit>" &&
-                    method.parameterTypes.size == 2 &&
-                    method.parameterTypes[0] == "Ljava/util/List;" &&
-                    method.parameterTypes[1] == "Z" &&
-                    method.returnType == "Ljava/util/List;"
+            val adapterGetters = classDef.methods.filter {
+                it.name == "getConversationsAdapter" && it.parameterTypes.isEmpty()
             }
-            if (targets.size == 1) {
-                // Perf (Nov 2026): scan first; if NO promo convType is present (the common case)
-                // leave p1 untouched — no ArrayList allocation, no full-list copy. Only when a promo
-                // cell is found do we build the filtered copy. The filter pass keeps the fetched item
-                // in v4 and stores the TextUtils.equals result in v6 (the spent const-string reg) so
-                // List.get(i) is called once per item, not twice. Working regs v0-v6; p1=v20 shuttled
-                // via /from16 + /16 (gotcha #9/#10).
-                targets[0].addInstructions(0, """
-                    move-object/from16 v1, p1
-                    invoke-interface {v1}, Ljava/util/List;->size()I
-                    move-result v2
-                    const/4 v3, 0x0
-                    :morph_scan
-                    if-ge v3, v2, :morph_end
-                    invoke-interface {v1, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
-                    move-result-object v4
-                    check-cast v4, Lcom/p1/mobile/putong/core/data/Conversation;
-                    iget-object v5, v4, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
-                    if-eqz v5, :morph_scan_next
-                    const-string v6, "fakeReceiveLikeGuideSVip"
-                    invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
-                    move-result v4
-                    if-nez v4, :morph_build
-                    const-string v6, "fakeIntlReceiveLikeGuideSVip"
-                    invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
-                    move-result v4
-                    if-nez v4, :morph_build
-                    :morph_scan_next
-                    add-int/lit8 v3, v3, 0x1
-                    goto :morph_scan
-                    :morph_build
-                    new-instance v0, Ljava/util/ArrayList;
-                    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
-                    const/4 v3, 0x0
-                    :morph_loop
-                    if-ge v3, v2, :morph_done
-                    invoke-interface {v1, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
-                    move-result-object v4
-                    check-cast v4, Lcom/p1/mobile/putong/core/data/Conversation;
-                    iget-object v5, v4, Lcom/p1/mobile/putong/core/data/Conversation;->convType:Ljava/lang/String;
-                    if-eqz v5, :morph_add
-                    const-string v6, "fakeReceiveLikeGuideSVip"
-                    invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
-                    move-result v6
-                    if-nez v6, :morph_skip
-                    const-string v6, "fakeIntlReceiveLikeGuideSVip"
-                    invoke-static {v5, v6}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
-                    move-result v6
-                    if-nez v6, :morph_skip
-                    :morph_add
-                    invoke-virtual {v0, v4}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-                    :morph_skip
-                    add-int/lit8 v3, v3, 0x1
-                    goto :morph_loop
-                    :morph_done
-                    move-object/16 p1, v0
-                    :morph_end
-                """)
+            check(adapterGetters.size == 1) { "getConversationsAdapter cardinality ${adapterGetters.size}" }
+            classDefByOrNull(adapterGetters[0].returnType)?.let { adapterClass ->
+                val targets = mutableClassDefBy(adapterClass).methods.filter { method ->
+                    method.parameterTypes == listOf("I", "Ljava/util/List;", "Z") &&
+                        method.returnType == "V"
+                }
+                check(targets.size == 1) { "conversations adapter setter cardinality ${targets.size}" }
+                targets.forEach { method ->
+                    method.preflightSmali(CONVERSATION_PROMO_FILTER, 49)
+                    method.addInstructions(0, CONVERSATION_PROMO_FILTER)
+                }
             }
         }
 
@@ -881,31 +787,24 @@ val adRemovalPatch = bytecodePatch(
             }
         }
 
-        // Live-square suggested feed: drop native+banner ad holders at the consumer
-        // (Y5/Z5 insert yvo/mwo). Stable CamelCase; (View,List)V cardinality 2.
-        // Fixes the blank sized gap left by the view-only ad patches (gotcha #12).
-        classDefByOrNull("Lcom/p1/mobile/putong/live/external/intl/livesquare/fragments/suggestedTab/IntlLiveSquareSuggestedFrag;")?.let { classDef ->
+        classDefByOrNull("Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;")?.let { classDef ->
             val targets = mutableClassDefBy(classDef).methods.filter { method ->
                 !AccessFlags.STATIC.isSet(method.accessFlags) &&
-                    method.returnType == "V" &&
-                    method.parameterTypes.size == 2 &&
-                    method.parameterTypes[0] == "Landroid/view/View;" &&
-                    method.parameterTypes[1] == "Ljava/util/List;"
+                    method.returnType == "Ll/vpf;" &&
+                    method.parameterTypes == listOf("Lcom/p1/mobile/android/app/Act;") &&
+                    method.containsString("female") &&
+                    method.cachedAdInstructions().any { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? MethodReference)?.let { ref ->
+                                ref.definingClass == "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;" &&
+                                    ref.name == "f"
+                            } == true
+                    }
             }
-            if (targets.size == 2) targets.forEach { it.addInstructions(0, RETURN_VOID) }
-        }
-
-        // Live ad preload Firebase switches (hcj.s/t): void so lm9.s/u stay false ->
-        // csn.n()/o() false -> no AdMob preload. Unique string anchors, static ()V.
-        liveAdPreloadSwitchFingerprint.matchOrNull()?.classDef?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (AccessFlags.STATIC.isSet(method.accessFlags) &&
-                    method.returnType == "V" && method.parameterTypes.isEmpty() &&
-                    (method.containsString("ad_monetize_live_banner_switch") ||
-                        method.containsString("ad_monetize_live_native_switch"))
-                ) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
+            check(targets.size == 2) { "live ad preload cardinality ${targets.size}" }
+            targets.forEach { method ->
+                method.preflightSmali(RETURN_NULL_OBSERVABLE, 4)
+                method.addInstructions(0, RETURN_NULL_OBSERVABLE)
             }
         }
 
@@ -934,6 +833,34 @@ val adRemovalPatch = bytecodePatch(
                     method.addInstructions(0, RETURN_VOID)
                 }
             }
+        }
+
+        // Repeat suggested card (uu3.call case containing "repeat suggested card").
+        // Shared dispatcher with packed-switch; find the case block containing the target
+        // string and inject return-void at the block entry (the check-cast that starts the case).
+        // This suppresses the duplicate-card detection and insert logic for suggested cards.
+        resolver.getAdClass("repeatSuggestedCard")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Ljava/lang/Object;" &&
+                        method.returnType == "V" &&
+                        method.containsString("repeat suggested card")
+                }
+                .forEach { method ->
+                    val instructions = method.implementation?.instructions?.toList() ?: return@forEach
+                    val targetIdx = instructions.indexOfFirst { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? StringReference)?.string == "repeat suggested card"
+                    }
+                    if (targetIdx < 0) return@forEach
+                    val blockEntry = instructions.subList(0, targetIdx).indexOfLast { instr ->
+                        instr.opcode.name.startsWith("check-cast")
+                    }
+                    if (blockEntry >= 0) {
+                        method.addInstructions(blockEntry, RETURN_VOID)
+                    }
+                }
         }
 
     }

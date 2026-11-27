@@ -47,11 +47,11 @@ tasks {
         classpath = sourceSets["main"].runtimeClasspath
         mainClass.set("util.ExtractApkSignatureKt")
         
-        // Use command line argument if provided, otherwise default to tantan-7.5.4.apk
+        // Use command line argument if provided, otherwise default to tantan-7.5.6.1.apk
         val apkPath = if (project.hasProperty("apkPath")) {
             project.property("apkPath") as String
         } else {
-            rootProject.file("tantan-7.5.4.apk").absolutePath
+            rootProject.file("tantan-7.5.6.1.apk").absolutePath
         }
         args = listOf(apkPath)
     }
@@ -122,9 +122,9 @@ tasks.register<JavaExec>("patchApk") {
     dependsOn("jar")
     classpath = sourceSets["main"].runtimeClasspath + files(tasks.jar.get().archiveFile)
     mainClass.set("app.morphe.PatcherMainKt")
-    // Authoritative 7.5.4 target (versionCode 2754010) matching tantan-decompiled-7.5.4.
-    // 7.5.4 is the only supported version; local DEX verification uses this APK.
-    val apkFile = rootProject.file("tantan-7.5.4.apk")
+    // Authoritative 7.5.6.1 target (versionCode 2756110) matching tantan-decompiled-7.5.6.1.
+    // 7.5.6.1 is the only supported version; local DEX verification uses this APK.
+    val apkFile = rootProject.file("tantan-7.5.6.1.apk")
     val outputApk = rootProject.file("tantan-premium-unlocked.apk")
     args = listOf(apkFile.absolutePath, outputApk.absolutePath)
 }
@@ -133,7 +133,7 @@ tasks.register<JavaExec>("signApk") {
     dependsOn("jar")
     classpath = sourceSets["main"].runtimeClasspath + files(tasks.jar.get().archiveFile)
     mainClass.set("app.morphe.SignApkKt")
-    val inputApk = rootProject.file("tantan-7.5.4.apk")
+    val inputApk = rootProject.file("tantan-7.5.6.1.apk")
     val outputApk = rootProject.file("tantan-signed.apk")
     args = listOf(inputApk.absolutePath, outputApk.absolutePath)
 }

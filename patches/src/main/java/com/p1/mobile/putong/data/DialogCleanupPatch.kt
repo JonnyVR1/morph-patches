@@ -3,6 +3,8 @@ package com.p1.mobile.putong.data
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 private const val RETURN_VOID = "return-void"
 
@@ -12,7 +14,7 @@ private const val RETURN_FALSE = """
 """
 
 private const val RETURN_RX_EMPTY = """
-    invoke-static {}, Lrx/c;->empty()Lrx/c;
+    invoke-static {}, Ll/vpf;->empty()Ll/vpf;
     move-result-object v0
     return-object v0
 """
@@ -29,7 +31,7 @@ val dialogCleanupPatch = bytecodePatch(
         val resolver = getSharedResolver()
 
         val dialogClasses = mutableMapOf<String, com.android.tools.smali.dexlib2.iface.ClassDef>()
-        val dialogKeys = listOf("mx0", "zrj0", "ok3", "vipUpgradePopup", "omsDialogController", "gpRateGuide")
+        val dialogKeys = listOf("mx0", "zrj0", "ok3", "vipUpgradePopup", "omsDialogController", "gpRateGuide", "seePurchaseGuide")
         for (key in dialogKeys) {
             resolver.getDialogClass(key)?.let { dialogClasses[key] = it }
         }
@@ -126,23 +128,18 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_FALSE) }
         }
 
-        // Morph promo inline render bypass (hn60.n): server-driven morph promos with text absent
-        // from local resources (e.g. "99+ people liked you" / "waiting for your match") bypass the
-        // OMS M/N gate and the zw3 creators. They route through hn60.n which either calls
-        // OmsBaseRender.c0() (inline) or starts OmsPageAct (fullscreen). We patched OmsPageAct.b2/c2
-        // for the fullscreen case, but the inline path was unpatched. Fix: make hn60.n return false
-        // immediately for morph content. Verification popups use a different contentType and still work.
-        // Match by signature: (Act, OMSDialogInfo)Z, public instance method.
-        classDefByOrNull("Ll/hn60;")?.let { classDef ->
+        // Morph promo router (7.5.6.1 btf.c, was hn60.n): server-driven morph promos with text
+        // absent from local resources bypass the OMS M/N gate and the likers creators. They route
+        // through btf.c which either renders inline or starts OmsPageAct (fullscreen). Force c
+        // false for morph content; verification popups use a different contentType and still work.
+        // Resolve via the "oms_mercury" anchor + (Act,OMSDialogInfo)Z shape (version-agnostic).
+        resolver.getMiscClass("morphRouter")?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.name == "n" &&
                     method.returnType == "Z" &&
-                    method.parameterTypes.size == 2 &&
-                    method.parameterTypes[0] == "Lcom/p1/mobile/android/app/Act;" &&
-                    method.parameterTypes[1] == "Lcom/p1/mobile/putong/data/OMSDialogInfo;" &&
-                    AccessFlags.PUBLIC.isSet(method.accessFlags) &&
-                    !AccessFlags.STATIC.isSet(method.accessFlags)
+                        method.parameterTypes == listOf("Lcom/p1/mobile/android/app/Act;", "Lcom/p1/mobile/putong/data/OMSDialogInfo;") &&
+                        AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)
                 }
                 .forEach { it.addInstructions(0, RETURN_FALSE) }
         }
@@ -186,9 +183,8 @@ val dialogCleanupPatch = bytecodePatch(
         resolver.getMiscClass("uxQuestionnaire")?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
-                    method.returnType == "Lrx/c;" && method.parameterTypes.size == 2 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/QuestionnaireScene;" &&
-                        method.parameterTypes[1] == "Lcom/p1/mobile/putong/core/data/QuestionnaireStrategy;"
+                    method.returnType == "Ll/vpf;" &&
+                        method.containsExactString("/experience-questionnaire?scene=")
                 }
                 .forEach { method ->
                     method.preflightSmali(RETURN_RX_EMPTY, 3)
@@ -212,6 +208,33 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { method ->
                     method.preflightSmali(RETURN_VOID, 1)
                     method.addInstructions(0, RETURN_VOID)
+                }
+        }
+
+        // See-purchase-guide dialog (rcf.call case containing p_no_match_see_purchase_guide_view).
+        // Shared dispatcher with packed-switch; find the case block containing the target string
+        // and inject return-void at the block entry (the check-cast that starts the case).
+        dialogClasses["seePurchaseGuide"]?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Ljava/lang/Object;" &&
+                        method.returnType == "V" &&
+                        method.containsExactString("p_no_match_see_purchase_guide_view")
+                }
+                .forEach { method ->
+                    val instructions = method.implementation?.instructions?.toList() ?: return@forEach
+                    val targetIdx = instructions.indexOfFirst { instr ->
+                        instr is ReferenceInstruction &&
+                            (instr.reference as? StringReference)?.string == "p_no_match_see_purchase_guide_view"
+                    }
+                    if (targetIdx < 0) return@forEach
+                    val blockEntry = instructions.subList(0, targetIdx).indexOfLast { instr ->
+                        instr.opcode.name.startsWith("check-cast")
+                    }
+                    if (blockEntry >= 0) {
+                        method.addInstructions(blockEntry, RETURN_VOID)
+                    }
                 }
         }
     }
