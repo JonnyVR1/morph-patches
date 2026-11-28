@@ -1898,6 +1898,38 @@ val premiumUnlockPatch = bytecodePatch(
             }
         }
 
+        // Surface #7 (P0): See entry card — persistent list item showing "X people liked you" /
+        // "99+ people like you" with "Y people are online" subline. Killing e() (subtitle) and
+        // f() (title) to return empty CharSequence suppresses the text without breaking layout.
+        // Direct classDefByOrNull: a0a is stable in 7.5.6.1 (extends tjf, reads kk3.c via a()).
+        classDefByOrNull("Ll/a0a;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if ((method.name == "e" || method.name == "f") &&
+                    method.returnType == "Ljava/lang/CharSequence;" &&
+                    method.parameterTypes.isEmpty() &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    val smali = """
+                        const-string v0, ""
+                        return-object v0
+                    """
+                    method.addInstructions(0, smali)
+                }
+            }
+        }
+
+        // Surface #2 (P1): See entry guide bubble — "X girls liked you!" animated bubble.
+        // Voiding ddf.m1(kk3)Z directly kills the builder, not just the subscription handler
+        // (seeAnimBubbleCreator). Direct classDefByOrNull: ddf is stable in 7.5.6.1.
+        classDefByOrNull("Ll/ddf;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.returnType == "Z" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ll/kk3;" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+            }
+        }
 
 
         resolved["sja"]?.let { sjaClassDef ->
