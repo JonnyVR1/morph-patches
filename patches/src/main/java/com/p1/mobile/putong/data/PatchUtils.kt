@@ -134,7 +134,8 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         "vipUpgradePopup" to setOf("vip_upgrade_popup"),
         "omsDialogController" to setOf("limitDialogLastShowTime"),
         "gpRateGuide" to setOf("p_intl_5star_dialog_view", "rate_popup_last_shown_new"),
-        "seePurchaseGuide" to setOf("p_no_match_see_purchase_guide_view")
+        "seePurchaseGuide" to setOf("p_no_match_see_purchase_guide_view"),
+        "newLikeDialog" to setOf("new_like_dialog_show_count_", "app_sission_has_show_new_like_", "new_like_dilaog_show_rime_")
     )
     
     private val gmsTargetStrings = setOf(

@@ -180,6 +180,21 @@ val dialogCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
+        // "%s girls just liked you! / Match to Chat / Maybe Later" fake-likers growth dialog
+        // (c9f, ex8 strategy-queue member registered by lb8). ex8.b(hu8)Z is the canShow gate
+        // the queue checks before a() shows; force it false. Anchor: session-scope storage keys.
+        resolver.getDialogClass("newLikeDialog")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "Z" && method.parameterTypes.size == 1 &&
+                        !AccessFlags.STATIC.isSet(method.accessFlags)
+                }
+                .forEach { method ->
+                    method.preflightSmali(RETURN_FALSE, 2)
+                    method.addInstructions(0, RETURN_FALSE)
+                }
+        }
+
         // UX experience-questionnaire fetch (ytb.Z2): return an empty Observable instead of
         // hitting /experience-questionnaire. rx.c.empty() is non-null → subscribers safe.
         // NOT the /risk/ content-moderation pipeline (dt9.h3), which stays untouched.
