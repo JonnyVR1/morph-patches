@@ -1595,7 +1595,14 @@ val premiumUnlockPatch = bytecodePatch(
             convItemHideTargets.forEach { (descriptor, methodNames) ->
                 classDefByOrNull(descriptor)?.let { classDef ->
                     mutableClassDefBy(classDef).methods.forEach { method ->
-                        if (method.name in methodNames && method.returnType == "V") {
+                        // 7.5.6.1 renamed ProfileLikeEntrance bind i(Conversation,mcm)V ->
+                        // a(Conversation,pq0)V; name lists are fragile — accept the bind shape
+                        // (Conversation, X)V as an alternative match.
+                        val isBindTarget = method.returnType == "V" &&
+                            (method.name in methodNames ||
+                                (method.parameterTypes.size == 2 &&
+                                    method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/Conversation;"))
+                        if (isBindTarget) {
                             method.addInstructions(0, convItemHideBody)
                         }
                         if (method.name in setOf("getSubFrontText", "getSubContentText") &&

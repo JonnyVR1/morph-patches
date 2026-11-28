@@ -382,6 +382,19 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 typingIndicatorClasses.add(classDef)
             }
 
+            // Crash-collector upload transport (7.5.6.1 rmm): the giq event Runnable and ga2
+            // attachment Runnable POST straight to seiya /events + /attachments via
+            // rmm.c(jii,String,ete)UploadStatus, bypassing the c41 facade. Anchored purely on
+            // the stable product enum return type — MUST run before the anchorless-class
+            // early-return below (rmm carries no anchor strings).
+            if ("beatlesUpload" !in resolvedClasses &&
+                classDef.methods.any { m ->
+                    m.returnType == "Lcom/tantanapp/beatles/v2/upload/UploadStatus;" &&
+                        m.parameterTypes.size == 3 && m.parameterTypes[1] == "Ljava/lang/String;"
+                }) {
+                resolvedClasses["beatlesUpload"] = classDef
+            }
+
             if (foundStrings.isEmpty() && foundFields.isEmpty() && foundMethods.isEmpty() && !hasCoreEventLoggerRef) {
                 return@classDefForEach
             }

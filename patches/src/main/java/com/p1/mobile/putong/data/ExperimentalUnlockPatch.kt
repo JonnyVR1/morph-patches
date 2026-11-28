@@ -186,44 +186,10 @@ val experimentalUnlockPatch = bytecodePatch(
             check(edited == 2) { "aiChatGuideListener onClick count-gate edits: $edited" }
         }
 
-        // 7e. AI chat companion remaining-count gate (j4e.o). Skip the remaining<=0 check so
-        // the AI companion is always available. Anchored on UserPrivilegeContent.remaining +
-        // if-lez; replacing if-lez with nop makes execution always fall through to the continue
-        // point (the goto at the next instruction).
-        classDefByOrNull("Ll/j4e;")?.let { classDef ->
-            val mutable = mutableClassDefBy(classDef)
-            val methodMap = classDef.methods.zip(mutable.methods).toMap()
-            classDef.methods
-                .filter { method ->
-                    method.name == "o" &&
-                        method.parameterTypes.size == 2 &&
-                        method.parameterTypes[0] == "Lcom/p1/mobile/putong/core/data/Message;" &&
-                        method.parameterTypes[1] == "Lcom/p1/mobile/putong/core/data/Sticker;" &&
-                        method.returnType == "V" &&
-                        method.containsExactString("aiChatCompanion")
-                }
-                .forEach { method ->
-                    val mutableMethod = methodMap[method] ?: return@forEach
-                    val instructions = method.implementation?.instructions?.toList() ?: return@forEach
-                    val remainingIdx = instructions.indexOfFirst { instr ->
-                        instr.opcode == Opcode.IGET && instr is ReferenceInstruction &&
-                            (instr.reference as? FieldReference)?.let {
-                                it.definingClass == "Lcom/p1/mobile/putong/core/data/UserPrivilegeContent;" &&
-                                it.name == "remaining"
-                            } == true
-                    }
-                    if (remainingIdx < 0) return@forEach
-                    val ifLezIdx = (remainingIdx + 1 until instructions.size).firstOrNull { i ->
-                        instructions[i].opcode == Opcode.IF_LEZ
-                    } ?: return@forEach
-                    mutableMethod.replaceInstruction(ifLezIdx, InlineSmaliCompiler.Companion.compile(
-                        "nop",
-                        method.parameterTypes.joinToString(""),
-                        mutableMethod.implementation?.registerCount ?: 1,
-                        AccessFlags.STATIC.isSet(method.accessFlags)
-                    ).first())
-                }
-        }
+        // 7e. aiChatCompanion remaining gate in j4e.o: NOT patched (deferred). The if-lez guard
+        // is the client-side half of a SERVER-ENFORCED quota; nulling it converts the local
+        // toast into failed sends + a misleading server "update the app" dialog (regression seen
+        // on device 2026-11-28: over-quota AI-companion sends -> red exclamation + dialog).
 
         // 7d. Fake-GPS default-coordinate blacklist (location/a.k). Accept all fixes by forcing
         // the invalid-coordinate detector false. Risk: genuine (0,0) invalid fixes → "null

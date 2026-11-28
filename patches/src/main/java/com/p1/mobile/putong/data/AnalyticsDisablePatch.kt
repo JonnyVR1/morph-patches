@@ -42,6 +42,11 @@ private const val RETURN_EMPTY_JSON = """
     return-object v0
 """
 
+private const val RETURN_UPLOAD_DISCARD = """
+    sget-object v0, Lcom/tantanapp/beatles/v2/upload/UploadStatus;->DISCARD:Lcom/tantanapp/beatles/v2/upload/UploadStatus;
+    return-object v0
+"""
+
 private fun isConstructor(method: Method): Boolean =
     method.name == "<init>" || method.name == "<clinit>"
 
@@ -236,6 +241,25 @@ val analyticsDisablePatch = bytecodePatch(
                 if (isUploadFacade || isPushUploadEntry) {
                     method.preflightSmali(RETURN_VOID, 1)
                     method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
+        // Crash-collector upload transport (7.5.6.1 rmm): the giq event Runnable and ga2
+        // attachment Runnable POST to seiya /events + /attachments DIRECTLY through
+        // rmm.c(jii,String,ete)UploadStatus, bypassing the c41 facade (device-verified
+        // "event upload success ... SUCCESS" at 01:42 with c41 already voided). Return DISCARD:
+        // both callers treat it as terminal (no retry, no failure re-enqueue). Event objects
+        // still reach the local disk cache — only the network egress is cut.
+        resolver.getAnalyticsClass("beatlesUpload")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.implementation == null) return@forEach
+                if (isConstructor(method)) return@forEach
+                if (method.returnType == "Lcom/tantanapp/beatles/v2/upload/UploadStatus;" &&
+                    method.parameterTypes.size == 3 &&
+                    method.parameterTypes[1] == "Ljava/lang/String;") {
+                    method.preflightSmali(RETURN_UPLOAD_DISCARD, 2)
+                    method.addInstructions(0, RETURN_UPLOAD_DISCARD)
                 }
             }
         }
