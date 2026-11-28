@@ -1017,5 +1017,24 @@ val uiCleanupPatch = bytecodePatch(
                 }
             }
         }
+
+        // Surface #9 (P3): Fake match page - "She liked you" / "He liked you" promo shown when
+        // user doesn't have premium. The p9d class handles the fake match page UI setup.
+        // Voiding the main a(Object) method kills the entire fake match page UI, including:
+        // - FAKE_MATCH_PAGE_TITLE ("She liked you" / "He liked you")
+        // - FAKE_MATCH_PAGE_SUBTITLE (fake engagement text)
+        // - FAKE_MATCH_PAGE_LATER / FAKE_MATCH_PAGE_NOTES / FAKE_MATCH_PAGE_TEXT_BOX
+        // This is a surgical kill that doesn't affect the real match page (different code paths).
+        classDefByOrNull("Ll/p9d;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (method.name == "a" &&
+                    method.returnType == "V" &&
+                    method.parameterTypes.size == 1 &&
+                    method.parameterTypes[0] == "Ljava/lang/Object;" &&
+                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
     }
 }
