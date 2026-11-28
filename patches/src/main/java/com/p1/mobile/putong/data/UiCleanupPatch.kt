@@ -947,5 +947,75 @@ val uiCleanupPatch = bytecodePatch(
                     }
                 }
         }
+
+        classDefByOrNull("Ll/zxe;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.firstOrNull { m ->
+                m.name == "l" && m.returnType == "V" && m.parameterTypes.size == 2 &&
+                    m.parameterTypes[0] == "Lcom/google/android/material/tabs/TabLayout\$a;"
+            }?.let { method ->
+                val instructions = method.cachedInstructions()
+                val badgeSmali = """
+                    const v0, 0x7f0a1b5a
+                    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+                    move-result-object v0
+                    const/16 v2, 0x8
+                    invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
+                """
+                val castIndices = instructions.mapIndexedNotNull { idx, instr ->
+                    if (instr.opcode.name == "check-cast" &&
+                        instr is ReferenceInstruction &&
+                        (instr.reference as? com.android.tools.smali.dexlib2.iface.reference.TypeReference)?.type ==
+                            "Lcom/p1/mobile/putong/core/newui/newmeet/NewMeetTabItemView;"
+                    ) idx else null
+                }
+                castIndices.sortedDescending().forEach { castIdx ->
+                    method.preflightSmali(badgeSmali, 5)
+                    method.addInstructions(castIdx - 1, badgeSmali)
+                }
+            }
+        }
+
+        // Home card bottom buttons "99+" badges (undo_remaining, superlike_remaining).
+        // Both wdf (main home) and g8a (tribe slide) inflate core_home_card_bottom_opt_buttons.
+        // After inflate, the mo8 view is stored in a field (Q in wdf, L in g8a).
+        // Inject after the field store to find the badge views by resource ID and set GONE.
+        // Resource IDs: undo_remaining=0x7f0a2bbf, superlike_remaining=0x7f0a25b2
+        listOf(
+            "Ll/wdf;" to "Q",
+            "Ll/g8a;" to "L"
+        ).forEach { (classDesc, fieldName) ->
+            classDefByOrNull(classDesc)?.let { classDef ->
+                mutableClassDefBy(classDef).methods.forEach { method ->
+                    if (method.name == "inflateView" && method.returnType == "Landroid/view/View;") {
+                        val instructions = method.cachedInstructions()
+                        val fieldStoreIdx = instructions.indexOfFirst { instr ->
+                            instr.opcode.name == "iput-object" &&
+                            instr is ReferenceInstruction &&
+                            (instr.reference as? FieldReference)?.let {
+                                it.definingClass == classDesc && it.name == fieldName
+                            } == true
+                        }
+                        if (fieldStoreIdx >= 0) {
+                            val hideBadgesSmali = """
+                                move-object/from16 v0, p0
+                                iget-object v0, v0, ${classDesc}->${fieldName}:Ll/mo8;
+                                const v1, 0x7f0a2bbf
+                                invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+                                move-result-object v1
+                                const/16 v2, 0x8
+                                invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
+                                move-object/from16 v0, p0
+                                iget-object v0, v0, ${classDesc}->${fieldName}:Ll/mo8;
+                                const v1, 0x7f0a25b2
+                                invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+                                move-result-object v1
+                                invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
+                            """
+                            method.addInstructions(fieldStoreIdx + 1, hideBadgesSmali)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
