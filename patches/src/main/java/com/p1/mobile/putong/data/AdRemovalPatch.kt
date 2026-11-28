@@ -68,6 +68,10 @@ private val CONVERSATION_PROMO_FILTER = """
     invoke-virtual {v0, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
     move-result v0
     if-nez v0, :morph_build
+    const-string v0, "intlSeeChatRequest"
+    invoke-virtual {v0, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v0
+    if-nez v0, :morph_build
     :morph_scan_next
     add-int/lit8 v3, v3, 0x1
     goto :morph_scan
@@ -91,6 +95,10 @@ private val CONVERSATION_PROMO_FILTER = """
     move-result v3
     if-nez v3, :morph_skip
     const-string v3, "fakeIntlReceiveLikeGuideSVip"
+    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v3
+    if-nez v3, :morph_skip
+    const-string v3, "intlSeeChatRequest"
     invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
     move-result v3
     if-nez v3, :morph_skip
@@ -621,7 +629,7 @@ val adRemovalPatch = bytecodePatch(
                 }
                 check(targets.size == 1) { "conversations adapter setter cardinality ${targets.size}" }
                 targets.forEach { method ->
-                    method.preflightSmali(CONVERSATION_PROMO_FILTER, 49)
+                    method.preflightSmali(CONVERSATION_PROMO_FILTER, 57)
                     method.addInstructions(0, CONVERSATION_PROMO_FILTER)
                 }
             }

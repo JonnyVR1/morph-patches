@@ -235,20 +235,11 @@ val messagingPatch = bytecodePatch(
         }
         check(loveBuzzGateEdits == 1) { "loveBuzz master gate edits: $loveBuzzGateEdits" }
 
-        resolver.getTypingIndicatorClasses().forEach { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    !AccessFlags.STATIC.isSet(method.accessFlags) &&
-                        method.parameterTypes.isEmpty() &&
-                        method.returnType == "V" &&
-                        method.accessesField(KEEP_CONNECTION_CLASS, "chatTypingOpen") &&
-                        method.accessesField(KEEP_CONNECTION_CLASS, "chatTypingInterval")
-                }
-                .forEach { method ->
-                    method.preflightSmali(RETURN_VOID, 1)
-                    method.addInstructions(0, RETURN_VOID)
-                }
-        }
+        // Typing indicator patch: REVERTED (regression 2026-11-28). Voiding the entire setup
+        // method (g6m.R/u2e.j0) skips subscription disposal and immediate typing indicator
+        // sends, leaving stale RxJava state that causes "Something went wrong" errors during
+        // message composition. The typing indicator feature is low-priority; deferring until
+        // a more surgical fix can neutralize only the interval subscription.
 
         resolver.getMiscClass("letterCoinGate")?.let { classDef ->
             val mutable = mutableClassDefBy(classDef)
