@@ -975,6 +975,85 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
+        // ── Bottom navigation bar promo badges (99+ on Likes/Meet tab, "Free" on You tab) ──
+        // Update-resilient design (AGENTS §20): the bottom-bar controller (Ll/saf; in 7.5.6.1)
+        // is resolved by its UNIQUE analytics event string "e_red_dot_messages_change" instead
+        // of the obfuscated class name, so a class rename in future APKs does not break the
+        // anchor. Targets are selected by method SHAPE + stable-class CONTENT, never by
+        // obfuscated method name:
+        // 1. Number badge setter: instance (TabName;I)V that iput/iget's a Lv/RedPointView;
+        //    field (saf.i in 7.5.6.1). It renders "99+" style counters on the bottom bar.
+        //    Inject a whitelist guard: TabName.Msg and TabName.Moment (real unread counts)
+        //    pass through; all other tabs (Meet/likes promo "99+", Me, Live, Buzz, Discover)
+        //    become no-ops — the RedPointView stays gone (XML default).
+        // 2. Free-trial tag toggle: instance (Z)V that references VBottomBarOldItem type and
+        //    the TabName.Me enum field (saf.h in 7.5.6.1). z=true shows/animates the "Free"
+        //    badge on the You tab; z=false hides it. Injected guard kills the show request
+        //    and lets the hide request run, so the tag never appears.
+        // Register safety (gotchas #9/#19): params are shuttled into low locals v0/v1 via
+        // from16 moves so 4-bit opcode fields stay valid for any register layout, and free
+        // local availability is asserted before injection.
+        val navBarControllerFingerprint = Fingerprint(
+            filters = listOf(string("e_red_dot_messages_change")),
+        )
+        val tabNameDesc = "Lcom/p1/mobile/putong/newui/main/base/TabName;"
+        navBarControllerFingerprint.matchOrNull()?.classDef?.let { classDef ->
+            val mutable = mutableClassDefBy(classDef)
+            classDef.methods.forEach { method ->
+                if (AccessFlags.STATIC.isSet(method.accessFlags) || method.returnType != "V") return@forEach
+                val instrs = method.cachedInstructions()
+                val p = method.parameterTypes
+                val freeLocals = (method.implementation?.registerCount ?: 0) - p.size - 1
+                val mutableMethod = mutable.methods.firstOrNull {
+                    it.name == method.name && it.parameterTypes == p
+                } ?: return@forEach
+                val isRedPointSetter = p.size == 2 && p[0] == tabNameDesc && p[1] == "I" &&
+                    instrs.any {
+                        it is ReferenceInstruction &&
+                        (it.reference as? FieldReference)?.type == "Lv/RedPointView;"
+                    }
+                val isFreeTrialToggle = p.size == 1 && p[0] == "Z" &&
+                    instrs.any {
+                        it is ReferenceInstruction &&
+                        (it.reference as? com.android.tools.smali.dexlib2.iface.reference.TypeReference)?.type ==
+                            "Lv/bottombar/VBottomBarOldItem;"
+                    } &&
+                    instrs.any {
+                        it is ReferenceInstruction &&
+                        (it.reference as? FieldReference)?.let { ref ->
+                            ref.definingClass == tabNameDesc && ref.name == "Me"
+                        } == true
+                    }
+                when {
+                    isRedPointSetter && freeLocals >= 2 -> {
+                        val guard = """
+                            move-object/from16 v0, p1
+                            sget-object v1, ${tabNameDesc}->Msg:$tabNameDesc
+                            if-eq v0, v1, :navbar_keep_counter
+                            sget-object v1, ${tabNameDesc}->Moment:$tabNameDesc
+                            if-eq v0, v1, :navbar_keep_counter
+                            return-void
+                            :navbar_keep_counter
+                        """
+                        mutableMethod.preflightSmali(guard, 6)
+                        mutableMethod.addInstructions(0, guard)
+                    }
+                    isFreeTrialToggle && freeLocals >= 1 -> {
+                        val guard = """
+                            move/from16 v0, p1
+                            if-eqz v0, :navbar_hide_path
+                            goto :navbar_kill_show
+                            :navbar_kill_show
+                            return-void
+                            :navbar_hide_path
+                        """
+                        mutableMethod.preflightSmali(guard, 4)
+                        mutableMethod.addInstructions(0, guard)
+                    }
+                }
+            }
+        }
+
         // Home card bottom buttons "99+" badges (undo_remaining, superlike_remaining).
         // REVERTED in wave 12: injected smali caused VerifyError due to register conflicts.
         // The method uses v0-v18 for local state including LaunchStep objects, and finding
