@@ -770,32 +770,6 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
-        // GENERIC BUBBLE SYSTEM KILL: Patch atc0 (bubble manager) entry points to suppress ALL
-        // toast-like bubbles system-wide. This is the single choke point for the entire bubble
-        // system — ALL bubbles (promo or functional) funnel through these two methods.
-        // - h(u0g0, boolean)Z — showPushBubble: entry for push-triggered bubbles
-        // - i(u0g0)V — showSequenceBubble: entry for sequential bubbles
-        // Returns false/void immediately to prevent any bubble from showing.
-        classDefByOrNull("Ll/atc0;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                when {
-                    // h(u0g0, boolean)Z — showPushBubble
-                    method.name == "h" && method.returnType == "Z" &&
-                        method.parameterTypes.size == 2 &&
-                        method.parameterTypes[0] == "Ll/u0g0;" &&
-                        method.parameterTypes[1] == "Z" -> {
-                        method.addInstructions(0, RETURN_FALSE)
-                    }
-                    // i(u0g0)V — showSequenceBubble
-                    method.name == "i" && method.returnType == "V" &&
-                        method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Ll/u0g0;" -> {
-                        method.addInstructions(0, RETURN_VOID)
-                    }
-                }
-            }
-        }
-
         // Superlike upsell bubbles (ihi0). The poplevel config override
         // (superlike_promotion_config -> 999) is the first lever; these creator voids are the
         // backstop for bubbles that ignore poplevel. K (remaining-count bubble) is DORMANT:

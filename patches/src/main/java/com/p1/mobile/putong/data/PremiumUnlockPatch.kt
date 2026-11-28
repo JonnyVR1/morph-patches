@@ -1469,20 +1469,6 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
 
-            // CoreSuggested: Likers data source - n8() initiates the likers poll
-            classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreSuggested;")?.let { classDef ->
-                mutableClassDefBy(classDef).methods.forEach { method ->
-                    if (method.name == "n8" && method.parameterTypes.isEmpty() &&
-                        (method.returnType.startsWith("Lrx/") || method.returnType.startsWith("Lio/reactivex/"))) {
-                        method.addInstructions(0, """
-                            invoke-static {}, Lrx/c;->a()Lrx/c;
-                            move-result-object v0
-                            return-object v0
-                        """)
-                    }
-                }
-            }
-
             // FakeLikersAct: Suppress fake likers activity launch
             classDefByOrNull("Lcom/p1/mobile/putong/core/ui/seepage/likers/FakeLikersAct;")?.let { classDef ->
                 mutableClassDefBy(classDef).methods.forEach { method ->
@@ -1889,8 +1875,7 @@ val premiumUnlockPatch = bytecodePatch(
         }
 
         // Surface #2 (P1): See entry guide bubble — "X girls liked you!" animated bubble.
-        // Voiding ddf.m1(kk3)Z directly kills the builder, not just the subscription handler
-        // (seeAnimBubbleCreator). Direct classDefByOrNull: ddf is stable in 7.5.6.1.
+        // Voiding ddf.m1(kk3)Z directly kills the builder. Direct classDefByOrNull: ddf is stable in 7.5.6.1.
         classDefByOrNull("Ll/ddf;")?.let { classDef ->
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.returnType == "Z" &&
