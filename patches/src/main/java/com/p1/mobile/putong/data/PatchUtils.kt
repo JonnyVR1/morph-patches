@@ -395,6 +395,25 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
                 resolvedClasses["beatlesUpload"] = classDef
             }
 
+            // Outgoing typing telemetry sink (7.5.6.1 l53): the interface default
+            // x(String)V builds the LongLink MSG_TYPE_CHAT_TYPING frame — the ONLY sender.
+            // Voiding it kills "typing..." egress without touching u2e.j0/g6m.R lifecycle
+            // (method voids caused stale-subscription crashes; the live sends caused a
+            // server-rejected "Something went wrong" dialog while typing). Anchored on the
+            // stable product enum field name; emc.f() returns the enum (shape mismatch) and
+            // the receiver path uses a different shape. Pre-gate: l53 carries no anchor strings.
+            if ("typingSink" !in resolvedClasses &&
+                classDef.methods.any { m ->
+                    m.returnType == "V" && m.parameterTypes.size == 1 &&
+                        m.parameterTypes[0] == "Ljava/lang/String;" &&
+                        m.sharedCachedInstructions().any { instr ->
+                            instr is ReferenceInstruction &&
+                                (instr.reference as? FieldReference)?.name == "MSG_TYPE_CHAT_TYPING"
+                        }
+                }) {
+                resolvedClasses["typingSink"] = classDef
+            }
+
             if (foundStrings.isEmpty() && foundFields.isEmpty() && foundMethods.isEmpty() && !hasCoreEventLoggerRef) {
                 return@classDefForEach
             }
@@ -1304,6 +1323,7 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     fun getGmsClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("gmsClasses") }.values.toList()
     fun getLoveBuzzClasses(): List<ClassDef> = resolvedClasses.filter { it.key.startsWith("loveBuzzClasses") }.values.toList()
     fun getTypingIndicatorClasses(): List<ClassDef> = typingIndicatorClasses.toList()
+    fun getTypingSinkClass(): ClassDef? = resolvedClasses["typingSink"]
     fun getMeTabPagerClasses(): List<ClassDef> = meTabPagerClasses.toList()
     fun getPrivacyClass(key: String): ClassDef? = resolvedClasses["privacy_$key"]
     fun getAdClass(key: String): ClassDef? = resolvedClasses[key]

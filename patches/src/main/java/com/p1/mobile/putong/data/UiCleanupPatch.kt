@@ -156,6 +156,24 @@ val uiCleanupPatch = bytecodePatch(
             }
         }
 
+        // Instant Match promo bubble (swipe screen + profile guide, 7.5.6.1): controller at the
+        // STABLE package core/ui/match builds a kg1 bubble in m(Context,View,ViewGroup)V and
+        // n(Context,View)V. Killed BY SHAPE, not by method name or campaign string — the promo
+        // copy is server/A-B driven ("Instant Match", other ultra guides), so string anchors
+        // would be fragile; the display-method shape is what every future variant keeps.
+        // Eligibility gates (static ()Z) stay untouched: no side effects to break.
+        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/match/a;")?.let { classDef ->
+            mutableClassDefBy(classDef).methods.forEach { method ->
+                if (!AccessFlags.STATIC.isSet(method.accessFlags) &&
+                    method.returnType == "V" &&
+                    method.parameterTypes.size in 2..3 &&
+                    method.parameterTypes[0] == "Landroid/content/Context;" &&
+                    method.parameterTypes.contains("Landroid/view/View;")) {
+                    method.addInstructions(0, RETURN_VOID)
+                }
+            }
+        }
+
         val guideViewDescriptors = listOf(
             "Lcom/p1/mobile/putong/core/ui/banner/view/PrivilegeEnhancedPromotionBannerView;",
             "Lcom/p1/mobile/putong/core/newui/home/views/SuperLikeBannerView;",

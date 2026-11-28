@@ -147,49 +147,11 @@ val experimentalUnlockPatch = bytecodePatch(
             check(edited == 1) { "pinChat onClick count-gate edits: $edited" }
         }
 
-        resolver.getMiscClass("aiChatGuideVm")?.let { classDef ->
-            val mutable = mutableClassDefBy(classDef)
-            val adviceShow = mutable.methods.filter { m ->
-                m.returnType == "Z" && m.parameterTypes.isEmpty() &&
-                    m.containsExactString("aiChatAdvice") &&
-                    m.sharedCachedInstructions().any { instr ->
-                        instr is ReferenceInstruction && (instr.reference as? FieldReference)?.let {
-                            it.definingClass == AI_CHAT_ADVICE_CONVS_CLASS && it.name == "adviceConvList"
-                        } == true
-                    }
-            }
-            check(adviceShow.size == 1) { "aiChatAdvice w2 cardinality ${adviceShow.size}" }
-            adviceShow.forEach { m ->
-                m.preflightSmali(RETURN_TRUE, 2)
-                m.addInstructions(0, RETURN_TRUE)
-            }
-            val methodMap = classDef.methods.zip(mutable.methods).toMap()
-            var edited = 0
-            classDef.methods.forEach { method ->
-                if (method.returnType != "V" || !method.containsExactString("aiChatAnalysis")) return@forEach
-                val mutableMethod = methodMap[method] ?: return@forEach
-                edited += openRemainingCountGates(method.sharedCachedInstructions(), mutableMethod)
-            }
-            check(edited == 1) { "aiChatAnalysis z2 count-gate edits: $edited" }
-        }
-
-        resolver.getMiscClass("aiChatGuideListener")?.let { classDef ->
-            val mutable = mutableClassDefBy(classDef)
-            val methodMap = classDef.methods.zip(mutable.methods).toMap()
-            var edited = 0
-            classDef.methods.forEach { method ->
-                if (method.name != "onClick" || method.returnType != "V" ||
-                    method.parameterTypes != listOf(VIEW_CLASS)) return@forEach
-                val mutableMethod = methodMap[method] ?: return@forEach
-                edited += openRemainingCountGates(method.sharedCachedInstructions(), mutableMethod)
-            }
-            check(edited == 2) { "aiChatGuideListener onClick count-gate edits: $edited" }
-        }
-
-        // 7e. aiChatCompanion remaining gate in j4e.o: NOT patched (deferred). The if-lez guard
-        // is the client-side half of a SERVER-ENFORCED quota; nulling it converts the local
-        // toast into failed sends + a misleading server "update the app" dialog (regression seen
-        // on device 2026-11-28: over-quota AI-companion sends -> red exclamation + dialog).
+        // 7f. AI chat advice/analysis gates: NOT patched (reverted 2026-11-28). Same trap class
+        // as 7e (aiChatCompanion): w2() and z2()'s remaining<=0 guards are the client half of a
+        // SERVER-ENFORCED entitlement. Forcing them made a4e schedule /show-analysis-guide/ +
+        // e0/B0 advice calls seconds after typing begins -> server rejects -> "Something went
+        // wrong" dialog during input (device regression on wave 6 with the toggle enabled).
 
         // 7d. Fake-GPS default-coordinate blacklist (location/a.k). Accept all fixes by forcing
         // the invalid-coordinate detector false. Risk: genuine (0,0) invalid fixes → "null

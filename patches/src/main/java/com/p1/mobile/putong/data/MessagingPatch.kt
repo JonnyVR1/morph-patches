@@ -235,11 +235,28 @@ val messagingPatch = bytecodePatch(
         }
         check(loveBuzzGateEdits == 1) { "loveBuzz master gate edits: $loveBuzzGateEdits" }
 
-        // Typing indicator patch: REVERTED (regression 2026-11-28). Voiding the entire setup
-        // method (g6m.R/u2e.j0) skips subscription disposal and immediate typing indicator
-        // sends, leaving stale RxJava state that causes "Something went wrong" errors during
-        // message composition. The typing indicator feature is low-priority; deferring until
-        // a more surgical fix can neutralize only the interval subscription.
+        // Typing indicator suppression, take 2 (7.5.6.1): void the NETWORK SINK l53.x(String),
+        // NOT the VM lifecycle methods. Wave-5's full void of u2e.j0/g6m.R skipped subscription
+        // disposal (crash on open, fixed in wave 6); wave 6's full revert re-enabled the
+        // MSG_TYPE_CHAT_TYPING longlink send, which the server rejects for non-privileged
+        // accounts -> "Something went wrong" dialog while typing. Sinking x() to return-void
+        // kills egress with zero lifecycle impact; anchor is the stable product enum field.
+        resolver.getTypingSinkClass()?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.returnType == "V" &&
+                        method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Ljava/lang/String;" &&
+                        method.sharedCachedInstructions().any { instr ->
+                            instr is ReferenceInstruction &&
+                                (instr.reference as? FieldReference)?.name == "MSG_TYPE_CHAT_TYPING"
+                        }
+                }
+                .forEach { method ->
+                    method.preflightSmali(RETURN_VOID, 1)
+                    method.addInstructions(0, RETURN_VOID)
+                }
+        }
 
         resolver.getMiscClass("letterCoinGate")?.let { classDef ->
             val mutable = mutableClassDefBy(classDef)
