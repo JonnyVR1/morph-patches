@@ -1630,11 +1630,11 @@ val premiumUnlockPatch = bytecodePatch(
             "xma", "qa9", "hva", "coreApiFakeConv", "profileLikeEnter", "greetingFakeConv",
             "feedStateFakeConv", "meetEntranceBanner", "instantChatGuide", "mainUiFakeConv",
             "coreApiTeamGroup", "coreApiLimitedTrialFold", "intlSeeChatRequestCreator", "r8n",
-            "headRecommendAdapter", "seeAnimBubbleCreator", "sb90Companion", "u59", "tm90",
+            "headRecommendAdapter", "sb90Companion", "u59", "tm90",
             "gqf0", "h6a", "ugc0", "zva0", "th5", "qgl0", "sja", "n3b0", "rbb0", "svipRecoverStrategy",
             "secretCrush", "greetingCounter", "swipeRateLimit",
             "leftSwipeLimit", "intlUltraPremium", "coreData", "mb90",
-            "businessEntranceAdapter", "pm6", "bhe0", "vqo", "re90", "i0p",
+            "businessEntranceAdapter", "pm6", "bhe0", "vqo",
             "meetNewLikersData", "intlMeetNewLikersData", "intlMeetNewLikersAdapter",
             "meetNewLikersAdapter", "ae9", "c4m0",
             "businessEntranceStateManager", "serverDataFlagSetter", "newLikesFlagSetter",
@@ -1868,35 +1868,6 @@ val premiumUnlockPatch = bytecodePatch(
         // Promotional content in the head recommend carousel is already suppressed by:
         // - ConversationHeadLikerItemLayout.u() → return-void
         // - ConversationHeadIntlSeeItem.L()/K()/M() → return-void
-
-        resolved["seeAnimBubbleCreator"]?.let { bubbleCreatorClassDef ->
-            mutableClassDefBy(bubbleCreatorClassDef).methods.forEach { method ->
-                // Patch z2() - subscription state handler (static method)
-                // DEX name is "z2" (JADX renames to m101873z2)
-                if (method.name == "z2" && method.parameterTypes.size == 1 && method.returnType == "V" &&
-                    AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-                // Patch u7() - "new likers" bubble creator (instance method)
-                // DEX name is "u7" (JADX renames to m102077u7)
-                if (method.name == "u7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
-                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-                // Patch k8() - "total likers" bubble creator (instance method, returns boolean)
-                // DEX name is "k8" (JADX renames to m102036k8)
-                if (method.name == "k8" && method.parameterTypes.size == 1 && method.returnType == "Z" &&
-                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_FALSE)
-                }
-                // Patch w7() - "suggested users" bubble path (instance method)
-                // DEX name is "w7" (JADX renames to m102085w7)
-                if (method.name == "w7" && method.parameterTypes.size == 1 && method.returnType == "V" &&
-                    !AccessFlags.STATIC.isSet(method.accessFlags)) {
-                    method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
 
         // Surface #7 (P0): See entry card — persistent list item showing "X people liked you" /
         // "99+ people like you" with "Y people are online" subline. Killing e() (subtitle) and
@@ -2305,42 +2276,6 @@ val premiumUnlockPatch = bytecodePatch(
                 }
             }
         }
-
-        resolved["re90"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "m" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
-                    method.addInstructions(0, """
-                        const-string v0, ""
-                        return-object v0
-                    """)
-                }
-                if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
-                    method.addInstructions(0, """
-                        const-string v0, ""
-                        return-object v0
-                    """)
-                }
-            }
-        }
-
-        resolved["i0p"]?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "m" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
-                    method.addInstructions(0, """
-                        const-string v0, ""
-                        return-object v0
-                    """)
-                }
-                if (method.name == "n" && method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/CharSequence;") {
-                    method.addInstructions(0, """
-                        const-string v0, ""
-                        return-object v0
-                    """)
-                }
-            }
-        }
-
-
 
         // ajy: MeetLikersNewLikersData - patch getNewLikersCount() to return 0
         // The method returns int and accesses this.newLikersCount field

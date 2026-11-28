@@ -404,19 +404,6 @@ val uiCleanupPatch = bytecodePatch(
                 .forEach { it.addInstructions(0, RETURN_VOID) }
         }
 
-        classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreLikers;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    method.cachedInstructions().any { instr ->
-                        instr is ReferenceInstruction && instr.reference is StringReference &&
-                        (instr.reference as StringReference).string == "likers_for_popup_distance"
-                    }
-                }
-                .forEach { method ->
-                    method.addInstructions(0, "const/4 v0, 0x0\nreturn-object v0")
-                }
-        }
-
         friendsOnlinePopupClassFingerprint.matchOrNull()?.classDef?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
@@ -514,15 +501,6 @@ val uiCleanupPatch = bytecodePatch(
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "z" && method.returnType == "V" && method.parameterTypes.size == 1 && method.parameterTypes[0] == "I") {
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // Patch CoreLikers.g7() to prevent "x people like you" promotional popup trigger
-        classDefByOrNull("Lcom/p1/mobile/putong/core/api/CoreLikers;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "g7" && method.returnType.startsWith("L")) {
-                    method.addInstructions(0, "const/4 v0, 0x0\nreturn-object v0")
                 }
             }
         }
@@ -727,18 +705,6 @@ val uiCleanupPatch = bytecodePatch(
             mutableClassDefBy(classDef).methods.forEach { method ->
                 if (method.name == "show" && method.returnType == "V" && method.parameterTypes.isEmpty()) {
                     method.addInstructions(0, RETURN_VOID)
-                }
-            }
-        }
-
-        // Me-tab PROMOTION/SEE/BOOST/ODIAMOND badge: TabUniteManager.l() true makes o() early-return.
-        classDefByOrNull("Lcom/p1/mobile/putong/core/ui/diamond/TabUniteManager;")?.let { classDef ->
-            mutableClassDefBy(classDef).methods.forEach { method ->
-                if (method.name == "l" && method.returnType == "Z" && method.parameterTypes.isEmpty()) {
-                    method.addInstructions(0, """
-                        const/4 v0, 0x1
-                        return v0
-                    """)
                 }
             }
         }

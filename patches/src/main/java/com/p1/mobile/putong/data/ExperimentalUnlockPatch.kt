@@ -11,11 +11,9 @@ import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction20t
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction21t
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
-import com.android.tools.smali.dexlib2.iface.instruction.NarrowLiteralInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.WideLiteralInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
-import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
 private const val RETURN_TRUE = """
     const/4 v0, 0x1
@@ -27,8 +25,6 @@ private const val RETURN_FALSE = """
     return v0
 """
 
-private const val ITEM_MESSAGE_BASE_CLASS = "Lcom/p1/mobile/putong/core/ui/messages/ItemMessageBase;"
-private const val CORE_BUSINESS_SERVICE_IML_CLASS = "Lcom/p1/mobile/putong/core/module/CoreBusinessServiceIml;"
 private const val LOCATION_CLASS = "Lcom/p1/mobile/putong/location/a;"
 private const val LOCATION_PARAM = "Lcom/p1/mobile/putong/location/Location;"
 private const val CORE_BUZZ_INNER_SERVICE_CLASS = "Lcom/p1/mobile/putong/core/buzz/module/CoreBuzzInnerServiceImpl;"
@@ -39,15 +35,6 @@ private const val AI_CHAT_ADVICE_CONVS_CLASS = "Lcom/p1/mobile/putong/core/data/
 
 private const val LAT_30_BITS = 0x403e000000000000L
 private const val LNG_104_BITS = 0x405a000000000000L
-
-private fun isConstFalseBody(method: Method): Boolean {
-    val instrs = method.sharedCachedInstructions()
-    if (instrs.size != 2) return false
-    val first = instrs[0]
-    val second = instrs[1]
-    return first.opcode == Opcode.CONST_4 && first is NarrowLiteralInstruction && first.narrowLiteral == 0 &&
-        second.opcode == Opcode.RETURN
-}
 
 private fun openRemainingCountGates(
     instrs: List<Instruction>,
@@ -87,38 +74,6 @@ val experimentalUnlockPatch = bytecodePatch(
     compatibleWith(tantanCompatibility)
     execute {
         val resolver = getSharedResolver()
-
-        // 7a. Voice-to-text transcription flag. The gate is an interface default ()Z returning
-        // const/4 0, invoked from ItemMessageBase. CoreBusinessServiceIml does NOT override it.
-        // Resolve version-agnostically: find the ItemMessageBase method carrying the stable
-        // convert-to-text analytics string, collect its invokeinterface ()Z names, then force
-        // the matching const-false default in CoreBusinessServiceIml's interfaces to true.
-        // (The other const-false default v() is excluded: it is not called from that method.)
-        val gateNames = classDefByOrNull(ITEM_MESSAGE_BASE_CLASS)?.methods
-            ?.filter { it.containsExactString("e_chat_message_convert_to_text_hold_press_button") }
-            ?.flatMap { it.sharedCachedInstructions() }
-            ?.filter { it.opcode == Opcode.INVOKE_INTERFACE && it is ReferenceInstruction }
-            ?.mapNotNull { (it as ReferenceInstruction).reference as? MethodReference }
-            ?.filter { it.parameterTypes.isEmpty() && it.returnType == "Z" }
-            ?.map { it.name }
-            ?.toSet()
-            .orEmpty()
-        if (gateNames.isNotEmpty()) {
-            classDefByOrNull(CORE_BUSINESS_SERVICE_IML_CLASS)?.interfaces?.forEach { ifaceDesc ->
-                classDefByOrNull(ifaceDesc)?.let { iface ->
-                    mutableClassDefBy(iface).methods
-                        .filter { m ->
-                            m.name in gateNames && m.parameterTypes.isEmpty() && m.returnType == "Z" &&
-                                m.implementation != null && !AccessFlags.ABSTRACT.isSet(m.accessFlags) &&
-                                isConstFalseBody(m)
-                        }
-                        .forEach { m ->
-                            m.preflightSmali(RETURN_TRUE, 2)
-                            m.addInstructions(0, RETURN_TRUE)
-                        }
-                }
-            }
-        }
 
         classDefByOrNull(CORE_BUZZ_INNER_SERVICE_CLASS)?.let { classDef ->
             val mutable = mutableClassDefBy(classDef)

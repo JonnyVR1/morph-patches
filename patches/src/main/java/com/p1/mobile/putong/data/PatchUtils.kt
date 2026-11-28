@@ -210,7 +210,6 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
     private val premiumAnchorMethods = setOf(
         "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery",
         "Lcom/p1/mobile/putong/data/User;.isHideIconFromSVipWithMe",
-        "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6",
         "Lcom/p1/mobile/putong/ab/IntlCountryCodeController;.f",
         "Ll/hkd0;.b", "Ll/hkd0;.d", "Ll/hkd0;.e", "Ll/hkd0;.j",
         "Ll/mv6;.S0", "Ll/gxe0;.G"
@@ -648,10 +647,6 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
             "fake_conversation_oof_pick" in foundStrings && "getItemViewType.1.I" in methodCallSigs) {
             resolvedClasses["headRecommendAdapter"] = classDef
         }
-        if ("seeAnimBubbleCreator" !in resolvedClasses && "Lcom/p1/mobile/putong/core/api/CoreLikers;.S6" in foundMethods && 
-            "u7\u0001V" in methodNameRet && "Lcom/p1/mobile/putong/core/ui/poplevel/CorePopLevel;.INTL_SEE_ANIM_BUBBLE" in foundFields) {
-            resolvedClasses["seeAnimBubbleCreator"] = classDef
-        }
         
         if ("sb90Companion" !in resolvedClasses && !isSettingsUi && "Lcom/p1/mobile/putong/data/User;.localRelationship" in foundFields && 
             "matched" in foundStrings && "Lcom/p1/mobile/putong/data/User;.isSupremePartnerOpenMystery" in foundMethods && 
@@ -810,17 +805,10 @@ class UnifiedClassResolver(private val context: BytecodePatchContext) {
         if (hasCharSeqM && hasCharSeqN) {
             val hasPairReturn = classDef.methods.any { it.returnType == "Landroid/util/Pair;" }
             val hasVPairMethod = classDef.methods.any { it.name == "v" && it.returnType == "Landroid/util/Pair;" }
-            val hasCoreLikersCall = methodCallFull.any { it.startsWith("Lcom/p1/mobile/putong/core/api/CoreLikers;.") }
             val hasGStringReturn = methodCallFullSigs.any { it.contains(".G.") && it.endsWith(".Ljava/lang/String;") }
             
             if ("vqo" !in resolvedClasses && hasVPairMethod && hasGStringReturn) {
                 resolvedClasses["vqo"] = classDef
-            }
-            else if ("re90" !in resolvedClasses && hasCoreLikersCall && !hasPairReturn) {
-                resolvedClasses["re90"] = classDef
-            }
-            else if ("i0p" !in resolvedClasses && hasCoreLikersCall && classDef.superclass?.contains("re90") == true) {
-                resolvedClasses["i0p"] = classDef
             }
         }
         
