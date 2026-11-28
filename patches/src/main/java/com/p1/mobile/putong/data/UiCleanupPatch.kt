@@ -980,6 +980,8 @@ val uiCleanupPatch = bytecodePatch(
         // After inflate, the mo8 view is stored in a field (Q in wdf, L in g8a).
         // Inject after the field store to find the badge views by resource ID and set GONE.
         // Resource IDs: undo_remaining=0x7f0a2bbf, superlike_remaining=0x7f0a25b2
+        // NOTE: mo8 is an interface, but implementations extend FrameLayout (a View).
+        // Must check-cast to View before calling findViewById (wave 10 hotfix).
         listOf(
             "Ll/wdf;" to "Q",
             "Ll/g8a;" to "L"
@@ -999,6 +1001,7 @@ val uiCleanupPatch = bytecodePatch(
                             val hideBadgesSmali = """
                                 move-object/from16 v0, p0
                                 iget-object v0, v0, ${classDesc}->${fieldName}:Ll/mo8;
+                                check-cast v0, Landroid/view/View;
                                 const v1, 0x7f0a2bbf
                                 invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
                                 move-result-object v1
@@ -1006,6 +1009,7 @@ val uiCleanupPatch = bytecodePatch(
                                 invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
                                 move-object/from16 v0, p0
                                 iget-object v0, v0, ${classDesc}->${fieldName}:Ll/mo8;
+                                check-cast v0, Landroid/view/View;
                                 const v1, 0x7f0a25b2
                                 invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
                                 move-result-object v1
