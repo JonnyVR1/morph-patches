@@ -183,13 +183,29 @@ public class InspectDex {
                 System.out.println("  METHOD " + sig(m) + " flags=0x" + Integer.toHexString(m.getAccessFlags())
                         + " regs=" + (impl == null ? -1 : impl.getRegisterCount()));
                 if (impl == null) continue;
+                java.util.List<Instruction> instrList = new java.util.ArrayList<>();
+                for (Instruction ins : impl.getInstructions()) instrList.add(ins);
+                int[] unitStart = new int[instrList.size()];
+                int u = 0;
+                for (int i = 0; i < instrList.size(); i++) {
+                    unitStart[i] = u;
+                    u += instrList.get(i).getCodeUnits();
+                }
+                java.util.Map<Integer, Integer> unitToIdx = new java.util.HashMap<>();
+                for (int i = 0; i < instrList.size(); i++) unitToIdx.put(unitStart[i], i);
                 int idx = 0;
-                for (Instruction instr : impl.getInstructions()) {
+                for (Instruction instr : instrList) {
                     if (idx >= maxInstr) {
-                        System.out.println("    ... (" + countInstructions(impl) + " instructions total)");
+                        System.out.println("    ... (" + instrList.size() + " instructions total)");
                         break;
                     }
-                    System.out.println("    [" + idx + "] " + format(instr));
+                    String line = "    [" + idx + "] " + format(instr);
+                    if (instr instanceof OffsetInstruction) {
+                        int tgtUnit = unitStart[idx] + ((OffsetInstruction) instr).getCodeOffset();
+                        Integer tgtIdx = unitToIdx.get(tgtUnit);
+                        line += "  => " + (tgtIdx == null ? "payload/other@unit" + tgtUnit : "instr[" + tgtIdx + "]");
+                    }
+                    System.out.println(line);
                     idx++;
                 }
             }

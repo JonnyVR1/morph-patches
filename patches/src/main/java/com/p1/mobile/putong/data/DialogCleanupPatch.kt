@@ -3,7 +3,10 @@ package com.p1.mobile.putong.data
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.FieldReference
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
 
 private const val RETURN_VOID = "return-void"
@@ -212,8 +215,9 @@ val dialogCleanupPatch = bytecodePatch(
         }
 
         // See-purchase-guide dialog (rcf.call case containing p_no_match_see_purchase_guide_view).
-        // Shared dispatcher with packed-switch; find the case block containing the target string
-        // and inject return-void at the block entry (the check-cast that starts the case).
+        // Shared dispatcher with packed-switch; find the case-entry check-cast (a check-cast
+        // immediately after packed-switch or return-void) whose block contains the target string,
+        // and inject return-void there.
         dialogClasses["seePurchaseGuide"]?.let { classDef ->
             mutableClassDefBy(classDef).methods
                 .filter { method ->
@@ -229,12 +233,78 @@ val dialogCleanupPatch = bytecodePatch(
                             (instr.reference as? StringReference)?.string == "p_no_match_see_purchase_guide_view"
                     }
                     if (targetIdx < 0) return@forEach
-                    val blockEntry = instructions.subList(0, targetIdx).indexOfLast { instr ->
-                        instr.opcode.name.startsWith("check-cast")
-                    }
+                    // Case-entry check-casts come right after packed-switch or return-void (end of prev case)
+                    val caseEntries = instructions.withIndex().filter { (i, instr) ->
+                        i > 0 && instr.opcode.name.startsWith("check-cast") &&
+                            (instructions[i - 1].opcode.name == "packed-switch" ||
+                                instructions[i - 1].opcode.name == "return-void")
+                    }.map { it.index }
+                    val blockEntry = caseEntries.firstOrNull { entryIdx ->
+                        val nextEntry = caseEntries.firstOrNull { it > entryIdx } ?: instructions.size
+                        instructions.subList(entryIdx, nextEntry).any { instr ->
+                            instr is ReferenceInstruction &&
+                                (instr.reference as? StringReference)?.string == "p_no_match_see_purchase_guide_view"
+                        }
+                    } ?: -1
                     if (blockEntry >= 0) {
                         method.addInstructions(blockEntry, RETURN_VOID)
                     }
+                }
+        }
+
+        // Deck insert filters (uu3.call case 0): virtual promo cards (see-likers, native ad
+        // cards, OMB) are inserted into the swipe deck's loaded list and List.add'ed at the
+        // end of the case; the old home/c consumer backstop is gone in 7.5.6.1. The case
+        // checks isVirtualCard() -> move-result -> if-nez (virtual branches to the skip-dedup
+        // path which still adds the card). Replace the if-nez with a self-contained block:
+        // non-virtual cards branch over the return-void (unchanged behavior); virtual cards
+        // fall through and return before List.add, dropping the promo card.
+        resolver.getMiscClass("repeatSuggestedCard")?.let { classDef ->
+            mutableClassDefBy(classDef).methods
+                .filter { method ->
+                    method.parameterTypes.size == 1 &&
+                        method.parameterTypes[0] == "Ljava/lang/Object;" &&
+                        method.returnType == "V" &&
+                        method.containsExactString("repeat suggested card")
+                }
+                .forEach { method ->
+                    val instructions = method.sharedCachedInstructions()
+                    val virtualIdx = instructions.indexOfFirst { instr ->
+                        instr.opcode == Opcode.INVOKE_VIRTUAL && instr is ReferenceInstruction &&
+                            (instr.reference as? MethodReference)?.let { ref ->
+                                ref.definingClass == "Lcom/p1/mobile/putong/core/api/CoreSuggested\$UserInfo;" &&
+                                    ref.name == "isVirtualCard"
+                            } == true
+                    }
+                    if (virtualIdx < 0) return@forEach
+                    val moveResultIdx = virtualIdx + 1
+                    val ifNezIdx = virtualIdx + 2
+                    if (ifNezIdx >= instructions.size ||
+                        instructions[moveResultIdx].opcode != Opcode.MOVE_RESULT ||
+                        instructions[ifNezIdx].opcode != Opcode.IF_NEZ) return@forEach
+                    // The original if-nez sends virtual cards to the skip-dedup path which still
+                    // List.add()s them. Mid-method label injection mis-resolves branch offsets
+                    // (gotcha #9: internal labels resolve at index 0 only), so install the
+                    // filter at the method entry instead, gated to case 0 (b==0) so the other
+                    // dispatcher cases are untouched: non-virtual cards fall through to the
+                    // normal dedup/add path; virtual promo cards (Town Tales, see-likers, OMB,
+                    // native-ad cards) return before List.add. v17 is p0 (this); v8 is a free
+                    // local at entry.
+                    val block = """
+                        move-object/from16 v8, v17
+                        iget v9, v8, Ll/uu3;->b:I
+                        if-nez v9, :uu3_not_deck
+                        iget-object v8, v8, Ll/uu3;->f:Ljava/lang/Object;
+                        check-cast v8, Lcom/p1/mobile/putong/core/api/CoreSuggested${'$'}UserInfo;
+                        invoke-virtual {v8}, Lcom/p1/mobile/putong/core/api/CoreSuggested${'$'}UserInfo;->isVirtualCard()Z
+                        move-result v8
+                        if-eqz v8, :uu3_not_deck
+                        return-void
+                        :uu3_not_deck
+                        nop
+                    """.trimIndent()
+                    method.preflightSmali(block, 10)
+                    method.addInstructions(0, block)
                 }
         }
     }

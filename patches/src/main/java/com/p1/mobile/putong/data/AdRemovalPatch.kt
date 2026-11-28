@@ -835,33 +835,10 @@ val adRemovalPatch = bytecodePatch(
             }
         }
 
-        // Repeat suggested card (uu3.call case containing "repeat suggested card").
-        // Shared dispatcher with packed-switch; find the case block containing the target
-        // string and inject return-void at the block entry (the check-cast that starts the case).
-        // This suppresses the duplicate-card detection and insert logic for suggested cards.
-        resolver.getAdClass("repeatSuggestedCard")?.let { classDef ->
-            mutableClassDefBy(classDef).methods
-                .filter { method ->
-                    method.parameterTypes.size == 1 &&
-                        method.parameterTypes[0] == "Ljava/lang/Object;" &&
-                        method.returnType == "V" &&
-                        method.containsString("repeat suggested card")
-                }
-                .forEach { method ->
-                    val instructions = method.implementation?.instructions?.toList() ?: return@forEach
-                    val targetIdx = instructions.indexOfFirst { instr ->
-                        instr is ReferenceInstruction &&
-                            (instr.reference as? StringReference)?.string == "repeat suggested card"
-                    }
-                    if (targetIdx < 0) return@forEach
-                    val blockEntry = instructions.subList(0, targetIdx).indexOfLast { instr ->
-                        instr.opcode.name.startsWith("check-cast")
-                    }
-                    if (blockEntry >= 0) {
-                        method.addInstructions(blockEntry, RETURN_VOID)
-                    }
-                }
-        }
+        // Repeat suggested card (uu3) is handled by the DialogCleanupPatch deck-insert filter,
+        // which gates ONLY virtual cards (isVirtualCard) at method entry. The previous
+        // check-cast-heuristic return-void here blocked ALL case-0 inserts (real user cards
+        // too) and was removed.
 
     }
 }
